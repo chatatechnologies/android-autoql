@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<View
+		android:background="@color/red"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:layout_width="match_parent"/>
+
+	<RelativeLayout
+		android:layout_height="40dp"
+		android:layout_marginEnd="10dp"
+		android:layout_marginStart="10dp"
+		android:layout_width="match_parent">
+		<ImageView
+			android:background="@color/blue"
+			android:contentDescription="@null"
+			android:layout_alignParentEnd="true"
+			android:id="@+id/ivMicrophone"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:scaleType="centerInside"
+			android:src="@drawable/ic_microphone"/>
+		<AutoCompleteTextView
+			android:background="@color/white"
+			android:hint="@string/ask_me_anything"
+			android:id="@+id/acAsk"
+			android:layout_height="match_parent"
+			android:layout_toStartOf="@id/ivMicrophone"
+			android:layout_width="match_parent"
+			android:paddingEnd="10dp"
+			android:paddingStart="10dp"/>
+	</RelativeLayout>
+</LinearLayout>

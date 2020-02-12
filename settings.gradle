@@ -1,0 +1,2 @@
+include ':app', ':chata_ai'
+rootProject.name='ApiChata'
