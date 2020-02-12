@@ -8,7 +8,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.net.UnknownHostException
 
-object Request
+object RequestBuilder
 {
     //Start when chat or dashboard's component start in XMLs
     var requestQueue: RequestQueue ?= null

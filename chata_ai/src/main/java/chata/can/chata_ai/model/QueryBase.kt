@@ -2,7 +2,7 @@ package chata.can.chata_ai.model
 
 import android.content.Context
 import chata.can.chata_ai.pojo.dataKey
-import chata.can.chata_ai.pojo.messsageKey
+import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.referenceIdKey
 import org.json.JSONObject
 
@@ -12,7 +12,7 @@ open class QueryBase(
 {
     val sReferenceId = jsonSource.optString(referenceIdKey, "")
     val joData = jsonSource.optJSONObject(dataKey) ?: JSONObject()
-    val sMessage = jsonSource.optString(messsageKey, "")
+    val sMessage = jsonSource.optString(messageKey, "")
 
 
     init {

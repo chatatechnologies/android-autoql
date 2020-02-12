@@ -4,7 +4,7 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
-	<chata.can.chata_ai.ChatDrawer
+	<chata.can.chata_ai.view.chatDrawer.ChatDrawer
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
 </LinearLayout>
