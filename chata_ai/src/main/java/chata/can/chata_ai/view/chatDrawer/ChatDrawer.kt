@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.view.chatDrawer.adapter.AutocompleteAdapter
 import com.android.volley.toolbox.Volley
 
 class ChatDrawer: LinearLayout, ChatDrawerContract
@@ -17,6 +18,8 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 	private lateinit var rvQueries: RecyclerView
 	private lateinit var ivMicrophone: ImageView
 	private lateinit var acAsk: AutoCompleteTextView
+
+	private lateinit var adapter: AutocompleteAdapter
 
 	private val presenter = ChatDrawerPresenter(this)
 
@@ -47,8 +50,15 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 			it.displayMetrics?.let {
 				itDisplayMetrics ->
 				val sizeAutocomplete = if (aMatches.size > 4) 4 else aMatches.size
-				val height = (sizeAutocomplete * itDisplayMetrics.density).toInt()
+				val height = (sizeAutocomplete * itDisplayMetrics.density * 40).toInt()
 				acAsk.dropDownHeight = height
+
+				adapter.clear()
+				if (aMatches.isNotEmpty())
+				{
+					adapter.addAll(aMatches)
+				}
+				adapter.notifyDataSetChanged()
 			}
 		}
 	}
@@ -62,6 +72,7 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 		View.inflate(cContext, R.layout.view_chat_drawer, this)
 		initViews()
 		initListener()
+		initData()
 	}
 
 	private fun startRequest(cContext: Context)
@@ -87,5 +98,12 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 				presenter.autocomplete(queryEncoded)
 			}
 		})
+	}
+
+	private fun initData()
+	{
+		acAsk.threshold = 1
+		adapter = AutocompleteAdapter(context)
+		acAsk.setAdapter(adapter)
 	}
 }
