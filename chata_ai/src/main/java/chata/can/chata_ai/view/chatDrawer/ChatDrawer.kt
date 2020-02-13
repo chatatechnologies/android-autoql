@@ -12,68 +12,80 @@ import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import com.android.volley.toolbox.Volley
 
-class ChatDrawer: LinearLayout
+class ChatDrawer: LinearLayout, ChatDrawerContract
 {
-    private lateinit var rvQueries: RecyclerView
-    private lateinit var ivMicrophone: ImageView
-    private lateinit var acAsk: AutoCompleteTextView
+	private lateinit var rvQueries: RecyclerView
+	private lateinit var ivMicrophone: ImageView
+	private lateinit var acAsk: AutoCompleteTextView
 
-    private val presenter = ChatDrawerPresenter()
+	private val presenter = ChatDrawerPresenter(this)
 
-    constructor(cContext: Context) : super(cContext)
-    {
-        startView(cContext)
-    }
+	constructor(cContext: Context) : super(cContext)
+	{
+		startView(cContext)
+	}
 
-    constructor(cContext: Context, attrs: AttributeSet) : super(cContext, attrs)
-    {
-        startView(cContext)
-    }
+	constructor(cContext: Context, attrs: AttributeSet) : super(cContext, attrs)
+	{
+		startView(cContext)
+	}
 
-    constructor(cContext: Context, attrs: AttributeSet, defStyleAttr: Int) : super(cContext, attrs, defStyleAttr)
-    {
-        startView(cContext)
-    }
+	constructor(cContext: Context, attrs: AttributeSet, defStyleAttr: Int) : super(cContext, attrs, defStyleAttr)
+	{
+		startView(cContext)
+	}
 
-    private fun startView(cContext: Context)
-    {
-        inflateView(cContext)
-        startRequest(cContext)
-    }
+	private fun startView(cContext: Context)
+	{
+		inflateView(cContext)
+		startRequest(cContext)
+	}
 
-    /**
-     * Inflate view for chat drawer
-     * @param cContext for to inflate
-     */
-    private fun inflateView(cContext: Context)
-    {
-        View.inflate(cContext, R.layout.view_chat_drawer, this)
-        initViews()
-        initListener()
-    }
+	override fun setDataAutocomplete(aMatches: ArrayList<String>)
+	{
+		resources?.let {
+			it.displayMetrics?.let {
+				itDisplayMetrics ->
+				val sizeAutocomplete = if (aMatches.size > 4) 4 else aMatches.size
+				val height = (sizeAutocomplete * itDisplayMetrics.density).toInt()
+				acAsk.dropDownHeight = height
+			}
+		}
+	}
 
-    private fun startRequest(cContext: Context)
-    {
-        RequestBuilder.requestQueue = Volley.newRequestQueue(cContext)
-    }
+	/**
+	 * Inflate view for chat drawer
+	 * @param cContext for to inflate
+	 */
+	private fun inflateView(cContext: Context)
+	{
+		View.inflate(cContext, R.layout.view_chat_drawer, this)
+		initViews()
+		initListener()
+	}
 
-    private fun initViews()
-    {
-        rvQueries = findViewById(R.id.rvQueries)
-        ivMicrophone = findViewById(R.id.ivMicrophone)
-        acAsk = findViewById(R.id.acAsk)
-    }
+	private fun startRequest(cContext: Context)
+	{
+		RequestBuilder.requestQueue = Volley.newRequestQueue(cContext)
+	}
 
-    private fun initListener()
-    {
-        acAsk.addTextChangedListener(object: TextChanged
-        {
-            override fun onTextChanged(string: String)
-            {
-                val queryEncoded = string.replace(" ", "%20")
-                    .replace("?", "%3F")
-                presenter.autocomplete(queryEncoded)
-            }
-        })
-    }
+	private fun initViews()
+	{
+		rvQueries = findViewById(R.id.rvQueries)
+		ivMicrophone = findViewById(R.id.ivMicrophone)
+		acAsk = findViewById(R.id.acAsk)
+	}
+
+	private fun initListener()
+	{
+		acAsk.addTextChangedListener(object: TextChanged
+		{
+			override fun onTextChanged(string: String)
+			{
+				val queryEncoded = string.replace(" ", "%20")
+					.replace("?", "%3F")
+				presenter.autocomplete(queryEncoded)
+			}
+		})
+	}
 }

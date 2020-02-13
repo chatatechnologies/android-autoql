@@ -9,34 +9,48 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatDrawerPresenter: StatusResponse
+class ChatDrawerPresenter(private val view: ChatDrawerContract): StatusResponse
 {
-    fun autocomplete(sAutocomplete: String)
-    {
-        val url = "$urlBase${api1}autocomplete?q=$sAutocomplete&projectid=1"
-        RequestBuilder.callStringRequest(
-            Request.Method.GET,
-            url,
-            typeJSON,
-            listener = this
-        )
-    }
+	fun autocomplete(sAutocomplete: String)
+	{
+		val url = "$urlBase${api1}autocomplete?q=$sAutocomplete&projectid=1"
+		RequestBuilder.callStringRequest(
+			Request.Method.GET,
+			url,
+			typeJSON,
+			listener = this
+		)
+	}
 
-    override fun onFailure(jsonObject: JSONObject?)
-    {
-        jsonObject?.let {
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		jsonObject?.let {
 
-        }
-    }
+		}
+	}
 
-    override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
-    {
-        jsonObject?.let {
+	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	{
+		jsonObject?.let {
+			if (it.has("matches"))
+			{
+				it.optJSONArray("matches")?.let {
+					itMatches ->
+					val aMatches = ArrayList<String>()
+					if (itMatches.length() > 0)
+					{
+						for (index in 0 until itMatches.length())
+						{
+							aMatches.add(itMatches.optString(index, ""))
+						}
+					}
+					view.setDataAutocomplete(aMatches)
+				}
+			}
+		}
 
-        }
+		jsonArray?.let {
 
-        jsonArray?.let {
-
-        }
-    }
+		}
+	}
 }
