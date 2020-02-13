@@ -1,3 +1,31 @@
 <resources>
 	<string name="app_name">ApiChata</string>
+	<string name="demo_data">Demo Data</string>
+	<string name="show_ui_overlay">Show UI Overlay</string>
+	<string name="show_drawer_handle">Show Drawer Handle</string>
+	<string name="show_mask">Show mask</string>
+	<string name="shift_screen_on_open_close">Shift Screen on Open/Close</string>
+	<string name="theme">Theme</string>
+	<string name="light">light</string>
+	<string name="dark">dark</string>
+	<string name="drawer_placement">Drawer Placement</string>
+	<string name="currency_code">Currency Code</string>
+	<string name="language_code">Language Code</string>
+	<string name="format_for_month_year">Format for Month, Year</string>
+	<string name="format_for_day_month_year">Format for Day, Month, Year</string>
+	<string name="number_of_decimals_for_currency_values">Number of Decimals for Currency Values</string>
+	<string name="number_of_decimals_for_quantity_values">Number of Decimals for Quantity Values</string>
+	<string name="customer_name">Customer Name</string>
+	<string name="must_click_reload_drawer_to_apply_this">(Must click \'Reload Drawer\' to apply this)</string>
+	<string name="intro_message">Intro Message</string>
+	<string name="clear_all_messages_on_close">Clear All Messages on Close</string>
+	<string name="height">Height</string>
+	<string name="only_for_top_bottom_placement">Only for top/bottom placement</string>
+	<string name="only_for_left_right_placement">Only for left/right placement</string>
+	<string name="width">Width</string>
+	<string name="title">Title</string>
+	<string name="font_family">Font Family</string>
+	<string name="chart_colors">Chart Colors</string>
+	<string name="msg_array_colors">This is an array of colors used for the charts. If the data scale is larger than the color array, it will repeat the colors. Any solid color formats are accepted. Hit \"enter\" to add a color.</string>
+	<string name="new_color">New Color</string>
 </resources>
