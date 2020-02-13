@@ -18,7 +18,6 @@
 		android:layout_marginTop="7dp"
 		android:layout_width="match_parent">
 		<ImageView
-			android:background="@color/blue"
 			android:contentDescription="@null"
 			android:id="@+id/ivMicrophone"
 			android:layout_alignParentEnd="true"
