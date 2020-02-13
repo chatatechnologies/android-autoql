@@ -9,7 +9,7 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatDrawerPresenter(private val view: ChatDrawerContract): StatusResponse
+class ChatDrawerServicePresenter(private val view: ChatDrawerContract): StatusResponse
 {
 	fun autocomplete(sAutocomplete: String)
 	{

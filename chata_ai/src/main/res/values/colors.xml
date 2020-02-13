@@ -5,4 +5,9 @@
 	<color name="red">@android:color/holo_red_light</color>
 	<color name="blue">@android:color/holo_blue_light</color>
 	<color name="green">@android:color/holo_green_light</color>
+
+	<color name="primary_text_color">#5D5D5D</color>
+	<color name="secondary_text_color">#999999</color>
+	<color name="border_color">#F1F1F1</color>
+	<color name="accent_color">#31A8DD</color>
 </resources>

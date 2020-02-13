@@ -11,6 +11,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.chatDrawer.adapter.AutocompleteAdapter
+import chata.can.chata_ai.view.chatDrawer.model.DrawableChatDrawer
 import com.android.volley.toolbox.Volley
 
 class ChatDrawer: LinearLayout, ChatDrawerContract
@@ -21,7 +22,8 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 
 	private lateinit var adapter: AutocompleteAdapter
 
-	private val presenter = ChatDrawerPresenter(this)
+	private lateinit var renderPresenter: ChatDrawerRenderPresenter
+	private val servicePresenter = ChatDrawerServicePresenter(this)
 
 	constructor(cContext: Context) : super(cContext)
 	{
@@ -40,8 +42,9 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 
 	private fun startView(cContext: Context)
 	{
-		inflateView(cContext)
 		startRequest(cContext)
+		startPresenter()
+		inflateView(cContext)
 	}
 
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
@@ -63,6 +66,16 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 		}
 	}
 
+	override fun setDrawables(drawableChatDrawer: DrawableChatDrawer)
+	{
+		with(drawableChatDrawer)
+		{
+			acAsk.background = shapeBackground
+			acAsk.setDropDownBackgroundDrawable(shapeDropDown)
+			ivMicrophone.background = shapeMicrophone
+		}
+	}
+
 	/**
 	 * Inflate view for chat drawer
 	 * @param cContext for to inflate
@@ -72,12 +85,18 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 		View.inflate(cContext, R.layout.view_chat_drawer, this)
 		initViews()
 		initListener()
+		initColors()
 		initData()
 	}
 
 	private fun startRequest(cContext: Context)
 	{
 		RequestBuilder.requestQueue = Volley.newRequestQueue(cContext)
+	}
+
+	private fun startPresenter()
+	{
+		renderPresenter = ChatDrawerRenderPresenter(context, this)
 	}
 
 	private fun initViews()
@@ -95,9 +114,14 @@ class ChatDrawer: LinearLayout, ChatDrawerContract
 			{
 				val queryEncoded = string.replace(" ", "%20")
 					.replace("?", "%3F")
-				presenter.autocomplete(queryEncoded)
+				servicePresenter.autocomplete(queryEncoded)
 			}
 		})
+	}
+
+	private fun initColors()
+	{
+		renderPresenter.setDrawables()
 	}
 
 	private fun initData()
