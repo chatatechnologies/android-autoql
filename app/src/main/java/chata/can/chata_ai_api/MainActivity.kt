@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import chata.can.chata_ai.pojo.nullValue
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 
@@ -135,13 +136,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	 */
 	private fun addBubble()
 	{
-		(LayoutInflater.from(this).inflate(R.layout.bubble_layout, nullValue) as? BubbleLayout)?.let {
-			it.setOnBubbleRemoveListener { showToast("Removed") }
-
-			it.setOnBubbleClickListener { showToast("Clicked") }
-
-			it.setShouldStickToWall(true)
-			bubblesManager.addBubble(it, 144,144)
+		with(BubbleHandle(this))
+		{
+			setOnBubbleRemoveListener { showToast("Removed") }
+			setOnBubbleClickListener { showToast("Clicked") }
+			setShouldStickToWall(true)
+			bubblesManager.addBubble(this, 144,144)
 		}
 	}
 
