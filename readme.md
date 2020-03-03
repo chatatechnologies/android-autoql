@@ -9,6 +9,7 @@
 #### Integrate lambdas in library
 
 _Date Mar 03, 2020_
+> Support on [Stack Overflow](https://stackoverflow.com/a/57821039)
 ```kotlin
 fun setInitializationCallback(listener: () -> Unit): Builder
 {

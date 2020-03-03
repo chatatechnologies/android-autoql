@@ -121,9 +121,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		BubblesManager.Builder(this)
 			.setTrashLayout(R.layout.bubble_remove)
-			.setInitializationCallback {
-				addBubble()
-			}
+			.setInitializationCallback { addBubble() }
 			.build()?.let {
 				bubblesManager = it
 			}
@@ -139,21 +137,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun addBubble()
 	{
 		(LayoutInflater.from(this).inflate(R.layout.bubble_layout, nullValue) as? BubbleLayout)?.let {
-			it.setOnBubbleRemoveListener(object: BubbleLayout.OnBubbleRemoveListener
-			{
-				override fun onBubbleRemoved(bubble: BubbleLayout)
-				{
-					showToast("Removed")
-				}
-			})
+			it.setOnBubbleRemoveListener { showToast("Removed") }
 
-			it.setOnBubbleClickListener(object: BubbleLayout.OnBubbleClickListener
-			{
-				override fun onBubbleClick(bubble: BubbleLayout)
-				{
-					showToast("Clicked")
-				}
-			})
+			it.setOnBubbleClickListener { showToast("Clicked") }
 
 			it.setShouldStickToWall(true)
 			bubblesManager.addBubble(it, 144,144)

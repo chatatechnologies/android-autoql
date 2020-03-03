@@ -89,9 +89,6 @@ class BubblesManager(context: Context)
 			bubblesManager = getInstance(context)
 		}
 
-		/**
-		 * support on https://stackoverflow.com/a/57821039
-		 */
 		fun setInitializationCallback(listener: () -> Unit): Builder
 		{
 			bubblesManager?.listener = object: OnInitializedCallback {
@@ -100,12 +97,6 @@ class BubblesManager(context: Context)
 					listener()
 				}
 			}
-			return this
-		}
-
-		fun setInitializationCallback(listener: OnInitializedCallback): Builder
-		{
-			bubblesManager?.listener = listener
 			return this
 		}
 

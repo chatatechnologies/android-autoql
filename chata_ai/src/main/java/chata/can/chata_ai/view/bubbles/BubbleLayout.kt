@@ -32,14 +32,26 @@ class BubbleLayout: BubbleBaseLayout
 	private var windowManager1: WindowManager ?= null
 	private var shouldStickToWall = true
 
-	fun setOnBubbleRemoveListener(listener: OnBubbleRemoveListener)
+	fun setOnBubbleRemoveListener(listener: () -> Unit)
 	{
-		onBubbleRemoveListener = listener
+		onBubbleRemoveListener = object: OnBubbleRemoveListener
+		{
+			override fun onBubbleRemoved(bubble: BubbleLayout)
+			{
+				listener()
+			}
+		}
 	}
 
-	fun setOnBubbleClickListener(listener: OnBubbleClickListener)
+	fun setOnBubbleClickListener(listener: () -> Unit)
 	{
-		onBubbleClickListener = listener
+		onBubbleClickListener = object: OnBubbleClickListener
+		{
+			override fun onBubbleClick(bubble: BubbleLayout)
+			{
+				listener()
+			}
+		}
 	}
 
 	constructor(context: Context): super(context)
