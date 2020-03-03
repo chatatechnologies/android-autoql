@@ -16,6 +16,10 @@ import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.bubbles.OnInitializedCallback
 
+/**
+ * @author Carlos Buruel
+ * @since 1.0
+ */
 class MainActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var btnReloadDrawer: Button
@@ -87,6 +91,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 	}
 
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		bubblesManager.recycle()
+	}
+
 	/**
 	 *
 	 */
@@ -111,13 +121,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		BubblesManager.Builder(this)
 			.setTrashLayout(R.layout.bubble_remove)
-			.setInitializationCallback(object: OnInitializedCallback
-			{
-				override fun onInitialized()
-				{
-					addBubble()
-				}
-			}).build()?.let {
+			.setInitializationCallback {
+				addBubble()
+			}
+			.build()?.let {
 				bubblesManager = it
 			}
 		if (::bubblesManager.isInitialized)
@@ -169,8 +176,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	/**
 	 * Build.VERSION_CODES.M is 23
 	 * M is for Marshmallow!
-	 * @author Carlos Buruel
-	 * @since 1.0
 	 */
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	private fun canDrawOverlays() = Settings.canDrawOverlays(this)

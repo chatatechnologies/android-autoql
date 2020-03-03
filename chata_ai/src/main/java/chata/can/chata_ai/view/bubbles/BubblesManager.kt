@@ -89,6 +89,20 @@ class BubblesManager(context: Context)
 			bubblesManager = getInstance(context)
 		}
 
+		/**
+		 * support on https://stackoverflow.com/a/57821039
+		 */
+		fun setInitializationCallback(listener: () -> Unit): Builder
+		{
+			bubblesManager?.listener = object: OnInitializedCallback {
+				override fun onInitialized()
+				{
+					listener()
+				}
+			}
+			return this
+		}
+
 		fun setInitializationCallback(listener: OnInitializedCallback): Builder
 		{
 			bubblesManager?.listener = listener
