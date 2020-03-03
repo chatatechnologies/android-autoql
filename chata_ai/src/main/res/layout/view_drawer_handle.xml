@@ -8,6 +8,5 @@
 		android:id="@+id/ivDrawerHandle"
 		android:layout_height="48dp"
 		android:layout_width="48dp"
-		android:src="@drawable/ic_chata"
-		android:padding="12dp"/>
+		android:src="@drawable/ic_bubble"/>
 </RelativeLayout>

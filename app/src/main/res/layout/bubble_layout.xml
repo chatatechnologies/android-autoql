@@ -7,12 +7,12 @@
 	android:clipChildren="false"
 	android:clipToPadding="false">
 
+	<!--app:civ_border_color="#F00"
+		app:civ_border_width="2dp"-->
 	<chata.can.chata_ai.view.circle.CircleImageView
 		android:layout_height="70dp"
 		android:layout_width="70dp"
-		android:src="@drawable/ic_microphone"
-
-		app:civ_border_color="#F00"
-		app:civ_border_width="2dp"/>
+		android:src="@drawable/ic_bubble"
+		app:civ_circle_background_color="@color/white"/>
 
 </chata.can.chata_ai.view.bubbles.BubbleLayout>

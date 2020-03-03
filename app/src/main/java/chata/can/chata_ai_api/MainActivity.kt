@@ -14,7 +14,6 @@ import androidx.annotation.RequiresApi
 import chata.can.chata_ai.pojo.nullValue
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
-import chata.can.chata_ai.view.bubbles.OnInitializedCallback
 
 /**
  * @author Carlos Buruel
