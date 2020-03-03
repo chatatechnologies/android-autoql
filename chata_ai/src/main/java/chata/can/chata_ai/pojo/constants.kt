@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo
 
+val nullValue = null
+
 const val referenceIdKey = "reference_id"
 const val dataKey = "data"
 const val messageKey = "message"

@@ -18,6 +18,9 @@ import chata.can.chata_ai.R
 import kotlin.math.min
 import kotlin.math.pow
 
+/**
+ * @author https://github.com/hdodenhof
+ */
 class CircleImageView: androidx.appcompat.widget.AppCompatImageView
 {
 	private val scaleType = ScaleType.CENTER_CROP

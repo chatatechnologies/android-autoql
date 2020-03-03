@@ -14,6 +14,9 @@ import android.view.WindowManager
 import chata.can.chata_ai.R
 import kotlin.math.min
 
+/**
+ * @author https://github.com/txusballesteros
+ */
 class BubbleLayout: BubbleBaseLayout
 {
 	private var initialTouchX = 0f

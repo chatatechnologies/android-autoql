@@ -28,4 +28,8 @@
 	<string name="chart_colors">Chart Colors</string>
 	<string name="msg_array_colors">This is an array of colors used for the charts. If the data scale is larger than the color array, it will repeat the colors. Any solid color formats are accepted. Hit \"enter\" to add a color.</string>
 	<string name="new_color">New Color</string>
+	<string name="data_source">Data Source</string>
+	<string name="drawer_props">Drawer Props</string>
+	<string name="reload_drawer">Reload Drawer</string>
+	<string name="open_drawer">Open Drawer</string>
 </resources>
