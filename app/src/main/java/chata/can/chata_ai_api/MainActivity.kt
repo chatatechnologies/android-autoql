@@ -141,7 +141,16 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnBubbleRemoveListener { showToast("Removed") }
 			setOnBubbleClickListener { showToast("Clicked") }
 			setShouldStickToWall(true)
-			bubblesManager.addBubble(this, 144,144)
+			//bubblesManager.addBubble(this, 144,144)
+		}
+
+		(LayoutInflater.from(this).inflate(R.layout.bubble_layout, nullValue) as? BubbleLayout)?.let {
+			it.setOnBubbleRemoveListener { showToast("Removed") }
+
+			it.setOnBubbleClickListener { showToast("Clicked") }
+
+			it.setShouldStickToWall(true)
+			bubblesManager.addBubble(it, 144,144)
 		}
 	}
 
