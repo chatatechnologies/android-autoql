@@ -25,7 +25,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private lateinit var btnReloadDrawer: Button
 	private lateinit var btnOpenDrawer: Button
 
-	private lateinit var bubblesManager: BubblesManager
+	private lateinit var bubbleHandle: BubbleHandle
 
 	private val overlayPermission = 1000
 
@@ -85,7 +85,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			{
 				R.id.btnOpenDrawer ->
 				{
-					addBubble()
+
 				}
 			}
 		}
@@ -94,7 +94,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		bubblesManager.recycle()
+		bubbleHandle.onDestroy()
 	}
 
 	/**
@@ -119,42 +119,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	 */
 	private fun initBubble()
 	{
-		BubblesManager.Builder(this)
-			.setTrashLayout(R.layout.bubble_remove)
-			.setInitializationCallback { addBubble() }
-			.build()?.let {
-				bubblesManager = it
-			}
-		if (::bubblesManager.isInitialized)
-		{
-			bubblesManager.initialize()
-		}
-	}
-
-	/**
-	 *
-	 */
-	private fun addBubble()
-	{
-		with(BubbleHandle(this))
-		{
-			setOnBubbleRemoveListener { showToast("Removed") }
-			setOnBubbleClickListener { showToast("Clicked") }
-			setShouldStickToWall(true)
-
-			setPlacement(BubbleHandle.RIGHT_PLACEMENT)
-
-			bubblesManager.addBubble(this, 144,144)
-		}
-
-		(LayoutInflater.from(this).inflate(R.layout.bubble_layout, nullValue) as? BubbleLayout)?.let {
-			it.setOnBubbleRemoveListener { showToast("Removed") }
-
-			it.setOnBubbleClickListener { showToast("Clicked") }
-
-			it.setShouldStickToWall(true)
-			//bubblesManager.addBubble(it, 144,144)
-		}
+		bubbleHandle = BubbleHandle(this)
 	}
 
 	/**

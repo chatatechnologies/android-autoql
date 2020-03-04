@@ -14,6 +14,5 @@
 			<enum name="top" value="2"/>
 			<enum name="bottom" value="3"/>
 		</attr>
-		<attr format="dimension" name="bh_dimension"/>
 	</declare-styleable>
 </resources>

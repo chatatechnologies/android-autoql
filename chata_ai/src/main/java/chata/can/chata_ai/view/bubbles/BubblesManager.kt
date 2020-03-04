@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 
-class BubblesManager(context: Context)
+open class BubblesManager(context: Context)
 {
 	companion object {
 		private var INSTANCE: BubblesManager ?= null

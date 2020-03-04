@@ -17,7 +17,7 @@ import kotlin.math.min
 /**
  * @author https://github.com/txusballesteros
  */
-open class BubbleLayout: BubbleBaseLayout
+class BubbleLayout: BubbleBaseLayout
 {
 	private var initialTouchX = 0f
 	private var initialTouchY = 0f
