@@ -57,12 +57,19 @@ class BubblesService: Service()
 
 	fun addBubble(bubble: BubbleLayout, x: Int, y: Int)
 	{
-		val layoutParams = buildLayoutParamsForBubble(x, y)
 		getWindowManager()?.let { bubble.setWindowManager(it) }
-		bubble.setViewParams(layoutParams)
+		bubble.setViewParams(buildLayoutParamsForBubble(x, y))
 		layoutCoordinator?.let { bubble.setLayoutCoordinator(it) }
 		bubbles.add(bubble)
 		addViewToWindow(bubble)
+	}
+
+	/**
+	 *
+	 */
+	fun changePosition(x: Int, y: Int)
+	{
+		bubbles.firstOrNull()?.setNewXYParams(x, y)
 	}
 
 	fun addTrash(trashLayoutResourceId: Int)

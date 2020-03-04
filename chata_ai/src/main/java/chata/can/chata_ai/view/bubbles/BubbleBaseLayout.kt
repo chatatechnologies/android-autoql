@@ -35,6 +35,19 @@ open class BubbleBaseLayout: FrameLayout
 
 	fun getViewParams() = this.params
 
+	/**
+	 * change the parameters in WindowManager.LayoutParams
+	 * @param x
+	 * @param y
+	 */
+	fun setNewXYParams(x: Int, y: Int)
+	{
+		params?.let {
+			it.x = x
+			it.y = y
+		}
+	}
+
 	constructor(context: Context): super(context)
 
 	constructor(context: Context, attrs: AttributeSet): super(context, attrs)
