@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +9,10 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 /**
@@ -21,6 +24,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private lateinit var btnReloadDrawer: Button
 	private lateinit var btnOpenDrawer: Button
 
+	private lateinit var tvTop: TextView
+	private lateinit var tvBottom: TextView
+	private lateinit var tvLeft: TextView
+	private lateinit var tvRight: TextView
+	private lateinit var aPlacement: ArrayList<TextView>
+	private var currentPlacement: TextView ?= null
+
 	private lateinit var bubbleHandle: BubbleHandle
 
 	private val overlayPermission = 1000
@@ -31,6 +41,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		setContentView(R.layout.activity_main)
 		initViews()
 		initListener()
+		initColorPlacement()
+		setColorPlacement(true)
 
 		if (isMarshmallow())
 		{
@@ -83,6 +95,49 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 
 				}
+				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
+				{
+					if (it is TextView)
+					{
+						setColorPlacement(false)
+						aPlacement.remove(currentPlacement)
+
+						aPlacement.add(it)
+						currentPlacement = it
+						setColorPlacement(true)
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 */
+	private fun initColorPlacement()
+	{
+		for (view in aPlacement)
+		{
+			view.setBackgroundColor(Color.WHITE)
+			view.setTextColor(Color.BLACK)
+		}
+	}
+
+	private fun setColorPlacement(isSelected: Boolean)
+	{
+		currentPlacement?.let {
+			with(it)
+			{
+				if (isSelected)
+				{
+					setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
+					setTextColor(Color.WHITE)
+				}
+				else
+				{
+					setBackgroundColor(Color.WHITE)
+					setTextColor(Color.BLACK)
+				}
 			}
 		}
 	}
@@ -100,6 +155,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
 		btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
+		tvTop = findViewById(R.id.tvTop)
+		tvBottom = findViewById(R.id.tvBottom)
+		tvLeft = findViewById(R.id.tvLeft)
+		tvRight = findViewById(R.id.tvRight)
+		aPlacement = arrayListOf(tvTop, tvBottom, tvLeft)
+		currentPlacement = tvRight
 	}
 
 	/**
@@ -108,6 +169,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun initListener()
 	{
 		btnOpenDrawer.setOnClickListener(this)
+		tvTop.setOnClickListener(this)
+		tvBottom.setOnClickListener(this)
+		tvLeft.setOnClickListener(this)
+		tvRight.setOnClickListener(this)
 	}
 
 	/**
