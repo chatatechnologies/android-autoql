@@ -2,17 +2,24 @@ package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import chata.can.chata_ai.R
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.circle.CircleImageView
 
-class BubbleHandle: BubbleLayout, BubbleHandleContract
+class BubbleHandle: BubbleLayout
 {
 	private lateinit var circleImageView: CircleImageView
 
+	companion object {
+		const val RIGHT_PLACEMENT = 1
+		const val BOTTOM_PLACEMENT = 2
+		const val LEFT_PLACEMENT = 3
+		const val TOP_PLACEMENT = 4
+	}
+
 	private val defaultPlacement = 0
-	private var placement = defaultPlacement
-	private var statusPlacement = StatePlacement.Right
+	private var mPlacement = defaultPlacement
 
 	constructor(oContext: Context): super(oContext)
 	{
@@ -31,19 +38,23 @@ class BubbleHandle: BubbleLayout, BubbleHandleContract
 	{
 		with(cContext.obtainStyledAttributes(oAttrs, R.styleable.BubbleHandle, iDefStyleAttr, 0))
 		{
-			placement = getInt(R.styleable.BubbleHandle_bh_placement, defaultPlacement)
+			var value = getInt(R.styleable.BubbleHandle_bh_placement, defaultPlacement)
+			if (value > 0)
+			{
+				setPlacement(value)
+			}
 			recycle()
 		}
 
-		setPlacement()
 		initCircleImageView()
 	}
 
-	override fun setPlacement()
+	fun setPlacement(placement: Int)
 	{
-		when(placement)
+		if (mPlacement != placement)
 		{
-
+			mPlacement = placement
+			Log.e("PLACEMENT", "PLACEMENT: $mPlacement")
 		}
 	}
 
