@@ -1,7 +1,6 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
-import android.util.AttributeSet
 import chata.can.chata_ai.R
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
@@ -33,19 +32,6 @@ class BubbleHandle(private val context: Context)
 		if (::bubblesManager.isInitialized)
 		{
 			bubblesManager.initialize()
-		}
-	}
-
-	private fun initViews(cContext: Context, oAttrs: AttributeSet?, iDefStyleAttr: Int = 0)
-	{
-		with(cContext.obtainStyledAttributes(oAttrs, R.styleable.BubbleHandle, iDefStyleAttr, 0))
-		{
-			var value = getInt(R.styleable.BubbleHandle_bh_placement, defaultPlacement)
-			if (value > 0)
-			{
-				setPlacement(value)
-			}
-			recycle()
 		}
 	}
 

@@ -6,15 +6,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import chata.can.chata_ai.pojo.nullValue
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.bubbles.BubbleLayout
-import chata.can.chata_ai.view.bubbles.BubblesManager
 
 /**
  * @author Carlos Buruel
