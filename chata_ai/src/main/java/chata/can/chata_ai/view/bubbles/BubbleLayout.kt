@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import chata.can.chata_ai.R
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import kotlin.math.min
 
 /**
@@ -29,6 +30,11 @@ class BubbleLayout: BubbleBaseLayout
 	private val touchTimeThreshold = 150
 	private var lastTouchDown = 0L
 	private var animator: MoveAnimator ?= null
+
+	private var centerX = 0
+	private var placementX = 0
+	private var centerY = 0
+	private var placementY = 0
 	private var height1 = 0
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null
@@ -82,12 +88,6 @@ class BubbleLayout: BubbleBaseLayout
 	fun setShouldStickToWall(shouldStick: Boolean)
 	{
 		shouldStickToWall = shouldStick
-	}
-
-	fun definePositionInScreen()
-	{
-
-		updateSize()
 	}
 
 	fun notifyBubbleRemoved()
@@ -184,6 +184,38 @@ class BubbleLayout: BubbleBaseLayout
 		}
 	}
 
+	fun definePositionInScreen(placement: Int)
+	{
+		updateSize()
+		when(placement)
+		{
+			BubbleHandle.TOP_PLACEMENT ->
+			{
+				placementX = centerX
+				placementY = 0
+			}
+			BubbleHandle.BOTTOM_PLACEMENT ->
+			{
+				placementX = centerX
+				placementY = height1
+			}
+			BubbleHandle.LEFT_PLACEMENT ->
+			{
+				placementX = 0
+				placementY = centerY
+			}
+			BubbleHandle.RIGHT_PLACEMENT ->
+			{
+				placementX = width1
+				placementY = centerY
+			}
+		}
+
+		getViewParams()?.x = placementX
+		getViewParams()?.y = placementY
+		getWindowManager()?.updateViewLayout(this, getViewParams())
+	}
+
 	private fun updateSize()
 	{
 		val metrics = DisplayMetrics()
@@ -191,8 +223,11 @@ class BubbleLayout: BubbleBaseLayout
 		val display = getWindowManager()?.defaultDisplay
 		val size = Point()
 		display?.getSize(size)
-		height1 = size.y - this.height
+
 		width1 = size.x - this.width
+		height1 = size.y - this.height
+		centerX = width1 / 2
+		centerY = height1 / 2
 	}
 
 	interface OnBubbleRemoveListener {
