@@ -50,7 +50,6 @@ class BubbleHandle(private val context: Context)
 		with(bubbleLayout)
 		{
 			initCircleImageView()
-			setOnBubbleRemoveListener { /*showToast("Removed")*/ }
 			setOnBubbleClickListener { /*showToast("Clicked")*/ }
 			setShouldStickToWall(true)
 

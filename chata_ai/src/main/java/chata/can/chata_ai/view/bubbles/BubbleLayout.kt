@@ -9,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import chata.can.chata_ai.R
@@ -25,7 +24,6 @@ class BubbleLayout: BubbleBaseLayout
 	private var initialTouchY = 0f
 	private var initialX = 0
 	private var initialY = 0
-	private var onBubbleRemoveListener: OnBubbleRemoveListener ?= null
 	private var onBubbleClickListener: OnBubbleClickListener ?= null
 	private val touchTimeThreshold = 150
 	private var lastTouchDown = 0L
@@ -39,17 +37,6 @@ class BubbleLayout: BubbleBaseLayout
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null
 	private var shouldStickToWall = true
-
-	fun setOnBubbleRemoveListener(listener: () -> Unit)
-	{
-		onBubbleRemoveListener = object: OnBubbleRemoveListener
-		{
-			override fun onBubbleRemoved(bubble: BubbleLayout)
-			{
-				listener()
-			}
-		}
-	}
 
 	fun setOnBubbleClickListener(listener: () -> Unit)
 	{
@@ -90,11 +77,6 @@ class BubbleLayout: BubbleBaseLayout
 		shouldStickToWall = shouldStick
 	}
 
-	fun notifyBubbleRemoved()
-	{
-		onBubbleRemoveListener?.onBubbleRemoved(this)
-	}
-
 	private fun initializeView()
 	{
 		isClickable = true
@@ -113,7 +95,6 @@ class BubbleLayout: BubbleBaseLayout
 		{
 			MotionEvent.ACTION_DOWN ->
 			{
-				//Log.e("ACTION_DOWN", "ACTION_DOWN")
 				initialX = getViewParams()?.x ?: 0
 				initialY = getViewParams()?.y ?: 0
 				initialTouchX = event.rawX
@@ -125,23 +106,15 @@ class BubbleLayout: BubbleBaseLayout
 			}
 			MotionEvent.ACTION_MOVE ->
 			{
-				Log.e("ACTION_MOVE", "ACTION_MOVE")
 				val x = initialX + (event.rawX - initialTouchX).toInt()
 				val y = initialY + (event.rawY - initialTouchY).toInt()
 				getViewParams()?.x = x
 				getViewParams()?.y = y
 				getWindowManager()?.updateViewLayout(this, getViewParams())
-				getLayoutCoordinator()?.notifyBubblePositionChanged(this, x, y)
 			}
 			MotionEvent.ACTION_UP ->
 			{
-				//Log.e("ACTION_UP", "ACTION_UP")
 				goToWall()
-				getLayoutCoordinator()?.let {
-					it.notifyBubbleRelease(this)
-					playAnimationClickUp()
-				}
-
 				if (System.currentTimeMillis() - lastTouchDown < touchTimeThreshold)
 				{
 					onBubbleClickListener?.onBubbleClick(this)
@@ -167,17 +140,6 @@ class BubbleLayout: BubbleBaseLayout
 		if (!isInEditMode)
 		{
 			(AnimatorInflater.loadAnimator(context, R.animator.bubble_down_click_animator) as? AnimatorSet)?.let {
-				it.setTarget(this)
-				it.start()
-			}
-		}
-	}
-
-	private fun playAnimationClickUp()
-	{
-		if (!isInEditMode)
-		{
-			(AnimatorInflater.loadAnimator(context, R.animator.bubble_up_click_animator) as? AnimatorSet)?.let {
 				it.setTarget(this)
 				it.start()
 			}
@@ -228,10 +190,6 @@ class BubbleLayout: BubbleBaseLayout
 		height1 = size.y - this.height
 		centerX = width1 / 2
 		centerY = height1 / 2
-	}
-
-	interface OnBubbleRemoveListener {
-		fun onBubbleRemoved(bubble: BubbleLayout)
 	}
 
 	interface OnBubbleClickListener {

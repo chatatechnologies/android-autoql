@@ -35,7 +35,6 @@ open class BubblesManager(context: Context)
 				(it as? BubblesService.BubblesServiceBinder)?.let {
 						binder ->
 					bubblesService = binder.getService()
-					configureBubblesService()
 					bounded = true
 					listener?.onInitialized()
 				}
@@ -46,11 +45,6 @@ open class BubblesManager(context: Context)
 		{
 			bounded = false
 		}
-	}
-
-	private fun configureBubblesService()
-	{
-		bubblesService?.addTrash(trashLayoutResourceId)
 	}
 
 	fun initialize()
@@ -71,14 +65,6 @@ open class BubblesManager(context: Context)
 		if (bounded)
 		{
 			bubblesService?.addBubble(bubble, x, y)
-		}
-	}
-
-	fun removeBubble(bubble: BubbleLayout)
-	{
-		if (bounded)
-		{
-			bubblesService?.removeBubble(bubble)
 		}
 	}
 
