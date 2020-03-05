@@ -33,6 +33,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private lateinit var bubbleHandle: BubbleHandle
 
+	private val mPlacement = hashMapOf(
+		R.id.tvTop to BubbleHandle.TOP_PLACEMENT,
+		R.id.tvBottom to BubbleHandle.BOTTOM_PLACEMENT,
+		R.id.tvLeft to BubbleHandle.LEFT_PLACEMENT,
+		R.id.tvRight to BubbleHandle.RIGHT_PLACEMENT)
+
 	private val overlayPermission = 1000
 
 	override fun onCreate(savedInstanceState: Bundle?)
@@ -105,6 +111,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						aPlacement.add(it)
 						currentPlacement = it
 						setColorPlacement(true)
+
+						mPlacement[it.id]?.let { placement -> bubbleHandle.setPlacement(placement) }
 					}
 				}
 			}

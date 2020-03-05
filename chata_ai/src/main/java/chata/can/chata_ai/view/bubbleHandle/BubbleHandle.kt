@@ -13,10 +13,10 @@ class BubbleHandle(private val context: Context)
 	private lateinit var circleImageView: CircleImageView
 
 	companion object {
-		const val RIGHT_PLACEMENT = 1
+		const val TOP_PLACEMENT = 1
 		const val BOTTOM_PLACEMENT = 2
 		const val LEFT_PLACEMENT = 3
-		const val TOP_PLACEMENT = 4
+		const val RIGHT_PLACEMENT = 4
 	}
 
 	private val defaultPlacement = 0
