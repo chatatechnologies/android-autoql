@@ -1,6 +1,9 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.setMargins
 import chata.can.chata_ai.R
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
@@ -48,10 +51,16 @@ class BubbleHandle(private val context: Context)
 		bubbleLayout = BubbleLayout(context)
 		with(bubbleLayout)
 		{
+			if (layoutParams is ViewGroup.MarginLayoutParams)
+			{
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(12, 12, 12, 12)
+			}
+
 			initCircleImageView()
 			setOnBubbleClickListener { /*showToast("Clicked")*/ }
 			setShouldStickToWall(true)
 
+			ViewCompat.setElevation(this, 15f)
 			bubblesManager.addBubble(bubbleLayout, 0,0)
 		}
 	}
@@ -62,10 +71,14 @@ class BubbleHandle(private val context: Context)
 		with(circleImageView)
 		{
 			bubbleLayout.addView(this)
-			layoutParams.height = 210
-			layoutParams.width = 210
+			layoutParams.height = 180
+			layoutParams.width = 180
+			if (layoutParams is ViewGroup.MarginLayoutParams)
+			{
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(30, 30, 30, 30)
+			}
 			setImageResource(R.drawable.ic_bubble)
-			setCircleBackgroundColorResource(R.color.white)
+			setCircleBackgroundColorResource(R.color.red)
 		}
 	}
 

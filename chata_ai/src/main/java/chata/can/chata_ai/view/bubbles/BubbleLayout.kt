@@ -99,7 +99,7 @@ class BubbleLayout: BubbleBaseLayout
 				initialY = getViewParams()?.y ?: 0
 				initialTouchX = event.rawX
 				initialTouchY = event.rawY
-				playAnimationClickDown()
+				//playAnimationClickDown()
 				lastTouchDown = System.currentTimeMillis()
 				updateSize()
 				animator?.stop()
