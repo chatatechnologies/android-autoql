@@ -21,8 +21,6 @@ class BubblesLayoutCoordinator
 	private var windowManager: WindowManager ?= null
 	private var bubblesService: BubblesService ?= null
 
-
-
 	fun notifyBubblePositionChanged(bubble: BubbleLayout, x: Int, y: Int)
 	{
 		trashView?.let {

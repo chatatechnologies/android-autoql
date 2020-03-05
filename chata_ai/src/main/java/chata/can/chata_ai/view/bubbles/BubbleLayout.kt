@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MotionEvent
 import android.view.WindowManager
 import chata.can.chata_ai.R
@@ -28,6 +29,7 @@ class BubbleLayout: BubbleBaseLayout
 	private val touchTimeThreshold = 150
 	private var lastTouchDown = 0L
 	private var animator: MoveAnimator ?= null
+	private var height1 = 0
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null
 	private var shouldStickToWall = true
@@ -56,20 +58,21 @@ class BubbleLayout: BubbleBaseLayout
 
 	constructor(context: Context): super(context)
 	{
-		animator = MoveAnimator()
-		windowManager1 = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-		initializeView()
+		initView()
 	}
 
 	constructor(context: Context, attrs: AttributeSet): super(context, attrs)
 	{
-		animator = MoveAnimator()
-		windowManager1 = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-		initializeView()
+		initView()
 	}
 
 	constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
 		: super(context, attrs, defStyleAttr)
+	{
+		initView()
+	}
+
+	private fun initView()
 	{
 		animator = MoveAnimator()
 		windowManager1 = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -79,6 +82,12 @@ class BubbleLayout: BubbleBaseLayout
 	fun setShouldStickToWall(shouldStick: Boolean)
 	{
 		shouldStickToWall = shouldStick
+	}
+
+	fun definePositionInScreen()
+	{
+
+		updateSize()
 	}
 
 	fun notifyBubbleRemoved()
@@ -104,6 +113,7 @@ class BubbleLayout: BubbleBaseLayout
 		{
 			MotionEvent.ACTION_DOWN ->
 			{
+				//Log.e("ACTION_DOWN", "ACTION_DOWN")
 				initialX = getViewParams()?.x ?: 0
 				initialY = getViewParams()?.y ?: 0
 				initialTouchX = event.rawX
@@ -115,6 +125,7 @@ class BubbleLayout: BubbleBaseLayout
 			}
 			MotionEvent.ACTION_MOVE ->
 			{
+				Log.e("ACTION_MOVE", "ACTION_MOVE")
 				val x = initialX + (event.rawX - initialTouchX).toInt()
 				val y = initialY + (event.rawY - initialTouchY).toInt()
 				getViewParams()?.x = x
@@ -124,6 +135,7 @@ class BubbleLayout: BubbleBaseLayout
 			}
 			MotionEvent.ACTION_UP ->
 			{
+				//Log.e("ACTION_UP", "ACTION_UP")
 				goToWall()
 				getLayoutCoordinator()?.let {
 					it.notifyBubbleRelease(this)
@@ -179,6 +191,7 @@ class BubbleLayout: BubbleBaseLayout
 		val display = getWindowManager()?.defaultDisplay
 		val size = Point()
 		display?.getSize(size)
+		height1 = size.y - this.height
 		width1 = size.x - this.width
 	}
 

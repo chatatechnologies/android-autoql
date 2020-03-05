@@ -40,8 +40,7 @@ class BubbleHandle(private val context: Context)
 		if (mPlacement != placement)
 		{
 			mPlacement = placement
-
-
+			bubbleLayout.definePositionInScreen()
 		}
 	}
 
@@ -53,9 +52,9 @@ class BubbleHandle(private val context: Context)
 			initCircleImageView()
 			setOnBubbleRemoveListener { /*showToast("Removed")*/ }
 			setOnBubbleClickListener { /*showToast("Clicked")*/ }
-			setShouldStickToWall(true)
+			setShouldStickToWall(false)
 
-			bubblesManager.addBubble(bubbleLayout, 21,21)
+			bubblesManager.addBubble(bubbleLayout, 0,0)
 		}
 	}
 
