@@ -24,7 +24,6 @@ class BubbleHandle(private val context: Context)
 
 	init {
 		BubblesManager.Builder(context)
-			.setTrashLayout(R.layout.bubble_remove)
 			.setInitializationCallback { initBubbleLayout() }
 			.build()?.let {
 				bubblesManager = it

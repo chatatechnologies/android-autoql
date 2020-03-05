@@ -24,7 +24,6 @@ open class BubblesManager(context: Context)
 	private var context: Context ?= context
 	private var bounded = true
 	private var bubblesService: BubblesService ?= null
-	private var trashLayoutResourceId = 0
 	private var listener: OnInitializedCallback ?= null
 
 	private val bubbleServiceConnection = object: ServiceConnection
@@ -83,12 +82,6 @@ open class BubblesManager(context: Context)
 					listener()
 				}
 			}
-			return this
-		}
-
-		fun setTrashLayout(trashLayoutResourceId: Int): Builder
-		{
-			bubblesManager?.trashLayoutResourceId = trashLayoutResourceId
 			return this
 		}
 
