@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chata.can.chata_ai.view.bubbles.BubbleLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:clipChildren="false"
+	android:clipToPadding="false">
+
+	<chata.can.chata_ai.view.circle.CircleImageView
+		android:id="@+id/avatar"
+		android:src="@drawable/ic_bubble"
+		android:layout_height="65dp"
+		android:layout_margin="10dp"
+		android:layout_width="65dp"
+		app:civ_circle_background_color="@color/red"/>
+
+</chata.can.chata_ai.view.bubbles.BubbleLayout>

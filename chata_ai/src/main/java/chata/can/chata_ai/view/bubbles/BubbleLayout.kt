@@ -208,7 +208,6 @@ class BubbleLayout: BubbleBaseLayout
 			if (this.height != 0) this.height else BubbleData.heightDefault + defaultMargin)
 		centerX = width1 / 2
 		centerY = height1 / 2
-		println()
 	}
 
 	interface OnBubbleClickListener {

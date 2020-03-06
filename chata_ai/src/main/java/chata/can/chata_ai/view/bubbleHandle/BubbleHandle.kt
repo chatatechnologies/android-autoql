@@ -1,7 +1,9 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
@@ -53,7 +55,7 @@ class BubbleHandle(private val context: Context)
 
 	private fun initBubbleLayout()
 	{
-		bubbleLayout = BubbleLayout(context)
+		/*bubbleLayout = BubbleLayout(context)
 		with(bubbleLayout)
 		{
 			initCircleImageView()
@@ -62,7 +64,13 @@ class BubbleHandle(private val context: Context)
 
 			ViewCompat.setElevation(this, 15f)
 			bubblesManager.addBubble(bubbleLayout, 0,0)
-		}
+		}*/
+
+		bubbleLayout = LayoutInflater.from(context)
+			.inflate(R.layout.view_bubble_layout, null) as BubbleLayout
+		bubbleLayout.setOnBubbleClickListener { Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show() }
+		bubbleLayout.setShouldStickToWall(true)
+		bubblesManager.addBubble(bubbleLayout, 0,0)
 	}
 
 	private fun initCircleImageView()
