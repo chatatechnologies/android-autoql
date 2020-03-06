@@ -5,8 +5,8 @@ object BubbleData
 	var heightDefault = 180
 	var widthDefault = 180
 
-	var marginLeftDefault = 30
-	var marginTopDefault = 30
-	var marginRightDefault = 30
-	var marginBottomDefault = 30
+	var marginLeftDefault = 8
+	var marginTopDefault = 8
+	var marginRightDefault = 8
+	var marginBottomDefault = 8
 }

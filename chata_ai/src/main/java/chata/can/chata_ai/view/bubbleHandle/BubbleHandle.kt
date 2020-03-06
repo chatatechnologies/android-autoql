@@ -63,66 +63,37 @@ class BubbleHandle(private val context: Context)
 			clipChildren = false
 			clipToPadding = false
 
-			val rl = RelativeLayout(context)
-			val lp = RelativeLayout.LayoutParams(-2, -2)
-			rl.layoutParams = lp
-			lp.setMargins(marginRightDefault,marginRightDefault,marginRightDefault,marginRightDefault)
-			rl.setBackgroundResource(R.drawable.fake_shadow)
-
-			circleImageView = CircleImageView(context)
-			with(circleImageView)
-			{
-				rl.addView(this)
-				layoutParams.height = heightDefault
-				layoutParams.width = widthDefault
-				if (layoutParams is ViewGroup.MarginLayoutParams)
-				{
-					(layoutParams as ViewGroup.MarginLayoutParams).setMargins(8, 8, 8, 8)
-				}
-				setImageResource(R.drawable.ic_bubble)
-				setCircleBackgroundColorResource(R.color.white)
-			}
-
-			addView(rl)
+			addView(initChildView())
+			setOnBubbleClickListener { /*showToast("Clicked")*/ }
 
 			setShouldStickToWall(true)
 
 			bubblesManager.addBubble(bubbleLayout, 0,0)
 		}
-		/*bubbleLayout = BubbleLayout(context)
-		with(bubbleLayout)
-		{
-			initCircleImageView()
-			setOnBubbleClickListener { /*showToast("Clicked")*/ }
-			setShouldStickToWall(true)
-
-			ViewCompat.setElevation(this, 15f)
-			bubblesManager.addBubble(bubbleLayout, 0,0)
-		}*/
-
-		/*bubbleLayout = LayoutInflater.from(context)
-			.inflate(R.layout.view_bubble_layout, null) as BubbleLayout
-		bubbleLayout.setOnBubbleClickListener { Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show() }
-		bubbleLayout.setShouldStickToWall(true)
-		bubblesManager.addBubble(bubbleLayout, 0,0)*/
 	}
 
-	private fun initCircleImageView()
+	private fun initChildView(): RelativeLayout
 	{
+		val rl = RelativeLayout(context)
+		val lp = RelativeLayout.LayoutParams(-2, -2)
+		rl.layoutParams = lp
+		rl.setBackgroundResource(R.drawable.fake_shadow)
+
 		circleImageView = CircleImageView(context)
 		with(circleImageView)
 		{
-			bubbleLayout.addView(this)
+			rl.addView(this)
 			layoutParams.height = heightDefault
 			layoutParams.width = widthDefault
 			if (layoutParams is ViewGroup.MarginLayoutParams)
 			{
 				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(
-					marginLeftDefault, marginTopDefault, marginRightDefault, marginBottomDefault)
+					marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
 			}
 			setImageResource(R.drawable.ic_bubble)
-			setCircleBackgroundColorResource(R.color.red)
+			setCircleBackgroundColorResource(R.color.white)
 		}
+		return rl
 	}
 
 	fun onDestroy()
