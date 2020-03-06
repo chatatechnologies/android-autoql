@@ -7,12 +7,18 @@
 	android:clipChildren="false"
 	android:clipToPadding="false">
 
-	<chata.can.chata_ai.view.circle.CircleImageView
-		android:id="@+id/avatar"
-		android:src="@drawable/ic_bubble"
-		android:layout_height="65dp"
+	<RelativeLayout
+		android:background="@drawable/fake_shadow"
+		android:layout_height="wrap_content"
 		android:layout_margin="10dp"
-		android:layout_width="65dp"
-		app:civ_circle_background_color="@color/red"/>
+		android:layout_width="wrap_content">
+		<chata.can.chata_ai.view.circle.CircleImageView
+			android:id="@+id/avatar"
+			android:src="@drawable/ic_bubble"
+			android:layout_height="62dp"
+			android:layout_margin="3dp"
+			android:layout_width="62dp"
+			app:civ_circle_background_color="@color/white"/>
+	</RelativeLayout>
 
 </chata.can.chata_ai.view.bubbles.BubbleLayout>
