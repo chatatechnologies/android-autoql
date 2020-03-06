@@ -1,18 +1,11 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
-import androidx.core.view.ViewCompat
-import androidx.core.view.setMargins
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
-import chata.can.chata_ai.pojo.BubbleData.marginBottomDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
-import chata.can.chata_ai.pojo.BubbleData.marginRightDefault
-import chata.can.chata_ai.pojo.BubbleData.marginTopDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
