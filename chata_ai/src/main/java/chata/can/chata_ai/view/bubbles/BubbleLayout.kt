@@ -99,7 +99,7 @@ class BubbleLayout: BubbleBaseLayout
 				initialY = getViewParams()?.y ?: 0
 				initialTouchX = event.rawX
 				initialTouchY = event.rawY
-				//playAnimationClickDown()
+				playAnimationClickDown()
 				lastTouchDown = System.currentTimeMillis()
 				updateSize()
 				animator?.stop()
@@ -115,6 +115,7 @@ class BubbleLayout: BubbleBaseLayout
 			MotionEvent.ACTION_UP ->
 			{
 				goToWall()
+				playAnimationClickUp()
 				if (System.currentTimeMillis() - lastTouchDown < touchTimeThreshold)
 				{
 					onBubbleClickListener?.onBubbleClick(this)
@@ -140,6 +141,17 @@ class BubbleLayout: BubbleBaseLayout
 		if (!isInEditMode)
 		{
 			(AnimatorInflater.loadAnimator(context, R.animator.bubble_down_click_animator) as? AnimatorSet)?.let {
+				it.setTarget(this)
+				it.start()
+			}
+		}
+	}
+
+	private fun playAnimationClickUp()
+	{
+		if (!isInEditMode)
+		{
+			(AnimatorInflater.loadAnimator(context, R.animator.bubble_up_click_animator) as? AnimatorSet)?.let {
 				it.setTarget(this)
 				it.start()
 			}
