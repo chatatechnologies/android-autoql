@@ -3,8 +3,13 @@ package chata.can.chata_ai.view.bubbleHandle
 import android.content.Context
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
-import androidx.core.view.setMargins
 import chata.can.chata_ai.R
+import chata.can.chata_ai.pojo.BubbleData.heightDefault
+import chata.can.chata_ai.pojo.BubbleData.marginBottomDefault
+import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
+import chata.can.chata_ai.pojo.BubbleData.marginRightDefault
+import chata.can.chata_ai.pojo.BubbleData.marginTopDefault
+import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
@@ -22,7 +27,7 @@ class BubbleHandle(private val context: Context)
 		const val RIGHT_PLACEMENT = 4
 	}
 
-	private val defaultPlacement = 0
+	private val defaultPlacement = 4
 	private var mPlacement = defaultPlacement
 
 	init {
@@ -51,11 +56,6 @@ class BubbleHandle(private val context: Context)
 		bubbleLayout = BubbleLayout(context)
 		with(bubbleLayout)
 		{
-			if (layoutParams is ViewGroup.MarginLayoutParams)
-			{
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(12, 12, 12, 12)
-			}
-
 			initCircleImageView()
 			setOnBubbleClickListener { /*showToast("Clicked")*/ }
 			setShouldStickToWall(true)
@@ -71,11 +71,12 @@ class BubbleHandle(private val context: Context)
 		with(circleImageView)
 		{
 			bubbleLayout.addView(this)
-			layoutParams.height = 180
-			layoutParams.width = 180
+			layoutParams.height = heightDefault
+			layoutParams.width = widthDefault
 			if (layoutParams is ViewGroup.MarginLayoutParams)
 			{
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(30, 30, 30, 30)
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(
+					marginLeftDefault, marginTopDefault, marginRightDefault, marginBottomDefault)
 			}
 			setImageResource(R.drawable.ic_bubble)
 			setCircleBackgroundColorResource(R.color.red)

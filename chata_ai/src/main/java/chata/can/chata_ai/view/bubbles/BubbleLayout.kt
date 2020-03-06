@@ -12,6 +12,7 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.WindowManager
 import chata.can.chata_ai.R
+import chata.can.chata_ai.pojo.BubbleData
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import kotlin.math.min
 
@@ -37,6 +38,8 @@ class BubbleLayout: BubbleBaseLayout
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null
 	private var shouldStickToWall = true
+
+	private val defaultMargin = BubbleData.marginLeftDefault + BubbleData.marginRightDefault
 
 	fun setOnBubbleClickListener(listener: () -> Unit)
 	{
@@ -86,6 +89,7 @@ class BubbleLayout: BubbleBaseLayout
 	{
 		super.onAttachedToWindow()
 		playAnimation()
+		definePositionInScreen()
 	}
 
 	@SuppressLint("ClickableViewAccessibility")
@@ -158,7 +162,7 @@ class BubbleLayout: BubbleBaseLayout
 		}
 	}
 
-	fun definePositionInScreen(placement: Int)
+	fun definePositionInScreen(placement: Int = BubbleHandle.RIGHT_PLACEMENT)
 	{
 		updateSize()
 		when(placement)
@@ -198,10 +202,13 @@ class BubbleLayout: BubbleBaseLayout
 		val size = Point()
 		display?.getSize(size)
 
-		width1 = size.x - this.width
-		height1 = size.y - this.height
+		width1 = size.x - (
+			if (this.width != 0) this.width else BubbleData.widthDefault + defaultMargin)
+		height1 = size.y - (
+			if (this.height != 0) this.height else BubbleData.heightDefault + defaultMargin)
 		centerX = width1 / 2
 		centerY = height1 / 2
+		println()
 	}
 
 	interface OnBubbleClickListener {
