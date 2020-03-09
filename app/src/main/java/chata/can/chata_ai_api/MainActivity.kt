@@ -233,8 +233,28 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 					TypeParameter.SEGMENT ->
 					{
-						TextView(this).apply {
+						val subView = LinearLayout(this)
+						val sizeOptions = demoParam.options.size
+						if (sizeOptions > 0)
+						{
+							with(subView)
+							{
+								layoutParams = LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
+								orientation = LinearLayout.HORIZONTAL
+
+								for(option in demoParam.options)
+								{
+									val tv = TextView(this@MainActivity)
+									tv.layoutParams = LinearLayout.LayoutParams(0, -2).apply {
+										weight = 1f
+									}
+									tv.gravity = Gravity.CENTER_HORIZONTAL
+									tv.text = option
+									this.addView(tv)
+								}
+							}
 						}
+						subView
 					}
 					TypeParameter.COLOR ->
 					{
