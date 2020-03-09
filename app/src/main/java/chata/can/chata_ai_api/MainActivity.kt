@@ -259,6 +259,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.COLOR ->
 					{
 						TextView(this).apply {
+							try
+							{
+								setBackgroundColor(Color.parseColor(demoParam.value))
+							}
+							finally
+							{
+								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(28, 28, 28, 28)
+								gravity = Gravity.CENTER_HORIZONTAL
+								setTextColor(Color.WHITE)
+								text = demoParam.value
+							}
 						}
 					}
 				}
