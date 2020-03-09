@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.util.SparseArray
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -40,11 +41,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private lateinit var bubbleHandle: BubbleHandle
 
-	/*private val mPlacement = hashMapOf(
+	private val mPlacement = hashMapOf(
 		R.id.tvTop to BubbleHandle.TOP_PLACEMENT,
 		R.id.tvBottom to BubbleHandle.BOTTOM_PLACEMENT,
 		R.id.tvLeft to BubbleHandle.LEFT_PLACEMENT,
-		R.id.tvRight to BubbleHandle.RIGHT_PLACEMENT)*/
+		R.id.tvRight to BubbleHandle.RIGHT_PLACEMENT)
 
 	private val overlayPermission = 1000
 
@@ -53,7 +54,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		initViews()
-		initListener()
 		initColorPlacement()
 		setColorPlacement(true)
 
@@ -107,7 +107,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				/*R.id.btnOpenDrawer ->
 				{
 
-				}
+				}*/
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
 					if (it is TextView)
@@ -121,7 +121,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 						mPlacement[it.id]?.let { placement -> bubbleHandle.setPlacement(placement) }
 					}
-				}*/
+				}
 			}
 		}
 	}
@@ -232,9 +232,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					{
 						TextView(this).apply {
 							setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.colorButton))
-							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							layoutParams = LinearLayout.LayoutParams(-1, 90)
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-							gravity = Gravity.CENTER_HORIZONTAL
+							gravity = Gravity.CENTER
 							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
 							text = demoParam.label
 						}
@@ -242,7 +242,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.SEGMENT ->
 					{
 						val subView = LinearLayout(this)
-						val sizeOptions = demoParam.options.size
+						val sizeOptions = demoParam.options.size()
 						if (sizeOptions > 0)
 						{
 							with(subView)
@@ -250,9 +250,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 								layoutParams = LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
 								orientation = LinearLayout.HORIZONTAL
 
-								for(option in demoParam.options)
+								for (iterator in 0 until demoParam.options.size())
 								{
+									val idView = demoParam.options.keyAt(iterator)
+									val option = demoParam.options[idView]
 									val tv = TextView(this@MainActivity)
+									tv.id = idView
+									tv.setOnClickListener(this@MainActivity)
 									tv.layoutParams = LinearLayout.LayoutParams(0, -2).apply {
 										weight = 1f
 									}
@@ -295,18 +299,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		tvRight = findViewById(R.id.tvRight)
 		aPlacement = arrayListOf(tvTop, tvBottom, tvLeft)
 		currentPlacement = tvRight*/
-	}
-
-	/**
-	 *
-	 */
-	private fun initListener()
-	{
-		/*btnOpenDrawer.setOnClickListener(this)
-		tvTop.setOnClickListener(this)
-		tvBottom.setOnClickListener(this)
-		tvLeft.setOnClickListener(this)
-		tvRight.setOnClickListener(this)*/
 	}
 
 	/**

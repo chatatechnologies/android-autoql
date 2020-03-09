@@ -1,7 +1,20 @@
 package chata.can.chata_ai_api.model
 
+import android.util.SparseArray
+import chata.can.chata_ai_api.R
+
 object SectionData
 {
+	private val saTheme = SparseArray<String>()
+	private val saPlacement = SparseArray<String>()
+
+	init {
+		saPlacement.put(R.id.tvTop, "Top")
+		saPlacement.put(R.id.tvBottom, "tvBottom")
+		saPlacement.put(R.id.tvLeft, "tvLeft")
+		saPlacement.put(R.id.tvRight, "tvRight")
+	}
+
 	val mData = linkedMapOf(
 		"Data Source" to
 			arrayListOf(
@@ -24,8 +37,8 @@ object SectionData
 				DemoParameter("Open Drawer", TypeParameter.BUTTON),
 				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE),
 				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
-				DemoParameter("Theme", TypeParameter.SEGMENT, options = arrayListOf("Light", "Dark")),
-				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = arrayListOf("Top", "Bottom", "Left", "Right")),
+				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),
+				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = saPlacement),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD"),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US"),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY"),

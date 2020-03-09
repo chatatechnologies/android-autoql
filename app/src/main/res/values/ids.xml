@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="tvLight" type="id"/>
+	<item name="tvDark" type="id"/>
+
+	<item name="tvTop" type="id"/>
+	<item name="tvBottom" type="id"/>
+	<item name="tvLeft" type="id"/>
+	<item name="tvRight" type="id"/>
+</resources>
