@@ -2,8 +2,7 @@ package chata.can.chata_ai_api.model
 
 object SectionData
 {
-	//val mData = LinkedHashMap<String, DemoParameter>()
-	val mData = linkedMapOf<String, ArrayList<DemoParameter>>(
+	val mData = linkedMapOf(
 		"Data Source" to
 			arrayListOf(
 				DemoParameter("Demo data", TypeParameter.TOGGLE),
