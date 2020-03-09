@@ -223,6 +223,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.BUTTON ->
 					{
 						TextView(this).apply {
+							setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.colorButton))
+							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(28, 28, 28, 28)
+							gravity = Gravity.CENTER_HORIZONTAL
+							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
+							text = demoParam.label
 						}
 					}
 					TypeParameter.SEGMENT ->
