@@ -211,7 +211,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 					TypeParameter.INPUT ->
 					{
-						TextView(this).apply {
+						EditText(this).apply {
+							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							gravity = Gravity.CENTER_HORIZONTAL
+							if (demoParam.value != "true" && demoParam.value != "false")
+							{
+								setText(demoParam.value)
+							}
 						}
 					}
 					TypeParameter.BUTTON ->
