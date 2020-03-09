@@ -11,10 +11,8 @@ import android.provider.Settings
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
@@ -187,39 +185,53 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 			for (demoParam in demoParams)
 			{
-				//region label
-				with(TextView(this))
+				if (demoParam.type != TypeParameter.BUTTON)
 				{
-					layoutParams = LinearLayout.LayoutParams(-1, -2)
-					gravity = Gravity.CENTER_HORIZONTAL
-					text = demoParam.label
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-					llContainer.addView(this)
+					//region label
+					with(TextView(this))
+					{
+						layoutParams = LinearLayout.LayoutParams(-1, -2)
+						gravity = Gravity.CENTER_HORIZONTAL
+						text = demoParam.label
+						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						llContainer.addView(this)
+					}
+					//endregion
 				}
-				//endregion
-				when(demoParam.type)
+
+				val viewChild = when(demoParam.type)
 				{
 					TypeParameter.TOGGLE ->
 					{
-
+						Switch(this).apply {
+							layoutParams = LinearLayout.LayoutParams(-2, -2)
+							gravity = Gravity.CENTER_HORIZONTAL
+							isChecked = demoParam.value == "true"
+						}
 					}
 					TypeParameter.INPUT ->
 					{
-
+						TextView(this).apply {
+						}
 					}
 					TypeParameter.BUTTON ->
 					{
-
+						TextView(this).apply {
+						}
 					}
 					TypeParameter.SEGMENT ->
 					{
-
+						TextView(this).apply {
+						}
 					}
 					TypeParameter.COLOR ->
 					{
-
+						TextView(this).apply {
+						}
 					}
 				}
+
+				llContainer.addView(viewChild)
 			}
 		}
 
