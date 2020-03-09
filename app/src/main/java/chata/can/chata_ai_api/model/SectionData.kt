@@ -10,9 +10,9 @@ object SectionData
 
 	init {
 		saPlacement.put(R.id.tvTop, "Top")
-		saPlacement.put(R.id.tvBottom, "tvBottom")
-		saPlacement.put(R.id.tvLeft, "tvLeft")
-		saPlacement.put(R.id.tvRight, "tvRight")
+		saPlacement.put(R.id.tvBottom, "Bottom")
+		saPlacement.put(R.id.tvLeft, "Left")
+		saPlacement.put(R.id.tvRight, "Right")
 	}
 
 	val mData = linkedMapOf(

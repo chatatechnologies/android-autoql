@@ -36,7 +36,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private lateinit var tvBottom: TextView
 	private lateinit var tvLeft: TextView
 	private lateinit var tvRight: TextView
-	private lateinit var aPlacement: ArrayList<TextView>
+	private val aPlacement = ArrayList<TextView>()
 	private var currentPlacement: TextView ?= null
 
 	private lateinit var bubbleHandle: BubbleHandle
@@ -262,6 +262,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 									}
 									tv.gravity = Gravity.CENTER_HORIZONTAL
 									tv.text = option
+									if (iterator == 0)
+									{
+										currentPlacement = tv
+									}
+									else
+									{
+										aPlacement.add(tv)
+									}
 									this.addView(tv)
 								}
 							}
