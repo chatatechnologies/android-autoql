@@ -3,6 +3,7 @@ package chata.can.chata_ai_api
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -212,7 +213,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.INPUT ->
 					{
 						EditText(this).apply {
+							background = GradientDrawable().apply {
+								shape = GradientDrawable.RECTANGLE
+								setColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+								cornerRadius = 15f
+								setStroke(3, (ContextCompat.getColor(this@MainActivity, R.color.borderEditText)))
+							}
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER_HORIZONTAL
 							if (demoParam.value != "true" && demoParam.value != "false")
 							{
@@ -225,7 +233,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						TextView(this).apply {
 							setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.colorButton))
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
-							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(28, 28, 28, 28)
+							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER_HORIZONTAL
 							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
 							text = demoParam.label
@@ -266,7 +274,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							finally
 							{
 								layoutParams = LinearLayout.LayoutParams(-1, 90)
-								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(28, 28, 28, 28)
+								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 								gravity = Gravity.CENTER
 								setTextColor(Color.WHITE)
 								text = demoParam.value
