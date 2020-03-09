@@ -265,9 +265,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							}
 							finally
 							{
-								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								layoutParams = LinearLayout.LayoutParams(-1, 90)
 								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(28, 28, 28, 28)
-								gravity = Gravity.CENTER_HORIZONTAL
+								gravity = Gravity.CENTER
 								setTextColor(Color.WHITE)
 								text = demoParam.value
 							}

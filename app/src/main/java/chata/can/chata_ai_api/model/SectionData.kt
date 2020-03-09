@@ -46,7 +46,7 @@ object SectionData
 				DemoParameter("1", TypeParameter.COLOR, "#355C7D"),
 				DemoParameter("2", TypeParameter.COLOR, "#6C5B7B"),
 				DemoParameter("3", TypeParameter.COLOR, "#C06C84"),
-				DemoParameter("4", TypeParameter.COLOR, "#f67280"),
+				DemoParameter("4", TypeParameter.COLOR, "#F67280"),
 				DemoParameter("5", TypeParameter.COLOR, "#F8B195"),
 				DemoParameter("Dashboard Title Color", TypeParameter.COLOR, "#2466AE"),
 				DemoParameter("AccentColor", TypeParameter.COLOR, "#28A8E0"),
