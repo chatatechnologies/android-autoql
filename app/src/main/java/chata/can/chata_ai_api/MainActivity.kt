@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.util.SparseArray
+import android.util.SparseBooleanArray
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -28,16 +28,10 @@ import chata.can.chata_ai_api.model.TypeParameter
 class MainActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var llContainer: LinearLayout
+	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	private lateinit var btnReloadDrawer: Button
 	private lateinit var btnOpenDrawer: Button
-
-	private lateinit var tvTop: TextView
-	private lateinit var tvBottom: TextView
-	private lateinit var tvLeft: TextView
-	private lateinit var tvRight: TextView
-	private val aPlacement = ArrayList<TextView>()
-	private var currentPlacement: TextView ?= null
 
 	private lateinit var bubbleHandle: BubbleHandle
 
@@ -54,8 +48,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		initViews()
-		initColorPlacement()
-		setColorPlacement(true)
+		setColorOptions()
 
 		if (isMarshmallow())
 		{
@@ -112,12 +105,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					if (it is TextView)
 					{
-						setColorPlacement(false)
+						/*setColorPlacement(false)
 						aPlacement.remove(currentPlacement)
 
 						aPlacement.add(it)
 						currentPlacement = it
-						setColorPlacement(true)
+						setColorPlacement(true)*/
 
 						mPlacement[it.id]?.let { placement -> bubbleHandle.setPlacement(placement) }
 					}
@@ -126,35 +119,51 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 	}
 
-	/**
-	 *
-	 */
-	private fun initColorPlacement()
+	private fun setColorOptions()
 	{
-		/*for (view in aPlacement)
+		for ((_, value) in mViews)
 		{
-			view.setBackgroundColor(Color.WHITE)
-			view.setTextColor(Color.BLACK)
-		}*/
-	}
-
-	private fun setColorPlacement(isSelected: Boolean)
-	{
-		currentPlacement?.let {
-			with(it)
+			for (index in 0 until value.size())
 			{
-				if (isSelected)
-				{
-					setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
-					setTextColor(Color.WHITE)
-				}
-				else
-				{
-					setBackgroundColor(Color.WHITE)
-					setTextColor(Color.BLACK)
+				val key = value.keyAt(index)
+				val isEnabled = value.get(key)
+				llContainer.findViewById<TextView>(key)?.let {
+						tv ->
+					if (isEnabled)
+					{
+						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
+						tv.setTextColor(Color.WHITE)
+					}
+					else
+					{
+						tv.setBackgroundColor(Color.WHITE)
+						tv.setTextColor(Color.BLACK)
+					}
 				}
 			}
 		}
+
+		/*val referenceOption = ""
+		mViews[referenceOption]?.let {
+			for (index in 0 until it.size())
+			{
+				val key = it.keyAt(index)
+				val isEnabled = it.get(key)
+				llContainer.findViewById<TextView>(key)?.let {
+						tv ->
+					if (isEnabled)
+					{
+						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
+						tv.setTextColor(Color.WHITE)
+					}
+					else
+					{
+						tv.setBackgroundColor(Color.WHITE)
+						tv.setTextColor(Color.BLACK)
+					}
+				}
+			}
+		}*/
 	}
 
 	override fun onDestroy()
@@ -248,6 +257,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							with(subView)
 							{
 								layoutParams = LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
+								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 								orientation = LinearLayout.HORIZONTAL
 
 								for (iterator in 0 until demoParam.options.size())
@@ -257,18 +267,17 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 									val tv = TextView(this@MainActivity)
 									tv.id = idView
 									tv.setOnClickListener(this@MainActivity)
-									tv.layoutParams = LinearLayout.LayoutParams(0, -2).apply {
+									tv.layoutParams = LinearLayout.LayoutParams(0, 90).apply {
 										weight = 1f
 									}
-									tv.gravity = Gravity.CENTER_HORIZONTAL
+									tv.gravity = Gravity.CENTER
 									tv.text = option
-									if (iterator == 0)
-									{
-										currentPlacement = tv
-									}
-									else
-									{
-										aPlacement.add(tv)
+									tv.tag = demoParam.label
+
+									mViews[demoParam.label]?.put(tv.id, iterator == 0) ?: run {
+										val newSparse = SparseBooleanArray()
+										newSparse.put(tv.id, iterator == 0)
+										mViews.put(demoParam.label, newSparse)
 									}
 									this.addView(tv)
 								}
@@ -298,6 +307,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				llContainer.addView(viewChild)
 			}
 		}
+		println("Hello")
 
 		/*btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
 		btnOpenDrawer = findViewById(R.id.btnOpenDrawer)

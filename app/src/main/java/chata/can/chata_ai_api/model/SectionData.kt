@@ -9,6 +9,9 @@ object SectionData
 	private val saPlacement = SparseArray<String>()
 
 	init {
+		saTheme.put(R.id.tvLight, "Light")
+		saTheme.put(R.id.tvDark, "Dark")
+
 		saPlacement.put(R.id.tvTop, "Top")
 		saPlacement.put(R.id.tvBottom, "Bottom")
 		saPlacement.put(R.id.tvLeft, "Left")
