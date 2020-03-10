@@ -105,13 +105,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					if (it is TextView)
 					{
-						/*setColorPlacement(false)
-						aPlacement.remove(currentPlacement)
-
-						aPlacement.add(it)
-						currentPlacement = it
-						setColorPlacement(true)*/
-
+						if (it.tag is String)
+						{
+							setColorOption(it.tag as String, it.id)
+						}
 						mPlacement[it.id]?.let { placement -> bubbleHandle.setPlacement(placement) }
 					}
 				}
@@ -126,9 +123,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			for (index in 0 until value.size())
 			{
 				val key = value.keyAt(index)
-				val isEnabled = value.get(key)
+				val isEnabled = value[key]
 				llContainer.findViewById<TextView>(key)?.let {
-						tv ->
+					tv ->
 					if (isEnabled)
 					{
 						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
@@ -142,15 +139,31 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+	}
 
-		/*val referenceOption = ""
-		mViews[referenceOption]?.let {
+	private fun setColorOption(optionPath: String, idSelected: Int)
+	{
+		mViews[optionPath]?.let {
 			for (index in 0 until it.size())
 			{
 				val key = it.keyAt(index)
-				val isEnabled = it.get(key)
+				var isEnabled = it[key]
+				if (isEnabled)
+				{
+					isEnabled = false
+					it.put(key, isEnabled)
+				}
+				else
+				{
+					if (key == idSelected)
+					{
+						isEnabled = true
+						it.put(key, isEnabled)
+					}
+				}
+
 				llContainer.findViewById<TextView>(key)?.let {
-						tv ->
+					tv ->
 					if (isEnabled)
 					{
 						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
@@ -163,7 +176,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 				}
 			}
-		}*/
+		}
 	}
 
 	override fun onDestroy()
