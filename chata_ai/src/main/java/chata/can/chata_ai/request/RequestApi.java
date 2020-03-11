@@ -126,7 +126,7 @@ public class RequestApi
 	}
 
 	String HEADER_CONTENT_TYPE = "Content-Type";
-	private void addBody(HttpURLConnection connection) throws  IOException
+	private void addBody(HttpURLConnection connection) throws IOException
 	{
 		byte[] body = buildParams();
 		connection.setDoOutput(true);
