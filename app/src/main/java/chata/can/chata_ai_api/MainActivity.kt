@@ -74,7 +74,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			initBubble()
 		}
 
-		RequestApi.callStringRequest("https://backend.chata.ai/oauth/token")
+		val abc = RequestApi()
+		//RequestApi.callStringRequest("http://backend.chata.ai/oauth/token")
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -323,7 +324,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				llContainer.addView(viewChild)
 			}
 		}
-		println("Hello")
 
 		/*btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
 		btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
