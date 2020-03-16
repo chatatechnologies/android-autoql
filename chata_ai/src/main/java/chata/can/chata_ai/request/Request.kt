@@ -1,11 +1,11 @@
 package chata.can.chata_ai.request
 
-import com.android.volley.Request
-import java.io.IOException
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.net.URLEncoder
 
-class Request
+object Request
 {
 	fun executeRequest(
 		method: Int,
@@ -16,25 +16,32 @@ class Request
 		val connection = openConnection(url)
 		setRequestProperty(connection)
 
-		when(method)
+		connection.requestMethod = when(method)
 		{
-			Method.GET ->
-			{
-				connection.requestMethod = "GET"
-			}
-			Method.POST ->
-			{
-				connection.requestMethod = "POST"
-			}
-			Method.PUT ->
-			{
-				connection.requestMethod = "PUT"
-			}
-			Method.DELETE ->
-			{
-				connection.requestMethod = "DELETE"
-			}
+			Method.GET -> "GET"
+			Method.POST -> "POST"
+			Method.PUT -> "PUT"
+			Method.DELETE -> "DELETE"
+			else -> "POST"
 		}
+
+		Thread(Runnable {
+			addBody(connection)
+			val responseCode = connection.responseCode
+
+			val inputStreamReader = InputStreamReader(connection.inputStream)
+			val reader = BufferedReader(inputStreamReader)
+
+			val out = StringBuilder()
+
+			var line: String?
+			while (reader.readLine().also { line = it } != null)
+			{
+				out.append(line)
+			}
+
+			println(out.toString())
+		}).start()
 	}
 
 	@Throws(IOException::class)
@@ -66,8 +73,42 @@ class Request
 		}
 	}
 
-	private fun getBody()
+	private val HEADER_CONTENT_TYPE = "Content-Type"
+	private val DEFAULT_PARAMS_ENCODING = "UTF-8"
+	@Throws(IOException::class)
+	private fun addBody(connection: HttpURLConnection)
 	{
+		val body = buildParams(hashMapOf())
+		connection.doOutput = true
 
+		if (!connection.requestProperties.containsKey(HEADER_CONTENT_TYPE))
+		{
+			connection.setRequestProperty(
+				HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded; charset=$DEFAULT_PARAMS_ENCODING")
+		}
+		val out = DataOutputStream(connection.outputStream)
+		out.write(body)
+		out.close()
+	}
+
+	fun buildParams(params: HashMap<String, String>): ByteArray
+	{
+		val DEFAULT_PARAMS_ENCODING = "UTF-8"
+		val encodedParams = StringBuilder()
+		try
+		{
+			for (entry in params.entries)
+			{
+				encodedParams.append(URLEncoder.encode(entry.key, DEFAULT_PARAMS_ENCODING))
+				encodedParams.append('=')
+				encodedParams.append(URLEncoder.encode(entry.value, DEFAULT_PARAMS_ENCODING))
+				encodedParams.append('&')
+			}
+			return encodedParams.toString().toByteArray(charset(DEFAULT_PARAMS_ENCODING))
+		}
+		catch (uee: UnsupportedEncodingException)
+		{
+			throw RuntimeException("Encoding not supported: $DEFAULT_PARAMS_ENCODING", uee)
+		}
 	}
 }

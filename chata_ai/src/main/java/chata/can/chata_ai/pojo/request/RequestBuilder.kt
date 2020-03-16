@@ -48,7 +48,6 @@ object RequestBuilder
 					{
 						listener.onSuccess(JSONObject().put("RESPONSE", it ?: ""))
 					}
-
 				}
 			},
 			Response.ErrorListener

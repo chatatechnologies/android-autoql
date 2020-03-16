@@ -18,6 +18,8 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.request.BaseRequest
+import chata.can.chata_ai.request.Method
+import chata.can.chata_ai.request.Request
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -74,7 +76,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			initBubble()
 		}
 
-		BaseRequest.callRequest()
+		//BaseRequest.callRequest()
+		Request.executeRequest(Method.POST, "https://backend.chata.ai/oauth/token")
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
