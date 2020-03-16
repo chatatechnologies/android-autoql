@@ -18,7 +18,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.request.BaseRequest
-import chata.can.chata_ai.request.RequestApi
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -75,7 +74,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			initBubble()
 		}
 
-		//RequestApi()
 		BaseRequest.callRequest()
 	}
 
