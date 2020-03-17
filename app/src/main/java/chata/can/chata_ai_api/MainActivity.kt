@@ -85,6 +85,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		Request.executeRequest(
 			Method.GET,
 			"https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
+		Request.executeRequest(
+			Method.POST,
+			"https://backend.chata.ai/oauth/token",
+			params = params
+		)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
