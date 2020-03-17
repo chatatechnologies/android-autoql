@@ -1,47 +1,85 @@
 package chata.can.chata_ai.request
 
 import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLEncoder
+import java.net.*
 
 object Request
 {
 	fun executeRequest(
 		method: Int,
-		urlString: String
+		urlString: String,
+		contentType : String = "",
+		headers : HashMap<String, String>?= null,
+		params : HashMap<String, String>?= null
 	)
 	{
-		val url = URL(urlString)
-		val connection = openConnection(url)
-		setRequestProperty(connection)
-
-		connection.requestMethod = when(method)
+		try
 		{
-			Method.GET -> "GET"
-			Method.POST -> "POST"
-			Method.PUT -> "PUT"
-			Method.DELETE -> "DELETE"
-			else -> "POST"
-		}
+			val url = URL(urlString)
+			val connection = openConnection(url)
+			setRequestProperty(connection)
 
-		Thread(Runnable {
-			addBody(connection)
-			val responseCode = connection.responseCode
-
-			val inputStreamReader = InputStreamReader(connection.inputStream)
-			val reader = BufferedReader(inputStreamReader)
-
-			val out = StringBuilder()
-
-			var line: String?
-			while (reader.readLine().also { line = it } != null)
+			connection.requestMethod = when(method)
 			{
-				out.append(line)
+				Method.GET -> "GET"
+				Method.POST -> "POST"
+				Method.PUT -> "PUT"
+				Method.DELETE -> "DELETE"
+				else -> "POST"
 			}
 
-			println(out.toString())
-		}).start()
+			Thread(Runnable {
+				try
+				{
+					when(method)
+					{
+						Method.POST, Method.PUT ->
+						{
+							addBody(connection, params?: hashMapOf())
+						}
+					}
+
+					val responseCode = connection.responseCode
+
+					val inputStreamReader = InputStreamReader(connection.inputStream)
+					val reader = BufferedReader(inputStreamReader)
+
+					val out = StringBuilder()
+
+					var line: String?
+					while (reader.readLine().also { line = it } != null)
+					{
+						out.append(line)
+					}
+
+					println(out.toString())
+				}
+				catch (ex: Exception)
+				{
+					ex.printStackTrace()
+				}
+				finally
+				{
+					connection.disconnect()
+				}
+			}).start()
+		}
+		catch (ex: MalformedURLException)
+		{
+			ex.printStackTrace()
+		}
+		catch (ex: ProtocolException)
+		{
+			ex.printStackTrace()
+		}
+		catch (ex: IOException)
+		{
+			ex.printStackTrace()
+		}
+		catch (ex: Exception)
+		{
+			ex.printStackTrace()
+		}
 	}
 
 	@Throws(IOException::class)
@@ -76,9 +114,9 @@ object Request
 	private val HEADER_CONTENT_TYPE = "Content-Type"
 	private val DEFAULT_PARAMS_ENCODING = "UTF-8"
 	@Throws(IOException::class)
-	private fun addBody(connection: HttpURLConnection)
+	private fun addBody(connection: HttpURLConnection, params: HashMap<String, String> = hashMapOf())
 	{
-		val body = buildParams(hashMapOf())
+		val body = buildParams(params)
 		connection.doOutput = true
 
 		if (!connection.requestProperties.containsKey(HEADER_CONTENT_TYPE))
@@ -91,7 +129,7 @@ object Request
 		out.close()
 	}
 
-	fun buildParams(params: HashMap<String, String>): ByteArray
+	private fun buildParams(params: HashMap<String, String>): ByteArray
 	{
 		val DEFAULT_PARAMS_ENCODING = "UTF-8"
 		val encodedParams = StringBuilder()
