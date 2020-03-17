@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import chata.can.chata_ai.request.BaseRequest
 import chata.can.chata_ai.request.Method
 import chata.can.chata_ai.request.Request
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
@@ -76,8 +75,16 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			initBubble()
 		}
 
-		//BaseRequest.callRequest()
-		Request.executeRequest(Method.POST, "https://backend.chata.ai/oauth/token")
+		val params = hashMapOf(
+			"scope" to "read",
+			"grant_type" to "password",
+			"username" to "carlos@rinro.com.mx",
+			"password" to "\$Chata124")
+		//Request.executeRequest(Method.POST, "https://backend.chata.ai/oauth/token", params = params)
+
+		Request.executeRequest(
+			Method.GET,
+			"https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
