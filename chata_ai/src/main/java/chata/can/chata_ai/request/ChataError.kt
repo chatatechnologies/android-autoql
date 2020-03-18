@@ -3,7 +3,7 @@ package chata.can.chata_ai.request
 class ChataError: Exception
 {
 	var networkResponse: NetworkResponse ?= null
-	var networkTimeMs = 0L
+	private var networkTimeMs = 0L
 
 	constructor()
 	{
