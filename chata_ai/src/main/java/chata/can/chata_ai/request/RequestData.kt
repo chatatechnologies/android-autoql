@@ -21,7 +21,7 @@ class RequestData(
 
 	fun getBodyContentType()
 	{
-		"application/x-www-form-urlencoded; charset=" + Constant.DEFAULT_PARAMS_ENCODING
+		"application/x-www-form-urlencoded; charset=" + ConstantRequest.DEFAULT_PARAMS_ENCODING
 	}
 
 	fun getHeaders() = mHeaders ?: HashMap()

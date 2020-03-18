@@ -17,8 +17,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import chata.can.chata_ai.request.Method
-import chata.can.chata_ai.request.Request
+import chata.can.chata_ai.request.ConstantRequest
+import chata.can.chata_ai.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -82,11 +82,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			"password" to "\$Chata124")
 		//Request.executeRequest(Method.POST, "https://backend.chata.ai/oauth/token", params = params)
 
-		Request.executeRequest(
-			Method.GET,
+		RequestBuilder.executeRequest(
+			ConstantRequest.Method.GET,
 			"https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
-		Request.executeRequest(
-			Method.POST,
+		RequestBuilder.executeRequest(
+			ConstantRequest.Method.POST,
 			"https://backend.chata.ai/oauth/token",
 			params = params
 		)
