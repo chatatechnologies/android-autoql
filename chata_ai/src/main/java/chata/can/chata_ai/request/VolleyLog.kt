@@ -88,11 +88,8 @@ class VolleyLog
 		}
 		return String.format(Locale.US, "[%d] %s: %s", Thread.currentThread().id, caller, msg)
 	}
-
 	inner class MarkerLog
 	{
-		val ENABLED = DEBUG
-
 		/** Minimum duration from first marker to last in an marker log to warrant logging. */
 		private val MIN_DURATION_FOR_LOGGING_MS = 0
 
