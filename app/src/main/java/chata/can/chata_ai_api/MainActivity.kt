@@ -56,7 +56,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			it.setOnClickListener {
 				val intent = Intent(this, Activity2::class.java)
 				startActivity(intent)
-				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+				//overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+				overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 			}
 		}
 
