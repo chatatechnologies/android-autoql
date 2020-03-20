@@ -2,13 +2,16 @@ package chata.can.chata_ai.activity
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import chata.can.chata_ai.R
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
-class ChatActivity: AppCompatActivity()
+class ChatActivity: AppCompatActivity(), View.OnClickListener
 {
-	private lateinit var toolbar: Toolbar
+	private lateinit var ivCancel: ImageView
+	private lateinit var ivDelete: ImageView
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -16,6 +19,7 @@ class ChatActivity: AppCompatActivity()
 		setContentView(R.layout.chat_activity)
 
 		initViews()
+		initListener()
 		initData()
 	}
 
@@ -28,16 +32,41 @@ class ChatActivity: AppCompatActivity()
 	override fun finish()
 	{
 		super.finish()
+		BubbleHandle.isOpenChat = false
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
+	}
+
+	override fun onClick(view: View?)
+	{
+		view?.let {
+			when(it.id)
+			{
+				R.id.ivCancel ->
+				{
+					finish()
+				}
+				R.id.ivDelete ->
+				{
+
+				}
+			}
+		}
 	}
 
 	private fun initViews()
 	{
-		toolbar = findViewById(R.id.toolbar)
+		ivCancel = findViewById(R.id.ivCancel)
+		ivDelete = findViewById(R.id.ivDelete)
+	}
+
+	private fun initListener()
+	{
+		ivCancel.setOnClickListener(this)
+		ivDelete.setOnClickListener(this)
 	}
 
 	private fun initData()
 	{
-		setSupportActionBar(toolbar)
+
 	}
 }

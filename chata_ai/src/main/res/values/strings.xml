@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">chata_ai</string>
 	<string name="ask_me_anything">Ask me anything…</string>
+	<string name="data_messenger">Data Messenger</string>
 </resources>

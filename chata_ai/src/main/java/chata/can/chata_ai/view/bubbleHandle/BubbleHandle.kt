@@ -25,6 +25,8 @@ class BubbleHandle(private val context: Context)
 		const val BOTTOM_PLACEMENT = 2
 		const val LEFT_PLACEMENT = 3
 		const val RIGHT_PLACEMENT = 4
+
+		var isOpenChat = false
 	}
 
 	private val defaultPlacement = 4
@@ -61,10 +63,13 @@ class BubbleHandle(private val context: Context)
 
 			addView(initChildView())
 			setOnBubbleClickListener {
-				val intent = Intent(context, ChatActivity::class.java)
-				context.startActivity(intent)
-				(context as? AppCompatActivity)?.let {
-					it.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+				if (!isOpenChat)
+				{
+					isOpenChat = true
+					val intent = Intent(context, ChatActivity::class.java)
+					context.startActivity(intent)
+					(context as? AppCompatActivity)
+						?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 				}
 			}
 

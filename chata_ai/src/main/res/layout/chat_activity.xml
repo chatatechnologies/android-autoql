@@ -5,15 +5,37 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 
-	<androidx.appcompat.widget.Toolbar
+	<RelativeLayout
 		android:background="@color/chata_drawer_accent_color"
-		android:id="@+id/toolbar"
+		android:minHeight="?attr/actionBarSize"
+		android:paddingEnd="8dp"
+		android:paddingStart="8dp"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:minHeight="?attr/actionBarSize"/>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="@string/app_name"/>
+		android:layout_width="match_parent">
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivCancel"
+			android:layout_centerVertical="true"
+			android:layout_height="24dp"
+			android:layout_width="24dp"
+			android:src="@drawable/ic_cancel"/>
+		<TextView
+			android:gravity="center"
+			android:layout_centerInParent="true"
+			android:layout_height="wrap_content"
+			android:layout_toEndOf="@id/ivCancel"
+			android:layout_toStartOf="@id/ivDelete"
+			android:layout_width="match_parent"
+			android:text="@string/data_messenger"
+			android:textColor="@color/chata_drawer_hover_color"
+			android:textSize="18sp"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivDelete"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_height="24dp"
+			android:layout_width="24dp"
+			android:src="@drawable/ic_delete"/>
+	</RelativeLayout>
 </LinearLayout>
