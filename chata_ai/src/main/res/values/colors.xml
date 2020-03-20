@@ -10,4 +10,17 @@
 	<color name="secondary_text_color">#999999</color>
 	<color name="border_color">#F1F1F1</color>
 	<color name="accent_color">#31A8DD</color>
+
+	<color name="chata_drawer_accent_color">#28A8E0</color>
+	<color name="chata_drawer_background_color">#FFF</color>
+	<color name="chata_drawer_border_color">#D3D3D352</color>
+	<color name="chata_drawer_hover_color">#ECECEC</color>
+	<color name="chata_drawer_color_primary">#5D5D5D</color>
+	<color name="chata_drawer_text_color_placeholder">#0000009C</color>
+	<color name="chata_dashboard_accent_color">#28A8E0</color>
+	<color name="chata_dashboard_background_color">#FFF</color>
+	<color name="chata_dashboard_border_color">#D3D3D352</color>
+	<color name="chata_dashboard_hover_color">#ECECEC</color>
+	<color name="chata_dashboard_text_color_primary">#5D5D5D</color>
+	<color name="chata_dashboard_text_color_placeholder">#0000009C</color>
 </resources>
