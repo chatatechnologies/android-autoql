@@ -3,6 +3,7 @@ package chata.can.chata_ai.view.bubbleHandle
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
@@ -57,7 +58,7 @@ class BubbleHandle(private val context: Context)
 			clipToPadding = false
 
 			addView(initChildView())
-			setOnBubbleClickListener { /*showToast("Clicked")*/ }
+			setOnBubbleClickListener { Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show() }
 
 			setShouldStickToWall(true)
 

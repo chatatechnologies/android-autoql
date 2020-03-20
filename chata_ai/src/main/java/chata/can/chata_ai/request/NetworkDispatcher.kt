@@ -102,7 +102,7 @@ class NetworkDispatcher: Thread
 
 			// If the request was cancelled already, do not perform the
 			// network request.
-			if (request.isCa)
+			//if (request.isCa)
 		}
 		catch(chataError: ChataError)
 		{

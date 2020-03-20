@@ -99,7 +99,7 @@ abstract class Request<T>: Comparable<Request<T>>
 		mErrorListener = listener
 		setRetryPolicy(DefaultRetryPolicy())
 
-		mDefaultTrafficStatsTag = mDefaultTrafficStatsTag(url)
+		//mDefaultTrafficStatsTag = mDefaultTrafficStatsTag(url)
 	}
 
 	/** Return the method for this request. Can be one of the values in {@link Method}. */

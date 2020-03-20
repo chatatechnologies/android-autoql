@@ -52,5 +52,5 @@ class RequestQueue
 	private val mDispatchers: ArrayList<NetworkDispatcher> ?= null
 
 	/** The cache dispatcher. */
-	private var mCacheDispatcher: CacheDispatcher ?= null
+	//private var mCacheDispatcher: CacheDispatcher ?= null
 }
