@@ -1,10 +1,12 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
+import android.content.Intent
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.ChatActivity
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
@@ -58,7 +60,13 @@ class BubbleHandle(private val context: Context)
 			clipToPadding = false
 
 			addView(initChildView())
-			setOnBubbleClickListener { Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show() }
+			setOnBubbleClickListener {
+				val intent = Intent(context, ChatActivity::class.java)
+				context.startActivity(intent)
+				(context as? AppCompatActivity)?.let {
+					it.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+				}
+			}
 
 			setShouldStickToWall(true)
 
