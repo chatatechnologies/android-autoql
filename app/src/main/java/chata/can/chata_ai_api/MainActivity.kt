@@ -52,6 +52,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		initViews()
 		setColorOptions()
 
+		findViewById<Button>(R.id.openActivity)?.let {
+			it.setOnClickListener {
+				val intent = Intent(this, Activity2::class.java)
+				startActivity(intent)
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+			}
+		}
+
 		if (isMarshmallow())
 		{
 			if (!canDrawOverlays())
