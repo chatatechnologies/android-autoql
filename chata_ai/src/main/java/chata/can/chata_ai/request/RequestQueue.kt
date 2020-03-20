@@ -49,4 +49,8 @@ class RequestQueue
 	var mDelivery: ResponseDelivery ? = null
 
 	/** The network dispatchers. */
+	private val mDispatchers: ArrayList<NetworkDispatcher> ?= null
+
+	/** The cache dispatcher. */
+	private var mCacheDispatcher: CacheDispatcher ?= null
 }

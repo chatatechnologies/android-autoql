@@ -3,6 +3,8 @@ package chata.can.chata_ai.request
 import android.annotation.TargetApi
 import android.net.TrafficStats
 import android.os.Build
+import android.os.Process
+import android.os.SystemClock
 import java.util.concurrent.BlockingQueue
 
 class NetworkDispatcher: Thread
@@ -59,6 +61,56 @@ class NetworkDispatcher: Thread
 
 	override fun run()
 	{
-		super.run()
+		Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND)
+		while (true)
+		{
+			try {
+
+			}
+			catch (e: InterruptedException)
+			{
+				// We may have been interrupted because it was time to quit.
+				if (mQuit)
+				{
+					Thread.currentThread().interrupt()
+					return
+				}
+				VolleyLog.e("Ignoring spurious interrupt of NetworkDispatcher thread; "
+					+ "use quit() to terminate it")
+			}
+		}
+	}
+
+	// Extracted to its own method to ensure locals have a constrained liveness scope by the GC.
+	// This is needed to avoid keeping previous request references alive for an indeterminate amount
+	// of time. Update consumer-proguard-rules.pro when modifying this. See also
+	// https://github.com/google/volley/issues/114
+	@Throws(InterruptedException::class)
+	private fun processRequest()
+	{
+		(mQueue?.take())?.let {
+			processRequest(it)
+		}
+	}
+
+	fun processRequest(request: Request<*>)
+	{
+		val startTimeMs = SystemClock.elapsedRealtime()
+		try
+		{
+			request.addMarker("network-queue-take")
+
+			// If the request was cancelled already, do not perform the
+			// network request.
+			if (request.isCa)
+		}
+		catch(chataError: ChataError)
+		{
+
+		}
+		catch (ex: Exception)
+		{
+
+		}
 	}
 }
