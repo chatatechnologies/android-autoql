@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.ChatActivity
+import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault

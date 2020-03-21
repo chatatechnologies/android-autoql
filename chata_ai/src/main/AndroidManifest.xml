@@ -7,7 +7,7 @@
 
 	<application>
 		<activity
-			android:name=".activity.ChatActivity"
+			android:name=".activity.chat.ChatActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
 		<service android:name=".view.bubbles.BubblesService"
