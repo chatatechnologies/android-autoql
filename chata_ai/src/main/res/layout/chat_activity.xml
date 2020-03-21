@@ -38,4 +38,22 @@
 			android:layout_width="24dp"
 			android:src="@drawable/ic_delete"/>
 	</RelativeLayout>
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rvChat"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:layout_width="match_parent"/>
+
+	<RelativeLayout
+		android:layout_height="40dp"
+		android:layout_width="match_parent">
+
+		<AutoCompleteTextView
+			android:id="@+id/etQuery"
+			android:inputType="text"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"/>
+
+	</RelativeLayout>
 </LinearLayout>

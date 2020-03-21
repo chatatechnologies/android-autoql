@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.chat.ChatData
 
 class BaseHolder(view: View): Holder(view)
 {
@@ -11,6 +12,9 @@ class BaseHolder(view: View): Holder(view)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
-
+		if (item is ChatData)
+		{
+			tvContent.text = item.message
+		}
 	}
 }
