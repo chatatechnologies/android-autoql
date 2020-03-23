@@ -2,8 +2,11 @@ package chata.can.chata_ai.activity.chat
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
@@ -75,7 +79,23 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		with(etQuery)
 		{
 			background = pDrawable.second
+			//setDropDownBackgroundDrawable(pDrawable.second)
+			threshold = 1
+			etQuery.onItemClickListener = AdapterView.OnItemClickListener {
+				parent, _, position, _ ->
 
+			}
+
+			setOnEditorActionListener {
+				_, _, _ ->
+
+				false
+			}
+
+			val displayMetrics = DisplayMetrics()
+			ScreenData.defaultDisplay.getMetrics(displayMetrics)
+			val width = displayMetrics.widthPixels
+			etQuery.dropDownWidth = width
 		}
 
 		ivMicrophone.background = pDrawable.first
@@ -110,6 +130,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 
 	private fun initData()
 	{
-
+		windowManager?.let {
+			ScreenData.defaultDisplay = it.defaultDisplay
+		}
 	}
 }

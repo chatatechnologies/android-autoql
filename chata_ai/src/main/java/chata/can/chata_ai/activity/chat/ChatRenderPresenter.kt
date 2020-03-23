@@ -25,7 +25,7 @@ class ChatRenderPresenter(
 		val white = ContextCompat.getColor(context, R.color.chata_drawer_background_color)
 		val gray = ContextCompat.getColor(context, R.color.chata_drawer_color_primary)
 
-		val queryDrawable = DrawableBuilder.setGradientDrawable(white,9f,3, gray)
+		val queryDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 		return Pair(circleDrawable, queryDrawable)
 	}
 }
