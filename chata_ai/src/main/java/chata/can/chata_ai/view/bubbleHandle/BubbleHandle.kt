@@ -30,7 +30,10 @@ class BubbleHandle(private val context: Context)
 	}
 
 	private val defaultPlacement = 4
+	//region API properties
 	private var mPlacement = defaultPlacement
+	private var customerName = ""
+	//endregion
 
 	init {
 		BubblesManager.Builder(context)
@@ -53,6 +56,11 @@ class BubbleHandle(private val context: Context)
 		}
 	}
 
+	fun setCustomerName(customerName: String)
+	{
+		this.customerName = customerName
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)
@@ -67,6 +75,7 @@ class BubbleHandle(private val context: Context)
 				{
 					isOpenChat = true
 					val intent = Intent(context, ChatActivity::class.java)
+					createIntentData(intent)
 					context.startActivity(intent)
 					(context as? AppCompatActivity)
 						?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
@@ -76,6 +85,14 @@ class BubbleHandle(private val context: Context)
 			setShouldStickToWall(true)
 
 			bubblesManager.addBubble(bubbleLayout, 0,0)
+		}
+	}
+
+	private fun createIntentData(intent: Intent)
+	{
+		with(intent)
+		{
+			putExtra("CUSTOMER_NAME", customerName)
 		}
 	}
 

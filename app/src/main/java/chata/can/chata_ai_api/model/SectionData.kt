@@ -48,7 +48,7 @@ object SectionData
 				DemoParameter("Format for Day, Month, Year", TypeParameter.INPUT, "MMM DD, YYYY"),
 				DemoParameter("Number of Decimals for Currency Values", TypeParameter.INPUT, "2"),
 				DemoParameter("Number of Decimals for Quantity Values", TypeParameter.INPUT, "1"),
-				DemoParameter("Customer Name", TypeParameter.INPUT, "Carlos"),
+				DemoParameter("Customer Name", TypeParameter.INPUT, "Jose Carlos", idView = R.id.tvCustomerMessage),
 				DemoParameter("Intro Message", TypeParameter.INPUT),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE),
 				DemoParameter("Height", TypeParameter.INPUT, "550"),

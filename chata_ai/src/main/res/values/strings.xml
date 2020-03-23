@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">chata_ai</string>
+  <string name="app_name">chata_ai</string>
 	<string name="ask_me_anything">Ask me anything…</string>
 	<string name="data_messenger">Data Messenger</string>
+	
+	<string name="intro_message_chata_drawer">Hi %1$s! Let\'s dive into your data. What can I help you discover today?</string>
 </resources>

@@ -7,4 +7,6 @@
 	<item name="tvBottom" type="id"/>
 	<item name="tvLeft" type="id"/>
 	<item name="tvRight" type="id"/>
+
+	<item name="tvCustomerMessage" type="id"/>
 </resources>

@@ -255,6 +255,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER_HORIZONTAL
+							id = demoParam.idView
 							if (demoParam.value != "true" && demoParam.value != "false")
 							{
 								setText(demoParam.value)
@@ -348,6 +349,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun initBubble()
 	{
 		bubbleHandle = BubbleHandle(this)
+		initDataBubble()
+	}
+
+	private fun initDataBubble()
+	{
+		findViewById<EditText>(R.id.tvCustomerMessage)?.let {
+			bubbleHandle.setCustomerName(it.text.toString())
+		}
 	}
 
 	/**

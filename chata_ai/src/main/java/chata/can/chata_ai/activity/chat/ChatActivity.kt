@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.chat
 
+import android.content.Context
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
+import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.TextChanged
@@ -38,6 +40,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 	private val servicePresenter = ChatServicePresenter(this)
 	private lateinit var chatAdapter: ChatAdapter
 
+	private var customerName = ""
+
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
@@ -45,11 +49,11 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 
 		initConfig()
 		initViews()
+		initData()
 		initListener()
 		initList()
 
 		renderPresenter.setData()
-		initData()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean
@@ -186,16 +190,18 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		model = BaseModelList()
 		chatAdapter = ChatAdapter(model)
 
-		model.addData(ChatData(1, "Hi Vicente! I'm here to help you access, search and analyze your date"))
-		model.addData(ChatData(2, "All invoices last 4 types"))
+		val introMessageRes = (this as Context).getStringResources(R.string.intro_message_chata_drawer)
+		val introMessage = String.format(introMessageRes, customerName)
 
+		model.addData(ChatData(1, introMessage))
+		//model.addData(ChatData(2, "All invoices last 4 types"))
 		rvChat.layoutManager = LinearLayoutManager(this)
 		rvChat.adapter = chatAdapter
 	}
 
 	private fun initData()
 	{
-
+		customerName = intent?.getStringExtra("CUSTOMER_NAME") ?: ""
 	}
 
 	private fun setRequestQuery()
