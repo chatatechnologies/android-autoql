@@ -52,10 +52,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		initViews()
 		setColorOptions()
 
-		findViewById<Button>(R.id.openActivity)?.let {
-
-		}
-
 		if (isMarshmallow())
 		{
 			if (!canDrawOverlays())

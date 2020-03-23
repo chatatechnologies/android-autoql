@@ -2,13 +2,25 @@ package chata.can.chata_ai.holder
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
-class BaseHolder(view: View): Holder(view)
+open class BaseHolder(view: View): Holder(view)
 {
-	private val tvContent: TextView = view.findViewById(R.id.tvContent)
+	val tvContent: TextView = view.findViewById(R.id.tvContent)
+
+	init {
+		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		tvContent.setTextColor(textColor)
+
+		val white = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_background_color)
+		val gray = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		val queryDrawable = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
+		tvContent.background = queryDrawable
+	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{

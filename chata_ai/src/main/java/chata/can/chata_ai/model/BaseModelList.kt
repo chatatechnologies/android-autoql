@@ -24,7 +24,7 @@ open class BaseModelList<Model: Any>
 
 	open fun countData() = aData.size
 
-	open fun getData(position: Int): Model?
+	operator fun get(position: Int): Model?
 	{
 		return if (position < aData.size)
 		{
@@ -39,7 +39,7 @@ open class BaseModelList<Model: Any>
 		listener: OnItemClickListener ?= null
 	)
 	{
-		getData(position)?.let {
+		get(position)?.let {
 			view.onBind(it, listener)
 		}
 	}

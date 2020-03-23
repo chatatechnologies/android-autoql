@@ -5,10 +5,11 @@
 	android:layout_width="match_parent">
 	<RelativeLayout
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="60dp"
+		android:layout_marginStart="60dp"
 		android:layout_width="match_parent">
 		<TextView
 			android:id="@+id/tvContent"
+			android:layout_alignParentEnd="true"
 			android:layout_height="wrap_content"
 			android:layout_margin="5dp"
 			android:layout_width="wrap_content"

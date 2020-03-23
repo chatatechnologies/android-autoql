@@ -101,7 +101,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		model = BaseModelList()
 		chatAdapter = ChatAdapter(model)
 
-		model.addData(ChatData("Hi Vicente! I'm here to help you access, search and analyze your date"))
+		model.addData(ChatData(1, "Hi Vicente! I'm here to help you access, search and analyze your date"))
+		model.addData(ChatData(2, "All invoices last 4 types"))
 
 		rvChat.layoutManager = LinearLayoutManager(this)
 		rvChat.adapter = chatAdapter
