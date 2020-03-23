@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.chat
 
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
@@ -55,11 +56,11 @@ class ChatServicePresenter(private var view: ChatContract?) : StatusResponse
 							hashMapOf<String, Any>("query" to query)
 							QueryRequest.callQuery(query, this)
 						}
-						else
-						{
-							//CREATE HERE QUERY_BASE
-						}
 					}
+				}
+				jsonObject.has("reference_id") ->
+				{
+					QueryBase(jsonObject)
 				}
 				else ->
 				{
