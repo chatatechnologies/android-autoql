@@ -1,6 +1,7 @@
 package chata.can.chata_ai.activity.chat
 
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -13,6 +14,11 @@ class ChatServicePresenter(private var view: ChatContract?) : StatusResponse
 	{
 		lastQuery = suggestionQuery
 		interactor.getAutocomplete(lastQuery, this)
+	}
+
+	fun getSafety(query: String)
+	{
+		QueryRequest.callSafetyNet(query, this)
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
@@ -38,6 +44,21 @@ class ChatServicePresenter(private var view: ChatContract?) : StatusResponse
 							aData.add(it.optString(index))
 						}
 						view?.setDataAutocomplete(aData)
+					}
+				}
+				jsonObject.has("full_suggestion") ->
+				{
+					jsonObject.optJSONArray("full_suggestion")?.let {
+						if (it.length() == 0)
+						{
+							val query = jsonObject.optString("query") ?: ""
+							hashMapOf<String, Any>("query" to query)
+							QueryRequest.callQuery(query, this)
+						}
+						else
+						{
+							//CREATE HERE QUERY_BASE
+						}
 					}
 				}
 				else ->

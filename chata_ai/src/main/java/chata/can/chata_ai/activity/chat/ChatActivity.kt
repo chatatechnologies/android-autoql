@@ -110,7 +110,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 
 			setOnEditorActionListener {
 				_, _, _ ->
-
+				setRequestQuery()
 				false
 			}
 
@@ -210,7 +210,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		if (query.isNotEmpty())
 		{
 			etQuery.setText("")
-			servicePresenter.getAutocomplete(query)
+			servicePresenter.getSafety(query)
 		}
 	}
 }

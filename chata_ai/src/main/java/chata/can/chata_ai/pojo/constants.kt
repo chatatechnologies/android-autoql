@@ -7,6 +7,7 @@ const val dataKey = "data"
 const val messageKey = "message"
 
 const val urlBase = "https://backend.chata.ai/"
+const val urlStaging = "https://backend-staging.chata.ai/"
 const val api1 = "api/v1/"
 
 const val typeJSON = "application/json"
