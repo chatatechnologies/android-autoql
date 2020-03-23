@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
@@ -28,6 +29,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 	private lateinit var ivMicrophone: ImageView
 
 	private lateinit var model: BaseModelList<ChatData>
+	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private val renderPresenter = ChatRenderPresenter(this, this)
 	private lateinit var chatAdapter: ChatAdapter
 
@@ -80,7 +82,11 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		{
 			background = pDrawable.second
 			//setDropDownBackgroundDrawable(pDrawable.second)
+
+			adapterAutoComplete = AutoCompleteAdapter(this@ChatActivity, R.layout.row_spinner)
+
 			threshold = 1
+			setAdapter(adapterAutoComplete)
 			etQuery.onItemClickListener = AdapterView.OnItemClickListener {
 				parent, _, position, _ ->
 
