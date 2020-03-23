@@ -16,6 +16,13 @@ class AutoCompleteAdapter(context: Context, resource: Int)
 		notifyDataSetChanged()
 	}
 
+	override fun addAll(collection: MutableCollection<out String>)
+	{
+		aData.addAll(collection)
+		aData.sort()
+		notifyDataSetChanged()
+	}
+
 	override fun clear() = aData.clear()
 
 	override fun getCount() = aData.size

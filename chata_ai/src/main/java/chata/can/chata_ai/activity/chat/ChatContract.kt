@@ -5,4 +5,5 @@ import android.graphics.drawable.GradientDrawable
 interface ChatContract
 {
 	fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
+	fun setDataAutocomplete(aMatches: ArrayList<String>)
 }

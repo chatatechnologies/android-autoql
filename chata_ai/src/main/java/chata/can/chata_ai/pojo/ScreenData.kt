@@ -5,4 +5,5 @@ import android.view.Display
 object ScreenData
 {
 	lateinit var defaultDisplay: Display
+	var densityByDP = 0f
 }
