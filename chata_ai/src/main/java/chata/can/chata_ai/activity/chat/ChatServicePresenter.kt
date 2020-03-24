@@ -67,7 +67,7 @@ class ChatServicePresenter(
 				}
 				jsonObject.has("reference_id") ->
 				{
-					QueryBase(jsonObject)
+					view?.addNewChat(QueryBase(jsonObject))
 				}
 				else ->
 				{

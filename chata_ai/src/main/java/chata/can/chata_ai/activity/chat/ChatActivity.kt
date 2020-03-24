@@ -21,6 +21,7 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import com.android.volley.toolbox.Volley
@@ -151,6 +152,14 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		adapterAutoComplete.notifyDataSetChanged()
 	}
 
+	override fun addNewChat(queryBase: QueryBase)
+	{
+		val chatData = ChatData(1, "A QUERY", queryBase)
+		model.addData(chatData)
+
+		chatAdapter.notifyItemChanged(model.countData() - 1)
+	}
+
 	private fun initConfig()
 	{
 		windowManager?.let {
@@ -217,6 +226,10 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		if (query.isNotEmpty())
 		{
 			etQuery.setText("")
+			model.addData(ChatData(2, query))
+
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+
 			servicePresenter.getSafety(query)
 		}
 	}
