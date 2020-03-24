@@ -13,7 +13,7 @@ class QueryBase(private val json: JSONObject)
 	private var displayType = ""
 	private var interpretation = ""
 
-	private val aRows = ArrayList<ArrayList<String>>()
+	val aRows = ArrayList<ArrayList<String>>()
 	private var aColumn = ArrayList<ColumnQuery>()
 
 	val numColumns = aColumn.size
