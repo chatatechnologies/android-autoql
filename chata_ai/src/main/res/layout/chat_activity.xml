@@ -24,14 +24,14 @@
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
 			android:layout_toEndOf="@id/ivCancel"
-			android:layout_toStartOf="@id/ivDelete"
+			android:layout_toStartOf="@id/ivClear"
 			android:layout_width="match_parent"
 			android:text="@string/data_messenger"
 			android:textColor="@color/chata_drawer_hover_color"
 			android:textSize="18sp"/>
 		<ImageView
 			android:contentDescription="@null"
-			android:id="@+id/ivDelete"
+			android:id="@+id/ivClear"
 			android:layout_alignParentEnd="true"
 			android:layout_centerVertical="true"
 			android:layout_height="24dp"

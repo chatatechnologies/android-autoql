@@ -38,7 +38,7 @@ import java.net.URLEncoder
 class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 {
 	private lateinit var ivCancel: ImageView
-	private lateinit var ivDelete: ImageView
+	private lateinit var ivClear: ImageView
 	private lateinit var rvChat: RecyclerView
 	private lateinit var etQuery: AutoCompleteTextView
 	private lateinit var ivMicrophone: ImageView
@@ -128,9 +128,15 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 				{
 					finish()
 				}
-				R.id.ivDelete ->
+				R.id.ivClear ->
 				{
+					model.clearData()
 
+					val introMessageRes = (this as Context).getStringResources(R.string.intro_message_chata_drawer)
+					val introMessage = String.format(introMessageRes, customerName)
+
+					model.addData(ChatData(1, introMessage))
+					chatAdapter.notifyDataSetChanged()
 				}
 				//TODO REMOVE
 				R.id.ivMicrophone ->
@@ -226,7 +232,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 	private fun initViews()
 	{
 		ivCancel = findViewById(R.id.ivCancel)
-		ivDelete = findViewById(R.id.ivDelete)
+		ivClear = findViewById(R.id.ivClear)
 		rvChat = findViewById(R.id.rvChat)
 		etQuery = findViewById(R.id.etQuery)
 		ivMicrophone = findViewById(R.id.ivMicrophone)
@@ -235,9 +241,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 	private fun initListener()
 	{
 		ivCancel.setOnClickListener(this)
-		ivDelete.setOnClickListener(this)
-		//TODO REMOVE
-		ivMicrophone.setOnClickListener(this)
+		ivClear.setOnClickListener(this)
+
 		etQuery.addTextChangedListener(object: TextChanged
 		{
 			override fun onTextChanged(string: String)
@@ -271,7 +276,6 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 		val introMessage = String.format(introMessageRes, customerName)
 
 		model.addData(ChatData(1, introMessage))
-		//model.addData(ChatData(2, "All invoices last 4 types"))
 		rvChat.layoutManager = LinearLayoutManager(this)
 		rvChat.adapter = chatAdapter
 	}

@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.chat.voice
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
+import android.util.Log
 import chata.can.chata_ai.activity.chat.ChatContract
 
 class VoiceRecognition(val view: ChatContract.VoiceView): RecognitionListener
@@ -31,6 +32,7 @@ class VoiceRecognition(val view: ChatContract.VoiceView): RecognitionListener
 			SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech input"
 			else -> "ASR error"
 		}
+		Log.e("SpeechError","Recognizer message : $errorMessage")
 		view.setStopRecorder()
 	}
 
