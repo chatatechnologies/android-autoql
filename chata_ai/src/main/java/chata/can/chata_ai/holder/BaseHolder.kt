@@ -26,7 +26,22 @@ open class BaseHolder(view: View): Holder(view)
 	{
 		if (item is ChatData)
 		{
-			tvContent.text = item.message
+			if (item.message.isNotEmpty())
+			{
+				tvContent.text = item.message
+			}
+			else
+			{
+				var content = ""
+				item.queryBase?.let {
+					if (it.isSimpleText)
+					{
+						content = it.simpleText
+					}
+				}
+
+				tvContent.text = content
+			}
 		}
 	}
 }

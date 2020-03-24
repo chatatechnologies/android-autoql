@@ -154,7 +154,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 
 	override fun addNewChat(queryBase: QueryBase)
 	{
-		val chatData = ChatData(1, "A QUERY", queryBase)
+		val chatData = ChatData(1, "", queryBase)
 		model.addData(chatData)
 
 		chatAdapter.notifyItemChanged(model.countData() - 1)

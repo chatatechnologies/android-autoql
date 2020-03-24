@@ -16,6 +16,24 @@ class QueryBase(private val json: JSONObject)
 	private val aRows = ArrayList<ArrayList<String>>()
 	private var aColumn = ArrayList<ColumnQuery>()
 
+	val numColumns = aColumn.size
+
+	val isSimpleText: Boolean
+	get() {
+		val sizeLevel1 = aRows.size
+		return aRows.firstOrNull()?.let {
+			val sizeLevel2 = aRows.size
+			return sizeLevel1 == 1 && sizeLevel2 == 1
+		} ?: run { false }
+	}
+
+	val simpleText: String
+	get() {
+		return aRows.firstOrNull()?.let {
+			it.firstOrNull()?: run { "" }
+		} ?: run { "" }
+	}
+
 	init {
 		joData?.let {
 			sql = joData.optString("sql") ?: ""
@@ -58,7 +76,7 @@ class QueryBase(private val json: JSONObject)
 						aColumn.add(column)
 					}
 				}
-				println("hola")
+				println("endregion for fill data")
 			}
 			//endregion
 		}
