@@ -13,6 +13,7 @@ class QueryBase(private val json: JSONObject)
 	private var displayType = ""
 	private var interpretation = ""
 
+	private val aRows = ArrayList<ArrayList<String>>()
 	private var aColumn = ArrayList<ColumnQuery>()
 
 	init {
@@ -21,6 +22,25 @@ class QueryBase(private val json: JSONObject)
 			queryId = joData.optString("query_id") ?: ""
 			displayType = joData.optString("display_type") ?: ""
 			interpretation = joData.optString("interpretation") ?: ""
+
+			//region rows
+			it.optJSONArray("rows")?.let {
+				jaRows ->
+				aRows.clear()
+				//each row
+				for (index in 0 until jaRows.length())
+				{
+					val newRow = ArrayList<String>()
+					val jaLevel2 = jaRows.optJSONArray(index)
+					for (index2 in 0 until jaLevel2.length())
+					{
+						val cell = jaLevel2.optString(index2, "")
+						newRow.add(cell)
+					}
+					aRows.add(newRow)
+				}
+			}
+			//endregion
 
 			//region columns
 			it.optJSONArray("columns")?.let {

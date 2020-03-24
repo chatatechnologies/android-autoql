@@ -82,6 +82,11 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 				{
 
 				}
+				//TODO REMOVE
+				R.id.ivMicrophone ->
+				{
+					setRequestQuery()
+				}
 			}
 		}
 	}
@@ -173,6 +178,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 	{
 		ivCancel.setOnClickListener(this)
 		ivDelete.setOnClickListener(this)
+		//TODO REMOVE
+		ivMicrophone.setOnClickListener(this)
 		etQuery.addTextChangedListener(object: TextChanged
 		{
 			override fun onTextChanged(string: String)
