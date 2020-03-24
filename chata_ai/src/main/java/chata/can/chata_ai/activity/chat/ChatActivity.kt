@@ -1,21 +1,29 @@
 package chata.can.chata_ai.activity.chat
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
+import android.speech.SpeechRecognizer
 import android.util.DisplayMetrics
 import android.view.Menu
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
+import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
@@ -27,13 +35,16 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import com.android.volley.toolbox.Volley
 import java.net.URLEncoder
 
-class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
+class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 {
 	private lateinit var ivCancel: ImageView
 	private lateinit var ivDelete: ImageView
 	private lateinit var rvChat: RecyclerView
 	private lateinit var etQuery: AutoCompleteTextView
 	private lateinit var ivMicrophone: ImageView
+
+	private lateinit var speechRecognizer: SpeechRecognizer
+	private lateinit var speechIntent: Intent
 
 	private lateinit var model: BaseModelList<ChatData>
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
@@ -55,6 +66,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		initList()
 
 		renderPresenter.setData()
+		initSpeechInput()
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu?): Boolean
@@ -68,6 +80,43 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 		super.finish()
 		BubbleHandle.isOpenChat = false
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
+	}
+
+	override fun setRecorder()
+	{
+		val red = ContextCompat.getColor(this, android.R.color.holo_red_dark)
+		val circleDrawable = GradientDrawable().apply {
+			shape = GradientDrawable.OVAL
+			setColor(red)
+		}
+		ivMicrophone.background = circleDrawable
+	}
+
+	override fun setSpeech(message: String)
+	{
+		etQuery.setText(message)
+		etQuery.setSelection(message.length)
+	}
+
+	override fun setStopRecorder()
+	{
+		val red = ContextCompat.getColor(this, R.color.chata_drawer_accent_color)
+		val circleDrawable = GradientDrawable().apply {
+			shape = GradientDrawable.OVAL
+			setColor(red)
+		}
+		ivMicrophone.background = circleDrawable
+	}
+
+	override fun onRequestPermissionsResult(
+		requestCode: Int,
+		permissions: Array<out String>,
+		grantResults: IntArray)
+	{
+		if (requestCode == 801)
+		{
+			//showAlert("Sorry, that didn't seem to work. Please try again.")
+		}
 	}
 
 	override fun onClick(view: View?)
@@ -196,9 +245,21 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 				if (string.isNotEmpty())
 				{
 					servicePresenter.getAutocomplete(URLEncoder.encode(string, "UTF-8"))
+					with(ivMicrophone)
+					{
+						setImageResource(R.drawable.ic_send)
+						setOnTouchListener(null)
+						setOnClickListener { setRequestQuery() }
+					}
+				}
+				else
+				{
+					ivMicrophone.setImageResource(R.drawable.ic_microphone)
+					setTouchListener()
 				}
 			}
 		})
+		setTouchListener()
 	}
 
 	private fun initList()
@@ -231,6 +292,75 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 			chatAdapter.notifyItemChanged(model.countData() - 1)
 
 			servicePresenter.getSafety(query)
+		}
+	}
+
+	private fun initSpeechInput()
+	{
+		speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+		speechRecognizer.setRecognitionListener(VoiceRecognition(this))
+
+		speechIntent = renderPresenter.initSpeechInput()
+	}
+
+	private fun promptSpeechInput()
+	{
+		if (SpeechRecognizer.isRecognitionAvailable(this))
+		{
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != 0)
+			{
+				AlertDialog.Builder(this)
+					.setMessage(R.string.msg_pemission_record)
+					.setNeutralButton("Ok", null)
+					.setOnDismissListener {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+						{
+							requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+						}
+					}.show()
+			}
+			else
+			{
+				speechRecognizer.startListening(speechIntent)
+			}
+		}
+		else
+			{
+				AlertDialog.Builder(this)
+					.setMessage("This device does not count an App with speech recognition.")
+					.setNeutralButton("Ok", null)
+					.setOnDismissListener {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+						{
+							requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+						}
+					}.show()
+			}
+	}
+
+	private fun setTouchListener()
+	{
+		with(ivMicrophone)
+		{
+			setOnClickListener(null)
+			setOnTouchListener {
+					_, event ->
+				when(event.action)
+				{
+					MotionEvent.ACTION_DOWN ->
+					{
+						promptSpeechInput()
+						//if (isOpenFAB) changeFAB(false)
+						//btnMenu.isEnabled = false
+					}
+					MotionEvent.ACTION_UP ->
+					{
+						speechRecognizer.stopListening()
+						//btnMenu.isEnabled = true
+					}
+				}
+				true
+			}
 		}
 	}
 }

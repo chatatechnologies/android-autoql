@@ -10,7 +10,7 @@ import org.json.JSONObject
 
 class ChatServicePresenter(
 	private val context: Context,
-	private var view: ChatContract?) : StatusResponse
+	private var view: ChatContract.View?) : StatusResponse
 {
 	private var lastQuery = ""
 	private val interactor = DataChatInteractor()

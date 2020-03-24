@@ -3,10 +3,25 @@ package chata.can.chata_ai.activity.chat
 import android.graphics.drawable.GradientDrawable
 import chata.can.chata_ai.pojo.chat.QueryBase
 
-interface ChatContract
+	interface ChatContract
 {
-	fun addNewChat(queryBase: QueryBase)
+	interface VoiceView
+	{
+		fun setRecorder()
+		fun setStopRecorder()
+		fun setSpeech(message: String)
+	}
 
-	fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
-	fun setDataAutocomplete(aMatches: ArrayList<String>)
+	interface RenderView: VoiceView
+	{
+		fun addNewChat(queryBase: QueryBase)
+		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
+	}
+
+	interface ServiceView
+	{
+		fun setDataAutocomplete(aMatches: ArrayList<String>)
+	}
+
+	interface View: RenderView, ServiceView
 }

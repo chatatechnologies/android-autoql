@@ -1,17 +1,19 @@
 package chata.can.chata_ai.activity.chat
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
+import android.speech.RecognizerIntent
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class ChatRenderPresenter(
-	private val context: Context, private val contract: ChatContract)
+	private val context: Context, private var contract: ChatContract.View?)
 {
 	fun setData()
 	{
-		contract.setData(backgroundBorder())
+		contract?.setData(backgroundBorder())
 	}
 
 	private fun backgroundBorder(): Pair<GradientDrawable,GradientDrawable>
@@ -27,5 +29,23 @@ class ChatRenderPresenter(
 
 		val queryDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 		return Pair(circleDrawable, queryDrawable)
+	}
+
+	fun initSpeechInput(): Intent
+	{
+		val speechIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+		with(speechIntent)
+		{
+			putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en")
+			putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
+			putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
+			putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1)
+		}
+		return speechIntent
+	}
+
+	fun onDestroy()
+	{
+		contract = null
 	}
 }

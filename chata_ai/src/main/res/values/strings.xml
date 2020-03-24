@@ -4,4 +4,5 @@
 	<string name="data_messenger">Data Messenger</string>
 	
 	<string name="intro_message_chata_drawer">Hi %1$s! Let\'s dive into your data. What can I help you discover today?</string>
+	<string name="msg_pemission_record">We need access to your microphone to hear your query.</string>
 </resources>
