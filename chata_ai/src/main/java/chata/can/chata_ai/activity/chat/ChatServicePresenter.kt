@@ -1,20 +1,27 @@
 package chata.can.chata_ai.activity.chat
 
+import android.content.Context
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatServicePresenter(private var view: ChatContract?) : StatusResponse
+class ChatServicePresenter(
+	private val context: Context,
+	private var view: ChatContract?) : StatusResponse
 {
 	private var lastQuery = ""
 	private val interactor = DataChatInteractor()
 
 	fun getAutocomplete(suggestionQuery: String)
 	{
-		lastQuery = suggestionQuery
-		interactor.getAutocomplete(lastQuery, this)
+		if (Network.checkInternetConnection(context))
+		{
+			lastQuery = suggestionQuery
+			interactor.getAutocomplete(lastQuery, this)
+		}
 	}
 
 	fun getSafety(query: String)

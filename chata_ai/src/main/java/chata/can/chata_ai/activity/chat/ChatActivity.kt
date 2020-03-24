@@ -37,7 +37,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract
 	private lateinit var model: BaseModelList<ChatData>
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private val renderPresenter = ChatRenderPresenter(this, this)
-	private val servicePresenter = ChatServicePresenter(this)
+	private val servicePresenter = ChatServicePresenter(this, this)
 	private lateinit var chatAdapter: ChatAdapter
 
 	private var customerName = ""
