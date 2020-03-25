@@ -17,8 +17,11 @@ open class BaseAdapter(
 {
 	override fun onBindViewHolder(holder: Holder, position: Int)
 	{
-		holder.onPaint()
-		model.onBindAtPosition(holder, position, listener)
+		with(holder)
+		{
+			onPaint()
+			model.onBindAtPosition(this, position, listener)
+		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder

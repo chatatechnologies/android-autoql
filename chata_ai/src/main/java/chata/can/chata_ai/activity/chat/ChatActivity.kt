@@ -314,7 +314,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != 0)
 			{
 				AlertDialog.Builder(this)
-					.setMessage(R.string.msg_pemission_record)
+					.setMessage(R.string.msg_permission_record)
 					.setNeutralButton("Ok", null)
 					.setOnDismissListener {
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)

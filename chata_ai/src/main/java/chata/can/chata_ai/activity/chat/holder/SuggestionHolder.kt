@@ -1,11 +1,13 @@
 package chata.can.chata_ai.activity.chat.holder
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -13,18 +15,14 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(view: View): BaseHolder(view)
 {
-	val llContent = view.findViewById<View>(R.id.llContent)
-	val llSuggestion = view.findViewById<LinearLayout>(R.id.llSuggestion)
+	private val llContent = view.findViewById<View>(R.id.llContent)
+	private val llSuggestion = view.findViewById<LinearLayout>(R.id.llSuggestion)
 
 	override fun onPaint()
 	{
 		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
 		tvContent.setTextColor(textColor)
-
-		val white = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_background_color)
-		val gray = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
-		val queryDrawable = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
-		llContent.background = queryDrawable
+		llContent.background = buildBackgroundGrayWhite()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -32,7 +30,13 @@ class SuggestionHolder(view: View): BaseHolder(view)
 		if (item is ChatData)
 		{
 			item.queryBase?.let {
-				tvContent.text = it.message
+				tvContent.context?.let {
+					context ->
+					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
+					val message = String.format(introMessageRes, it.message)
+					tvContent.text = message
+				}
+
 				val rows = it.aRows
 				for (index in 0 until rows.size)
 				{
@@ -50,8 +54,16 @@ class SuggestionHolder(view: View): BaseHolder(view)
 
 	private fun buildSuggestion(context: Context, content: String): TextView
 	{
-		return TextView(llSuggestion.context).apply {
+		return TextView(context).apply {
+			background = buildBackgroundGrayWhite()
 			text = content
 		}
+	}
+
+	private fun buildBackgroundGrayWhite(): GradientDrawable
+	{
+		val white = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_background_color)
+		val gray = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }
