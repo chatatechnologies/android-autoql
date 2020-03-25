@@ -207,11 +207,17 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 		adapterAutoComplete.notifyDataSetChanged()
 	}
 
+	override fun addChatMessage(typeView: Int, message: String)
+	{
+		val chatData = ChatData(typeView, message)
+		model.addData(chatData)
+		chatAdapter.notifyItemChanged(model.countData() - 1)
+	}
+
 	override fun addNewChat(typeView: Int, queryBase: QueryBase)
 	{
 		val chatData = ChatData(typeView, "", queryBase)
 		model.addData(chatData)
-
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 	}
 
@@ -270,7 +276,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 	private fun initList()
 	{
 		model = BaseModelList()
-		chatAdapter = ChatAdapter(model)
+		chatAdapter = ChatAdapter(model, this, servicePresenter)
 
 		val introMessageRes = (this as Context).getStringResources(R.string.intro_message_chata_drawer)
 		val introMessage = String.format(introMessageRes, customerName)

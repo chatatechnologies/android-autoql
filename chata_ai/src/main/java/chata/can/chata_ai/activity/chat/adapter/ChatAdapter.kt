@@ -3,6 +3,8 @@ package chata.can.chata_ai.activity.chat.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.ChatContract
+import chata.can.chata_ai.activity.chat.ChatServicePresenter
 import chata.can.chata_ai.activity.chat.holder.RightHolder
 import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
 import chata.can.chata_ai.adapter.BaseAdapter
@@ -13,7 +15,10 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.nullValue
 
-class ChatAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
+class ChatAdapter(
+	private val model: BaseModelList<*>,
+	private val view: ChatContract.View,
+	private val servicePresenter: ChatServicePresenter): BaseAdapter(model)
 {
 	override fun getItemViewType(position: Int): Int
 	{
@@ -32,7 +37,10 @@ class ChatAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 			}
 			TypeChatView.SUGGESTION_VIEW ->
 			{
-				SuggestionHolder(layoutInflater.inflate(R.layout.row_suggestion, nullValue))
+				SuggestionHolder(
+					layoutInflater.inflate(R.layout.row_suggestion, nullValue),
+					view,
+					servicePresenter)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
 		}

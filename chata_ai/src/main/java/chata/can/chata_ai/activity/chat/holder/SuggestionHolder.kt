@@ -8,19 +8,24 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.ChatContract
+import chata.can.chata_ai.activity.chat.ChatServicePresenter
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.view.extension.margin
 
-class SuggestionHolder(view: View): BaseHolder(view)
+class SuggestionHolder(
+	itemView: View,
+	private val view: ChatContract.View,
+	private val servicePresenter: ChatServicePresenter): BaseHolder(itemView)
 {
-	private val llContent = view.findViewById<View>(R.id.llContent)
-	private val llSuggestion = view.findViewById<LinearLayout>(R.id.llSuggestion)
+	private val llContent = itemView.findViewById<View>(R.id.llContent)
+	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
 
 	override fun onPaint()
 	{
@@ -49,7 +54,7 @@ class SuggestionHolder(view: View): BaseHolder(view)
 					singleRow.firstOrNull()?.let {
 						suggestion ->
 						//add new view for suggestion
-						val tv = buildSuggestion(llSuggestion.context, suggestion)
+						val tv = buildSuggestionView(llSuggestion.context, suggestion)
 						llSuggestion.addView(tv)
 					}
 				}
@@ -57,7 +62,7 @@ class SuggestionHolder(view: View): BaseHolder(view)
 		}
 	}
 
-	private fun buildSuggestion(context: Context, content: String): TextView
+	private fun buildSuggestionView(context: Context, content: String): TextView
 	{
 		return TextView(context).apply {
 			background = buildBackgroundGrayWhite()
@@ -67,6 +72,12 @@ class SuggestionHolder(view: View): BaseHolder(view)
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 			setPadding(15,15,15,15)
 			text = content
+			setOnClickListener {
+				view.addChatMessage(2, content)
+
+				val mInfoHolder = hashMapOf<String, Any>("query" to content)
+				QueryRequest.callQuery(content, servicePresenter, mInfoHolder)
+			}
 		}
 	}
 

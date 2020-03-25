@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 
 	interface RenderView: VoiceView
 	{
+		fun addChatMessage(typeView: Int, message: String)
 		fun addNewChat(typeView: Int, queryBase: QueryBase)
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 	}
