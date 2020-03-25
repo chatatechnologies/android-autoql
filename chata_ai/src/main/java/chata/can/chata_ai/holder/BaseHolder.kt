@@ -12,7 +12,8 @@ open class BaseHolder(view: View): Holder(view)
 {
 	val tvContent: TextView = view.findViewById(R.id.tvContent)
 
-	init {
+	override fun onPaint()
+	{
 		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
 		tvContent.setTextColor(textColor)
 

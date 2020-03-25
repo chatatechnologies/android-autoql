@@ -17,6 +17,7 @@ open class BaseAdapter(
 {
 	override fun onBindViewHolder(holder: Holder, position: Int)
 	{
+		holder.onPaint()
 		model.onBindAtPosition(holder, position, listener)
 	}
 

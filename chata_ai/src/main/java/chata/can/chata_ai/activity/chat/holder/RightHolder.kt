@@ -10,7 +10,8 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class RightHolder(view: View): BaseHolder(view)
 {
-	init {
+	override fun onPaint()
+	{
 		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_hover_color)
 		tvContent.setTextColor(textColor)
 
