@@ -2,16 +2,20 @@ package chata.can.chata_ai.activity.chat.holder
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.extension.margin
 
 class SuggestionHolder(view: View): BaseHolder(view)
 {
@@ -38,6 +42,7 @@ class SuggestionHolder(view: View): BaseHolder(view)
 				}
 
 				val rows = it.aRows
+				llSuggestion.removeAllViews()
 				for (index in 0 until rows.size)
 				{
 					val singleRow = rows[index]
@@ -56,6 +61,11 @@ class SuggestionHolder(view: View): BaseHolder(view)
 	{
 		return TextView(context).apply {
 			background = buildBackgroundGrayWhite()
+			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			margin(5f, 5f, 5f)
+			gravity = Gravity.CENTER_HORIZONTAL
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+			setPadding(15,15,15,15)
 			text = content
 		}
 	}
