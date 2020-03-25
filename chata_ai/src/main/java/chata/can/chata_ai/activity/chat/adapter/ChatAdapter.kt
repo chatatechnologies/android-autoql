@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.holder.RightHolder
+import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
@@ -28,6 +29,10 @@ class ChatAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 			TypeChatView.RIGHT_VIEW ->
 			{
 				RightHolder(layoutInflater.inflate(R.layout.row_to_right, nullValue))
+			}
+			TypeChatView.SUGGESTION_VIEW ->
+			{
+				SuggestionHolder(layoutInflater.inflate(R.layout.row_suggestion, nullValue))
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
 		}

@@ -10,7 +10,7 @@ class QueryBase(private val json: JSONObject)
 
 	private var sql: String = ""
 	private var queryId = ""
-	private var displayType = ""
+	var displayType = ""
 	private var interpretation = ""
 
 	val aRows = ArrayList<ArrayList<String>>()
