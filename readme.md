@@ -32,3 +32,12 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 }
 ```
 
+# Queries
+- All invoices: <b>table</b>
+- All invoices to Billy Bob: <b>table</b>
+- All sales: <b>table</b>
+- All invoices last 4 types: <b>suggestion</b>
+- All invoices above 4
+- Totel salas: <b>suggestion</b>
+- Total Sales: <b>table</b>
+- Total invoices: <b>table</b> -> $
