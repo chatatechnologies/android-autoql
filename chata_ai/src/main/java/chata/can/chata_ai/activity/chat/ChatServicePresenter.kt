@@ -62,7 +62,7 @@ class ChatServicePresenter(
 						{
 							val query = jsonObject.optString("query") ?: ""
 							val mInfoHolder = hashMapOf<String, Any>("query" to query)
-							QueryRequest.callQuery(query, this)
+							QueryRequest.callQuery(query, this, mInfoHolder)
 						}
 					}
 				}
@@ -71,7 +71,12 @@ class ChatServicePresenter(
 					val queryBase = QueryBase(jsonObject)
 					val typeView = when(queryBase.displayType)
 					{
-						"suggestion" -> TypeChatView.SUGGESTION_VIEW
+						"suggestion" ->
+						{
+							val query = jsonObject.optString("query")
+							queryBase.message = query
+							TypeChatView.SUGGESTION_VIEW
+						}
 						else -> 1
 					}
 					view?.addNewChat(typeView, queryBase)

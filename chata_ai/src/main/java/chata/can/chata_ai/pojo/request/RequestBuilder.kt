@@ -27,8 +27,22 @@ object RequestBuilder
 		parameters : HashMap<String, String>?= null,
 		parametersAny : HashMap<String, Any> ?= null,
 		parameterArray: ArrayList<*> ?= null,
+		infoHolder: HashMap<String, Any> ?= null,
 		listener : StatusResponse)
 	{
+		fun addInfoHolder(json: JSONObject)
+		{
+			infoHolder?.let {
+				if (it.size > 0)
+				{
+					for ((key, value) in it)
+					{
+						json.put(key, value)
+					}
+				}
+			}
+		}
+
 		val stringRequest = object: StringRequest(
 			methodRequest,
 			urlRequest,
@@ -38,17 +52,35 @@ object RequestBuilder
 
 				try {
 					val json = JSONObject(it)
+					addInfoHolder(json)
 					listener.onSuccess(json)
 				}
 				catch(ex: Exception)
 				{
 					try {
 						val jsonArray = JSONArray(it)
-						listener.onSuccess(jsonArray = jsonArray)
+						with(JSONObject())
+						{
+							addInfoHolder(this)
+							if (length() > 0)
+							{
+								put("array", jsonArray)
+								listener.onSuccess(this)
+							}
+							else
+							{
+								listener.onSuccess(jsonArray = jsonArray)
+							}
+						}
 					}
 					catch (ex: Exception)
 					{
-						listener.onSuccess(JSONObject().put("RESPONSE", it ?: ""))
+						with(JSONObject())
+						{
+							addInfoHolder(this)
+							put("RESPONSE", it ?: "")
+							listener.onSuccess(this)
+						}
 					}
 				}
 			},

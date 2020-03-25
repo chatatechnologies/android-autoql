@@ -17,7 +17,10 @@ object QueryRequest
 		callStringRequest(Request.Method.GET,url, typeJSON, listener = listener)
 	}
 
-	fun callQuery(query: String, listener: StatusResponse)
+	fun callQuery(
+		query: String,
+		listener: StatusResponse,
+		infoHolder: HashMap<String, Any> ?= null)
 	{
 		val url = "$urlStaging${api1}chata/query"
 		val mParams = hashMapOf<String, Any>(
@@ -28,6 +31,12 @@ object QueryRequest
 			"user_id" to "demo",
 			"customer_id" to "demo")
 
-		callStringRequest(Request.Method.POST, url, typeJSON, parametersAny = mParams, listener = listener)
+		callStringRequest(
+			Request.Method.POST,
+			url,
+			typeJSON,
+			parametersAny = mParams,
+			infoHolder = infoHolder,
+			listener = listener)
 	}
 }

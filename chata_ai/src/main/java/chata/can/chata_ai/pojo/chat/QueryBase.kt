@@ -6,7 +6,7 @@ class QueryBase(private val json: JSONObject)
 {
 	private val referenceId = json.optString("reference_id") ?: ""
 	private val joData = json.optJSONObject("data")
-	private val message = json.optString("message") ?: ""
+	var message = json.optString("message") ?: ""
 
 	private var sql: String = ""
 	private var queryId = ""

@@ -11,6 +11,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
 
 class SuggestionHolder(view: View): BaseHolder(view)
 {
+	val llContent = view.findViewById<View>(R.id.llContent)
 	val llSuggestion = view.findViewById<LinearLayout>(R.id.llSuggestion)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -18,6 +19,7 @@ class SuggestionHolder(view: View): BaseHolder(view)
 		if (item is ChatData)
 		{
 			item.queryBase?.let {
+				tvContent.text = it.message
 				val rows = it.aRows
 				for (index in 0 until rows.size)
 				{
