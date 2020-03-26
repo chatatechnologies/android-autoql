@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.ChatServicePresenter
+import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
 import chata.can.chata_ai.activity.chat.holder.RightHolder
 import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
 import chata.can.chata_ai.adapter.BaseAdapter
@@ -41,6 +42,10 @@ class ChatAdapter(
 					layoutInflater.inflate(R.layout.row_suggestion, nullValue),
 					view,
 					servicePresenter)
+			}
+			TypeChatView.FULL_SUGGESTION_VIEW ->
+			{
+				FullSuggestionHolder(layoutInflater.inflate(R.layout.row_full_suggestion, nullValue))
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
 		}

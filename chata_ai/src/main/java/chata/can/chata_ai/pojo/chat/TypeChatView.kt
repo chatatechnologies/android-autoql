@@ -2,8 +2,8 @@ package chata.can.chata_ai.pojo.chat
 
 object TypeChatView
 {
-	val LEFT_VIEW = 1
-	val RIGHT_VIEW = 2
-	val SUGGESTION_VIEW = 4
-	val FULL_SUGGESTION_VIEW = 5
+	const val LEFT_VIEW = 1
+	const val RIGHT_VIEW = 2
+	const val SUGGESTION_VIEW = 4
+	const val FULL_SUGGESTION_VIEW = 5
 }

@@ -21,7 +21,7 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 				{
 					val suggestion = jsonItem.getString("suggestion")
 					mapSuggestion[key] = ArrayList()
-					mapSuggestion[key]!!.add(suggestion)
+					mapSuggestion[key]?.add(suggestion)
 				}
 				else if (jsonItem.has("suggestion_list"))
 				{
@@ -36,11 +36,11 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 						{
 							suggestion = "$suggestion ($extra)"
 						}
-						mapSuggestion[key]!!.add(suggestion)
+						mapSuggestion[key]?.add(suggestion)
 					}
 				}
 			}
 		}
-		println("mapSuggestion: ${mapSuggestion}")
+		println("mapSuggestion: $mapSuggestion")
 	}
 }

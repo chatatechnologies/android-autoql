@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+	<LinearLayout
+		android:id="@+id/llContent"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="5dp">
+		<TextView
+			android:id="@+id/tvContent"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:layout_width="wrap_content"/>
+		<LinearLayout
+			android:id="@+id/llSuggestion"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:padding="5dp"/>
+	</LinearLayout>
+</RelativeLayout>
