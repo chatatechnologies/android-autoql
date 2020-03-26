@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.chat.holder
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.BaseHolder
@@ -33,10 +34,22 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 			if (simpleQuery is FullSuggestionQuery)
 			{
 				tvContent.context?.let {
-					it.resources?.let {
+					context ->
+					context.resources?.let {
 						resources ->
 						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
+					}
+
+					val aWords = simpleQuery.initQuery.split(" ")
+					for(index in aWords.indices)
+					{
+						val currentText = aWords[index]
+
+						val tv = TextView(context).apply {
+							text = currentText
+						}
+						llSuggestion.addView(tv)
 					}
 				}
 			}

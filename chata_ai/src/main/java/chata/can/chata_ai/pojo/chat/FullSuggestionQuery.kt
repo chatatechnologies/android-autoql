@@ -4,9 +4,10 @@ import org.json.JSONObject
 
 class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 {
+	var initQuery = ""
 	val mapSuggestion = HashMap<String, ArrayList<String>>()
 	init {
-		val initQuery = json.optString("query")
+		initQuery = json.optString("query")
 		if (json.has("full_suggestion"))
 		{
 			val jaSuggestion = json.getJSONArray("full_suggestion")
