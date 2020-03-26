@@ -46,10 +46,11 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 					val aWords = simpleQuery.initQuery.split(" ")
 
 					var subRow: LinearLayout ?= null
+
 					for(index in aWords.indices)
 					{
 						val childCount = llSuggestion.childCount
-						if (childCount == 0)
+						if (childCount == 0 || index % 3 == 0)
 						{
 							subRow = LinearLayout(context)
 							subRow.layoutParams = LinearLayout.LayoutParams(-1, -2, 3f)

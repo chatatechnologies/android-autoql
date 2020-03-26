@@ -38,6 +38,7 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 - All sales: <b>table</b>
 - All invoices last 4 types: <b>suggestion</b>
 - All invoices above 4
-- Totel salas: <b>suggestion</b>
+- Totel salas: <b>full suggestion</b>
 - Total Sales: <b>table</b>
 - Total invoices: <b>table</b> -> $
+- Totel opereting expinses bu accaunt: <b>full suggestion</b>
