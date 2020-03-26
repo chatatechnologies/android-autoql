@@ -2,7 +2,7 @@ package chata.can.chata_ai.pojo.chat
 
 import org.json.JSONObject
 
-class QueryBase(private val json: JSONObject)
+class QueryBase(json: JSONObject): SimpleQuery(json)
 {
 	private val referenceId = json.optString("reference_id") ?: ""
 	private val joData = json.optJSONObject("data")

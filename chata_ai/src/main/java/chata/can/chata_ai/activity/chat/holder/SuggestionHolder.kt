@@ -15,6 +15,7 @@ import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.view.extension.margin
@@ -39,23 +40,26 @@ class SuggestionHolder(
 		if (item is ChatData)
 		{
 			item.queryBase?.let {
-				tvContent.context?.let {
-					context ->
-					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
-					val message = String.format(introMessageRes, it.message)
-					tvContent.text = message
-				}
-
-				val rows = it.aRows
-				llSuggestion.removeAllViews()
-				for (index in 0 until rows.size)
+				if (it is QueryBase)
 				{
-					val singleRow = rows[index]
-					singleRow.firstOrNull()?.let {
-						suggestion ->
-						//add new view for suggestion
-						val tv = buildSuggestionView(llSuggestion.context, suggestion)
-						llSuggestion.addView(tv)
+					tvContent.context?.let {
+						context ->
+						val introMessageRes = context.getStringResources(R.string.msg_suggestion)
+						val message = String.format(introMessageRes, it.message)
+						tvContent.text = message
+					}
+
+					val rows = it.aRows
+					llSuggestion.removeAllViews()
+					for (index in 0 until rows.size)
+					{
+						val singleRow = rows[index]
+						singleRow.firstOrNull()?.let {
+							suggestion ->
+							//add new view for suggestion
+							val tv = buildSuggestionView(llSuggestion.context, suggestion)
+							llSuggestion.addView(tv)
+						}
 					}
 				}
 			}

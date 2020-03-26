@@ -1,8 +1,7 @@
 package chata.can.chata_ai.activity.chat
 
 import android.content.Context
-import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.chat.TypeChatView
+import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
@@ -63,6 +62,11 @@ class ChatServicePresenter(
 							val query = jsonObject.optString("query") ?: ""
 							val mInfoHolder = hashMapOf<String, Any>("query" to query)
 							QueryRequest.callQuery(query, this, mInfoHolder)
+						}
+						else
+						{
+							val simpleQuery = FullSuggestionQuery(jsonObject)
+							view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
 						}
 					}
 				}

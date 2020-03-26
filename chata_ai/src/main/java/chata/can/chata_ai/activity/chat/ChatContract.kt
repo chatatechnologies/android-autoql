@@ -1,9 +1,9 @@
 package chata.can.chata_ai.activity.chat
 
 import android.graphics.drawable.GradientDrawable
-import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.SimpleQuery
 
-	interface ChatContract
+interface ChatContract
 {
 	interface VoiceView
 	{
@@ -15,7 +15,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 	interface RenderView: VoiceView
 	{
 		fun addChatMessage(typeView: Int, message: String)
-		fun addNewChat(typeView: Int, queryBase: QueryBase)
+		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 	}
 

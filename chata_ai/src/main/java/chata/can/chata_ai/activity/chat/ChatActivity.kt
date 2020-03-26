@@ -30,6 +30,7 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import com.android.volley.toolbox.Volley
@@ -214,7 +215,7 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 	}
 
-	override fun addNewChat(typeView: Int, queryBase: QueryBase)
+	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 	{
 		val chatData = ChatData(typeView, "", queryBase)
 		model.addData(chatData)

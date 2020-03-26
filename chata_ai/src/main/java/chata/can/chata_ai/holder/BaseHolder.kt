@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 open class BaseHolder(view: View): Holder(view)
@@ -35,9 +36,12 @@ open class BaseHolder(view: View): Holder(view)
 			{
 				var content = ""
 				item.queryBase?.let {
-					if (it.isSimpleText)
+					if (it is QueryBase)
 					{
-						content = it.simpleText
+						if (it.isSimpleText)
+						{
+							content = it.simpleText
+						}
 					}
 				}
 
