@@ -15,24 +15,27 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
+	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 
 	override fun onPaint()
 	{
 		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
 		tvContent.setTextColor(textColor)
 		llContent.background = buildBackgroundGrayWhite()
+		rlRunQuery.background = buildBackgroundGrayWhite()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		if (item is ChatData)
 		{
-			val simpleQuery = item.queryBase
+			val simpleQuery = item.simpleQuery
 			if (simpleQuery is FullSuggestionQuery)
 			{
 				tvContent.context?.let {
 					it.resources?.let {
-						val message = it.getString(R.string.msg_full_suggestion)
+						resources ->
+						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
 					}
 				}

@@ -39,7 +39,7 @@ class SuggestionHolder(
 	{
 		if (item is ChatData)
 		{
-			item.queryBase?.let {
+			item.simpleQuery?.let {
 				if (it is QueryBase)
 				{
 					tvContent.context?.let {

@@ -41,6 +41,5 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 				}
 			}
 		}
-		println("mapSuggestion: $mapSuggestion")
 	}
 }

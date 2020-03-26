@@ -35,7 +35,7 @@ open class BaseHolder(view: View): Holder(view)
 			else
 			{
 				var content = ""
-				item.queryBase?.let {
+				item.simpleQuery?.let {
 					if (it is QueryBase)
 					{
 						if (it.isSimpleText)
