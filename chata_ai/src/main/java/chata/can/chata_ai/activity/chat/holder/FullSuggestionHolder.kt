@@ -3,7 +3,9 @@ package chata.can.chata_ai.activity.chat.holder
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
@@ -44,6 +46,7 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 					}
 
 					val aWords = simpleQuery.initQuery.split(" ")
+					val mapSuggestion = simpleQuery.mapSuggestion
 
 					var subRow: LinearLayout ?= null
 
@@ -60,17 +63,28 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 						}
 
 						val currentText = aWords[index]
-						val tv = TextView(context).apply {
-							background = buildBackgroundGrayWhite()
-							layoutParams = LinearLayout.LayoutParams(0, -2).apply {
-								weight = 1f
+						mapSuggestion[currentText]?.let {
+							val spinner = Spinner(context).apply {
+								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
+									weight = 1f
+								}
 							}
-							margin(5f, 0f, 5f, 3f)
-							setPadding(15,15,15,15)
-							gravity = Gravity.CENTER
-							text = currentText
+							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
+							spinner.adapter = adapter
+							subRow?.addView(spinner)
+						} ?: run {
+							val textView = TextView(context).apply {
+								background = buildBackgroundGrayWhite()
+								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
+									weight = 1f
+								}
+								margin(5f, 0f, 5f, 3f)
+								setPadding(15,15,15,15)
+								gravity = Gravity.CENTER
+								text = currentText
+							}
+							subRow?.addView(textView)
 						}
-						subRow?.addView(tv)
 					}
 				}
 			}
