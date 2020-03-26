@@ -1,6 +1,7 @@
 package chata.can.chata_ai.activity.chat.holder
 
 import android.graphics.drawable.GradientDrawable
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -11,6 +12,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.extension.margin
 
 class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 {
@@ -42,14 +44,32 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 					}
 
 					val aWords = simpleQuery.initQuery.split(" ")
+
+					var subRow: LinearLayout ?= null
 					for(index in aWords.indices)
 					{
-						val currentText = aWords[index]
+						val childCount = llSuggestion.childCount
+						if (childCount == 0)
+						{
+							subRow = LinearLayout(context)
+							subRow.layoutParams = LinearLayout.LayoutParams(-1, -2, 3f)
+							subRow.orientation = LinearLayout.HORIZONTAL
 
+							llSuggestion.addView(subRow)
+						}
+
+						val currentText = aWords[index]
 						val tv = TextView(context).apply {
+							background = buildBackgroundGrayWhite()
+							layoutParams = LinearLayout.LayoutParams(0, -2).apply {
+								weight = 1f
+							}
+							margin(5f, 0f, 5f, 3f)
+							setPadding(15,15,15,15)
+							gravity = Gravity.CENTER
 							text = currentText
 						}
-						llSuggestion.addView(tv)
+						subRow?.addView(tv)
 					}
 				}
 			}
