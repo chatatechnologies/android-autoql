@@ -125,9 +125,58 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 							subRow?.addView(textView)
 						}
 					}
+
+					rlRunQuery.setOnClickListener {
+						val query = buildQuery()
+
+					}
 				}
 			}
 		}
+	}
+
+	private fun buildQuery(): String
+	{
+		val finalQuery = StringBuilder()
+		llSuggestion?.let {
+			val childCount = it.childCount
+			for (index in 0 until childCount)
+			{
+				it.getChildAt(index)?.let {
+					child0 ->
+					if (child0 is LinearLayout)
+					{
+						val child0Count = child0.childCount
+						for (index1 in 0 until child0Count)
+						{
+							child0.getChildAt(index1)?.let {
+								child ->
+								val pieceQuery = when(child)
+								{
+									is TextView -> child.text
+									is RelativeLayout ->
+									{
+										if (child.childCount == 2)
+										{
+											child.getChildAt(1)?.let {
+												textView ->
+												if (textView is TextView)
+													textView.text
+												else ""
+											}
+										}
+										else ""
+									}
+									else -> ""
+								}
+								finalQuery.append("$pieceQuery ")
+							}
+						}
+					}
+				}
+			}
+		}
+		return finalQuery.toString().trimEnd()
 	}
 
 	private fun buildBackgroundGrayWhite(): GradientDrawable
