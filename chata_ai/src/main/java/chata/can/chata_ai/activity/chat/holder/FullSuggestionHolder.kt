@@ -3,10 +3,7 @@ package chata.can.chata_ai.activity.chat.holder
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.BaseHolder
@@ -64,14 +61,36 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 
 						val currentText = aWords[index]
 						mapSuggestion[currentText]?.let {
-							val spinner = Spinner(context).apply {
+							//region parent view
+							val relativeLayout = RelativeLayout(context).apply {
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
 									weight = 1f
 								}
 							}
+							//endregion
+							//region spinner
 							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
-							spinner.adapter = adapter
-							subRow?.addView(spinner)
+							val spinner = Spinner(context).apply {
+								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								setAdapter(adapter)
+								isEnabled = false
+							}
+							relativeLayout.addView(spinner)
+							//endregion
+							//region message
+							val textView = TextView(context).apply {
+								background = buildBackgroundGrayWhite()
+								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								margin(4f, 4f, 4f, 4f)
+								setPadding(9,9,9,9)
+								gravity = Gravity.CENTER
+								text = currentText
+
+								setOnClickListener { spinner.performClick() }
+							}
+							relativeLayout.addView(textView)
+							//endregion
+							subRow?.addView(relativeLayout)
 						} ?: run {
 							val textView = TextView(context).apply {
 								background = buildBackgroundGrayWhite()
