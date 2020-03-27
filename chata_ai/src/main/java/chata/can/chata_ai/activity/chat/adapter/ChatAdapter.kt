@@ -45,7 +45,10 @@ class ChatAdapter(
 			}
 			TypeChatView.FULL_SUGGESTION_VIEW ->
 			{
-				FullSuggestionHolder(layoutInflater.inflate(R.layout.row_full_suggestion, nullValue))
+				FullSuggestionHolder(
+					layoutInflater.inflate(R.layout.row_full_suggestion, nullValue),
+					view,
+					servicePresenter)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
 		}
