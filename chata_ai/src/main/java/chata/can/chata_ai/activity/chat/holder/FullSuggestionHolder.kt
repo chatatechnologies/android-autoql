@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -42,6 +43,7 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 						tvContent.text = message
 					}
 
+					llSuggestion.removeAllViews()
 					val aWords = simpleQuery.initQuery.split(" ")
 					val mapSuggestion = simpleQuery.mapSuggestion
 
@@ -68,17 +70,34 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 								}
 							}
 							//endregion
+							val spinner = Spinner(context)
+							val textView = TextView(context)
 							//region spinner
+							it.add(0, currentText)
 							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
-							val spinner = Spinner(context).apply {
+							spinner.apply {
 								layoutParams = LinearLayout.LayoutParams(-1, -2)
 								setAdapter(adapter)
 								isEnabled = false
+								setSelection(0, false)
+								onItemSelectedListener = object: ItemSelectedListener {
+									override fun onSelected(
+										parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+									{
+										parent?.let {
+											adapterView ->
+											adapterView.adapter?.let {
+												adapter ->
+												val newContent = adapter.getItem(position)?.toString() ?: ""
+												textView.text = newContent
+											}
+										}
+									}
+								}
 							}
-							relativeLayout.addView(spinner)
 							//endregion
 							//region message
-							val textView = TextView(context).apply {
+							textView.apply {
 								background = buildBackgroundGrayWhite()
 								layoutParams = LinearLayout.LayoutParams(-1, -2)
 								margin(4f, 4f, 4f, 4f)
@@ -88,8 +107,9 @@ class FullSuggestionHolder(itemView: View): BaseHolder(itemView)
 
 								setOnClickListener { spinner.performClick() }
 							}
-							relativeLayout.addView(textView)
 							//endregion
+							relativeLayout.addView(spinner)
+							relativeLayout.addView(textView)
 							subRow?.addView(relativeLayout)
 						} ?: run {
 							val textView = TextView(context).apply {
