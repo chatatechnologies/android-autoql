@@ -38,22 +38,31 @@ open class BaseHolder(view: View): Holder(view)
 				item.simpleQuery?.let {
 					if (it is QueryBase)
 					{
-						if (it.isSimpleText)
-						{
-							val showText = if (it.contentHTML.isNotEmpty())
-							{
-								it.isLoadingHTML = false
-								it.contentHTML
-							}
-							else
-								it.simpleText
-							content = showText
-						}
+						content = processQueryBase(it)
 					}
 				}
 
 				tvContent.text = content
 			}
 		}
+
+		if (item is QueryBase)
+		{
+			tvContent.text = processQueryBase(item)
+		}
+	}
+	private fun processQueryBase(simpleQuery: QueryBase): String
+	{
+		if (simpleQuery.isSimpleText)
+		{
+			return if (simpleQuery.contentHTML.isNotEmpty())
+			{
+				simpleQuery.isLoadingHTML = false
+				simpleQuery.contentHTML
+			}
+			else
+				simpleQuery.simpleText
+		}
+		return ""
 	}
 }
