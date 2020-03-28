@@ -27,7 +27,7 @@ class WebViewHolder(view: View): Holder(view)
 		}
 	}
 
-	@SuppressLint("SetJavaScriptEnabled")
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		if (item is ChatData)
@@ -35,32 +35,43 @@ class WebViewHolder(view: View): Holder(view)
 			item.simpleQuery?.let {
 				if (it is QueryBase)
 				{
-					if (it.contentHTML.isNotEmpty())
+					processQueryBase(it)
+				}
+			}
+		}
+
+		if (item is QueryBase)
+		{
+			processQueryBase(item)
+		}
+	}
+
+	@SuppressLint("SetJavaScriptEnabled")
+	fun processQueryBase(simpleQuery: QueryBase)
+	{
+		if (simpleQuery.contentHTML.isNotEmpty())
+		{
+			wbQuery?.let {
+					wbQuery ->
+				with(wbQuery)
+				{
+					clearCache(true)
+					clearHistory()
+					//requestLayout()
+
+					settings.javaScriptEnabled = true
+					loadDataWithBaseURL(null, simpleQuery.contentHTML,"text/html","UTF-8", null)
+					webViewClient = object: WebViewClient()
 					{
-						wbQuery?.let {
-							wbQuery ->
-							with(wbQuery)
-							{
-								clearCache(true)
-								clearHistory()
-								//requestLayout()
-
-								settings.javaScriptEnabled = true
-								loadDataWithBaseURL(null, it.contentHTML,"text/html","UTF-8", null)
-								webViewClient = object: WebViewClient()
-								{
-									override fun onPageFinished(view: WebView?, url: String?)
-									{
-										view?.toString()
-									}
-								}
-
-								setOnTouchListener { view, _ ->
-									view.parent.requestDisallowInterceptTouchEvent(true)
-									false
-								}
-							}
+						override fun onPageFinished(view: WebView?, url: String?)
+						{
+							view?.toString()
 						}
+					}
+
+					setOnTouchListener { view, _ ->
+						view.parent.requestDisallowInterceptTouchEvent(true)
+						false
 					}
 				}
 			}

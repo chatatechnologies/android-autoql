@@ -32,7 +32,18 @@ class ChatAdapter(
 	override fun onBindViewHolder(holder: Holder, position: Int)
 	{
 		super.onBindViewHolder(holder, position)
-		(model[position] as? QueryBase)?.checkData(holder)
+		model[position]?.let {
+			if (it is ChatData)
+			{
+				it.simpleQuery?.let {
+					simpleQuery ->
+					if (simpleQuery is QueryBase)
+					{
+						simpleQuery.checkData(holder)
+					}
+				}
+			}
+		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder

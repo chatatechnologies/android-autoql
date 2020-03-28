@@ -8,7 +8,7 @@ object HtmlBuilder
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
-		TableHtmlBuilder.build(aRows, aColumn)
-		return ""
+		val tableHtml = TableHtmlBuilder.build(aRows, aColumn)
+		return tableHtml
 	}
 }
