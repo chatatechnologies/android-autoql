@@ -40,7 +40,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 
 	var contentHTML = ""
 	private var view: HolderContract? = null
-	private var isLoadingHTML = false
+	var isLoadingHTML = false
 
 	init {
 		joData?.let {
@@ -87,11 +87,11 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						aColumn.add(column)
 					}
 				}
-				println("endregion for fill data")
 			}
 			//endregion
 
 			DoAsync({
+				isLoadingHTML = true
 				contentHTML = when
 				{
 					isSimpleText ->

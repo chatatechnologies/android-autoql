@@ -13,6 +13,7 @@ import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.nullValue
 
@@ -25,6 +26,12 @@ class ChatAdapter(
 	{
 		val chat = model[position]
 		return if (chat is ChatData) chat.typeView else -1
+	}
+
+	override fun onBindViewHolder(holder: Holder, position: Int)
+	{
+		super.onBindViewHolder(holder, position)
+		(model[position] as? QueryBase)?.checkData(holder)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder

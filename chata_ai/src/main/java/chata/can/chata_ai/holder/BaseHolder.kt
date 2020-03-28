@@ -40,7 +40,14 @@ open class BaseHolder(view: View): Holder(view)
 					{
 						if (it.isSimpleText)
 						{
-							content = it.simpleText
+							val showText = if (it.contentHTML.isNotEmpty())
+							{
+								it.isLoadingHTML = false
+								it.contentHTML
+							}
+							else
+								it.simpleText
+							content = showText
 						}
 					}
 				}
