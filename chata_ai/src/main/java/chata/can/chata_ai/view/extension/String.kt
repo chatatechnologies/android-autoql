@@ -2,6 +2,10 @@ package chata.can.chata_ai.view.extension
 
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import java.text.SimpleDateFormat
+import java.util.*
+
+fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
@@ -13,11 +17,29 @@ fun String.formatWithColumn(
 {
 	return when(columnQuery.type)
 	{
+		TypeDataQuery.DATE ->
+		{
+			val format = "MMM dd, yyyy"
+			if (isEmpty() || this == "0")
+				""
+			else
+			{
+				val aTmp = split(".")
+				aTmp.firstOrNull()?.toIntOrNull()?.let {
+					val dateFormat = SimpleDateFormat(format, Locale.US)
+					dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+					val date = Date(it * 1000L)
+					dateFormat.format(date)
+				} ?: run { "" }
+			}
+		}
 		TypeDataQuery.DOLLAR_AMT ->
 		{
 			val tmp = toDoubleNotNull()
 			tmp.formatDecimals(currencySymbol, commaCharacter = commaCharacter)
 		}
+		TypeDataQuery.QUANTITY -> "${toIntNotNull()}"
+		TypeDataQuery.STRING -> this
 		else -> ""
 	}
 }
