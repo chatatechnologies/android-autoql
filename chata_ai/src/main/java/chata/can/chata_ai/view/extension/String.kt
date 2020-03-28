@@ -38,7 +38,7 @@ fun String.formatWithColumn(
 			val tmp = toDoubleNotNull()
 			tmp.formatDecimals(currencySymbol, commaCharacter = commaCharacter)
 		}
-		TypeDataQuery.QUANTITY -> "${toIntNotNull()}"
+		TypeDataQuery.QUANTITY -> "${toDoubleNotNull()}"
 		TypeDataQuery.STRING -> this
 		else -> ""
 	}
