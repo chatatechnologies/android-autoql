@@ -27,16 +27,16 @@ import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
+import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
-import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import com.android.volley.toolbox.Volley
 import java.net.URLEncoder
 
-class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
+class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, ChatContract.View
 {
 	private lateinit var ivCancel: ImageView
 	private lateinit var ivClear: ImageView
@@ -55,11 +55,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 
 	private var customerName = ""
 
-	override fun onCreate(savedInstanceState: Bundle?)
+	override fun onCreateView()
 	{
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.chat_activity)
-
 		initConfig()
 		initViews()
 		initData()
@@ -163,7 +160,8 @@ class ChatActivity: AppCompatActivity(), View.OnClickListener, ChatContract.View
 				parent, _, position, _ ->
 				parent?.let {
 					it.adapter?.let {
-						val text = it.getItem(position).toString()
+						adapter ->
+						val text = adapter.getItem(position).toString()
 						etQuery.setText(text)
 						setRequestQuery()
 					}
