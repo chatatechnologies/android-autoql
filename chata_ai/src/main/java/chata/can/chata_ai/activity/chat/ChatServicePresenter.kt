@@ -81,7 +81,17 @@ class ChatServicePresenter(
 							queryBase.message = query
 							TypeChatView.SUGGESTION_VIEW
 						}
-						else -> 1
+						"data" ->
+						{
+							val numColumns = queryBase.numColumns
+							when
+							{
+								numColumns == 1 -> TypeChatView.LEFT_VIEW
+								numColumns > 1 -> TypeChatView.WEB_VIEW
+								else -> TypeChatView.LEFT_VIEW
+							}
+						}
+						else -> TypeChatView.LEFT_VIEW
 					}
 					view?.addNewChat(typeView, queryBase)
 				}

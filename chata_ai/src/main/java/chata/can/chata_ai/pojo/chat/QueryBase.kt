@@ -20,7 +20,10 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	val aRows = ArrayList<ArrayList<String>>()
 	private var aColumn = ArrayList<ColumnQuery>()
 
-	val numColumns = aColumn.size
+	val numColumns: Int
+	get() {
+		return aColumn.size
+	}
 
 	val isSimpleText: Boolean
 	get() {

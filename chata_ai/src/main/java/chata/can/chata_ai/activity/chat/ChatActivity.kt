@@ -295,6 +295,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		val query = etQuery.text.toString()
 		if (query.isNotEmpty())
 		{
+			hideKeyboard()
 			etQuery.setText("")
 			model.addData(ChatData(2, query))
 
