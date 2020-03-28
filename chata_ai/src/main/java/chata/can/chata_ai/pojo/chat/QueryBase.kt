@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo.chat
 
+import chata.can.chata_ai.view.extension.enumValueOfOrNull
+import chata.can.chata_ai.view.extension.formatWithColumn
 import org.json.JSONObject
 
 class QueryBase(json: JSONObject): SimpleQuery(json)
@@ -33,6 +35,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 			it.firstOrNull()?: run { "" }
 		} ?: run { "" }
 	}
+
+	var contentHTML = ""
 
 	init {
 		joData?.let {
@@ -72,13 +76,31 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						val type = joColumn.optString("type")
 						val name = joColumn.optString("name")
 						val isActive = joColumn.optBoolean("active", false)
-						val column = ColumnQuery(isGroupable, type, name, isActive)
+
+						val typeColumn = enumValueOfOrNull<TypeDataQuery>(type) ?: run { TypeDataQuery.UNKNOWN }
+
+						val column = ColumnQuery(isGroupable, typeColumn, name, isActive)
 						aColumn.add(column)
 					}
 				}
 				println("endregion for fill data")
 			}
 			//endregion
+
+			contentHTML = when
+			{
+				isSimpleText ->
+				{
+					aColumn.firstOrNull()?.let {
+						column ->
+						simpleText.formatWithColumn(column, "$", ",")
+					} ?: run { "" }
+				}
+				else ->
+				{
+					""
+				}
+			}
 		}
 	}
 }
