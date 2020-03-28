@@ -5,7 +5,7 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.toIntNotNull() = this.toIntOrNull() ?: 0
+//fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
@@ -27,7 +27,6 @@ fun String.formatWithColumn(
 				val aTmp = split(".")
 				aTmp.firstOrNull()?.toIntOrNull()?.let {
 					val dateFormat = SimpleDateFormat(format, Locale.US)
-					dateFormat.timeZone = TimeZone.getTimeZone("GMT")
 					val date = Date(it * 1000L)
 					dateFormat.format(date)
 				} ?: run { "" }
