@@ -9,9 +9,9 @@
 		android:layout_margin="5dp"
 		android:layout_width="match_parent">
 		<WebView
-			android:visibility="gone"
 			android:id="@+id/wbQuery"
 			android:layout_height="match_parent"
+			android:layout_margin="5dp"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>
 </RelativeLayout>

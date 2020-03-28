@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
@@ -178,6 +179,11 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 			ScreenData.defaultDisplay.getMetrics(displayMetrics)
 			val width = displayMetrics.widthPixels
 			etQuery.dropDownWidth = width
+
+			if (BuildConfig.DEBUG)
+			{
+				etQuery.setText("all sales")
+			}
 		}
 
 		ivMicrophone.background = pDrawable.first
