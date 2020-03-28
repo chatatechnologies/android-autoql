@@ -21,3 +21,31 @@ fun String.formatWithColumn(
 		else -> ""
 	}
 }
+
+fun String.toCapitalColumn(): String
+{
+	var tmp = this
+	if (tmp.contains("___"))
+	{
+		tmp = tmp.replace("___", " (") + ")"
+	}
+	tmp = tmp.replace("_"," ")
+
+	val aSequence = tmp.subSequence(0,1)
+	return if (aSequence.isNotEmpty())
+	{
+		val upperCase = aSequence[0].toUpperCase()
+		val sb = StringBuilder("$upperCase")
+
+		for(index in 1 until tmp.length)
+		{
+			sb.append(
+				if(!tmp[index-1].isLetterOrDigit())
+					tmp[index].toUpperCase()
+				else
+					tmp[index])
+		}
+		return sb.toString()
+	}
+	else ""
+}

@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.chat
 
 import chata.can.chata_ai.DoAsync
 import chata.can.chata_ai.holder.HolderContract
+import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.view.extension.enumValueOfOrNull
 import chata.can.chata_ai.view.extension.formatWithColumn
 import org.json.JSONObject
@@ -18,7 +19,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	private var interpretation = ""
 
 	val aRows = ArrayList<ArrayList<String>>()
-	private var aColumn = ArrayList<ColumnQuery>()
+	var aColumn = ArrayList<ColumnQuery>()
 
 	val numColumns: Int
 	get() {
@@ -106,17 +107,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					}
 					else ->
 					{
-						"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body style="background-color: royalblue;">
-    hello, it's a test
-</body>
-</html>"""
+						HtmlBuilder.build(this)
 					}
 				}
 			},{
