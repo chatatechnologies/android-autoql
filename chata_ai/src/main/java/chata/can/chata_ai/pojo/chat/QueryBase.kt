@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo.chat
 
+import chata.can.chata_ai.DoAsync
+import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.view.extension.enumValueOfOrNull
 import chata.can.chata_ai.view.extension.formatWithColumn
 import org.json.JSONObject
@@ -37,6 +39,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	}
 
 	var contentHTML = ""
+	private var view: HolderContract? = null
+	private var isLoadingHTML = false
 
 	init {
 		joData?.let {
@@ -87,20 +91,39 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 			}
 			//endregion
 
-			contentHTML = when
-			{
-				isSimpleText ->
+			DoAsync({
+				contentHTML = when
 				{
-					aColumn.firstOrNull()?.let {
-						column ->
-						simpleText.formatWithColumn(column, "$", ",")
-					} ?: run { "" }
+					isSimpleText ->
+					{
+						aColumn.firstOrNull()?.let {
+							column ->
+							simpleText.formatWithColumn(column, "$", ",")
+						} ?: run { "" }
+					}
+					else ->
+					{
+						""
+					}
 				}
-				else ->
-				{
-					""
-				}
-			}
+			},{
+				isLoadingHTML = false
+				showData()
+			}).execute()
 		}
+	}
+
+	fun checkData(view: HolderContract)
+	{
+		this.view = view
+		if (!isLoadingHTML)
+		{
+			showData()
+		}
+	}
+
+	private fun showData()
+	{
+		view?.onBind(this)
 	}
 }
