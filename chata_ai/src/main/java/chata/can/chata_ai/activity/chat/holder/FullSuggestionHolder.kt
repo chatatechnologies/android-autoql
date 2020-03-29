@@ -15,6 +15,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.query.QueryRequest
+import chata.can.chata_ai.view.extension.dpToPx
 import chata.can.chata_ai.view.extension.margin
 
 class FullSuggestionHolder(
@@ -117,12 +118,12 @@ class FullSuggestionHolder(
 									layoutParams = RelativeLayout.LayoutParams(-2, -2)
 									gravity = Gravity.CENTER
 									text = currentText
-
 									setOnClickListener { spinner.performClick() }
 								}
 								val doubleArrow = ImageView(context).apply {
-									layoutParams = RelativeLayout.LayoutParams(-2, -2)
+									layoutParams = RelativeLayout.LayoutParams(dpToPx(16f), dpToPx(16f))
 									setImageResource(R.drawable.ic_double_arrow)
+									setOnClickListener { spinner.performClick() }
 								}
 
 								addView(firstTextView)
@@ -183,9 +184,16 @@ class FullSuggestionHolder(
 										if (child.childCount == 2)
 										{
 											child.getChildAt(1)?.let {
-												textView ->
-												if (textView is TextView)
-													textView.text
+												linearLayout ->
+												if (linearLayout is LinearLayout)
+												{
+													linearLayout.getChildAt(0)?.let {
+														textView ->
+														if (textView is TextView)
+															textView.text
+														else ""
+													} ?: run { "" }
+												}
 												else ""
 											}
 										}
