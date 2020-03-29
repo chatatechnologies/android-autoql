@@ -77,7 +77,8 @@ class FullSuggestionHolder(
 							}
 							//endregion
 							val spinner = Spinner(context)
-							val textView = TextView(context)
+							val llSelectedView = LinearLayout(context)
+							val firstTextView = TextView(context)
 							//region spinner
 							it.add(0, currentText)
 							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
@@ -95,7 +96,7 @@ class FullSuggestionHolder(
 											adapterView.adapter?.let {
 												adapter ->
 												val newContent = adapter.getItem(position)?.toString() ?: ""
-												textView.text = newContent
+												firstTextView.text = newContent
 											}
 										}
 									}
@@ -103,19 +104,34 @@ class FullSuggestionHolder(
 							}
 							//endregion
 							//region message
-							textView.apply {
+							llSelectedView.apply {
 								background = buildBackgroundGrayWhite()
-								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								layoutParams = LinearLayout.LayoutParams(-1, -2).apply {
+									setGravity(Gravity.CENTER)
+								}
+								orientation = LinearLayout.HORIZONTAL
 								margin(4f, 4f, 4f, 4f)
 								setPadding(9,9,9,9)
-								gravity = Gravity.CENTER
-								text = currentText
 
-								setOnClickListener { spinner.performClick() }
+								firstTextView.apply {
+									layoutParams = RelativeLayout.LayoutParams(-2, -2)
+									gravity = Gravity.CENTER
+									text = currentText
+
+									setOnClickListener { spinner.performClick() }
+								}
+								val doubleArrow = ImageView(context).apply {
+									layoutParams = RelativeLayout.LayoutParams(-2, -2)
+									setImageResource(R.drawable.ic_double_arrow)
+								}
+
+								addView(firstTextView)
+								addView(doubleArrow)
 							}
 							//endregion
+
 							relativeLayout.addView(spinner)
-							relativeLayout.addView(textView)
+							relativeLayout.addView(llSelectedView)
 							subRow?.addView(relativeLayout)
 						} ?: run {
 							val textView = TextView(context).apply {
