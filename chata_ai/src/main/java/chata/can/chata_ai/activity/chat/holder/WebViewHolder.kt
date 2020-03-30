@@ -68,7 +68,7 @@ class WebViewHolder(view: View): Holder(view)
 						override fun onPageFinished(view: WebView?, url: String?)
 						{
 							rlLoad?.visibility = View.GONE
-							view?.toString()
+							visibility = View.VISIBLE
 						}
 					}
 
