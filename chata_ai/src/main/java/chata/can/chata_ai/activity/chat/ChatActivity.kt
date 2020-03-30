@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.os.Bundle
 import android.speech.SpeechRecognizer
 import android.util.DisplayMetrics
 import android.view.Menu
@@ -16,7 +15,6 @@ import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -182,7 +180,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				etQuery.setText("totel salas")
+				etQuery.setText("all sales")
 			}
 		}
 

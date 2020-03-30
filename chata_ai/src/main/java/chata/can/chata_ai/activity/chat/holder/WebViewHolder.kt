@@ -16,6 +16,7 @@ class WebViewHolder(view: View): Holder(view)
 {
 	private val rvParent = view.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = view.findViewById<WebView>(R.id.wbQuery) ?: null
+	private var rlLoad = view.findViewById<View>(R.id.rlLoad) ?: null
 
 	override fun onPaint()
 	{
@@ -51,8 +52,9 @@ class WebViewHolder(view: View): Holder(view)
 	{
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
+			rlLoad?.visibility = View.VISIBLE
 			wbQuery?.let {
-					wbQuery ->
+				wbQuery ->
 				with(wbQuery)
 				{
 					clearCache(true)
@@ -65,6 +67,7 @@ class WebViewHolder(view: View): Holder(view)
 					{
 						override fun onPageFinished(view: WebView?, url: String?)
 						{
+							rlLoad?.visibility = View.GONE
 							view?.toString()
 						}
 					}
