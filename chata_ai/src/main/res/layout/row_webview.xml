@@ -14,9 +14,14 @@
 			android:layout_margin="5dp"
 			android:layout_width="match_parent"/>
 		<RelativeLayout
-			android:background="@color/red"
 			android:id="@+id/rlLoad"
 			android:layout_height="match_parent"
-			android:layout_width="match_parent"/>
+			android:layout_width="match_parent">
+			<pl.droidsonroids.gif.GifImageView
+				android:layout_centerInParent="true"
+				android:layout_height="80dp"
+				android:layout_width="80dp"
+				android:src="@drawable/gif_balls"/>
+		</RelativeLayout>
 	</RelativeLayout>
 </RelativeLayout>

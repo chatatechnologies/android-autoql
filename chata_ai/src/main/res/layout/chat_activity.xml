@@ -5,10 +5,6 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 
-	<chata.can.chata_ai.view.circle.CustomGifView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"/>
-
 	<RelativeLayout
 		android:background="@color/chata_drawer_accent_color"
 		android:minHeight="?attr/actionBarSize"
