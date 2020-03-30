@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import kotlin.math.min
@@ -21,7 +22,7 @@ import kotlin.math.pow
 /**
  * @author https://github.com/hdodenhof
  */
-class CircleImageView: androidx.appcompat.widget.AppCompatImageView
+class CircleImageView: AppCompatImageView
 {
 	private val scaleType = ScaleType.CENTER_CROP
 	private val bitmapConfig = Bitmap.Config.ARGB_8888
