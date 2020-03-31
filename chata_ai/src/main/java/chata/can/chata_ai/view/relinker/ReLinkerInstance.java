@@ -3,8 +3,6 @@ package chata.can.chata_ai.view.relinker;
 import android.content.Context;
 import android.util.Log;
 
-//import com.getkeepsafe.relinker.elf.ElfParser;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -12,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import chata.can.chata_ai.view.relinker.elf.ElfParser;
 
 public class ReLinkerInstance {
 	private static final String LIB_DIR = "lib";
