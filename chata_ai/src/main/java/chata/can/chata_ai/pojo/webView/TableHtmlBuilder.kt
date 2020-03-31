@@ -18,10 +18,6 @@ object TableHtmlBuilder
 			headTable += "<th>$cellHead</th>"
 		}
 		headTable += "</tr></thead>"
-		/*headTable += aColumn.joinToString("") {
-			val column = it.name.toCapitalColumn()
-			"<th>$column</th>"
-		}*/
 		//endregion
 
 		//region create body table with id nativeTable
@@ -29,27 +25,22 @@ object TableHtmlBuilder
 		for (aRow in aRows)
 		{
 			var iterator = 0
-			/*for (cell in aRow)
+
+			var sRow = ""
+			for (cell in aRow)
 			{
+				val valueRow =
 				if (cell.isEmpty()) ""
 				else
 				{
 					val column = aColumn[iterator++]
 					cell.formatWithColumn(column, "$", ",")
 				}
-			}*/
-
-			bodyTable += aRow.joinToString("", "<tr>", "</tr>") {
-				val valueRow = if (it.isEmpty())
-					it
-				else
-				{
-					val column = aColumn[iterator++]
-					it.formatWithColumn(column, "$", ",")
-				}
-				"<td>$valueRow</td>"
+				sRow += "<td>$valueRow</td>"
 			}
+			bodyTable += "<tr>$sRow</tr>"
 		}
+
 		bodyTable += "</tbody>"
 		//endregion
 
