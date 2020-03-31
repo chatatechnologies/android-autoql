@@ -12,11 +12,16 @@ object TableHtmlBuilder
 	{
 		//region create table head
 		var headTable = "<thead><tr>"
-		headTable += aColumn.joinToString("") {
-			val column = it.name.toCapitalColumn()
-			"<th>$column</th>"
+		for (column in aColumn)
+		{
+			val cellHead = column.name.toCapitalColumn()
+			headTable += "<th>$cellHead</th>"
 		}
 		headTable += "</tr></thead>"
+		/*headTable += aColumn.joinToString("") {
+			val column = it.name.toCapitalColumn()
+			"<th>$column</th>"
+		}*/
 		//endregion
 
 		//region create body table with id nativeTable
@@ -24,22 +29,25 @@ object TableHtmlBuilder
 		for (aRow in aRows)
 		{
 			var iterator = 0
-			bodyTable += aRow.joinToString("", "<tr>", "</tr>") {
-				if (it.isEmpty())
-				{
-					it
-				}
+			/*for (cell in aRow)
+			{
+				if (cell.isEmpty()) ""
 				else
 				{
-					val valueRow = if (it.isEmpty())
-						it
-					else
-					{
-						val column = aColumn[iterator++]
-						it.formatWithColumn(column, "$", ",")
-					}
-					"<td>$valueRow</td>"
+					val column = aColumn[iterator++]
+					cell.formatWithColumn(column, "$", ",")
 				}
+			}*/
+
+			bodyTable += aRow.joinToString("", "<tr>", "</tr>") {
+				val valueRow = if (it.isEmpty())
+					it
+				else
+				{
+					val column = aColumn[iterator++]
+					it.formatWithColumn(column, "$", ",")
+				}
+				"<td>$valueRow</td>"
 			}
 		}
 		bodyTable += "</tbody>"
