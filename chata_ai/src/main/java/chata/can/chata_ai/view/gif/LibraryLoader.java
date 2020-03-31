@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import pl.droidsonroids.relinker.ReLinker;
 
 public class LibraryLoader {
-	private static final String BASE_LIBRARY_NAME = "pl_droidsonroids_gif";
+	private static final String BASE_LIBRARY_NAME = "can_chata_ai_gif";
 	@SuppressLint("StaticFieldLeak") //workaround for Android bug
 	private static Context sAppContext;
 
