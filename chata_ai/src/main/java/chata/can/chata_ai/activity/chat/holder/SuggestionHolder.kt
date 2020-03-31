@@ -78,6 +78,7 @@ class SuggestionHolder(
 			text = content
 			setOnClickListener {
 				view.addChatMessage(2, content)
+				//view.scrollToPosition()
 
 				val mInfoHolder = hashMapOf<String, Any>("query" to content)
 				QueryRequest.callQuery(content, servicePresenter, mInfoHolder)

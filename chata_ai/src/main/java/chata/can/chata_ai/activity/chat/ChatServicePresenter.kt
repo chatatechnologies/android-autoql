@@ -67,6 +67,7 @@ class ChatServicePresenter(
 						{
 							val simpleQuery = FullSuggestionQuery(jsonObject)
 							view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
+							//view?.scrollToPosition()
 						}
 					}
 				}
@@ -94,6 +95,7 @@ class ChatServicePresenter(
 						else -> TypeChatView.LEFT_VIEW
 					}
 					view?.addNewChat(typeView, queryBase)
+					//view?.scrollToPosition()
 				}
 				else ->
 				{

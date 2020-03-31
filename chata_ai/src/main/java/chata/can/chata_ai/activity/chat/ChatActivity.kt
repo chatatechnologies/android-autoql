@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import android.os.Handler
 import android.speech.SpeechRecognizer
 import android.util.DisplayMetrics
 import android.view.Menu
@@ -135,11 +136,6 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 					model.addData(ChatData(1, introMessage))
 					chatAdapter.notifyDataSetChanged()
 				}
-				//TODO REMOVE
-				R.id.ivMicrophone ->
-				{
-					setRequestQuery()
-				}
 			}
 		}
 	}
@@ -215,6 +211,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		val chatData = ChatData(typeView, message)
 		model.addData(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
+		scrollToPosition()
 	}
 
 	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
@@ -222,6 +219,15 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		val chatData = ChatData(typeView, "", queryBase)
 		model.addData(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
+		scrollToPosition()
+	}
+
+	/*override */fun scrollToPosition()
+	{
+		Handler().postDelayed({
+			val position = model.countData() - 1
+			rvChat.scrollToPosition(position)
+		}, 200)
 	}
 
 	private fun initConfig()
@@ -302,6 +308,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 			hideKeyboard()
 			etQuery.setText("")
 			model.addData(ChatData(2, query))
+			scrollToPosition()
 
 			chatAdapter.notifyItemChanged(model.countData() - 1)
 
@@ -358,19 +365,16 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		{
 			setOnClickListener(null)
 			setOnTouchListener {
-					_, event ->
+				_, event ->
 				when(event.action)
 				{
 					MotionEvent.ACTION_DOWN ->
 					{
 						promptSpeechInput()
-						//if (isOpenFAB) changeFAB(false)
-						//btnMenu.isEnabled = false
 					}
 					MotionEvent.ACTION_UP ->
 					{
 						speechRecognizer.stopListening()
-						//btnMenu.isEnabled = true
 					}
 				}
 				true
