@@ -42,3 +42,4 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 - Total Sales: <b>table</b>
 - Total invoices: <b>table</b> -> $
 - Totel opereting expinses bu accaunt: <b>full suggestion</b>
+- 

@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
+
 	<RelativeLayout
 		android:id="@+id/rvParent"
 		android:layout_height="320dp"
@@ -23,4 +24,38 @@
 				android:layout_width="80dp"/>
 		</RelativeLayout>
 	</RelativeLayout>
+
+	<LinearLayout
+		android:background="@color/white"
+		android:id="@+id/llCharts"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:visibility="gone">
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivBar"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_bar"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivColumn"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_column"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivLine"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_line"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivPie"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_pie"/>
+	</LinearLayout>
 </RelativeLayout>

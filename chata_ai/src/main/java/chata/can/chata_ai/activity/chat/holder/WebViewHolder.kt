@@ -1,9 +1,11 @@
 package chata.can.chata_ai.activity.chat.holder
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.Holder
@@ -18,16 +20,22 @@ class WebViewHolder(view: View): Holder(view)
 	private val wbQuery = view.findViewById<WebView>(R.id.wbQuery) ?: null
 	private var rlLoad = view.findViewById<View>(R.id.rlLoad) ?: null
 
+	private val llCharts = view.findViewById<View>(R.id.llCharts) ?: null
+	private val ivBar = view.findViewById<ImageView>(R.id.ivBar) ?: null
+	private val ivColumn = view.findViewById<ImageView>(R.id.ivColumn) ?: null
+	private val ivLine = view.findViewById<ImageView>(R.id.ivLine) ?: null
+	private val ivPie = view.findViewById<ImageView>(R.id.ivPie) ?: null
+
 	override fun onPaint()
 	{
 		rvParent?.let {
-			val white = ContextCompat.getColor(it.context, R.color.chata_drawer_background_color)
-			val gray = ContextCompat.getColor(it.context, R.color.chata_drawer_color_primary)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
-			it.background = queryDrawable
+			it.background = backgroundGrayWhite(it)
+		}
+
+		llCharts?.let {
+			it.background = backgroundGrayWhite(it)
 		}
 	}
-
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
@@ -47,9 +55,25 @@ class WebViewHolder(view: View): Holder(view)
 		}
 	}
 
+	private fun isChart(numColumns: Int)
+	{
+		llCharts?.let {
+			it.visibility =
+			if (numColumns == 2)
+			{
+				View.VISIBLE
+			}
+			else
+			{
+				View.GONE
+			}
+		}
+	}
+
 	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
+		isChart(simpleQuery.numColumns)
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
 			rlLoad?.visibility = View.VISIBLE
@@ -79,5 +103,12 @@ class WebViewHolder(view: View): Holder(view)
 				}
 			}
 		}
+	}
+
+	private fun backgroundGrayWhite(view: View): GradientDrawable
+	{
+		val white = ContextCompat.getColor(view.context, R.color.chata_drawer_background_color)
+		val gray = ContextCompat.getColor(view.context, R.color.chata_drawer_color_primary)
+		return  DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

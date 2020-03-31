@@ -176,7 +176,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				etQuery.setText("all sales")
+				etQuery.setText("pie chart total sales")
 			}
 		}
 
