@@ -19,20 +19,18 @@ object SectionData
 	}
 
 	val mData = linkedMapOf(
-		"Data Source" to
+		"Authentication" to
 			arrayListOf(
-				DemoParameter("Demo data", TypeParameter.TOGGLE),
-				DemoParameter("Show UI Overlay", TypeParameter.TOGGLE)
-			),
-		"You must login to access data" to
-			arrayListOf(
-				DemoParameter("Customer ID *", TypeParameter.INPUT),
-				DemoParameter("User ID (email) *", TypeParameter.INPUT),
-				DemoParameter("API key *", TypeParameter.INPUT),
-				DemoParameter("Domain URL *", TypeParameter.INPUT),
-				DemoParameter("Username *", TypeParameter.INPUT),
-				DemoParameter("Password *", TypeParameter.INPUT),
-				DemoParameter("Authenticate", TypeParameter.BUTTON)
+				DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
+
+				DemoParameter("Project ID *", TypeParameter.INPUT, idView = R.id.tvProjectId),
+				DemoParameter("User ID (email) *", TypeParameter.INPUT, idView = R.id.tvUserId),
+				DemoParameter("API key *", TypeParameter.INPUT, idView = R.id.tvApiKey),
+				DemoParameter("Domain URL *", TypeParameter.INPUT, idView = R.id.tvDomainUrl),
+				DemoParameter("Username *", TypeParameter.INPUT, idView = R.id.tvUsername),
+				DemoParameter("Password *", TypeParameter.INPUT, idView = R.id.tvPassword),
+				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate),
+				DemoParameter("Log Out", TypeParameter.BUTTON, idView = R.id.btnLogOut)
 			),
 		"Drawer Props" to
 			arrayListOf(

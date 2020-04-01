@@ -17,8 +17,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import chata.can.chata_ai.request.ConstantRequest
-import chata.can.chata_ai.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -30,6 +28,21 @@ import chata.can.chata_ai_api.model.TypeParameter
 class MainActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var llContainer: LinearLayout
+	private var swDemoData: Switch ?= null
+	private var llProjectId: View ?= null
+	private var tvProjectId: EditText ?= null
+	private var llUserId: View ?= null
+	private var tvUserId: EditText ?= null
+	private var llApiKey: View ?= null
+	private var tvApiKey: EditText ?= null
+	private var llDomainUrl: View ?= null
+	private var tvDomainUrl: EditText ?= null
+	private var llUsername: View ?= null
+	private var tvUsername: EditText ?= null
+	private var llPassword: View ?= null
+	private var tvPassword: EditText ?= null
+	private var btnAuthenticate: TextView ?= null
+	private var btnLogOut: TextView ?= null
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	private lateinit var btnReloadDrawer: Button
@@ -51,6 +64,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		setContentView(R.layout.activity_main)
 		initViews()
 		setColorOptions()
+		setListener()
 
 		if (isMarshmallow())
 		{
@@ -108,10 +122,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		view?.let {
 			when(it.id)
 			{
-				/*R.id.btnOpenDrawer ->
+				R.id.btnAuthenticate, R.id.btnLogOut ->
 				{
-
-				}*/
+					println("BOTONES RECIEN AÑADIDOS")
+				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
 					if (it is TextView)
@@ -241,6 +255,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							layoutParams = LinearLayout.LayoutParams(-2, -2)
 							gravity = Gravity.CENTER_HORIZONTAL
 							isChecked = demoParam.value == "true"
+							id = demoParam.idView
 						}
 					}
 					TypeParameter.INPUT ->
@@ -270,6 +285,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER
 							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
+							id = demoParam.idView
 							text = demoParam.label
 						}
 					}
@@ -356,6 +372,47 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		findViewById<EditText>(R.id.tvCustomerMessage)?.let {
 			bubbleHandle.setCustomerName(it.text.toString())
+		}
+	}
+
+	/**
+	 *
+	 */
+	private fun setListener()
+	{
+		swDemoData = findViewById<Switch>(R.id.swDemoData)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				val iVisible = if (!isChecked) View.VISIBLE else View.GONE
+
+				llProjectId?.visibility = iVisible
+				llUserId?.visibility = iVisible
+				llApiKey?.visibility = iVisible
+				llDomainUrl?.visibility = iVisible
+				llUsername?.visibility = iVisible
+				llPassword?.visibility = iVisible
+				btnAuthenticate?.visibility = iVisible
+				btnLogOut?.visibility = iVisible
+
+			}
+		}
+		tvProjectId = findViewById(R.id.tvProjectId)
+		llProjectId = tvProjectId?.parent as? LinearLayout
+		tvUserId = findViewById(R.id.tvUserId)
+		llUserId = tvUserId?.parent as? LinearLayout
+		tvApiKey = findViewById(R.id.tvApiKey)
+		llApiKey = tvApiKey?.parent as? LinearLayout
+		tvDomainUrl = findViewById(R.id.tvDomainUrl)
+		llDomainUrl = tvDomainUrl?.parent as? LinearLayout
+		tvUsername = findViewById(R.id.tvUsername)
+		llUsername = tvUsername?.parent as? LinearLayout
+		tvPassword = findViewById(R.id.tvPassword)
+		llPassword = tvPassword?.parent as? LinearLayout
+		btnAuthenticate = findViewById<TextView>(R.id.btnAuthenticate)?.apply {
+			setOnClickListener(this@MainActivity)
+		}
+		btnLogOut = findViewById<TextView>(R.id.btnLogOut)?.apply {
+			setOnClickListener(this@MainActivity)
 		}
 	}
 

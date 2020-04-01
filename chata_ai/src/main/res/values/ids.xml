@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<item name="swDemoData" type="id"/>
+
+	<item name="tvProjectId" type="id"/>
+	<item name="tvUserId" type="id"/>
+	<item name="tvApiKey" type="id"/>
+	<item name="tvDomainUrl" type="id"/>
+	<item name="tvUsername" type="id"/>
+	<item name="tvPassword" type="id"/>
+
+	<item name="btnAuthenticate" type="id"/>
+	<item name="btnLogOut" type="id"/>
+
 	<item name="tvLight" type="id"/>
 	<item name="tvDark" type="id"/>
 
