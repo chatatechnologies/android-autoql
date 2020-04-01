@@ -7,4 +7,5 @@ data class DemoParameter(
 	val type: TypeParameter,
 	val value: String = "false",
 	val options: SparseArray<String> = SparseArray(),
+	val labelId: Int = 0,
 	val idView: Int = 0)

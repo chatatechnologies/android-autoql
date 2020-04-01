@@ -23,12 +23,12 @@ object SectionData
 			arrayListOf(
 				DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
 
-				DemoParameter("Project ID *", TypeParameter.INPUT, idView = R.id.tvProjectId),
-				DemoParameter("User ID (email) *", TypeParameter.INPUT, idView = R.id.tvUserId),
-				DemoParameter("API key *", TypeParameter.INPUT, idView = R.id.tvApiKey),
-				DemoParameter("Domain URL *", TypeParameter.INPUT, idView = R.id.tvDomainUrl),
-				DemoParameter("Username *", TypeParameter.INPUT, idView = R.id.tvUsername),
-				DemoParameter("Password *", TypeParameter.INPUT, idView = R.id.tvPassword),
+				DemoParameter("Project ID *", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.tvProjectId),
+				DemoParameter("User ID (email) *", TypeParameter.INPUT, labelId = R.id.hUserId,idView = R.id.tvUserId),
+				DemoParameter("API key *", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.tvApiKey),
+				DemoParameter("Domain URL *", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.tvDomainUrl),
+				DemoParameter("Username *", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.tvUsername),
+				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.tvPassword),
 				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate),
 				DemoParameter("Log Out", TypeParameter.BUTTON, idView = R.id.btnLogOut)
 			),

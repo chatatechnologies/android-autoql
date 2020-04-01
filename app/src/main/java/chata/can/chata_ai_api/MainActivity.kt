@@ -29,17 +29,17 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var llContainer: LinearLayout
 	private var swDemoData: Switch ?= null
-	private var llProjectId: View ?= null
+	private var hProjectId: TextView ?= null
 	private var tvProjectId: EditText ?= null
-	private var llUserId: View ?= null
+	private var hUserId: TextView ?= null
 	private var tvUserId: EditText ?= null
-	private var llApiKey: View ?= null
+	private var hApiKey: TextView ?= null
 	private var tvApiKey: EditText ?= null
-	private var llDomainUrl: View ?= null
+	private var hDomainUrl: TextView ?= null
 	private var tvDomainUrl: EditText ?= null
-	private var llUsername: View ?= null
+	private var hUsername: TextView ?= null
 	private var tvUsername: EditText ?= null
-	private var llPassword: View ?= null
+	private var hPassword: TextView ?= null
 	private var tvPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
 	private var btnLogOut: TextView ?= null
@@ -241,6 +241,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						layoutParams = LinearLayout.LayoutParams(-1, -2)
 						gravity = Gravity.CENTER_HORIZONTAL
 						text = demoParam.label
+						if (demoParam.labelId != 0)
+						{
+							id = demoParam.labelId
+						}
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 						llContainer.addView(this)
 					}
@@ -385,29 +389,41 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				_, isChecked ->
 				val iVisible = if (!isChecked) View.VISIBLE else View.GONE
 
-				llProjectId?.visibility = iVisible
-				llUserId?.visibility = iVisible
-				llApiKey?.visibility = iVisible
-				llDomainUrl?.visibility = iVisible
-				llUsername?.visibility = iVisible
-				llPassword?.visibility = iVisible
+				hProjectId?.visibility = iVisible
+				tvProjectId?.visibility = iVisible
+				hUserId?.visibility = iVisible
+				tvUserId?.visibility = iVisible
+				hApiKey?.visibility = iVisible
+				tvApiKey?.visibility = iVisible
+				hDomainUrl?.visibility = iVisible
+				tvDomainUrl?.visibility = iVisible
+				hUsername?.visibility = iVisible
+				tvUsername?.visibility = iVisible
+				hPassword?.visibility = iVisible
+				tvPassword?.visibility = iVisible
 				btnAuthenticate?.visibility = iVisible
 				btnLogOut?.visibility = iVisible
 
 			}
 		}
+		hProjectId = findViewById(R.id.hProjectId)
 		tvProjectId = findViewById(R.id.tvProjectId)
-		llProjectId = tvProjectId?.parent as? LinearLayout
+
+		hUserId = findViewById(R.id.hUserId)
 		tvUserId = findViewById(R.id.tvUserId)
-		llUserId = tvUserId?.parent as? LinearLayout
+
+		hApiKey = findViewById(R.id.hApiKey)
 		tvApiKey = findViewById(R.id.tvApiKey)
-		llApiKey = tvApiKey?.parent as? LinearLayout
+
+		hDomainUrl = findViewById(R.id.hDomainUrl)
 		tvDomainUrl = findViewById(R.id.tvDomainUrl)
-		llDomainUrl = tvDomainUrl?.parent as? LinearLayout
+
+		hUsername = findViewById(R.id.hUsername)
 		tvUsername = findViewById(R.id.tvUsername)
-		llUsername = tvUsername?.parent as? LinearLayout
+
+		hPassword = findViewById(R.id.hPassword)
 		tvPassword = findViewById(R.id.tvPassword)
-		llPassword = tvPassword?.parent as? LinearLayout
+
 		btnAuthenticate = findViewById<TextView>(R.id.btnAuthenticate)?.apply {
 			setOnClickListener(this@MainActivity)
 		}

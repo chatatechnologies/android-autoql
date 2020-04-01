@@ -2,11 +2,17 @@
 <resources>
 	<item name="swDemoData" type="id"/>
 
+	<item name="hProjectId" type="id"/>
 	<item name="tvProjectId" type="id"/>
+	<item name="hUserId" type="id"/>
 	<item name="tvUserId" type="id"/>
+	<item name="hApiKey" type="id"/>
 	<item name="tvApiKey" type="id"/>
+	<item name="hDomainUrl" type="id"/>
 	<item name="tvDomainUrl" type="id"/>
+	<item name="hUsername" type="id"/>
 	<item name="tvUsername" type="id"/>
+	<item name="hPassword" type="id"/>
 	<item name="tvPassword" type="id"/>
 
 	<item name="btnAuthenticate" type="id"/>
