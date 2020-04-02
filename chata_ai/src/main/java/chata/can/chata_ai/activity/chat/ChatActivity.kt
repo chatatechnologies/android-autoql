@@ -62,6 +62,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	override fun onCreateView()
 	{
+		PropertyChatActivity.context = this
 		initConfig()
 		initViews()
 		initColors()

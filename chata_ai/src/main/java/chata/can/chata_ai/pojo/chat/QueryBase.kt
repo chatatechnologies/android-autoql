@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.chat
 import chata.can.chata_ai.DoAsync
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
+import chata.can.chata_ai.pojo.webView.HtmlMarked
 import chata.can.chata_ai.view.extension.enumValueOfOrNull
 import chata.can.chata_ai.view.extension.formatWithColumn
 import org.json.JSONObject
@@ -107,7 +108,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					}
 					else ->
 					{
-						HtmlBuilder.build(this)
+						val htmlTable = HtmlBuilder.build(this)
+						HtmlMarked.getTable(htmlTable)
 					}
 				}
 			},{
