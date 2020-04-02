@@ -241,7 +241,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				ScreenData.densityByDP = itMetrics.density
 			}
 		}
-		RequestBuilder.requestQueue = Volley.newRequestQueue(this)
+		RequestBuilder.initVolleyRequest(this)
 	}
 
 	private fun initViews()

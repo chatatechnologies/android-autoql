@@ -1,15 +1,22 @@
 package chata.can.chata_ai.pojo.request
 
+import android.content.Context
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.UnknownHostException
 
 object RequestBuilder
 {
+
+	fun initVolleyRequest(context: Context)
+	{
+		requestQueue = Volley.newRequestQueue(context)
+	}
 	//Start when chat or dashboard's component start in XMLs
 	var requestQueue: RequestQueue ?= null
 

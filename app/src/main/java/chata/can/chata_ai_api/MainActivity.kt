@@ -17,9 +17,15 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.pojo.DataMessenger
+import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * @author Carlos Buruel
@@ -89,14 +95,20 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			initBubble()
 		}
 
-		val params = hashMapOf(
-			"scope" to "read",
-			"grant_type" to "password",
-			"username" to "carlos@rinro.com.mx",
-			"password" to "\$Chata124")
-
 		//RequestBuilder.executeRequest(ConstantRequest.Method.GET, "https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
 		//RequestBuilder.executeRequest(ConstantRequest.Method.POST, "https://backend.chata.ai/oauth/token", params = params)
+
+		if (BuildConfig.DEBUG)
+		{
+			tvProjectId?.setText("qbo-1")
+			tvDomainUrl?.setText("https://qbo-staging.chata.io")
+			tvApiKey?.setText("AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys")
+			tvUserId?.setText("carlos@rinro.com.mx")
+			tvUsername?.setText("admin")
+			tvPassword?.setText("admin123")
+		}
+
+		RequestBuilder.initVolleyRequest(this)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -122,9 +134,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		view?.let {
 			when(it.id)
 			{
-				R.id.btnAuthenticate, R.id.btnLogOut ->
+				R.id.btnAuthenticate ->
 				{
-					println("BOTONES RECIEN AÑADIDOS")
+					createAuthenticate()
+				}
+				R.id.btnLogOut ->
+				{
+					//DELETE DATA
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
@@ -139,6 +155,62 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+	}
+
+	private fun createAuthenticate()
+	{
+		val username = (tvUsername?.text ?: "").toString()
+		val password = (tvPassword?.text ?: "").toString()
+
+		Authentication.callLogin(username, password,
+			object: StatusResponse
+			{
+				override fun onFailure(jsonObject: JSONObject?)
+				{
+					if (jsonObject != null) { }
+				}
+
+				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					if (jsonObject != null)
+					{
+						val token = jsonObject.optString("RESPONSE")
+						DataMessenger.token = token
+						createJWT()
+					}
+
+					if (jsonArray != null)  { }
+				}
+			})
+	}
+
+	private fun createJWT()
+	{
+		val userId = (tvUserId?.text ?: "").toString()
+		val projectId = (tvProjectId?.text ?: "").toString()
+
+		Authentication.callJWL(
+			DataMessenger.token,
+			userId,
+			projectId,
+			object: StatusResponse
+			{
+				override fun onFailure(jsonObject: JSONObject?)
+				{
+					if (jsonObject != null) { }
+				}
+
+				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					if (jsonObject != null)
+					{
+						val jwt = jsonObject.optString("RESPONSE")
+						DataMessenger.JWT = jwt
+					}
+
+					if (jsonArray != null)  { }
+				}
+			})
 	}
 
 	private fun setColorOptions()
@@ -403,7 +475,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				tvPassword?.visibility = iVisible
 				btnAuthenticate?.visibility = iVisible
 				btnLogOut?.visibility = iVisible
-
 			}
 		}
 		hProjectId = findViewById(R.id.hProjectId)
