@@ -142,6 +142,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					//DELETE DATA
 				}
+				R.id.btnOpenDrawer ->
+				{
+					bubbleHandle.openChatActivity()
+				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
 					if (it is TextView)
@@ -316,6 +320,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						if (demoParam.labelId != 0)
 						{
 							id = demoParam.labelId
+
 						}
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 						llContainer.addView(this)
@@ -362,6 +367,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							gravity = Gravity.CENTER
 							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
 							id = demoParam.idView
+							if (id != 0)
+							{
+								setOnClickListener(this@MainActivity)
+							}
 							text = demoParam.label
 						}
 					}

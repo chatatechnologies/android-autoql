@@ -35,7 +35,7 @@ object SectionData
 		"Drawer Props" to
 			arrayListOf(
 				DemoParameter("Reload Drawer", TypeParameter.BUTTON),
-				DemoParameter("Open Drawer", TypeParameter.BUTTON),
+				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer),
 				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE),
 				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),

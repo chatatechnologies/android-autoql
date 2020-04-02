@@ -222,7 +222,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		scrollToPosition()
 	}
 
-	/*override */fun scrollToPosition()
+	/*override */private fun scrollToPosition()
 	{
 		Handler().postDelayed({
 			val position = model.countData() - 1

@@ -71,20 +71,28 @@ class BubbleHandle(private val context: Context)
 
 			addView(initChildView())
 			setOnBubbleClickListener {
-				if (!isOpenChat)
-				{
-					isOpenChat = true
-					val intent = Intent(context, ChatActivity::class.java)
-					createIntentData(intent)
-					context.startActivity(intent)
-					(context as? AppCompatActivity)
-						?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
-				}
+				openChatActivity()
 			}
 
 			setShouldStickToWall(true)
 
 			bubblesManager.addBubble(bubbleLayout, 0,0)
+		}
+	}
+
+	/**
+	 * open chat
+	 */
+	fun openChatActivity()
+	{
+		if (!isOpenChat)
+		{
+			isOpenChat = true
+			val intent = Intent(context, ChatActivity::class.java)
+			createIntentData(intent)
+			context.startActivity(intent)
+			(context as? AppCompatActivity)
+				?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 		}
 	}
 
