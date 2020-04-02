@@ -185,7 +185,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				etQuery.setText("monthly average expenses for the last quarter")
+				etQuery.setText("expenditures cash flow forecast by week next 8 weeks")
 			}
 		}
 

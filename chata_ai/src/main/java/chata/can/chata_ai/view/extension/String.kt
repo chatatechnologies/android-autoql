@@ -21,9 +21,12 @@ fun String.formatWithColumn(
 		{
 			val format =
 			if (columnQuery.name.contains("month"))
-				SinglentonDrawer.mFormatMonthYear
+				SinglentonDrawer.mFormatMonthYear.replace("Y", "y")
 			else
-				SinglentonDrawer.mFormatDayMonthYear
+				SinglentonDrawer.mFormatDayMonthYear.
+				replace("Y", "y").
+				replace("D", "d")
+
 
 			if (isEmpty() || this == "0")
 				""
