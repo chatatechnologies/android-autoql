@@ -11,6 +11,7 @@ import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.color.Color
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
@@ -22,6 +23,9 @@ class BubbleHandle(private val context: Context)
 	private lateinit var circleImageView: CircleImageView
 
 	companion object {
+		const val THEME_LIGHT = false
+		const val THEME_DARK = true
+
 		const val TOP_PLACEMENT = 1
 		const val BOTTOM_PLACEMENT = 2
 		const val LEFT_PLACEMENT = 3
@@ -31,7 +35,6 @@ class BubbleHandle(private val context: Context)
 		var isOpenChat = false
 	}
 
-	private var currentColor: Color ?= null
 	private val defaultPlacement = 4
 	//region API properties
 	private var mPlacement = defaultPlacement
@@ -52,7 +55,7 @@ class BubbleHandle(private val context: Context)
 
 	fun changeColor(themeColor: Color)
 	{
-		currentColor = themeColor
+		ThemeColor.currentColor = themeColor
 	}
 
 	fun setPlacement(placement: Int)

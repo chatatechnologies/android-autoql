@@ -13,6 +13,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.view.extension.dpToPx
@@ -29,7 +30,8 @@ class FullSuggestionHolder(
 
 	override fun onPaint()
 	{
-		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		val textColor = ContextCompat.getColor(
+			tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
 		llContent.background = buildBackgroundGrayWhite()
 		rlRunQuery.background = buildBackgroundGrayWhite()
@@ -214,8 +216,10 @@ class FullSuggestionHolder(
 
 	private fun buildBackgroundGrayWhite(): GradientDrawable
 	{
-		val white = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_background_color)
-		val gray = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		val white = ContextCompat.getColor(
+			tvContent.context,
+			ThemeColor.currentColor.drawerBackgroundColor)
+		val gray = ContextCompat.getColor(tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
 		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

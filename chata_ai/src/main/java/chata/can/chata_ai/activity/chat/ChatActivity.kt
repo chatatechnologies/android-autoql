@@ -31,6 +31,7 @@ import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import java.net.URLEncoder
@@ -97,7 +98,9 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	override fun setStopRecorder()
 	{
-		val red = ContextCompat.getColor(this, R.color.chata_drawer_accent_color)
+		val red = ContextCompat.getColor(
+			this,
+			ThemeColor.currentColor.drawerAccentColor)
 		val circleDrawable = GradientDrawable().apply {
 			shape = GradientDrawable.OVAL
 			setColor(red)

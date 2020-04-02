@@ -5,17 +5,17 @@ import chata.can.chata_ai_api.R
 
 object SectionData
 {
-	private val saTheme = SparseArray<String>()
-	private val saPlacement = SparseArray<String>()
+	private val saTheme = SparseArray<Segment>()
+	private val saPlacement = SparseArray<Segment>()
 
 	init {
-		saTheme.put(R.id.tvLight, "Light")
-		saTheme.put(R.id.tvDark, "Dark")
+		saTheme.put(R.id.tvLight, Segment("Light", true))
+		saTheme.put(R.id.tvDark, Segment("Dark"))
 
-		saPlacement.put(R.id.tvTop, "Top")
-		saPlacement.put(R.id.tvBottom, "Bottom")
-		saPlacement.put(R.id.tvLeft, "Left")
-		saPlacement.put(R.id.tvRight, "Right")
+		saPlacement.put(R.id.tvTop, Segment("Top"))
+		saPlacement.put(R.id.tvBottom, Segment("Bottom"))
+		saPlacement.put(R.id.tvLeft, Segment("Left"))
+		saPlacement.put(R.id.tvRight, Segment("Right", true))
 	}
 
 	val mData = linkedMapOf(

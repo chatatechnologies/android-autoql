@@ -6,6 +6,6 @@ data class DemoParameter(
 	val label: String,
 	val type: TypeParameter,
 	val value: String = "false",
-	val options: SparseArray<String> = SparseArray(),
+	val options: SparseArray<Segment> = SparseArray(),
 	val labelId: Int = 0,
 	val idView: Int = 0)

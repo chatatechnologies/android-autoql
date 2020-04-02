@@ -18,4 +18,6 @@ object ThemeColor
 		R.color.chata_drawer_hover_color_dark,
 		R.color.chata_drawer_color_primary_dark,
 		R.color.chata_drawer_text_color_placeholder_dark)
+
+	var currentColor: Color = lightColor
 }

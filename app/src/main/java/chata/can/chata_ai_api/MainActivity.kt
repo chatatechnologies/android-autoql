@@ -58,6 +58,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private lateinit var bubbleHandle: BubbleHandle
 
+	private val mTheme = hashMapOf(
+	R.id.tvLight to BubbleHandle.THEME_LIGHT,
+	R.id.tvDark to BubbleHandle.THEME_DARK)
+
 	private val mPlacement = hashMapOf(
 		R.id.tvTop to BubbleHandle.TOP_PLACEMENT,
 		R.id.tvBottom to BubbleHandle.BOTTOM_PLACEMENT,
@@ -148,13 +152,23 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					bubbleHandle.openChatActivity()
 				}
-				R.id.tvLight ->
+				R.id.tvLight, R.id.tvDark ->
 				{
-					bubbleHandle.changeColor(ThemeColor.lightColor)
-				}
-				R.id.tvDark ->
-				{
-					bubbleHandle.changeColor(ThemeColor.darkColor)
+					if (it is TextView)
+					{
+						if (it.tag is String)
+						{
+							setColorOption(it.tag as String, it.id)
+						}
+						mTheme[it.id]?.let {
+							config ->
+							val theme = if (config)
+								ThemeColor.lightColor
+							else ThemeColor.darkColor
+
+							bubbleHandle.changeColor(theme)
+						}
+					}
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
@@ -407,7 +421,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 										weight = 1f
 									}
 									tv.gravity = Gravity.CENTER
-									tv.text = option
+									tv.text = option.text
 									tv.tag = demoParam.label
 
 									mViews[demoParam.label]?.put(tv.id, iterator == 0) ?: run {

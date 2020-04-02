@@ -7,6 +7,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 open class BaseHolder(view: View): Holder(view)
@@ -15,11 +16,14 @@ open class BaseHolder(view: View): Holder(view)
 
 	override fun onPaint()
 	{
-		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
-		tvContent.setTextColor(textColor)
+		val gray = ContextCompat.getColor(
+			tvContent.context,
+			ThemeColor.currentColor.drawerColorPrimary)
+		tvContent.setTextColor(gray)
 
-		val white = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_background_color)
-		val gray = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_color_primary)
+		val white = ContextCompat.getColor(
+			tvContent.context,
+			ThemeColor.currentColor.drawerBackgroundColor)
 		val queryDrawable = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 		tvContent.background = queryDrawable
 	}

@@ -12,6 +12,7 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class WebViewHolder(view: View): Holder(view)
@@ -107,8 +108,12 @@ class WebViewHolder(view: View): Holder(view)
 
 	private fun backgroundGrayWhite(view: View): GradientDrawable
 	{
-		val white = ContextCompat.getColor(view.context, R.color.chata_drawer_background_color)
-		val gray = ContextCompat.getColor(view.context, R.color.chata_drawer_color_primary)
+		val white = ContextCompat.getColor(
+			view.context,
+			ThemeColor.currentColor.drawerBackgroundColor)
+		val gray = ContextCompat.getColor(
+			view.context,
+			ThemeColor.currentColor.drawerColorPrimary)
 		return  DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }
