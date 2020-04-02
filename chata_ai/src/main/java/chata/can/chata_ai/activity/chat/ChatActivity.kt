@@ -33,7 +33,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import com.android.volley.toolbox.Volley
 import java.net.URLEncoder
 
 class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, ChatContract.View

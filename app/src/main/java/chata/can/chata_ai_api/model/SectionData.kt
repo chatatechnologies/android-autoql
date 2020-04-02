@@ -36,7 +36,7 @@ object SectionData
 			arrayListOf(
 				DemoParameter("Reload Drawer", TypeParameter.BUTTON),
 				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer),
-				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE),
+				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
 				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),
 				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = saPlacement),

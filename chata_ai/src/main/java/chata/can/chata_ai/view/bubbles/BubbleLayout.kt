@@ -10,6 +10,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
+import android.view.View
 import android.view.WindowManager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.BubbleData
@@ -187,11 +188,27 @@ class BubbleLayout: BubbleBaseLayout
 				placementX = width1
 				placementY = centerY
 			}
+			BubbleHandle.NOT_PLACEMENT ->
+			{
+				placementX = -1
+				placementY = -1
+			}
 		}
 
-		getViewParams()?.x = placementX
-		getViewParams()?.y = placementY
-		getWindowManager()?.updateViewLayout(this, getViewParams())
+		if (placementX != -1 && placementY != -1)
+		{
+			if (visibility == View.GONE)
+			{
+				visibility = View.VISIBLE
+			}
+			getViewParams()?.x = placementX
+			getViewParams()?.y = placementY
+			getWindowManager()?.updateViewLayout(this, getViewParams())
+		}
+		else
+		{
+			visibility = View.GONE
+		}
 	}
 
 	private fun updateSize()

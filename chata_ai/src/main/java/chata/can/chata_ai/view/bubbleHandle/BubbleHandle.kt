@@ -25,6 +25,7 @@ class BubbleHandle(private val context: Context)
 		const val BOTTOM_PLACEMENT = 2
 		const val LEFT_PLACEMENT = 3
 		const val RIGHT_PLACEMENT = 4
+		const val NOT_PLACEMENT = 5
 
 		var isOpenChat = false
 	}
@@ -59,6 +60,15 @@ class BubbleHandle(private val context: Context)
 	fun setCustomerName(customerName: String)
 	{
 		this.customerName = customerName
+	}
+
+	fun setVisible(isVisible: Boolean)
+	{
+		val tmpPlacement = if (isVisible)
+			mPlacement
+		else
+			NOT_PLACEMENT
+		bubbleLayout.definePositionInScreen(tmpPlacement)
 	}
 
 	private fun initBubbleLayout()

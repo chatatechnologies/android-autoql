@@ -49,6 +49,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var tvPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
 	private var btnLogOut: TextView ?= null
+	private var swDrawerHandle: Switch ?= null
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	private lateinit var btnReloadDrawer: Button
@@ -509,6 +510,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		btnLogOut = findViewById<TextView>(R.id.btnLogOut)?.apply {
 			setOnClickListener(this@MainActivity)
+		}
+		swDrawerHandle = findViewById<Switch>(R.id.swDrawerHandle)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.setVisible(isChecked)
+			}
 		}
 	}
 

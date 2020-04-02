@@ -19,6 +19,7 @@
 	<item name="btnLogOut" type="id"/>
 
 	<item name="btnOpenDrawer" type="id"/>
+	<item name="swDrawerHandle" type="id"/>
 
 	<item name="tvLight" type="id"/>
 	<item name="tvDark" type="id"/>
