@@ -40,7 +40,7 @@ object SectionData
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),
 				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = saPlacement),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
-				DemoParameter("Language code", TypeParameter.INPUT, "en-US"),
+				DemoParameter("Language code", TypeParameter.INPUT, "en-US", idView = R.id.etLanguageCode),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY"),
 				DemoParameter("Format for Day, Month, Year", TypeParameter.INPUT, "MMM DD, YYYY"),
 				DemoParameter("Number of Decimals for Currency Values", TypeParameter.INPUT, "2", idView = R.id.etDecimalsCurrency),

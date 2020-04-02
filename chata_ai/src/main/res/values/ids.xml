@@ -30,6 +30,7 @@
 	<item name="tvRight" type="id"/>
 
 	<item name="etCurrencyCode" type="id"/>
+	<item name="etLanguageCode" type="id"/>
 	<item name="etDecimalsCurrency" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>

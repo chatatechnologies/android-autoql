@@ -6,5 +6,6 @@ package chata.can.chata_ai.pojo
 object SinglentonDrawer
 {
 	var mCurrencyCode = "$"
+	var mLanguageCode = "en-U"
 	var mDecimalsCurrency = 2
 }

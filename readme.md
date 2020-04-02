@@ -3,6 +3,7 @@
 
 # Website demo
     https://github.com/chatatechnologies/react-autoql
+    https://vicente_rincon.gitlab.io/widget/
 
 # Views
 

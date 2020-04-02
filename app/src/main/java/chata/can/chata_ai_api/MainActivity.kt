@@ -570,6 +570,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			})
 		}
+		findViewById<EditText>(R.id.etLanguageCode)?.apply {
+			addTextChangedListener(object: TextChanged
+			{
+				override fun onTextChanged(string: String)
+				{
+					if (string.isNotEmpty())
+					{
+						bubbleHandle.setLanguageCode(string)
+					}
+				}
+			})
+		}
 	}
 
 	/**

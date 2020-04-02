@@ -98,6 +98,11 @@ class BubbleHandle(private val context: Context)
 		} ?: run { false }
 	}
 
+	fun setLanguageCode(languageCode: String)
+	{
+		SinglentonDrawer.mLanguageCode = languageCode
+	}
+
 	fun setDecimalsCurrency(decimalsCurrency: Int)
 	{
 		SinglentonDrawer.mDecimalsCurrency = decimalsCurrency
