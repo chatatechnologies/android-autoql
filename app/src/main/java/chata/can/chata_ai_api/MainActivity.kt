@@ -275,8 +275,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				var isEnabled = it[key]
 				if (isEnabled)
 				{
-					isEnabled = false
-					it.put(key, isEnabled)
+					if (key != idSelected)
+					{
+						isEnabled = false
+						it.put(key, isEnabled)
+					}
 				}
 				else
 				{
@@ -401,7 +404,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.SEGMENT ->
 					{
 						val subView = LinearLayout(this)
-						val sizeOptions = demoParam.options.size()
+						val sizeOptions = demoParam.options.size
 						if (sizeOptions > 0)
 						{
 							with(subView)
@@ -410,12 +413,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 								orientation = LinearLayout.HORIZONTAL
 
-								for (iterator in 0 until demoParam.options.size())
+								for (iterator in 0 until sizeOptions)
 								{
-									val idView = demoParam.options.keyAt(iterator)
-									val option = demoParam.options[idView]
+									//val idView = demoParam.options.keyAt(iterator)
+									val option = demoParam.options[iterator]
 									val tv = TextView(this@MainActivity)
-									tv.id = idView
+									tv.id = option.idView
 									tv.setOnClickListener(this@MainActivity)
 									tv.layoutParams = LinearLayout.LayoutParams(0, 90).apply {
 										weight = 1f
@@ -424,9 +427,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 									tv.text = option.text
 									tv.tag = demoParam.label
 
-									mViews[demoParam.label]?.put(tv.id, iterator == 0) ?: run {
+									mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
 										val newSparse = SparseBooleanArray()
-										newSparse.put(tv.id, iterator == 0)
+										newSparse.put(tv.id, option.isActive)
 										mViews.put(demoParam.label, newSparse)
 									}
 									this.addView(tv)

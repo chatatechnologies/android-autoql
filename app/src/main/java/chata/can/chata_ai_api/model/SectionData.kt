@@ -1,21 +1,20 @@
 package chata.can.chata_ai_api.model
 
-import android.util.SparseArray
 import chata.can.chata_ai_api.R
 
 object SectionData
 {
-	private val saTheme = SparseArray<Segment>()
-	private val saPlacement = SparseArray<Segment>()
+	private val saTheme = ArrayList<Segment>()
+	private val saPlacement = ArrayList<Segment>()
 
 	init {
-		saTheme.put(R.id.tvLight, Segment("Light", true))
-		saTheme.put(R.id.tvDark, Segment("Dark"))
+		saTheme.add(Segment(R.id.tvLight,"Light", true))
+		saTheme.add(Segment(R.id.tvDark,"Dark"))
 
-		saPlacement.put(R.id.tvTop, Segment("Top"))
-		saPlacement.put(R.id.tvBottom, Segment("Bottom"))
-		saPlacement.put(R.id.tvLeft, Segment("Left"))
-		saPlacement.put(R.id.tvRight, Segment("Right", true))
+		saPlacement.add(Segment(R.id.tvTop,"Top"))
+		saPlacement.add(Segment(R.id.tvBottom,"Bottom"))
+		saPlacement.add(Segment(R.id.tvLeft,"Left"))
+		saPlacement.add(Segment(R.id.tvRight,"Right", true))
 	}
 
 	val mData = linkedMapOf(

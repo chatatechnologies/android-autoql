@@ -27,8 +27,8 @@ class BubbleHandle(private val context: Context)
 	private lateinit var circleImageView: CircleImageView
 
 	companion object {
-		const val THEME_LIGHT = false
-		const val THEME_DARK = true
+		const val THEME_LIGHT = true
+		const val THEME_DARK = false
 
 		const val TOP_PLACEMENT = 1
 		const val BOTTOM_PLACEMENT = 2
