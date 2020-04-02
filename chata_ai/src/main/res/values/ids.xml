@@ -3,17 +3,17 @@
 	<item name="swDemoData" type="id"/>
 
 	<item name="hProjectId" type="id"/>
-	<item name="tvProjectId" type="id"/>
+	<item name="etProjectId" type="id"/>
 	<item name="hUserId" type="id"/>
-	<item name="tvUserId" type="id"/>
+	<item name="etUserId" type="id"/>
 	<item name="hApiKey" type="id"/>
-	<item name="tvApiKey" type="id"/>
+	<item name="etApiKey" type="id"/>
 	<item name="hDomainUrl" type="id"/>
-	<item name="tvDomainUrl" type="id"/>
+	<item name="etDomainUrl" type="id"/>
 	<item name="hUsername" type="id"/>
-	<item name="tvUsername" type="id"/>
+	<item name="etUsername" type="id"/>
 	<item name="hPassword" type="id"/>
-	<item name="tvPassword" type="id"/>
+	<item name="etPassword" type="id"/>
 
 	<item name="btnAuthenticate" type="id"/>
 	<item name="btnLogOut" type="id"/>
@@ -28,6 +28,8 @@
 	<item name="tvBottom" type="id"/>
 	<item name="tvLeft" type="id"/>
 	<item name="tvRight" type="id"/>
+
+	<item name="etCurrencyCode" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

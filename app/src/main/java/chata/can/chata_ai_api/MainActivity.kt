@@ -18,6 +18,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.pojo.DataMessenger
+import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -514,22 +515,22 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			}
 		}
 		hProjectId = findViewById(R.id.hProjectId)
-		tvProjectId = findViewById(R.id.tvProjectId)
+		tvProjectId = findViewById(R.id.etProjectId)
 
 		hUserId = findViewById(R.id.hUserId)
-		tvUserId = findViewById(R.id.tvUserId)
+		tvUserId = findViewById(R.id.etUserId)
 
 		hApiKey = findViewById(R.id.hApiKey)
-		tvApiKey = findViewById(R.id.tvApiKey)
+		tvApiKey = findViewById(R.id.etApiKey)
 
 		hDomainUrl = findViewById(R.id.hDomainUrl)
-		tvDomainUrl = findViewById(R.id.tvDomainUrl)
+		tvDomainUrl = findViewById(R.id.etDomainUrl)
 
 		hUsername = findViewById(R.id.hUsername)
-		tvUsername = findViewById(R.id.tvUsername)
+		tvUsername = findViewById(R.id.etUsername)
 
 		hPassword = findViewById(R.id.hPassword)
-		tvPassword = findViewById(R.id.tvPassword)
+		tvPassword = findViewById(R.id.etPassword)
 
 		btnAuthenticate = findViewById<TextView>(R.id.btnAuthenticate)?.apply {
 			setOnClickListener(this@MainActivity)
@@ -542,6 +543,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				_, isChecked ->
 				bubbleHandle.setVisible(isChecked)
 			}
+		}
+		findViewById<EditText>(R.id.etCurrencyCode)?.apply {
+			addTextChangedListener(object: TextChanged
+			{
+				override fun onTextChanged(string: String)
+				{
+					if (string.isNotEmpty())
+					{
+						bubbleHandle.setCurrencyCode(string)
+					}
+				}
+			})
 		}
 	}
 

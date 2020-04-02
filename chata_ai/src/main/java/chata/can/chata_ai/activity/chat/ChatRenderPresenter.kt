@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.speech.RecognizerIntent
 import androidx.core.content.ContextCompat
-import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 

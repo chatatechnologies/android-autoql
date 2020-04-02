@@ -11,12 +11,18 @@ import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.Color
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.currency.Currency
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 
 class BubbleHandle(private val context: Context)
 {
@@ -46,6 +52,7 @@ class BubbleHandle(private val context: Context)
 	//endregion
 
 	init {
+		getCurrency()
 		BubblesManager.Builder(context)
 			.setInitializationCallback { initBubbleLayout() }
 			.build()?.let {
@@ -80,6 +87,15 @@ class BubbleHandle(private val context: Context)
 			mPlacement = placement
 			bubbleLayout.definePositionInScreen(placement)
 		}
+	}
+
+	fun setCurrencyCode(currencyCode: String): Boolean
+	{
+		val currency = Currency.mCurrency[currencyCode]
+		return currency?.let {
+			SinglentonDrawer.mCurrencyCode = currency
+			true
+		} ?: run { false }
 	}
 
 	fun setCustomerName(customerName: String)
@@ -167,6 +183,47 @@ class BubbleHandle(private val context: Context)
 
 		}
 		return parentCircle
+	}
+
+	private fun getCurrency()
+	{
+		context.assets?.let {
+				itAssets ->
+			try {
+				val inputStream: InputStream = itAssets.open("currency_symbols.json")
+				val inputStreamReader = InputStreamReader(inputStream)
+				val sb = StringBuilder()
+				var line: String?
+				val br = BufferedReader(inputStreamReader)
+				line = br.readLine()
+				while (line != null)
+				{
+					sb.append(line)
+					line = br.readLine()
+				}
+				br.close()
+				getCurrencySymbol(sb.toString())
+			}
+			catch (ex: Exception) { }
+		}
+	}
+
+	private fun getCurrencySymbol(currencySymbol: String)
+	{
+		with(JSONObject(currencySymbol))
+		{
+			for (key in keys())
+			{
+				if (!isNull(key))
+				{
+					val value = optString(key) ?: ""
+					if (value.isNotEmpty())
+					{
+						Currency.mCurrency[key] = value
+					}
+				}
+			}
+		}
 	}
 
 	fun onDestroy()

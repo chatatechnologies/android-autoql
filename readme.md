@@ -1,3 +1,6 @@
+# Documentation
+    https://github.com/chatatechnologies/react-autoql
+
 # Website demo
     https://github.com/chatatechnologies/react-autoql
 

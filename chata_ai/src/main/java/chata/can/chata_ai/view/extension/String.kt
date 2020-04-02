@@ -1,5 +1,6 @@
 package chata.can.chata_ai.view.extension
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import java.text.SimpleDateFormat
@@ -11,7 +12,6 @@ fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
 fun String.formatWithColumn(
 	columnQuery: ColumnQuery,
-	currencySymbol: String = "",
 	commaCharacter: String = ""
 ): String
 {
@@ -35,7 +35,7 @@ fun String.formatWithColumn(
 		TypeDataQuery.DOLLAR_AMT ->
 		{
 			val tmp = toDoubleNotNull()
-			tmp.formatDecimals(currencySymbol, commaCharacter = commaCharacter)
+			tmp.formatDecimals(SinglentonDrawer.mCurrencyCode, commaCharacter = commaCharacter)
 		}
 		TypeDataQuery.QUANTITY -> "${toDoubleNotNull()}"
 		TypeDataQuery.STRING -> this

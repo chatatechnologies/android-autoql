@@ -103,7 +103,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					{
 						aColumn.firstOrNull()?.let {
 							column ->
-							simpleText.formatWithColumn(column, "$", ",")
+							simpleText.formatWithColumn(column, ",")
 						} ?: run { "" }
 					}
 					else ->

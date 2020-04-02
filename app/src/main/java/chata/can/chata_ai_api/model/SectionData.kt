@@ -22,12 +22,12 @@ object SectionData
 			arrayListOf(
 				DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
 
-				DemoParameter("Project ID *", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.tvProjectId),
-				DemoParameter("User ID (email) *", TypeParameter.INPUT, labelId = R.id.hUserId,idView = R.id.tvUserId),
-				DemoParameter("API key *", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.tvApiKey),
-				DemoParameter("Domain URL *", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.tvDomainUrl),
-				DemoParameter("Username *", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.tvUsername),
-				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.tvPassword),
+				DemoParameter("Project ID *", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.etProjectId),
+				DemoParameter("User ID (email) *", TypeParameter.INPUT, labelId = R.id.hUserId,idView = R.id.etUserId),
+				DemoParameter("API key *", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
+				DemoParameter("Domain URL *", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
+				DemoParameter("Username *", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
+				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword),
 				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate),
 				DemoParameter("Log Out", TypeParameter.BUTTON, idView = R.id.btnLogOut)
 			),
@@ -39,7 +39,7 @@ object SectionData
 				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),
 				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = saPlacement),
-				DemoParameter("Currency code", TypeParameter.INPUT, "USD"),
+				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US"),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY"),
 				DemoParameter("Format for Day, Month, Year", TypeParameter.INPUT, "MMM DD, YYYY"),
