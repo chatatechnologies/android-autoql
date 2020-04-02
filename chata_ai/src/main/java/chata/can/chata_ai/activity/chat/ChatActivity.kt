@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,9 +39,13 @@ import java.net.URLEncoder
 
 class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, ChatContract.View
 {
+	private lateinit var llParent: View
+	private lateinit var toolbar: View
+	private lateinit var tvToolbar: TextView
 	private lateinit var ivCancel: ImageView
 	private lateinit var ivClear: ImageView
 	private lateinit var rvChat: RecyclerView
+	private lateinit var ivRun: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
 	private lateinit var ivMicrophone: ImageView
 
@@ -59,6 +64,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	{
 		initConfig()
 		initViews()
+		initColors()
 		initData()
 		initListener()
 		initList()
@@ -248,11 +254,32 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	private fun initViews()
 	{
+		llParent = findViewById(R.id.llParent)
+		toolbar = findViewById(R.id.toolbar)
+		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
 		ivClear = findViewById(R.id.ivClear)
 		rvChat = findViewById(R.id.rvChat)
+		ivRun = findViewById(R.id.ivRun)
 		etQuery = findViewById(R.id.etQuery)
 		ivMicrophone = findViewById(R.id.ivMicrophone)
+	}
+
+	private fun initColors()
+	{
+		with(ThemeColor.currentColor)
+		{
+			llParent.setBackgroundColor(ContextCompat.getColor(
+				this@ChatActivity, drawerBackgroundColor))
+			toolbar.setBackgroundColor(ContextCompat.getColor(
+				this@ChatActivity, drawerAccentColor))
+			tvToolbar.setTextColor(ContextCompat.getColor(
+				this@ChatActivity, R.color.white))
+			etQuery.setHintTextColor(ContextCompat.getColor(
+				this@ChatActivity, drawerHoverColor))
+			ivRun.setColorFilter(ContextCompat.getColor(
+				this@ChatActivity, R.color.chata_drawer_hover_color_dark))
+		}
 	}
 
 	private fun initListener()

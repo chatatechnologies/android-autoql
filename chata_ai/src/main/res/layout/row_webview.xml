@@ -26,7 +26,6 @@
 	</RelativeLayout>
 
 	<LinearLayout
-		android:background="@color/white"
 		android:id="@+id/llCharts"
 		android:layout_height="wrap_content"
 		android:layout_margin="5dp"

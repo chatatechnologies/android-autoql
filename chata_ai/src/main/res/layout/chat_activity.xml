@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
+	android:id="@+id/llParent"
 	android:layout_height="match_parent"
+	android:layout_width="match_parent"
 	android:orientation="vertical">
 
 	<RelativeLayout
 		android:background="@color/chata_drawer_accent_color"
+		android:id="@+id/toolbar"
 		android:minHeight="?attr/actionBarSize"
 		android:paddingEnd="8dp"
 		android:paddingStart="8dp"
@@ -21,6 +23,7 @@
 			android:src="@drawable/ic_cancel"/>
 		<TextView
 			android:gravity="center"
+			android:id="@+id/tvToolbar"
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
 			android:layout_toEndOf="@id/ivCancel"
@@ -53,8 +56,10 @@
 			android:layout_centerHorizontal="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
+			android:textColor="@color/chata_drawer_hover_color_dark"
 			android:text="@string/msg_run_autoql"/>
 		<ImageView
+			android:id="@+id/ivRun"
 			android:layout_toStartOf="@id/tvMsg"
 			android:layout_centerVertical="true"
 			android:contentDescription="@null"
