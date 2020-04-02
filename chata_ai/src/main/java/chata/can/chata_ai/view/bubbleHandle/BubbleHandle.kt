@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
@@ -12,6 +13,7 @@ import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.color.Color
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
@@ -20,6 +22,8 @@ class BubbleHandle(private val context: Context)
 {
 	private lateinit var bubblesManager: BubblesManager
 	private lateinit var bubbleLayout: BubbleLayout
+
+	private lateinit var parentCircle: RelativeLayout
 	private lateinit var circleImageView: CircleImageView
 
 	companion object {
@@ -56,6 +60,17 @@ class BubbleHandle(private val context: Context)
 	fun changeColor(themeColor: Color)
 	{
 		ThemeColor.currentColor = themeColor
+		updateColor()
+	}
+
+	private fun updateColor()
+	{
+		val drawable = DrawableBuilder.setOvalDrawable(
+			ContextCompat.getColor(context,
+				ThemeColor.currentColor.drawerColorPrimary)
+		)
+		parentCircle.background = drawable
+		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
 	}
 
 	fun setPlacement(placement: Int)
@@ -126,15 +141,20 @@ class BubbleHandle(private val context: Context)
 
 	private fun initChildView(): RelativeLayout
 	{
-		val rl = RelativeLayout(context)
+		parentCircle = RelativeLayout(context)
 		val lp = RelativeLayout.LayoutParams(-2, -2)
-		rl.layoutParams = lp
-		rl.setBackgroundResource(R.drawable.fake_shadow)
+		parentCircle.layoutParams = lp
+		val drawable = DrawableBuilder.setOvalDrawable(
+			ContextCompat.getColor(context,
+				ThemeColor.currentColor.drawerColorPrimary)
+		)
+		//parentCircle.setBackgroundResource(R.drawable.fake_shadow)
+		parentCircle.background = drawable
 
 		circleImageView = CircleImageView(context)
 		with(circleImageView)
 		{
-			rl.addView(this)
+			parentCircle.addView(this)
 			layoutParams.height = heightDefault
 			layoutParams.width = widthDefault
 			if (layoutParams is ViewGroup.MarginLayoutParams)
@@ -144,8 +164,9 @@ class BubbleHandle(private val context: Context)
 			}
 			setImageResource(R.drawable.ic_bubble)
 			setCircleBackgroundColorResource(R.color.white)
+
 		}
-		return rl
+		return parentCircle
 	}
 
 	fun onDestroy()
