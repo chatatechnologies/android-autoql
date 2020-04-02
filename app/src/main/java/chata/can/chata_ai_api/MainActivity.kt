@@ -18,6 +18,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.pojo.DataMessenger
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
@@ -146,6 +147,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				R.id.btnOpenDrawer ->
 				{
 					bubbleHandle.openChatActivity()
+				}
+				R.id.tvLight ->
+				{
+					bubbleHandle.changeColor(ThemeColor.lightColor)
+				}
+				R.id.tvDark ->
+				{
+					bubbleHandle.changeColor(ThemeColor.darkColor)
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
