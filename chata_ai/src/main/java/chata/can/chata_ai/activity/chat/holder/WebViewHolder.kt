@@ -34,14 +34,20 @@ class WebViewHolder(view: View): Holder(view)
 		}
 
 		llCharts?.let {
-			val white = ContextCompat.getColor(
-				it.context,
-				ThemeColor.currentColor.drawerColorPrimary)
-			val gray = ContextCompat.getColor(
-				it.context,
-				R.color.chata_drawer_color_primary)
-			it.background = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
+			it.background = backgroundGrayWhite(it)
 		}
+		ivBar?.setColorFilter()
+		ivColumn?.setColorFilter()
+		ivLine?.setColorFilter()
+		ivPie?.setColorFilter()
+	}
+
+	private fun ImageView.setColorFilter()
+	{
+		setColorFilter(ContextCompat.getColor(
+			context,
+			ThemeColor.currentColor.drawerColorPrimary
+		))
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
