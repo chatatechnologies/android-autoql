@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -545,68 +546,51 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			}
 		}
 		findViewById<EditText>(R.id.etCurrencyCode)?.apply {
-			addTextChangedListener(object: TextChanged
-			{
-				override fun onTextChanged(string: String)
+			setOnTextChanged {
+				if (it.isNotEmpty())
 				{
-					if (string.isNotEmpty())
-					{
-						bubbleHandle.setCurrencyCode(string)
-					}
+					bubbleHandle.setCurrencyCode(it)
 				}
-			})
-		}
-		findViewById<EditText>(R.id.etDecimalsCurrency)?.apply {
-			addTextChangedListener(object: TextChanged
-			{
-				override fun onTextChanged(string: String)
-				{
-					if (string.isNotEmpty())
-					{
-						string.toIntOrNull()?.let {
-							bubbleHandle.setDecimalsCurrency(it)
-						}
-					}
-				}
-			})
+			}
 		}
 
 		findViewById<EditText>(R.id.etFormatMonthYear)?.apply {
-			addTextChangedListener(object: TextChanged
-			{
-				override fun onTextChanged(string: String)
+			setOnTextChanged {
+				if (it.isNotEmpty())
 				{
-					if (string.isNotEmpty())
-					{
-						bubbleHandle.setFormatMonthYear(string)
-					}
+					bubbleHandle.setFormatMonthYear(it)
 				}
-			})
+			}
 		}
+
 		findViewById<EditText>(R.id.etFormatDayMonthYear)?.apply {
-			addTextChangedListener(object: TextChanged
-			{
-				override fun onTextChanged(string: String)
+			setOnTextChanged {
+				if (it.isNotEmpty())
 				{
-					if (string.isNotEmpty())
-					{
-						bubbleHandle.setFormatDayMonthYear(string)
-					}
+					bubbleHandle.setFormatDayMonthYear(it)
 				}
-			})
+			}
 		}
 
 		findViewById<EditText>(R.id.etLanguageCode)?.apply {
-			addTextChangedListener(object: TextChanged
-			{
-				override fun onTextChanged(string: String)
+			setOnTextChanged {
+				if (it.isNotEmpty())
 				{
-					if (string.isNotEmpty())
-					{
-						bubbleHandle.setLanguageCode(string)
+					bubbleHandle.setLanguageCode(it)
+				}
+			}
+		}
+
+		findViewById<EditText>(R.id.etDecimalsCurrency)?.apply {
+			setOnTextChanged {
+				if (it.isNotEmpty())
+				{
+					it.toIntOrNull()?.let {
+						integer ->
+						bubbleHandle.setDecimalsCurrency(integer)
 					}
 				}
-			})
+			}
 		}
 	}
 
