@@ -98,6 +98,11 @@ class BubbleHandle(private val context: Context)
 		} ?: run { false }
 	}
 
+	fun setDecimalsCurrency(decimalsCurrency: Int)
+	{
+		SinglentonDrawer.mDecimalsCurrency = decimalsCurrency
+	}
+
 	fun setCustomerName(customerName: String)
 	{
 		this.customerName = customerName

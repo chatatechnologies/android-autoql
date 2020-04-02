@@ -556,6 +556,20 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			})
 		}
+		findViewById<EditText>(R.id.etDecimalsCurrency)?.apply {
+			addTextChangedListener(object: TextChanged
+			{
+				override fun onTextChanged(string: String)
+				{
+					if (string.isNotEmpty())
+					{
+						string.toIntOrNull()?.let {
+							bubbleHandle.setDecimalsCurrency(it)
+						}
+					}
+				}
+			})
+		}
 	}
 
 	/**
