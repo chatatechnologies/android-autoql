@@ -103,6 +103,16 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mLanguageCode = languageCode
 	}
 
+	fun setFormatMonthYear(formatMonthYear: String)
+	{
+		SinglentonDrawer.mFormatMonthYear = formatMonthYear
+	}
+
+	fun setFormatDayMonthYear(formatDayMonthYear: String)
+	{
+		SinglentonDrawer.mFormatDayMonthYear = formatDayMonthYear
+	}
+
 	fun setDecimalsCurrency(decimalsCurrency: Int)
 	{
 		SinglentonDrawer.mDecimalsCurrency = decimalsCurrency

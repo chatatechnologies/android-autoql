@@ -7,5 +7,7 @@ object SinglentonDrawer
 {
 	var mCurrencyCode = "$"
 	var mLanguageCode = "en-U"
+	var mFormatMonthYear = "MMM YYYY"
+	var mFormatDayMonthYear = "MMM DD, YYYY"
 	var mDecimalsCurrency = 2
 }
