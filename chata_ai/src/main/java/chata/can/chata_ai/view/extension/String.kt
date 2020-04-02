@@ -19,7 +19,12 @@ fun String.formatWithColumn(
 	{
 		TypeDataQuery.DATE ->
 		{
-			val format = "MMM dd, yyyy"
+			val format =
+			if (columnQuery.name.contains("month"))
+				SinglentonDrawer.mFormatMonthYear
+			else
+				SinglentonDrawer.mFormatDayMonthYear
+
 			if (isEmpty() || this == "0")
 				""
 			else
