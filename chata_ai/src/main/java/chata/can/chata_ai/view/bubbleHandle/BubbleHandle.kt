@@ -128,6 +128,11 @@ class BubbleHandle(private val context: Context)
 		this.customerName = customerName
 	}
 
+	fun setIntroMessage(introMessage: String)
+	{
+		SinglentonDrawer.mIntroMessage = introMessage
+	}
+
 	fun setVisible(isVisible: Boolean)
 	{
 		val tmpPlacement = if (isVisible)

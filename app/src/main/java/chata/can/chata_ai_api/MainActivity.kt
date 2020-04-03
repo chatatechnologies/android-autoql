@@ -598,9 +598,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				if (it.isNotEmpty())
 				{
 					it.toIntOrNull()?.let {
-							integer ->
+						integer ->
 						bubbleHandle.setDecimalsQuantity(integer)
 					}
+				}
+			}
+		}
+
+		findViewById<EditText>(R.id.etIntroMessage)?.apply {
+			setOnTextChanged {
+				if (it.isNotEmpty())
+				{
+					bubbleHandle.setIntroMessage(it)
 				}
 			}
 		}

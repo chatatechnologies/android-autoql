@@ -28,6 +28,7 @@ import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -317,7 +318,16 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		model = BaseModelList()
 		chatAdapter = ChatAdapter(model, this, servicePresenter)
 
-		val introMessageRes = (this as Context).getStringResources(R.string.intro_message_chata_drawer)
+		val introMessageRes =
+			if (SinglentonDrawer.mIntroMessage.isNotEmpty())
+			{
+				SinglentonDrawer.mIntroMessage
+			}
+		else
+			{
+				(this as Context).getStringResources(R.string.intro_message_chata_drawer)
+			}
+
 		val introMessage = String.format(introMessageRes, customerName)
 
 		model.addData(ChatData(1, introMessage))

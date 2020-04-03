@@ -11,4 +11,5 @@ object SinglentonDrawer
 	var mFormatDayMonthYear = "MMM DD, YYYY"
 	var mDecimalsCurrency = 2
 	var mDecimalsQuantity = 1
+	var mIntroMessage = ""
 }
