@@ -22,6 +22,11 @@ open class BaseModelList<Model: Any>
 		aData.clear()
 	}
 
+	fun removeAt(index: Int)
+	{
+		aData.removeAt(index)
+	}
+
 	open fun countData() = aData.size
 
 	operator fun get(position: Int): Model?

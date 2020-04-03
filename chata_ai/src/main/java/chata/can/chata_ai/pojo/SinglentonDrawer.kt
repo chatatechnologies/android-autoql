@@ -23,4 +23,5 @@ object SinglentonDrawer
 	val aChartColors = ArrayList<String>()
 	var mLightThemeColor = "#28A8E0"
 	var mDarkThemeColor = "#525252"
+	var mMaxNumberMessage = 2//6
 }

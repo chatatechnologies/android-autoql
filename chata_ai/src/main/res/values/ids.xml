@@ -43,6 +43,7 @@
 
 	<item name="etLightThemeColor" type="id"/>
 	<item name="etDarkThemeColor" type="id"/>
+	<item name="etMaxNumberMessage" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

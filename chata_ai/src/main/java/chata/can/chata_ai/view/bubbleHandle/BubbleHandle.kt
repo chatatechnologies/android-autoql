@@ -197,6 +197,13 @@ class BubbleHandle(private val context: Context)
 		return Pair(newColor, colorPattern.matcher(newColor).matches())
 	}
 
+	fun setMaxNumberMessage(maxNumberMessage: String)
+	{
+		maxNumberMessage.toIntOrNull()?.let {
+			SinglentonDrawer.mMaxNumberMessage = it
+		}
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)

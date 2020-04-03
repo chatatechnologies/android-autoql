@@ -69,18 +69,14 @@ object SectionData
 		"Chat Colors" to
 			arrayListOf(
 				DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors),
-				//DemoParameter("1", TypeParameter.COLOR, "#355C7D"),
-				//DemoParameter("2", TypeParameter.COLOR, "#6C5B7B"),
-				//DemoParameter("3", TypeParameter.COLOR, "#C06C84"),
-				//DemoParameter("4", TypeParameter.COLOR, "#F67280"),
-				//DemoParameter("5", TypeParameter.COLOR, "#F8B195"),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
 				DemoParameter("Light Theme Accent Color", TypeParameter.INPUT, "#28A8E0", idView = R.id.etLightThemeColor),
 				DemoParameter("Dark Theme Accent Color", TypeParameter.INPUT, "#525252", idView = R.id.etDarkThemeColor)
 			),
 		"More Configurations" to
 			arrayListOf(
-				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "6"),
+				//DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "6", idView = R.id.etMaxNumberMessage),
+				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "2", idView = R.id.etMaxNumberMessage),
 				DemoParameter("Display comparisons as Percent", TypeParameter.TOGGLE, "true"),
 				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true"),
 				DemoParameter("Enable Safety Net Autocomplete", TypeParameter.TOGGLE, "true"),

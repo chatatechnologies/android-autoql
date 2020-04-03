@@ -242,6 +242,13 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	/*override */private fun scrollToPosition()
 	{
+		//region value max number message
+		while (model.countData() > SinglentonDrawer.mMaxNumberMessage)
+		{
+			model.removeAt(0)
+			chatAdapter.notifyItemRemoved(0)
+		}
+		//endregion
 		Handler().postDelayed({
 			val position = model.countData() - 1
 			rvChat.scrollToPosition(position)
@@ -323,7 +330,6 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	private fun initList()
 	{
-		//model = BaseModelList()
 		chatAdapter = ChatAdapter(model, this, servicePresenter)
 		if (SinglentonDrawer.mModel.countData() == 0)
 		{

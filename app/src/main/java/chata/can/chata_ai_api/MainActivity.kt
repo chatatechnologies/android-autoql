@@ -661,6 +661,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.setDarkThemeColor(it)
 			}
 		}
+		findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {
+			setOnTextChanged {
+				bubbleHandle.setMaxNumberMessage(it)
+			}
+		}
 	}
 
 	/**
