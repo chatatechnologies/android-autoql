@@ -67,6 +67,6 @@ open class BaseHolder(view: View): Holder(view)
 			else
 				simpleQuery.simpleText
 		}
-		return ""
+		return "display type not recognized: ${simpleQuery.displayType}"
 	}
 }

@@ -79,6 +79,7 @@ object SectionData
 				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "2", idView = R.id.etMaxNumberMessage),
 				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
 				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
+				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
 				DemoParameter("Disable Drilldowns", TypeParameter.TOGGLE, "false"),
 				DemoParameter("Enable Query Inspiration Tab", TypeParameter.TOGGLE, "true"),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true"),

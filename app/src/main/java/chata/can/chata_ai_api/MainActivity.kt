@@ -678,6 +678,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.isEnableQuery(isChecked)
 			}
 		}
+		findViewById<Switch>(R.id.swEnableSuggestion)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.isEnableSuggestion(isChecked)
+			}
+		}
 	}
 
 	/**

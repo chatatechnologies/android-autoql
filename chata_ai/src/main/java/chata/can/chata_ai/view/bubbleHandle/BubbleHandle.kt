@@ -214,6 +214,11 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mIsEnableQuery = isEnableQuery
 	}
 
+	fun isEnableSuggestion(isEnableSuggestion: Boolean)
+	{
+		SinglentonDrawer.mIsEnableSuggestion = isEnableSuggestion
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)

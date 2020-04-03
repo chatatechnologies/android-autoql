@@ -26,4 +26,5 @@ object SinglentonDrawer
 	var mMaxNumberMessage = 6
 	var mIsEnableAutocomplete = true
 	var mIsEnableQuery = true
+	var mIsEnableSuggestion = true
 }

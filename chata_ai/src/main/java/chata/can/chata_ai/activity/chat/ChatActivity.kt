@@ -194,7 +194,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				setText("monthly average expenses for the last quarter")
+				setText("All invoices last 4 types")
 			}
 		}
 

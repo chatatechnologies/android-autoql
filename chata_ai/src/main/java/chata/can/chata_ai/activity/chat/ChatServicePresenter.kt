@@ -1,6 +1,7 @@
 package chata.can.chata_ai.activity.chat
 
 import android.content.Context
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
@@ -83,9 +84,17 @@ class ChatServicePresenter(
 					{
 						"suggestion" ->
 						{
-							val query = jsonObject.optString("query")
-							queryBase.message = query
-							TypeChatView.SUGGESTION_VIEW
+							if (SinglentonDrawer.mIsEnableSuggestion)
+							{
+								val query = jsonObject.optString("query")
+								queryBase.message = query
+								TypeChatView.SUGGESTION_VIEW
+							}
+							else
+							{
+								queryBase.message = "HOLA"
+								TypeChatView.LEFT_VIEW
+							}
 						}
 						"data" ->
 						{
@@ -100,7 +109,6 @@ class ChatServicePresenter(
 						else -> TypeChatView.LEFT_VIEW
 					}
 					view?.addNewChat(typeView, queryBase)
-					//view?.scrollToPosition()
 				}
 				else ->
 				{
