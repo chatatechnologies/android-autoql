@@ -646,7 +646,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnEditorActionListener {
 				v, _, _ ->
 				val text = (v.text ?: "").toString()
-				bubbleHandle.addChartColor(text.toUpperCase())
+				bubbleHandle.addChartColor(text)
 				v.text = ""
 				false
 			}

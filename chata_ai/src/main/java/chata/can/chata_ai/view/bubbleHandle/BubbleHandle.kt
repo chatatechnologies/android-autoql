@@ -23,6 +23,8 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.util.*
+import java.util.regex.Pattern
 
 class BubbleHandle(private val context: Context)
 {
@@ -157,9 +159,16 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mTitle = title
 	}
 
-	fun addChartColor(valueColor: String)
+	fun addChartColor(valueColor: String): Boolean
 	{
-		SinglentonDrawer.aChartColors.add(valueColor)
+		val newColor = valueColor.toLowerCase(Locale.US)
+		val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
+		return if (colorPattern.matcher(newColor).matches())
+		{
+			SinglentonDrawer.aChartColors.add(newColor)
+			true
+		}
+		else false
 	}
 
 	private fun initBubbleLayout()
