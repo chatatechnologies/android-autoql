@@ -666,6 +666,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.setMaxNumberMessage(it)
 			}
 		}
+		findViewById<Switch>(R.id.swEnableAutocomplete)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.isEnableAutocomplete(isChecked)
+			}
+		}
 	}
 
 	/**

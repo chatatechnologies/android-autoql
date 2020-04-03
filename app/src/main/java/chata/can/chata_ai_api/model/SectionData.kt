@@ -77,8 +77,7 @@ object SectionData
 			arrayListOf(
 				//DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "6", idView = R.id.etMaxNumberMessage),
 				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "2", idView = R.id.etMaxNumberMessage),
-				DemoParameter("Display comparisons as Percent", TypeParameter.TOGGLE, "true"),
-				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true"),
+				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
 				DemoParameter("Enable Safety Net Autocomplete", TypeParameter.TOGGLE, "true"),
 				DemoParameter("Disable Drilldowns", TypeParameter.TOGGLE, "false"),
 				DemoParameter("Enable Query Inspiration Tab", TypeParameter.TOGGLE, "true"),
