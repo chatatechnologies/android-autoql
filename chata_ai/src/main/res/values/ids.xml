@@ -47,6 +47,8 @@
 	<item name="swEnableAutocomplete" type="id"/>
 	<item name="swEnableQuery" type="id"/>
 	<item name="swEnableSuggestion" type="id"/>
+	<item name="swEnableDrillDown" type="id"/>
+	<item name="swEnableSpeechText" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

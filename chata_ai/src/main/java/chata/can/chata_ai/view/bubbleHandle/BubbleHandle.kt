@@ -219,6 +219,16 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mIsEnableSuggestion = isEnableSuggestion
 	}
 
+	fun isEnableDrillDown(isEnableDrillDown: Boolean)
+	{
+		SinglentonDrawer.mIsEnableDrillDown = isEnableDrillDown
+	}
+
+	fun isEnableSpeechText(isEnableSpeechText: Boolean)
+	{
+		SinglentonDrawer.mIsEnableSpeechText = isEnableSpeechText
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)

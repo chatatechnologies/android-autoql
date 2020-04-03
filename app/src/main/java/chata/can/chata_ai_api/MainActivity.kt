@@ -684,6 +684,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.isEnableSuggestion(isChecked)
 			}
 		}
+		findViewById<Switch>(R.id.swEnableDrillDown)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.isEnableDrillDown(isChecked)
+			}
+		}
+		findViewById<Switch>(R.id.swEnableSpeechText)?.apply {
+			setOnCheckedChangeListener {
+					_, isChecked ->
+				bubbleHandle.isEnableSpeechText(isChecked)
+			}
+		}
 	}
 
 	/**

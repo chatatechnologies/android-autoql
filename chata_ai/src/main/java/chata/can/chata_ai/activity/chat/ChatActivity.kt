@@ -438,21 +438,30 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	{
 		with(ivMicrophone)
 		{
-			setOnClickListener(null)
-			setOnTouchListener {
-				_, event ->
-				when(event.action)
-				{
-					MotionEvent.ACTION_DOWN ->
+			if (SinglentonDrawer.mIsEnableSpeechText)
+			{
+				setOnClickListener(null)
+				setOnTouchListener {
+					_, event ->
+					when(event.action)
 					{
-						promptSpeechInput()
+						MotionEvent.ACTION_DOWN ->
+						{
+							promptSpeechInput()
+						}
+						MotionEvent.ACTION_UP ->
+						{
+							speechRecognizer.stopListening()
+						}
 					}
-					MotionEvent.ACTION_UP ->
-					{
-						speechRecognizer.stopListening()
-					}
+					true
 				}
-				true
+			}
+			else
+			{
+				setImageResource(R.drawable.ic_send)
+				setOnTouchListener(null)
+				setOnClickListener { setRequestQuery() }
 			}
 		}
 	}

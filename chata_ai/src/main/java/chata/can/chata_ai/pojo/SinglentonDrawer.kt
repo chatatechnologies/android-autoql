@@ -27,4 +27,6 @@ object SinglentonDrawer
 	var mIsEnableAutocomplete = true
 	var mIsEnableQuery = true
 	var mIsEnableSuggestion = true
+	var mIsEnableDrillDown = true
+	var mIsEnableSpeechText = true
 }
