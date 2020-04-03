@@ -4,17 +4,30 @@ import chata.can.chata_ai_api.R
 
 object SectionData
 {
-	private val saTheme = ArrayList<Segment>()
-	private val saPlacement = ArrayList<Segment>()
+	private val aTheme = ArrayList<Segment>()
+	private val aPlacement = ArrayList<Segment>()
+	private val aColors = ArrayList<Color>()
 
 	init {
-		saTheme.add(Segment(R.id.tvLight,"Light", true))
-		saTheme.add(Segment(R.id.tvDark,"Dark"))
+		with(aTheme)
+		{
+			add(Segment(R.id.tvLight,"Light", true))
+			add(Segment(R.id.tvDark,"Dark"))
+		}
 
-		saPlacement.add(Segment(R.id.tvTop,"Top"))
-		saPlacement.add(Segment(R.id.tvBottom,"Bottom"))
-		saPlacement.add(Segment(R.id.tvLeft,"Left"))
-		saPlacement.add(Segment(R.id.tvRight,"Right", true))
+		with(aPlacement)
+		{
+			add(Segment(R.id.tvTop,"Top"))
+			add(Segment(R.id.tvBottom,"Bottom"))
+			add(Segment(R.id.tvLeft,"Left"))
+			add(Segment(R.id.tvRight,"Right", true))
+		}
+
+		aColors.add(Color("#355C7D"))
+		aColors.add(Color("#6C5B7B"))
+		aColors.add(Color("#C06C84"))
+		aColors.add(Color("#F67280"))
+		aColors.add(Color("#F8B195"))
 	}
 
 	val mData = linkedMapOf(
@@ -37,8 +50,8 @@ object SectionData
 				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer),
 				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
 				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
-				DemoParameter("Theme", TypeParameter.SEGMENT, options = saTheme),
-				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = saPlacement),
+				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
+				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = aPlacement),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US", idView = R.id.etLanguageCode),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY", idView = R.id.etFormatMonthYear),
@@ -49,17 +62,19 @@ object SectionData
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
-				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle),
-				DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif"),
-				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE)
+				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle)
+				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif"),
+				//DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE)
 			),
 		"Chat Colors" to
 			arrayListOf(
-				DemoParameter("1", TypeParameter.COLOR, "#355C7D"),
-				DemoParameter("2", TypeParameter.COLOR, "#6C5B7B"),
-				DemoParameter("3", TypeParameter.COLOR, "#C06C84"),
-				DemoParameter("4", TypeParameter.COLOR, "#F67280"),
-				DemoParameter("5", TypeParameter.COLOR, "#F8B195"),
+				DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors),
+				//DemoParameter("1", TypeParameter.COLOR, "#355C7D"),
+				//DemoParameter("2", TypeParameter.COLOR, "#6C5B7B"),
+				//DemoParameter("3", TypeParameter.COLOR, "#C06C84"),
+				//DemoParameter("4", TypeParameter.COLOR, "#F67280"),
+				//DemoParameter("5", TypeParameter.COLOR, "#F8B195"),
+				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
 				DemoParameter("Dashboard Title Color", TypeParameter.COLOR, "#2466AE"),
 				DemoParameter("AccentColor", TypeParameter.COLOR, "#28A8E0"),
 				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252")

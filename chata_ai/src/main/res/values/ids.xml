@@ -39,6 +39,7 @@
 	<item name="etQueryPlaceholder" type="id"/>
 	<item name="swClearMessage" type="id"/>
 	<item name="etTitle" type="id"/>
+	<item name="etAddColor" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>
