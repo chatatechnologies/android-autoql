@@ -34,7 +34,7 @@ object TableHtmlBuilder
 				else
 				{
 					val column = aColumn[iterator++]
-					cell.formatWithColumn(column, ",")
+					cell.formatWithColumn(column)
 				}
 				sRow += "<td>$valueRow</td>"
 			}

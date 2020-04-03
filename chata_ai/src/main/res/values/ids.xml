@@ -34,6 +34,7 @@
 	<item name="etFormatMonthYear" type="id"/>
 	<item name="etFormatDayMonthYear" type="id"/>
 	<item name="etDecimalsCurrency" type="id"/>
+	<item name="etDecimalsQuantity" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

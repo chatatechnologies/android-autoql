@@ -592,6 +592,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+
+		findViewById<EditText>(R.id.etDecimalsQuantity)?.apply {
+			setOnTextChanged {
+				if (it.isNotEmpty())
+				{
+					it.toIntOrNull()?.let {
+							integer ->
+						bubbleHandle.setDecimalsQuantity(integer)
+					}
+				}
+			}
+		}
 	}
 
 	/**

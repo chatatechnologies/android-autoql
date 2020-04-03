@@ -11,8 +11,7 @@ import java.util.*
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
 fun String.formatWithColumn(
-	columnQuery: ColumnQuery,
-	commaCharacter: String = ""
+	columnQuery: ColumnQuery
 ): String
 {
 	return when(columnQuery.type)
@@ -43,9 +42,13 @@ fun String.formatWithColumn(
 		TypeDataQuery.DOLLAR_AMT ->
 		{
 			val tmp = toDoubleNotNull()
-			tmp.formatDecimals(SinglentonDrawer.mCurrencyCode, commaCharacter = commaCharacter)
+			tmp.formatSymbolDecimals(SinglentonDrawer.mCurrencyCode)
 		}
-		TypeDataQuery.QUANTITY -> "${toDoubleNotNull()}"
+		TypeDataQuery.QUANTITY ->
+		{
+			val tmp = toDoubleNotNull()
+			tmp.formatDecimals(SinglentonDrawer.mDecimalsQuantity)
+		}
 		TypeDataQuery.STRING -> this
 		else -> ""
 	}
