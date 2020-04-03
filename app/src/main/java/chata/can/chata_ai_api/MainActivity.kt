@@ -19,7 +19,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.DataMessenger
-import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -77,9 +76,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		initViews()
-		setColorOptions()
-		setListener()
 
 		if (isMarshmallow())
 		{
@@ -103,6 +99,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			isEnableDrawer(true)
 			initBubble()
 		}
+		initViews()
+		setColorOptions()
+		setListener()
 
 		//RequestBuilder.executeRequest(ConstantRequest.Method.GET, "https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
 		//RequestBuilder.executeRequest(ConstantRequest.Method.POST, "https://backend.chata.ai/oauth/token", params = params)
@@ -339,7 +338,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 			for (demoParam in demoParams)
 			{
-				if (demoParam.type != TypeParameter.BUTTON)
+				if (demoParam.type != TypeParameter.BUTTON && demoParam.label.isNotEmpty())
 				{
 					//region label
 					with(TextView(this))
@@ -386,6 +385,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							{
 								setText(demoParam.value)
 							}
+							hint = demoParam.hint
 						}
 					}
 					TypeParameter.BUTTON ->
@@ -418,7 +418,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 								for (iterator in 0 until sizeOptions)
 								{
-									//val idView = demoParam.options.keyAt(iterator)
 									val option = demoParam.options[iterator]
 									val tv = TextView(this@MainActivity)
 									tv.id = option.idView
@@ -443,35 +442,44 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 					TypeParameter.COLOR ->
 					{
-						TextView(this).apply {
-							try
+						val subView = LinearLayout(this)
+						if (demoParam.colors.isNotEmpty())
+						{
+							with(subView)
 							{
-								setBackgroundColor(Color.parseColor(demoParam.value))
-							}
-							finally
-							{
-								layoutParams = LinearLayout.LayoutParams(-1, 90)
+								layoutParams = LinearLayout.LayoutParams(-1, -2)
 								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-								gravity = Gravity.CENTER
-								setTextColor(Color.WHITE)
-								text = demoParam.value
+								orientation = LinearLayout.VERTICAL
+
+								for (color in demoParam.colors)
+								{
+									val tv = TextView(this@MainActivity).apply {
+										val valueColor = color.value
+										try
+										{
+											setBackgroundColor(Color.parseColor(valueColor))
+										}
+										finally
+										{
+											layoutParams = LinearLayout.LayoutParams(-1, 90)
+											(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+											gravity = Gravity.CENTER
+											setTextColor(Color.WHITE)
+											bubbleHandle.addChartColor(valueColor)
+											text = valueColor
+										}
+									}
+									addView(tv)
+								}
 							}
 						}
+						subView
 					}
 				}
 
 				llContainer.addView(viewChild)
 			}
 		}
-
-		/*btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
-		btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
-		tvTop = findViewById(R.id.tvTop)
-		tvBottom = findViewById(R.id.tvBottom)
-		tvLeft = findViewById(R.id.tvLeft)
-		tvRight = findViewById(R.id.tvRight)
-		aPlacement = arrayListOf(tvTop, tvBottom, tvLeft)
-		currentPlacement = tvRight*/
 	}
 
 	/**

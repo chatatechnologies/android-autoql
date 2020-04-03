@@ -8,7 +8,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
  */
 object SinglentonDrawer
 {
-	var mModel = BaseModelList<ChatData>()
+	val mModel = BaseModelList<ChatData>()
 
 	var mCurrencyCode = "$"
 	var mLanguageCode = "en-U"
@@ -20,4 +20,5 @@ object SinglentonDrawer
 	var mQueryPlaceholder = ""
 	var mIsClearMessage = false
 	var mTitle = ""
+	val aChartColors = ArrayList<String>()
 }

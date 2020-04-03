@@ -157,6 +157,11 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mTitle = title
 	}
 
+	fun addChartColor(valueColor: String)
+	{
+		SinglentonDrawer.aChartColors.add(valueColor)
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)
