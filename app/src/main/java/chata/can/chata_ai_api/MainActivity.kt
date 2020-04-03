@@ -651,6 +651,16 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				false
 			}
 		}
+		findViewById<EditText>(R.id.etLightThemeColor)?.apply {
+			setOnTextChanged {
+				bubbleHandle.setLightThemeColor(it)
+			}
+		}
+		findViewById<EditText>(R.id.etDarkThemeColor)?.apply {
+			setOnTextChanged {
+				bubbleHandle.setDarkThemeColor(it)
+			}
+		}
 	}
 
 	/**

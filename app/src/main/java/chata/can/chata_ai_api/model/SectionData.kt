@@ -75,9 +75,8 @@ object SectionData
 				//DemoParameter("4", TypeParameter.COLOR, "#F67280"),
 				//DemoParameter("5", TypeParameter.COLOR, "#F8B195"),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
-				DemoParameter("Dashboard Title Color", TypeParameter.COLOR, "#2466AE"),
-				DemoParameter("AccentColor", TypeParameter.COLOR, "#28A8E0"),
-				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252")
+				DemoParameter("Light Theme Accent Color", TypeParameter.INPUT, "#28A8E0", idView = R.id.etLightThemeColor),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.INPUT, "#525252", idView = R.id.etDarkThemeColor)
 			),
 		"More Configurations" to
 			arrayListOf(

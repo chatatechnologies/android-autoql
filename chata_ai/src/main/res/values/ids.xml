@@ -41,5 +41,8 @@
 	<item name="etTitle" type="id"/>
 	<item name="etAddColor" type="id"/>
 
+	<item name="etLightThemeColor" type="id"/>
+	<item name="etDarkThemeColor" type="id"/>
+
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

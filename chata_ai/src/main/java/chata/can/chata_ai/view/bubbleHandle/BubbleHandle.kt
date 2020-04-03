@@ -161,14 +161,40 @@ class BubbleHandle(private val context: Context)
 
 	fun addChartColor(valueColor: String): Boolean
 	{
+		val pData = isColor(valueColor)
+		if (pData.second)
+		{
+			SinglentonDrawer.aChartColors.add(pData.first)
+		}
+		return pData.second
+	}
+
+	fun setLightThemeColor(lightThemeColor: String): Boolean
+	{
+		val pData = isColor(lightThemeColor)
+		if (pData.second)
+		{
+			SinglentonDrawer.mLightThemeColor = pData.first
+		}
+		return pData.second
+	}
+
+	fun setDarkThemeColor(lightThemeColor: String): Boolean
+	{
+		val pData = isColor(lightThemeColor)
+		if (pData.second)
+		{
+			SinglentonDrawer.mDarkThemeColor = pData.first
+		}
+		return pData.second
+	}
+
+	private fun isColor(valueColor: String): Pair<String, Boolean>
+	{
 		val newColor = valueColor.toLowerCase(Locale.US)
 		val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
-		return if (colorPattern.matcher(newColor).matches())
-		{
-			SinglentonDrawer.aChartColors.add(newColor)
-			true
-		}
-		else false
+
+		return Pair(newColor, colorPattern.matcher(newColor).matches())
 	}
 
 	private fun initBubbleLayout()
