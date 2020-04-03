@@ -14,6 +14,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -385,7 +386,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							{
 								setText(demoParam.value)
 							}
-							hint = demoParam.hint
+							if (demoParam.hint.isNotEmpty())
+							{
+								hint = demoParam.hint
+								setLines(1)
+								setSingleLine()
+								imeOptions = EditorInfo.IME_ACTION_DONE
+							}
 						}
 					}
 					TypeParameter.BUTTON ->
@@ -633,6 +640,15 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		findViewById<EditText>(R.id.etTitle)?.apply {
 			setOnTextChanged {
 				bubbleHandle.setTitle(it)
+			}
+		}
+		findViewById<EditText>(R.id.etAddColor)?.apply {
+			setOnEditorActionListener {
+				v, _, _ ->
+				val text = (v.text ?: "").toString()
+				bubbleHandle.addChartColor(text.toUpperCase())
+				v.text = ""
+				false
 			}
 		}
 	}
