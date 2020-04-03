@@ -29,6 +29,12 @@ class ChatServicePresenter(
 		QueryRequest.callSafetyNet(query, this)
 	}
 
+	fun getQuery(query: String)
+	{
+		val mInfoHolder = hashMapOf<String, Any>("query" to query)
+		QueryRequest.callQuery(query, this, mInfoHolder)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
@@ -67,7 +73,6 @@ class ChatServicePresenter(
 						{
 							val simpleQuery = FullSuggestionQuery(jsonObject)
 							view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
-							//view?.scrollToPosition()
 						}
 					}
 				}

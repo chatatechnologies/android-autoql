@@ -672,6 +672,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.isEnableAutocomplete(isChecked)
 			}
 		}
+		findViewById<Switch>(R.id.swEnableQuery)?.apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.isEnableQuery(isChecked)
+			}
+		}
 	}
 
 	/**

@@ -25,4 +25,5 @@ object SinglentonDrawer
 	var mDarkThemeColor = "#525252"
 	var mMaxNumberMessage = 6
 	var mIsEnableAutocomplete = true
+	var mIsEnableQuery = true
 }

@@ -45,6 +45,7 @@
 	<item name="etDarkThemeColor" type="id"/>
 	<item name="etMaxNumberMessage" type="id"/>
 	<item name="swEnableAutocomplete" type="id"/>
+	<item name="swEnableQuery" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

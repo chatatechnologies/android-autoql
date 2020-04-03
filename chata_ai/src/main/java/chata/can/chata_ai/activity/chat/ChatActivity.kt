@@ -194,7 +194,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				//setText("monthly average expenses for the last quarter")
+				setText("monthly average expenses for the last quarter")
 			}
 		}
 
@@ -313,12 +313,12 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 					if (SinglentonDrawer.mIsEnableAutocomplete)
 					{
 						servicePresenter.getAutocomplete(URLEncoder.encode(string, "UTF-8"))
-						with(ivMicrophone)
-						{
-							setImageResource(R.drawable.ic_send)
-							setOnTouchListener(null)
-							setOnClickListener { setRequestQuery() }
-						}
+					}
+					with(ivMicrophone)
+					{
+						setImageResource(R.drawable.ic_send)
+						setOnTouchListener(null)
+						setOnClickListener { setRequestQuery() }
 					}
 				}
 				else
@@ -380,7 +380,14 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			chatAdapter.notifyItemChanged(model.countData() - 1)
 
-			servicePresenter.getSafety(query)
+			if (SinglentonDrawer.mIsEnableQuery)
+			{
+				servicePresenter.getSafety(query)
+			}
+			else
+			{
+				servicePresenter.getQuery(query)
+			}
 		}
 	}
 
