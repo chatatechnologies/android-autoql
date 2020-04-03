@@ -194,7 +194,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				setText("All invoices last 4 types")
+				setText("pie chart total sales")
 			}
 		}
 

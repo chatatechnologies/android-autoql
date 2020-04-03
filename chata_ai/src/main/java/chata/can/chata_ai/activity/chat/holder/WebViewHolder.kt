@@ -27,6 +27,9 @@ class WebViewHolder(view: View): Holder(view)
 	private val ivLine = view.findViewById<ImageView>(R.id.ivLine) ?: null
 	private val ivPie = view.findViewById<ImageView>(R.id.ivPie) ?: null
 
+	private val rlDelete = view.findViewById<View>(R.id.rlDelete) ?: null
+	private val ivDelete = view.findViewById<ImageView>(R.id.ivDelete) ?: null
+
 	override fun onPaint()
 	{
 		rvParent?.let {
@@ -40,6 +43,11 @@ class WebViewHolder(view: View): Holder(view)
 		ivColumn?.setColorFilter()
 		ivLine?.setColorFilter()
 		ivPie?.setColorFilter()
+
+		rlDelete?.let {
+			it.background = backgroundGrayWhite(it)
+		}
+		ivDelete?.setColorFilter()
 	}
 
 	private fun ImageView.setColorFilter()
