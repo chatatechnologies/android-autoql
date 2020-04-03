@@ -613,6 +613,15 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+
+		findViewById<EditText>(R.id.etQueryPlaceholder)?.apply {
+			setOnTextChanged {
+				if (it.isNotEmpty())
+				{
+					bubbleHandle.setQueryPlaceholder(it)
+				}
+			}
+		}
 	}
 
 	/**

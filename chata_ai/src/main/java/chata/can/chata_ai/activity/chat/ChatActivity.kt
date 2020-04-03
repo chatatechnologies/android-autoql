@@ -155,13 +155,22 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		with(etQuery)
 		{
 			background = pDrawable.second
+			val hint = if (SinglentonDrawer.mQueryPlaceholder.isNotEmpty())
+			{
+				SinglentonDrawer.mQueryPlaceholder
+			}
+			else
+			{
+				getString(R.string.type_queries_here)
+			}
+			setHint(hint)
 			//setDropDownBackgroundDrawable(pDrawable.second)
 
 			adapterAutoComplete = AutoCompleteAdapter(this@ChatActivity, R.layout.row_spinner)
 
 			threshold = 1
 			setAdapter(adapterAutoComplete)
-			etQuery.onItemClickListener = AdapterView.OnItemClickListener {
+			onItemClickListener = AdapterView.OnItemClickListener {
 				parent, _, position, _ ->
 				parent?.let {
 					it.adapter?.let {
@@ -182,11 +191,11 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 			val displayMetrics = DisplayMetrics()
 			ScreenData.defaultDisplay.getMetrics(displayMetrics)
 			val width = displayMetrics.widthPixels
-			etQuery.dropDownWidth = width
+			dropDownWidth = width
 
 			if (BuildConfig.DEBUG)
 			{
-				etQuery.setText("monthly average expenses for the last quarter")
+				//setText("monthly average expenses for the last quarter")
 			}
 		}
 

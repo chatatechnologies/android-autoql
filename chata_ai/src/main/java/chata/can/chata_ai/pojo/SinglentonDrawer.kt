@@ -12,4 +12,5 @@ object SinglentonDrawer
 	var mDecimalsCurrency = 2
 	var mDecimalsQuantity = 1
 	var mIntroMessage = ""
+	var mQueryPlaceholder = ""
 }

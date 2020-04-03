@@ -133,6 +133,11 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mIntroMessage = introMessage
 	}
 
+	fun setQueryPlaceholder(queryPlaceholder: String)
+	{
+		SinglentonDrawer.mQueryPlaceholder = queryPlaceholder
+	}
+
 	fun setVisible(isVisible: Boolean)
 	{
 		val tmpPlacement = if (isVisible)
