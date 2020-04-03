@@ -48,7 +48,7 @@ object SectionData
 				DemoParameter("Customer Name", TypeParameter.INPUT, "Jose Carlos", idView = R.id.tvCustomerMessage),
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
-				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE),
+				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
 				DemoParameter("Height", TypeParameter.INPUT, "550"),
 				DemoParameter("Width", TypeParameter.INPUT, "500"),
 				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger"),

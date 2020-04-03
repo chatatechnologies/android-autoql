@@ -37,6 +37,7 @@
 	<item name="etDecimalsQuantity" type="id"/>
 	<item name="etIntroMessage" type="id"/>
 	<item name="etQueryPlaceholder" type="id"/>
+	<item name="swClearMessage" type="id"/>
 
 	<item name="tvCustomerMessage" type="id"/>
 </resources>

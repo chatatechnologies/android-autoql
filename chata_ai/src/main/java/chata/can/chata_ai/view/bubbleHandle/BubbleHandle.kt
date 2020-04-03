@@ -147,6 +147,11 @@ class BubbleHandle(private val context: Context)
 		bubbleLayout.definePositionInScreen(tmpPlacement)
 	}
 
+	fun isClearMessage(isClearMessage: Boolean)
+	{
+		SinglentonDrawer.mIsClearMessage = isClearMessage
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)

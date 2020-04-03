@@ -26,7 +26,6 @@ import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
 import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getStringResources
-import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
@@ -53,7 +52,8 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private lateinit var speechRecognizer: SpeechRecognizer
 	private lateinit var speechIntent: Intent
 
-	private lateinit var model: BaseModelList<ChatData>
+	//private lateinit var model: BaseModelList<ChatData>
+	val model = SinglentonDrawer.mModel
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private val renderPresenter = ChatRenderPresenter(this, this)
 	private val servicePresenter = ChatServicePresenter(this, this)
@@ -195,7 +195,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				//setText("monthly average expenses for the last quarter")
+				setText("monthly average expenses for the last quarter")
 			}
 		}
 
@@ -324,22 +324,24 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	private fun initList()
 	{
-		model = BaseModelList()
+		//model = BaseModelList()
 		chatAdapter = ChatAdapter(model, this, servicePresenter)
+		if (SinglentonDrawer.mModel.countData() == 0)
+		{
+			val introMessageRes =
+				if (SinglentonDrawer.mIntroMessage.isNotEmpty())
+				{
+					SinglentonDrawer.mIntroMessage
+				}
+				else
+				{
+					(this as Context).getStringResources(R.string.intro_message_chata_drawer)
+				}
 
-		val introMessageRes =
-			if (SinglentonDrawer.mIntroMessage.isNotEmpty())
-			{
-				SinglentonDrawer.mIntroMessage
-			}
-		else
-			{
-				(this as Context).getStringResources(R.string.intro_message_chata_drawer)
-			}
+			val introMessage = String.format(introMessageRes, customerName)
 
-		val introMessage = String.format(introMessageRes, customerName)
-
-		model.addData(ChatData(1, introMessage))
+			model.addData(ChatData(1, introMessage))
+		}
 		rvChat.layoutManager = LinearLayoutManager(this)
 		rvChat.adapter = chatAdapter
 	}
@@ -428,6 +430,15 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				}
 				true
 			}
+		}
+	}
+
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		if (SinglentonDrawer.mIsClearMessage)
+		{
+			SinglentonDrawer.mModel.clearData()
 		}
 	}
 }

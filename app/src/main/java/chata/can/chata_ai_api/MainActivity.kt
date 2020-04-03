@@ -53,6 +53,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var btnAuthenticate: TextView ?= null
 	private var btnLogOut: TextView ?= null
 	private var swDrawerHandle: Switch ?= null
+	private var swClearMessage: Switch ?= null
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	private lateinit var btnReloadDrawer: Button
@@ -553,7 +554,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etFormatMonthYear)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -562,7 +562,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etFormatDayMonthYear)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -571,7 +570,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etLanguageCode)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -580,7 +578,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etDecimalsCurrency)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -592,7 +589,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etDecimalsQuantity)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -604,7 +600,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etIntroMessage)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -613,13 +608,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-
 		findViewById<EditText>(R.id.etQueryPlaceholder)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
 					bubbleHandle.setQueryPlaceholder(it)
 				}
+			}
+		}
+		swClearMessage = findViewById<Switch>(R.id.swClearMessage).apply {
+			setOnCheckedChangeListener {
+				_, isChecked ->
+				bubbleHandle.isClearMessage(isChecked)
 			}
 		}
 	}
