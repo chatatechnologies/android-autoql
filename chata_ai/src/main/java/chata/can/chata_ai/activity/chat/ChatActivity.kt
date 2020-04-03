@@ -52,7 +52,6 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private lateinit var speechRecognizer: SpeechRecognizer
 	private lateinit var speechIntent: Intent
 
-	//private lateinit var model: BaseModelList<ChatData>
 	val model = SinglentonDrawer.mModel
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private val renderPresenter = ChatRenderPresenter(this, this)
@@ -349,6 +348,15 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private fun initData()
 	{
 		customerName = intent?.getStringExtra("CUSTOMER_NAME") ?: ""
+		val title = if (SinglentonDrawer.mTitle.isNotEmpty())
+		{
+			SinglentonDrawer.mTitle
+		}
+		else
+		{
+			getString(R.string.data_messenger)
+		}
+		tvToolbar.text = title
 	}
 
 	private fun setRequestQuery()

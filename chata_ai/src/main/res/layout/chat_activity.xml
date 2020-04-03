@@ -29,7 +29,6 @@
 			android:layout_toEndOf="@id/ivCancel"
 			android:layout_toStartOf="@id/ivClear"
 			android:layout_width="match_parent"
-			android:text="@string/data_messenger"
 			android:textColor="@color/chata_drawer_hover_color"
 			android:textSize="18sp"/>
 		<ImageView

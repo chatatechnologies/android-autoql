@@ -152,6 +152,11 @@ class BubbleHandle(private val context: Context)
 		SinglentonDrawer.mIsClearMessage = isClearMessage
 	}
 
+	fun setTitle(title: String)
+	{
+		SinglentonDrawer.mTitle = title
+	}
+
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)

@@ -616,10 +616,15 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
-		swClearMessage = findViewById<Switch>(R.id.swClearMessage).apply {
+		swClearMessage = findViewById<Switch>(R.id.swClearMessage)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
 				bubbleHandle.isClearMessage(isChecked)
+			}
+		}
+		findViewById<EditText>(R.id.etTitle)?.apply {
+			setOnTextChanged {
+				bubbleHandle.setTitle(it)
 			}
 		}
 	}

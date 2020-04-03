@@ -49,9 +49,7 @@ object SectionData
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
-				DemoParameter("Height", TypeParameter.INPUT, "550"),
-				DemoParameter("Width", TypeParameter.INPUT, "500"),
-				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger"),
+				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle),
 				DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif"),
 				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE)
 			),

@@ -19,4 +19,5 @@ object SinglentonDrawer
 	var mIntroMessage = ""
 	var mQueryPlaceholder = ""
 	var mIsClearMessage = false
+	var mTitle = ""
 }
