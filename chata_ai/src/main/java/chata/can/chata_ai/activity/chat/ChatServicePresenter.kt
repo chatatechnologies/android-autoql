@@ -50,16 +50,28 @@ class ChatServicePresenter(
 		{
 			when
 			{
+				//region data (the domain is different
+				jsonObject.has("data") ->
+				{
+					jsonObject.optJSONObject("data")?.let {
+						joData ->
+						when
+						{
+							joData.has("matches") ->
+							{
+								makeMatches(joData)
+							}
+							else ->
+							{
+
+							}
+						}
+					}
+				}
+				//endregion
 				jsonObject.has("matches") ->
 				{
-					jsonObject.optJSONArray("matches")?.let {
-						val aData = ArrayList<String>()
-						for (index in 0 until it.length())
-						{
-							aData.add(it.optString(index))
-						}
-						view?.setDataAutocomplete(aData)
-					}
+					makeMatches(jsonObject)
 				}
 				jsonObject.has("full_suggestion") ->
 				{
@@ -120,6 +132,18 @@ class ChatServicePresenter(
 		if (jsonArray != null)
 		{
 
+		}
+	}
+
+	private fun makeMatches(json: JSONObject)
+	{
+		json.optJSONArray("matches")?.let {
+			val aData = ArrayList<String>()
+			for (index in 0 until it.length())
+			{
+				aData.add(it.optString(index))
+			}
+			view?.setDataAutocomplete(aData)
 		}
 	}
 

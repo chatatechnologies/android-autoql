@@ -120,10 +120,10 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		permissions: Array<out String>,
 		grantResults: IntArray)
 	{
-		if (requestCode == 801)
+		/*if (requestCode == 801)
 		{
-			//showAlert("Sorry, that didn't seem to work. Please try again.")
-		}
+			showAlert("Sorry, that didn't seem to work. Please try again.")
+		}*/
 	}
 
 	override fun onClick(view: View?)
@@ -194,7 +194,8 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				setText("pie chart total sales")
+				val urlDemo = "pie chart total sales"
+				//setText(urlDemo)
 			}
 		}
 
