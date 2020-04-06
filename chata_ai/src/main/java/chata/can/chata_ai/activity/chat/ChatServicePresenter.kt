@@ -67,52 +67,45 @@ class ChatServicePresenter(
 								makeMatches(it)
 							}
 						}
-						else ->
+						"safetynet" ->
 						{
-
-						}
-					}
-				}
-				//region data (the domain is different
-				/*jsonObject.has("message") ->
-				{
-					jsonObject.optJSONObject("data")?.let {
-						joData ->
-						when
-						{
-							joData.has("replacements") ->
+							if (jsonObject.has("full_suggestion"))
 							{
-								joData.optJSONArray("replacements")?.let {
+								jsonObject.optJSONArray("full_suggestion")?.let {
 									if (it.length() == 0)
 									{
-										val query = jsonObject.optString("text") ?: ""
+										val query = jsonObject.optString("query") ?: ""
 										val mInfoHolder = hashMapOf<String, Any>("query" to query)
-										//QueryRequest.callQuery(query, this, mInfoHolder)
+										QueryRequest.callQuery(query, this, mInfoHolder)
+									}
+									else
+									{
+										val simpleQuery = FullSuggestionQuery(jsonObject)
+										view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
 									}
 								}
 							}
-							else ->
-							{
-
+						}
+						"validate" ->
+						{
+							jsonObject.getJSONData()?.let {
+								data ->
+								if (data.has("replacements"))
+								{
+									data.optJSONArray("replacements")?.let {
+										jaReplacements ->
+										if (jaReplacements.length() == 0)
+										{
+											val query = data.optString("text") ?: ""
+											val mInfoHolder = hashMapOf<String, Any>("query" to query)
+										}
+									}
+								}
 							}
 						}
-					}
-				}*/
-				//endregion
+						else ->
+						{
 
-				jsonObject.has("full_suggestion") ->
-				{
-					jsonObject.optJSONArray("full_suggestion")?.let {
-						if (it.length() == 0)
-						{
-							val query = jsonObject.optString("query") ?: ""
-							val mInfoHolder = hashMapOf<String, Any>("query" to query)
-							QueryRequest.callQuery(query, this, mInfoHolder)
-						}
-						else
-						{
-							val simpleQuery = FullSuggestionQuery(jsonObject)
-							view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
 						}
 					}
 				}

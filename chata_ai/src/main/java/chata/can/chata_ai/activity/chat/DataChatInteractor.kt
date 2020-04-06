@@ -35,7 +35,7 @@ class DataChatInteractor
 			url,
 			typeJSON,
 			headers = header,
-			infoHolder = hashMapOf<String, Any>("nameService" to nameService),
+			infoHolder = hashMapOf("nameService" to nameService),
 			listener = listener)
 	}
 
@@ -45,8 +45,10 @@ class DataChatInteractor
 	fun callSafetyNet(query: String, listener: StatusResponse)
 	{
 		var header: HashMap<String, String> ?= null
+		val nameService: String
 		val url = if (DataMessenger.domainUrl.isEmpty())
 		{
+			nameService = "safetynet"
 			"$urlBase${api1}safetynet?q=$query&projectId=1&user_id=demo&customer_id=demo"
 		}
 		else
@@ -54,10 +56,17 @@ class DataChatInteractor
 			with(DataMessenger)
 			{
 				header = getAuthorizationJWT()
+				nameService = "validate"
 				"$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
 			}
 		}
 
-		callStringRequest(Request.Method.GET,url, typeJSON, headers = header, listener = listener)
+		callStringRequest(
+			Request.Method.GET,
+			url,
+			typeJSON,
+			headers = header,
+			infoHolder = hashMapOf("nameService" to nameService),
+			listener = listener)
 	}
 }
