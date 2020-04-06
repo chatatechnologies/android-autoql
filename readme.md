@@ -1,5 +1,5 @@
 # Documentation
-    https://github.com/chatatechnologies/react-autoql
+    https://chata.readme.io/docs/react-components
 
 # Website demo
     https://github.com/chatatechnologies/react-autoql

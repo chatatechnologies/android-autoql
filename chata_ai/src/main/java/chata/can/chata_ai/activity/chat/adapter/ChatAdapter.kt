@@ -21,7 +21,7 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-	private val servicePresenter: ChatServicePresenter): BaseAdapter(model)
+	private val servicePresenter: ChatServicePresenter): BaseAdapter(model), ChatAdapterContract
 {
 	override fun getItemViewType(position: Int): Int
 	{
@@ -57,7 +57,7 @@ class ChatAdapter(
 			}
 			TypeChatView.WEB_VIEW ->
 			{
-				WebViewHolder(layoutInflater.inflate(R.layout.row_webview, nullValue))
+				WebViewHolder(layoutInflater.inflate(R.layout.row_webview, nullValue), this)
 			}
 			TypeChatView.SUGGESTION_VIEW ->
 			{
@@ -74,6 +74,15 @@ class ChatAdapter(
 					servicePresenter)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
+		}
+	}
+
+	override fun deleteQuery(position: Int)
+	{
+		with(model)
+		{
+			removeAt(position)
+			notifyItemChanged(position)
 		}
 	}
 }

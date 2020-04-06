@@ -8,6 +8,7 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -15,20 +16,23 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
-class WebViewHolder(view: View): Holder(view)
+class WebViewHolder(
+	itemView: View,
+	private val view: ChatAdapterContract
+): Holder(itemView)
 {
-	private val rvParent = view.findViewById<View>(R.id.rvParent) ?: null
-	private val wbQuery = view.findViewById<WebView>(R.id.wbQuery) ?: null
-	private var rlLoad = view.findViewById<View>(R.id.rlLoad) ?: null
+	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
+	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
+	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 
-	private val llCharts = view.findViewById<View>(R.id.llCharts) ?: null
-	private val ivBar = view.findViewById<ImageView>(R.id.ivBar) ?: null
-	private val ivColumn = view.findViewById<ImageView>(R.id.ivColumn) ?: null
-	private val ivLine = view.findViewById<ImageView>(R.id.ivLine) ?: null
-	private val ivPie = view.findViewById<ImageView>(R.id.ivPie) ?: null
+	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
+	private val ivBar = itemView.findViewById<ImageView>(R.id.ivBar) ?: null
+	private val ivColumn = itemView.findViewById<ImageView>(R.id.ivColumn) ?: null
+	private val ivLine = itemView.findViewById<ImageView>(R.id.ivLine) ?: null
+	private val ivPie = itemView.findViewById<ImageView>(R.id.ivPie) ?: null
 
-	private val rlDelete = view.findViewById<View>(R.id.rlDelete) ?: null
-	private val ivDelete = view.findViewById<ImageView>(R.id.ivDelete) ?: null
+	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
+	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 
 	override fun onPaint()
 	{
@@ -94,6 +98,10 @@ class WebViewHolder(view: View): Holder(view)
 	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
+		rlDelete?.setOnClickListener {
+			view.deleteQuery(adapterPosition)
+		}
+
 		isChart(simpleQuery.numColumns)
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
