@@ -1,5 +1,6 @@
 package chata.can.chata_ai.request.authentication
 
+import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -8,6 +9,8 @@ import com.android.volley.Request
 
 object Authentication
 {
+	fun getAuthorizationJWT() = hashMapOf("Authorization" to "Bearer ${DataMessenger.JWT}")
+
 	/**
 	 * @param username for login (admin)
 	 * @param password for login (admin123)

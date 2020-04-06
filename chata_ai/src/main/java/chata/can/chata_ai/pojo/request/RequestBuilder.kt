@@ -20,8 +20,6 @@ object RequestBuilder
 	//Start when chat or dashboard's component start in XMLs
 	var requestQueue: RequestQueue ?= null
 
-	//fun getAuthorization() = hashMapOf("Authorization" to "Bearer ${UserData.accessToken}")
-
 	/**
 	 * @since 0.1
 	 * @author Carlos Buruel

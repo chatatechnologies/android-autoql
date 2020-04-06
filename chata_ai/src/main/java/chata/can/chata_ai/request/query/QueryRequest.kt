@@ -10,13 +10,6 @@ import com.android.volley.Request
 
 object QueryRequest
 {
-	fun callSafetyNet(query: String, listener: StatusResponse)
-	{
-		val url = "$urlBase${api1}safetynet?q=$query&" +
-			"projectId=1&user_id=demo&customer_id=demo"
-		callStringRequest(Request.Method.GET,url, typeJSON, listener = listener)
-	}
-
 	fun callQuery(
 		query: String,
 		listener: StatusResponse,

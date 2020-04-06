@@ -27,7 +27,7 @@ class ChatServicePresenter(
 
 	fun getSafety(query: String)
 	{
-		QueryRequest.callSafetyNet(query, this)
+		interactor.callSafetyNet(query, this)
 	}
 
 	fun getQuery(query: String)
@@ -50,16 +50,46 @@ class ChatServicePresenter(
 		{
 			when
 			{
+				jsonObject.has("nameService") ->
+				{
+					when(jsonObject.optString("nameService"))
+					{
+						"demoAutocomplete" ->
+						{
+							if (jsonObject.has("matches"))
+							{
+								makeMatches(jsonObject)
+							}
+						}
+						"autocomplete" ->
+						{
+							jsonObject.getJSONData()?.let {
+								makeMatches(it)
+							}
+						}
+						else ->
+						{
+
+						}
+					}
+				}
 				//region data (the domain is different
-				jsonObject.has("data") ->
+				/*jsonObject.has("message") ->
 				{
 					jsonObject.optJSONObject("data")?.let {
 						joData ->
 						when
 						{
-							joData.has("matches") ->
+							joData.has("replacements") ->
 							{
-								makeMatches(joData)
+								joData.optJSONArray("replacements")?.let {
+									if (it.length() == 0)
+									{
+										val query = jsonObject.optString("text") ?: ""
+										val mInfoHolder = hashMapOf<String, Any>("query" to query)
+										//QueryRequest.callQuery(query, this, mInfoHolder)
+									}
+								}
 							}
 							else ->
 							{
@@ -67,12 +97,9 @@ class ChatServicePresenter(
 							}
 						}
 					}
-				}
+				}*/
 				//endregion
-				jsonObject.has("matches") ->
-				{
-					makeMatches(jsonObject)
-				}
+
 				jsonObject.has("full_suggestion") ->
 				{
 					jsonObject.optJSONArray("full_suggestion")?.let {
@@ -134,6 +161,8 @@ class ChatServicePresenter(
 
 		}
 	}
+
+	private fun JSONObject.getJSONData() = optJSONObject("data")
 
 	private fun makeMatches(json: JSONObject)
 	{
