@@ -381,14 +381,14 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			chatAdapter.notifyItemChanged(model.countData() - 1)
 
-			val queryEncode = URLEncoder.encode(query, "UTF-8")
+			//val queryEncode = URLEncoder.encode(query, "UTF-8")
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
-				servicePresenter.getSafety(queryEncode)
+				servicePresenter.getSafety(query)
 			}
 			else
 			{
-				servicePresenter.getQuery(queryEncode)
+				servicePresenter.getQuery(query)
 			}
 		}
 	}

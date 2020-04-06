@@ -56,10 +56,7 @@ class ChatServicePresenter(
 					{
 						"demoAutocomplete" ->
 						{
-							if (jsonObject.has("matches"))
-							{
-								makeMatches(jsonObject)
-							}
+							makeMatches(jsonObject)
 						}
 						"autocomplete" ->
 						{
@@ -69,38 +66,13 @@ class ChatServicePresenter(
 						}
 						"safetynet" ->
 						{
-							if (jsonObject.has("full_suggestion"))
-							{
-								jsonObject.optJSONArray("full_suggestion")?.let {
-									if (it.length() == 0)
-									{
-										val query = jsonObject.optString("query") ?: ""
-										val mInfoHolder = hashMapOf<String, Any>("query" to query)
-										QueryRequest.callQuery(query, this, mInfoHolder)
-									}
-									else
-									{
-										val simpleQuery = FullSuggestionQuery(jsonObject)
-										view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
-									}
-								}
-							}
+							makeSuggestion(jsonObject, "full_suggestion", "query")
 						}
 						"validate" ->
 						{
 							jsonObject.getJSONData()?.let {
 								data ->
-								if (data.has("replacements"))
-								{
-									data.optJSONArray("replacements")?.let {
-										jaReplacements ->
-										if (jaReplacements.length() == 0)
-										{
-											val query = data.optString("text") ?: ""
-											val mInfoHolder = hashMapOf<String, Any>("query" to query)
-										}
-									}
-								}
+								makeSuggestion(data, "replacements", "text")
 							}
 						}
 						else ->
@@ -159,13 +131,40 @@ class ChatServicePresenter(
 
 	private fun makeMatches(json: JSONObject)
 	{
-		json.optJSONArray("matches")?.let {
-			val aData = ArrayList<String>()
-			for (index in 0 until it.length())
-			{
-				aData.add(it.optString(index))
+		if (json.has("matches"))
+		{
+			json.optJSONArray("matches")?.let {
+				val aData = ArrayList<String>()
+				for (index in 0 until it.length())
+				{
+					aData.add(it.optString(index))
+				}
+				view?.setDataAutocomplete(aData)
 			}
-			view?.setDataAutocomplete(aData)
+		}
+	}
+
+	/**
+	 * @param keySuggestion can be "full_suggestion" or "replacements"
+	 * @param keyQuery can be "query" or "text"
+	 */
+	private fun makeSuggestion(json: JSONObject, keySuggestion: String, keyQuery: String)
+	{
+		if (json.has(keySuggestion))
+		{
+			json.optJSONArray(keySuggestion)?.let {
+				if (it.length() == 0)
+				{
+					val query = json.optString(keyQuery) ?: ""
+					val mInfoHolder = hashMapOf<String, Any>("query" to query)
+					QueryRequest.callQuery(query, this, mInfoHolder)
+				}
+				else
+				{
+					val simpleQuery = FullSuggestionQuery(json)
+					view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
+				}
+			}
 		}
 	}
 
