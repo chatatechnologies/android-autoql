@@ -19,7 +19,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 class WebViewHolder(
 	itemView: View,
 	private val view: ChatAdapterContract
-): Holder(itemView)
+): Holder(itemView), View.OnClickListener
 {
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
@@ -98,9 +98,11 @@ class WebViewHolder(
 	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
-		rlDelete?.setOnClickListener {
-			view.deleteQuery(adapterPosition)
-		}
+		ivBar?.setOnClickListener(this)
+		ivColumn?.setOnClickListener(this)
+		ivLine?.setOnClickListener(this)
+		ivPie?.setOnClickListener(this)
+		rlDelete?.setOnClickListener(this)
 
 		isChart(simpleQuery.numColumns)
 		if (simpleQuery.contentHTML.isNotEmpty())
@@ -129,6 +131,35 @@ class WebViewHolder(
 						view.parent.requestDisallowInterceptTouchEvent(true)
 						false
 					}
+				}
+			}
+		}
+	}
+
+	override fun onClick(v: View?)
+	{
+		v?.let {
+			when(it.id)
+			{
+				R.id.ivBar ->
+				{
+
+				}
+				R.id.ivColumn ->
+				{
+
+				}
+				R.id.ivLine ->
+				{
+
+				}
+				R.id.ivPie ->
+				{
+
+				}
+				R.id.rlDelete ->
+				{
+					view.deleteQuery(adapterPosition)
 				}
 			}
 		}
