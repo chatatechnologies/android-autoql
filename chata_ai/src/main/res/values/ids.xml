@@ -16,7 +16,6 @@
 	<item name="etPassword" type="id"/>
 
 	<item name="btnAuthenticate" type="id"/>
-	<item name="btnLogOut" type="id"/>
 
 	<item name="btnOpenDrawer" type="id"/>
 	<item name="swDrawerHandle" type="id"/>

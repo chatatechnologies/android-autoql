@@ -41,15 +41,13 @@ object SectionData
 				DemoParameter("Domain URL *", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
 				DemoParameter("Username *", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
 				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword),
-				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate),
-				DemoParameter("Log Out", TypeParameter.BUTTON, idView = R.id.btnLogOut)
+				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
 			),
 		"Drawer Props" to
 			arrayListOf(
 				DemoParameter("Reload Drawer", TypeParameter.BUTTON),
 				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer),
 				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
-				DemoParameter("Shift Screen on Open/Close", TypeParameter.TOGGLE),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = aPlacement),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),

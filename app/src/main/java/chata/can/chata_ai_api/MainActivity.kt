@@ -72,6 +72,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		R.id.tvRight to BubbleHandle.RIGHT_PLACEMENT)
 
 	private val overlayPermission = 1000
+	private var isAuthenticate = false
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -145,11 +146,16 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			{
 				R.id.btnAuthenticate ->
 				{
-					createAuthenticate()
-				}
-				R.id.btnLogOut ->
-				{
-					//DELETE DATA
+					if (isAuthenticate)
+					{
+						DataMessenger.clearData()
+						isAuthenticate = false
+						changeStateAuthenticate()
+					}
+					else
+					{
+						createAuthenticate()
+					}
 				}
 				R.id.btnOpenDrawer ->
 				{
@@ -190,29 +196,36 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun createAuthenticate()
 	{
-		val username = (tvUsername?.text ?: "").toString()
-		val password = (tvPassword?.text ?: "").toString()
+		with(DataMessenger)
+		{
+			projectId = (tvProjectId?.text ?: "").toString()
+			userID = (tvUserId?.text ?: "").toString()
+			apiKey = (tvApiKey?.text ?: "").toString()
+			domainUrl = (tvDomainUrl?.text ?: "").toString()
+			username = (tvUsername?.text ?: "").toString()
+			password = (tvPassword?.text ?: "").toString()
 
-		Authentication.callLogin(username, password,
-			object: StatusResponse
-			{
-				override fun onFailure(jsonObject: JSONObject?)
+			Authentication.callLogin(username, password,
+				object: StatusResponse
 				{
-					if (jsonObject != null) { }
-				}
-
-				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
-				{
-					if (jsonObject != null)
+					override fun onFailure(jsonObject: JSONObject?)
 					{
-						val token = jsonObject.optString("RESPONSE")
-						DataMessenger.token = token
-						createJWT()
+						if (jsonObject != null) { }
 					}
 
-					if (jsonArray != null)  { }
-				}
-			})
+					override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+					{
+						if (jsonObject != null)
+						{
+							val token = jsonObject.optString("RESPONSE")
+							DataMessenger.token = token
+							createJWT()
+						}
+
+						if (jsonArray != null)  { }
+					}
+				})
+		}
 	}
 
 	private fun createJWT()
@@ -237,11 +250,22 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					{
 						val jwt = jsonObject.optString("RESPONSE")
 						DataMessenger.JWT = jwt
+						isAuthenticate = true
+						changeStateAuthenticate()
 					}
 
 					if (jsonArray != null)  { }
 				}
 			})
+	}
+
+	private fun changeStateAuthenticate()
+	{
+		btnAuthenticate?.let {
+			it.text = if (isAuthenticate)
+				"Log Out"
+			else "Authenticate"
+		}
 	}
 
 	private fun setColorOptions()
@@ -550,9 +574,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		tvPassword = findViewById(R.id.etPassword)
 
 		btnAuthenticate = findViewById<TextView>(R.id.btnAuthenticate)?.apply {
-			setOnClickListener(this@MainActivity)
-		}
-		btnLogOut = findViewById<TextView>(R.id.btnLogOut)?.apply {
 			setOnClickListener(this@MainActivity)
 		}
 		swDrawerHandle = findViewById<Switch>(R.id.swDrawerHandle)?.apply {
