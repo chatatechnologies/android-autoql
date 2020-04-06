@@ -1,11 +1,9 @@
 package chata.can.chata_ai.request.query
 
-import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
-import chata.can.chata_ai.pojo.urlBase
-import chata.can.chata_ai.pojo.urlStaging
+import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import com.android.volley.Request
 
 object QueryRequest
@@ -15,19 +13,35 @@ object QueryRequest
 		listener: StatusResponse,
 		infoHolder: HashMap<String, Any> ?= null)
 	{
-		val url = "$urlStaging${api1}chata/query"
+		var header: HashMap<String, String> ?= null
+
 		val mParams = hashMapOf<String, Any>(
 			"text" to query,
-			"source" to "data_messenger",
 			"debug" to true,
-			"test" to true,
-			"user_id" to "demo",
-			"customer_id" to "demo")
+			"test" to true)
+
+		val url = if (DataMessenger.domainUrl.isEmpty())
+		{
+			mParams["source"] = "data_messenger"
+			mParams["user_id"] = "demo"
+			mParams["customer_id"] = "demo"
+			"$urlStaging${api1}chata/query"
+		}
+		else
+		{
+			with(DataMessenger)
+			{
+				header = getAuthorizationJWT()
+				mParams["source"] = "data_messenger.user"
+				"$domainUrl/autoql/${api1}query?key=$apiKey"
+			}
+		}
 
 		callStringRequest(
 			Request.Method.POST,
 			url,
 			typeJSON,
+			headers = header,
 			parametersAny = mParams,
 			infoHolder = infoHolder,
 			listener = listener)
