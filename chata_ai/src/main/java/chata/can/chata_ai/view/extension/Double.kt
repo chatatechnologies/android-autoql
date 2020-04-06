@@ -7,7 +7,7 @@ fun Double.formatSymbolDecimals(
 	suffix: String = ""
 ): String
 {
-	val tmp = "%,.${SinglentonDrawer.mDecimalsCurrency}f".format(this)
+	val tmp = "%,.${SinglentonDrawer.currencyDecimals}f".format(this)
 	return "$prefix$tmp$suffix"
 }
 

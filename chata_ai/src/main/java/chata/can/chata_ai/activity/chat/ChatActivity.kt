@@ -338,9 +338,9 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		if (SinglentonDrawer.mModel.countData() == 0)
 		{
 			val introMessageRes =
-				if (SinglentonDrawer.mIntroMessage.isNotEmpty())
+				if (SinglentonDrawer.introMessage.isNotEmpty())
 				{
-					SinglentonDrawer.mIntroMessage
+					SinglentonDrawer.introMessage
 				}
 				else
 				{
@@ -440,7 +440,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	{
 		with(ivMicrophone)
 		{
-			if (SinglentonDrawer.mIsEnableSpeechText)
+			if (SinglentonDrawer.enableVoiceRecord)
 			{
 				setOnClickListener(null)
 				setOnTouchListener {

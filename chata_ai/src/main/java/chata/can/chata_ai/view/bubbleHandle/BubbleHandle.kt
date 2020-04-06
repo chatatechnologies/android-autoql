@@ -38,19 +38,10 @@ class BubbleHandle(private val context: Context)
 		const val THEME_LIGHT = true
 		const val THEME_DARK = false
 
-		const val TOP_PLACEMENT = 1
-		const val BOTTOM_PLACEMENT = 2
-		const val LEFT_PLACEMENT = 3
-		const val RIGHT_PLACEMENT = 4
-		const val NOT_PLACEMENT = 5
-
 		var isOpenChat = false
 	}
-
-	private val defaultPlacement = 4
 	//region API properties
-	private var mPlacement = defaultPlacement
-	private var customerName = ""
+	private var mPlacement = SinglentonDrawer.RIGHT_PLACEMENT
 	//endregion
 
 	init {
@@ -95,44 +86,44 @@ class BubbleHandle(private val context: Context)
 	{
 		val currency = Currency.mCurrency[currencyCode]
 		return currency?.let {
-			SinglentonDrawer.mCurrencyCode = currency
+			SinglentonDrawer.currencyCode = currency
 			true
 		} ?: run { false }
 	}
 
 	fun setLanguageCode(languageCode: String)
 	{
-		SinglentonDrawer.mLanguageCode = languageCode
+		SinglentonDrawer.languageCode = languageCode
 	}
 
 	fun setFormatMonthYear(formatMonthYear: String)
 	{
-		SinglentonDrawer.mFormatMonthYear = formatMonthYear
+		SinglentonDrawer.monthYearFormat = formatMonthYear
 	}
 
 	fun setFormatDayMonthYear(formatDayMonthYear: String)
 	{
-		SinglentonDrawer.mFormatDayMonthYear = formatDayMonthYear
+		SinglentonDrawer.dayMonthYearFormat = formatDayMonthYear
 	}
 
 	fun setDecimalsCurrency(decimalsCurrency: Int)
 	{
-		SinglentonDrawer.mDecimalsCurrency = decimalsCurrency
+		SinglentonDrawer.currencyDecimals = decimalsCurrency
 	}
 
 	fun setDecimalsQuantity(decimalsQuantity: Int)
 	{
-		SinglentonDrawer.mDecimalsQuantity = decimalsQuantity
+		SinglentonDrawer.quantityDecimals = decimalsQuantity
 	}
 
 	fun setCustomerName(customerName: String)
 	{
-		this.customerName = customerName
+		SinglentonDrawer.userDisplayName = customerName
 	}
 
 	fun setIntroMessage(introMessage: String)
 	{
-		SinglentonDrawer.mIntroMessage = introMessage
+		SinglentonDrawer.introMessage = introMessage
 	}
 
 	fun setQueryPlaceholder(queryPlaceholder: String)
@@ -226,7 +217,7 @@ class BubbleHandle(private val context: Context)
 
 	fun isEnableSpeechText(isEnableSpeechText: Boolean)
 	{
-		SinglentonDrawer.mIsEnableSpeechText = isEnableSpeechText
+		SinglentonDrawer.enableVoiceRecord = isEnableSpeechText
 	}
 
 	private fun initBubbleLayout()
@@ -268,7 +259,7 @@ class BubbleHandle(private val context: Context)
 	{
 		with(intent)
 		{
-			putExtra("CUSTOMER_NAME", customerName)
+			putExtra("CUSTOMER_NAME", SinglentonDrawer.userDisplayName)
 		}
 	}
 

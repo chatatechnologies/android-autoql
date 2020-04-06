@@ -20,9 +20,9 @@ fun String.formatWithColumn(
 		{
 			val format =
 			if (columnQuery.name.contains("month"))
-				SinglentonDrawer.mFormatMonthYear.replace("Y", "y")
+				SinglentonDrawer.monthYearFormat.replace("Y", "y")
 			else
-				SinglentonDrawer.mFormatDayMonthYear.
+				SinglentonDrawer.dayMonthYearFormat.
 				replace("Y", "y").
 				replace("D", "d")
 
@@ -42,12 +42,12 @@ fun String.formatWithColumn(
 		TypeDataQuery.DOLLAR_AMT ->
 		{
 			val tmp = toDoubleNotNull()
-			tmp.formatSymbolDecimals(SinglentonDrawer.mCurrencyCode)
+			tmp.formatSymbolDecimals(SinglentonDrawer.currencyCode)
 		}
 		TypeDataQuery.QUANTITY ->
 		{
 			val tmp = toDoubleNotNull()
-			tmp.formatDecimals(SinglentonDrawer.mDecimalsQuantity)
+			tmp.formatDecimals(SinglentonDrawer.quantityDecimals)
 		}
 		TypeDataQuery.STRING -> this
 		else -> ""
