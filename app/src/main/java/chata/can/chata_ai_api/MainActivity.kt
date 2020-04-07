@@ -53,7 +53,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var tvPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
 	private var swDrawerHandle: Switch ?= null
+	private var etCustomerMessage: TextView ?= null
 	private var swClearMessage: Switch ?= null
+	private var etTitle: EditText ?= null
+
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	private lateinit var bubbleHandle: BubbleHandle
@@ -119,6 +122,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			tvUsername?.setText(username)
 			val password = "admin123"
 			tvPassword?.setText(password)
+
+			val customerMessage = "Carlos"
+			etCustomerMessage?.text = customerMessage
+			val title = "Data Messenger"
+			etTitle?.setText(title)
 		}
 
 		RequestBuilder.initVolleyRequest(this)
@@ -409,7 +417,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER_HORIZONTAL
 							id = demoParam.idView
-							if (demoParam.value != "true" && demoParam.value != "false")
+							if (demoParam.value.isNotEmpty() &&
+								demoParam.value != "true" && demoParam.value != "false")
 							{
 								setText(demoParam.value)
 							}
@@ -522,14 +531,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun initBubble()
 	{
 		bubbleHandle = BubbleHandle(this)
-		initDataBubble()
-	}
-
-	private fun initDataBubble()
-	{
-		findViewById<EditText>(R.id.tvCustomerMessage)?.let {
-			bubbleHandle.userDisplayName = it.text.toString()
-		}
 	}
 
 	/**
@@ -638,6 +639,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+		etCustomerMessage = findViewById<EditText>(R.id.etCustomerMessage)?.apply {
+			setOnTextChanged {
+				bubbleHandle.userDisplayName = it
+			}
+		}
 		findViewById<EditText>(R.id.etIntroMessage)?.apply {
 			setOnTextChanged {
 				if (it.isNotEmpty())
@@ -660,7 +666,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.clearOnClose = isChecked
 			}
 		}
-		findViewById<EditText>(R.id.etTitle)?.apply {
+		etTitle = findViewById<EditText>(R.id.etTitle)?.apply {
 			setOnTextChanged {
 				bubbleHandle.title = it
 			}

@@ -56,7 +56,7 @@ object SectionData
 				DemoParameter("Format for Day, Month, Year", TypeParameter.INPUT, "MMM DD, YYYY", idView = R.id.etFormatDayMonthYear),
 				DemoParameter("Number of Decimals for Currency Values", TypeParameter.INPUT, "2", idView = R.id.etDecimalsCurrency),
 				DemoParameter("Number of Decimals for Quantity Values", TypeParameter.INPUT, "1", idView = R.id.etDecimalsQuantity),
-				DemoParameter("Customer Name", TypeParameter.INPUT, "Carlos", idView = R.id.tvCustomerMessage),
+				DemoParameter("Customer Name", TypeParameter.INPUT, idView = R.id.etCustomerMessage),
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),

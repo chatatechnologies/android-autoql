@@ -49,5 +49,5 @@
 	<item name="swEnableDrillDown" type="id"/>
 	<item name="swEnableSpeechText" type="id"/>
 
-	<item name="tvCustomerMessage" type="id"/>
+	<item name="etCustomerMessage" type="id"/>
 </resources>
