@@ -59,6 +59,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var etCustomerMessage: TextView ?= null
 	private var swClearMessage: Switch ?= null
 	private var etTitle: EditText ?= null
+	private var etMaxNumberMessage: EditText ?= null
 
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
@@ -130,6 +131,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			etCustomerMessage?.text = customerMessage
 			val title = "Data Messenger"
 			etTitle?.setText(title)
+			val maxMessage = 2
+			etMaxNumberMessage?.setText("$maxMessage")
 		}
 
 		RequestBuilder.initVolleyRequest(this)
@@ -659,18 +662,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		findViewById<EditText>(R.id.etIntroMessage)?.apply {
 			setOnTextChanged {
-				if (it.isNotEmpty())
-				{
-					bubbleHandle.introMessage = it
-				}
+				bubbleHandle.introMessage = it
 			}
 		}
 		findViewById<EditText>(R.id.etQueryPlaceholder)?.apply {
 			setOnTextChanged {
-				if (it.isNotEmpty())
-				{
-					bubbleHandle.inputPlaceholder = it
-				}
+				bubbleHandle.inputPlaceholder = it
 			}
 		}
 		swClearMessage = findViewById<Switch>(R.id.swClearMessage)?.apply {
@@ -703,7 +700,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.setDarkThemeColor(it)
 			}
 		}
-		findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {
+		etMaxNumberMessage = findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {
 			setOnTextChanged {
 				it.toIntOrNull()?.let {
 					integer ->

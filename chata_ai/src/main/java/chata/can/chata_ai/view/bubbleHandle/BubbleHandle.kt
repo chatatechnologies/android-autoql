@@ -214,7 +214,7 @@ class BubbleHandle(private val context: Context)
 	fun reloadData()
 	{
 		SinglentonDrawer.mModel.clearData()
-		isVisible = true
+		/*isVisible = true
 		placement = ConstantDrawer.RIGHT_PLACEMENT
 		title = "Data Messenger"
 		userDisplayName = "there"
@@ -222,7 +222,7 @@ class BubbleHandle(private val context: Context)
 		inputPlaceholder = "Type your queries here"
 		maxMessages = 0
 		clearOnClose = false
-		enableVoiceRecord = true
+		enableVoiceRecord = true*/
 	}
 
 	/**
