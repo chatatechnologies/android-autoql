@@ -605,7 +605,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setCurrencyCode(it)
+					try
+					{
+						bubbleHandle.dataFormatting.currencyCode = it
+					}
+					catch (e: Exception) {}
 				}
 			}
 		}
@@ -613,7 +617,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setFormatMonthYear(it)
+					bubbleHandle.dataFormatting.monthYearFormat = it
 				}
 			}
 		}
@@ -621,7 +625,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setFormatDayMonthYear(it)
+					bubbleHandle.dataFormatting.dayMonthYearFormat = it
 				}
 			}
 		}
@@ -629,7 +633,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setLanguageCode(it)
+					bubbleHandle.dataFormatting.languageCode = it
 				}
 			}
 		}
@@ -639,7 +643,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					it.toIntOrNull()?.let {
 						integer ->
-						bubbleHandle.setDecimalsCurrency(integer)
+						bubbleHandle.dataFormatting.currencyDecimals = integer
 					}
 				}
 			}
@@ -650,7 +654,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					it.toIntOrNull()?.let {
 						integer ->
-						bubbleHandle.setDecimalsQuantity(integer)
+						bubbleHandle.dataFormatting.quantityDecimals = integer
 					}
 				}
 			}

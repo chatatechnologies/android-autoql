@@ -16,6 +16,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.Color
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.currency.Currency
+import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
@@ -82,6 +83,14 @@ class BubbleHandle(private val context: Context)
 	var maxMessages = 0
 	var clearOnClose = false
 	var enableVoiceRecord = true
+
+	var dataFormatting = DataFormatting(
+		"USD",
+		"en-US",
+		2,
+		1,
+		"MMM YYYY",
+		"MMM DD, YYYY")
 	//endregion
 
 	fun changeColor(themeColor: Color)
@@ -98,40 +107,6 @@ class BubbleHandle(private val context: Context)
 		)
 		parentCircle.background = drawable
 		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
-	}
-
-	fun setCurrencyCode(currencyCode: String): Boolean
-	{
-		val currency = Currency.mCurrency[currencyCode]
-		return currency?.let {
-			SinglentonDrawer.currencyCode = currency
-			true
-		} ?: run { false }
-	}
-
-	fun setLanguageCode(languageCode: String)
-	{
-		SinglentonDrawer.languageCode = languageCode
-	}
-
-	fun setFormatMonthYear(formatMonthYear: String)
-	{
-		SinglentonDrawer.monthYearFormat = formatMonthYear
-	}
-
-	fun setFormatDayMonthYear(formatDayMonthYear: String)
-	{
-		SinglentonDrawer.dayMonthYearFormat = formatDayMonthYear
-	}
-
-	fun setDecimalsCurrency(decimalsCurrency: Int)
-	{
-		SinglentonDrawer.currencyDecimals = decimalsCurrency
-	}
-
-	fun setDecimalsQuantity(decimalsQuantity: Int)
-	{
-		SinglentonDrawer.quantityDecimals = decimalsQuantity
 	}
 
 	fun addChartColor(valueColor: String): Boolean
