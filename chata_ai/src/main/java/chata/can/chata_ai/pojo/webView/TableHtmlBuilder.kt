@@ -44,7 +44,6 @@ object TableHtmlBuilder
 		bodyTable += "</tbody>"
 		//endregion
 
-		//return "<table id='${typeTable}'>$headTable$bodyTable</table>"
 		return "<table>$headTable$bodyTable</table>"
 	}
 }

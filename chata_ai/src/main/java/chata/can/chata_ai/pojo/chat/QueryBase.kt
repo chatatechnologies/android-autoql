@@ -22,6 +22,18 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	val aRows = ArrayList<ArrayList<String>>()
 	var aColumn = ArrayList<ColumnQuery>()
 
+	fun isTypeColumn(type: TypeDataQuery): Boolean
+	{
+		for (column in aColumn)
+		{
+			if (type == column.type)
+			{
+				return true
+			}
+		}
+		return false
+	}
+
 	val numColumns: Int
 	get() {
 		return aColumn.size
