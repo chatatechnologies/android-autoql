@@ -2,8 +2,6 @@ package chata.can.chata_ai.pojo
 
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData
-import chata.can.chata_ai.pojo.color.ThemeConfig
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 /**
  * Class with data for config queries and Drawer
@@ -21,15 +19,12 @@ object SinglentonDrawer
 	var dayMonthYearFormat = "MMM DD, YYYY"
 	//endregion
 
-	var mLightThemeColor = "#28A8E0"
-	var mDarkThemeColor = "#525252"
-
-	var mIsEnableAutocomplete = true
-	var mIsEnableQuery = true
-	var mIsEnableSuggestion = true
-	var mIsEnableDrillDown = true
-
-	val aChartColors = ArrayList<String>()
-	var themeConfig = ThemeConfig(
-		"light", "#28A8E0", "#525252", aChartColors)
+	//region for autoQLConfig
+	var mIsEnableAutocomplete = true //enableAutocomplete
+	var mIsEnableQuery = true //enableQueryValidation
+	var mIsEnableSuggestion = true //enableQuerySuggestions
+	var mIsEnableDrillDown = true //enableDrilldowns
+	//enableColumnVisibilityManager ?
+	//debug ?
+	//endregion
 }

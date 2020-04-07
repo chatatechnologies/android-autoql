@@ -192,11 +192,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						}
 						mTheme[it.id]?.let {
 							config ->
-							val theme = if (config)
-								ThemeColor.lightColor
-							else ThemeColor.darkColor
-
-							bubbleHandle.changeColor(theme)
+							val theme = if (config) "light" else "dark"
+							bubbleHandle.theme = theme
 						}
 					}
 				}

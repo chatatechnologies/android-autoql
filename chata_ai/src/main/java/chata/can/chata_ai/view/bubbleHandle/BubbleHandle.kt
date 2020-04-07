@@ -13,8 +13,8 @@ import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.color.Color
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.color.ThemeConfig
 import chata.can.chata_ai.pojo.currency.Currency
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -91,13 +91,56 @@ class BubbleHandle(private val context: Context)
 		1,
 		"MMM YYYY",
 		"MMM DD, YYYY")
-	//endregion
 
-	fun changeColor(themeColor: Color)
+	private var lightThemeColor = "#28A8E0"
+	private var darkThemeColor = "#525252"
+
+	fun setLightThemeColor(lightThemeColor: String): Boolean
 	{
-		ThemeColor.currentColor = themeColor
-		updateColor()
+		val pData = isColor(lightThemeColor)
+		if (pData.second)
+		{
+			this.lightThemeColor = pData.first
+			themeConfig.accentColor = this.lightThemeColor
+		}
+		return pData.second
 	}
+
+	fun setDarkThemeColor(darkThemeColor: String): Boolean
+	{
+		val pData = isColor(darkThemeColor)
+		if (pData.second)
+		{
+			this.darkThemeColor = pData.first
+			themeConfig.accentColor = this.darkThemeColor
+		}
+		return pData.second
+	}
+
+	private val aChartColors = ArrayList<String>()
+	var themeConfig = ThemeConfig(
+		"light", lightThemeColor, "#sans-serif", aChartColors)
+
+	var aThemePossible = arrayListOf("light", "dark")
+	var theme: String = "light"
+	set(value) {
+		if (theme != value && value in aThemePossible)
+		{
+			themeConfig.theme = value
+			val themeColor = when(value)
+			{
+				"light" -> ThemeColor.lightColor
+				"dark" -> ThemeColor.darkColor
+				else -> ThemeColor.lightColor
+			}
+			ThemeColor.currentColor = themeColor
+			updateColor()
+			field = value
+		}
+	}
+
+
+	//endregion
 
 	private fun updateColor()
 	{
@@ -114,27 +157,7 @@ class BubbleHandle(private val context: Context)
 		val pData = isColor(valueColor)
 		if (pData.second)
 		{
-			SinglentonDrawer.aChartColors.add(pData.first)
-		}
-		return pData.second
-	}
-
-	fun setLightThemeColor(lightThemeColor: String): Boolean
-	{
-		val pData = isColor(lightThemeColor)
-		if (pData.second)
-		{
-			SinglentonDrawer.mLightThemeColor = pData.first
-		}
-		return pData.second
-	}
-
-	fun setDarkThemeColor(lightThemeColor: String): Boolean
-	{
-		val pData = isColor(lightThemeColor)
-		if (pData.second)
-		{
-			SinglentonDrawer.mDarkThemeColor = pData.first
+			aChartColors.add(pData.first)
 		}
 		return pData.second
 	}
