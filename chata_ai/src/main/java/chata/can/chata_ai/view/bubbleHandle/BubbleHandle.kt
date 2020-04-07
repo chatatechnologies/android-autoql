@@ -211,6 +211,20 @@ class BubbleHandle(private val context: Context)
 		}
 	}
 
+	fun reloadData()
+	{
+		SinglentonDrawer.mModel.clearData()
+		isVisible = true
+		placement = ConstantDrawer.RIGHT_PLACEMENT
+		title = "Data Messenger"
+		userDisplayName = "there"
+		introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
+		inputPlaceholder = "Type your queries here"
+		maxMessages = 0
+		clearOnClose = false
+		enableVoiceRecord = true
+	}
+
 	/**
 	 * open chat
 	 */

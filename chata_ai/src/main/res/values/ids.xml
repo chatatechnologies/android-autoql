@@ -17,6 +17,7 @@
 
 	<item name="btnAuthenticate" type="id"/>
 
+	<item name="btnReloadDrawer" type="id"/>
 	<item name="btnOpenDrawer" type="id"/>
 	<item name="swDrawerHandle" type="id"/>
 

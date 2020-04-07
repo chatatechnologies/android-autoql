@@ -52,6 +52,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var hPassword: TextView ?= null
 	private var tvPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
+
+	private var btnReloadDrawer: TextView ?= null
+	private var btnOpenDrawer: TextView ?= null
 	private var swDrawerHandle: Switch ?= null
 	private var etCustomerMessage: TextView ?= null
 	private var swClearMessage: Switch ?= null
@@ -167,6 +170,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					{
 						createAuthenticate()
 					}
+				}
+				R.id.btnReloadDrawer ->
+				{
+					bubbleHandle.reloadData()
 				}
 				R.id.btnOpenDrawer ->
 				{
@@ -577,6 +584,12 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		tvPassword = findViewById(R.id.etPassword)
 
 		btnAuthenticate = findViewById<TextView>(R.id.btnAuthenticate)?.apply {
+			setOnClickListener(this@MainActivity)
+		}
+		btnReloadDrawer = findViewById<TextView>(R.id.btnReloadDrawer)?.apply {
+			setOnClickListener(this@MainActivity)
+		}
+		btnOpenDrawer = findViewById<TextView>(R.id.btnOpenDrawer)?.apply {
 			setOnClickListener(this@MainActivity)
 		}
 		swDrawerHandle = findViewById<Switch>(R.id.swDrawerHandle)?.apply {
