@@ -12,7 +12,7 @@ object SinglentonDrawer
 {
 	val mModel = BaseModelList<ChatData>()
 
-	//region REMOVE LAST DataFormatting
+	//region DataFormatting External
 	var currencyCode = "$"
 	var languageCode = "en-U"
 	var currencyDecimals = 2
