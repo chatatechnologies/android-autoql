@@ -14,7 +14,7 @@ import android.view.View
 import android.view.WindowManager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.BubbleData
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.pojo.ConstantDrawer
 import kotlin.math.min
 
 /**
@@ -163,32 +163,32 @@ class BubbleLayout: BubbleBaseLayout
 		}
 	}
 
-	fun definePositionInScreen(placement: Int = BubbleHandle.RIGHT_PLACEMENT)
+	fun definePositionInScreen(placement: Int = ConstantDrawer.RIGHT_PLACEMENT)
 	{
 		updateSize()
 		when(placement)
 		{
-			BubbleHandle.TOP_PLACEMENT ->
+			ConstantDrawer.TOP_PLACEMENT ->
 			{
 				placementX = centerX
 				placementY = 0
 			}
-			BubbleHandle.BOTTOM_PLACEMENT ->
+			ConstantDrawer.BOTTOM_PLACEMENT ->
 			{
 				placementX = centerX
 				placementY = height1
 			}
-			BubbleHandle.LEFT_PLACEMENT ->
+			ConstantDrawer.LEFT_PLACEMENT ->
 			{
 				placementX = 0
 				placementY = centerY
 			}
-			BubbleHandle.RIGHT_PLACEMENT ->
+			ConstantDrawer.RIGHT_PLACEMENT ->
 			{
 				placementX = width1
 				placementY = centerY
 			}
-			BubbleHandle.NOT_PLACEMENT ->
+			ConstantDrawer.NOT_PLACEMENT ->
 			{
 				placementX = -1
 				placementY = -1

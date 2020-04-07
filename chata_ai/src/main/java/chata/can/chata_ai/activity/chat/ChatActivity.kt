@@ -59,6 +59,12 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private lateinit var chatAdapter: ChatAdapter
 
 	private var customerName = ""
+	private var title = ""
+	private var introMessage = ""
+	private var inputPlaceholder = ""
+	private var maxMessages = 0
+	private var clearOnClose = false
+	private var enableVoiceRecord = true
 
 	override fun onCreateView()
 	{
@@ -154,9 +160,9 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		with(etQuery)
 		{
 			background = pDrawable.second
-			val hint = if (SinglentonDrawer.mQueryPlaceholder.isNotEmpty())
+			val hint = if (inputPlaceholder.isNotEmpty())
 			{
-				SinglentonDrawer.mQueryPlaceholder
+				inputPlaceholder
 			}
 			else
 			{
@@ -244,7 +250,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	/*override */private fun scrollToPosition()
 	{
 		//region value max number message
-		while (model.countData() > SinglentonDrawer.mMaxNumberMessage)
+		while (model.countData() > maxMessages)
 		{
 			model.removeAt(0)
 			chatAdapter.notifyItemRemoved(0)
@@ -338,9 +344,9 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		if (SinglentonDrawer.mModel.countData() == 0)
 		{
 			val introMessageRes =
-				if (SinglentonDrawer.introMessage.isNotEmpty())
+				if (introMessage.isNotEmpty())
 				{
-					SinglentonDrawer.introMessage
+					introMessage
 				}
 				else
 				{
@@ -357,16 +363,24 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 	private fun initData()
 	{
-		customerName = intent?.getStringExtra("CUSTOMER_NAME") ?: ""
-		val title = if (SinglentonDrawer.mTitle.isNotEmpty())
+		intent?.let {
+			customerName = it.getStringExtra("CUSTOMER_NAME") ?: ""
+			title = it.getStringExtra("TITLE") ?: ""
+			introMessage = it.getStringExtra("INTRO_MESSAGE") ?: ""
+			inputPlaceholder = it.getStringExtra("INPUT_PLACE_HOLDER") ?: ""
+			maxMessages = it.getIntExtra("MAX_MESSAGES", 0)
+			clearOnClose = it.getBooleanExtra("CLEAR_ON_CLOSE", false)
+			enableVoiceRecord = it.getBooleanExtra("ENABLE_VOICE_RECORD", true)
+		}
+
+		tvToolbar.text = if (title.isNotEmpty())
 		{
-			SinglentonDrawer.mTitle
+			title
 		}
 		else
 		{
 			getString(R.string.data_messenger)
 		}
-		tvToolbar.text = title
 	}
 
 	private fun setRequestQuery()
@@ -440,7 +454,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	{
 		with(ivMicrophone)
 		{
-			if (SinglentonDrawer.enableVoiceRecord)
+			if (enableVoiceRecord)
 			{
 				setOnClickListener(null)
 				setOnTouchListener {
@@ -471,7 +485,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		if (SinglentonDrawer.mIsClearMessage)
+		if (clearOnClose)
 		{
 			SinglentonDrawer.mModel.clearData()
 		}

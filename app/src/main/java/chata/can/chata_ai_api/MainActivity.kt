@@ -19,6 +19,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.setOnTextChanged
+import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -56,9 +57,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var swClearMessage: Switch ?= null
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
 
-	private lateinit var btnReloadDrawer: Button
-	private lateinit var btnOpenDrawer: Button
-
 	private lateinit var bubbleHandle: BubbleHandle
 
 	private val mTheme = hashMapOf(
@@ -66,10 +64,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	R.id.tvDark to BubbleHandle.THEME_DARK)
 
 	private val mPlacement = hashMapOf(
-		R.id.tvTop to BubbleHandle.TOP_PLACEMENT,
-		R.id.tvBottom to BubbleHandle.BOTTOM_PLACEMENT,
-		R.id.tvLeft to BubbleHandle.LEFT_PLACEMENT,
-		R.id.tvRight to BubbleHandle.RIGHT_PLACEMENT)
+		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,
+		R.id.tvBottom to ConstantDrawer.BOTTOM_PLACEMENT,
+		R.id.tvLeft to ConstantDrawer.LEFT_PLACEMENT,
+		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
 	private val overlayPermission = 1000
 	private var isAuthenticate = false
@@ -92,13 +90,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			}
 			else
 			{
-				isEnableDrawer(true)
+				//isEnableDrawer(true)
 				initBubble()
 			}
 		}
 		else
 		{
-			isEnableDrawer(true)
+			//isEnableDrawer(true)
 			initBubble()
 		}
 		initViews()
@@ -110,12 +108,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 		if (BuildConfig.DEBUG)
 		{
-			tvProjectId?.setText("qbo-1")
-			tvDomainUrl?.setText("https://qbo-staging.chata.io")
-			tvApiKey?.setText("AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys")
-			tvUserId?.setText("carlos@rinro.com.mx")
-			tvUsername?.setText("admin")
-			tvPassword?.setText("admin123")
+			val projectId = "qbo-1"
+			tvProjectId?.setText(projectId)
+			val domainUrl = "https://qbo-staging.chata.io"
+			tvDomainUrl?.setText(domainUrl)
+			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
+			tvApiKey?.setText(apiKey)
+			val userId = "carlos@rinro.com.mx"
+			tvUserId?.setText(userId)
+			val username = "admin"
+			tvUsername?.setText(username)
+			val password = "admin123"
+			tvPassword?.setText(password)
 		}
 
 		RequestBuilder.initVolleyRequest(this)
@@ -128,13 +132,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		{
 			if (canDrawOverlays())
 			{
-				isEnableDrawer(true)
+				//isEnableDrawer(true)
 				initBubble()
 			}
 			else
 			{
-				isEnableDrawer(false)
-				showToast("canDrawOverlays is not enable")
+				//isEnableDrawer(false)
+				showToast()
 			}
 		}
 	}
@@ -187,7 +191,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						{
 							setColorOption(it.tag as String, it.id)
 						}
-						mPlacement[it.id]?.let { placement -> bubbleHandle.setPlacement(placement) }
+						mPlacement[it.id]?.let { placement -> bubbleHandle.placement = placement }
 					}
 				}
 			}
@@ -210,7 +214,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					override fun onFailure(jsonObject: JSONObject?)
 					{
-						if (jsonObject != null) { }
+						//if (jsonObject != null) { }
 					}
 
 					override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -222,7 +226,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							createJWT()
 						}
 
-						if (jsonArray != null)  { }
+						//if (jsonArray != null)  { }
 					}
 				})
 		}
@@ -241,7 +245,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			{
 				override fun onFailure(jsonObject: JSONObject?)
 				{
-					if (jsonObject != null) { }
+					//if (jsonObject != null) { }
 				}
 
 				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -254,7 +258,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						changeStateAuthenticate()
 					}
 
-					if (jsonArray != null)  { }
+					//if (jsonArray != null)  { }
 				}
 			})
 	}
@@ -525,7 +529,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun initDataBubble()
 	{
 		findViewById<EditText>(R.id.tvCustomerMessage)?.let {
-			bubbleHandle.setCustomerName(it.text.toString())
+			bubbleHandle.userDisplayName = it.text.toString()
 		}
 	}
 
@@ -579,7 +583,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		swDrawerHandle = findViewById<Switch>(R.id.swDrawerHandle)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.setVisible(isChecked)
+				bubbleHandle.isVisible = isChecked
 			}
 		}
 		findViewById<EditText>(R.id.etCurrencyCode)?.apply {
@@ -640,7 +644,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setIntroMessage(it)
+					bubbleHandle.introMessage = it
 				}
 			}
 		}
@@ -648,19 +652,19 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			setOnTextChanged {
 				if (it.isNotEmpty())
 				{
-					bubbleHandle.setQueryPlaceholder(it)
+					bubbleHandle.inputPlaceholder = it
 				}
 			}
 		}
 		swClearMessage = findViewById<Switch>(R.id.swClearMessage)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.isClearMessage(isChecked)
+				bubbleHandle.clearOnClose = isChecked
 			}
 		}
 		findViewById<EditText>(R.id.etTitle)?.apply {
 			setOnTextChanged {
-				bubbleHandle.setTitle(it)
+				bubbleHandle.title = it
 			}
 		}
 		findViewById<EditText>(R.id.etAddColor)?.apply {
@@ -684,7 +688,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {
 			setOnTextChanged {
-				bubbleHandle.setMaxNumberMessage(it)
+				it.toIntOrNull()?.let {
+					integer ->
+					bubbleHandle.maxMessages = integer
+				}
 			}
 		}
 		findViewById<Switch>(R.id.swEnableAutocomplete)?.apply {
@@ -713,18 +720,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		findViewById<Switch>(R.id.swEnableSpeechText)?.apply {
 			setOnCheckedChangeListener {
-					_, isChecked ->
-				bubbleHandle.isEnableSpeechText(isChecked)
+				_, isChecked ->
+				bubbleHandle.enableVoiceRecord = isChecked
 			}
 		}
-	}
-
-	/**
-	 *
-	 */
-	private fun isEnableDrawer(isEnable: Boolean)
-	{
-		//btnOpenDrawer.isEnabled = isEnable
 	}
 
 	/**
@@ -742,8 +741,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	/**
 	 * remove in future
 	 */
-	private fun showToast(message: String)
+	private fun showToast()
 	{
-		Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+		Toast.makeText(
+			this@MainActivity,
+			"canDrawOverlays is not enable",
+			Toast.LENGTH_SHORT).show()
 	}
 }

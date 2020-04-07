@@ -11,6 +11,7 @@ import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
+import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.Color
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -40,9 +41,6 @@ class BubbleHandle(private val context: Context)
 
 		var isOpenChat = false
 	}
-	//region API properties
-	private var mPlacement = SinglentonDrawer.RIGHT_PLACEMENT
-	//endregion
 
 	init {
 		getCurrency()
@@ -56,6 +54,35 @@ class BubbleHandle(private val context: Context)
 			bubblesManager.initialize()
 		}
 	}
+
+	//region properties like docs react data messenger
+	var isVisible: Boolean = true
+		set(value) {
+			val tmpPlacement = if (value)
+				placement
+			else
+				ConstantDrawer.NOT_PLACEMENT
+			bubbleLayout.definePositionInScreen(tmpPlacement)
+			field = value
+		}
+
+	var placement = ConstantDrawer.RIGHT_PLACEMENT
+	set(value) {
+		if (placement != placement && placement > 0)
+		{
+			field = value
+			bubbleLayout.definePositionInScreen(placement)
+		}
+	}
+
+	var title = "Data Messenger"
+	var userDisplayName = "there"
+	var introMessage = "Hi param1! Let\'s dive into your data. What can I help you discover today?"
+	var inputPlaceholder = "Type your queries here"
+	var maxMessages = 0
+	var clearOnClose = false
+	var enableVoiceRecord = true
+	//endregion
 
 	fun changeColor(themeColor: Color)
 	{
@@ -71,15 +98,6 @@ class BubbleHandle(private val context: Context)
 		)
 		parentCircle.background = drawable
 		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
-	}
-
-	fun setPlacement(placement: Int)
-	{
-		if (mPlacement != placement && placement > 0)
-		{
-			mPlacement = placement
-			bubbleLayout.definePositionInScreen(placement)
-		}
 	}
 
 	fun setCurrencyCode(currencyCode: String): Boolean
@@ -114,40 +132,6 @@ class BubbleHandle(private val context: Context)
 	fun setDecimalsQuantity(decimalsQuantity: Int)
 	{
 		SinglentonDrawer.quantityDecimals = decimalsQuantity
-	}
-
-	fun setCustomerName(customerName: String)
-	{
-		SinglentonDrawer.userDisplayName = customerName
-	}
-
-	fun setIntroMessage(introMessage: String)
-	{
-		SinglentonDrawer.introMessage = introMessage
-	}
-
-	fun setQueryPlaceholder(queryPlaceholder: String)
-	{
-		SinglentonDrawer.mQueryPlaceholder = queryPlaceholder
-	}
-
-	fun setVisible(isVisible: Boolean)
-	{
-		val tmpPlacement = if (isVisible)
-			mPlacement
-		else
-			NOT_PLACEMENT
-		bubbleLayout.definePositionInScreen(tmpPlacement)
-	}
-
-	fun isClearMessage(isClearMessage: Boolean)
-	{
-		SinglentonDrawer.mIsClearMessage = isClearMessage
-	}
-
-	fun setTitle(title: String)
-	{
-		SinglentonDrawer.mTitle = title
 	}
 
 	fun addChartColor(valueColor: String): Boolean
@@ -188,13 +172,6 @@ class BubbleHandle(private val context: Context)
 		return Pair(newColor, colorPattern.matcher(newColor).matches())
 	}
 
-	fun setMaxNumberMessage(maxNumberMessage: String)
-	{
-		maxNumberMessage.toIntOrNull()?.let {
-			SinglentonDrawer.mMaxNumberMessage = it
-		}
-	}
-
 	fun isEnableAutocomplete(isEnableAutocomplete: Boolean)
 	{
 		SinglentonDrawer.mIsEnableAutocomplete = isEnableAutocomplete
@@ -213,11 +190,6 @@ class BubbleHandle(private val context: Context)
 	fun isEnableDrillDown(isEnableDrillDown: Boolean)
 	{
 		SinglentonDrawer.mIsEnableDrillDown = isEnableDrillDown
-	}
-
-	fun isEnableSpeechText(isEnableSpeechText: Boolean)
-	{
-		SinglentonDrawer.enableVoiceRecord = isEnableSpeechText
 	}
 
 	private fun initBubbleLayout()
@@ -259,7 +231,13 @@ class BubbleHandle(private val context: Context)
 	{
 		with(intent)
 		{
-			putExtra("CUSTOMER_NAME", SinglentonDrawer.userDisplayName)
+			putExtra("CUSTOMER_NAME", userDisplayName)
+			putExtra("TITLE", title)
+			putExtra("INTRO_MESSAGE", introMessage)
+			putExtra("INPUT_PLACE_HOLDER", inputPlaceholder)
+			putExtra("MAX_MESSAGES", maxMessages)
+			putExtra("CLEAR_ON_CLOSE", clearOnClose)
+			putExtra("ENABLE_VOICE_RECORD", enableVoiceRecord)
 		}
 	}
 
