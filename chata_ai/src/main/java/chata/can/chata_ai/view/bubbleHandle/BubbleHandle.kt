@@ -13,6 +13,7 @@ import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLConfig
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.color.ThemeConfig
 import chata.can.chata_ai.pojo.currency.Currency
@@ -83,6 +84,14 @@ class BubbleHandle(private val context: Context)
 	var maxMessages = 0
 	var clearOnClose = false
 	var enableVoiceRecord = true
+
+	var autoQLConfig = AutoQLConfig(
+		_enableAutocomplete = true,
+		_enableQueryValidation = true,
+		_enableQuerySuggestions = true,
+		_enableDrilldowns = true,
+		enableColumnVisibilityManager = true,
+		debug = true)
 
 	var dataFormatting = DataFormatting(
 		"USD",
@@ -168,26 +177,6 @@ class BubbleHandle(private val context: Context)
 		val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
 		return Pair(newColor, colorPattern.matcher(newColor).matches())
-	}
-
-	fun isEnableAutocomplete(isEnableAutocomplete: Boolean)
-	{
-		SinglentonDrawer.mIsEnableAutocomplete = isEnableAutocomplete
-	}
-
-	fun isEnableQuery(isEnableQuery: Boolean)
-	{
-		SinglentonDrawer.mIsEnableQuery = isEnableQuery
-	}
-
-	fun isEnableSuggestion(isEnableSuggestion: Boolean)
-	{
-		SinglentonDrawer.mIsEnableSuggestion = isEnableSuggestion
-	}
-
-	fun isEnableDrillDown(isEnableDrillDown: Boolean)
-	{
-		SinglentonDrawer.mIsEnableDrillDown = isEnableDrillDown
 	}
 
 	private fun initBubbleLayout()

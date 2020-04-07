@@ -21,7 +21,6 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.DataMessenger
-import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
@@ -712,25 +711,25 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		findViewById<Switch>(R.id.swEnableAutocomplete)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.isEnableAutocomplete(isChecked)
+				bubbleHandle.autoQLConfig.enableAutocomplete = isChecked
 			}
 		}
 		findViewById<Switch>(R.id.swEnableQuery)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.isEnableQuery(isChecked)
+				bubbleHandle.autoQLConfig.enableQueryValidation = isChecked
 			}
 		}
 		findViewById<Switch>(R.id.swEnableSuggestion)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.isEnableSuggestion(isChecked)
+				bubbleHandle.autoQLConfig.enableQuerySuggestions = isChecked
 			}
 		}
 		findViewById<Switch>(R.id.swEnableDrillDown)?.apply {
 			setOnCheckedChangeListener {
 				_, isChecked ->
-				bubbleHandle.isEnableDrillDown(isChecked)
+				bubbleHandle.autoQLConfig.enableDrilldowns = isChecked
 			}
 		}
 		findViewById<Switch>(R.id.swEnableSpeechText)?.apply {

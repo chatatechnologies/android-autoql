@@ -20,11 +20,9 @@ object SinglentonDrawer
 	//endregion
 
 	//region for autoQLConfig
-	var mIsEnableAutocomplete = true //enableAutocomplete
-	var mIsEnableQuery = true //enableQueryValidation
-	var mIsEnableSuggestion = true //enableQuerySuggestions
-	var mIsEnableDrillDown = true //enableDrilldowns
-	//enableColumnVisibilityManager ?
-	//debug ?
+	var mIsEnableAutocomplete = true
+	var mIsEnableQuery = true
+	var mIsEnableSuggestion = true
+	var mIsEnableDrillDown = true
 	//endregion
 }
