@@ -145,7 +145,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				{
 					model.clearData()
 
-					val introMessageRes = (this as Context).getStringResources(R.string.intro_message_chata_drawer)
+					val introMessageRes = introMessage
 					val introMessage = String.format(introMessageRes, customerName)
 
 					model.addData(ChatData(1, introMessage))
@@ -350,7 +350,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				}
 				else
 				{
-					(this as Context).getStringResources(R.string.intro_message_chata_drawer)
+					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 				}
 
 			val introMessage = String.format(introMessageRes, customerName)

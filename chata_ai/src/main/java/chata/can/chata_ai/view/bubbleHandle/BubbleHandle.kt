@@ -68,7 +68,7 @@ class BubbleHandle(private val context: Context)
 
 	var placement = ConstantDrawer.RIGHT_PLACEMENT
 	set(value) {
-		if (placement != placement && placement > 0)
+		if (placement != value && placement > 0)
 		{
 			field = value
 			bubbleLayout.definePositionInScreen(placement)
@@ -77,7 +77,7 @@ class BubbleHandle(private val context: Context)
 
 	var title = "Data Messenger"
 	var userDisplayName = "there"
-	var introMessage = "Hi param1! Let\'s dive into your data. What can I help you discover today?"
+	var introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
 	var inputPlaceholder = "Type your queries here"
 	var maxMessages = 0
 	var clearOnClose = false

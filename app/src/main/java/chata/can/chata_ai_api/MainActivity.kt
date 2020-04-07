@@ -52,7 +52,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private var hPassword: TextView ?= null
 	private var tvPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
-	private var btnLogOut: TextView ?= null
 	private var swDrawerHandle: Switch ?= null
 	private var swClearMessage: Switch ?= null
 	private val mViews = linkedMapOf<String, SparseBooleanArray>()
@@ -556,7 +555,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				hPassword?.visibility = iVisible
 				tvPassword?.visibility = iVisible
 				btnAuthenticate?.visibility = iVisible
-				btnLogOut?.visibility = iVisible
 			}
 		}
 		hProjectId = findViewById(R.id.hProjectId)
