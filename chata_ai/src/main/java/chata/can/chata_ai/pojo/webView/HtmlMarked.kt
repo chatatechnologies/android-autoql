@@ -63,6 +63,12 @@ object HtmlMarked
       padding: 3px;
       text-align: center!important;
     }
+		.green {
+		  color: #2ECC40;
+		}
+		.red {
+		  color: red;
+		}
   </style>
   <title></title>
 </head>

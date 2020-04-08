@@ -200,7 +200,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "monthly average expenses for the last quarter"
+				val urlDemo = "Budgets vs actuals by month"
 				setText(urlDemo)
 			}
 		}

@@ -49,6 +49,20 @@ fun String.formatWithColumn(
 			val tmp = toDoubleNotNull()
 			tmp.formatDecimals(SinglentonDrawer.quantityDecimals)
 		}
+		TypeDataQuery.PERCENT ->
+		{
+			val double = toDoubleNotNull()
+			//region check later
+			val classColor = when
+			{
+				double > 0 -> "green"
+				double < 0 -> "red"
+				else -> ""
+			}
+			//endregion
+			val doubleString = double.formatSymbolDecimals(suffix = "%")
+			"<span class='$classColor'>$doubleString</span>"
+		}
 		TypeDataQuery.STRING -> this
 		else -> ""
 	}
