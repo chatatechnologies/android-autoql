@@ -6,9 +6,13 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
+import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.layoutParams
+import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -107,7 +111,6 @@ class WebViewHolder(
 		}
 	}
 
-	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
 		queryBase = simpleQuery
@@ -131,11 +134,7 @@ class WebViewHolder(
 				wbQuery ->
 				with(wbQuery)
 				{
-					clearCache(true)
-					clearHistory()
-					//requestLayout()
-					settings.javaScriptEnabled = true
-					loadDataForWebView(simpleQuery.contentTable)
+					loadDataForWebView(simpleQuery.contentTable, simpleQuery.rowsTable)
 
 					setOnTouchListener { view, _ ->
 						view.parent.requestDisallowInterceptTouchEvent(true)
@@ -151,12 +150,11 @@ class WebViewHolder(
 		v?.let {
 			when(it.id)
 			{
-				R.id.ivTable ->
+				R.id.ivTable, R.id.ivPivot->
 				{
-					queryBase?.let {
-						queryBase ->
-						wbQuery?.loadDataForWebView(queryBase.contentTable)
-						hideShowAction(ivTable)
+					if (it is ImageView)
+					{
+						loadActionAndData(it)
 					}
 				}
 				R.id.ivBar ->
@@ -175,19 +173,29 @@ class WebViewHolder(
 				{
 
 				}
-				R.id.ivPivot ->
-				{
-					queryBase?.let {
-						queryBase ->
-						wbQuery?.loadDataForWebView(queryBase.contentDatePivot)
-						hideShowAction(ivPivot)
-					}
-				}
 				R.id.rlDelete ->
 				{
 					view.deleteQuery(adapterPosition)
 				}
 				else -> {}
+			}
+		}
+	}
+
+	private fun loadActionAndData(iv: ImageView?)
+	{
+		queryBase?.let {
+			queryBase ->
+			iv?.let {
+				val pData = when(iv.id)
+				{
+					R.id.ivTable -> Pair(queryBase.contentTable, queryBase.rowsTable)
+					R.id.ivPivot -> Pair(queryBase.contentDatePivot, queryBase.rowsPivot)
+					else -> Pair("", 0)
+				}
+
+				wbQuery?.loadDataForWebView(pData.first, pData.second)
+				hideShowAction(iv)
 			}
 		}
 	}
@@ -199,8 +207,26 @@ class WebViewHolder(
 		ivActionHide?.visibility = View.GONE
 	}
 
-	private fun WebView.loadDataForWebView(data: String)
+	@SuppressLint("SetJavaScriptEnabled")
+	private fun WebView.loadDataForWebView(data: String, numRows: Int)
 	{
+		var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
+		if (customHeight > 900)
+		{
+			customHeight = 900
+		}
+
+		rlLoad?.visibility = View.VISIBLE
+		rvParent?.let {
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+			it.margin(12f, 24f, 12f, 1f)
+		}
+
+		clearCache(true)
+		clearHistory()
+		requestLayout()
+
+		settings.javaScriptEnabled = true
 		loadDataWithBaseURL(
 			null,
 			data,

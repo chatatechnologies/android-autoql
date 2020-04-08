@@ -27,7 +27,7 @@ object DatePivot
 
 	fun buildBi(
 		aRows: ArrayList<ArrayList<String>>,
-		aColumn: ArrayList<ColumnQuery>): String
+		aColumn: ArrayList<ColumnQuery>): Pair<String, Int>
 	{
 		val mData = LinkedHashMap<String, Double>()
 		val aYears = ArrayList<String>()
@@ -62,7 +62,6 @@ object DatePivot
 			}
 			//endregion
 
-			val columnDate = aColumn[0]
 			val dollarColumn = aColumn[1]
 
 			//region create table head
@@ -74,6 +73,7 @@ object DatePivot
 			headTable += "</tr></thead>"
 			//endregion
 
+			var numRows = 1
 			//region table
 			var bodyTable = "<tbody>"
 			for (month in aMonths)
@@ -96,14 +96,15 @@ object DatePivot
 
 				if (isNotHasZero)
 				{
+					numRows++
 					bodyTable += "<tr>$sRow</tr>"
 				}
 			}
 			bodyTable += "</tbody>"
-			return "<table>$headTable$bodyTable</table>"
+			return Pair("<table>$headTable$bodyTable</table>", numRows)
 			//endregion
 		}
-		return ""
+		return Pair("", 0)
 	}
 
 	fun buildTri(

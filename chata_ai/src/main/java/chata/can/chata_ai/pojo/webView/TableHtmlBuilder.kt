@@ -8,7 +8,7 @@ object TableHtmlBuilder
 {
 	fun build(
 		aRows: ArrayList<ArrayList<String>>,
-		aColumn: ArrayList<ColumnQuery>): String
+		aColumn: ArrayList<ColumnQuery>): Pair<String, Int>
 	{
 		//region create table head
 		var headTable = "<thead><tr>"
@@ -20,6 +20,7 @@ object TableHtmlBuilder
 		headTable += "</tr></thead>"
 		//endregion
 
+		var numRows = 1
 		//region create body table with id nativeTable
 		var bodyTable = "<tbody>"
 		for (aRow in aRows)
@@ -38,12 +39,13 @@ object TableHtmlBuilder
 				}
 				sRow += "<td>$valueRow</td>"
 			}
+			numRows++
 			bodyTable += "<tr>$sRow</tr>"
 		}
 
 		bodyTable += "</tbody>"
 		//endregion
 
-		return "<table>$headTable$bodyTable</table>"
+		return Pair("<table>$headTable$bodyTable</table>", numRows)
 	}
 }

@@ -56,7 +56,9 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	}
 
 	var contentTable = ""
+	var rowsTable = 0
 	var contentDatePivot = ""
+	var rowsPivot = 0
 
 	private var view: HolderContract? = null
 	var isLoadingHTML = false
@@ -127,7 +129,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						val dataForWebView = HtmlBuilder.build(this)
 						contentTable = HtmlMarked.getTable(dataForWebView.table)
 						contentDatePivot = HtmlMarked.getTable(dataForWebView.datePivot)
-						toString()
+						rowsTable = dataForWebView.rowsTable
+						rowsPivot = dataForWebView.rowsPivot
 					}
 				}
 			},{

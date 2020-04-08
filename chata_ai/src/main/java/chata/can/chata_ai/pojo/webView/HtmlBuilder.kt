@@ -12,7 +12,9 @@ object HtmlBuilder
 
 		val dataForWebView = DataForWebView()
 
-		dataForWebView.table = TableHtmlBuilder.build(aRows, aColumn)
+		var pData = TableHtmlBuilder.build(aRows, aColumn)
+		dataForWebView.table = pData.first
+		dataForWebView.rowsTable = pData.second
 
 		//region date pivot
 		if (queryBase.isTypeColumn(TypeDataQuery.DATE))
@@ -21,11 +23,17 @@ object HtmlBuilder
 			{
 				2 ->
 				{
-					dataForWebView.datePivot = DatePivot.buildBi(aRows, aColumn)
+					pData = DatePivot.buildBi(aRows, aColumn)
+					with(dataForWebView)
+					{
+						datePivot = pData.first
+						rowsPivot = pData.second
+					}
 				}
 				3 ->
 				{
 					dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+					dataForWebView.rowsPivot = 180//change for rows
 				}
 				else -> {}
 			}
