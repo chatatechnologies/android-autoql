@@ -13,10 +13,11 @@ object HtmlBuilder
 
 		if (queryBase.isTypeColumn(TypeDataQuery.DATE))
 		{
-			tableHtml = if (aColumn.size == 2)
-				DatePivot.buildBi(aRows, aColumn)
-			else {
-				DatePivot.buildTri(aRows, aColumn)
+			tableHtml = when(aColumn.size)
+			{
+				2 -> DatePivot.buildBi(aRows, aColumn)
+				3 -> DatePivot.buildTri(aRows, aColumn)
+				else -> tableHtml
 			}
 		}
 
