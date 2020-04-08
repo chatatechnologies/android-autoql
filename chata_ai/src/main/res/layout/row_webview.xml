@@ -39,25 +39,29 @@
 			android:id="@+id/ivBar"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_bar"/>
+			android:src="@drawable/ic_bar"
+			android:padding="4dp"/>
 		<ImageView
 			android:contentDescription="@null"
 			android:id="@+id/ivColumn"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_column"/>
+			android:src="@drawable/ic_column"
+			android:padding="4dp"/>
 		<ImageView
 			android:contentDescription="@null"
 			android:id="@+id/ivLine"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_line"/>
+			android:src="@drawable/ic_line"
+			android:padding="4dp"/>
 		<ImageView
 			android:contentDescription="@null"
 			android:id="@+id/ivPie"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_pie"/>
+			android:src="@drawable/ic_pie"
+			android:padding="4dp"/>
 	</LinearLayout>
 
 	<RelativeLayout
@@ -71,6 +75,7 @@
 			android:id="@+id/ivDelete"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
-			android:src="@drawable/ic_delete"/>
+			android:src="@drawable/ic_delete"
+			android:padding="4dp"/>
 	</RelativeLayout>
 </RelativeLayout>
