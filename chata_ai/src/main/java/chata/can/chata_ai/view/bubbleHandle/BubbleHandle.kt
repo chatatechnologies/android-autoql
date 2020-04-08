@@ -265,7 +265,7 @@ class BubbleHandle(private val context: Context)
 				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(
 					marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
 			}
-			setImageResource(R.drawable.ic_bubble)
+			setImageResource(R.drawable.ic_bubble_main)
 			setCircleBackgroundColorResource(R.color.white)
 
 		}

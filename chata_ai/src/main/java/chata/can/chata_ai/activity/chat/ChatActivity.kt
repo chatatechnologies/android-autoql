@@ -200,7 +200,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "Budgets vs actuals by month"
+				val urlDemo = "what are our average expenses per day?"
 				setText(urlDemo)
 			}
 		}

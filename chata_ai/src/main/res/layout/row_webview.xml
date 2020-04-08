@@ -36,6 +36,13 @@
 		android:visibility="visible">
 		<ImageView
 			android:contentDescription="@null"
+			android:id="@+id/ivTable"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_table"
+			android:padding="4dp"/>
+		<ImageView
+			android:contentDescription="@null"
 			android:id="@+id/ivColumn"
 			android:layout_height="40dp"
 			android:layout_width="40dp"

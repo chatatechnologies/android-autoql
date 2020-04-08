@@ -26,10 +26,14 @@ class WebViewHolder(
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 
 	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
-	private val ivBar = itemView.findViewById<ImageView>(R.id.ivBar) ?: null
+	private val ivTable = itemView.findViewById<ImageView>(R.id.ivTable) ?: null
 	private val ivColumn = itemView.findViewById<ImageView>(R.id.ivColumn) ?: null
+	private val ivBar = itemView.findViewById<ImageView>(R.id.ivBar) ?: null
 	private val ivLine = itemView.findViewById<ImageView>(R.id.ivLine) ?: null
 	private val ivPie = itemView.findViewById<ImageView>(R.id.ivPie) ?: null
+	private val ivPivot = itemView.findViewById<ImageView>(R.id.ivPivot) ?: null
+	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
+	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
@@ -43,10 +47,14 @@ class WebViewHolder(
 		llCharts?.let {
 			it.background = backgroundGrayWhite(it)
 		}
+		ivTable?.setColorFilter()
 		ivBar?.setColorFilter()
 		ivColumn?.setColorFilter()
 		ivLine?.setColorFilter()
 		ivPie?.setColorFilter()
+		ivPivot?.setColorFilter()
+		ivHeat?.setColorFilter()
+		ivBubble?.setColorFilter()
 
 		rlDelete?.let {
 			it.background = backgroundGrayWhite(it)
@@ -98,11 +106,15 @@ class WebViewHolder(
 	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
+		ivTable?.setOnClickListener(this)
 		ivBar?.setOnClickListener(this)
 		ivColumn?.setOnClickListener(this)
 		ivLine?.setOnClickListener(this)
 		ivPie?.setOnClickListener(this)
 		rlDelete?.setOnClickListener(this)
+		ivPivot?.setOnClickListener(this)
+		ivHeat?.setOnClickListener(this)
+		ivBubble?.setOnClickListener(this)
 
 		isChart(simpleQuery.numColumns)
 		if (simpleQuery.contentHTML.isNotEmpty())
