@@ -38,6 +38,9 @@ class WebViewHolder(
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 
+	private var ivActionHide: ImageView ?= null
+	private var queryBase: QueryBase ?= null
+
 	override fun onPaint()
 	{
 		rvParent?.let {
@@ -48,6 +51,7 @@ class WebViewHolder(
 			it.background = backgroundGrayWhite(it)
 		}
 		ivTable?.setColorFilter()
+		ivTable?.visibility = View.GONE
 		ivBar?.setColorFilter()
 		ivColumn?.setColorFilter()
 		ivLine?.setColorFilter()
@@ -106,6 +110,7 @@ class WebViewHolder(
 	@SuppressLint("SetJavaScriptEnabled")
 	fun processQueryBase(simpleQuery: QueryBase)
 	{
+		queryBase = simpleQuery
 		ivTable?.setOnClickListener(this)
 		ivBar?.setOnClickListener(this)
 		ivColumn?.setOnClickListener(this)
@@ -117,9 +122,11 @@ class WebViewHolder(
 		ivBubble?.setOnClickListener(this)
 
 		isChart(simpleQuery.numColumns)
-		if (simpleQuery.contentHTML.isNotEmpty())
+		if (simpleQuery.contentTable.isNotEmpty())
 		{
 			rlLoad?.visibility = View.VISIBLE
+			ivActionHide = ivTable
+
 			wbQuery?.let {
 				wbQuery ->
 				with(wbQuery)
@@ -127,17 +134,8 @@ class WebViewHolder(
 					clearCache(true)
 					clearHistory()
 					//requestLayout()
-
 					settings.javaScriptEnabled = true
-					loadDataWithBaseURL(null, simpleQuery.contentHTML,"text/html","UTF-8", null)
-					webViewClient = object: WebViewClient()
-					{
-						override fun onPageFinished(view: WebView?, url: String?)
-						{
-							rlLoad?.visibility = View.GONE
-							visibility = View.VISIBLE
-						}
-					}
+					loadDataForWebView(simpleQuery.contentTable)
 
 					setOnTouchListener { view, _ ->
 						view.parent.requestDisallowInterceptTouchEvent(true)
@@ -153,6 +151,14 @@ class WebViewHolder(
 		v?.let {
 			when(it.id)
 			{
+				R.id.ivTable ->
+				{
+					queryBase?.let {
+						queryBase ->
+						wbQuery?.loadDataForWebView(queryBase.contentTable)
+						hideShowAction(ivTable)
+					}
+				}
 				R.id.ivBar ->
 				{
 
@@ -169,10 +175,44 @@ class WebViewHolder(
 				{
 
 				}
+				R.id.ivPivot ->
+				{
+					queryBase?.let {
+						queryBase ->
+						wbQuery?.loadDataForWebView(queryBase.contentDatePivot)
+						hideShowAction(ivPivot)
+					}
+				}
 				R.id.rlDelete ->
 				{
 					view.deleteQuery(adapterPosition)
 				}
+				else -> {}
+			}
+		}
+	}
+
+	private fun hideShowAction(ivToHide: ImageView?)
+	{
+		ivActionHide?.visibility = View.VISIBLE
+		ivActionHide = ivToHide
+		ivActionHide?.visibility = View.GONE
+	}
+
+	private fun WebView.loadDataForWebView(data: String)
+	{
+		loadDataWithBaseURL(
+			null,
+			data,
+			"text/html",
+			"UTF-8",
+			null)
+		webViewClient = object: WebViewClient()
+		{
+			override fun onPageFinished(view: WebView?, url: String?)
+			{
+				rlLoad?.visibility = View.GONE
+				visibility = View.VISIBLE
 			}
 		}
 	}

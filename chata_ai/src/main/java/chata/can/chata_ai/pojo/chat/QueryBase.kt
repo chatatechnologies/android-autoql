@@ -55,7 +55,9 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 		} ?: run { "" }
 	}
 
-	var contentHTML = ""
+	var contentTable = ""
+	var contentDatePivot = ""
+
 	private var view: HolderContract? = null
 	var isLoadingHTML = false
 
@@ -111,19 +113,21 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 
 			DoAsync({
 				isLoadingHTML = true
-				contentHTML = when
+				when
 				{
 					isSimpleText ->
 					{
 						aColumn.firstOrNull()?.let {
 							column ->
-							simpleText.formatWithColumn(column)
+							contentTable = simpleText.formatWithColumn(column)
 						} ?: run { "" }
 					}
 					else ->
 					{
-						val htmlTable = HtmlBuilder.build(this)
-						HtmlMarked.getTable(htmlTable)
+						val dataForWebView = HtmlBuilder.build(this)
+						contentTable = HtmlMarked.getTable(dataForWebView.table)
+						contentDatePivot = HtmlMarked.getTable(dataForWebView.datePivot)
+						toString()
 					}
 				}
 			},{

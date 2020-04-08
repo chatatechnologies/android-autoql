@@ -59,10 +59,10 @@ open class BaseHolder(view: View): Holder(view)
 	{
 		if (simpleQuery.isSimpleText)
 		{
-			return if (simpleQuery.contentHTML.isNotEmpty())
+			return if (simpleQuery.contentTable.isNotEmpty())
 			{
 				simpleQuery.isLoadingHTML = false
-				simpleQuery.contentHTML
+				simpleQuery.contentTable
 			}
 			else
 				simpleQuery.simpleText

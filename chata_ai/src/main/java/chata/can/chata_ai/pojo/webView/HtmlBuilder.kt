@@ -5,22 +5,33 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object HtmlBuilder
 {
-	fun build(queryBase: QueryBase): String
+	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
-		var tableHtml = TableHtmlBuilder.build(aRows, aColumn)
 
+		val dataForWebView = DataForWebView()
+
+		dataForWebView.table = TableHtmlBuilder.build(aRows, aColumn)
+
+		//region date pivot
 		if (queryBase.isTypeColumn(TypeDataQuery.DATE))
 		{
-			tableHtml = when(aColumn.size)
+			when(aColumn.size)
 			{
-				2 -> DatePivot.buildBi(aRows, aColumn)
-				3 -> DatePivot.buildTri(aRows, aColumn)
-				else -> tableHtml
+				2 ->
+				{
+					dataForWebView.datePivot = DatePivot.buildBi(aRows, aColumn)
+				}
+				3 ->
+				{
+					dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+				}
+				else -> {}
 			}
 		}
+		//endregion
 
-		return tableHtml
+		return dataForWebView
 	}
 }

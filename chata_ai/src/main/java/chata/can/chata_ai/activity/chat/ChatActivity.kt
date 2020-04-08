@@ -1,7 +1,6 @@
 package chata.can.chata_ai.activity.chat
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
@@ -25,7 +24,6 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
 import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
-import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
