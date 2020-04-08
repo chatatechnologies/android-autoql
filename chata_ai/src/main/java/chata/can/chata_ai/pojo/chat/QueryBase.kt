@@ -4,8 +4,8 @@ import chata.can.chata_ai.DoAsync
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.pojo.webView.HtmlMarked
-import chata.can.chata_ai.view.extension.enumValueOfOrNull
-import chata.can.chata_ai.view.extension.formatWithColumn
+import chata.can.chata_ai.extension.enumValueOfOrNull
+import chata.can.chata_ai.extension.formatWithColumn
 import org.json.JSONObject
 
 class QueryBase(json: JSONObject): SimpleQuery(json)
@@ -98,7 +98,9 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						val name = joColumn.optString("name")
 						val isActive = joColumn.optBoolean("active", false)
 
-						val typeColumn = enumValueOfOrNull<TypeDataQuery>(type) ?: run { TypeDataQuery.UNKNOWN }
+						val typeColumn = enumValueOfOrNull<TypeDataQuery>(
+							type
+						) ?: run { TypeDataQuery.UNKNOWN }
 
 						val column = ColumnQuery(isGroupable, typeColumn, name, isActive)
 						aColumn.add(column)

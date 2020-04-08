@@ -1,4 +1,4 @@
-package chata.can.chata_ai.view.extension
+package chata.can.chata_ai.extension
 
 inline fun <reified T: Enum<T>> enumValueOfOrNull(value: String): T?
 {

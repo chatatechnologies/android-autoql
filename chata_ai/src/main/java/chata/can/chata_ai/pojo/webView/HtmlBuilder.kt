@@ -9,11 +9,15 @@ object HtmlBuilder
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
-		val tableHtml = TableHtmlBuilder.build(aRows, aColumn)
+		var tableHtml = TableHtmlBuilder.build(aRows, aColumn)
 
 		if (queryBase.isTypeColumn(TypeDataQuery.DATE))
 		{
-			DatePivot.build(aRows, aColumn)
+			tableHtml = if (aColumn.size == 2)
+				DatePivot.buildBi(aRows, aColumn)
+			else {
+				DatePivot.buildTri(aRows, aColumn)
+			}
 		}
 
 		return tableHtml

@@ -1,4 +1,4 @@
-package chata.can.chata_ai.view.extension
+package chata.can.chata_ai.extension
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 

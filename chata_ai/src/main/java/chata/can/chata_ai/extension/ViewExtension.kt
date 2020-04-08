@@ -1,4 +1,4 @@
-package chata.can.chata_ai.view.extension
+package chata.can.chata_ai.extension
 
 import android.content.Context
 import android.util.TypedValue

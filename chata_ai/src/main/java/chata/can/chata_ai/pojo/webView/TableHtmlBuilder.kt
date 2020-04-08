@@ -1,8 +1,8 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.pojo.chat.ColumnQuery
-import chata.can.chata_ai.view.extension.formatWithColumn
-import chata.can.chata_ai.view.extension.toCapitalColumn
+import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.toCapitalColumn
 
 object TableHtmlBuilder
 {

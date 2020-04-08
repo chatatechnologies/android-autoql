@@ -19,7 +19,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.query.QueryRequest
-import chata.can.chata_ai.view.extension.margin
+import chata.can.chata_ai.extension.margin
 
 class SuggestionHolder(
 	itemView: View,
