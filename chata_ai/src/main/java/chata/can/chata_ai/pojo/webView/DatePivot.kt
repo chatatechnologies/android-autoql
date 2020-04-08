@@ -79,16 +79,25 @@ object DatePivot
 			for (month in aMonths)
 			{
 				var sRow = "<td>$month</td>"
+				var isNotHasZero = false
 				for (year in aYears)
 				{
-					val cell = mData["${month}_$year"]
-						?.formatDecimals(2)
-						?:"0"
+					val cell = mData["${month}_$year"]?.let {
+						isNotHasZero = true
+						it.formatDecimals(2)
+					} ?:""
 
-					val newCell = cell.formatWithColumn(dollarColumn)
+					val newCell =
+						if (cell.isNotEmpty())
+							cell.formatWithColumn(dollarColumn)
+						else cell
 					sRow += "<td>$newCell</td>"
 				}
-				bodyTable += "<tr>$sRow</tr>"
+
+				if (isNotHasZero)
+				{
+					bodyTable += "<tr>$sRow</tr>"
+				}
 			}
 			bodyTable += "</tbody>"
 			return "<table>$headTable$bodyTable</table>"
