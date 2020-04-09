@@ -101,6 +101,10 @@ object HtmlMarked
     ${'$'}("#" + idHide).hide("slow");
     ${'$'}("#" + idShow).show("slow");
   }
+	function changeChart()
+	{
+		toggleCharts();
+	}
 </script>
 </body>
 </html>"""

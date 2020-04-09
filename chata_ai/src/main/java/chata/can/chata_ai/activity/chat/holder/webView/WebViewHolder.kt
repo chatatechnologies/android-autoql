@@ -241,7 +241,7 @@ class WebViewHolder(
 		requestLayout()
 
 		settings.javaScriptEnabled = true
-		addJavascriptInterface(JavaScriptInterface(), "Android")
+		//addJavascriptInterface(JavaScriptInterface(), "Android")
 		loadDataWithBaseURL(
 			null,
 			data,
@@ -254,6 +254,7 @@ class WebViewHolder(
 			{
 				rlLoad?.visibility = View.GONE
 				visibility = View.VISIBLE
+				//loadUrl("javascript:changeChart()")
 			}
 		}
 	}
