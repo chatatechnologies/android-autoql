@@ -131,14 +131,10 @@ class WebViewHolder(
 
 			wbQuery?.let {
 				wbQuery ->
-				with(wbQuery)
-				{
-					loadDataForWebView(simpleQuery.contentTable, simpleQuery.rowsTable)
-
-					setOnTouchListener { view, _ ->
-						view.parent.requestDisallowInterceptTouchEvent(true)
-						false
-					}
+				loadDataForWebView(wbQuery, simpleQuery.contentTable, simpleQuery.rowsTable)
+				wbQuery.setOnTouchListener { view, _ ->
+					view.parent.requestDisallowInterceptTouchEvent(true)
+					false
 				}
 			}
 		}
@@ -153,7 +149,7 @@ class WebViewHolder(
 				{
 					if (it is ImageView)
 					{
-						loadActionAndData(it)
+						callAction(it)
 					}
 				}
 				R.id.ivBar ->
@@ -196,7 +192,7 @@ class WebViewHolder(
 		}
 	}
 
-	private fun loadActionAndData(iv: ImageView?)
+	private fun callAction(iv: ImageView?)
 	{
 		queryBase?.let {
 			queryBase ->
@@ -208,7 +204,9 @@ class WebViewHolder(
 					else -> 0
 				}
 
-				wbQuery?.loadDataForWebView(queryBase.contentTable, rows)
+				//create method for only change layoutParams
+				//wbQuery?.loadDataForWebView(queryBase.contentTable, rows)
+				wbQuery?.loadUrl("javascript:changeChart()")
 				hideShowAction(iv)
 			}
 		}
@@ -222,39 +220,40 @@ class WebViewHolder(
 	}
 
 	@SuppressLint("SetJavaScriptEnabled")
-	private fun WebView.loadDataForWebView(data: String, numRows: Int)
+	private fun loadDataForWebView(webView: WebView, data: String, numRows: Int)
 	{
-		var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
-		if (customHeight > 900)
+		with(webView)
 		{
-			customHeight = 900
-		}
-
-		rlLoad?.visibility = View.VISIBLE
-		rvParent?.let {
-			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-			it.margin(12f, 24f, 12f, 1f)
-		}
-
-		clearCache(true)
-		clearHistory()
-		requestLayout()
-
-		settings.javaScriptEnabled = true
-		//addJavascriptInterface(JavaScriptInterface(), "Android")
-		loadDataWithBaseURL(
-			null,
-			data,
-			"text/html",
-			"UTF-8",
-			null)
-		webViewClient = object: WebViewClient()
-		{
-			override fun onPageFinished(view: WebView?, url: String?)
+			var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
+			if (customHeight > 900)
 			{
-				rlLoad?.visibility = View.GONE
-				visibility = View.VISIBLE
-				//loadUrl("javascript:changeChart()")
+				customHeight = 900
+			}
+
+			rlLoad?.visibility = View.VISIBLE
+			rvParent?.let {
+				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+				it.margin(12f, 24f, 12f, 1f)
+			}
+
+			clearCache(true)
+			clearHistory()
+			requestLayout()
+
+			settings.javaScriptEnabled = true
+			loadDataWithBaseURL(
+				null,
+				data,
+				"text/html",
+				"UTF-8",
+				null)
+			webViewClient = object: WebViewClient()
+			{
+				override fun onPageFinished(view: WebView?, url: String?)
+				{
+					rlLoad?.visibility = View.GONE
+					visibility = View.VISIBLE
+				}
 			}
 		}
 	}
