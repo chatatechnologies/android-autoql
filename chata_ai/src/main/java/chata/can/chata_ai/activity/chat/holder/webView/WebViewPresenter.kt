@@ -32,7 +32,8 @@ class WebViewPresenter: StatusResponse
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?) {
+	override fun onFailure(jsonObject: JSONObject?)
+	{
 		if (jsonObject != null)
 		{
 

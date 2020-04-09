@@ -187,8 +187,8 @@ class WebViewHolder(
 //					}
 					//endregion
 					//region report problem
-					val presenter = WebViewPresenter()
-					presenter.putReport(queryBase?.queryId ?: "")
+//					val presenter = WebViewPresenter()
+//					presenter.putReport(queryBase?.queryId ?: "")
 					//endregion
 				}
 				else -> {}
@@ -201,14 +201,14 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-				val pData = when(iv.id)
+				val rows = when(iv.id)
 				{
-					R.id.ivTable -> Pair(queryBase.contentTable, queryBase.rowsTable)
-					R.id.ivPivot -> Pair(queryBase.contentDatePivot, queryBase.rowsPivot)
-					else -> Pair("", 0)
+					R.id.ivTable -> queryBase.rowsTable
+					R.id.ivPivot -> queryBase.rowsPivot
+					else -> 0
 				}
 
-				wbQuery?.loadDataForWebView(pData.first, pData.second)
+				wbQuery?.loadDataForWebView(queryBase.contentTable, rows)
 				hideShowAction(iv)
 			}
 		}
@@ -241,6 +241,7 @@ class WebViewHolder(
 		requestLayout()
 
 		settings.javaScriptEnabled = true
+		addJavascriptInterface(JavaScriptInterface(), "Android")
 		loadDataWithBaseURL(
 			null,
 			data,

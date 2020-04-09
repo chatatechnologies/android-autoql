@@ -6,7 +6,8 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 object HtmlMarked
 {
-	fun getTable(htmlTable: String): String
+	fun getHTML(
+		dataForWebView: DataForWebView): String
 	{
 		var backgroundColor = "#FFFFFF"
 		var textColor = "#FFFFFF"
@@ -27,11 +28,11 @@ object HtmlMarked
 		return """<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="https://unpkg.com/sticky-table-headers"></script>
-		
-		<style type="text/css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sticky-table-headers"></script>
+<style type="text/css">
     body, table, th{
       background: $backgroundColor !important;
       color: $textColor !important;
@@ -69,11 +70,38 @@ object HtmlMarked
 		.red {
 		  color: red;
 		}
-  </style>
-  <title></title>
+</style>
+<title></title>
 </head>
 <body>
-	$htmlTable
+	${dataForWebView.table}
+	${dataForWebView.datePivot}
+<script>
+	var idTable = "nativeTable";
+  var idPivot = "pivotTable";
+	var currentTable = idTable;
+
+  function toggleCharts()
+  {
+    var idHide = "";
+    var idShow = "";
+    if (currentTable == idTable)
+    {
+      idHide = idTable;
+      idShow = idPivot;
+      currentTable = idPivot;
+    }
+    else
+    {
+      idHide = idPivot;
+      idShow = idTable;
+      currentTable = idTable;
+    }
+
+    ${'$'}("#" + idHide).hide("slow");
+    ${'$'}("#" + idShow).show("slow");
+  }
+</script>
 </body>
 </html>"""
 	}

@@ -46,6 +46,6 @@ object TableHtmlBuilder
 		bodyTable += "</tbody>"
 		//endregion
 
-		return Pair("<table>$headTable$bodyTable</table>", numRows)
+		return Pair("<table id=\"nativeTable\">$headTable$bodyTable</table>", numRows)
 	}
 }
