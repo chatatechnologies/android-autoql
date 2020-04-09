@@ -132,10 +132,7 @@ class WebViewHolder(
 			wbQuery?.let {
 				wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentTable, simpleQuery.rowsTable)
-				wbQuery.setOnTouchListener { view, _ ->
-					view.parent.requestDisallowInterceptTouchEvent(true)
-					false
-				}
+
 			}
 		}
 	}
@@ -203,9 +200,7 @@ class WebViewHolder(
 					R.id.ivPivot -> queryBase.rowsPivot
 					else -> 0
 				}
-
-				//create method for only change layoutParams
-				//wbQuery?.loadDataForWebView(queryBase.contentTable, rows)
+				changeHeightWebView(rows)
 				wbQuery?.loadUrl("javascript:changeChart()")
 				hideShowAction(iv)
 			}
@@ -224,18 +219,9 @@ class WebViewHolder(
 	{
 		with(webView)
 		{
-			var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
-			if (customHeight > 900)
-			{
-				customHeight = 900
-			}
+			changeHeightWebView(numRows)
 
 			rlLoad?.visibility = View.VISIBLE
-			rvParent?.let {
-				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-				it.margin(12f, 24f, 12f, 1f)
-			}
-
 			clearCache(true)
 			clearHistory()
 			requestLayout()
@@ -255,6 +241,25 @@ class WebViewHolder(
 					visibility = View.VISIBLE
 				}
 			}
+
+			setOnTouchListener { view, _ ->
+				view.parent.requestDisallowInterceptTouchEvent(true)
+				false
+			}
+		}
+	}
+
+	private fun changeHeightWebView(numRows: Int)
+	{
+		rvParent?.let {
+			var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
+			if (customHeight > 900)
+			{
+				customHeight = 900
+			}
+
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+			it.margin(12f, 24f, 12f, 1f)
 		}
 	}
 
