@@ -14,6 +14,9 @@ object ConfigActions
 		R.id.ivHeat,
 		R.id.ivBubble)*/
 
+	/**
+	 * configActions = 1
+	 */
 	val biConfig = arrayListOf(
 		R.id.ivTable,
 		R.id.ivColumn,
@@ -21,4 +24,13 @@ object ConfigActions
 		R.id.ivLine,
 		R.id.ivPie,
 		R.id.ivPivot)
+
+	/**
+	 * configActions = 2
+	 */
+	val triReduceConfig = arrayListOf(
+		R.id.ivTable,
+		R.id.ivColumn,
+		R.id.ivBar,
+		R.id.ivLine)
 }

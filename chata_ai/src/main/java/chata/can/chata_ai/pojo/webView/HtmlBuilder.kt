@@ -26,6 +26,7 @@ object HtmlBuilder
 					pData = DatePivot.buildBi(aRows, aColumn)
 					with(dataForWebView)
 					{
+						datePivot = pData.first
 						rowsPivot = pData.second
 					}
 					queryBase.configActions = 1
@@ -38,7 +39,7 @@ object HtmlBuilder
 
 					if (isDate && isDollar1 && isDollar2)
 					{
-						//queryBase.configActions = 2
+						queryBase.configActions = 2
 					}
 					else
 					{

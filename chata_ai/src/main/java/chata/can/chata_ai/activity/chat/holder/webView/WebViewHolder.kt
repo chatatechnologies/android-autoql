@@ -72,8 +72,14 @@ class WebViewHolder(
 
 	private fun addActionViews(configActions: Int)
 	{
-		if (configActions == 1)
+		if (configActions != 0)
 		{
+			val aConfigs = when(configActions)
+			{
+				1 -> ConfigActions.biConfig
+				2 -> ConfigActions.triReduceConfig
+				else -> arrayListOf()
+			}
 			aDefaultActions[0]?.let {
 				it.setOnClickListener(this)
 				ivActionHide = it
@@ -83,7 +89,7 @@ class WebViewHolder(
 			{
 				aDefaultActions[index]?.let {
 					val idView = it.id
-					it.visibility = if (idView in ConfigActions.biConfig)
+					it.visibility = if (idView in aConfigs)
 					{
 						it.setOnClickListener(this)
 						View.VISIBLE
@@ -153,33 +159,14 @@ class WebViewHolder(
 		}
 	}
 
-	private fun isChart(numColumns: Int)
-	{
-		llCharts?.let {
-			it.visibility =
-			if (numColumns == 2)
-			{
-				View.VISIBLE
-			}
-			else
-			{
-				View.GONE
-			}
-		}
-	}
-
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
 		queryBase = simpleQuery
-		//set listener with addActionViews
 		addActionViews(simpleQuery.configActions)
 
-		isChart(simpleQuery.numColumns)
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
 			rlLoad?.visibility = View.VISIBLE
-
-
 			wbQuery?.let {
 				wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
