@@ -37,6 +37,8 @@ class WebViewHolder(
 	private val ivPivot = itemView.findViewById<ImageView>(R.id.ivPivot) ?: null
 	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
 	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
+	private val aDefaultActions =
+		arrayListOf(ivTable, ivColumn, ivBar, ivLine, ivPie, ivPivot, ivHeat, ivBubble)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
@@ -44,6 +46,7 @@ class WebViewHolder(
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
 
+	//region paint views
 	override fun onPaint()
 	{
 		rvParent?.let {
@@ -53,20 +56,10 @@ class WebViewHolder(
 		llCharts?.let {
 			it.background = backgroundGrayWhite(it)
 		}
-		ivTable?.setColorFilter()
-		ivTable?.visibility = View.GONE
-		ivBar?.setColorFilter()
-		ivColumn?.setColorFilter()
-		ivLine?.setColorFilter()
-		ivPie?.setColorFilter()
-		ivPivot?.setColorFilter()
-		ivHeat?.setColorFilter()
-		ivBubble?.setColorFilter()
-
+		setColorFilters()
 		rlDelete?.let {
 			it.background = backgroundGrayWhite(it)
 		}
-		ivDelete?.setColorFilter()
 	}
 
 	private fun ImageView.setColorFilter()
@@ -75,6 +68,71 @@ class WebViewHolder(
 			context,
 			ThemeColor.currentColor.drawerColorPrimary
 		))
+	}
+
+	private fun addActionViews(configActions: Int)
+	{
+		if (configActions == 1)
+		{
+			aDefaultActions[0]?.let {
+				it.setOnClickListener(this)
+				ivActionHide = it
+			}
+
+			for (index in 1 until aDefaultActions.size)
+			{
+				aDefaultActions[index]?.let {
+					val idView = it.id
+					it.visibility = if (idView in ConfigActions.biConfig)
+					{
+						it.setOnClickListener(this)
+						View.VISIBLE
+					}
+					else
+					{
+						it.setOnClickListener(null)
+						View.GONE
+					}
+				}
+			}
+		}
+	}
+	//endregion
+
+	override fun onClick(v: View?)
+	{
+		v?.let {
+			when(it.id)
+			{
+				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot->
+				{
+					if (it is ImageView)
+					{
+						callAction(it)
+					}
+				}
+				R.id.rlDelete ->
+				{
+					//region delete query
+					view.deleteQuery(adapterPosition)
+					//endregion
+					//region copy to clipboard
+//					if (it.context != null)
+//					{
+//						val clipboard =
+//							it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//						val clip = ClipData.newPlainText("", queryBase?.sql ?: "")
+//						clipboard.setPrimaryClip(clip)
+//					}
+					//endregion
+					//region report problem
+//					val presenter = WebViewPresenter()
+//					presenter.putReport(queryBase?.queryId ?: "")
+					//endregion
+				}
+				else -> {}
+			}
+		}
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -113,64 +171,33 @@ class WebViewHolder(
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
 		queryBase = simpleQuery
-		ivTable?.setOnClickListener(this)
-		ivBar?.setOnClickListener(this)
-		ivColumn?.setOnClickListener(this)
-		ivLine?.setOnClickListener(this)
-		ivPie?.setOnClickListener(this)
-		rlDelete?.setOnClickListener(this)
-		ivPivot?.setOnClickListener(this)
-		ivHeat?.setOnClickListener(this)
-		ivBubble?.setOnClickListener(this)
+		//set listener with addActionViews
+		addActionViews(simpleQuery.configActions)
 
 		isChart(simpleQuery.numColumns)
-		if (simpleQuery.contentTable.isNotEmpty())
+		if (simpleQuery.contentHTML.isNotEmpty())
 		{
 			rlLoad?.visibility = View.VISIBLE
-			ivActionHide = ivTable
+
 
 			wbQuery?.let {
 				wbQuery ->
-				loadDataForWebView(wbQuery, simpleQuery.contentTable, simpleQuery.rowsTable)
-
+				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
 	}
 
-	override fun onClick(v: View?)
+	private fun setColorFilters()
 	{
-		v?.let {
-			when(it.id)
-			{
-				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot->
-				{
-					if (it is ImageView)
-					{
-						callAction(it)
-					}
-				}
-				R.id.rlDelete ->
-				{
-					//region delete query
-					view.deleteQuery(adapterPosition)
-					//endregion
-					//region copy to clipboard
-//					if (it.context != null)
-//					{
-//						val clipboard =
-//							it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//						val clip = ClipData.newPlainText("", queryBase?.sql ?: "")
-//						clipboard.setPrimaryClip(clip)
-//					}
-					//endregion
-					//region report problem
-//					val presenter = WebViewPresenter()
-//					presenter.putReport(queryBase?.queryId ?: "")
-					//endregion
-				}
-				else -> {}
-			}
-		}
+		ivTable?.setColorFilter()
+		ivBar?.setColorFilter()
+		ivColumn?.setColorFilter()
+		ivLine?.setColorFilter()
+		ivPie?.setColorFilter()
+		ivPivot?.setColorFilter()
+		ivHeat?.setColorFilter()
+		ivBubble?.setColorFilter()
+		ivDelete?.setColorFilter()
 	}
 
 	private fun callAction(iv: ImageView?)
@@ -241,7 +268,7 @@ class WebViewHolder(
 	private fun changeHeightWebView(numRows: Int)
 	{
 		rvParent?.let {
-			var customHeight = rvParent?.dpToPx(30f * numRows) ?: 900
+			var customHeight = rvParent.dpToPx(30f * numRows)
 			if (customHeight > 900)
 			{
 				customHeight = 900
