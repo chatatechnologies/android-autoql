@@ -142,28 +142,12 @@ class WebViewHolder(
 		v?.let {
 			when(it.id)
 			{
-				R.id.ivTable, R.id.ivPivot->
+				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot->
 				{
 					if (it is ImageView)
 					{
 						callAction(it)
 					}
-				}
-				R.id.ivBar ->
-				{
-
-				}
-				R.id.ivColumn ->
-				{
-
-				}
-				R.id.ivLine ->
-				{
-
-				}
-				R.id.ivPie ->
-				{
-
 				}
 				R.id.rlDelete ->
 				{
@@ -194,14 +178,19 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-				val rows = when(iv.id)
+				val factorHeight = 180
+				val pData = when(iv.id)
 				{
-					R.id.ivTable -> queryBase.rowsTable
-					R.id.ivPivot -> queryBase.rowsPivot
-					else -> 0
+					R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
+					R.id.ivBar -> Pair("bar", factorHeight)
+					R.id.ivColumn -> Pair("column", factorHeight)
+					R.id.ivLine -> Pair("line", factorHeight)
+					R.id.ivPie -> Pair("pie", factorHeight)
+					R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
+					else -> Pair("", factorHeight)
 				}
-				changeHeightWebView(rows)
-				wbQuery?.loadUrl("javascript:changeChart()")
+				changeHeightWebView(pData.second)
+				wbQuery?.loadUrl("javascript:toggleCharts('${pData.first}')")
 				hideShowAction(iv)
 			}
 		}

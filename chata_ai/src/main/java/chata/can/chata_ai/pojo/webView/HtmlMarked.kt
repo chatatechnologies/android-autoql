@@ -35,6 +35,7 @@ object HtmlMarked
 <style type="text/css">
     body, table, th{
       background: $backgroundColor !important;
+			margin-top: 24px;
       color: $textColor !important;
     }
     table {
@@ -75,36 +76,26 @@ object HtmlMarked
 </head>
 <body>
 	${dataForWebView.table}
+	<div id="bar" style="display:none;">bar container</div>
+  <div id="column" style="display:none;">column container</div>
+  <div id="line" style="display:none;">line container</div>
+  <div id="pie" style="display:none;">pie container</div>
 	${dataForWebView.datePivot}
 <script>
-	var idTable = "nativeTable";
-  var idPivot = "pivotTable";
-	var currentTable = idTable;
-
-  function toggleCharts()
+	var aId = ["nativeTable", "bar", "column", "line", "pie", "pivotTable"];
+  function toggleCharts(idChart)
   {
-    var idHide = "";
-    var idShow = "";
-    if (currentTable == idTable)
-    {
-      idHide = idTable;
-      idShow = idPivot;
-      currentTable = idPivot;
-    }
-    else
-    {
-      idHide = idPivot;
-      idShow = idTable;
-      currentTable = idTable;
-    }
-
-    ${'$'}("#" + idHide).hide("slow");
-    ${'$'}("#" + idShow).show("slow");
+    aId.forEach(
+      element =>
+      {
+        if (element != idChart)
+        {
+          ${'$'}("#" + element).hide("fast");//show
+        }
+      }
+    );
+    ${'$'}("#" + idChart).show("fast");//show
   }
-	function changeChart()
-	{
-		toggleCharts();
-	}
 </script>
 </body>
 </html>"""
