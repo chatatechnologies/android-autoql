@@ -1,9 +1,6 @@
-package chata.can.chata_ai.activity.chat.holder
+package chata.can.chata_ai.activity.chat.holder.webView
 
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.webkit.WebView
@@ -188,6 +185,10 @@ class WebViewHolder(
 //						val clip = ClipData.newPlainText("", queryBase?.sql ?: "")
 //						clipboard.setPrimaryClip(clip)
 //					}
+					//endregion
+					//region report problem
+					val presenter = WebViewPresenter()
+					presenter.putReport(queryBase?.queryId ?: "")
 					//endregion
 				}
 				else -> {}

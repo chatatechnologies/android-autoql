@@ -15,7 +15,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	var message = json.optString("message") ?: ""
 
 	var sql: String = ""
-	private var queryId = ""
+	var queryId = ""
 	var displayType = ""
 	private var interpretation = ""
 

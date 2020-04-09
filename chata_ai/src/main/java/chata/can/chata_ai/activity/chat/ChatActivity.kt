@@ -198,7 +198,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "total sales and total cash inflow by month"
+				val urlDemo = "total revenue per month for the last year"
 				setText(urlDemo)
 			}
 		}
