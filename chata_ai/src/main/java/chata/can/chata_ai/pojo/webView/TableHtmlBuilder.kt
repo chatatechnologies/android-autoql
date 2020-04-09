@@ -6,7 +6,7 @@ import chata.can.chata_ai.extension.toCapitalColumn
 
 object TableHtmlBuilder
 {
-	fun build(
+	fun buildTable(
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>): Pair<String, Int>
 	{

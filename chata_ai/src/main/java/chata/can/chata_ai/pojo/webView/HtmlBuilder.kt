@@ -12,7 +12,7 @@ object HtmlBuilder
 
 		val dataForWebView = DataForWebView()
 
-		var pData = TableHtmlBuilder.build(aRows, aColumn)
+		var pData = TableHtmlBuilder.buildTable(aRows, aColumn)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
@@ -32,8 +32,19 @@ object HtmlBuilder
 				}
 				3 ->
 				{
-					dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
-					dataForWebView.rowsPivot = 180//change for rows
+					val isDate = aColumn[0].type == TypeDataQuery.DATE
+					val isDollar1 = aColumn[1].type == TypeDataQuery.DOLLAR_AMT
+					val isDollar2 = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
+
+					if (isDate && isDollar1 && isDollar2)
+					{
+
+					}
+					else
+					{
+						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+						dataForWebView.rowsPivot = 180//change for rows
+					}
 				}
 				else -> {}
 			}
