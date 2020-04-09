@@ -33,4 +33,15 @@ object ConfigActions
 		R.id.ivColumn,
 		R.id.ivBar,
 		R.id.ivLine)
+
+	/**
+	 * configActions = 3
+	 */
+	val triConfig = arrayListOf(
+		R.id.ivTable,
+		R.id.ivColumn,
+		R.id.ivBar,
+		R.id.ivPivot,
+		R.id.ivHeat,
+		R.id.ivBubble)
 }

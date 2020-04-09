@@ -78,6 +78,7 @@ class WebViewHolder(
 			{
 				1 -> ConfigActions.biConfig
 				2 -> ConfigActions.triReduceConfig
+				3 -> ConfigActions.triConfig
 				else -> arrayListOf()
 			}
 			aDefaultActions[0]?.let {
@@ -110,7 +111,8 @@ class WebViewHolder(
 		v?.let {
 			when(it.id)
 			{
-				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot->
+				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot,
+				R.id.ivBubble, R.id.ivHeat ->
 				{
 					if (it is ImageView)
 					{
@@ -200,6 +202,8 @@ class WebViewHolder(
 					R.id.ivColumn -> Pair("column", factorHeight)
 					R.id.ivLine -> Pair("line", factorHeight)
 					R.id.ivPie -> Pair("pie", factorHeight)
+					R.id.ivBubble -> Pair("bubble", factorHeight)
+					R.id.ivHeat -> Pair("heat", factorHeight)
 					R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)
 				}

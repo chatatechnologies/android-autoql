@@ -80,9 +80,11 @@ object HtmlMarked
   <div id="column" style="display:none;">column container</div>
   <div id="line" style="display:none;">line container</div>
   <div id="pie" style="display:none;">pie container</div>
+  <div id="bubble" style="display:none;">bubble container</div>
+  <div id="heat" style="display:none;">heat container</div>
 	${dataForWebView.datePivot}
 <script>
-	var aId = ["nativeTable", "bar", "column", "line", "pie", "pivotTable"];
+	var aId = ["nativeTable", "bar", "column", "line", "pie", "bubble", "heat", "pivotTable"];
   function toggleCharts(idChart)
   {
     aId.forEach(

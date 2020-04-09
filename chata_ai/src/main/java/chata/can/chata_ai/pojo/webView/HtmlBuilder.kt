@@ -45,7 +45,7 @@ object HtmlBuilder
 					{
 						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
 						dataForWebView.rowsPivot = 180
-						//queryBase.configActions = 3
+						queryBase.configActions = 3
 					}
 				}
 				else -> {}
