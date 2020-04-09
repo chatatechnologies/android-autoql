@@ -1,6 +1,9 @@
 package chata.can.chata_ai.activity.chat.holder
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.webkit.WebView
@@ -11,7 +14,6 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.layoutParams
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -111,7 +113,7 @@ class WebViewHolder(
 		}
 	}
 
-	fun processQueryBase(simpleQuery: QueryBase)
+	private fun processQueryBase(simpleQuery: QueryBase)
 	{
 		queryBase = simpleQuery
 		ivTable?.setOnClickListener(this)
@@ -175,7 +177,18 @@ class WebViewHolder(
 				}
 				R.id.rlDelete ->
 				{
+					//region delete query
 					view.deleteQuery(adapterPosition)
+					//endregion
+					//region copy to clipboard
+//					if (it.context != null)
+//					{
+//						val clipboard =
+//							it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//						val clip = ClipData.newPlainText("", queryBase?.sql ?: "")
+//						clipboard.setPrimaryClip(clip)
+//					}
+					//endregion
 				}
 				else -> {}
 			}

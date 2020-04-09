@@ -14,7 +14,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	private val joData = json.optJSONObject("data")
 	var message = json.optString("message") ?: ""
 
-	private var sql: String = ""
+	var sql: String = ""
 	private var queryId = ""
 	var displayType = ""
 	private var interpretation = ""
