@@ -207,8 +207,12 @@ class WebViewHolder(
 				{
 					//R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
 					R.id.ivTable -> Pair("table", queryBase.rowsTable)
-					R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivBubble, R.id.ivHeat ->
-						Pair("pie", factorHeight)
+					R.id.ivBar -> Pair("bar", factorHeight)
+					R.id.ivColumn -> Pair("column", factorHeight)
+					R.id.ivLine -> Pair("line", factorHeight)
+					R.id.ivPie -> Pair("pie", factorHeight)
+					R.id.ivBubble -> Pair("bubble", factorHeight)
+					R.id.ivHeat -> Pair("heat", factorHeight)
 					//R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
 					R.id.ivPivot -> Pair("date_pivot", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)

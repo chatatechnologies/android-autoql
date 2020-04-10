@@ -91,14 +91,11 @@ object HtmlMarked
 	var dataTableBasic = [];
 	var dataTablePivot = [];
 	var dataColumnPivot = [];
-	//dataChartBi 
 	var dataChartBi = [["Direct Advance Level", 86500.00], ["Direct Basic Level", 889750.00], ["Direct Premium Level", 188260.00], ["Re-seller Advance level", 752040.00], ["Re-seller Basic Level", 3739400.00], ["Re-seller Premium Level", 1154608.00]];
 	var datachartTri = [];
 	
-	//var dataChartLine = [86500.00, 889750.00, 188260.00, 752040.00, 3739400.00, 1154608.00];
-	var dataChartLine = [];
-	//var categoriesX = ["Direct Advance Level", "Direct Basic Level", "Direct Premium Level", "Re-seller Advance level", "Re-seller Basic Level", "Re-seller Premium Level"];
-	var categoriesX = [];
+	var dataChartLine = [86500.00, 889750.00, 188260.00, 752040.00, 3739400.00, 1154608.00];
+	var categoriesX = ["Direct Advance Level", "Direct Basic Level", "Direct Premium Level", "Re-seller Advance level", "Re-seller Basic Level", "Re-seller Premium Level"];
 	//var categoriesY = [86500.00, 889750.00, 188260.00, 752040.00, 3739400.00, 1154608.00];
 	var categoriesY = [];
 	//var drillX = ["Direct Advance Level", "Direct Basic Level", "Direct Premium Level", "Re-seller Advance level", "Re-seller Basic Level", "Re-seller Premium Level"];
@@ -119,6 +116,7 @@ object HtmlMarked
 	var colors = [color1, color2, '#dd6a6a', '#ffa700', '#00c1b2'];
 	var styleTooltip = {color: '#fff', display: 'none'}
 	var subTitle = { text:'' };
+	var xAxisStyle = { color: colorAxis };
 	var yAxisTitle = { 
 		title: {
 			text: yAxis,
@@ -219,14 +217,14 @@ object HtmlMarked
 	{
 		if (graphic == "table" || graphic == "pivot_column" || graphic == "date_pivot" || graphic == "compare_table")
 		{
-				typeTable(graphic)
+			typeTable(graphic)
 		}
 		else
 		{
-				typeChart(graphic)
+			typeChart(graphic)
 		}
 	}
-	
+
 	function typeTable(graphic) {
 		${'$'}('table').stickyTableHeaders();
 		if (graphic == "pivot_column" || graphic == "date_pivot") {
@@ -240,15 +238,21 @@ object HtmlMarked
 		${'$'}('#container').hide(400);
 	}
 
-	function typeChart(nameGraphic)
+	function typeChart(graphic)
 	{
-		var inverted = nameGraphic == "column" || nameGraphic == "line" ? false : true;
+		var inverted = graphic == "column" || graphic == "line" ? false : true;
 		hideTables();
 
-		switch (nameGraphic)
+		switch (graphic)
 		{
 			case "pie":
 				pieType();
+				break;
+			case "line":
+				lineType();
+			case "column":
+			case "bar":
+				biType(graphic,inverted);
 				break;
 		}
 	}
@@ -271,6 +275,93 @@ object HtmlMarked
 		});
 	}
 	//endregion
+
+	function lineType(){
+     if (dataChartBi.length > 0){
+         biType("line",false);
+     }else{
+         chart.destroy();
+             chart = Highcharts.chart('container', {
+                 colors: colors,
+                 title: subTitle,
+                 subTitle: subTitle,
+                 yAxis: {
+                     title: {
+                         text: yAxis
+                     },
+                     labels: {
+                        style: {
+                            color: colorAxis,
+                        }
+                      },
+                 },
+                 legend: {
+                            itemStyle: {
+                                color: colorAxis,
+                                fontWeight: 'bold'
+                            }
+                        },
+                 xAxis: {
+                     categories: categoriesX,
+                     legend:{
+                         step:1
+                     },
+                     labels: {
+                        style: {
+                            color: colorAxis,
+                        }
+                      },
+                    
+                     title: {
+                         text: xAxis,
+                         style: {
+                            color: colorAxis,
+                            fontSize:'8px'
+                        }
+                     }
+                 },
+                 chart: {
+                     type: "line"
+                 },
+                 series: dataChartLine,
+                 tooltip: {
+                     backgroundColor: colorGhost,
+                     style: styleTooltip
+                 },
+             });
+             
+     }
+ }
+
+	function biType(type,inverted) {
+		chart.destroy();
+		chart = Highcharts.chart('container', defaultChart);
+		chart.update({
+                 chart: {
+                     type: type,
+                     inverted: inverted
+                 },
+                 
+                 xAxis: {
+                      gridLineWidth: 0,
+                      categories: categoriesX,
+                      labels: {
+                        rotation: 50,
+                        style: xAxisStyle
+                      },
+                      
+                      title: {
+                        text: xAxis
+                      }
+                    },
+                 series: [{
+                         colorByPoint: false,
+                         name: categoriesX,
+                         data: dataChartBi
+                     }]
+             });
+	}
+	
 </script>
 <script src="https://rinconarte.com.mx/chata/chat2.0.js"></script>
 </body>
