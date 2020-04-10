@@ -35,7 +35,7 @@ object HtmlMarked
 <style type="text/css">
     body, table, th{
       background: $backgroundColor !important;
-			margin-top: 24px;
+			margin-top: 18px;
       color: $textColor !important;
     }
     table {
