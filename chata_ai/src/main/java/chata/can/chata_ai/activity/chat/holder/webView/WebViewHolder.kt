@@ -81,10 +81,23 @@ class WebViewHolder(
 				3 -> ConfigActions.triConfig
 				else -> arrayListOf()
 			}
-			aDefaultActions[0]?.let {
-				it.setOnClickListener(this)
-				ivActionHide = it
+			//region find the first item
+			aConfigs.firstOrNull()?.let {
+				firstConfig ->
+				for (view in aDefaultActions)
+				{
+					if (view != null)
+					{
+						if (view.id == firstConfig)
+						{
+							view.setOnClickListener(this)
+							ivActionHide = view
+							break
+						}
+					}
+				}
 			}
+			//endregion
 
 			for (index in 1 until aDefaultActions.size)
 			{
