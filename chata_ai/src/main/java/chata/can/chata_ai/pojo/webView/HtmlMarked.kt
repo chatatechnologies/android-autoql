@@ -80,27 +80,11 @@ object HtmlMarked
 	<div id="container" class="container" style="display:none;"></div>
 	${dataForWebView.datePivot}
 <script>
-	var aId = ["nativeTable", "bar", "column", "line", "pie", "bubble", "heat", "pivotTable"];
-  function toggleCharts(idChart)
-  {
-		changeGraphic(idChart);
-    /*aId.forEach(
-      element =>
-      {
-        if (element != idChart)
-        {
-          ${'$'}("#" + element).hide("fast");//show
-        }
-      }
-    );
-    ${'$'}("#" + idChart).show("fast");//show*/
-  }
-	
-	
 	var supportTables = ["pie","column","bar","line","word_cloud"];
 	var type = 'table';
-	var xAxis = 'Product';
-	var yAxis = 'Sale  Line Item (Sum)';
+	
+	var xAxis = '';
+	var yAxis = '';
 	var dashBoardActive = false;
 	var rows = "400px";
 	
@@ -131,6 +115,162 @@ object HtmlMarked
 	var colorFill = "rgb(79,84,90)";
 	var color1 = "rgb(38,167,223)";
 	var color2 = "rgb(165,205,57)";
+
+	var colors = [color1, color2, '#dd6a6a', '#ffa700', '#00c1b2'];
+	var styleTooltip = {color: '#fff', display: 'none'}
+	var subTitle = { text:'' };
+	var yAxisTitle = { 
+		title: {
+			text: yAxis,
+			style: {
+				color: colorAxis
+			}
+    }
+  };
+
+	var colorGhost = 'rgba(0,0,0,0)';
+	var defaultChart =
+  {
+    chart: {
+      backgroundColor: colorGhost,
+      fill: colorGhost,
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: "column"
+    },
+    title: subTitle,
+    subTitle: subTitle,
+    xAxis: {
+      gridLineWidth: 0,
+      categories: categoriesX,
+      labels: {
+        rotation: 50,
+        style: {
+					color: colorAxis,
+					fontSize:'8px'
+        }
+      },
+
+      title: {
+				text: xAxis,
+        style: {
+					color: colorAxis
+				}
+      }
+    },
+    yAxis: {
+      gridLineWidth: 0,
+      labels: {
+        style: {
+					color: colorAxis,
+					fontSize:'8px'
+        }
+      },
+      title: yAxisTitle
+    },
+    colorAxis: {
+      reversed: false,
+      min: 0,
+      minColor: '#FFFFFF',
+      maxColor: '#26a7df'
+    },
+    showInLegend: true,
+    legend: false,
+    dataLabels: {
+      enabled: false
+    },
+    tooltip: {
+      backgroundColor: colorGhost,
+      style: styleTooltip
+    },
+    plotOptions: {
+      pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: false,
+        style: {
+          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        }
+      },
+        showInLegend: true
+      }
+    },
+    colors: colors,
+    series: [0]
+  };
+
+	function startScript()
+	{
+		chart = Highcharts.chart('container', defaultChart);
+	}
+	startScript();
+
+	function hideTables()
+	{
+		${'$'}('#nativeTable').hide(0);
+		${'$'}('#pivotTable').hide(0);
+		${'$'}('#container').show(400);
+		${'$'}('.container').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
+	}
+
+	function changeGraphic(graphic)
+	{
+		if (graphic == "table" || graphic == "pivot_column" || graphic == "date_pivot" || graphic == "compare_table")
+		{
+				typeTable(graphic)
+		}
+		else
+		{
+				typeChart(graphic)
+		}
+	}
+	
+	function typeTable(graphic) {
+		${'$'}('table').stickyTableHeaders();
+		if (graphic == "pivot_column" || graphic == "date_pivot") {
+			${'$'}('#nativeTable').hide();
+			${'$'}('#pivotTable').show(400)
+		}
+		else{
+			${'$'}('#pivotTable').hide();
+			${'$'}('#nativeTable').show(400);
+		}
+		${'$'}('#container').hide(400);
+	}
+
+	function typeChart(nameGraphic)
+	{
+		var inverted = nameGraphic == "column" || nameGraphic == "line" ? false : true;
+		hideTables();
+
+		switch (nameGraphic)
+		{
+			case "pie":
+				pieType();
+				break;
+		}
+	}
+
+	//region pie
+	function pieType()
+	{
+		chart.destroy();
+		chart = Highcharts.chart('container', defaultChart);
+		chart.update({
+			chart: {
+				type: "pie",
+				fill: colorGhost,
+				inverted: false
+			},
+			series: [{
+				colorByPoint: true,
+				data: dataChartBi
+			}]
+		});
+	}
+	//endregion
 </script>
 <script src="https://rinconarte.com.mx/chata/chat2.0.js"></script>
 </body>

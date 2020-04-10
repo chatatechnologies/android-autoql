@@ -205,15 +205,17 @@ class WebViewHolder(
 				val factorHeight = 180
 				val pData = when(iv.id)
 				{
-					R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
+					//R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
+					R.id.ivTable -> Pair("table", queryBase.rowsTable)
 					R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivBubble, R.id.ivHeat ->
-						Pair("container", factorHeight)
-					R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
+						Pair("pie", factorHeight)
+					//R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
+					R.id.ivPivot -> Pair("date_pivot", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
-				wbQuery?.loadUrl("javascript:toggleCharts('${pData.first}')")
-				//wbQuery?.loadUrl("javascript:changeGraphic('pie')")
+				//wbQuery?.loadUrl("javascript:toggleCharts('${pData.first}')")
+				wbQuery?.loadUrl("javascript:changeGraphic('${pData.first}')")
 				hideShowAction(iv)
 			}
 		}
