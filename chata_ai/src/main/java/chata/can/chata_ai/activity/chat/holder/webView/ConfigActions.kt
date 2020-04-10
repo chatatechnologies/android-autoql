@@ -44,4 +44,14 @@ object ConfigActions
 		R.id.ivPivot,
 		R.id.ivHeat,
 		R.id.ivBubble)
+
+	/**
+	 * configActions = 4
+	 */
+	val biConfigReduce = arrayListOf(
+		R.id.ivTable,
+		R.id.ivColumn,
+		R.id.ivBar,
+		R.id.ivLine,
+		R.id.ivPie)
 }

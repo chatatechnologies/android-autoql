@@ -51,6 +51,14 @@ object HtmlBuilder
 				else -> {}
 			}
 		}
+		else
+		{
+			queryBase.configActions = when(aColumn.size)
+			{
+				2 -> 4
+				else -> 0
+			}
+		}
 		//endregion
 
 		return dataForWebView

@@ -73,6 +73,7 @@ class WebViewHolder(
 				1 -> ConfigActions.biConfig
 				2 -> ConfigActions.triReduceConfig
 				3 -> ConfigActions.triConfig
+				4 -> ConfigActions.biConfigReduce
 				else -> arrayListOf()
 			}
 			//region find the first item
@@ -205,17 +206,14 @@ class WebViewHolder(
 				val pData = when(iv.id)
 				{
 					R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
-					R.id.ivBar -> Pair("bar", factorHeight)
-					R.id.ivColumn -> Pair("column", factorHeight)
-					R.id.ivLine -> Pair("line", factorHeight)
-					R.id.ivPie -> Pair("pie", factorHeight)
-					R.id.ivBubble -> Pair("bubble", factorHeight)
-					R.id.ivHeat -> Pair("heat", factorHeight)
+					R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivBubble, R.id.ivHeat ->
+						Pair("container", factorHeight)
 					R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
 				wbQuery?.loadUrl("javascript:toggleCharts('${pData.first}')")
+				//wbQuery?.loadUrl("javascript:changeGraphic('pie')")
 				hideShowAction(iv)
 			}
 		}
