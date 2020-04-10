@@ -12,6 +12,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -59,15 +60,8 @@ class WebViewHolder(
 		setColorFilters()
 		rlDelete?.let {
 			it.background = backgroundGrayWhite(it)
+			it.setOnClickListener(this)
 		}
-	}
-
-	private fun ImageView.setColorFilter()
-	{
-		setColorFilter(ContextCompat.getColor(
-			context,
-			ThemeColor.currentColor.drawerColorPrimary
-		))
 	}
 
 	private fun addActionViews(configActions: Int)

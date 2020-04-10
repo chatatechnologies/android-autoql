@@ -76,7 +76,7 @@ class ChatAdapter(
 					view,
 					servicePresenter)
 			}
-			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
+			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this)
 		}
 	}
 

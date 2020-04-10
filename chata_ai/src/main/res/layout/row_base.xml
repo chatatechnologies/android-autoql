@@ -13,5 +13,21 @@
 			android:layout_margin="5dp"
 			android:layout_width="wrap_content"
 			android:padding="5dp"/>
+
+		<RelativeLayout
+			android:layout_toEndOf="@id/tvContent"
+			android:id="@+id/rlDelete"
+			android:layout_margin="5dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:visibility="gone">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivDelete"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_delete"
+				android:padding="4dp"/>
+		</RelativeLayout>
 	</RelativeLayout>
 </RelativeLayout>
