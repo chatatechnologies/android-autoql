@@ -218,7 +218,6 @@ class WebViewHolder(
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
-				//wbQuery?.loadUrl("javascript:toggleCharts('${pData.first}')")
 				wbQuery?.loadUrl("javascript:changeGraphic('${pData.first}')")
 				hideShowAction(iv)
 			}

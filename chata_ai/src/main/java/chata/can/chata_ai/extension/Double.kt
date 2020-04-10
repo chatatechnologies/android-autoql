@@ -4,10 +4,12 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 
 fun Double.formatSymbolDecimals(
 	prefix: String = "",
-	suffix: String = ""
+	suffix: String = "",
+	commaCharacter: String = ""
 ): String
 {
-	val tmp = "%,.${SinglentonDrawer.currencyDecimals}f".format(this)
+	//val tmp = "%,.${SinglentonDrawer.currencyDecimals}f".format(this)
+	val tmp = "%$commaCharacter.${SinglentonDrawer.currencyDecimals}f".format(this)
 	return "$prefix$tmp$suffix"
 }
 

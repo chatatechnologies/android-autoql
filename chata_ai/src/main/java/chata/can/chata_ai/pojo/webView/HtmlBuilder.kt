@@ -60,6 +60,34 @@ object HtmlBuilder
 			}
 		}
 		//endregion
+		val configAllow = aColumn.size == 3
+
+		//with categories()
+		with(Categories)
+		{
+			val aCatX = buildCategoryByPosition(
+				Category(queryBase.aRows, aColumn[0], 0,
+					true, hasQuotes = true, allowRepeat = !configAllow))
+			val aCatY = buildCategoryByPosition(
+				Category(queryBase.aRows, aColumn[1], 1,
+					true, hasQuotes = true, allowRepeat = !configAllow))
+			val aCatYS = buildCategoryByPosition(
+				Category(queryBase.aRows, aColumn[1], 1,
+					true, hasQuotes = true, allowRepeat = !configAllow))
+
+			dataForWebView.catX = aCatX.toString()
+			dataForWebView.catY = aCatY.toString()
+
+			if (configAllow)
+			{
+
+			}
+			else
+			{
+				dataForWebView.catYS = aCatYS.toString()
+				dataForWebView.dataChartBi = Table.generateDataTable(queryBase.aRows, aColumn,true)
+			}
+		}
 
 		return dataForWebView
 	}

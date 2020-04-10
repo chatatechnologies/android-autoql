@@ -25,7 +25,9 @@ object HtmlMarked
 			}
 		}
 
-		return """<!DOCTYPE html>
+		return with(dataForWebView)
+		{
+			"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -80,7 +82,7 @@ object HtmlMarked
 	<div id="container" class="container" style="display:none;"></div>
 	${dataForWebView.datePivot}
 <script>
-	var supportTables = ["pie","column","bar","line","word_cloud"];
+	var supportTables = [];
 	var type = 'table';
 	
 	var xAxis = '';
@@ -91,21 +93,17 @@ object HtmlMarked
 	var dataTableBasic = [];
 	var dataTablePivot = [];
 	var dataColumnPivot = [];
-	var dataChartBi = [["Direct Advance Level", 86500.00], ["Direct Basic Level", 889750.00], ["Direct Premium Level", 188260.00], ["Re-seller Advance level", 752040.00], ["Re-seller Basic Level", 3739400.00], ["Re-seller Premium Level", 1154608.00]];
+	var dataChartBi = $dataChartBi;
 	var datachartTri = [];
 	
-	var dataChartLine = [86500.00, 889750.00, 188260.00, 752040.00, 3739400.00, 1154608.00];
-	var categoriesX = ["Direct Advance Level", "Direct Basic Level", "Direct Premium Level", "Re-seller Advance level", "Re-seller Basic Level", "Re-seller Premium Level"];
-	//var categoriesY = [86500.00, 889750.00, 188260.00, 752040.00, 3739400.00, 1154608.00];
+	var dataChartLine = $catY;
+	var categoriesX = $catX;
+	//var categoriesY = $catYS;
 	var categoriesY = [];
-	//var drillX = ["Direct Advance Level", "Direct Basic Level", "Direct Premium Level", "Re-seller Advance level", "Re-seller Basic Level", "Re-seller Premium Level"];
+	
 	var drillX = [];
-	//var drillY = [86500.0, 889750.0, 188260.0, 752040.0, 3739400.0, 1154608.0];
 	var drillY = [];
-	
-	//var dataCloud = [{"name":"Direct Advance Level","weight":1},{"name":"Direct Basic Level","weight":1},{"name":"Direct Premium Level","weight":1},{"name":"Re-seller Advance level","weight":1},{"name":"Re-seller Basic Level","weight":1},{"name":"Re-seller Premium Level","weight":1}];
 	var dataCloud = [];
-	
 	var dataForecasting = [];
 	
 	var colorAxis = "rgb(222,222,222)";
@@ -366,5 +364,6 @@ object HtmlMarked
 <script src="https://rinconarte.com.mx/chata/chat2.0.js"></script>
 </body>
 </html>"""
+		}
 	}
 }

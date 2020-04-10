@@ -5,3 +5,9 @@ class DataForWebView(
 	var rowsTable: Int = 1,
 	var datePivot: String = "",
 	var rowsPivot: Int = 1)
+{
+	var catX = "[]"
+	var catY = "[]"
+	var catYS = "[]"
+	var dataChartBi = "[]"
+}
