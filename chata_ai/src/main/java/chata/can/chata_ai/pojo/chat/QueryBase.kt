@@ -43,7 +43,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	get() {
 		val sizeLevel1 = aRows.size
 		return aRows.firstOrNull()?.let {
-			val sizeLevel2 = aRows.size
+			val sizeLevel2 = it.size
 			return sizeLevel1 == 1 && sizeLevel2 == 1
 		} ?: run { false }
 	}
