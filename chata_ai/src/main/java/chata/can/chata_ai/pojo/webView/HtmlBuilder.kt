@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
@@ -63,7 +64,7 @@ object HtmlBuilder
 		var textDatePivot = ""
 		val configAllow = aColumn.size == 3
 
-		if (queryBase.configActions == 1 || queryBase.configActions == 1)
+		if (queryBase.configActions == 1 || queryBase.configActions == 3)
 		{
 
 		}
@@ -71,13 +72,13 @@ object HtmlBuilder
 		with(Categories)
 		{
 			val aCatX = buildCategoryByPosition(
-				Category(queryBase.aRows, aColumn[0], 0,
+				Category(aRows, aColumn[0], 0,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			val aCatY = buildCategoryByPosition(
-				Category(queryBase.aRows, aColumn[1], 1,
+				Category(aRows, aColumn[1], 1,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			val aCatYS = buildCategoryByPosition(
-				Category(queryBase.aRows, aColumn[1], 1,
+				Category(aRows, aColumn[1], 1,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 
 			dataForWebView.catX = aCatX.toString()
@@ -85,12 +86,30 @@ object HtmlBuilder
 
 			if (configAllow)
 			{
+				if (queryBase.configActions == 2)
+				{
+					val aDataXAxis = ArrayList<String>()
+					val aDataYAxis = ArrayList<String>()
 
+					for (row in aRows)
+					{
+						if (row.size == 3)
+							aDataXAxis.add(row[1])
+						aDataYAxis.add(row[2])
+					}
+
+					val title1 = aColumn[0].name
+					val title2 = aColumn[1].name
+					dataForWebView.catYS = "[{name:\"${title1.toCapitalColumn()}\", data:$aDataXAxis}," +
+						"{name:\"${title2.toCapitalColumn()}\", data:$aDataYAxis}]"
+					queryBase.isContrast = true
+					dataForWebView.isBi = false
+				}
 			}
 			else
 			{
 				dataForWebView.catYS = aCatYS.toString()
-				dataForWebView.dataChartBi = Table.generateDataTable(queryBase.aRows, aColumn,true)
+				dataForWebView.dataChartBi = Table.generateDataTable(aRows, aColumn,true)
 			}
 		}
 

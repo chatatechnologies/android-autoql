@@ -19,7 +19,6 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	var displayType = ""
 	private var interpretation = ""
 
-	val antiqueRows = ArrayList<String>()
 	val aRows = ArrayList<ArrayList<String>>()
 	var aColumn = ArrayList<ColumnQuery>()
 
@@ -57,6 +56,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	}
 
 	var configActions = 0
+	var isContrast = false
 	var contentHTML = ""
 	var rowsTable = 0
 	var rowsPivot = 0

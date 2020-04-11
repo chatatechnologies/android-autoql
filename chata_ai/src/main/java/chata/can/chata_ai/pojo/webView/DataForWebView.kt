@@ -10,4 +10,5 @@ class DataForWebView(
 	var catY = "[]"
 	var catYS = "[]"
 	var dataChartBi = "[]"
+	var isBi = true
 }

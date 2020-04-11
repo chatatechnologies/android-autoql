@@ -9,6 +9,7 @@ object HtmlMarked
 	fun getHTML(
 		dataForWebView: DataForWebView): String
 	{
+		val isBi = dataForWebView.isBi
 		var backgroundColor = "#FFFFFF"
 		var textColor = "#FFFFFF"
 
@@ -93,13 +94,12 @@ object HtmlMarked
 	var dataTableBasic = [];
 	var dataTablePivot = [];
 	var dataColumnPivot = [];
-	var dataChartBi = $dataChartBi;
-	var datachartTri = [];
+	var dataChartBi = ${if (isBi) dataChartBi else "[]"};
+	var datachartTri = ${if (isBi) "[]" else dataChartBi};
 	
-	var dataChartLine = $catY;
+	var dataChartLine = ${if (isBi) catY else catYS};
 	var categoriesX = $catX;
-	//var categoriesY = $catYS;
-	var categoriesY = [];
+	var categoriesY = ${if (isBi) catYS else catY};
 	
 	var drillX = [];
 	var drillY = [];
@@ -252,6 +252,11 @@ object HtmlMarked
 			case "bar":
 				biType(graphic,inverted);
 				break;
+			case "contrast_bar":
+      case "contrast_line":
+      case "contrast_column":
+          biType3(graphic,inverted);
+          break;
 		}
 	}
 
@@ -359,6 +364,31 @@ object HtmlMarked
                      }]
              });
 	}
+	
+	function biType3(type,inverted){
+        typeFinal = type.replace("contrast_", "");
+        chart.destroy()
+        chart = Highcharts.chart('container', defaultChart);
+        chart.update({
+                 chart: {
+                     type: typeFinal
+                 },
+                 
+                 xAxis: {
+                      gridLineWidth: 0,
+                      categories: categoriesX,
+                      labels: {
+                        rotation:90,
+                        style: xAxisStyle
+                      },
+                      
+                      title: {
+                        text: xAxis
+                      }
+                    },
+                 series: dataChartLine
+             });
+ }
 	
 </script>
 <script src="https://rinconarte.com.mx/chata/chat2.0.js"></script>

@@ -207,9 +207,27 @@ class WebViewHolder(
 				{
 					//R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
 					R.id.ivTable -> Pair("table", queryBase.rowsTable)
-					R.id.ivBar -> Pair("bar", factorHeight)
-					R.id.ivColumn -> Pair("column", factorHeight)
-					R.id.ivLine -> Pair("line", factorHeight)
+					R.id.ivBar ->
+					{
+						if (queryBase.isContrast)
+							Pair("contrast_bar", factorHeight)
+						else
+							Pair("bar", factorHeight)
+					}
+					R.id.ivColumn ->
+					{
+						if (queryBase.isContrast)
+							Pair("contrast_column", factorHeight)
+						else
+							Pair("column", factorHeight)
+					}
+					R.id.ivLine ->
+					{
+						if (queryBase.isContrast)
+							Pair("contrast_line", factorHeight)
+						else
+							Pair("line", factorHeight)
+					}
 					R.id.ivPie -> Pair("pie", factorHeight)
 					R.id.ivBubble -> Pair("bubble", factorHeight)
 					R.id.ivHeat -> Pair("heat", factorHeight)
