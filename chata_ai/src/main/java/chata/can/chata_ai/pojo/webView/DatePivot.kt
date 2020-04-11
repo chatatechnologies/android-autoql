@@ -101,7 +101,7 @@ object DatePivot
 				}
 			}
 			bodyTable += "</tbody>"
-			return Pair("<table id=\"pivotTable\" style=\"display:none;\">$headTable$bodyTable</table>", numRows)
+			return Pair("<table id=\"idTableDataPivot\">$headTable$bodyTable</table>", numRows)
 			//endregion
 		}
 		return Pair("", 0)
@@ -181,7 +181,7 @@ object DatePivot
 
 		bodyTable += "</tbody>"
 
-		return "<table id=\"pivotTable\" style=\"display:none;\">$headTable$bodyTable</table>"
+		return "<table id=\"idTableDataPivot\">$headTable$bodyTable</table>"
 		//endregion
 	}
 }

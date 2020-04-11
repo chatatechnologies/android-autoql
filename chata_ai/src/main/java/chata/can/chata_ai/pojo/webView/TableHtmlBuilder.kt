@@ -21,7 +21,7 @@ object TableHtmlBuilder
 		//endregion
 
 		var numRows = 1
-		//region create body table with id nativeTable
+		//region create body table with id idTableBasic
 		var bodyTable = "<tbody>"
 		for (aRow in aRows)
 		{
@@ -46,6 +46,6 @@ object TableHtmlBuilder
 		bodyTable += "</tbody>"
 		//endregion
 
-		return Pair("<table id=\"nativeTable\">$headTable$bodyTable</table>", numRows)
+		return Pair("<table id=\"idTableBasic\">$headTable$bodyTable</table>", numRows)
 	}
 }

@@ -198,7 +198,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "total expenditures and cash outflow by month this year"
+				val urlDemo = "pie chart total sales"
 				setText(urlDemo)
 			}
 		}

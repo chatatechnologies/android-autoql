@@ -206,37 +206,37 @@ class WebViewHolder(
 				val pData = when(iv.id)
 				{
 					//R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
-					R.id.ivTable -> Pair("table", queryBase.rowsTable)
+					R.id.ivTable -> Pair("'idTableBasic', ''", queryBase.rowsTable)
 					R.id.ivBar ->
 					{
 						if (queryBase.isContrast)
 							Pair("contrast_bar", factorHeight)
 						else
-							Pair("bar", factorHeight)
+							Pair("'container', 'bar'", factorHeight)
 					}
 					R.id.ivColumn ->
 					{
 						if (queryBase.isContrast)
 							Pair("contrast_column", factorHeight)
 						else
-							Pair("column", factorHeight)
+							Pair("'container', 'column'", factorHeight)
 					}
 					R.id.ivLine ->
 					{
 						if (queryBase.isContrast)
 							Pair("contrast_line", factorHeight)
 						else
-							Pair("line", factorHeight)
+							Pair("'container', 'line'", factorHeight)
 					}
-					R.id.ivPie -> Pair("pie", factorHeight)
+					R.id.ivPie -> Pair("'container', 'pie'", factorHeight)
 					R.id.ivBubble -> Pair("bubble", factorHeight)
 					R.id.ivHeat -> Pair("heat", factorHeight)
 					//R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
-					R.id.ivPivot -> Pair("date_pivot", queryBase.rowsPivot)
+					R.id.ivPivot -> Pair("'idTableDataPivot', ''", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
-				wbQuery?.loadUrl("javascript:changeGraphic('${pData.first}')")
+				wbQuery?.loadUrl("javascript:hideTables(${pData.first})")
 				hideShowAction(iv)
 			}
 		}
