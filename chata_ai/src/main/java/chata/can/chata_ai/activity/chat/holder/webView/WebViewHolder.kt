@@ -210,27 +210,45 @@ class WebViewHolder(
 					R.id.ivBar ->
 					{
 						if (queryBase.isContrast)
-							Pair("contrast_bar", factorHeight)
+							Pair("'container', 'contrast_bar'", factorHeight)
 						else
-							Pair("'container', 'bar'", factorHeight)
+						{
+							if (queryBase.isTri)
+							{
+								Pair("'container', 'stacked_bar'", factorHeight)
+							}
+							else
+							{
+								Pair("'container', 'bar'", factorHeight)
+							}
+						}
 					}
 					R.id.ivColumn ->
 					{
 						if (queryBase.isContrast)
-							Pair("contrast_column", factorHeight)
+							Pair("'container', 'contrast_column'", factorHeight)
 						else
-							Pair("'container', 'column'", factorHeight)
+						{
+							if (queryBase.isTri)
+							{
+								Pair("'container', 'stacked_column'", factorHeight)
+							}
+							else
+							{
+								Pair("'container', 'column'", factorHeight)
+							}
+						}
 					}
 					R.id.ivLine ->
 					{
 						if (queryBase.isContrast)
-							Pair("contrast_line", factorHeight)
+							Pair("'container', 'contrast_line'", factorHeight)
 						else
 							Pair("'container', 'line'", factorHeight)
 					}
 					R.id.ivPie -> Pair("'container', 'pie'", factorHeight)
-					R.id.ivBubble -> Pair("bubble", factorHeight)
-					R.id.ivHeat -> Pair("heat", factorHeight)
+					R.id.ivBubble -> Pair("'container', 'bubble'", factorHeight)
+					R.id.ivHeat -> Pair("'container', 'heatmap'", factorHeight)
 					//R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
 					R.id.ivPivot -> Pair("'idTableDataPivot', ''", queryBase.rowsPivot)
 					else -> Pair("", factorHeight)

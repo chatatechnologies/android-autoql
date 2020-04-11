@@ -31,50 +31,63 @@ object HtmlMarked
 			"""<!DOCTYPE html>
 <html lang="en">
 <head>
+<title></title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-
 <script src="https://unpkg.com/sticky-table-headers"></script>
-<style type="text/css">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<link href=“https://fonts.googleapis.com/css?family=Titillium+Web” rel=“stylesheet”>
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+</head>
+<body>
+<div id='container' class='container'></div>
+    <style type="text/css">
     body, table, th{
-      background: $backgroundColor !important;
-      color: $textColor !important;
+        background: #ffffff!important;
+        color: #5D5D5D!important;
     }
     table {
-      padding-top: 0px!important;
+        padding-top: 0px!important;
     }
     th {
-      position: sticky;
-      top: 0px;
-      z-index: 10;
-      padding: 10px 3px 5px 3px;
+        position: sticky;
+        top: 0px;
+        z-index: 10;
+        padding: 10px 3px 5px 3px;
     }
     table {
-      display: table;
-      min-width: 100%;
-      white-space: nowrap;
-      border-collapse: separate;
-      border-spacing: 0px!important;
-      border-color: grey;
+        display: table;
+        min-width: 100%;
+        white-space: nowrap;
+        border-collapse: separate;
+        border-spacing: 0px!important;
+        border-color: grey;
     }
     table {
-      font-size: 12px;
+        font-size: 12px;
     }
     tr td:first-child {
-      text-align: center;
+        text-align: center;
     }
     td {
-      padding: 3px;
-      text-align: center!important;
+        padding: 3px;
+        text-align: center!important;
     }
-		.green {
-		  color: #2ECC40;
-		}
-		.red {
-		  color: red;
-		}
+    .green{
+        color: #2ecc40;
+    }
+    .red {
+        color: red;
+    }
+    .highcharts-credits, .highcharts-button-symbol{
+        display: none;
+    }
 </style>
 <title></title>
 </head>

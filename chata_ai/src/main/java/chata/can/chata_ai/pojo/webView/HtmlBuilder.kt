@@ -86,6 +86,16 @@ object HtmlBuilder
 
 			if (configAllow)
 			{
+				if (aColumn.size > 1)
+				{
+					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[1], aCatX, aCatY)
+					dataForWebView.dataChartBi = aDataTable.toString()
+
+					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
+					queryBase.isTri = true
+					dataForWebView.isBi = false
+				}
+
 				if (queryBase.configActions == 2)
 				{
 					val aDataXAxis = ArrayList<String>()
@@ -103,6 +113,7 @@ object HtmlBuilder
 					dataForWebView.catYS = "[{name:\"${title1.toCapitalColumn()}\", data:$aDataXAxis}," +
 						"{name:\"${title2.toCapitalColumn()}\", data:$aDataYAxis}]"
 					queryBase.isContrast = true
+					queryBase.isTri = true
 					dataForWebView.isBi = false
 				}
 			}
