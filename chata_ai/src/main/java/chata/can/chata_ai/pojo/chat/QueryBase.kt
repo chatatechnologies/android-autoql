@@ -19,6 +19,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	var displayType = ""
 	private var interpretation = ""
 
+	val antiqueRows = ArrayList<String>()
 	val aRows = ArrayList<ArrayList<String>>()
 	var aColumn = ArrayList<ColumnQuery>()
 

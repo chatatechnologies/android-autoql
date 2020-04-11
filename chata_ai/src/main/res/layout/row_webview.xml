@@ -36,7 +36,7 @@
 		android:visibility="visible">
 		<ImageView
 			android:contentDescription="@null"
-			android:id="@+id/ivColumn"
+			android:id="@+id/ivBar"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
 			android:src="@drawable/ic_column"
@@ -44,7 +44,7 @@
 			android:visibility="gone"/>
 		<ImageView
 			android:contentDescription="@null"
-			android:id="@+id/ivBar"
+			android:id="@+id/ivColumn"
 			android:layout_height="40dp"
 			android:layout_width="40dp"
 			android:src="@drawable/ic_bar"

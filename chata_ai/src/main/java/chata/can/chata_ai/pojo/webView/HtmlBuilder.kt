@@ -60,9 +60,14 @@ object HtmlBuilder
 			}
 		}
 		//endregion
+		var textDatePivot = ""
 		val configAllow = aColumn.size == 3
 
-		//with categories()
+		if (queryBase.configActions == 1 || queryBase.configActions == 1)
+		{
+
+		}
+
 		with(Categories)
 		{
 			val aCatX = buildCategoryByPosition(

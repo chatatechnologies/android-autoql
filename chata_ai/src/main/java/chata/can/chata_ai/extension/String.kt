@@ -3,10 +3,12 @@ package chata.can.chata_ai.extension
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
 //fun String.toIntNotNull() = this.toIntOrNull() ?: 0
+fun String.toLongNotNull() = this.toLongOrNull() ?: 0L
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
@@ -97,4 +99,16 @@ fun String.toCapitalColumn(): String
 		return sb.toString()
 	}
 	else ""
+}
+
+val aMonths = arrayListOf("January", "February", "March", "April", "May", "June",
+	"July", "August", "September", "October", "November", "December")
+fun String.toConvertMonth(): String
+{
+	val aMonthsLocal = DateFormatSymbols(Locale.US).months
+	val index = aMonthsLocal.indexOf(this)
+	return if (index != -1)
+		aMonths[index]
+	else
+		this
 }
