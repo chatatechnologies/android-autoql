@@ -112,8 +112,7 @@ object HtmlMarked
 	var drillX = [];
 	var drillY = [];
 	
-	var currentChart = "";
-    var colorAxis = "#5D5D5D";
+	var colorAxis = "#5D5D5D";
     var colorFill = "#ffffff";
 var color1 = "#26A7E9";
               var actual = "";
@@ -337,6 +336,7 @@ var color1 = "#26A7E9";
         }
     }
     function biType(type,inverted){
+      
         chart.destroy()
                 chart = Highcharts.chart('container', defaultChart);
         chart.update({
@@ -516,24 +516,18 @@ startScript();
 function startScript() {
   ${'$'}('.container, #idTableBasic, table').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
     chart = Highcharts.chart('container', defaultChart);
-    //changeGraphic('column');
+    changeGraphic('column');
 }
 hideAll();
 function hideAll(){
-    currentChart = 'idTableBasic';
     ${'$'}('.container, #container, #idTableBasic, table').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
     ${'$'}( "#idTableDataPivot, #idTableDatePivot, #container" ).hide();
 }
-function hideTables(idShow, selectType) {
-    if (currentChart != idShow) {
-        ${'$'}( "#" + currentChart ).hide("slow");
-        currentChart = idShow;
-    }
-    ${'$'}( "#" + idShow ).show("slow");
+function hideTables(idHide, idShow, selectType) {
+    ${'$'}( idHide ).hide("slow");
+    ${'$'}( idShow ).show("slow");
     ${'$'}('.container, #container').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
-    if (idShow != "idTableBasic" || idShow != "idTableDataPivot") {
-        typeChart(selectType);
-    }
+    changeGraphic(selectType);
 }
 </script>
 </body>

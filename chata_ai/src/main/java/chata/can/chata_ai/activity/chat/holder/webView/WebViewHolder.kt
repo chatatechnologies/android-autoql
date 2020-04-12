@@ -197,6 +197,7 @@ class WebViewHolder(
 		ivDelete?.setColorFilter()
 	}
 
+	private var lastId = "#idTableBasic";
 	private fun callAction(iv: ImageView?)
 	{
 		queryBase?.let {
@@ -205,52 +206,81 @@ class WebViewHolder(
 				val factorHeight = 180
 				val pData = when(iv.id)
 				{
-					//R.id.ivTable -> Pair("nativeTable", queryBase.rowsTable)
-					R.id.ivTable -> Pair("'idTableBasic', ''", queryBase.rowsTable)
+					R.id.ivTable ->
+					{
+						val idHide = lastId
+						lastId = "#idTableBasic"
+						Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
+					}
 					R.id.ivBar ->
 					{
+						val idHide = lastId
+						lastId = "#container"
 						if (queryBase.isContrast)
-							Pair("'container', 'contrast_bar'", factorHeight)
+							Pair("$idHide', '#container', 'contrast_bar'", factorHeight)
 						else
 						{
 							if (queryBase.isTri)
 							{
-								Pair("'container', 'stacked_bar'", factorHeight)
+								Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
 							}
 							else
 							{
-								Pair("'container', 'bar'", factorHeight)
+								Pair("'$idHide', '#container', 'bar'", factorHeight)
 							}
 						}
 					}
 					R.id.ivColumn ->
 					{
+						val idHide = lastId
+						lastId = "#container"
 						if (queryBase.isContrast)
-							Pair("'container', 'contrast_column'", factorHeight)
+							Pair("'$idHide', '#container', 'contrast_column'", factorHeight)
 						else
 						{
 							if (queryBase.isTri)
 							{
-								Pair("'container', 'stacked_column'", factorHeight)
+								Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
 							}
 							else
 							{
-								Pair("'container', 'column'", factorHeight)
+								Pair("'$idHide', '#container', 'column'", factorHeight)
 							}
 						}
 					}
 					R.id.ivLine ->
 					{
+						val idHide = lastId
+						lastId = "#container"
 						if (queryBase.isContrast)
-							Pair("'container', 'contrast_line'", factorHeight)
+							Pair("'$idHide', '#container', 'contrast_line'", factorHeight)
 						else
-							Pair("'container', 'line'", factorHeight)
+							Pair("'$idHide', '#container', 'line'", factorHeight)
 					}
-					R.id.ivPie -> Pair("'container', 'pie'", factorHeight)
-					R.id.ivBubble -> Pair("'container', 'bubble'", factorHeight)
-					R.id.ivHeat -> Pair("'container', 'heatmap'", factorHeight)
-					//R.id.ivPivot -> Pair("pivotTable", queryBase.rowsPivot)
-					R.id.ivPivot -> Pair("'idTableDataPivot', ''", queryBase.rowsPivot)
+					R.id.ivPie ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'pie'", factorHeight)
+					}
+					R.id.ivBubble ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'bubble'", factorHeight)
+					}
+					R.id.ivHeat ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'heatmap'", factorHeight)
+					}
+					R.id.ivPivot ->
+					{
+						val idHide = lastId
+						lastId = "#idTableDataPivot"
+						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
+					}
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
