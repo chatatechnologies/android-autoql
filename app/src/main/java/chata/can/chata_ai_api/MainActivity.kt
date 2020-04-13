@@ -95,46 +95,14 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			}
 			else
 			{
-				//isEnableDrawer(true)
 				initBubble()
 			}
 		}
 		else
 		{
-			//isEnableDrawer(true)
 			initBubble()
 		}
-		initViews()
-		setColorOptions()
-		setListener()
 
-		//RequestBuilder.executeRequest(ConstantRequest.Method.GET, "https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
-		//RequestBuilder.executeRequest(ConstantRequest.Method.POST, "https://backend.chata.ai/oauth/token", params = params)
-
-		if (BuildConfig.DEBUG)
-		{
-			val projectId = "qbo-1"
-			tvProjectId?.setText(projectId)
-			val domainUrl = "https://qbo-staging.chata.io"
-			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
-			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
-			tvUserId?.setText(userId)
-			val username = "admin"
-			tvUsername?.setText(username)
-			val password = "admin123"
-			tvPassword?.setText(password)
-
-			val customerMessage = "Carlos"
-			etCustomerMessage?.text = customerMessage
-			val title = "Data Messenger"
-			etTitle?.setText(title)
-			val maxMessage = 2
-			etMaxNumberMessage?.setText("$maxMessage")
-		}
-
-		RequestBuilder.initVolleyRequest(this)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -537,6 +505,38 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	private fun initBubble()
 	{
 		bubbleHandle = BubbleHandle(this)
+
+		initViews()
+		setColorOptions()
+		setListener()
+
+		//RequestBuilder.executeRequest(ConstantRequest.Method.GET, "https://backend.chata.ai/api/v1/autocomplete?q=co&projectid=1&user_id=demo&customer_id=demo")
+		//RequestBuilder.executeRequest(ConstantRequest.Method.POST, "https://backend.chata.ai/oauth/token", params = params)
+
+		if (BuildConfig.DEBUG)
+		{
+			val projectId = "qbo-1"
+			tvProjectId?.setText(projectId)
+			val domainUrl = "https://qbo-staging.chata.io"
+			tvDomainUrl?.setText(domainUrl)
+			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
+			tvApiKey?.setText(apiKey)
+			val userId = "carlos@rinro.com.mx"
+			tvUserId?.setText(userId)
+			val username = "admin"
+			tvUsername?.setText(username)
+			val password = "admin123"
+			tvPassword?.setText(password)
+
+			val customerMessage = "Carlos"
+			etCustomerMessage?.text = customerMessage
+			val title = "Data Messenger"
+			etTitle?.setText(title)
+			val maxMessage = 2
+			etMaxNumberMessage?.setText("$maxMessage")
+		}
+
+		RequestBuilder.initVolleyRequest(this)
 	}
 
 	/**
