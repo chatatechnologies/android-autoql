@@ -217,7 +217,7 @@ class WebViewHolder(
 						val idHide = lastId
 						lastId = "#container"
 						if (queryBase.isContrast)
-							Pair("$idHide', '#container', 'contrast_bar'", factorHeight)
+							Pair("'$idHide', '#container', 'contrast_bar'", factorHeight)
 						else
 						{
 							if (queryBase.isTri)
