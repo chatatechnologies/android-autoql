@@ -40,6 +40,7 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 ```
 
 # Queries
+- Count invoices: simpleText
 - All invoices: <b>table</b>
 - All invoices to Billy Bob: <b>table</b>
 - All sales: <b>table</b>

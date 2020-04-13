@@ -85,18 +85,23 @@ open class BaseHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase): String
 	{
-		if (simpleQuery.isSimpleText)
-		{
-			rlDelete?.visibility = View.VISIBLE
-			return if (simpleQuery.contentHTML.isNotEmpty())
+		return when {
+			simpleQuery.isSimpleText ->
 			{
-				simpleQuery.isLoadingHTML = false
-				simpleQuery.contentHTML
+				rlDelete?.visibility = View.VISIBLE
+				when
+				{
+					simpleQuery.contentHTML.isNotEmpty() ->
+					{
+						simpleQuery.isLoadingHTML = false
+						simpleQuery.contentHTML
+					}
+					else -> simpleQuery.simpleText
+				}
 			}
-			else
-				simpleQuery.simpleText
+			simpleQuery.aRows.size == 0 -> ""
+			else -> return "display type not recognized: ${simpleQuery.displayType}"
 		}
-		return "display type not recognized: ${simpleQuery.displayType}"
 	}
 
 	private fun backgroundGrayWhite(view: View): GradientDrawable

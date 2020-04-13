@@ -119,7 +119,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 				isLoadingHTML = true
 				when
 				{
-					isSimpleText || displayType == "suggestion" ->
+					aRows.size == 0 || isSimpleText || displayType == "suggestion" ->
 					{
 						aColumn.firstOrNull()?.let {
 							column ->
