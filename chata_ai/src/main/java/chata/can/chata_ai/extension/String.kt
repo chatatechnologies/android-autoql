@@ -56,7 +56,7 @@ fun String.formatWithColumn(
 		}
 		TypeDataQuery.PERCENT ->
 		{
-			val double = toDoubleNotNull()
+			val double = toDoubleNotNull() * 100
 			//region check later
 			val classColor = when
 			{
