@@ -371,6 +371,7 @@ var color1 = "#26A7E9";
                     chart: {
                         type: typeFinal
                     },
+                    
                     xAxis: {
                          gridLineWidth: 0,
                          categories: categoriesX,
@@ -378,6 +379,7 @@ var color1 = "#26A7E9";
                            rotation:90,
                            style: xAxisStyle
                          },
+                         
                          title: {
                            text: xAxis
                          }

@@ -2,6 +2,7 @@ package chata.can.chata_ai.activity.chat.holder.webView
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
+import android.os.Handler
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -284,7 +285,12 @@ class WebViewHolder(
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
-				wbQuery?.loadUrl("javascript:hideTables(${pData.first})")
+				wbQuery?.run {
+					requestLayout()
+					Handler().postDelayed({
+						loadUrl("javascript:hideTables(${pData.first});")
+					}, 500)
+				}
 				hideShowAction(iv)
 			}
 		}
