@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 //fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 fun String.toLongNotNull() = this.toLongOrNull() ?: 0L
@@ -99,6 +100,14 @@ fun String.toCapitalColumn(): String
 		return sb.toString()
 	}
 	else ""
+}
+
+fun String.isColor(): Pair<String, Boolean>
+{
+	val newColor = toLowerCase(Locale.US)
+	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
+
+	return Pair(newColor, colorPattern.matcher(newColor).matches())
 }
 
 val aMonths = arrayListOf("January", "February", "March", "April", "May", "June",

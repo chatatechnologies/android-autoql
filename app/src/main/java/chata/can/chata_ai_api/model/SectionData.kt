@@ -23,11 +23,11 @@ object SectionData
 			add(Segment(R.id.tvRight,"Right", true))
 		}
 
-		aColors.add(Color("#355C7D"))
-		aColors.add(Color("#6C5B7B"))
-		aColors.add(Color("#C06C84"))
-		aColors.add(Color("#F67280"))
-		aColors.add(Color("#F8B195"))
+		aColors.add(Color("0","#355C7D"))
+		aColors.add(Color("1","#6C5B7B"))
+		aColors.add(Color("2", "#C06C84"))
+		aColors.add(Color("3", "#F67280"))
+		aColors.add(Color("4", "#F8B195"))
 	}
 
 	val mData = linkedMapOf(
@@ -66,10 +66,15 @@ object SectionData
 			),
 		"Chat Colors" to
 			arrayListOf(
-				DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors),
+				//DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors),
+				DemoParameter("0", TypeParameter.COLOR, "#355C7D"),
+				DemoParameter("1", TypeParameter.COLOR, "#6C5B7B"),
+				DemoParameter("2", TypeParameter.COLOR, "#C06C84"),
+				DemoParameter("3", TypeParameter.COLOR, "#F67280"),
+				DemoParameter("4", TypeParameter.COLOR, "#F8B195"),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
-				DemoParameter("Light Theme Accent Color", TypeParameter.INPUT, "#28A8E0", idView = R.id.etLightThemeColor),
-				DemoParameter("Dark Theme Accent Color", TypeParameter.INPUT, "#525252", idView = R.id.etDarkThemeColor)
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor)
 			),
 		"More Configurations" to
 			arrayListOf(

@@ -19,6 +19,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.DataMessenger
@@ -30,6 +31,7 @@ import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 /**
  * @author Carlos Buruel
@@ -467,38 +469,25 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 					TypeParameter.COLOR ->
 					{
-						val subView = LinearLayout(this)
-						if (demoParam.colors.isNotEmpty())
-						{
-							with(subView)
+						//val subView = LinearLayout(this)
+						EditText(this@MainActivity).apply {
+							val valueColor = demoParam.value
+							try
 							{
-								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								setBackgroundColor(Color.parseColor(valueColor))
+							}
+							finally
+							{
+								layoutParams = LinearLayout.LayoutParams(-1, 120)
 								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-								orientation = LinearLayout.VERTICAL
-
-								for (color in demoParam.colors)
-								{
-									val tv = TextView(this@MainActivity).apply {
-										val valueColor = color.value
-										try
-										{
-											setBackgroundColor(Color.parseColor(valueColor))
-										}
-										finally
-										{
-											layoutParams = LinearLayout.LayoutParams(-1, 90)
-											(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-											gravity = Gravity.CENTER
-											setTextColor(Color.WHITE)
-											bubbleHandle.addChartColor(valueColor)
-											text = valueColor
-										}
-									}
-									addView(tv)
-								}
+								gravity = Gravity.CENTER
+								setTextColor(Color.WHITE)
+								bubbleHandle.addChartColor(valueColor)
+								id = demoParam.idView
+								setText(valueColor)
 							}
 						}
-						subView
+						//subView
 					}
 				}
 
@@ -700,12 +689,36 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		findViewById<EditText>(R.id.etLightThemeColor)?.apply {
 			setOnTextChanged {
-				bubbleHandle.setLightThemeColor(it)
+				try
+				{
+					val pData = it.isColor()
+					if (pData.second)
+					{
+						this.setBackgroundColor(Color.parseColor(pData.first))
+						bubbleHandle.setLightThemeColor(it)
+					}
+				}
+				catch (ex: Exception)
+				{
+					ex.toString()
+				}
 			}
 		}
 		findViewById<EditText>(R.id.etDarkThemeColor)?.apply {
 			setOnTextChanged {
-				bubbleHandle.setDarkThemeColor(it)
+				try
+				{
+					val pData = it.isColor()
+					if (pData.second)
+					{
+						this.setBackgroundColor(Color.parseColor(pData.first))
+						bubbleHandle.setDarkThemeColor(it)
+					}
+				}
+				catch (ex: Exception)
+				{
+					ex.toString()
+				}
 			}
 		}
 		etMaxNumberMessage = findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {

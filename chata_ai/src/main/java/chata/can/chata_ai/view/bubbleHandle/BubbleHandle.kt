@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatActivity
+import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
@@ -112,7 +113,7 @@ class BubbleHandle(private val context: Context)
 
 	fun setLightThemeColor(lightThemeColor: String): Boolean
 	{
-		val pData = isColor(lightThemeColor)
+		val pData = lightThemeColor.isColor()
 		if (pData.second)
 		{
 			this.lightThemeColor = pData.first
@@ -123,7 +124,7 @@ class BubbleHandle(private val context: Context)
 
 	fun setDarkThemeColor(darkThemeColor: String): Boolean
 	{
-		val pData = isColor(darkThemeColor)
+		val pData = darkThemeColor.isColor()
 		if (pData.second)
 		{
 			this.darkThemeColor = pData.first
@@ -169,20 +170,12 @@ class BubbleHandle(private val context: Context)
 
 	fun addChartColor(valueColor: String): Boolean
 	{
-		val pData = isColor(valueColor)
+		val pData = valueColor.isColor()
 		if (pData.second)
 		{
 			aChartColors.add(pData.first)
 		}
 		return pData.second
-	}
-
-	private fun isColor(valueColor: String): Pair<String, Boolean>
-	{
-		val newColor = valueColor.toLowerCase(Locale.US)
-		val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
-
-		return Pair(newColor, colorPattern.matcher(newColor).matches())
 	}
 
 	private fun initBubbleLayout()
