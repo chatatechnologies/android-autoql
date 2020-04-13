@@ -96,7 +96,7 @@ class ChatServicePresenter(
 							}
 							else
 							{
-								queryBase.message = "HOLA"
+								queryBase.message = "${queryBase.displayType} not supported"
 								TypeChatView.LEFT_VIEW
 							}
 						}

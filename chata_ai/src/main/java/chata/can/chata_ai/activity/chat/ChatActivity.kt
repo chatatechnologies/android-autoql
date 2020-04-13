@@ -198,7 +198,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = ""
+				val urlDemo = "All invoices last 4 types"
 				setText(urlDemo)
 			}
 		}
