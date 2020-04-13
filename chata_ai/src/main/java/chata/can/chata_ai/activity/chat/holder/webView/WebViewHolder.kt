@@ -46,6 +46,7 @@ class WebViewHolder(
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
+	private var lastId = "#idTableBasic"
 
 	//region paint views
 	override fun onPaint()
@@ -197,7 +198,6 @@ class WebViewHolder(
 		ivDelete?.setColorFilter()
 	}
 
-	private var lastId = "#idTableBasic";
 	private fun callAction(iv: ImageView?)
 	{
 		queryBase?.let {

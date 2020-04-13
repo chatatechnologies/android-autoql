@@ -1,5 +1,5 @@
 # Documentation
-    https://chata.readme.io/docs/react-components
+    https://chata.readme.io/docs/react-data-messenger?
 
 # Website demo
     https://github.com/chatatechnologies/react-autoql

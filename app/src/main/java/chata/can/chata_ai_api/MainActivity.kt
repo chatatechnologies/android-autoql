@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
@@ -246,11 +247,18 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun changeStateAuthenticate()
 	{
-		btnAuthenticate?.let {
-			it.text = if (isAuthenticate)
-				"Log Out"
-			else "Authenticate"
+		val pair = if (isAuthenticate)
+		{
+			Pair("Log Out", "Sucessfully logged out")
 		}
+		else Pair("Authenticate", "Login Successful")
+
+		btnAuthenticate?.text = pair.first
+		AlertDialog.Builder(this)
+			.setCancelable(false)
+			.setMessage(pair.second)
+			.setNeutralButton("Ok", null)
+			.show()
 	}
 
 	private fun setColorOptions()
