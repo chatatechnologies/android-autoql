@@ -1,5 +1,6 @@
 package chata.can.chata_ai.extension
 
+import android.graphics.PorterDuff
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -20,8 +21,7 @@ fun EditText.setOnTextChanged(listener: (String) -> Unit)
 
 fun ImageView.setColorFilter()
 {
-	setColorFilter(ContextCompat.getColor(
-		context,
-		ThemeColor.currentColor.drawerColorPrimary
-	))
+	setColorFilter(
+		ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary),
+		PorterDuff.Mode.SRC_ATOP)
 }

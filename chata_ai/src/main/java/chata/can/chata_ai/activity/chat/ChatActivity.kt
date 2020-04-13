@@ -198,7 +198,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "budget vs actuals by account by month this year"
+				val urlDemo = "total overdue invoices by customer by month in a heat map"
 				setText(urlDemo)
 			}
 		}
