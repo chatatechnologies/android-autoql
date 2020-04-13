@@ -79,15 +79,21 @@ object HtmlMarked
         padding: 3px;
         text-align: center!important;
     }
+		text {
+      fill: $textColor !important;
+    }
     .green{
         color: #2ecc40;
     }
     .red {
         color: red;
     }
-    .highcharts-credits, .highcharts-button-symbol{
+    .highcharts-credits, .highcharts-button-symbol, .highcharts-button-box, .highcharts-exporting-group {
         display: none;
     }
+		${if (!isBi) ".highcharts-background {\n" +
+				"      fill: $backgroundColor !important;\n" +
+				"    }" else ""}
 </style>
 <title></title>
 </head>
@@ -112,9 +118,9 @@ object HtmlMarked
 	var drillX = [];
 	var drillY = [];
 	
-	var colorAxis = "#5D5D5D";
-    var colorFill = "#ffffff";
-var color1 = "#26A7E9";
+	var colorAxis = "$textColor";
+  var colorFill = "$backgroundColor";
+	var color1 = "#26A7E9";
               var actual = "";
       var positions = [0,0];
       var colors = ["#26A7E9", "#A5CD39", "#DD6A6A", "#FFA700", "#00C1B2"];
@@ -371,6 +377,8 @@ var color1 = "#26A7E9";
                     chart: {
                         type: typeFinal
                     },
+										title: subTitle,
+                    subTitle: subTitle,
                     xAxis: {
                          gridLineWidth: 0,
                          categories: categoriesX,
