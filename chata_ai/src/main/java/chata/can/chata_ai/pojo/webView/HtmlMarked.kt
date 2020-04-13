@@ -378,7 +378,6 @@ var color1 = "#26A7E9";
                            rotation:90,
                            style: xAxisStyle
                          },
-                         
                          title: {
                            text: xAxis
                          }

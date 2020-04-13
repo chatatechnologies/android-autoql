@@ -99,7 +99,7 @@ open class BaseHolder(
 					else -> simpleQuery.simpleText
 				}
 			}
-			simpleQuery.aRows.size == 0 -> ""
+			simpleQuery.aRows.size == 0 -> "Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
 			else -> return "display type not recognized: ${simpleQuery.displayType}"
 		}
 	}
