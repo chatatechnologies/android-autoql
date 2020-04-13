@@ -483,6 +483,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	override fun onDestroy()
 	{
 		super.onDestroy()
+		BubbleHandle.instance.isVisible = true
 		if (clearOnClose)
 		{
 			SinglentonDrawer.mModel.clearData()

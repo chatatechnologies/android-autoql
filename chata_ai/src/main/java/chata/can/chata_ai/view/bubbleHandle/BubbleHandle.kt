@@ -37,7 +37,13 @@ class BubbleHandle(private val context: Context)
 	private lateinit var parentCircle: RelativeLayout
 	private lateinit var circleImageView: CircleImageView
 
+	init {
+		instance = this
+	}
+
 	companion object {
+		lateinit var instance: BubbleHandle
+
 		const val THEME_LIGHT = true
 		const val THEME_DARK = false
 
@@ -220,6 +226,7 @@ class BubbleHandle(private val context: Context)
 		if (!isOpenChat)
 		{
 			isOpenChat = true
+			isVisible = false
 			val intent = Intent(context, ChatActivity::class.java)
 			createIntentData(intent)
 			context.startActivity(intent)

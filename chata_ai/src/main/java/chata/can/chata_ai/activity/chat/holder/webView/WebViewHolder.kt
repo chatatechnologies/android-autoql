@@ -289,7 +289,7 @@ class WebViewHolder(
 					requestLayout()
 					Handler().postDelayed({
 						loadUrl("javascript:hideTables(${pData.first});")
-					}, 500)
+					}, 200)
 				}
 				hideShowAction(iv)
 			}

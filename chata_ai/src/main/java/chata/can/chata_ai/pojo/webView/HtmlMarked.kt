@@ -371,15 +371,13 @@ var color1 = "#26A7E9";
                     chart: {
                         type: typeFinal
                     },
-                    
                     xAxis: {
                          gridLineWidth: 0,
                          categories: categoriesX,
                          labels: {
                            rotation:90,
                            style: xAxisStyle
-                         },
-                         
+                         },                         
                          title: {
                            text: xAxis
                          }
