@@ -366,14 +366,11 @@ var color1 = "#26A7E9";
     }
     function biType3(type,inverted){
         typeFinal = type.replace("contrast_", "");
-        console.log(dataChartLine)
-        chart.destroy()
-                chart = Highcharts.chart('container', defaultChart);
-        chart.update({
+        chart.destroy();
+                chart = Highcharts.chart('container', {
                     chart: {
                         type: typeFinal
                     },
-                    
                     xAxis: {
                          gridLineWidth: 0,
                          categories: categoriesX,
@@ -386,7 +383,8 @@ var color1 = "#26A7E9";
                            text: xAxis
                          }
                        },
-                    series: dataChartLine
+                    series: dataChartLine,
+                    colors: [color1]
                 });
     }
             function triType(type){
