@@ -124,8 +124,8 @@ object HtmlMarked
 	var categoriesX = $catX;
 	var categoriesY = ${if (isBi) catYS else catY};
 	
-	var drillX = [];
-	var drillY = [];
+	var drillX = ${dataForWebView.drillX};
+	var drillY = ${dataForWebView.drillY};
 	
 	var colorAxis = "$textColor";
   var colorFill = "$backgroundColor";
