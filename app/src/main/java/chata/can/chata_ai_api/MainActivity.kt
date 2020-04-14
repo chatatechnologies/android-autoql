@@ -19,6 +19,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
@@ -703,11 +704,36 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.clearOnClose = isChecked
 			}
 		}
+
 		etTitle = findViewById<EditText>(R.id.etTitle)?.apply {
 			setOnTextChanged {
 				bubbleHandle.title = it
 			}
 		}
+		//region llColors
+		findViewById<LinearLayout>(R.id.llColors)?.let {
+			for (view in it.children)
+			{
+				if (view is EditText)
+				{
+					view.setOnTextChanged {
+						subColor ->
+						try
+						{
+							val pData = subColor.isColor()
+							if (pData.second)
+							{
+								view.setBackgroundColor(Color.parseColor(pData.first))
+								bubbleHandle.changeColor(view.tag?.toString()?.toInt() ?: 0, pData.first)
+							}
+						}
+						catch (ex: Exception) {}
+						subColor.toString()
+					}
+				}
+			}
+		}
+		//endregion
 
 		findViewById<EditText>(R.id.etAddColor)?.apply {
 			setOnEditorActionListener {
@@ -729,10 +755,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						bubbleHandle.setLightThemeColor(it)
 					}
 				}
-				catch (ex: Exception)
-				{
-					ex.toString()
-				}
+				catch (ex: Exception) {}
 			}
 		}
 		findViewById<EditText>(R.id.etDarkThemeColor)?.apply {
@@ -746,10 +769,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						bubbleHandle.setDarkThemeColor(it)
 					}
 				}
-				catch (ex: Exception)
-				{
-					ex.toString()
-				}
+				catch (ex: Exception) {}
 			}
 		}
 		etMaxNumberMessage = findViewById<EditText>(R.id.etMaxNumberMessage)?.apply {

@@ -168,6 +168,11 @@ class BubbleHandle(private val context: Context)
 		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
 	}
 
+	fun changeColor(indexColor: Int, valueColor: String)
+	{
+		aChartColors[indexColor] = valueColor
+	}
+
 	fun addChartColor(valueColor: String): Boolean
 	{
 		val pData = valueColor.isColor()
