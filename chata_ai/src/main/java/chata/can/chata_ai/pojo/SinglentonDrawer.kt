@@ -20,6 +20,9 @@ object SinglentonDrawer
 	//endregion
 
 	//region colors
+	var themeColor = "light"
+	var lightThemeColor = "#28A8E0"
+	var darkThemeColor = "#525252"
 	val aChartColors = ArrayList<String>()
 	//endregion
 

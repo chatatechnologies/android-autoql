@@ -107,16 +107,12 @@ class BubbleHandle(private val context: Context)
 		"MMM YYYY",
 		"MMM DD, YYYY")
 
-	private var lightThemeColor = "#28A8E0"
-	private var darkThemeColor = "#525252"
-
 	fun setLightThemeColor(lightThemeColor: String): Boolean
 	{
 		val pData = lightThemeColor.isColor()
 		if (pData.second)
 		{
-			this.lightThemeColor = pData.first
-			themeConfig.accentColor = this.lightThemeColor
+			SinglentonDrawer.lightThemeColor = pData.first
 		}
 		return pData.second
 	}
@@ -126,21 +122,21 @@ class BubbleHandle(private val context: Context)
 		val pData = darkThemeColor.isColor()
 		if (pData.second)
 		{
-			this.darkThemeColor = pData.first
-			themeConfig.accentColor = this.darkThemeColor
+			SinglentonDrawer.darkThemeColor = pData.first
 		}
 		return pData.second
 	}
 
 	private var themeConfig = ThemeConfig(
-		"light", lightThemeColor, "#sans-serif", aChartColors)
+		"light", SinglentonDrawer.lightThemeColor, "#sans-serif", aChartColors)
 
 	private var aThemePossible = arrayListOf("light", "dark")
 	var theme: String = "light"
 	set(value) {
 		if (theme != value && value in aThemePossible)
 		{
-			themeConfig.theme = value
+			//themeConfig.theme = value
+			SinglentonDrawer.themeColor = value
 			val themeColor = when(value)
 			{
 				"light" -> ThemeColor.lightColor

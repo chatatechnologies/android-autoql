@@ -3,6 +3,9 @@ package chata.can.chata_ai.pojo.webView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
+import chata.can.chata_ai.pojo.SinglentonDrawer.darkThemeColor
+import chata.can.chata_ai.pojo.SinglentonDrawer.lightThemeColor
+import chata.can.chata_ai.pojo.SinglentonDrawer.themeColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 object HtmlMarked
@@ -14,6 +17,7 @@ object HtmlMarked
 		var backgroundColor = "#FFFFFF"
 		var textColor = "#FFFFFF"
 
+		var color1 = "#355C7d"
 		with(ThemeColor.currentColor)
 		{
 			PropertyChatActivity.context?.let {
@@ -26,7 +30,8 @@ object HtmlMarked
 					drawerColorPrimary) and 0x00ffffff)
 			}
 		}
-		//var colors = ["#26A7E9", "#A5CD39", "#DD6A6A", "#FFA700", "#00C1B2"];
+		color1 = if (themeColor == "light") lightThemeColor else darkThemeColor
+
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
@@ -125,7 +130,7 @@ object HtmlMarked
 	
 	var colorAxis = "$textColor";
   var colorFill = "$backgroundColor";
-	var color1 = "#26A7E9";
+	var color1 = "$color1";
 	var actual = "";
 	var positions = [0,0];
 	var colors = $sColors;
