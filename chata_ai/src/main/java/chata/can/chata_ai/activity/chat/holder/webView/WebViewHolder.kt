@@ -316,6 +316,7 @@ class WebViewHolder(
 			requestLayout()
 
 			settings.javaScriptEnabled = true
+			addJavascriptInterface(JavaScriptInterface(), "Android")
 			loadDataWithBaseURL(
 				null,
 				data,

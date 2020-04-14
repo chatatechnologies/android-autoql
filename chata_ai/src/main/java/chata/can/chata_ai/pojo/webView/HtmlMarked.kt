@@ -17,7 +17,6 @@ object HtmlMarked
 		var backgroundColor = "#FFFFFF"
 		var textColor = "#FFFFFF"
 
-		var color1 = "#355C7d"
 		with(ThemeColor.currentColor)
 		{
 			PropertyChatActivity.context?.let {
@@ -30,7 +29,7 @@ object HtmlMarked
 					drawerColorPrimary) and 0x00ffffff)
 			}
 		}
-		color1 = if (themeColor == "light") lightThemeColor else darkThemeColor
+		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
 
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
@@ -203,9 +202,9 @@ object HtmlMarked
           style: styleTooltip,
           formatter: function () {
             if (dataChartBi.length > 0){
-                 //drillDown(drillX[this.point.x])
+                 drillDown(drillX[this.point.x])
             } else{
-                 //drillDown(drillX[this.point.y]);
+                 drillDown(drillX[this.point.y]);
             }
             return "";
           }
@@ -342,7 +341,7 @@ object HtmlMarked
                         backgroundColor: colorGhost,
                         style: styleTooltip,
                         formatter: function () {
-                            //drillDown(drillX[this.point.x])
+                            drillDown(drillX[this.point.x])
                                  
                             return "";
                         }
@@ -456,7 +455,7 @@ object HtmlMarked
                         backgroundColor: colorGhost,
                          style: styleTooltip,
                         formatter: function () {
-                             //drillDown(""+categoriesX[this.point.x]+"_"+drillY[this.point.y])
+                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[this.point.y])
                             return "";
                         }
                     },
@@ -514,7 +513,7 @@ object HtmlMarked
                          style: styleTooltip,
                          formatter: function () {
                              
-                              //drillDown(""+categoriesX[this.point.x]+"_"+this.series.name)
+                              drillDown(""+categoriesX[this.point.x]+"_"+this.series.name)
                            return "";
                          }
                        },
@@ -543,6 +542,16 @@ function hideTables(idHide, idShow, selectType) {
     ${'$'}( idShow ).show("slow");
     ${'$'}('.container, #container').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
     changeGraphic(selectType);
+}
+function drillDown(position)
+{
+    try
+    {
+        Android.boundMethod(position);
+    } catch(err)
+    {
+        console.log('The native context does not exist yet: '+position);
+    };
 }
 </script>
 </body>
