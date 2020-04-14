@@ -19,6 +19,10 @@ object SinglentonDrawer
 	var dayMonthYearFormat = "MMM DD, YYYY"
 	//endregion
 
+	//region colors
+	val aChartColors = ArrayList<String>()
+	//endregion
+
 	//region for autoQLConfig
 	var mIsEnableAutocomplete = true
 	var mIsEnableQuery = true

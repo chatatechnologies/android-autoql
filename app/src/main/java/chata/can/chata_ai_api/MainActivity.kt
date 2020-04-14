@@ -728,7 +728,6 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 							}
 						}
 						catch (ex: Exception) {}
-						subColor.toString()
 					}
 				}
 			}

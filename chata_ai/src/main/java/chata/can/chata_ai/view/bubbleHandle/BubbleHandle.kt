@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.autoQL.AutoQLConfig
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.color.ThemeConfig
@@ -27,8 +28,6 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.*
-import java.util.regex.Pattern
 
 class BubbleHandle(private val context: Context)
 {
@@ -133,11 +132,10 @@ class BubbleHandle(private val context: Context)
 		return pData.second
 	}
 
-	private val aChartColors = ArrayList<String>()
-	var themeConfig = ThemeConfig(
+	private var themeConfig = ThemeConfig(
 		"light", lightThemeColor, "#sans-serif", aChartColors)
 
-	var aThemePossible = arrayListOf("light", "dark")
+	private var aThemePossible = arrayListOf("light", "dark")
 	var theme: String = "light"
 	set(value) {
 		if (theme != value && value in aThemePossible)

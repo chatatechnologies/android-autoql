@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.webView
 
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 object HtmlMarked
@@ -24,6 +25,10 @@ object HtmlMarked
 					it,
 					drawerColorPrimary) and 0x00ffffff)
 			}
+		}
+		//var colors = ["#26A7E9", "#A5CD39", "#DD6A6A", "#FFA700", "#00C1B2"];
+		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
+			"\"$it\""
 		}
 
 		return with(dataForWebView)
@@ -121,22 +126,22 @@ object HtmlMarked
 	var colorAxis = "$textColor";
   var colorFill = "$backgroundColor";
 	var color1 = "#26A7E9";
-              var actual = "";
-      var positions = [0,0];
-      var colors = ["#26A7E9", "#A5CD39", "#DD6A6A", "#FFA700", "#00C1B2"];
-      var chart;
-      var colorGhost = 'rgba(0,0,0,0)';
-      var styleTooltip = {color: '#fff', display: 'none'}
-      var subTitle = { text:'' }
-      var yAxisTitle = {
-        title: {
-            text: yAxis,
-            style: {
-                    color: colorAxis
-            }
-        }
-      }
-    var xAxisStyle = { color: colorAxis };
+	var actual = "";
+	var positions = [0,0];
+	var colors = $sColors;
+	var chart;
+	var colorGhost = 'rgba(0,0,0,0)';
+	var styleTooltip = {color: '#fff', display: 'none'}
+	var subTitle = { text:'' }
+	var yAxisTitle = {
+		title: {
+			text: yAxis,
+			style: {
+				color: colorAxis
+			}
+		}
+	}
+	var xAxisStyle = { color: colorAxis };
     var defaultChart =
       {
         chart: {
