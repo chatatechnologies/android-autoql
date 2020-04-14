@@ -80,6 +80,12 @@ object HtmlBuilder
 			val aCatYS = buildCategoryByPosition(
 				Category(aRows, aColumn[1], 1,
 					true, hasQuotes = true, allowRepeat = !configAllow))
+			dataForWebView.drillX = buildCategoryByPosition(
+				Category(aRows, aColumn[0], 0,
+					false, hasQuotes = true, allowRepeat = true)).toString()
+			dataForWebView.drillY = buildCategoryByPosition(
+				Category(aRows, aColumn[1], 1,
+					false, hasQuotes = true, allowRepeat = true)).toString()
 
 			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
