@@ -31,7 +31,6 @@ import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 /**
  * @author Carlos Buruel
@@ -469,25 +468,56 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					}
 					TypeParameter.COLOR ->
 					{
-						//val subView = LinearLayout(this)
-						EditText(this@MainActivity).apply {
-							val valueColor = demoParam.value
-							try
+						if (demoParam.colors.size > 0)
+						{
+							val subView = LinearLayout(this)
+							subView.layoutParams = LinearLayout.LayoutParams(-1, -2)
+							subView.orientation = LinearLayout.VERTICAL
+
+							for (index in demoParam.colors.indices)
 							{
-								setBackgroundColor(Color.parseColor(valueColor))
+								val color = demoParam.colors[index]
+								subView.addView(EditText(this@MainActivity).apply {
+									val valueColor = color.value
+									try
+									{
+										setBackgroundColor(Color.parseColor(valueColor))
+									}
+									finally
+									{
+										layoutParams = LinearLayout.LayoutParams(-1, 120)
+										(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+										gravity = Gravity.CENTER
+										setTextColor(Color.WHITE)
+										bubbleHandle.addChartColor(valueColor)
+										setText(valueColor)
+										tag = index//SET INDEX FOR REPLACE IN ARRAY COLORS
+									}
+								})
 							}
-							finally
-							{
-								layoutParams = LinearLayout.LayoutParams(-1, 120)
-								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-								gravity = Gravity.CENTER
-								setTextColor(Color.WHITE)
-								bubbleHandle.addChartColor(valueColor)
-								id = demoParam.idView
-								setText(valueColor)
+
+							subView.id = demoParam.idView
+							subView
+						}
+						else
+						{
+							EditText(this@MainActivity).apply {
+								val valueColor = demoParam.value
+								try
+								{
+									setBackgroundColor(Color.parseColor(valueColor))
+								}
+								finally
+								{
+									layoutParams = LinearLayout.LayoutParams(-1, 120)
+									(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+									gravity = Gravity.CENTER
+									setTextColor(Color.WHITE)
+									id = demoParam.idView
+									setText(valueColor)
+								}
 							}
 						}
-						//subView
 					}
 				}
 
@@ -678,6 +708,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				bubbleHandle.title = it
 			}
 		}
+
 		findViewById<EditText>(R.id.etAddColor)?.apply {
 			setOnEditorActionListener {
 				v, _, _ ->
