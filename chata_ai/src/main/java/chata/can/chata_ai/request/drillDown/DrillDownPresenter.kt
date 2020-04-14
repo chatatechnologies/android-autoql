@@ -1,5 +1,6 @@
 package chata.can.chata_ai.request.drillDown
 
+import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -17,7 +18,7 @@ class DrillDownPresenter(private val queryBase: QueryBase): StatusResponse
 		val column = queryBase.aColumn[0]
 		val nameColumn = column.name
 
-		val url = "$urlStaging${api1}chata/query/drilldown"
+		val url1 = "$urlStaging${api1}chata/query/drilldown"
 
 		val mParams = hashMapOf<String, Any>(
 			"query_id" to queryBase.queryId,
@@ -26,6 +27,16 @@ class DrillDownPresenter(private val queryBase: QueryBase): StatusResponse
 			"customer_id" to "qbo-1",
 			"user_id" to "vidhya@chata.ai",
 			"debug" to true)
+
+		val url = if (DataMessenger.domainUrl.isEmpty())
+		{
+			"$urlStaging${api1}chata/query/drilldown"
+		}
+		else
+		{
+			"https://qbo-staging.chata.io/autoql/api/v1/query/q_cBWzZxrCRCGuBuEv7DYXaQ/"
+			""
+		}
 
 		callStringRequest(
 			Request.Method.POST,

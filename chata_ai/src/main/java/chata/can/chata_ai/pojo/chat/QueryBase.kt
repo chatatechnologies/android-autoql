@@ -20,6 +20,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	private var interpretation = ""
 
 	val aRows = ArrayList<ArrayList<String>>()
+	var posColumnX = -1
+	var posColumnY = 1
 	var aColumn = ArrayList<ColumnQuery>()
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
@@ -102,18 +104,38 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						val isGroupable = joColumn.optBoolean("groupable", false)
 						val type = joColumn.optString("type")
 						val name = joColumn.optString("name")
+						val displayName = joColumn.optString("display_name", "")
 						val isActive = joColumn.optBoolean("active", false)
 
 						val typeColumn = enumValueOfOrNull<TypeDataQuery>(
 							type
 						) ?: run { TypeDataQuery.UNKNOWN }
 
-						val column = ColumnQuery(isGroupable, typeColumn, name, isActive)
+						val column = ColumnQuery(isGroupable, typeColumn, name, displayName, isActive)
 						aColumn.add(column)
 					}
 				}
 			}
 			//endregion
+
+
+			for (index in aColumn.indices)
+			{
+				val column = aColumn[index]
+				if (column.isGroupable)
+				{
+					if (posColumnX == -1)
+						posColumnX = index
+					else
+					{
+						posColumnY = index
+					}
+				}
+			}
+			if (posColumnX == 1)
+			{
+				posColumnY = 0
+			}
 
 			DoAsync({
 				isLoadingHTML = true

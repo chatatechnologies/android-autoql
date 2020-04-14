@@ -14,7 +14,14 @@ object TableHtmlBuilder
 		var headTable = "<thead><tr>"
 		for (column in aColumn)
 		{
-			val cellHead = column.name.toCapitalColumn()
+			val cellHead = if (column.displayName.isNotEmpty())
+			{
+				column.displayName
+			}
+			else
+			{
+				column.name.toCapitalColumn()
+			}
 			headTable += "<th>$cellHead</th>"
 		}
 		headTable += "</tr></thead>"

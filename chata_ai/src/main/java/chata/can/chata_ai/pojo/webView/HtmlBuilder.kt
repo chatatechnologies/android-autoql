@@ -61,30 +61,28 @@ object HtmlBuilder
 			}
 		}
 		//endregion
-		var textDatePivot = ""
 		val configAllow = aColumn.size == 3
 
-		if (queryBase.configActions == 1 || queryBase.configActions == 3)
-		{
-
-		}
-
+		//if (queryBase.configActions == 1 || queryBase.configActions == 3) { }
 		with(Categories)
 		{
+			val posColumnX = queryBase.posColumnX
+			val posColumnY = queryBase.posColumnY
+
 			val aCatX = buildCategoryByPosition(
-				Category(aRows, aColumn[0], 0,
+				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			val aCatY = buildCategoryByPosition(
-				Category(aRows, aColumn[1], 1,
+				Category(aRows, aColumn[posColumnY], posColumnY,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			val aCatYS = buildCategoryByPosition(
-				Category(aRows, aColumn[1], 1,
+				Category(aRows, aColumn[posColumnY], posColumnY,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			dataForWebView.drillX = buildCategoryByPosition(
-				Category(aRows, aColumn[0], 0,
+				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = true, allowRepeat = true)).toString()
 			dataForWebView.drillY = buildCategoryByPosition(
-				Category(aRows, aColumn[1], 1,
+				Category(aRows, aColumn[posColumnY], posColumnY,
 					false, hasQuotes = true, allowRepeat = true)).toString()
 
 			dataForWebView.catX = aCatX.toString()
@@ -94,7 +92,7 @@ object HtmlBuilder
 			{
 				if (aColumn.size > 1)
 				{
-					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[1], aCatX, aCatY)
+					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
