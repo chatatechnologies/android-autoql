@@ -127,13 +127,6 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					mIndexColumn[mIndexColumn.size] = index
 				}
 			}
-			if (mIndexColumn.size < aColumn.size)
-			{
-				for (index in mIndexColumn.size until aColumn.size)
-				{
-					mIndexColumn[mIndexColumn.size] = index
-				}
-			}
 
 			//region swap 1 or two by groupable
 			if (mIndexColumn[0] == 1)
@@ -142,11 +135,18 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					mIndexColumn[1] = 0
 				} ?: run { mIndexColumn[1] = 0}
 			}
-			else
+
+			while (mIndexColumn.size < aColumn.size)
 			{
-				mIndexColumn[1] = 1
+				val values = mIndexColumn.values
+				for (index in 0 until aColumn.size)
+				{
+					if (index !in values)
+					{
+						mIndexColumn[mIndexColumn.size] = index
+					}
+				}
 			}
-			//endregion
 
 			DoAsync({
 				isLoadingHTML = true
