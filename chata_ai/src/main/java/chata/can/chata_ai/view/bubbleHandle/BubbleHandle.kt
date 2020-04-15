@@ -17,7 +17,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.autoQL.AutoQLConfig
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.color.ThemeConfig
+//import chata.can.chata_ai.pojo.color.ThemeConfig
 import chata.can.chata_ai.pojo.currency.Currency
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -127,8 +127,7 @@ class BubbleHandle(private val context: Context)
 		return pData.second
 	}
 
-	private var themeConfig = ThemeConfig(
-		"light", SinglentonDrawer.lightThemeColor, "#sans-serif", aChartColors)
+	//private var themeConfig = ThemeConfig("light", SinglentonDrawer.lightThemeColor, "#sans-serif", aChartColors)
 
 	private var aThemePossible = arrayListOf("light", "dark")
 	var theme: String = "light"

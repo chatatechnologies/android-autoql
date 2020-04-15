@@ -1,53 +1,16 @@
-# Documentation
-    https://chata.readme.io/docs/react-data-messenger?
+# Data Messenger
+> Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
 
-# Website demo
-    https://github.com/chatatechnologies/react-autoql
-    https://vicente_rincon.gitlab.io/widget/
 
-# Views
+## Init BubbleHandle
 
-## ChatDrawer
-> This view execute autocomplete and requesting queries
+###### import Class
 
-## DrawerHandle
-> This view is the base widget circle in main view
-
-#### Integrate lambdas in library
-
-_Date Mar 03, 2020_
-> Support on [Stack Overflow](https://stackoverflow.com/a/57821039)
 ```kotlin
-fun setInitializationCallback(listener: () -> Unit): Builder
-{
-    bubblesManager?.listener = object: OnInitializedCallback {
-        override fun onInitialized()
-        {
-            listener()
-        }
-    }
-    return this
-}
+private lateinit var bubbleHandle: BubbleHandle
 ```
 
-_replace by_
+###### Init object class
 ```kotlin
-fun setInitializationCallback(listener: OnInitializedCallback): Builder
-{
-    bubblesManager?.listener = listener
-    return this
-}
+bubbleHandle = BubbleHandle(this@MainActivity)
 ```
-
-# Queries
-- Count invoices: simpleText
-- All invoices: <b>table</b>
-- All invoices to Billy Bob: <b>table</b>
-- All sales: <b>table</b>
-- All invoices last 4 types: <b>suggestion</b>
-- All invoices above 4
-- Totel salas: <b>full suggestion</b>
-- Total Sales: <b>table</b>
-- Total invoices: <b>table</b> -> $
-- Totel opereting expinses bu accaunt: <b>full suggestion</b>
-- pie chart total sales

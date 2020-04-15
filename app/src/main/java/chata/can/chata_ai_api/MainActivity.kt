@@ -532,7 +532,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	 */
 	private fun initBubble()
 	{
-		bubbleHandle = BubbleHandle(this)
+		bubbleHandle = BubbleHandle(this@MainActivity)
 
 		initViews()
 		setColorOptions()
