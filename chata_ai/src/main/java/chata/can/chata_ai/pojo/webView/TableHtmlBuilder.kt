@@ -8,7 +8,8 @@ object TableHtmlBuilder
 {
 	fun buildTable(
 		aRows: ArrayList<ArrayList<String>>,
-		aColumn: ArrayList<ColumnQuery>): Pair<String, Int>
+		aColumn: ArrayList<ColumnQuery>,
+		mIndexColumn: LinkedHashMap<Int, Int>): Pair<String, Int>
 	{
 		//region create table head
 		var headTable = "<thead><tr>"
@@ -41,8 +42,18 @@ object TableHtmlBuilder
 				if (cell.isEmpty()) ""
 				else
 				{
-					val column = aColumn[iterator++]
-					cell.formatWithColumn(column)
+					var column: ColumnQuery? = null
+					for ((_, pos) in mIndexColumn)
+					{
+						if (pos == iterator)
+						{
+							column = aColumn[pos]
+							cell.formatWithColumn(column)
+							iterator++
+							break
+						}
+					}
+					column?.let { cell.formatWithColumn(it) }?: ""
 				}
 				sRow += "<td>$valueRow</td>"
 			}

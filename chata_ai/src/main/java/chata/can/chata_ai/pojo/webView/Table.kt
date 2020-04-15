@@ -8,7 +8,11 @@ import java.util.*
 
 object Table
 {
-	fun generateDataTable(aRows: ArrayList<ArrayList<String>>, aColumns: ArrayList<ColumnQuery>, isDataCenter: Boolean) : String
+	fun generateDataTable(
+		aRows: ArrayList<ArrayList<String>>,
+	  aColumns: ArrayList<ColumnQuery>,
+		mIndexColumn: LinkedHashMap<Int, Int>,
+		isDataCenter: Boolean) : String
 	{
 		val formatter = DecimalFormat("###,###,##0.00")
 
@@ -17,34 +21,33 @@ object Table
 		{
 			for (aRow in aRows)
 			{
-				//val text = element.replace(", ", "##")
-				//val aRow = ArrayList(text.split(","))
-				var iteration = 0
-				val sRow = aRow.joinTo(StringBuilder("["), postfix = "]")
+				var sRow = ""
+				for ( (_, indexValue) in mIndexColumn)
 				{
-					val oColumn = aColumns[iteration++]
+					val oColumn = aColumns[indexValue]
+					val cell = aRow[indexValue]
 
-					when(oColumn.type)
+					val sCell = when(oColumn.type)
 					{
 						TypeDataQuery.QUANTITY -> {
-							if (isDataCenter) it
-							else "\"$it\""
+							if (isDataCenter) cell
+							else "\"$cell\""
 						}
 						TypeDataQuery.DOLLAR_AMT ->
 						{
-							val value = it.replace("##", "")
+							val value = cell.replace("##", "")
 
 							if (isDataCenter)formatter.format(value.toDouble()).replace(",", "")
 							else "\"$" + formatter.format(value.toDouble()) + "\""
 						}
 						TypeDataQuery.NUMBER ->
 						{
-							if (isDataCenter)it.replace("##","")
-							else "\"${it.replace("##",", ")}\""
+							if (isDataCenter)cell.replace("##","")
+							else "\"${cell.replace("##",", ")}\""
 						}
 						TypeDataQuery.DATE ->
 						{
-							if(it.isEmpty() || it == "0" )
+							if(cell.isEmpty() || cell == "0" )
 								"\" \""
 							else
 							{
@@ -69,16 +72,19 @@ object Table
 									}, Locale.US)
 								dateFormat.timeZone = TimeZone.getTimeZone("GMT")
 
-								val date = Date(it.toFloat().toLong() * 1000)
+								val date = Date(cell.toFloat().toLong() * 1000)
 								"\"${dateFormat.format(date).replace(".", ",")}\""
 							}
 						}
 						else ->
 						{
-							"\"${it.replace("##",", ")}\""
+							"\"${cell.replace("##",", ")}\""
 						}
 					}
-				}.toString()
+
+					sRow += ",$sCell"
+				}
+				sRow = "[${sRow.removePrefix(",")}]"
 				aDataTable.add(sRow)
 			}
 		}

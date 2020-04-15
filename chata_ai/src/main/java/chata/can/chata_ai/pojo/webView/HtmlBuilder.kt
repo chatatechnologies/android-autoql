@@ -13,7 +13,7 @@ object HtmlBuilder
 
 		val dataForWebView = DataForWebView()
 
-		var pData = TableHtmlBuilder.buildTable(aRows, aColumn)
+		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
@@ -66,8 +66,8 @@ object HtmlBuilder
 		//if (queryBase.configActions == 1 || queryBase.configActions == 3) { }
 		with(Categories)
 		{
-			val posColumnX = queryBase.posColumnX
-			val posColumnY = queryBase.posColumnY
+			val posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
+			val posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
 
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
@@ -124,7 +124,8 @@ object HtmlBuilder
 			else
 			{
 				dataForWebView.catYS = aCatYS.toString()
-				dataForWebView.dataChartBi = Table.generateDataTable(aRows, aColumn,true)
+				dataForWebView.dataChartBi = Table.generateDataTable(
+					aRows, aColumn,queryBase.mIndexColumn,true)
 			}
 		}
 

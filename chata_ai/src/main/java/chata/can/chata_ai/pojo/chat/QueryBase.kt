@@ -20,8 +20,10 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	private var interpretation = ""
 
 	val aRows = ArrayList<ArrayList<String>>()
-	var posColumnX = -1
-	var posColumnY = 1
+	//var posColumnX = -1
+	//var posColumnY = 1
+	var mIndexColumn = linkedMapOf<Int, Int>()
+	//var aIndexColumn = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
@@ -118,23 +120,23 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 			}
 			//endregion
 
-
 			for (index in aColumn.indices)
 			{
 				val column = aColumn[index]
 				if (column.isGroupable)
 				{
-					if (posColumnX == -1)
-						posColumnX = index
-					else
-					{
-						posColumnY = index
-					}
+					mIndexColumn[mIndexColumn.size] = index
 				}
 			}
-			if (posColumnX == 1)
+			if (mIndexColumn[0] == 1)
 			{
-				posColumnY = 0
+				mIndexColumn[1]?.let {
+					mIndexColumn[1] = 0
+				} ?: run { mIndexColumn[1] = 0}
+			}
+			else
+			{
+				mIndexColumn[1] = 1
 			}
 
 			DoAsync({
