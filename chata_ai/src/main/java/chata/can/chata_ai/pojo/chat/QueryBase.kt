@@ -23,7 +23,6 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	//var posColumnX = -1
 	//var posColumnY = 1
 	var mIndexColumn = linkedMapOf<Int, Int>()
-	//var aIndexColumn = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
@@ -128,6 +127,15 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					mIndexColumn[mIndexColumn.size] = index
 				}
 			}
+			if (mIndexColumn.size < aColumn.size)
+			{
+				for (index in mIndexColumn.size until aColumn.size)
+				{
+					mIndexColumn[mIndexColumn.size] = index
+				}
+			}
+
+			//region swap 1 or two by groupable
 			if (mIndexColumn[0] == 1)
 			{
 				mIndexColumn[1]?.let {
@@ -138,6 +146,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 			{
 				mIndexColumn[1] = 1
 			}
+			//endregion
 
 			DoAsync({
 				isLoadingHTML = true
