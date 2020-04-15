@@ -400,7 +400,7 @@ object HtmlMarked
                          }
                        },
                     series: dataChartLine,
-                    colors: [color1]
+                    colors: colors
                 });
     }
             function triType(type){
