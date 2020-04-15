@@ -198,9 +198,10 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			if (BuildConfig.DEBUG)
 			{
-//				val urlDemo = "pie chart total sales"
+				val urlDemo = "pie chart total sales"
 //				val urlDemo = "total overdue invoices by customer by month in a heat map"
-				val urlDemo = "budget vs actuals per month"
+//				val urlDemo = "budget vs actuals per month"
+//				val urlDemo = "count invoices"
 				setText(urlDemo)
 			}
 		}

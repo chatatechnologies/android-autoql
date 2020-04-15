@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
@@ -23,7 +24,8 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class WebViewHolder(
 	itemView: View,
-	private val view: ChatAdapterContract
+	private val adapterView: ChatAdapterContract?,
+	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
@@ -124,15 +126,12 @@ class WebViewHolder(
 				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot,
 				R.id.ivBubble, R.id.ivHeat ->
 				{
-					if (it is ImageView)
-					{
-						callAction(it)
-					}
+					(it as? ImageView)?.let { imageView -> callAction(imageView) }
 				}
 				R.id.rlDelete ->
 				{
 					//region delete query
-					view.deleteQuery(adapterPosition)
+					adapterView?.deleteQuery(adapterPosition)
 					//endregion
 					//region copy to clipboard
 //					if (it.context != null)
@@ -317,7 +316,10 @@ class WebViewHolder(
 
 			settings.javaScriptEnabled = true
 			queryBase?.let {
-				addJavascriptInterface(JavaScriptInterface(it), "Android")
+				if (it.hasDrillDown)
+				{
+					addJavascriptInterface(JavaScriptInterface(it, chatView), "Android")
+				}
 			}
 			loadDataWithBaseURL(
 				null,

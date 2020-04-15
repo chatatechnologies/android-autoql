@@ -1,17 +1,18 @@
 package chata.can.chata_ai.request.drillDown
 
-import chata.can.chata_ai.pojo.DataMessenger
-import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.activity.chat.ChatContract
+import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
-import chata.can.chata_ai.pojo.urlStaging
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DrillDownPresenter(private val queryBase: QueryBase): StatusResponse
+class DrillDownPresenter(
+	private val queryBase: QueryBase,
+	private val view: ChatContract.View?): StatusResponse
 {
 	fun postDrillDown(valueInRow: String)
 	{
@@ -53,6 +54,43 @@ class DrillDownPresenter(private val queryBase: QueryBase): StatusResponse
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		jsonObject.toString()
+		if (jsonObject != null)
+		{
+			val queryBase = QueryBase(jsonObject)
+			queryBase.hasDrillDown = false
+			if (queryBase.displayType == "table")
+			{
+				queryBase.displayType = "data"
+			}
+			val typeView = when(queryBase.displayType)
+			{
+				"suggestion" ->
+				{
+					if (SinglentonDrawer.mIsEnableSuggestion)
+					{
+						val query = jsonObject.optString("query")
+						queryBase.message = query
+						TypeChatView.SUGGESTION_VIEW
+					}
+					else
+					{
+						queryBase.message = "${queryBase.displayType} not supported"
+						TypeChatView.LEFT_VIEW
+					}
+				}
+				"data" ->
+				{
+					val numColumns = queryBase.numColumns
+					when
+					{
+						numColumns == 1 -> TypeChatView.LEFT_VIEW
+						numColumns > 1 -> TypeChatView.WEB_VIEW
+						else -> TypeChatView.LEFT_VIEW
+					}
+				}
+				else -> TypeChatView.LEFT_VIEW
+			}
+			view?.addNewChat(typeView, queryBase)
+		}
 	}
 }

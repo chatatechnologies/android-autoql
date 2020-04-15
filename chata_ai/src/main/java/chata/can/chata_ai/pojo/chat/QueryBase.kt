@@ -10,6 +10,7 @@ import org.json.JSONObject
 
 class QueryBase(json: JSONObject): SimpleQuery(json)
 {
+	var hasDrillDown = true
 	private val referenceId = json.optString("reference_id") ?: ""
 	private val joData = json.optJSONObject("data")
 	var message = json.optString("message") ?: ""
@@ -20,8 +21,6 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 	private var interpretation = ""
 
 	val aRows = ArrayList<ArrayList<String>>()
-	//var posColumnX = -1
-	//var posColumnY = 1
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
