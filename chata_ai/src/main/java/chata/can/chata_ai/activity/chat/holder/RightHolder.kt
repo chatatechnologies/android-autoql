@@ -16,10 +16,10 @@ class RightHolder(view: View): BaseHolder(view)
 		val textColor = ContextCompat.getColor(tvContent.context, R.color.chata_drawer_hover_color)
 		tvContent.setTextColor(textColor)
 
-		val white = ContextCompat.getColor(
+		val accentColor = ContextCompat.getColor(
 			tvContent.context,
 			ThemeColor.currentColor.drawerAccentColor)
-		val queryDrawable = DrawableBuilder.setGradientDrawable(white,18f)
+		val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 		tvContent.background = queryDrawable
 	}
 
@@ -28,6 +28,8 @@ class RightHolder(view: View): BaseHolder(view)
 		if (item is ChatData)
 		{
 			tvContent.text = item.message
+			tvContent.invalidate()
+			tvContent.toString()
 		}
 	}
 }
