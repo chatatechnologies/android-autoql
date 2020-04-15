@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -19,30 +20,42 @@ class DrillDownPresenter(
 		val column = queryBase.aColumn[0]
 		val nameColumn = column.name
 
-		val url1 = "$urlStaging${api1}chata/query/drilldown"
+		var header: HashMap<String, String> ?= null
 
-		val mParams = hashMapOf<String, Any>(
-			"query_id" to queryBase.queryId,
-			"group_bys" to hashMapOf(nameColumn to valueInRow),
-			"username" to "demo",
-			"customer_id" to "qbo-1",
-			"user_id" to "vidhya@chata.ai",
-			"debug" to true)
+		val mParams = hashMapOf<String, Any>("debug" to true)
 
 		val url = if (DataMessenger.domainUrl.isEmpty())
 		{
+			mParams["query_id"] = queryBase.queryId
+			mParams["group_bys"] = hashMapOf(nameColumn to valueInRow)
+			mParams["username"] = "demo"
+			mParams["customer_id"] = "qbo-1"
+			mParams["user_id"] = "vidhya@chata.ai"
+
 			"$urlStaging${api1}chata/query/drilldown"
 		}
 		else
 		{
-			"https://qbo-staging.chata.io/autoql/api/v1/query/q_cBWzZxrCRCGuBuEv7DYXaQ/"
-			""
+			val queryId = queryBase.queryId
+			with(DataMessenger)
+			{
+				header = getAuthorizationJWT()
+
+				mParams["columns"] = arrayListOf(
+					hashMapOf(
+						"name" to "customer.displayname",
+						"value" to valueInRow)
+				)
+
+				"$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
+			}
 		}
 
 		callStringRequest(
 			Request.Method.POST,
 			url,
 			typeJSON,
+			headers = header,
 			parametersAny = mParams,
 			listener = this)
 	}
