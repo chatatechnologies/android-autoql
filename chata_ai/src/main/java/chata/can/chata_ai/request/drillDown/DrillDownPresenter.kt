@@ -17,15 +17,15 @@ class DrillDownPresenter(
 {
 	fun postDrillDown(valueInRow: String)
 	{
-		val column = queryBase.aColumn[0]
-		val nameColumn = column.name
-
 		var header: HashMap<String, String> ?= null
 
 		val mParams = hashMapOf<String, Any>("debug" to true)
 
 		val url = if (DataMessenger.domainUrl.isEmpty())
 		{
+			val column = queryBase.aColumn[0]
+			val nameColumn = column.name
+
 			mParams["query_id"] = queryBase.queryId
 			mParams["group_bys"] = hashMapOf(nameColumn to valueInRow)
 			mParams["username"] = "demo"
@@ -41,12 +41,19 @@ class DrillDownPresenter(
 			{
 				header = getAuthorizationJWT()
 
-				mParams["columns"] = arrayListOf(
-					hashMapOf(
-						"name" to "customer.displayname",
-						"value" to valueInRow)
-				)
+				val aValues = valueInRow.split("_")
+				val aColumns = arrayListOf<HashMap<String, String>>()
+				var iterator = 0
 
+				for (index in queryBase.aColumn.indices)
+				{
+					val column = queryBase.aColumn[index]
+					if (column.isGroupable)
+					{
+						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
+					}
+				}
+				mParams["columns"] = aColumns
 				"$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
 			}
 		}
