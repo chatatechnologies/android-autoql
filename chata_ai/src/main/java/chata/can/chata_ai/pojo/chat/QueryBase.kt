@@ -119,32 +119,42 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 			}
 			//endregion
 
-			for (index in aColumn.indices)
+			if (aColumn.size < 4)
 			{
-				val column = aColumn[index]
-				if (column.isGroupable)
+				for (index in aColumn.indices)
 				{
-					mIndexColumn[mIndexColumn.size] = index
-				}
-			}
-
-			//region swap 1 or two by groupable
-			if (mIndexColumn[0] == 1)
-			{
-				mIndexColumn[1]?.let {
-					mIndexColumn[1] = 0
-				} ?: run { mIndexColumn[1] = 0}
-			}
-
-			while (mIndexColumn.size < aColumn.size)
-			{
-				val values = mIndexColumn.values
-				for (index in 0 until aColumn.size)
-				{
-					if (index !in values)
+					val column = aColumn[index]
+					if (column.isGroupable)
 					{
 						mIndexColumn[mIndexColumn.size] = index
 					}
+				}
+
+				//region swap 1 or two by groupable
+				if (mIndexColumn[0] == 1)
+				{
+					mIndexColumn[1]?.let {
+						mIndexColumn[1] = 0
+					} ?: run { mIndexColumn[1] = 0}
+				}
+
+				while (mIndexColumn.size < aColumn.size)
+				{
+					val values = mIndexColumn.values
+					for (index in 0 until aColumn.size)
+					{
+						if (index !in values)
+						{
+							mIndexColumn[mIndexColumn.size] = index
+						}
+					}
+				}
+			}
+			else
+			{
+				for (index in aColumn.indices)
+				{
+					mIndexColumn[index] = index
 				}
 			}
 

@@ -251,9 +251,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		val pair = if (isAuthenticate)
 		{
-			Pair("Log Out", "Sucessfully logged out")
+			Pair("Authenticate", "Login Successful")
 		}
-		else Pair("Authenticate", "Login Successful")
+		else Pair("Log Out", "Sucessfully logged out")
 
 		btnAuthenticate?.text = pair.first
 		AlertDialog.Builder(this)
