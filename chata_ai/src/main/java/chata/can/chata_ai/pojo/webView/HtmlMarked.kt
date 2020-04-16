@@ -236,6 +236,16 @@ object HtmlMarked
     function typeTable(){
        //${'$'}('#container').hide(400);
     }
+		function finalSize(invert){
+        var defaultWidth = "100%";
+        var defaultHeight = "90%";
+        var dynamicWidthSize = ""+categoriesX.length * 10+"%";
+        var widthSize = categoriesX.length <= 10 ? defaultWidth : dynamicWidthSize;
+        var dynamicHeightSize = ""+categoriesY.length * 10+"%";
+        var heightSize = categoriesY.length <= 10 ? defaultHeight : dynamicHeightSize;
+        var heightSizeFinal = invert ? heightSize : defaultHeight;
+        ${'$'}('.container, #container').css({ "width": widthSize, "position": "absolute","height":heightSizeFinal, "z-index": "0" });
+    }
     function typeChart(graphic){
        var inverted = graphic == "column" || graphic == "line" ? false : true;
        switch (graphic)
@@ -290,6 +300,7 @@ object HtmlMarked
        });
     }
     function lineType(){
+			finalSize(false);
         if (dataChartBi.length > 0){
             biType("line",false);
         }else{
@@ -351,7 +362,7 @@ object HtmlMarked
         }
     }
     function biType(type,inverted){
-      
+				finalSize(inverted);      
         chart.destroy()
                 chart = Highcharts.chart('container', defaultChart);
         chart.update({
@@ -380,6 +391,7 @@ object HtmlMarked
                 });
     }
     function biType3(type,inverted){
+				finalSize(inverted);
         typeFinal = type.replace("contrast_", "");
         chart.destroy();
                 chart = Highcharts.chart('container', {
@@ -404,7 +416,7 @@ object HtmlMarked
                 });
     }
             function triType(type){
-        
+        finalSize(false);
         chart.destroy();
                 chart = Highcharts.chart('container', {
                     chart: {
@@ -470,6 +482,7 @@ object HtmlMarked
     }
     
     function stackedType(invert){
+				finalSize(invert);
         chart.destroy();
                 chart = Highcharts.chart('container', {
                     chart: {

@@ -115,12 +115,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		{
 			if (canDrawOverlays())
 			{
-				//isEnableDrawer(true)
 				initBubble()
 			}
 			else
 			{
-				//isEnableDrawer(false)
 				showToast()
 			}
 		}
