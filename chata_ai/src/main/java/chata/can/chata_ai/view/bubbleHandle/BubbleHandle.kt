@@ -203,10 +203,7 @@ class BubbleHandle(private val context: Context)
 		title = "Data Messenger"
 		userDisplayName = "there"
 		introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
-		inputPlaceholder = "Type your queries here"
-		maxMessages = 0
-		clearOnClose = false
-		enableVoiceRecord = true*/
+		inputPlaceholder = "Type your queries here"*/
 	}
 
 	/**

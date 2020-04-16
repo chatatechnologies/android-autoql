@@ -98,6 +98,24 @@ sea visible.
     <tr><th>Prop Name</th><th>Data Type</th><th>Default Value</th></tr>
   </thead>
   <tbody>
-    <tr><td>isVisible</td><td>Boolean</td><td align="right">true</td></tr>
+    <tr><td>isVisible</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>placement</td><td>Int: TOP_PLACEMENT || BOTTOM_PLACEMENT || LEFT_PLACEMENT || RIGHT_PLACEMENT || NOT_PLACEMENT</td><td>RIGHT_PLACEMENT</td></tr>
+    <tr><td>title</td><td>String</td><td>"Data Messenger"</td></tr>
+    <tr><td>userDisplayName</td><td>String</td><td>"there"</td></tr>
+    <tr><td>introMessage</td><td>String</td><td>"Hi %s! Let\'s dive into your data. What can I help you discover today?"</td></tr>
+    <tr><td>inputPlaceholder</td><td>String</td><td>"Type your queries here"</td></tr>
+    <tr><td>maxMessages</td><td>Int</td><td>0</td></tr>
+    <tr><td>clearOnClose</td><td>Boolean</td><td>false</td></tr>
+    <tr><td>enableVoiceRecord</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>autoQLConfig</td><td>AutoQLConfig</td><td>AutoQLConfig()</td></tr>
+    <tr><td>dataFormatting</td><td>DataFormatting</td><td>DataFormatting()</td></tr>
+    <tr><td>themeConfig</td><td>ThemeConfig</td><td>ThemeConfig()</td></tr>
   </tbody>
 </table>
+
+`isVisible`: Determines whether Data Messenger is open in the
+application interface or not. You have full control over the visibility
+of the widget by using your own state.
+<br>
+`placement`: Determines the edge of the screen where Data Messenger is placed.
+<br>
