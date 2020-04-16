@@ -104,14 +104,12 @@ variable `bubbleHandle: BubbleHandle`.
   </tbody>
 </table>
 
->`isVisible`: Determines whether Data Messenger is open in the
-application interface or not. You have full control over the visibility
-of the widget by using your own state.
+>`isVisible`: Determines whether the Bubble Handle view is visible on the screen or not.
 ```kotlin
 //isChecked is a Boolean
 bubbleHandle.isVisible = isChecked
 ```
->`placement`: Determines the edge of the screen where Data Messenger is placed.
+>`placement`: Determines the edge of the screen where Bubble Handle is placed.
 ```kotlin
 //placement is a Integer
 //Constant -> TOP_PLACEMENT || BOTTOM_PLACEMENT || LEFT_PLACEMENT || RIGHT_PLACEMENT || NOT_PLACEMENT
@@ -124,8 +122,8 @@ here, otherwise the default text (Data Messenger) will apply.
 //title is a String
 bubbleHandle.title = title
 ```
->`userDisplayName`: Name used in the intro message (ex. "Hi Carlos!").
-You can customize this value using names from your own database.
+>`userDisplayName`: Name used in the intro message (example. "Hi Carlos!").
+You can customize this value using names from your own source database.
 ```kotlin
 //userDisplayName is a String
 bubbleHandle.userDisplayName = userDisplayName
@@ -160,14 +158,13 @@ reopen the widget after closing it.
 //clearOnClose is a Boolean
 bubbleHandle.clearOnClose = clearOnClose
 ```
->`enableVoiceRecord`: Enables the voice-to-text button.
-Note: The voice-to-text feature uses Web Speech API, so this feature is
-only available for Chrome users.
+>`enableVoiceRecord`: Enable the speech to text button.
+Note: The speech to text function uses SpeechRecognizer which works when the "Manifest.permission.RECORD_AUDIO" permission is accepted by the user.
 ```kotlin
 //enableVoiceRecord is a Boolean
 bubbleHandle.enableVoiceRecord = enableVoiceRecord
 ```
-> `theme`: Color theme for Data Messenger. Currently there are two options: light theme and dark theme. In addition to changing the overall theme, you can also change the accent color using the accentColor prop.
+> `theme`: Color theme for Data Messenger. Currently there are two options: light theme and dark theme.
 ```kotlin
 //theme is a String "light" else "dark"
 bubbleHandle.theme = theme
