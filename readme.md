@@ -93,7 +93,7 @@ Con estas configuraciones son suficientes para que la vista bubbleHandle
 sea visible.
 
 ## Props
- <table>
+<table>
   <thead>
     <tr><th>Prop Name</th><th>Data Type</th><th>Default Value</th></tr>
   </thead>
@@ -177,4 +177,66 @@ only available for Chrome users.
 bubbleHandle.enableVoiceRecord = enableVoiceRecord
 ```
 
-#### autoQLConfig Props
+#### autoQLConfig Prop
+<table>
+  <thead>
+    <tr><th>Key</th><th>Data Type</th><th>Default Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>enableAutocomplete</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>enableQueryValidation</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>enableQuerySuggestions</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>enableDrilldowns</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>enableColumnVisibilityManager</td><td>Boolean</td><td>true</td></tr>
+    <tr><td>debug</td><td>Boolean</td><td>true</td></tr>
+  </tbody>
+</table>
+
+>enableAutocomplete: Automatically populates similar query suggestions as users enter a query, so they get results more quickly and easily. If enabled, suggested queries will begin to appear above the Query Input bar as the user types.
+```kotlin
+//enableAutocomplete is a Boolean
+bubbleHandle.autoQLConfig.enableAutocomplete = enableAutocomplete
+```
+>enableQueryValidation: Catches and verifies references to unique data, so users always receive the data they need. If enabled, the natural language query entered by a user will first go through the validate endpoint. If the query requires validation (ex. the input contains reference to a unique data label), suggestions for that label will be returned in a subsequent message, allowing the user to verify their input before executing their query.
+```kotlin
+//enableQueryValidation is a Boolean
+bubbleHandle.autoQLConfig.enableQueryValidation = enableQueryValidation
+```
+>>For example: If you query, 'How much money does Nikki owe me?', validation may detect that there is no 'Nikki' label, but there are labels called 'Nicki', and 'Nik' in your database. The message will then let you select the appropriate label and run the corresponding query.
+
+>>If this value is false, the query will bypass the validate endpoint and be sent straight to the query endpoint.
+
+>enableQuerySuggestions: Enables option for user to clarify meaning in cases where their original query lacked context or could be interpreted in multiple different ways. If enabled, in cases where the query input was ambiguous, a list of suggested queries will be returned for the user to choose from, leading to more efficient and accurate responses. If this is false, a general error message will appear in its place.
+```kotlin
+//enableQuerySuggestions is a Boolean
+bubbleHandle.autoQLConfig.enableQuerySuggestions = enableQuerySuggestions
+```
+>enableDrilldowns: When a table or chart element is clicked by a user, a new query will run automatically, allowing the user to "drilldown" into the data to obtain a detailed breakdown of the figure returned by entry. If this is false, nothing will happen when a table or chart element is clicked.
+```kotlin
+//enableDrilldowns is a Boolean
+bubbleHandle.autoQLConfig.enableDrilldowns = enableDrilldowns
+```
+>enableColumnVisibilityManager: Column Visibility Manager allows the user to control the visibility of individual columns when query results are returned in a table. Users can access the Column Visibility Manager to adjust their visibility preferences by clicking the "eye" icon in the Options Toolbar and selecting or deselecting columns. Once set, visibility preferences will be persisted. Any future query containing columns that were previously shown or hidden by the user will also reflect these changes. The user can access the Column Visibility Manager to make changes to these visibility preferences at any time.
+```kotlin
+//enableColumnVisibilityManager is a Boolean
+bubbleHandle.autoQLConfig.enableColumnVisibilityManager = enableColumnVisibilityManager
+```
+>debug: If this value is true, the user can copy the full query language (QL) statement (ex. SQL statement) that was dynamically generated from their natural language query input by clicking "Copy generated query to clipboard".
+ ```kotlin
+//debug is a Boolean
+bubbleHandle.autoQLConfig.debug = debug
+```
+#### dataFormatting Prop
+<table>
+  <thead>
+    <tr><th>Key</th><th>Data Type</th><th>Default Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>currencyCode</td><td>String</td><td>"USD"</td></tr>
+    <tr><td>languageCode</td><td>String</td><td>"en-US"</td></tr>
+    <tr><td>currencyDecimals</td><td>Int</td><td>2</td></tr>
+    <tr><td>quantityDecimals</td><td>Int</td><td>1</td></tr>
+    <tr><td>monthYearFormat</td><td>String</td><td>"MMM YYYY"</td></tr>
+    <tr><td>dayMonthYearFormat</td><td>String</td><td>"MMM DD, YYYY"</td></tr>
+  </tbody>
+</table>
