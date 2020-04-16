@@ -192,12 +192,12 @@ bubbleHandle.enableVoiceRecord = enableVoiceRecord
   </tbody>
 </table>
 
->enableAutocomplete: Automatically populates similar query suggestions as users enter a query, so they get results more quickly and easily. If enabled, suggested queries will begin to appear above the Query Input bar as the user types.
+>`enableAutocomplete`: Automatically populates similar query suggestions as users enter a query, so they get results more quickly and easily. If enabled, suggested queries will begin to appear above the Query Input bar as the user types.
 ```kotlin
 //enableAutocomplete is a Boolean
 bubbleHandle.autoQLConfig.enableAutocomplete = enableAutocomplete
 ```
->enableQueryValidation: Catches and verifies references to unique data, so users always receive the data they need. If enabled, the natural language query entered by a user will first go through the validate endpoint. If the query requires validation (ex. the input contains reference to a unique data label), suggestions for that label will be returned in a subsequent message, allowing the user to verify their input before executing their query.
+>`enableQueryValidation`: Catches and verifies references to unique data, so users always receive the data they need. If enabled, the natural language query entered by a user will first go through the validate endpoint. If the query requires validation (ex. the input contains reference to a unique data label), suggestions for that label will be returned in a subsequent message, allowing the user to verify their input before executing their query.
 ```kotlin
 //enableQueryValidation is a Boolean
 bubbleHandle.autoQLConfig.enableQueryValidation = enableQueryValidation
@@ -206,23 +206,23 @@ bubbleHandle.autoQLConfig.enableQueryValidation = enableQueryValidation
 
 >>If this value is false, the query will bypass the validate endpoint and be sent straight to the query endpoint.
 
->enableQuerySuggestions: Enables option for user to clarify meaning in cases where their original query lacked context or could be interpreted in multiple different ways. If enabled, in cases where the query input was ambiguous, a list of suggested queries will be returned for the user to choose from, leading to more efficient and accurate responses. If this is false, a general error message will appear in its place.
+>`enableQuerySuggestions`: Enables option for user to clarify meaning in cases where their original query lacked context or could be interpreted in multiple different ways. If enabled, in cases where the query input was ambiguous, a list of suggested queries will be returned for the user to choose from, leading to more efficient and accurate responses. If this is false, a general error message will appear in its place.
 ```kotlin
 //enableQuerySuggestions is a Boolean
 bubbleHandle.autoQLConfig.enableQuerySuggestions = enableQuerySuggestions
 ```
->enableDrilldowns: When a table or chart element is clicked by a user, a new query will run automatically, allowing the user to "drilldown" into the data to obtain a detailed breakdown of the figure returned by entry. If this is false, nothing will happen when a table or chart element is clicked.
+>`enableDrilldowns`: When a table or chart element is clicked by a user, a new query will run automatically, allowing the user to "drilldown" into the data to obtain a detailed breakdown of the figure returned by entry. If this is false, nothing will happen when a table or chart element is clicked.
 ```kotlin
 //enableDrilldowns is a Boolean
 bubbleHandle.autoQLConfig.enableDrilldowns = enableDrilldowns
 ```
->enableColumnVisibilityManager: Column Visibility Manager allows the user to control the visibility of individual columns when query results are returned in a table. Users can access the Column Visibility Manager to adjust their visibility preferences by clicking the "eye" icon in the Options Toolbar and selecting or deselecting columns. Once set, visibility preferences will be persisted. Any future query containing columns that were previously shown or hidden by the user will also reflect these changes. The user can access the Column Visibility Manager to make changes to these visibility preferences at any time.
+>`enableColumnVisibilityManager`: Column Visibility Manager allows the user to control the visibility of individual columns when query results are returned in a table. Users can access the Column Visibility Manager to adjust their visibility preferences by clicking the "eye" icon in the Options Toolbar and selecting or deselecting columns. Once set, visibility preferences will be persisted. Any future query containing columns that were previously shown or hidden by the user will also reflect these changes. The user can access the Column Visibility Manager to make changes to these visibility preferences at any time.
 ```kotlin
 //enableColumnVisibilityManager is a Boolean
 bubbleHandle.autoQLConfig.enableColumnVisibilityManager = enableColumnVisibilityManager
 ```
->debug: If this value is true, the user can copy the full query language (QL) statement (ex. SQL statement) that was dynamically generated from their natural language query input by clicking "Copy generated query to clipboard".
- ```kotlin
+>`debug`: If this value is true, the user can copy the full query language (QL) statement (ex. SQL statement) that was dynamically generated from their natural language query input by clicking "Copy generated query to clipboard".
+```kotlin
 //debug is a Boolean
 bubbleHandle.autoQLConfig.debug = debug
 ```
@@ -240,3 +240,34 @@ bubbleHandle.autoQLConfig.debug = debug
     <tr><td>dayMonthYearFormat</td><td>String</td><td>"MMM DD, YYYY"</td></tr>
   </tbody>
 </table>
+
+>`currencyCode`: If your data is not in USD, you can specify a different currency code here. All visualizations (tables and charts) will show the default currency formatting for the specified code.
+```kotlin
+//currencyCode is a String
+bubbleHandle.dataFormatting.currencyCode = currencyCode
+```
+>`languageCode`: If the currency code from your country requires letters not contained in the English alphabet in order to show symbols correctly, you can pass in a locale here. For more details on how to do this, visit: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
+```kotlin
+//languageCode is a String
+bubbleHandle.dataFormatting.languageCode = languageCode
+```
+>`currencyDecimals`: Number of digits to display after a decimal point for currencies.
+```kotlin
+//currencyDecimals is a Integer
+bubbleHandle.dataFormatting.currencyDecimals = currencyDecimals
+```
+>`quantityDecimals`: Number of digits to display after a decimal point for quantity values.
+```kotlin
+//quantityDecimals is a Int
+bubbleHandle.dataFormatting.quantityDecimals = quantityDecimals
+```
+>`monthYearFormat`: The format to display the representation of a whole month. (ex. March 2020). AutoQL uses dayjs for date formatting, however most Moment.js formatting will work here as well. Please see the dayjs docs for formatting options.
+```kotlin
+//monthYearFormat is a String
+bubbleHandle.dataFormatting.monthYearFormat = monthYearFormat
+```
+>`dayMonthYearFormat`: The format to display the representation of a single day. (ie. March 18, 2020). AutoQL uses dayjs for date formatting, however most Moment.js formatting will work here as well. Please see the dayjs docs for formatting options.
+```kotlin
+//dayMonthYearFormat is a String
+bubbleHandle.dataFormatting.dayMonthYearFormat = dayMonthYearFormat
+```
