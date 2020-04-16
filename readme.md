@@ -5,8 +5,7 @@
 ## Setup View
 > Init BubbleHandle view
 
-#### import Class
-
+> To import the BubbleHandle class the following line is required.
 ```kotlin
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 ```
@@ -19,9 +18,7 @@ bubbleHandle = BubbleHandle(this@MainActivity)
 ```
 
 ## Support by Android version
-Tenemos que evaluar la version de Android donde va correr nuestra
-aplicación. Esto se puede revisar con el siguiente código:
-
+We have to evaluate the version of Android where our application. This can be checked with the following code:
 ```kotlin
 /**
  * Build.VERSION_CODES.M is 23
@@ -29,11 +26,11 @@ aplicación. Esto se puede revisar con el siguiente código:
  */
 private fun isMarshmallow() = Build.VERSION.SDK_INT >= 23
 ```
-El fragmento de código anterior se puede usar de la siguiente manera.
+The above function can be used as follows:
 ```kotlin
 if (isMarshmallow())
 {
-  //Code when Android version is major Marshmallow 
+  //Code when Android version is major Marshmallow
 }
 else
 {
@@ -41,10 +38,10 @@ else
 }
 ```
 
-Otra cosa a tener en cuenta es la superposición de vistas en pantalla.
-Vamos a preguntarle a nuestro dispositivo si la aplicación podrá
-dibujar elementos super posicionados en pantalla. Esto se hace de la
-siguiente manera:
+Another thing to consider is the overlay of on-screen views.
+We are going to ask our device if the application can
+draw overlapping elements on screen. This is done from the
+Following way:
 ```kotlin
 /**
  * Build.VERSION_CODES.M is 23
@@ -53,10 +50,7 @@ siguiente manera:
 @RequiresApi(api = Build.VERSION_CODES.M)
 private fun canDrawOverlays() = Settings.canDrawOverlays(/*context*/this)
 ```
-
-A continuación se muestra como verificar la super posición en nuestra
-aplicación:
-
+Next, how to check the overlap in our application:
 ```kotlin
 if (!canDrawOverlays())
 {
@@ -72,13 +66,7 @@ else
   // code for to init BubbleHandle
 }
 ```
-
-A continuación se mostrara una ventana que le preguntara al usuario si
-desea permitir la super posición de la aplicación en la pantalla.
-Si el usuario o no acepta la condición de la super posición recibiremos
-la respuesta en otro método. A continuación el método y el como
-aprovechar el llamado del método `onActivityResult()`:
-
+Next, a window will be displayed that asks the user if they want to allow overlapping in the application. The method to use is `onActivityResult()`:
 ```kotlin
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 {
@@ -89,8 +77,8 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
   }
 }
 ```
-Con estas configuraciones son suficientes para que la vista bubbleHandle
-sea visible.
+When you implemented this code don't forget to start the bubbleHandle
+variable `bubbleHandle: BubbleHandle`.
 
 ## Props
 <table>
