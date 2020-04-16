@@ -113,9 +113,68 @@ sea visible.
   </tbody>
 </table>
 
-`isVisible`: Determines whether Data Messenger is open in the
+>`isVisible`: Determines whether Data Messenger is open in the
 application interface or not. You have full control over the visibility
 of the widget by using your own state.
-<br>
-`placement`: Determines the edge of the screen where Data Messenger is placed.
-<br>
+```kotlin
+//isChecked is a Boolean
+bubbleHandle.isVisible = isChecked
+```
+>`placement`: Determines the edge of the screen where Data Messenger is placed.
+```kotlin
+//placement is a Integer
+//Constant -> TOP_PLACEMENT || BOTTOM_PLACEMENT || LEFT_PLACEMENT || RIGHT_PLACEMENT || NOT_PLACEMENT
+bubbleHandle.placement = placement
+```
+>`title`: Text that appears in the header of the default Data Messenger
+view. You must provide an empty string if you do not want text to appear
+here, otherwise the default text (Data Messenger) will apply.
+```kotlin
+//title is a String
+bubbleHandle.title = title
+```
+>`userDisplayName`: Name used in the intro message (ex. "Hi Carlos!").
+You can customize this value using names from your own database.
+```kotlin
+//userDisplayName is a String
+bubbleHandle.userDisplayName = userDisplayName
+```
+>`introMessage`: Customize the default intro message using your own brand
+voice and custom copy. The userDisplayName prop will be ignored if this
+is provided.
+```kotlin
+//introMessage is a String
+bubbleHandle.introMessage = introMessage
+```
+>`inputPlaceholder`: Customize the placeholder for the Query Input
+(natural language query search bar).
+```kotlin
+//inputPlaceholder is a String
+bubbleHandle.inputPlaceholder = inputPlaceholder
+```
+>`maxMessages`: Maximum number of messages that can be displayed in the
+Data Messenger interface at one time. A message is any input or any
+output in the interface. This means a query entered by a user
+constitutes one message, and the response returned in the Data Messenger
+interface constitutes another message. If a new message is added and you
+have reached the maximum, the oldest message will be erased.
+```kotlin
+//maxMessages is a Int
+bubbleHandle.maxMessages = maxMessages
+```
+>`clearOnClose`: Determines whether or not to clear all messages when the
+widget is closed. Note: The default intro message will appear when you
+reopen the widget after closing it.
+```kotlin
+//clearOnClose is a Boolean
+bubbleHandle.clearOnClose = clearOnClose
+```
+>`enableVoiceRecord`: Enables the voice-to-text button.
+Note: The voice-to-text feature uses Web Speech API, so this feature is
+only available for Chrome users.
+```kotlin
+//enableVoiceRecord is a Boolean
+bubbleHandle.enableVoiceRecord = enableVoiceRecord
+```
+
+#### autoQLConfig Props
