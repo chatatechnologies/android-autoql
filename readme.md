@@ -1,5 +1,6 @@
 # Data Messenger
 > Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
+<!-- [Support by Android version](#support-by-android-version) -->
 
 ## Setup View
 > Init BubbleHandle view
@@ -17,7 +18,7 @@ private lateinit var bubbleHandle: BubbleHandle
 bubbleHandle = BubbleHandle(this@MainActivity)
 ```
 
-## Note: support by Android version
+## Support by Android version
 Tenemos que evaluar la version de Android donde va correr nuestra
 aplicación. Esto se puede revisar con el siguiente código:
 
@@ -90,3 +91,13 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 ```
 Con estas configuraciones son suficientes para que la vista bubbleHandle
 sea visible.
+
+## Props
+ <table>
+  <thead>
+    <tr><th>Prop Name</th><th>Data Type</th><th>Default Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>isVisible</td><td>Boolean</td><td align="right">true</td></tr>
+  </tbody>
+</table>
