@@ -127,14 +127,11 @@ class BubbleHandle(private val context: Context)
 		return pData.second
 	}
 
-	//private var themeConfig = ThemeConfig("light", SinglentonDrawer.lightThemeColor, "#sans-serif", aChartColors)
-
 	private var aThemePossible = arrayListOf("light", "dark")
 	var theme: String = "light"
 	set(value) {
 		if (theme != value && value in aThemePossible)
 		{
-			//themeConfig.theme = value
 			SinglentonDrawer.themeColor = value
 			val themeColor = when(value)
 			{

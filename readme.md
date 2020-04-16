@@ -109,7 +109,10 @@ sea visible.
     <tr><td>enableVoiceRecord</td><td>Boolean</td><td>true</td></tr>
     <tr><td>autoQLConfig</td><td>AutoQLConfig</td><td>AutoQLConfig()</td></tr>
     <tr><td>dataFormatting</td><td>DataFormatting</td><td>DataFormatting()</td></tr>
-    <tr><td>themeConfig</td><td>ThemeConfig</td><td>ThemeConfig()</td></tr>
+    <tr><td>theme</td><td>String: "light" || "dark"</td><td>"light"</td></tr>
+    <tr><td>lightThemeColor</td><td>String</td><td>"#28A8E0"</td></tr>
+    <tr><td>darkThemeColor</td><td>String</td><td>"#525252"</td></tr>
+    <tr><td>aChartColors</td><td>ArrayList<E></td><td>ArrayList()</td></tr>
   </tbody>
 </table>
 
@@ -175,6 +178,32 @@ only available for Chrome users.
 ```kotlin
 //enableVoiceRecord is a Boolean
 bubbleHandle.enableVoiceRecord = enableVoiceRecord
+```
+> `theme`: Color theme for Data Messenger. Currently there are two options: light theme and dark theme. In addition to changing the overall theme, you can also change the accent color using the accentColor prop.
+```kotlin
+//theme is a String "light" else "dark"
+bubbleHandle.theme = theme
+```
+> `lightThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here.
+```kotlin
+//lightThemeColor is a String, its format is #FFFFFF
+bubbleHandle.setLightThemeColor(lightThemeColor)
+```
+> `darkThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here.
+```kotlin
+//darkThemeColor is a String, its format is #FFFFFF
+bubbleHandle.setDarkThemeColor(darkThemeColor)
+```
+> `aChartColors`: Array of color options for the chart visualization themes, starting with the most primary. You can pass any valid CSS color format in here, however it is recommended that the color is opaque (ex. "#26A7E9", "rgb(111, 227, 142)", or "red"). Charts will always apply the colors in order from first to last. If the visualization requires more colors than provided, all colors will be used and then repeated in order.
+> `changeColor(indexColor: Int, valueColor: String)`
+```kotlin
+//indexColor is a Int; valueColor is a valueColor
+bubbleHandle.changeColor(indexColor, valueColor)
+```
+> `addChartColor(valueColor: String): Boolean`
+```kotlin
+//valueColor is a String
+bubbleHandle.addChartColor(valueColor)
 ```
 
 #### autoQLConfig Prop
