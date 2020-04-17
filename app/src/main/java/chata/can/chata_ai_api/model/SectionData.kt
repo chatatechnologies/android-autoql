@@ -40,7 +40,7 @@ object SectionData
 				DemoParameter("API key *", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
 				DemoParameter("Domain URL *", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
 				DemoParameter("Username *", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
-				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword),
+				DemoParameter("Password *", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, isPassword = true),
 				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
 			),
 		"Drawer Props" to

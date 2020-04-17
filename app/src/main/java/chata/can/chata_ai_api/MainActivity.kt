@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.InputType
 import android.util.SparseBooleanArray
 import android.util.TypedValue
 import android.view.Gravity
@@ -428,6 +429,11 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 								setLines(1)
 								setSingleLine()
 								imeOptions = EditorInfo.IME_ACTION_DONE
+							}
+
+							if (demoParam.isPassword)
+							{
+								inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
 							}
 						}
 					}
