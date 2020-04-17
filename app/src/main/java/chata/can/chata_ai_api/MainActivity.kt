@@ -108,6 +108,24 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	}
 
+	override fun onResume()
+	{
+		super.onResume()
+		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
+		{
+			bubbleHandle.isVisible = true
+		}
+	}
+
+	override fun onPause()
+	{
+		super.onPause()
+		if (::bubbleHandle.isInitialized)
+		{
+			bubbleHandle.isVisible = false
+		}
+	}
+
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
 	{
 		super.onActivityResult(requestCode, resultCode, data)
