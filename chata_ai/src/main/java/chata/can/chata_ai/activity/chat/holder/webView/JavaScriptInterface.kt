@@ -14,25 +14,54 @@ class JavaScriptInterface(
 	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
-		val tmp = if (content.contains("_"))
+		val sizeColumn = queryBase.aColumn.size
+		var newContent = content
+		when(sizeColumn)
 		{
-			val aPositions = content.split("_")
-			if (aPositions.size > 1)
+			2 ->
 			{
-				aPositions[0].toIntOrNull()?.let {
-					val aRows = queryBase.aRows
-					aRows[it][0]
-				} ?: run {""}
+				if (content.contains("_"))
+				{
+					val aPositions = content.split("_")
+					if (aPositions.size > 1)
+					{
+						aPositions[0].toIntOrNull()?.let {
+							val aRows = queryBase.aRows
+							newContent = aRows[it][0]
+						}
+					}
+				}
 			}
-			else ""
+			3 ->
+			{
+				if (content.contains("_"))
+				{
+					val aPositions = content.split("_")
+					if (aPositions.size > 1)
+					{
+						aPositions[0].toIntOrNull()?.let {
+							itPosition ->
+							var buildContent = ""
+							val aRows = queryBase.aRows[itPosition]
+
+							for (index in queryBase.aColumn.indices)
+							{
+								val column = queryBase.aColumn[index]
+								if (column.isGroupable)
+								{
+									buildContent += "${aRows[index]}_"
+								}
+							}
+							newContent = buildContent.removeSuffix("_")
+						}
+					}
+				}
+			}
 		}
-		else
+
+		if (newContent.isNotEmpty())
 		{
-			content
-		}
-		if (tmp.isNotEmpty())
-		{
-			presenter.postDrillDown(tmp)
+			presenter.postDrillDown(newContent)
 		}
 	}
 }
