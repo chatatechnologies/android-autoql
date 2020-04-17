@@ -267,9 +267,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	{
 		val pair = if (isAuthenticate)
 		{
-			Pair("Authenticate", "Login Successful")
+			Pair("Log Out", "Login Successful")
 		}
-		else Pair("Log Out", "Sucessfully logged out")
+		else Pair("Authenticate", "Sucessfully logged out")
 
 		btnAuthenticate?.text = pair.first
 		AlertDialog.Builder(this)
@@ -576,7 +576,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			etCustomerMessage?.text = customerMessage
 			val title = "Data Messenger"
 			etTitle?.setText(title)
-			val maxMessage = 2
+			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
 		}
 
