@@ -565,7 +565,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 		if (BuildConfig.DEBUG)
 		{
-			val projectId = "qbo-1"
+//			val projectId = "qbo-1"
+			val projectId = ""
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://qbo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
@@ -573,8 +574,10 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			tvApiKey?.setText(apiKey)
 			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
+//			val username = "admin"
 			val username = "admin"
 			tvUsername?.setText(username)
+//			val password = "admin123"
 			val password = "admin123"
 			tvPassword?.setText(password)
 
