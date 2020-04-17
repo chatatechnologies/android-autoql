@@ -73,8 +73,7 @@ object SectionData
 			),
 		"More Configurations" to
 			arrayListOf(
-				//DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "6", idView = R.id.etMaxNumberMessage),
-				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "2", idView = R.id.etMaxNumberMessage),
+				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage),
 				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
 				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
 				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
