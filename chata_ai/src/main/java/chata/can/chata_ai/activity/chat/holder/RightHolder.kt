@@ -28,8 +28,6 @@ class RightHolder(view: View): BaseHolder(view)
 		if (item is ChatData)
 		{
 			tvContent.text = item.message
-			tvContent.invalidate()
-			tvContent.toString()
 		}
 	}
 }

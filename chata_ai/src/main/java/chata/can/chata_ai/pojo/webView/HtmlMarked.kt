@@ -556,6 +556,18 @@ function hideTables(idHide, idShow, selectType) {
     ${'$'}('.container, #container').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
     changeGraphic(selectType);
 }
+${'$'}('td').click(function() { 
+      var tri = datachartTri.length > 0;
+      var bi = dataChartBi.length > 0;
+    if (bi || tri){
+        var ${'$'}this = ${'$'}(this);
+        var col = ${'$'}this.index();
+        var row = ${'$'}this.closest('tr').index();
+        var final = row + "_" + col;
+       drillDown( final );
+    }
+});
+
 function drillDown(position)
 {
     try
