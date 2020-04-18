@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.extension.isColor
@@ -150,10 +151,10 @@ class BubbleHandle(private val context: Context)
 
 	private fun updateColor()
 	{
-		val drawable = DrawableBuilder.setOvalDrawable(
-			ContextCompat.getColor(context,
-				ThemeColor.currentColor.drawerColorPrimary)
-		)
+		val color = ContextCompat.getColor(context,
+			ThemeColor.currentColor.drawerColorPrimary)
+		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
+		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 		parentCircle.background = drawable
 		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
 	}
@@ -239,10 +240,12 @@ class BubbleHandle(private val context: Context)
 		parentCircle = RelativeLayout(context)
 		val lp = RelativeLayout.LayoutParams(-2, -2)
 		parentCircle.layoutParams = lp
-		val drawable = DrawableBuilder.setOvalDrawable(
-			ContextCompat.getColor(context,
-				ThemeColor.currentColor.drawerColorPrimary)
-		)
+
+		val color = ContextCompat.getColor(context,
+			ThemeColor.currentColor.drawerColorPrimary)
+		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
+		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
+
 		//parentCircle.setBackgroundResource(R.drawable.fake_shadow)
 		parentCircle.background = drawable
 
