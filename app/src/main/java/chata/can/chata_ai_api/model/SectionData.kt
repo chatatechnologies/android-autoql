@@ -78,9 +78,7 @@ object SectionData
 				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
 				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
 				DemoParameter("Enable Drilldowns", TypeParameter.TOGGLE, "true", idView = R.id.swEnableDrillDown),
-				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText),
-				DemoParameter("Debug Mode - Show copy to SQL button in message toolbar", TypeParameter.TOGGLE, "true"),
-				DemoParameter("Test Mode (Provides extra logging on the server side)", TypeParameter.TOGGLE, "true")
+				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
 			)
 	)
 }
