@@ -1,8 +1,13 @@
 package chata.can.chata_ai.pojo.webView
 
+import android.os.Build
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
@@ -13,7 +18,15 @@ object HtmlBuilder
 
 		val dataForWebView = DataForWebView()
 
+		val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.US)
+		val currentDate = sdf.format(Date())
+		println("C DATE is $currentDate")
+
 		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
+
+		val currentDate1 = sdf.format(Date())
+		println("C DATE is $currentDate1")
+
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
