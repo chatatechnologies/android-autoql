@@ -12,7 +12,7 @@ object TableHtmlBuilder
 		mIndexColumn: LinkedHashMap<Int, Int>): Pair<String, Int>
 	{
 		//region create table head
-		var headTable = "<thead><tr>"
+		val headTable = StringBuilder("<thead><tr>")
 		for (column in aColumn)
 		{
 			val cellHead = if (column.displayName.isNotEmpty())
@@ -23,14 +23,14 @@ object TableHtmlBuilder
 			{
 				column.name.toCapitalColumn()
 			}
-			headTable += "<th>$cellHead</th>"
+			headTable.append("<th>$cellHead</th>")
 		}
-		headTable += "</tr></thead>"
+		headTable.append("</tr></thead>")
 		//endregion
 
 		var numRows = 1
 		//region create body table with id idTableBasic
-		var bodyTable = "<tbody>"
+		val bodyTable = StringBuilder("<tbody>")
 		for (aRow in aRows)
 		{
 			var iterator = 0
@@ -58,10 +58,10 @@ object TableHtmlBuilder
 				sRow += "<td>$valueRow</td>"
 			}
 			numRows++
-			bodyTable += "<tr>$sRow</tr>"
+			bodyTable.append("<tr>$sRow</tr>")
 		}
 
-		bodyTable += "</tbody>"
+		bodyTable.append("</tbody>")
 		//endregion
 
 		return Pair("<table id=\"idTableBasic\">$headTable$bodyTable</table>", numRows)
