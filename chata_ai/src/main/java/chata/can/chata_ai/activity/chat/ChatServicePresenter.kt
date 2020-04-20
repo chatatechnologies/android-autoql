@@ -32,6 +32,7 @@ class ChatServicePresenter(
 
 	fun getQuery(query: String)
 	{
+		view?.isLoading(true)
 		val mInfoHolder = hashMapOf<String, Any>("query" to query)
 		QueryRequest.callQuery(query, this, mInfoHolder)
 	}
@@ -112,6 +113,7 @@ class ChatServicePresenter(
 						}
 						else -> TypeChatView.LEFT_VIEW
 					}
+					view?.isLoading(false)
 					view?.addNewChat(typeView, queryBase)
 				}
 				else ->
@@ -156,8 +158,9 @@ class ChatServicePresenter(
 				if (it.length() == 0)
 				{
 					val query = json.optString(keyQuery) ?: ""
-					val mInfoHolder = hashMapOf<String, Any>("query" to query)
-					QueryRequest.callQuery(query, this, mInfoHolder)
+					getQuery(query)
+//					val mInfoHolder = hashMapOf<String, Any>("query" to query)
+//					QueryRequest.callQuery(query, this, mInfoHolder)
 				}
 				else
 				{

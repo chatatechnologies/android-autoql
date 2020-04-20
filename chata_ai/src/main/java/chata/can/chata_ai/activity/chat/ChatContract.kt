@@ -18,6 +18,7 @@ interface ChatContract
 		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 		//fun scrollToPosition()
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
+		fun isLoading(isVisible: Boolean)
 	}
 
 	interface ServiceView

@@ -43,6 +43,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private lateinit var ivCancel: ImageView
 	private lateinit var ivClear: ImageView
 	private lateinit var rvChat: RecyclerView
+	private lateinit var gifView: View
 	private lateinit var ivRun: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
 	private lateinit var ivMicrophone: ImageView
@@ -215,6 +216,14 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		ivMicrophone.background = pDrawable.first
 	}
 
+	override fun isLoading(isVisible: Boolean)
+	{
+		gifView.visibility = if (isVisible)
+			View.VISIBLE
+		else
+			View.GONE
+	}
+
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
 		adapterAutoComplete.clear()
@@ -291,6 +300,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		ivCancel = findViewById(R.id.ivCancel)
 		ivClear = findViewById(R.id.ivClear)
 		rvChat = findViewById(R.id.rvChat)
+		gifView = findViewById(R.id.gifView)
 		ivRun = findViewById(R.id.ivRun)
 		etQuery = findViewById(R.id.etQuery)
 		ivMicrophone = findViewById(R.id.ivMicrophone)
