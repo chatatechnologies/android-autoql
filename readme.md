@@ -164,28 +164,30 @@ Note: The speech to text function uses SpeechRecognizer which works when the "Ma
 //enableVoiceRecord is a Boolean
 bubbleHandle.enableVoiceRecord = enableVoiceRecord
 ```
-> `theme`: Color theme for Data Messenger. Currently there are two options: light theme and dark theme.
+> `theme`: Color theme for Data Messenger. There are currently two options: light theme and dark theme. For a light theme we will use 'light' and for a dark theme we will use 'dark'.
 ```kotlin
 //theme is a String "light" else "dark"
 bubbleHandle.theme = theme
 ```
-> `lightThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here.
+> `lightThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here. This color is used when the light theme is active.
 ```kotlin
 //lightThemeColor is a String, its format is #FFFFFF
 bubbleHandle.setLightThemeColor(lightThemeColor)
 ```
-> `darkThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here.
+> `darkThemeColor`: Primary accent color used in Data Messenger. This is the color of the header, speech-to-text button, and the messages displayed in the interface (both natural language query inputs from users and the associated responses that are generated and returned to the user). The visualization (table and chart) colors will not be affected here. This color is used when the dark theme is active.
 ```kotlin
 //darkThemeColor is a String, its format is #FFFFFF
 bubbleHandle.setDarkThemeColor(darkThemeColor)
 ```
-> `aChartColors`: Array of color options for the chart visualization themes, starting with the most primary. You can pass any valid CSS color format in here, however it is recommended that the color is opaque (ex. "#26A7E9", "rgb(111, 227, 142)", or "red"). Charts will always apply the colors in order from first to last. If the visualization requires more colors than provided, all colors will be used and then repeated in order.
-> `changeColor(indexColor: Int, valueColor: String)`
+> `aChartColors`: Array of color options for the chart visualization themes, starting with the most primary. You can pass any valid CSS color format in here, however it is recommended that the color is opaque (ex. "#26A7E9"). Charts will always apply the colors in order from first to last. If the visualization requires more colors than provided, all colors will be used and then repeated in order.
+
+> `changeColor(indexColor: Int, valueColor: String)`: With the change Color method you will update the color in index Color and the color value of the color to update will be valueColor.
 ```kotlin
 //indexColor is a Int; valueColor is a valueColor
 bubbleHandle.changeColor(indexColor, valueColor)
 ```
-> `addChartColor(valueColor: String): Boolean`
+> `addChartColor(valueColor: String): Boolean`: Add one more color to aChartColors. The color format must be hexadecimal. (Ex. # FF00FF).
+
 ```kotlin
 //valueColor is a String
 bubbleHandle.addChartColor(valueColor)

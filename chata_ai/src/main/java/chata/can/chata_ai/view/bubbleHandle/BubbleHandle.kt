@@ -161,7 +161,8 @@ class BubbleHandle(private val context: Context)
 
 	fun changeColor(indexColor: Int, valueColor: String)
 	{
-		aChartColors[indexColor] = valueColor
+		if (aChartColors.size > indexColor)
+			aChartColors[indexColor] = valueColor
 	}
 
 	fun addChartColor(valueColor: String): Boolean
