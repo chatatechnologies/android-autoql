@@ -218,7 +218,7 @@ bubbleHandle.autoQLConfig.enableAutocomplete = enableAutocomplete
 //enableQueryValidation is a Boolean
 bubbleHandle.autoQLConfig.enableQueryValidation = enableQueryValidation
 ```
->>For example: If you query, 'How much money does Nikki owe me?', validation may detect that there is no 'Nikki' label, but there are labels called 'Nicki', and 'Nik' in your database. The message will then let you select the appropriate label and run the corresponding query.
+>>For example: If you query, 'How much money does Carlos owe me?', validation may detect that there is no 'Carlos' label, but there are labels called 'Karlo', and 'carlo' in your database. The message will then let you select the appropriate label and run the corresponding query.
 
 >>If this value is false, the query will bypass the validate endpoint and be sent straight to the query endpoint.
 
@@ -262,7 +262,7 @@ bubbleHandle.autoQLConfig.debug = debug
 //currencyCode is a String
 bubbleHandle.dataFormatting.currencyCode = currencyCode
 ```
->`languageCode`: If the currency code from your country requires letters not contained in the English alphabet in order to show symbols correctly, you can pass in a locale here. For more details on how to do this, visit: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat
+>`languageCode`: If the currency code from your country requires letters not contained in the English alphabet in order to show symbols correctly. This is not support.
 ```kotlin
 //languageCode is a String
 bubbleHandle.dataFormatting.languageCode = languageCode
@@ -277,12 +277,12 @@ bubbleHandle.dataFormatting.currencyDecimals = currencyDecimals
 //quantityDecimals is a Int
 bubbleHandle.dataFormatting.quantityDecimals = quantityDecimals
 ```
->`monthYearFormat`: The format to display the representation of a whole month. (ex. March 2020). AutoQL uses dayjs for date formatting, however most Moment.js formatting will work here as well. Please see the dayjs docs for formatting options.
+>`monthYearFormat`: The format to display the representation of a whole month. AutoQL uses SimpleDateFormat("format", Locale.US). You can see https://developer.android.com/reference/java/text/SimpleDateFormat
 ```kotlin
 //monthYearFormat is a String
 bubbleHandle.dataFormatting.monthYearFormat = monthYearFormat
 ```
->`dayMonthYearFormat`: The format to display the representation of a single day. (ie. March 18, 2020). AutoQL uses dayjs for date formatting, however most Moment.js formatting will work here as well. Please see the dayjs docs for formatting options.
+>`dayMonthYearFormat`: The format to display the representation of a single day. (ie. March 18, 2020). AutoQL uses SimpleDateFormat("format", Locale.US). You can see https://developer.android.com/reference/java/text/SimpleDateFormat
 ```kotlin
 //dayMonthYearFormat is a String
 bubbleHandle.dataFormatting.dayMonthYearFormat = dayMonthYearFormat

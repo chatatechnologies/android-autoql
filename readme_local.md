@@ -51,3 +51,6 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 - Total invoices: <b>table</b> -> $
 - Totel opereting expinses bu accaunt: <b>full suggestion</b>
 - pie chart total sales
+
+Pass apichata
+key apichata123
