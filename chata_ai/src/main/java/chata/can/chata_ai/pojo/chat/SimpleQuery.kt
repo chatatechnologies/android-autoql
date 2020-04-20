@@ -4,5 +4,6 @@ import org.json.JSONObject
 
 open class SimpleQuery(json: JSONObject)
 {
-	val query = json.optString("query")
+	val query = json.optString("query") ?: ""
+	var typeView = 0
 }

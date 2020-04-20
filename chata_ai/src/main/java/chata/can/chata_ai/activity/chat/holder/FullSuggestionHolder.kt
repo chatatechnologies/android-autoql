@@ -7,7 +7,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.ChatServicePresenter
+import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
@@ -22,7 +22,8 @@ import chata.can.chata_ai.extension.margin
 class FullSuggestionHolder(
 	itemView: View,
 	private val view: ChatContract.View,
-	private val servicePresenter: ChatServicePresenter): BaseHolder(itemView)
+	private val servicePresenter: ChatServicePresenter
+): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)

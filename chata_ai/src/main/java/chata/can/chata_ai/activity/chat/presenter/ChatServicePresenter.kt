@@ -1,6 +1,8 @@
-package chata.can.chata_ai.activity.chat
+package chata.can.chata_ai.activity.chat.presenter
 
 import android.content.Context
+import chata.can.chata_ai.activity.chat.ChatContract
+import chata.can.chata_ai.activity.chat.DataChatInteractor
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -11,7 +13,7 @@ import org.json.JSONObject
 
 class ChatServicePresenter(
 	private val context: Context,
-	private var view: ChatContract.View?) : StatusResponse
+	private var view: ChatContract.View?) : StatusResponse, PresenterContract
 {
 	private var lastQuery = ""
 	private val interactor = DataChatInteractor()
@@ -32,17 +34,17 @@ class ChatServicePresenter(
 
 	fun getQuery(query: String)
 	{
-		view?.isLoading(true)
+		isLoading(true)
 		val mInfoHolder = hashMapOf<String, Any>("query" to query)
 		QueryRequest.callQuery(query, this, mInfoHolder)
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		if (jsonObject != null)
-		{
-
-		}
+//		if (jsonObject != null)
+//		{
+//
+//		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -107,14 +109,22 @@ class ChatServicePresenter(
 							when
 							{
 								numColumns == 1 -> TypeChatView.LEFT_VIEW
-								numColumns > 1 -> TypeChatView.WEB_VIEW
+								numColumns > 1 ->
+								{
+									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
+								}
 								else -> TypeChatView.LEFT_VIEW
 							}
 						}
 						else -> TypeChatView.LEFT_VIEW
 					}
-					view?.isLoading(false)
-					view?.addNewChat(typeView, queryBase)
+					if (queryBase.viewPresenter == null)
+					{
+						isLoading(false)
+						addNewChat(typeView, queryBase)
+					}
 				}
 				else ->
 				{
@@ -123,10 +133,20 @@ class ChatServicePresenter(
 			}
 		}
 
-		if (jsonArray != null)
-		{
+//		if (jsonArray != null)
+//		{
+//
+//		}
+	}
 
-		}
+	override fun isLoading(isVisible: Boolean)
+	{
+		view?.isLoading(isVisible)
+	}
+
+	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
+	{
+		view?.addNewChat(typeView, queryBase)
 	}
 
 	private fun JSONObject.getJSONData() = optJSONObject("data")
@@ -165,14 +185,14 @@ class ChatServicePresenter(
 				else
 				{
 					val simpleQuery = FullSuggestionQuery(json)
-					view?.addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
+					addNewChat(TypeChatView.FULL_SUGGESTION_VIEW, simpleQuery)
 				}
 			}
 		}
 	}
 
-	fun onDestroy()
-	{
-		view = null
-	}
+//	fun onDestroy()
+//	{
+//		view = null
+//	}
 }

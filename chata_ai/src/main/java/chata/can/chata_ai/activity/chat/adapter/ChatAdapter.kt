@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.ChatServicePresenter
+import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
 import chata.can.chata_ai.activity.chat.holder.RightHolder
 import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
@@ -21,7 +21,8 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-	private val servicePresenter: ChatServicePresenter): BaseAdapter(model), ChatAdapterContract
+	private val servicePresenter: ChatServicePresenter
+): BaseAdapter(model), ChatAdapterContract
 {
 	override fun getItemViewType(position: Int): Int
 	{

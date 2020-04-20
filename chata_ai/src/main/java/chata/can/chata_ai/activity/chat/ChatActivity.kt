@@ -23,6 +23,7 @@ import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapter
+import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.chat.voice.VoiceRecognition
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -54,7 +55,8 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	val model = SinglentonDrawer.mModel
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private val renderPresenter = ChatRenderPresenter(this, this)
-	private val servicePresenter = ChatServicePresenter(this, this)
+	private val servicePresenter =
+		ChatServicePresenter(this, this)
 	private lateinit var chatAdapter: ChatAdapter
 
 	private var customerName = ""
