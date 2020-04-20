@@ -13,56 +13,46 @@ object TableHtmlBuilder
 	{
 		//region create table head
 		val headTable = StringBuilder("<thead><tr>")
-		for (column in aColumn)
-		{
-			val cellHead = if (column.displayName.isNotEmpty())
+		aColumn.joinTo(headTable, "", postfix =  "</tr></thead>\n") {
+			val cellHead = if (it.displayName.isNotEmpty())
 			{
-				column.displayName
+				it.displayName
 			}
 			else
-			{
-				column.name.toCapitalColumn()
-			}
-			headTable.append("<th>$cellHead</th>")
+				it.name.toCapitalColumn()
+			"<th>$cellHead</th>"
 		}
-		headTable.append("</tr></thead>")
-		//endregion
 
 		var numRows = 1
 		//region create body table with id idTableBasic
 		val bodyTable = StringBuilder("<tbody>")
-		for (aRow in aRows)
-		{
+
+		aRows.joinTo(bodyTable,"", postfix = "</tbody>") {
+			aRow ->
 			var iterator = 0
-
-			var sRow = ""
-			for (cell in aRow)
-			{
-				val valueRow =
-				if (cell.isEmpty()) ""
-				else
-				{
-					var column: ColumnQuery? = null
-					for ((_, pos) in mIndexColumn)
-					{
-						if (pos == iterator)
-						{
-							column = aColumn[pos]
-							cell.formatWithColumn(column)
-							iterator++
-							break
-						}
-					}
-					column?.let { cell.formatWithColumn(it) }?: ""
-				}
-				sRow += "<td>$valueRow</td>"
-			}
 			numRows++
-			bodyTable.append("<tr>$sRow</tr>")
+			aRow.joinTo(StringBuilder("<tr>"),"",postfix = "</tr>") {
+				cell ->
+				val valueRow =
+					if (cell.isEmpty()) ""
+					else
+					{
+						var column: ColumnQuery? = null
+						for ((_, pos) in mIndexColumn)
+						{
+							if (pos == iterator)
+							{
+								column = aColumn[pos]
+								cell.formatWithColumn(column)
+								iterator++
+								break
+							}
+						}
+						column?.let { cell.formatWithColumn(it) }?: ""
+					}
+				"<td>$valueRow</td>"
+			}
 		}
-
-		bodyTable.append("</tbody>")
-		//endregion
 
 		return Pair("<table id=\"idTableBasic\">$headTable$bodyTable</table>", numRows)
 	}
