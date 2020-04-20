@@ -13,26 +13,31 @@ object TableHtmlBuilder
 	{
 		//region create table head
 		val headTable = StringBuilder("<thead><tr>")
-		aColumn.joinTo(headTable, "", postfix =  "</tr></thead>\n") {
-			val cellHead = if (it.displayName.isNotEmpty())
+		for (column in aColumn)
+		{
+			val cellHead = if (column.displayName.isNotEmpty())
 			{
-				it.displayName
+				column.displayName
 			}
 			else
-				it.name.toCapitalColumn()
-			"<th>$cellHead</th>"
+			{
+				column.name.toCapitalColumn()
+			}
+			headTable.append("<th>$cellHead</th>")
 		}
+		headTable.append("</tr></thead>")
+		//endregion
 
 		var numRows = 1
 		//region create body table with id idTableBasic
 		val bodyTable = StringBuilder("<tbody>")
-
-		aRows.joinTo(bodyTable,"", postfix = "</tbody>") {
-			aRow ->
+		for (aRow in aRows)
+		{
 			var iterator = 0
-			numRows++
-			aRow.joinTo(StringBuilder("<tr>"),"",postfix = "</tr>") {
-				cell ->
+
+			var sRow = ""
+			for (cell in aRow)
+			{
 				val valueRow =
 					if (cell.isEmpty()) ""
 					else
@@ -50,9 +55,14 @@ object TableHtmlBuilder
 						}
 						column?.let { cell.formatWithColumn(it) }?: ""
 					}
-				"<td>$valueRow</td>"
+				sRow += "<td>$valueRow</td>"
 			}
+			numRows++
+			bodyTable.append("<tr>$sRow</tr>")
 		}
+
+		bodyTable.append("</tbody>")
+		//endregion
 
 		return Pair("<table id=\"idTableBasic\">$headTable$bodyTable</table>", numRows)
 	}
