@@ -28,6 +28,7 @@ import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai.request.dashboard.Dashboard
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
@@ -259,9 +260,27 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						DataMessenger.JWT = jwt
 						isAuthenticate = true
 						changeStateAuthenticate()
+						getDashboards()
 					}
 
 					//if (jsonArray != null)  { }
+				}
+			})
+	}
+
+	private fun getDashboards()
+	{
+		Dashboard.getDashboard(
+			DataMessenger.token,
+			object : StatusResponse
+			{
+				override fun onFailure(jsonObject: JSONObject?) {
+					jsonObject.toString()
+				}
+
+				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					jsonObject.toString()
 				}
 			})
 	}
