@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api
+package chata.can.chata_ai_api.main
 
 import android.content.Intent
 import android.graphics.Color
@@ -29,6 +29,8 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai_api.BuildConfig
+import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 import org.json.JSONArray
@@ -292,7 +294,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					tv ->
 					if (isEnabled)
 					{
-						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
+						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+							R.color.blue
+						))
 						tv.setTextColor(Color.WHITE)
 					}
 					else
@@ -333,7 +337,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					tv ->
 					if (isEnabled)
 					{
-						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.blue))
+						tv.setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+							R.color.blue
+						))
 						tv.setTextColor(Color.WHITE)
 					}
 					else
@@ -410,9 +416,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						EditText(this).apply {
 							background = GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
-								setColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+								setColor(ContextCompat.getColor(this@MainActivity,
+									R.color.white
+								))
 								cornerRadius = 15f
-								setStroke(3, (ContextCompat.getColor(this@MainActivity, R.color.borderEditText)))
+								setStroke(3, (ContextCompat.getColor(this@MainActivity,
+									R.color.borderEditText
+								)))
 							}
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
@@ -440,11 +450,15 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 					TypeParameter.BUTTON ->
 					{
 						TextView(this).apply {
-							setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.colorButton))
+							setBackgroundColor(ContextCompat.getColor(this@MainActivity,
+								R.color.colorButton
+							))
 							layoutParams = LinearLayout.LayoutParams(-1, 90)
 							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 							gravity = Gravity.CENTER
-							setTextColor(ContextCompat.getColor(this@MainActivity, R.color.textButton))
+							setTextColor(ContextCompat.getColor(this@MainActivity,
+								R.color.textButton
+							))
 							id = demoParam.idView
 							if (id != 0)
 							{
