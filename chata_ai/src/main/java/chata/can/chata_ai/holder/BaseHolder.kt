@@ -2,6 +2,7 @@ package chata.can.chata_ai.holder
 
 import android.graphics.drawable.GradientDrawable
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -37,6 +38,9 @@ open class BaseHolder(
 			it.setOnClickListener(this)
 		}
 		ivDelete?.setColorFilter()
+
+		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
+		tvContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -1,6 +1,7 @@
 package chata.can.chata_ai.activity.chat.holder
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.BaseHolder
@@ -21,6 +22,9 @@ class RightHolder(view: View): BaseHolder(view)
 			ThemeColor.currentColor.drawerAccentColor)
 		val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 		tvContent.background = queryDrawable
+
+		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
+		tvContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

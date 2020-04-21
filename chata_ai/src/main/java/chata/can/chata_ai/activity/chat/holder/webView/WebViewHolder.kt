@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
@@ -54,10 +55,6 @@ class WebViewHolder(
 	//region paint views
 	override fun onPaint()
 	{
-		rvParent?.let {
-			it.background = backgroundGrayWhite(it)
-		}
-
 		llCharts?.let {
 			it.background = backgroundGrayWhite(it)
 		}
@@ -65,6 +62,12 @@ class WebViewHolder(
 		rlDelete?.let {
 			it.background = backgroundGrayWhite(it)
 			it.setOnClickListener(this)
+		}
+		rvParent?.let {
+			parent ->
+			parent.background = backgroundGrayWhite(parent)
+			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
+			parent.startAnimation(animation)
 		}
 	}
 
