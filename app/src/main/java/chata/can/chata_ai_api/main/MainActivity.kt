@@ -260,7 +260,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						DataMessenger.JWT = jwt
 						isAuthenticate = true
 						changeStateAuthenticate()
-						getDashboards()
+						//getDashboards()
 					}
 
 					//if (jsonArray != null)  { }
