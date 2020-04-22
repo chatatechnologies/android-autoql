@@ -45,29 +45,31 @@ open class BaseHolder(
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
-		if (item is ChatData)
+		when(item)
 		{
-			if (item.message.isNotEmpty())
+			is ChatData ->
 			{
-				tvContent.text = item.message
-			}
-			else
-			{
-				var content = ""
-				item.simpleQuery?.let {
-					if (it is QueryBase)
-					{
-						content = processQueryBase(it)
-					}
+				if (item.message.isNotEmpty())
+				{
+					tvContent.text = item.message
 				}
+				else
+				{
+					var content = ""
+					item.simpleQuery?.let {
+						if (it is QueryBase)
+						{
+							content = processQueryBase(it)
+						}
+					}
 
-				tvContent.text = content
+					tvContent.text = content
+				}
 			}
-		}
-
-		if (item is QueryBase)
-		{
-			tvContent.text = processQueryBase(item)
+			is QueryBase ->
+			{
+				tvContent.text = processQueryBase(item)
+			}
 		}
 	}
 
@@ -89,7 +91,8 @@ open class BaseHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase): String
 	{
-		return when {
+		return when
+		{
 			simpleQuery.isSimpleText ->
 			{
 				rlDelete?.visibility = View.VISIBLE

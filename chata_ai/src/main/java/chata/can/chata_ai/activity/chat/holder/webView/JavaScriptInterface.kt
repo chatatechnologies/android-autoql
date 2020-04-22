@@ -41,7 +41,7 @@ class JavaScriptInterface(
 					{
 						aPositions[0].toIntOrNull()?.let {
 							itPosition ->
-							var buildContent = ""
+							val buildContent = StringBuilder("")
 							val aRows = queryBase.aRows[itPosition]
 
 							for (index in queryBase.aColumn.indices)
@@ -49,10 +49,10 @@ class JavaScriptInterface(
 								val column = queryBase.aColumn[index]
 								if (column.isGroupable)
 								{
-									buildContent += "${aRows[index]}_"
+									buildContent.append("${aRows[index]}_")
 								}
 							}
-							newContent = buildContent.removeSuffix("_")
+							newContent = buildContent.toString().removeSuffix("_")
 						}
 					}
 				}

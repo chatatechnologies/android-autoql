@@ -65,20 +65,20 @@ object DatePivot
 			val dollarColumn = aColumn[1]
 
 			//region create table head
-			var headTable = "<thead><tr><th>Month</th>"
+			val headTable = StringBuilder("<thead><tr><th>Month</th>")
 			for (year in aYears)
 			{
-				headTable += "<th>$year</th>"
+				headTable.append("<th>$year</th>")
 			}
-			headTable += "</tr></thead>"
+			headTable.append("</tr></thead>")
 			//endregion
 
 			var numRows = 1
 			//region table
-			var bodyTable = "<tbody>"
+			val bodyTable = StringBuilder("<tbody>")
 			for (month in aMonths)
 			{
-				var sRow = "<td>$month</td>"
+				val sRow = StringBuilder("<td>$month</td>")
 				var isNotHasZero = false
 				for (year in aYears)
 				{
@@ -91,16 +91,16 @@ object DatePivot
 						if (cell.isNotEmpty())
 							cell.formatWithColumn(dollarColumn)
 						else cell
-					sRow += "<td>$newCell</td>"
+					sRow.append("<td>$newCell</td>")
 				}
 
 				if (isNotHasZero)
 				{
 					numRows++
-					bodyTable += "<tr>$sRow</tr>"
+					bodyTable.append("<tr>$sRow</tr>")
 				}
 			}
-			bodyTable += "</tbody>"
+			bodyTable.append("</tbody>")
 			return Pair("<table id=\"idTableDataPivot\">$headTable$bodyTable</table>", numRows)
 			//endregion
 		}
@@ -149,24 +149,24 @@ object DatePivot
 		//endregion
 
 		//region create table head
-		var headTable = "<thead><tr>"
+		val headTable = StringBuilder("<thead><tr>")
 		val columnProvider = aColumn[0]
 		val columnDate = aColumn[1]
 		val dollarColumn = aColumn[2]
-		headTable += "<th>${columnProvider.name}</th>"
+		headTable.append("<th>${columnProvider.name}</th>")
 		for (date in aDates)
 		{
 			val dateString = date.formatWithColumn(columnDate)
-			headTable += "<th>$dateString</th>"
+			headTable.append("<th>$dateString</th>")
 		}
-		headTable += "</tr></thead>"
+		headTable.append("</tr></thead>")
 		//endregion
 
 		//region table
-		var bodyTable = "<tbody>"
+		val bodyTable = StringBuilder("<tbody>")
 		for (provider in aProvider)
 		{
-			var sRow = "<td>$provider</td>"
+			val sRow = StringBuilder("<td>$provider</td>")
 			for (date in aDates)
 			{
 				val cell = mData["${provider}_$date"]
@@ -174,12 +174,12 @@ object DatePivot
 					?: "0"
 
 				val newCell = cell.formatWithColumn(dollarColumn)
-				sRow += "<td>$newCell</td>"
+				sRow.append("<td>$newCell</td>")
 			}
-			bodyTable += "<tr>$sRow</tr>"
+			bodyTable.append("<tr>$sRow</tr>")
 		}
 
-		bodyTable += "</tbody>"
+		bodyTable.append("</tbody>")
 
 		return "<table id=\"idTableDataPivot\">$headTable$bodyTable</table>"
 		//endregion

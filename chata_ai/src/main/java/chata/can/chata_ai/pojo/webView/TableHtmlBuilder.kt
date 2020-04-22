@@ -35,7 +35,7 @@ object TableHtmlBuilder
 		{
 			var iterator = 0
 
-			var sRow = ""
+			val sRow = StringBuilder("")
 			for (cell in aRow)
 			{
 				val valueRow =
@@ -55,7 +55,7 @@ object TableHtmlBuilder
 						}
 						column?.let { cell.formatWithColumn(it) }?: ""
 					}
-				sRow += "<td>$valueRow</td>"
+				sRow.append("<td>$valueRow</td>")
 			}
 			numRows++
 			bodyTable.append("<tr>$sRow</tr>")
