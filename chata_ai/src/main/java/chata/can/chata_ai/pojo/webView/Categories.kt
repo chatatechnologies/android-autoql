@@ -16,7 +16,7 @@ object Categories
 				val aRow = aRows[index]//.replaceCommaSharp()
 				//val aRow = ArrayList(text.split(","))
 
-				val cellUsed = aRow[position]?: ""
+				val cellUsed = aRow[position]
 
 				var parsed = if (isFormatted)
 				{

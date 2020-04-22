@@ -2,6 +2,7 @@ package chata.can.chata_ai.view.gif;
 
 import java.io.InputStream;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Movie;
@@ -14,7 +15,7 @@ public class GifView extends View
 {
 	private Movie gifMovie;
 	private int movieWidth, movieHeight;
-	private long movieDuration;
+	//private long movieDuration;
 	private long mMovieStart;
 
 	public GifView(Context context) {
@@ -35,13 +36,13 @@ public class GifView extends View
 
 	private void init(Context context){
 		setFocusable(true);
-		InputStream gifInputStream = context.getResources()
+		@SuppressLint("ResourceType") InputStream gifInputStream = context.getResources()
 			.openRawResource(R.drawable.gif_balls);
 
 		gifMovie = Movie.decodeStream(gifInputStream);
 		movieWidth = gifMovie.width();
 		movieHeight = gifMovie.height();
-		movieDuration = gifMovie.duration();
+		//long movieDuration = gifMovie.duration();
 	}
 
 	@Override
@@ -50,17 +51,17 @@ public class GifView extends View
 		setMeasuredDimension(movieWidth, movieHeight);
 	}
 
-	public int getMovieWidth(){
-		return movieWidth;
-	}
-
-	public int getMovieHeight(){
-		return movieHeight;
-	}
-
-	public long getMovieDuration(){
-		return movieDuration;
-	}
+//	public int getMovieWidth(){
+//		return movieWidth;
+//	}
+//
+//	public int getMovieHeight(){
+//		return movieHeight;
+//	}
+//
+//	public long getMovieDuration(){
+//		return movieDuration;
+//	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {

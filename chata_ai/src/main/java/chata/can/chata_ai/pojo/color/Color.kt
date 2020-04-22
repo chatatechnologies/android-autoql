@@ -6,4 +6,5 @@ class Color(
 	val drawerBorderColor: Int,
 	val drawerHoverColor: Int,
 	val drawerColorPrimary: Int,
-	val drawerTextColorPlaceholder: Int)
+	val drawerTextColorPlaceholder: Int
+)

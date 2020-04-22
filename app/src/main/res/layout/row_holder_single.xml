@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<LinearLayout
@@ -8,11 +9,13 @@
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
-		android:padding="8dp">
+		android:padding="8dp"
+		tools:ignore="UselessParent">
 		<RelativeLayout
 			android:id="@+id/rlWebView"
 			android:layout_height="240dp"
-			android:layout_width="match_parent">
+			android:layout_width="match_parent"
+			tools:ignore="UselessParent">
 			<WebView
 				android:scrollbars="none"
 				android:id="@+id/webView"

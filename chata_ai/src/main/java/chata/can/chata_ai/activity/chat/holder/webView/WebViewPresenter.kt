@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.chat.holder.webView
 import chata.can.chata_ai.pojo.DataMessenger.apiKey
 import chata.can.chata_ai.pojo.DataMessenger.domainUrl
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
@@ -32,24 +33,18 @@ class WebViewPresenter: StatusResponse
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-		if (jsonObject != null)
-		{
-
-		}
-	}
+	override fun onFailure(jsonObject: JSONObject?) {}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if (jsonObject != null)
 		{
-			if (jsonObject.has("message"))
+			if (jsonObject.has(messageKey))
 			{
-				val message = jsonObject.optString("message")
+				val message = jsonObject.optString(messageKey)
 				if (message == "Success")
 				{
-
+					println()
 				}
 			}
 		}

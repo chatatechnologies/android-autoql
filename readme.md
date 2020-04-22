@@ -100,7 +100,7 @@ variable `bubbleHandle: BubbleHandle`.
     <tr><td>theme</td><td>String: "light" || "dark"</td><td>"light"</td></tr>
     <tr><td>lightThemeColor</td><td>String</td><td>"#28A8E0"</td></tr>
     <tr><td>darkThemeColor</td><td>String</td><td>"#525252"</td></tr>
-    <tr><td>aChartColors</td><td>ArrayList<E></td><td>ArrayList()</td></tr>
+    <tr><td>aChartColors</td><td>ArrayList&lt;E&gt;</td><td>ArrayList()</td></tr>
   </tbody>
 </table>
 

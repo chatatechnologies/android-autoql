@@ -172,9 +172,9 @@ class CircleImageView: AppCompatImageView
 		invalidate()
 	}
 
-	fun getCircleBackgroundColor() = mCircleBackgroundColor
+//	fun getCircleBackgroundColor() = mCircleBackgroundColor
 
-	fun setCircleBackgroundColor(circleBackgroundColor: Int)
+	private fun setCircleBackgroundColor(circleBackgroundColor: Int)
 	{
 		if (circleBackgroundColor == mCircleBackgroundColor)
 		{

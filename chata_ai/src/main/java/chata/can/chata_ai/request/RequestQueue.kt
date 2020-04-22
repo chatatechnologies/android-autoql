@@ -37,7 +37,7 @@ class RequestQueue
 	val mNetworkQueue = PriorityBlockingQueue<Request<*>>()
 
 	/** Number of network request dispatcher threads to start. */
-	val DEFAULT_NETWORK_THREAD_POOL_SIZE = 4
+	val defaultNetworkThreadPoolSize = 4
 
 	/** Cache interface for retrieving and storing responses. */
 	var mCache: Cache ?= null

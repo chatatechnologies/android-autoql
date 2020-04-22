@@ -130,22 +130,22 @@ object RequestBuilder
 
 	private fun buildParams(params: HashMap<String, String>): ByteArray
 	{
-		val DEFAULT_PARAMS_ENCODING = "UTF-8"
+		val defaultParamsEncoding = "UTF-8"
 		val encodedParams = StringBuilder()
 		try
 		{
 			for (entry in params.entries)
 			{
-				encodedParams.append(URLEncoder.encode(entry.key, DEFAULT_PARAMS_ENCODING))
+				encodedParams.append(URLEncoder.encode(entry.key, defaultParamsEncoding))
 				encodedParams.append('=')
-				encodedParams.append(URLEncoder.encode(entry.value, DEFAULT_PARAMS_ENCODING))
+				encodedParams.append(URLEncoder.encode(entry.value, defaultParamsEncoding))
 				encodedParams.append('&')
 			}
-			return encodedParams.toString().toByteArray(charset(DEFAULT_PARAMS_ENCODING))
+			return encodedParams.toString().toByteArray(charset(defaultParamsEncoding))
 		}
 		catch (uee: UnsupportedEncodingException)
 		{
-			throw RuntimeException("Encoding not supported: $DEFAULT_PARAMS_ENCODING", uee)
+			throw RuntimeException("Encoding not supported: $defaultParamsEncoding", uee)
 		}
 	}
 }

@@ -9,7 +9,6 @@ import java.util.*
 import java.util.regex.Pattern
 
 //fun String.toIntNotNull() = this.toIntOrNull() ?: 0
-fun String.toLongNotNull() = this.toLongOrNull() ?: 0L
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
@@ -108,16 +107,4 @@ fun String.isColor(): Pair<String, Boolean>
 	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
 	return Pair(newColor, colorPattern.matcher(newColor).matches())
-}
-
-val aMonths = arrayListOf("January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December")
-fun String.toConvertMonth(): String
-{
-	val aMonthsLocal = DateFormatSymbols(Locale.US).months
-	val index = aMonthsLocal.indexOf(this)
-	return if (index != -1)
-		aMonths[index]
-	else
-		this
 }

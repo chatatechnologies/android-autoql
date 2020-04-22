@@ -72,7 +72,7 @@ class NetworkDispatcher: Thread
 				// We may have been interrupted because it was time to quit.
 				if (mQuit)
 				{
-					Thread.currentThread().interrupt()
+					currentThread().interrupt()
 					return
 				}
 				VolleyLog.e("Ignoring spurious interrupt of NetworkDispatcher thread; "

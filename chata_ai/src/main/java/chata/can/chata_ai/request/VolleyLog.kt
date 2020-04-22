@@ -93,7 +93,7 @@ class VolleyLog
 	inner class MarkerLog
 	{
 		/** Minimum duration from first marker to last in an marker log to warrant logging. */
-		private val MIN_DURATION_FOR_LOGGING_MS = 0
+		private val minDurationForLoggingMs = 0
 
 		inner class Marker(var name: String, var thread: Long, var time: Long)
 
@@ -123,7 +123,7 @@ class VolleyLog
 			mFinished = true
 
 			val duration = getTotalDuration()
-			if (duration <= MIN_DURATION_FOR_LOGGING_MS)
+			if (duration <= minDurationForLoggingMs)
 			{
 				return
 			}

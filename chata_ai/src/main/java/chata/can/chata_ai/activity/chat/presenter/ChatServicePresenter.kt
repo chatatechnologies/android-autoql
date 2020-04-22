@@ -5,6 +5,8 @@ import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.DataChatInteractor
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.*
+import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
@@ -84,7 +86,7 @@ class ChatServicePresenter(
 						}
 					}
 				}
-				jsonObject.has("reference_id") ->
+				jsonObject.has(referenceIdKey) ->
 				{
 					val queryBase = QueryBase(jsonObject)
 					val typeView = when(queryBase.displayType)
@@ -103,7 +105,7 @@ class ChatServicePresenter(
 								TypeChatView.LEFT_VIEW
 							}
 						}
-						"data" ->
+						dataKey ->
 						{
 							val numColumns = queryBase.numColumns
 							when
@@ -149,7 +151,7 @@ class ChatServicePresenter(
 		view?.addNewChat(typeView, queryBase)
 	}
 
-	private fun JSONObject.getJSONData() = optJSONObject("data")
+	private fun JSONObject.getJSONData() = optJSONObject(dataKey)
 
 	private fun makeMatches(json: JSONObject)
 	{

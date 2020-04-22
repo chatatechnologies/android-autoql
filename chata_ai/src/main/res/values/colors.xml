@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<color name="white">@android:color/white</color>
-	<color name="black">@android:color/black</color>
-	<color name="red">@android:color/holo_red_light</color>
 	<color name="blue">@android:color/holo_blue_light</color>
-	<color name="green">@android:color/holo_green_light</color>
 
-	<color name="primary_text_color">#5D5D5D</color>
-	<color name="secondary_text_color">#999999</color>
-	<color name="border_color">#F1F1F1</color>
-	<color name="accent_color">#31A8DD</color>
+<!--	<color name="primary_text_color">#5D5D5D</color>-->
+<!--	<color name="secondary_text_color">#999999</color>-->
+<!--	<color name="border_color">#F1F1F1</color>-->
+<!--	<color name="accent_color">#31A8DD</color>-->
 
 	<color name="chata_drawer_accent_color">#28A8E0</color>
 	<color name="chata_drawer_accent_color_dark">#525252</color>

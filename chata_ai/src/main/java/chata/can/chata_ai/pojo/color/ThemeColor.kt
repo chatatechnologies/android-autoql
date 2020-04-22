@@ -8,9 +8,11 @@ object ThemeColor
 		R.color.chata_drawer_accent_color,
 		R.color.chata_drawer_background_color,
 		R.color.chata_drawer_border_color,
-		R.color.chata_drawer_hover_color,
+		R.color.chata_drawer_hover_color
+		,
 		R.color.chata_drawer_color_primary,
-		R.color.chata_drawer_text_color_placeholder)
+		R.color.chata_drawer_text_color_placeholder
+	)
 	val darkColor = Color(
 		R.color.chata_drawer_accent_color_dark,
 		R.color.chata_drawer_background_color_dark,

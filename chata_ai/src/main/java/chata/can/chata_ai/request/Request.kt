@@ -6,7 +6,7 @@ import android.text.TextUtils
 abstract class Request<T>: Comparable<Request<T>>
 {
 	/** Default encoding for POST or PUT parameters. See {@link #getParamsEncoding()}. */
-	val DEFAULT_PARAMS_ENCODING = "UTF-8"
+	val defaultParamsEncoding = "UTF-8"
 
 	/** Callback to notify when the network request returns. */
 	interface NetworkRequestCompleteListener

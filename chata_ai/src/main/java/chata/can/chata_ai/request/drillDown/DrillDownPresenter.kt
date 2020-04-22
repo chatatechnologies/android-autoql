@@ -80,7 +80,7 @@ class DrillDownPresenter(
 			queryBase.hasDrillDown = false
 			if (queryBase.displayType == "table")
 			{
-				queryBase.displayType = "data"
+				queryBase.displayType = dataKey
 			}
 			val typeView = when(queryBase.displayType)
 			{
@@ -98,7 +98,7 @@ class DrillDownPresenter(
 						TypeChatView.LEFT_VIEW
 					}
 				}
-				"data" ->
+				dataKey ->
 				{
 					val numColumns = queryBase.numColumns
 					when
