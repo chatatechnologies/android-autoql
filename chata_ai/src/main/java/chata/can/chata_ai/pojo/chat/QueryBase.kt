@@ -45,6 +45,9 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 		return aColumn.size
 	}
 
+	val hasHash: Boolean
+	get() = simpleText.contains("#")
+
 	val isSimpleText: Boolean
 	get() {
 		val sizeLevel1 = aRows.size

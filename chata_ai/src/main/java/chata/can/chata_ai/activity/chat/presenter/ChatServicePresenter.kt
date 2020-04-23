@@ -110,7 +110,12 @@ class ChatServicePresenter(
 							val numColumns = queryBase.numColumns
 							when
 							{
-								numColumns == 1 -> TypeChatView.LEFT_VIEW
+								numColumns == 1 -> {
+									if( queryBase.hasHash)
+										TypeChatView.HELP_VIEW
+									else
+										TypeChatView.LEFT_VIEW
+								}
 								numColumns > 1 ->
 								{
 									queryBase.viewPresenter = this
