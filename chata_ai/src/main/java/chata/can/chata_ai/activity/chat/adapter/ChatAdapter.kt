@@ -6,6 +6,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
+import chata.can.chata_ai.activity.chat.holder.HelpHolder
 import chata.can.chata_ai.activity.chat.holder.RightHolder
 import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
 import chata.can.chata_ai.activity.chat.holder.webView.WebViewHolder
@@ -74,6 +75,10 @@ class ChatAdapter(
 					layoutInflater.inflate(R.layout.row_full_suggestion, nullValue),
 					view,
 					servicePresenter)
+			}
+			TypeChatView.HELP_VIEW ->
+			{
+				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this)
 		}

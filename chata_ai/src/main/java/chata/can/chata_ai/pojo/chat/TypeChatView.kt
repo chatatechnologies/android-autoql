@@ -7,4 +7,5 @@ object TypeChatView
 	const val WEB_VIEW = 3
 	const val SUGGESTION_VIEW = 4
 	const val FULL_SUGGESTION_VIEW = 5
+	const val HELP_VIEW = 6
 }

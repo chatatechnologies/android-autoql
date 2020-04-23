@@ -210,7 +210,8 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 //				val urlDemo = "total overdue invoices by customer by month in a heat map"
 //				val urlDemo = "all sales"
 //				val urlDemo = "budget vs actuals per month"
-				val urlDemo = "count invoices"
+//				val urlDemo = "count invoices"
+				val urlDemo = "heat map"
 				setText(urlDemo)
 			}
 		}

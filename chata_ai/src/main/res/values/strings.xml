@@ -9,4 +9,5 @@
 	<string name="run_query">Run Query</string>
 	<string name="msg_run_autoql">We run on AutoQL by Chata</string>
 	<string name="type_queries_here">Type your queries here</string>
+	<string name="great_news_help">Great news, I can with that:</string>
 </resources>
