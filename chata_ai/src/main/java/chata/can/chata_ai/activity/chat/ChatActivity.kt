@@ -212,6 +212,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 //				val urlDemo = "budget vs actuals per month"
 //				val urlDemo = "count invoices"
 				val urlDemo = "heat map"
+//				val urlDemo = "what are our average expenses per day?"
 				setText(urlDemo)
 			}
 		}

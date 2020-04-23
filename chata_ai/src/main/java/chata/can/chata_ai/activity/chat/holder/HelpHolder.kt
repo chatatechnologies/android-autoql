@@ -17,6 +17,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 class HelpHolder(itemView: View): Holder(itemView)
 {
 	private var llContent = itemView.findViewById<View>(R.id.llContent) ?: null
+	private var llContent2 = itemView.findViewById<View>(R.id.llContent2) ?: null
 	private var tvGreatNewHelp= itemView.findViewById<TextView>(R.id.tvGreatNewHelp) ?: null
 	private var tvContent = itemView.findViewById<TextView>(R.id.tvContent) ?: null
 
@@ -32,7 +33,7 @@ class HelpHolder(itemView: View): Holder(itemView)
 				ThemeColor.currentColor.drawerColorPrimary)
 			it.setTextColor(gray)
 			tvGreatNewHelp?.setTextColor(gray)
-			it.background = backgroundGrayWhite(it)
+			llContent2?.background = backgroundGrayWhite(it)
 		}
 	}
 
