@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -14,10 +15,12 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
 	itemView: View,
-	private val view: ChatAdapterContract? = null
+	private val view: ChatAdapterContract? = null,
+	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
@@ -55,20 +58,17 @@ open class BaseHolder(
 				}
 				else
 				{
-					var content = ""
 					item.simpleQuery?.let {
 						if (it is QueryBase)
 						{
-							content = processQueryBase(it)
+							processQueryBase(it)
 						}
 					}
-
-					tvContent.text = content
 				}
 			}
 			is QueryBase ->
 			{
-				tvContent.text = processQueryBase(item)
+				processQueryBase(item)
 			}
 		}
 	}
@@ -89,28 +89,6 @@ open class BaseHolder(
 		}
 	}
 
-	private fun processQueryBase(simpleQuery: QueryBase): String
-	{
-		return when
-		{
-			simpleQuery.isSimpleText ->
-			{
-				rlDelete?.visibility = View.VISIBLE
-				when
-				{
-					simpleQuery.contentHTML.isNotEmpty() ->
-					{
-						simpleQuery.isLoadingHTML = false
-						simpleQuery.contentHTML
-					}
-					else -> simpleQuery.simpleText
-				}
-			}
-			simpleQuery.aRows.size == 0 -> "Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
-			else -> return "display type not recognized: ${simpleQuery.displayType}"
-		}
-	}
-
 	private fun backgroundGrayWhite(view: View): GradientDrawable
 	{
 		val white = ContextCompat.getColor(
@@ -120,5 +98,32 @@ open class BaseHolder(
 			view.context,
 			ThemeColor.currentColor.drawerColorPrimary)
 		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
+	}
+
+	private fun processQueryBase(simpleQuery: QueryBase)
+	{
+		val message = when
+		{
+			simpleQuery.isSimpleText ->
+			{
+				rlDelete?.visibility = View.VISIBLE
+				when
+				{
+					simpleQuery.contentHTML.isNotEmpty() ->
+					{
+						tvContent.setOnClickListener {
+							DrillDownPresenter(simpleQuery, chatView).postDrillDown()
+						}
+						simpleQuery.isLoadingHTML = false
+						simpleQuery.contentHTML
+					}
+					else -> simpleQuery.simpleText
+				}
+			}
+			simpleQuery.aRows.size == 0 -> "Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
+			else -> "display type not recognized: ${simpleQuery.displayType}"
+		}
+
+		tvContent.text = message
 	}
 }

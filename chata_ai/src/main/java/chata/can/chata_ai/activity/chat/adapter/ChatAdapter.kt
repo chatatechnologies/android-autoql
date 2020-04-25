@@ -80,7 +80,7 @@ class ChatAdapter(
 			{
 				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
 			}
-			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this)
+			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}
 	}
 

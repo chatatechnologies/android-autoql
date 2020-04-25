@@ -15,17 +15,18 @@ class DrillDownPresenter(
 	private val queryBase: QueryBase,
 	private val view: ChatContract.View?): StatusResponse
 {
-	fun postDrillDown(valueInRow: String)
+	fun postDrillDown(valueInRow: String = "")
 	{
 		var header: HashMap<String, String> ?= null
 
-		val mParams = hashMapOf<String, Any>("debug" to true)
+		val mParams = hashMapOf<String, Any>()
 
 		val url = if (DataMessenger.domainUrl.isEmpty())
 		{
 			val column = queryBase.aColumn[0]
 			val nameColumn = column.name
 
+			mParams["debug"] = true
 			mParams["query_id"] = queryBase.queryId
 			mParams["group_bys"] = hashMapOf(nameColumn to valueInRow)
 			mParams["username"] = "demo"
@@ -53,6 +54,7 @@ class DrillDownPresenter(
 						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
 					}
 				}
+				mParams["debug"] = false
 				mParams["columns"] = aColumns
 				"$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
 			}
