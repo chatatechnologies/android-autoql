@@ -3,19 +3,15 @@ package chata.can.chata_ai_api.main
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.text.InputType
 import android.util.SparseBooleanArray
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -32,6 +28,7 @@ import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.BuildConfig
+import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -460,156 +457,25 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					TypeParameter.TOGGLE ->
 					{
-						Switch(this).apply {
-							layoutParams = LinearLayout.LayoutParams(-2, -2)
-							gravity = Gravity.CENTER_HORIZONTAL
-							isChecked = demoParam.value == "true"
-							id = demoParam.idView
-						}
+						CustomViews.getSwitch(this, demoParam.value, demoParam.idView)
 					}
 					TypeParameter.INPUT ->
 					{
-						EditText(this).apply {
-							background = GradientDrawable().apply {
-								shape = GradientDrawable.RECTANGLE
-								setColor(ContextCompat.getColor(this@MainActivity,
-									R.color.white
-								))
-								cornerRadius = 15f
-								setStroke(3, (ContextCompat.getColor(this@MainActivity,
-									R.color.borderEditText
-								)))
-							}
-							layoutParams = LinearLayout.LayoutParams(-1, -2)
-							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-							gravity = Gravity.CENTER_HORIZONTAL
-							id = demoParam.idView
-							if (demoParam.value.isNotEmpty() &&
-								demoParam.value != "true" && demoParam.value != "false")
-							{
-								setText(demoParam.value)
-							}
-							if (demoParam.hint.isNotEmpty())
-							{
-								hint = demoParam.hint
-								setLines(1)
-								setSingleLine()
-								imeOptions = EditorInfo.IME_ACTION_DONE
-							}
-
-							if (demoParam.isPassword)
-							{
-								inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
-							}
-						}
+						CustomViews.getEditText(this, demoParam)
 					}
 					TypeParameter.BUTTON ->
 					{
-						TextView(this).apply {
-							setBackgroundColor(ContextCompat.getColor(this@MainActivity,
-								R.color.colorButton
-							))
-							layoutParams = LinearLayout.LayoutParams(-1, 90)
-							(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-							gravity = Gravity.CENTER
-							setTextColor(ContextCompat.getColor(this@MainActivity,
-								R.color.textButton
-							))
-							id = demoParam.idView
-							if (id != 0)
-							{
-								setOnClickListener(this@MainActivity)
-							}
-							text = demoParam.label
-						}
+						CustomViews.getButton(this, demoParam, this)
 					}
 					TypeParameter.SEGMENT ->
 					{
-						val subView = LinearLayout(this)
-						val sizeOptions = demoParam.options.size
-						if (sizeOptions > 0)
-						{
-							with(subView)
-							{
-								layoutParams = LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
-								(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-								orientation = LinearLayout.HORIZONTAL
-
-								for (iterator in 0 until sizeOptions)
-								{
-									val option = demoParam.options[iterator]
-									val tv = TextView(this@MainActivity)
-									tv.id = option.idView
-									tv.setOnClickListener(this@MainActivity)
-									tv.layoutParams = LinearLayout.LayoutParams(0, 90).apply {
-										weight = 1f
-									}
-									tv.gravity = Gravity.CENTER
-									tv.text = option.text
-									tv.tag = demoParam.label
-
-									mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
-										val newSparse = SparseBooleanArray()
-										newSparse.put(tv.id, option.isActive)
-										mViews.put(demoParam.label, newSparse)
-									}
-									this.addView(tv)
-								}
-							}
-						}
-						subView
+						CustomViews.getSegment(this, demoParam, this)
 					}
 					TypeParameter.COLOR ->
 					{
-						if (demoParam.colors.size > 0)
-						{
-							val subView = LinearLayout(this)
-							subView.layoutParams = LinearLayout.LayoutParams(-1, -2)
-							subView.orientation = LinearLayout.VERTICAL
-
-							for (index in demoParam.colors.indices)
-							{
-								val color = demoParam.colors[index]
-								subView.addView(EditText(this@MainActivity).apply {
-									val valueColor = color.value
-									try
-									{
-										setBackgroundColor(Color.parseColor(valueColor))
-									}
-									finally
-									{
-										layoutParams = LinearLayout.LayoutParams(-1, 120)
-										(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-										gravity = Gravity.CENTER
-										setTextColor(Color.WHITE)
-										bubbleHandle.addChartColor(valueColor)
-										setText(valueColor)
-										tag = index//SET INDEX FOR REPLACE IN ARRAY COLORS
-									}
-								})
-							}
-
-							subView.id = demoParam.idView
-							subView
-						}
-						else
-						{
-							EditText(this@MainActivity).apply {
-								val valueColor = demoParam.value
-								try
-								{
-									setBackgroundColor(Color.parseColor(valueColor))
-								}
-								finally
-								{
-									layoutParams = LinearLayout.LayoutParams(-1, 120)
-									(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-									gravity = Gravity.CENTER
-									setTextColor(Color.WHITE)
-									id = demoParam.idView
-									setText(valueColor)
-								}
-							}
+						CustomViews.getColor(this, demoParam) {
+							valueColor ->
+							bubbleHandle.addChartColor(valueColor)
 						}
 					}
 				}

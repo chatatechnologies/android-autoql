@@ -14,7 +14,7 @@ class SlidePagerAdapter (fm: FragmentManager, private val numPages: Int)
 	override fun getItem(position: Int): Fragment
 	{
 		return if (position == 0)
-			MainFragment()
+			MainFragment.newInstance()
 		else
 			DashboardFragment.newInstance()
 	}
