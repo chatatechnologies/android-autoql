@@ -79,6 +79,12 @@ class MainFragment: BaseFragment(), View.OnClickListener
 
 	private var isAuthenticate = false
 
+	override fun onRenderViews(view: View)
+	{
+		super.onRenderViews(view)
+		parentActivity?.let { bubbleHandle = BubbleHandle(it) }
+	}
+
 	override fun initViews(view: View)
 	{
 		with(view)
@@ -375,7 +381,25 @@ class MainFragment: BaseFragment(), View.OnClickListener
 		}
 	}
 
-	override fun onClick(v: View?)
+	override fun onResume()
+	{
+		super.onResume()
+		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
+		{
+			bubbleHandle.isVisible = true
+		}
+	}
+
+	override fun onPause()
+	{
+		super.onPause()
+		if (::bubbleHandle.isInitialized)
+		{
+			bubbleHandle.isVisible = false
+		}
+	}
+
+	override fun onClick(view: View?)
 	{
 		view?.let {
 			when(it.id)
