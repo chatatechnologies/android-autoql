@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
+import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
 
@@ -63,82 +65,90 @@ class MainFragment: BaseFragment(), View.OnClickListener
 	private lateinit var bubbleHandle: BubbleHandle
 
 	private lateinit var presenter: MainRenderPresenter
+	private val mViews = CustomViews.mViews
 
+	private val mTheme = hashMapOf(
+		R.id.tvLight to BubbleHandle.THEME_LIGHT,
+		R.id.tvDark to BubbleHandle.THEME_DARK)
 
+	private val mPlacement = hashMapOf(
+		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,
+		R.id.tvBottom to ConstantDrawer.BOTTOM_PLACEMENT,
+		R.id.tvLeft to ConstantDrawer.LEFT_PLACEMENT,
+		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
+
+	private var isAuthenticate = false
 
 	override fun initViews(view: View)
 	{
 		with(view)
 		{
-			activity?.let {
-				llContainer = findViewById(R.id.llContainer)
-				presenter = MainRenderPresenter(it, this@MainFragment)
-				presenter.initViews(llContainer)
+			llContainer = findViewById(R.id.llContainer)
+			parentActivity?.let { presenter = MainRenderPresenter(it, this@MainFragment) }
+			presenter.initViews(llContainer)
 
-				swDemoData = findViewById(R.id.swDemoData)
-				hProjectId = findViewById(R.id.hProjectId)
-				tvProjectId = findViewById(R.id.etProjectId)
-				hUserId = findViewById(R.id.hUserId)
-				tvUserId = findViewById(R.id.etUserId)
-				hApiKey = findViewById(R.id.hApiKey)
-				tvApiKey = findViewById(R.id.etApiKey)
-				hDomainUrl = findViewById(R.id.hDomainUrl)
-				tvDomainUrl = findViewById(R.id.etDomainUrl)
-				hUsername = findViewById(R.id.hUsername)
-				tvUsername = findViewById(R.id.etUsername)
-				hPassword = findViewById(R.id.hPassword)
-				tvPassword = findViewById(R.id.etPassword)
-				btnAuthenticate = findViewById(R.id.btnAuthenticate)
-				btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
-				btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
-				swDrawerHandle = findViewById(R.id.swDrawerHandle)
-				etCurrencyCode = findViewById(R.id.etCurrencyCode)
-				etFormatMonthYear = findViewById(R.id.etFormatMonthYear)
-				etFormatDayMonthYear = findViewById(R.id.etFormatDayMonthYear)
-				etLanguageCode = findViewById(R.id.etLanguageCode)
-				etDecimalsCurrency = findViewById(R.id.etDecimalsCurrency)
-				etDecimalsQuantity = findViewById(R.id.etDecimalsQuantity)
-				etCustomerMessage = findViewById(R.id.etCustomerMessage)
-				etIntroMessage = findViewById(R.id.etIntroMessage)
-				etQueryPlaceholder = findViewById(R.id.etQueryPlaceholder)
-				swClearMessage = findViewById(R.id.swClearMessage)
-				etTitle = findViewById(R.id.etTitle)
-				//region llColors
-				findViewById<LinearLayout>(R.id.llColors)?.let {
-					llColors ->
-					for (index in 0 until llColors.childCount)
+			swDemoData = findViewById(R.id.swDemoData)
+			hProjectId = findViewById(R.id.hProjectId)
+			tvProjectId = findViewById(R.id.etProjectId)
+			hUserId = findViewById(R.id.hUserId)
+			tvUserId = findViewById(R.id.etUserId)
+			hApiKey = findViewById(R.id.hApiKey)
+			tvApiKey = findViewById(R.id.etApiKey)
+			hDomainUrl = findViewById(R.id.hDomainUrl)
+			tvDomainUrl = findViewById(R.id.etDomainUrl)
+			hUsername = findViewById(R.id.hUsername)
+			tvUsername = findViewById(R.id.etUsername)
+			hPassword = findViewById(R.id.hPassword)
+			tvPassword = findViewById(R.id.etPassword)
+			btnAuthenticate = findViewById(R.id.btnAuthenticate)
+			btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
+			btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
+			swDrawerHandle = findViewById(R.id.swDrawerHandle)
+			etCurrencyCode = findViewById(R.id.etCurrencyCode)
+			etFormatMonthYear = findViewById(R.id.etFormatMonthYear)
+			etFormatDayMonthYear = findViewById(R.id.etFormatDayMonthYear)
+			etLanguageCode = findViewById(R.id.etLanguageCode)
+			etDecimalsCurrency = findViewById(R.id.etDecimalsCurrency)
+			etDecimalsQuantity = findViewById(R.id.etDecimalsQuantity)
+			etCustomerMessage = findViewById(R.id.etCustomerMessage)
+			etIntroMessage = findViewById(R.id.etIntroMessage)
+			etQueryPlaceholder = findViewById(R.id.etQueryPlaceholder)
+			swClearMessage = findViewById(R.id.swClearMessage)
+			etTitle = findViewById(R.id.etTitle)
+			//region llColors
+			findViewById<LinearLayout>(R.id.llColors)?.let {
+				llColors ->
+				for (index in 0 until llColors.childCount)
+				{
+					val child = llColors.getChildAt(index)
+					if (child is EditText)
 					{
-						val child = llColors.getChildAt(index)
-						if (child is EditText)
-						{
-							child.setOnTextChanged {
-								subColor ->
-								try
+						child.setOnTextChanged {
+							subColor ->
+							try
+							{
+								val pData = subColor.isColor()
+								if (pData.second)
 								{
-									val pData = subColor.isColor()
-									if (pData.second)
-									{
-										child.setBackgroundColor(Color.parseColor(pData.first))
-										bubbleHandle.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
-									}
+									child.setBackgroundColor(Color.parseColor(pData.first))
+									bubbleHandle.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
-								catch (ex: Exception) {}
 							}
+							catch (ex: Exception) {}
 						}
 					}
 				}
-				//endregion
-				etAddColor = findViewById(R.id.etAddColor)
-				etLightThemeColor = findViewById(R.id.etLightThemeColor)
-				etDarkThemeColor = findViewById(R.id.etDarkThemeColor)
-				etMaxNumberMessage = findViewById(R.id.etMaxNumberMessage)
-				swEnableAutocomplete = findViewById(R.id.swEnableAutocomplete)
-				swEnableQuery = findViewById(R.id.swEnableQuery)
-				swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
-				swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
-				swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
-
 			}
+			//endregion
+			etAddColor = findViewById(R.id.etAddColor)
+			etLightThemeColor = findViewById(R.id.etLightThemeColor)
+			etDarkThemeColor = findViewById(R.id.etDarkThemeColor)
+			etMaxNumberMessage = findViewById(R.id.etMaxNumberMessage)
+			swEnableAutocomplete = findViewById(R.id.swEnableAutocomplete)
+			swEnableQuery = findViewById(R.id.swEnableQuery)
+			swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
+			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
+			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
 		}
 
 		if (BuildConfig.DEBUG)
@@ -169,7 +179,6 @@ class MainFragment: BaseFragment(), View.OnClickListener
 	{
 		activity?.let {
 			activity ->
-			val mViews = CustomViews.mViews
 			for ((_, value) in mViews)
 			{
 				for (index in 0 until value.size())
@@ -368,5 +377,100 @@ class MainFragment: BaseFragment(), View.OnClickListener
 
 	override fun onClick(v: View?)
 	{
+		view?.let {
+			when(it.id)
+			{
+				R.id.btnAuthenticate ->
+				{
+					if (isAuthenticate)
+					{
+						DataMessenger.clearData()
+						isAuthenticate = false
+						//changeStateAuthenticate()
+					}
+					else
+					{
+						//createAuthenticate()
+					}
+				}
+				R.id.btnReloadDrawer ->
+				{
+					bubbleHandle.reloadData()
+				}
+				R.id.btnOpenDrawer ->
+				{
+					bubbleHandle.openChatActivity()
+				}
+				R.id.tvLight, R.id.tvDark ->
+				{
+					if (it is TextView)
+					{
+						if (it.tag is String)
+						{
+							setColorOption(it.tag as String, it.id)
+						}
+						mTheme[it.id]?.let {
+							config ->
+							val theme = if (config) "light" else "dark"
+							bubbleHandle.theme = theme
+						}
+					}
+				}
+				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
+				{
+					if (it is TextView)
+					{
+						if (it.tag is String)
+						{
+							setColorOption(it.tag as String, it.id)
+						}
+						mPlacement[it.id]?.let { placement -> bubbleHandle.placement = placement }
+					}
+				}
+			}
+		}
+	}
+
+	private fun setColorOption(optionPath: String, idSelected: Int)
+	{
+		mViews[optionPath]?.let {
+			for (index in 0 until it.size())
+			{
+				val key = it.keyAt(index)
+				var isEnabled = it[key]
+				if (isEnabled)
+				{
+					if (key != idSelected)
+					{
+						isEnabled = false
+						it.put(key, isEnabled)
+					}
+				}
+				else
+				{
+					if (key == idSelected)
+					{
+						isEnabled = true
+						it.put(key, isEnabled)
+					}
+				}
+
+				llContainer.findViewById<TextView>(key)?.let {
+					tv ->
+					if (isEnabled)
+					{
+						parentActivity?.let {
+							tv.setBackgroundColor(ContextCompat.getColor(it, R.color.blue))
+						}
+						tv.setTextColor(Color.WHITE)
+					}
+					else
+					{
+						tv.setBackgroundColor(Color.WHITE)
+						tv.setTextColor(Color.BLACK)
+					}
+				}
+			}
+		}
 	}
 }
