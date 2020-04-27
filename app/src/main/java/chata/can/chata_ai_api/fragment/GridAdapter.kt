@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.second
+package chata.can.chata_ai_api.fragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,6 +13,11 @@ class GridAdapter(model: BaseModelList<*>): BaseAdapter(model)
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return HolderSingle(layoutInflater.inflate( R.layout.row_holder_single, nullParent))
+		return HolderSingle(
+			layoutInflater.inflate(
+				R.layout.row_holder_single,
+				nullParent
+			)
+		)
 	}
 }

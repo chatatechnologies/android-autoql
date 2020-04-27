@@ -18,7 +18,7 @@ import chata.can.chata_ai_api.model.DemoParameter
 
 object CustomViews
 {
-	private val mViews = linkedMapOf<String, SparseBooleanArray>()
+	val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	fun getSwitch(context: Context, value: String, idView: Int) = Switch(context).apply {
 		layoutParams = LinearLayout.LayoutParams(-2, -2)

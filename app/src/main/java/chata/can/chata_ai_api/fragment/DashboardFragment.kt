@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.second
+package chata.can.chata_ai_api.fragment
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager

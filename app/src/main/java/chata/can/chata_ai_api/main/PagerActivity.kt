@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.R
 
 class PagerActivity: AppCompatActivity()
@@ -16,7 +16,6 @@ class PagerActivity: AppCompatActivity()
 	private lateinit var viewPager: ViewPager
 	private val numPages = 2
 
-	private lateinit var bubbleHandle: BubbleHandle
 	private val overlayPermission = 1000
 
 	override fun onCreate(savedInstanceState: Bundle?)
@@ -24,9 +23,6 @@ class PagerActivity: AppCompatActivity()
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
-
-		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
-		viewPager.adapter = adapter
 
 		if (isMarshmallow())
 		{
@@ -52,9 +48,28 @@ class PagerActivity: AppCompatActivity()
 		}
 	}
 
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+	{
+		super.onActivityResult(requestCode, resultCode, data)
+		if (isMarshmallow())
+		{
+			if (canDrawOverlays())
+			{
+				initBubble()
+			}
+			else
+			{
+				Toast.makeText(this, "canDrawOverlays is not enable", Toast.LENGTH_SHORT)
+					.show()
+			}
+		}
+	}
+
 	private fun initBubble()
 	{
-		bubbleHandle = BubbleHandle(this)
+//		bubbleHandle = BubbleHandle(this)
+		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
+		viewPager.adapter = adapter
 	}
 
 	/**
