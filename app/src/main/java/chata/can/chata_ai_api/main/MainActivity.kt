@@ -260,7 +260,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 						DataMessenger.JWT = jwt
 						isAuthenticate = true
 						changeStateAuthenticate()
-						//getDashboards()
+						getDashboards()
 					}
 
 					//if (jsonArray != null)  { }
@@ -280,7 +280,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 				{
-					jsonObject.toString()
+					jsonArray.toString()
 				}
 			})
 	}
