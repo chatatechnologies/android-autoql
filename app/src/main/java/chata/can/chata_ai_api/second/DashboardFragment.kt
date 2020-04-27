@@ -10,9 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.model.Dashboard
+import chata.can.chata_ai_api.putArgs
 
-class SlidePagerFragment: Fragment()
+class DashboardFragment: Fragment()
 {
+	companion object {
+//		const val nameClass = "DashboardFragment"
+		fun newInstance() = DashboardFragment().putArgs {
+			putInt("LAYOUT", R.layout.fragment_slide_page)
+		}
+	}
+
 	private lateinit var rvDashboard: RecyclerView
 
 	override fun onCreateView(
@@ -20,16 +28,19 @@ class SlidePagerFragment: Fragment()
 		container: ViewGroup?,
 		savedInstanceState: Bundle?): View?
 	{
-		val view = inflater.inflate(R.layout.fragment_slide_page, container, false)
-		rvDashboard = view.findViewById(R.id.rvDashboard)
-		initList()
-		return view
+		return arguments?.let {
+			val iLayout = it.getInt("LAYOUT", 0)
+			val view = inflater.inflate(iLayout, container, false)
+			rvDashboard = view.findViewById(R.id.rvDashboard)
+			initList()
+			view
+		} ?: run { null }
 	}
 
 	//region DATA
 	private val aDashboard = arrayListOf(
-		Dashboard("Total sales"),
-		Dashboard("Accounts Receivable")
+		Dashboard("Total sales")
+//		Dashboard("Accounts Receivable")
 	)
 	//endregion
 

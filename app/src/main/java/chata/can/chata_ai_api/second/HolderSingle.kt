@@ -1,7 +1,9 @@
 package chata.can.chata_ai_api.second
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.RelativeLayout
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -19,8 +21,32 @@ class HolderSingle(itemView: View): Holder(itemView)
 
 	}
 
+	@SuppressLint("SetJavaScriptEnabled")
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
+		webView?.let {
+			with(it)
+			{
+				clearCache(true)
+				clearHistory()
+				requestLayout()
 
+				val url = "https://gitlab.com/users/sign_in"
+				settings.javaScriptEnabled = true
+				webView.loadUrl(url)
+				webViewClient = object: WebViewClient()
+				{
+					override fun onPageFinished(view: WebView?, url: String?)
+					{
+						rlLoad?.visibility = View.GONE
+					}
+				}
+
+				setOnTouchListener { view, _ ->
+					view.parent.requestDisallowInterceptTouchEvent(true)
+					false
+				}
+			}
+		}
 	}
 }

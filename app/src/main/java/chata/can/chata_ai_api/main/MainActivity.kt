@@ -20,7 +20,6 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
@@ -805,8 +804,9 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		}
 		//region llColors
 		findViewById<LinearLayout>(R.id.llColors)?.let {
-			for (view in it.children)
+			for (index in 0 until it.childCount)
 			{
+				val view = it.getChildAt(index)
 				if (view is EditText)
 				{
 					view.setOnTextChanged {

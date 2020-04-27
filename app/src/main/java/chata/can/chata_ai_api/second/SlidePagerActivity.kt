@@ -16,7 +16,7 @@ class SlidePagerActivity: FragmentActivity()
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.second_activity)
+		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
 
 		val adapter = SlidePagerAdapter(supportFragmentManager)
@@ -40,6 +40,6 @@ class SlidePagerActivity: FragmentActivity()
 	{
 		override fun getCount() = numPages
 
-		override fun getItem(position: Int): Fragment = SlidePagerFragment()
+		override fun getItem(position: Int): Fragment = DashboardFragment()
 	}
 }
