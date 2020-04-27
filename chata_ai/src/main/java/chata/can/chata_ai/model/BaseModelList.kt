@@ -7,12 +7,12 @@ open class BaseModelList<Model: Any>
 {
 	private val aData = ArrayList<Model>()
 
-	fun addData(data: Model)
+	fun add(data: Model)
 	{
 		aData.add(data)
 	}
 
-	fun addAllData(aData: ArrayList<Model>)
+	fun addAll(aData: ArrayList<Model>)
 	{
 		this.aData.addAll(aData)
 	}

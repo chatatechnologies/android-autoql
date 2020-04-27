@@ -9,9 +9,7 @@ import com.android.volley.Request
 
 object Dashboard
 {
-	fun getDashboard(
-		beaverToken: String,
-		listener: StatusResponse)
+	fun getDashboard(listener: StatusResponse)
 	{
 		val url = "https://backend-staging.chata.io/api/v1/dashboards?key=$apiKey"
 		val mAuthorization = hashMapOf(

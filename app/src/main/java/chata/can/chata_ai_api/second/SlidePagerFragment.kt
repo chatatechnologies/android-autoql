@@ -39,7 +39,7 @@ class SlidePagerFragment: Fragment()
 			val model = BaseModelList<Dashboard>()
 			val adapter = GridAdapter(model)
 
-			model.addAllData(aDashboard)
+			model.addAll(aDashboard)
 
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter

@@ -149,7 +149,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 					val introMessageRes = introMessage
 					val introMessage = String.format(introMessageRes, customerName)
 
-					model.addData(ChatData(1, introMessage))
+					model.add(ChatData(1, introMessage))
 					chatAdapter.notifyDataSetChanged()
 				}
 			}
@@ -254,7 +254,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	override fun addChatMessage(typeView: Int, message: String)
 	{
 		val chatData = ChatData(typeView, message)
-		model.addData(chatData)
+		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
 	}
@@ -262,7 +262,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 	{
 		val chatData = ChatData(typeView, "", queryBase)
-		model.addData(chatData)
+		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
 	}
@@ -376,7 +376,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 			val introMessage = String.format(introMessageRes, customerName)
 
-			model.addData(ChatData(1, introMessage))
+			model.add(ChatData(1, introMessage))
 		}
 		rvChat.layoutManager = LinearLayoutManager(this)
 		rvChat.adapter = chatAdapter
@@ -411,7 +411,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		{
 			hideKeyboard()
 			etQuery.setText("")
-			model.addData(ChatData(2, query))
+			model.add(ChatData(2, query))
 			scrollToPosition()
 
 			chatAdapter.notifyItemChanged(model.countData() - 1)
