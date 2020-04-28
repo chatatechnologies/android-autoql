@@ -87,6 +87,33 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private var isAuthenticate = false
 
+	override fun onRenderViews(view: View)
+	{
+		super.onRenderViews(view)
+		if (BuildConfig.DEBUG)
+		{
+			val projectId = "qbo-1"
+			tvProjectId?.setText(projectId)
+			val domainUrl = "https://qbo-staging.chata.io"
+			tvDomainUrl?.setText(domainUrl)
+			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
+			tvApiKey?.setText(apiKey)
+			val userId = "carlos@rinro.com.mx"
+			tvUserId?.setText(userId)
+			val username = "admin"
+			tvUsername?.setText(username)
+			val password = "admin123"
+			tvPassword?.setText(password)
+
+			val customerMessage = "Carlos"
+			etCustomerMessage?.setText(customerMessage)
+			val title = "Data Messenger"
+			etTitle?.setText(title)
+			val maxMessage = 10
+			etMaxNumberMessage?.setText("$maxMessage")
+		}
+	}
+
 	override fun initViews(view: View)
 	{
 		with(view)
@@ -163,28 +190,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
 		}
 
-		if (BuildConfig.DEBUG)
-		{
-			val projectId = "qbo-1"
-			tvProjectId?.setText(projectId)
-			val domainUrl = "https://qbo-staging.chata.io"
-			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
-			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
-			tvUserId?.setText(userId)
-			val username = "admin"
-			tvUsername?.setText(username)
-			val password = "admin123"
-			tvPassword?.setText(password)
 
-			val customerMessage = "Carlos"
-			etCustomerMessage?.setText(customerMessage)
-			val title = "Data Messenger"
-			etTitle?.setText(title)
-			val maxMessage = 10
-			etMaxNumberMessage?.setText("$maxMessage")
-		}
 	}
 
 	override fun setColors()
