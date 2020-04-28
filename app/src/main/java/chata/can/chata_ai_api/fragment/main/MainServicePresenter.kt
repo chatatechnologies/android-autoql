@@ -29,7 +29,13 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		RequestDashboard.getDashboard(this)
 	}
 
-	override fun onFailure(jsonObject: JSONObject?) {}
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		if (jsonObject != null)
+		{
+			view.showError(jsonObject.optString("CODE") ?: "")
+		}
+	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{

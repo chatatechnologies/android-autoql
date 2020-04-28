@@ -468,6 +468,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	override fun showError(errorCode: String)
+	{
+		parentActivity?.let {
+			AlertDialog.Builder(it)
+				.setCancelable(false)
+				.setMessage("Error: code $errorCode")
+				.setNeutralButton("Error", null)
+				.show()
+		}
+	}
+
 	override fun callJWt()
 	{
 		val userId = (tvUserId?.text ?: "").toString()
