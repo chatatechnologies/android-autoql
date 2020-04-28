@@ -499,6 +499,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	override fun getDashboards()
+	{
+		servicePresenter.getDashboards()
+	}
+
 	private fun setColorOption(optionPath: String, idSelected: Int)
 	{
 		mViews[optionPath]?.let {
@@ -527,8 +532,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					tv ->
 					if (isEnabled)
 					{
-						parentActivity?.let {
-							tv.setBackgroundColor(ContextCompat.getColor(it, R.color.blue))
+						parentActivity?.let { activity ->
+							tv.setBackgroundColor(ContextCompat.getColor(activity, R.color.blue))
 						}
 						tv.setTextColor(Color.WHITE)
 					}
@@ -541,6 +546,4 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 	}
-
-
 }

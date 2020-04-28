@@ -5,4 +5,5 @@ interface MainContract
 	fun callJWt()
 	fun changeAuthenticate(isAuthenticate: Boolean)
 	fun changeStateAuthenticate()
+	fun getDashboards()
 }
