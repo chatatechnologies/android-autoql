@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.fragment
+package chata.can.chata_ai_api.fragment.dashboard
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.R
 
@@ -39,30 +40,48 @@ class HolderSingle(itemView: View): Holder(itemView)
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
-//		webView?.let {
-//			with(it)
-//			{
-//				clearCache(true)
-//				clearHistory()
-//				requestLayout()
-//
-//				val url = "https://gitlab.com/users/sign_in"
-//				settings.javaScriptEnabled = true
-//				webView.loadUrl(url)
-//				webViewClient = object: WebViewClient()
-//				{
-//					override fun onPageFinished(view: WebView?, url: String?)
-//					{
-//						rlLoad?.visibility = View.GONE
-//						tvExecute?.visibility = View.GONE
-//					}
-//				}
-//
-//				setOnTouchListener { view, _ ->
-//					view.parent.requestDisallowInterceptTouchEvent(true)
-//					false
-//				}
-//			}
-//		}
+		if (item is Dashboard)
+		{
+			val titleToShow = if (item.title.isNotEmpty()) item.title else item.query
+			tvTitle?.text = titleToShow
+
+			if (item.htmlContent.isNotEmpty())
+			{
+				rlLoad?.visibility = View.VISIBLE
+				webView?.let {
+					with(it)
+					{
+						visibility = View.VISIBLE
+
+						clearCache(true)
+						clearHistory()
+						requestLayout()
+
+						val url = "https://gitlab.com/users/sign_in"
+						settings.javaScriptEnabled = true
+						webView.loadUrl(url)
+						webViewClient = object: WebViewClient()
+						{
+							override fun onPageFinished(view: WebView?, url: String?)
+							{
+								rlLoad?.visibility = View.GONE
+								tvExecute?.visibility = View.GONE
+							}
+						}
+
+						setOnTouchListener { view, _ ->
+							view.parent.requestDisallowInterceptTouchEvent(true)
+							false
+						}
+					}
+				}
+			}
+			else
+			{
+				webView?.visibility = View.GONE
+				rlLoad?.visibility = View.GONE
+			}
+		}
+
 	}
 }

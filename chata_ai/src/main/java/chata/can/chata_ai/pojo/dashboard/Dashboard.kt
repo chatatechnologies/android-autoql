@@ -17,3 +17,6 @@ data class Dashboard(
 	val w: Int,
 	val x: Int,
 	val y: Int)
+{
+	var htmlContent = ""
+}

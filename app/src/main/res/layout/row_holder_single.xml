@@ -16,7 +16,9 @@
 			android:id="@+id/tvTitle"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:textColor="@color/blue"/>
+			android:textColor="@color/blue"
+			android:textSize="16sp"
+			android:textStyle="bold"/>
 
 		<View
 			android:background="@android:color/darker_gray"

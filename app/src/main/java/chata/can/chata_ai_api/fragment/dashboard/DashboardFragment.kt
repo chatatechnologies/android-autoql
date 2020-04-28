@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.fragment
+package chata.can.chata_ai_api.fragment.dashboard
 
 import android.view.View
 import android.widget.TextView
@@ -16,7 +16,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener
 {
 	companion object {
 		const val nameFragment = "Dashboard"
-		fun newInstance() = DashboardFragment().putArgs {
+		fun newInstance() = DashboardFragment()
+			.putArgs {
 			putInt("LAYOUT", R.layout.fragment_slide_page)
 		}
 	}
@@ -29,7 +30,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener
 	{
 		super.onRenderViews(view)
 		activity?.let {
-			adapter = GridAdapter(SinglentonDashboard.mModel)
+			adapter =
+				GridAdapter(SinglentonDashboard.mModel)
 
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
