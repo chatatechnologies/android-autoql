@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai_api.R
+import com.google.android.material.tabs.TabLayout
 
 class PagerActivity: AppCompatActivity()
 {
 	private lateinit var viewPager: ViewPager
+	private lateinit var tabLayout: TabLayout
 	private val numPages = 2
 
 	private val overlayPermission = 1000
@@ -24,6 +26,9 @@ class PagerActivity: AppCompatActivity()
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
+
+		tabLayout = findViewById(R.id.tabLayout)
+		tabLayout.setupWithViewPager(viewPager)
 
 		if (isMarshmallow())
 		{

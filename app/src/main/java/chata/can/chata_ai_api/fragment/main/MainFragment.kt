@@ -24,7 +24,7 @@ import chata.can.chata_ai_api.*
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
 	companion object {
-		//		const val nameClass = "DashboardFragment"
+		const val nameFragment = "Data Messenger"
 		fun newInstance() = MainFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_main)
 		}

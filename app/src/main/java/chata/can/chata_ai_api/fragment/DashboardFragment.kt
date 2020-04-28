@@ -12,7 +12,7 @@ import chata.can.chata_ai_api.putArgs
 class DashboardFragment: BaseFragment()
 {
 	companion object {
-//		const val nameClass = "DashboardFragment"
+		const val nameFragment = "Dashboard"
 		fun newInstance() = DashboardFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_slide_page)
 		}

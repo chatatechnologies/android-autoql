@@ -18,4 +18,14 @@ class SlidePagerAdapter (fm: FragmentManager, private val numPages: Int)
 		else
 			DashboardFragment.newInstance()
 	}
+
+	override fun getPageTitle(position: Int): CharSequence?
+	{
+		return when(position)
+		{
+			0 -> MainFragment.nameFragment
+			1 -> DashboardFragment.nameFragment
+			else -> ""
+		}
+	}
 }
