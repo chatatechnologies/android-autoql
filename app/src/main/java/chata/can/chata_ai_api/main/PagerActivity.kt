@@ -81,7 +81,7 @@ class PagerActivity: AppCompatActivity()
 
 		if (BuildConfig.DEBUG)
 		{
-			viewPager.currentItem = 1
+			//viewPager.currentItem = 1
 		}
 	}
 

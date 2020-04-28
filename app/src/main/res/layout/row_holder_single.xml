@@ -7,15 +7,30 @@
 	<LinearLayout
 		android:id="@+id/ll1"
 		android:layout_height="match_parent"
+		android:layout_margin="8dp"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
 		android:padding="8dp"
 		tools:ignore="UselessParent">
+		<TextView
+			android:id="@+id/tvTitle"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textColor="@color/blue"/>
+
+		<View
+			android:background="@android:color/darker_gray"
+			android:layout_height="1dp"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:layout_width="100dp"/>
+
 		<RelativeLayout
 			android:id="@+id/rlWebView"
 			android:layout_height="240dp"
 			android:layout_width="match_parent"
 			tools:ignore="UselessParent">
+			<!--region children-->
 			<WebView
 				android:scrollbars="none"
 				android:id="@+id/webView"
@@ -32,6 +47,13 @@
 					android:layout_width="80dp"/>
 			</RelativeLayout>
 
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvExecute"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:text="@string/execute_run_dashboard"/>
+			<!--endregion-->
 		</RelativeLayout>
 	</LinearLayout>
 </RelativeLayout>
