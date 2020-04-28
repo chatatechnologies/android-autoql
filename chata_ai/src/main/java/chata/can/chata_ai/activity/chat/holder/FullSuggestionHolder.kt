@@ -15,7 +15,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 
@@ -155,8 +154,7 @@ class FullSuggestionHolder(
 					rlRunQuery.setOnClickListener {
 						val query = buildQuery()
 						view.addChatMessage(2, query)
-						val mInfoHolder = hashMapOf<String, Any>("query" to query)
-						QueryRequest.callQuery(query, servicePresenter, mInfoHolder)
+						servicePresenter.getQuery(query)
 					}
 				}
 			}

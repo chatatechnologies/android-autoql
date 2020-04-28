@@ -43,10 +43,7 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-//		if (jsonObject != null)
-//		{
-//
-//		}
+//		if (jsonObject != null) {}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -140,10 +137,7 @@ class ChatServicePresenter(
 			}
 		}
 
-//		if (jsonArray != null)
-//		{
-//
-//		}
+//		if (jsonArray != null) {}
 	}
 
 	override fun isLoading(isVisible: Boolean)
@@ -186,8 +180,6 @@ class ChatServicePresenter(
 				{
 					val query = json.optString(keyQuery) ?: ""
 					getQuery(query)
-//					val mInfoHolder = hashMapOf<String, Any>("query" to query)
-//					QueryRequest.callQuery(query, this, mInfoHolder)
 				}
 				else
 				{
