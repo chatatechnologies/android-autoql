@@ -6,15 +6,22 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.DataMessenger
+import chata.can.chata_ai.pojo.DataMessenger.apiKey
+import chata.can.chata_ai.pojo.DataMessenger.domainUrl
+import chata.can.chata_ai.pojo.DataMessenger.password
+import chata.can.chata_ai.pojo.DataMessenger.projectId
+import chata.can.chata_ai.pojo.DataMessenger.userID
+import chata.can.chata_ai.pojo.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
 
-class MainFragment: BaseFragment(), View.OnClickListener
+class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
 	companion object {
 		//		const val nameClass = "DashboardFragment"
@@ -64,7 +71,8 @@ class MainFragment: BaseFragment(), View.OnClickListener
 	private var swEnableSpeechText: Switch ?= null
 	private lateinit var bubbleHandle: BubbleHandle
 
-	private lateinit var presenter: MainRenderPresenter
+	private lateinit var renderPresenter: MainRenderPresenter
+	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
@@ -79,19 +87,17 @@ class MainFragment: BaseFragment(), View.OnClickListener
 
 	private var isAuthenticate = false
 
-	override fun onRenderViews(view: View)
-	{
-		super.onRenderViews(view)
-		parentActivity?.let { bubbleHandle = BubbleHandle(it) }
-	}
-
 	override fun initViews(view: View)
 	{
 		with(view)
 		{
 			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let { presenter = MainRenderPresenter(it, this@MainFragment) }
-			presenter.initViews(llContainer)
+			parentActivity?.let {
+				bubbleHandle = BubbleHandle(it)
+				renderPresenter = MainRenderPresenter(it, this@MainFragment, bubbleHandle)
+				servicePresenter = MainServicePresenter(this@MainFragment)
+			}
+			renderPresenter.initViews(llContainer)
 
 			swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
@@ -410,11 +416,18 @@ class MainFragment: BaseFragment(), View.OnClickListener
 					{
 						DataMessenger.clearData()
 						isAuthenticate = false
-						//changeStateAuthenticate()
+						changeStateAuthenticate()
 					}
 					else
 					{
-						//createAuthenticate()
+						projectId = (tvProjectId?.text ?: "").toString()
+						userID = (tvUserId?.text ?: "").toString()
+						apiKey = (tvApiKey?.text ?: "").toString()
+						domainUrl = (tvDomainUrl?.text ?: "").toString()
+						username = (tvUsername?.text ?: "").toString()
+						password = (tvPassword?.text ?: "").toString()
+
+						servicePresenter.createAuthenticate()
 					}
 				}
 				R.id.btnReloadDrawer ->
@@ -452,6 +465,37 @@ class MainFragment: BaseFragment(), View.OnClickListener
 					}
 				}
 			}
+		}
+	}
+
+	override fun callJWt()
+	{
+		val userId = (tvUserId?.text ?: "").toString()
+		val projectId = (tvProjectId?.text ?: "").toString()
+
+		servicePresenter.createJWT(userId, projectId)
+	}
+
+	override fun changeAuthenticate(isAuthenticate: Boolean)
+	{
+		this.isAuthenticate = isAuthenticate
+	}
+
+	override fun changeStateAuthenticate()
+	{
+		val pair = if (isAuthenticate)
+		{
+			Pair("Log Out", "Login Successful")
+		}
+		else Pair("Authenticate", "Sucessfully logged out")
+
+		btnAuthenticate?.text = pair.first
+		parentActivity?.let {
+			AlertDialog.Builder(it)
+				.setCancelable(false)
+				.setMessage(pair.second)
+				.setNeutralButton("Ok", null)
+				.show()
 		}
 	}
 
@@ -497,4 +541,6 @@ class MainFragment: BaseFragment(), View.OnClickListener
 			}
 		}
 	}
+
+
 }

@@ -7,13 +7,15 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 
 class MainRenderPresenter(
 	private val context: Context,
-	private val onClickListener: View.OnClickListener)
+	private val onClickListener: View.OnClickListener,
+	private val bubbleHandle: BubbleHandle)
 {
 	fun initViews(llContainer: LinearLayout)
 	{
@@ -73,8 +75,8 @@ class MainRenderPresenter(
 					TypeParameter.COLOR ->
 					{
 						CustomViews.getColor(context, demoParam) {
-							//valueColor ->
-							//bubbleHandle.addChartColor(valueColor)
+							valueColor ->
+							bubbleHandle.addChartColor(valueColor)
 						}
 					}
 				}

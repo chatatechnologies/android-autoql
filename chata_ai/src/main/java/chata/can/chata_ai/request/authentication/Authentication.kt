@@ -28,6 +28,7 @@ object Authentication
 			Request.Method.POST,
 			url,
 			parameters = mParams,
+			infoHolder = hashMapOf("nameService" to "callLogin"),
 			listener = listener)
 	}
 
@@ -49,6 +50,7 @@ object Authentication
 			Request.Method.GET,
 			url,
 			headers = mAuthorization,
+			infoHolder = hashMapOf("nameService" to "callJWL"),
 			listener = listener)
 	}
 }
