@@ -35,9 +35,9 @@
 				android:text="@string/run_query"
 				android:textSize="18sp"/>
 			<ImageView
+				android:contentDescription="@null"
 				android:layout_toStartOf="@id/tvRunQuery"
 				android:layout_centerVertical="true"
-				android:contentDescription="@null"
 				android:layout_height="20dp"
 				android:layout_width="20dp"
 				android:src="@drawable/ic_play"/>
