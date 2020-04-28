@@ -63,10 +63,10 @@ class FullSuggestionHolder(
 						val childCount = llSuggestion.childCount
 						if (childCount == 0 || index % 3 == 0)
 						{
-							subRow = LinearLayout(context)
-							subRow.layoutParams = LinearLayout.LayoutParams(-1, -2, 3f)
-							subRow.orientation = LinearLayout.HORIZONTAL
-
+							subRow = LinearLayout(context).apply {
+								layoutParams = LinearLayout.LayoutParams(-1, -2)
+								orientation = LinearLayout.HORIZONTAL
+							}
 							llSuggestion.addView(subRow)
 						}
 
@@ -77,11 +77,12 @@ class FullSuggestionHolder(
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
 									weight = 1f
 								}
+								margin(5f, 0f, 5f, 0f)
 							}
 							//endregion
 							val spinner = Spinner(context)
 							val llSelectedView = LinearLayout(context)
-							val firstTextView = TextView(context)
+							val tvFirst = TextView(context)
 							//region spinner
 							it.add(0, currentText)
 							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
@@ -99,7 +100,7 @@ class FullSuggestionHolder(
 											adapterView.adapter?.let {
 												adapter ->
 												val newContent = adapter.getItem(position)?.toString() ?: ""
-												firstTextView.text = newContent
+												tvFirst.text = newContent
 											}
 										}
 									}
@@ -113,11 +114,11 @@ class FullSuggestionHolder(
 									setGravity(Gravity.CENTER)
 								}
 								orientation = LinearLayout.HORIZONTAL
-								margin(4f, 4f, 4f, 4f)
-								setPadding(9,9,9,9)
+								//setPadding(9,9,9,9)
 
-								firstTextView.apply {
+								tvFirst.apply {
 									layoutParams = RelativeLayout.LayoutParams(-2, -2)
+									setPadding(15,15,15,15)
 									gravity = Gravity.CENTER
 									text = currentText
 									setOnClickListener { spinner.performClick() }
@@ -128,7 +129,7 @@ class FullSuggestionHolder(
 									setOnClickListener { spinner.performClick() }
 								}
 
-								addView(firstTextView)
+								addView(tvFirst)
 								addView(doubleArrow)
 							}
 							//endregion
@@ -142,7 +143,7 @@ class FullSuggestionHolder(
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
 									weight = 1f
 								}
-								margin(5f, 0f, 5f, 3f)
+								margin(5f, 0f, 5f, 0f)
 								setPadding(15,15,15,15)
 								gravity = Gravity.CENTER
 								text = currentText
