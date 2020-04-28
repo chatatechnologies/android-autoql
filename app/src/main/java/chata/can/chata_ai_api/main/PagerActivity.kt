@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
@@ -77,6 +78,11 @@ class PagerActivity: AppCompatActivity()
 		viewPager.adapter = adapter
 
 		RequestBuilder.initVolleyRequest(this)
+
+		if (BuildConfig.DEBUG)
+		{
+			viewPager.currentItem = 1
+		}
 	}
 
 	/**
