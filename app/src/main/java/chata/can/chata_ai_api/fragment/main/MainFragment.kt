@@ -118,6 +118,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvUsername?.setText(username)
 			val password = "admin123"
 			tvPassword?.setText(password)
+			tvPassword?.setSelection(password.length)
 
 			val customerMessage = "Carlos"
 			etCustomerMessage?.setText(customerMessage)
@@ -432,6 +433,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				R.id.btnAuthenticate ->
 				{
+					isEnableLogin(false)
 					if (isAuthenticate)
 					{
 						DataMessenger.clearData()
@@ -512,13 +514,22 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		this.isAuthenticate = isAuthenticate
 	}
 
+	override fun isEnableLogin(isEnable: Boolean)
+	{
+		btnAuthenticate?.isEnabled = isEnable
+	}
+
 	override fun changeStateAuthenticate()
 	{
 		val pair = if (isAuthenticate)
 		{
 			Pair("Log Out", "Login Successful")
 		}
-		else Pair("Authenticate", "Sucessfully logged out")
+		else
+		{
+			isEnableLogin(true)
+			Pair("Authenticate", "Sucessfully logged out")
+		}
 
 		btnAuthenticate?.text = pair.first
 		parentActivity?.let {

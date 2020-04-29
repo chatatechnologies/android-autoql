@@ -5,6 +5,7 @@ interface MainContract
 	fun showError(errorCode: String, errorService: String)
 	fun callJWt()
 	fun changeAuthenticate(isAuthenticate: Boolean)
+	fun isEnableLogin(isEnable: Boolean)
 	fun changeStateAuthenticate()
 	fun getDashboards()
 }

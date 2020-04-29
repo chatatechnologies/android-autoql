@@ -59,7 +59,8 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 					{
 						changeAuthenticate(true)
 						changeStateAuthenticate()
-						getDashboards()
+						isEnableLogin(true)
+						//getDashboards()
 					}
 				}
 			}
