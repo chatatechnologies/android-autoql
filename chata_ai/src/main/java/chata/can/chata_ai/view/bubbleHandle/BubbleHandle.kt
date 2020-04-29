@@ -88,6 +88,10 @@ class BubbleHandle(private val context: Context)
 	var introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
 	var inputPlaceholder = "Type your queries here"
 	var maxMessages = 0
+	set(value) {
+		field = if (value > 1) value else 2
+	}
+
 	var clearOnClose = false
 	var enableVoiceRecord = true
 
