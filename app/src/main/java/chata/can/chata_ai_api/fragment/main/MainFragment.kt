@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.main
 
+import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.EditText
@@ -90,6 +91,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
+		activity?.let {
+			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
+			with(sharePreferences)
+			{
+				val projectId = getString("PROJECT_ID", "") ?: ""
+				val apiKey = getString("API_KEY", "") ?: ""
+				val domainUrl = getString("DOMAIN_URL", "") ?: ""
+				tvProjectId?.setText(projectId)
+				tvApiKey?.setText(apiKey)
+				tvDomainUrl?.setText(domainUrl)
+			}
+		}
+
 		if (BuildConfig.DEBUG)
 		{
 			val projectId = "qbo-1"
@@ -518,6 +532,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun getDashboards()
 	{
+		//region save preferences
+		activity?.let {
+			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
+			with(sharePreferences.edit())
+			{
+				putString("PROJECT_ID", projectId)
+				putString("API_KEY", apiKey)
+				putString("DOMAIN_URL", domainUrl)
+				apply()
+			}
+		}
+		//endregion
 		servicePresenter.getDashboards()
 	}
 
