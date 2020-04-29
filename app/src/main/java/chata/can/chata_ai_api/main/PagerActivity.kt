@@ -18,8 +18,8 @@ class PagerActivity: AppCompatActivity()
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
-//	private val numPages = 2
-	private val numPages = 1
+	private val numPages = 2
+//	private val numPages = 1
 
 	private val overlayPermission = 1000
 

@@ -110,7 +110,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://qbo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "Ffgllooolkmmkkooplllloooo"
+//			val apiKey = "Ffgllooolkmmkkooplllloooo"
+			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
 			tvApiKey?.setText(apiKey)
 			val userId = "vicente@rinro.com.mx"
 			tvUserId?.setText(userId)

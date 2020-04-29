@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
 import android.view.View
+import android.widget.Switch
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,38 +11,16 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
 import chata.can.chata_ai_api.putArgs
 
-class DashboardFragment: BaseFragment(), View.OnClickListener
+class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 {
-	companion object {
-		const val nameFragment = "Dashboard"
-		fun newInstance() = DashboardFragment()
-			.putArgs {
-			putInt("LAYOUT", R.layout.fragment_slide_page)
-		}
-	}
-
-	private lateinit var btnExecute: TextView
-	private lateinit var rvDashboard: RecyclerView
-	private lateinit var adapter: GridAdapter
-
-	override fun onRenderViews(view: View)
-	{
-		super.onRenderViews(view)
-		activity?.let {
-			adapter =
-				GridAdapter(SinglentonDashboard.mModel)
-
-			rvDashboard.layoutManager = LinearLayoutManager(it)
-			rvDashboard.adapter = adapter
-		}
-	}
-
 	override fun initViews(view: View)
 	{
-		rvDashboard = view.findViewById(R.id.rvDashboard)
+		swLoad = view.findViewById(R.id.swLoad)
 		btnExecute = view.findViewById(R.id.btnExecute)
+		rvDashboard = view.findViewById(R.id.rvDashboard)
 	}
 
 	override fun setColors()
@@ -60,6 +39,12 @@ class DashboardFragment: BaseFragment(), View.OnClickListener
 		btnExecute.setOnClickListener(this)
 	}
 
+	override fun onResume()
+	{
+		super.onResume()
+		loadDashboard()
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -67,9 +52,39 @@ class DashboardFragment: BaseFragment(), View.OnClickListener
 			{
 				R.id.btnExecute ->
 				{
-					adapter.notifyDataSetChanged()
+					//adapter.notifyDataSetChanged()
 				}
 			}
 		}
 	}
+
+	override fun setDashboards()
+	{
+		activity?.let {
+			adapter = GridAdapter(SinglentonDashboard.mModel)
+
+			rvDashboard.layoutManager = LinearLayoutManager(it)
+			rvDashboard.adapter = adapter
+		}
+	}
+
+	fun loadDashboard()
+	{
+		presenter.getDashboards()
+	}
+
+
+	companion object {
+		const val nameFragment = "Dashboard"
+		fun newInstance() = DashboardFragment()
+			.putArgs {
+				putInt("LAYOUT", R.layout.fragment_slide_page)
+			}
+	}
+
+	private lateinit var swLoad: Switch
+	private lateinit var btnExecute: TextView
+	private lateinit var rvDashboard: RecyclerView
+	private lateinit var adapter: GridAdapter
+	private var presenter = DashboardPresenter(this)
 }

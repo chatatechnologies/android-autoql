@@ -7,6 +7,12 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical">
+		<Switch
+			android:gravity="center"
+			android:id="@+id/swLoad"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="Run Dashboard Automatically"/>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/btnExecute"

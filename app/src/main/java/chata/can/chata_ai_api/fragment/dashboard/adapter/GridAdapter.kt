@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.fragment.dashboard
+package chata.can.chata_ai_api.fragment.dashboard.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
