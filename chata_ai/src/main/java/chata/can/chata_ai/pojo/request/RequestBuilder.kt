@@ -112,6 +112,7 @@ object RequestBuilder
 						json.put("CODE", statusCode)
 					}
 				}
+				addInfoHolder(json)
 				listener.onFailure(json)
 			})
 		{

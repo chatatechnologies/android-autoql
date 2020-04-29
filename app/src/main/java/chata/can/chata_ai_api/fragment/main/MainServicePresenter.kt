@@ -33,7 +33,9 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 	{
 		if (jsonObject != null)
 		{
-			view.showError(jsonObject.optString("CODE") ?: "")
+			val errorCode = jsonObject.optString("CODE", "")
+			val errorService = jsonObject.optString("nameService", "")
+			view.showError(errorCode, errorService)
 		}
 	}
 

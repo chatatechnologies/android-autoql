@@ -110,9 +110,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://qbo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
+			val apiKey = "Ffgllooolkmmkkooplllloooo"
 			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
+			val userId = "vicente@rinro.com.mx"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
@@ -488,12 +488,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun showError(errorCode: String)
+	override fun showError(errorCode: String, errorService: String)
 	{
 		parentActivity?.let {
 			AlertDialog.Builder(it)
 				.setCancelable(false)
-				.setMessage("Error: code $errorCode")
+				.setMessage("Error: code $errorCode on service \"$errorService\"")
 				.setNeutralButton("Error", null)
 				.show()
 		}

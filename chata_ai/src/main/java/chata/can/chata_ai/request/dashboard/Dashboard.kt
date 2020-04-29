@@ -19,6 +19,7 @@ object Dashboard
 			Request.Method.GET,
 			url,
 			headers = mAuthorization,
+			infoHolder = hashMapOf("nameService" to "getDashboard"),
 			listener = listener)
 	}
 }
