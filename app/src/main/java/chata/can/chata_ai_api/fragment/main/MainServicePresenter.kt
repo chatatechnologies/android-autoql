@@ -27,7 +27,11 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		{
 			val errorCode = jsonObject.optString("CODE", "")
 			val errorService = jsonObject.optString("nameService", "")
-			view.showError(errorCode, errorService)
+			with(view)
+			{
+				isEnableLogin(true)
+				showError(errorCode, errorService)
+			}
 		}
 	}
 
