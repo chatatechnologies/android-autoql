@@ -6,10 +6,22 @@ import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
-class GridAdapter(model: BaseModelList<*>): BaseAdapter(model)
+class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 {
+	override fun onBindViewHolder(holder: Holder, position: Int)
+	{
+		super.onBindViewHolder(holder, position)
+		model[position]?.let {
+			if (it is Dashboard)
+			{
+				it.queryBase?.checkData(holder)
+			}
+		}
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)

@@ -26,7 +26,7 @@ class DashboardPresenter(
 				"getDashboardQueries" ->
 				{
 					val queryBase = QueryBase(jsonObject)
-					countExecutedQueries++
+					model[countExecutedQueries++]?.queryBase = queryBase
 				}
 				else ->
 				{

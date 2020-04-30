@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo.dashboard
 
+import chata.can.chata_ai.pojo.chat.QueryBase
+
 data class Dashboard(
 	val displayType: String,
 	val h: Int,
@@ -18,5 +20,6 @@ data class Dashboard(
 	val x: Int,
 	val y: Int)
 {
+	var queryBase: QueryBase ?= null
 	var htmlContent = ""
 }

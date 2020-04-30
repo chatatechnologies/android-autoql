@@ -45,36 +45,37 @@ class HolderSingle(itemView: View): Holder(itemView)
 			val titleToShow = if (item.title.isNotEmpty()) item.title else item.query
 			tvTitle?.text = titleToShow
 
-			if (item.htmlContent.isNotEmpty())
+			if (item.queryBase != null)
 			{
-				rlLoad?.visibility = View.VISIBLE
-				webView?.let {
-					with(it)
-					{
-						visibility = View.VISIBLE
-
-						clearCache(true)
-						clearHistory()
-						requestLayout()
-
-						val url = "https://gitlab.com/users/sign_in"
-						settings.javaScriptEnabled = true
-						webView.loadUrl(url)
-						webViewClient = object: WebViewClient()
-						{
-							override fun onPageFinished(view: WebView?, url: String?)
-							{
-								rlLoad?.visibility = View.GONE
-								tvExecute?.visibility = View.GONE
-							}
-						}
-
-						setOnTouchListener { view, _ ->
-							view.parent.requestDisallowInterceptTouchEvent(true)
-							false
-						}
-					}
-				}
+				println("Queery $item")
+//				rlLoad?.visibility = View.VISIBLE
+//				webView?.let {
+//					with(it)
+//					{
+//						visibility = View.VISIBLE
+//
+//						clearCache(true)
+//						clearHistory()
+//						requestLayout()
+//
+//						val url = "https://gitlab.com/users/sign_in"
+//						settings.javaScriptEnabled = true
+//						webView.loadUrl(url)
+//						webViewClient = object: WebViewClient()
+//						{
+//							override fun onPageFinished(view: WebView?, url: String?)
+//							{
+//								rlLoad?.visibility = View.GONE
+//								tvExecute?.visibility = View.GONE
+//							}
+//						}
+//
+//						setOnTouchListener { view, _ ->
+//							view.parent.requestDisallowInterceptTouchEvent(true)
+//							false
+//						}
+//					}
+//				}
 			}
 			else
 			{
