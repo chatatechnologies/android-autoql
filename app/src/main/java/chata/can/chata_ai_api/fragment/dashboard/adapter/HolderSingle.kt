@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.TypeChatView
@@ -51,10 +53,12 @@ class HolderSingle(itemView: View): Holder(itemView)
 			{
 				item.queryBase?.let {
 					queryBase ->
+
 					when(queryBase.typeView)
 					{
 						TypeChatView.LEFT_VIEW ->
 						{
+							rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
 							tvContent?.visibility = View.VISIBLE
 							rlLoad?.visibility = View.GONE
 							webView?.visibility = View.GONE
@@ -64,6 +68,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 						}
 						TypeChatView.WEB_VIEW ->
 						{
+							changeHeightParent(queryBase.rowsTable)
 							tvContent?.visibility = View.GONE
 							tvExecute?.visibility = View.GONE
 							rlLoad?.visibility = View.VISIBLE
@@ -100,24 +105,6 @@ class HolderSingle(itemView: View): Holder(itemView)
 						else -> {}
 					}
 				}
-//				webView?.let {
-//					with(it)
-//					{
-//						webViewClient = object: WebViewClient()
-//						{
-//							override fun onPageFinished(view: WebView?, url: String?)
-//							{
-//								rlLoad?.visibility = View.GONE
-//								tvExecute?.visibility = View.GONE
-//							}
-//						}
-//
-//						setOnTouchListener { view, _ ->
-//							view.parent.requestDisallowInterceptTouchEvent(true)
-//							false
-//						}
-//					}
-//				}
 			}
 			else
 			{
@@ -125,6 +112,18 @@ class HolderSingle(itemView: View): Holder(itemView)
 				rlLoad?.visibility = View.GONE
 			}
 		}
+	}
 
+	private fun changeHeightParent(numRows: Int)
+	{
+		rlWebView?.let {
+			val tmpRows = if (numRows == 0) 180 else numRows
+			var customHeight = it.dpToPx(30f * tmpRows) + 60
+			if (customHeight > 900)
+			{
+				customHeight = 900
+			}
+			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
+		}
 	}
 }
