@@ -21,5 +21,5 @@ data class Dashboard(
 	val y: Int)
 {
 	var queryBase: QueryBase ?= null
-	var htmlContent = ""
+	var isWaitingData = false
 }

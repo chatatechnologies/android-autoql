@@ -93,8 +93,13 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		for (index in 0 until model.countData())
 		{
-			adapter.notifyItemChanged(index)
+			//adapter.notifyItemChanged(index)
 		}
+	}
+
+	override fun notifyQueryAtIndex(index: Int)
+	{
+		adapter.notifyItemChanged(index)
 	}
 
 	private fun loadDashboard()

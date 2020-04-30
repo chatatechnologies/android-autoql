@@ -4,4 +4,5 @@ interface DashboardContract
 {
 	fun setDashboards()
 	fun reloadQueries()
+	fun notifyQueryAtIndex(index: Int)
 }

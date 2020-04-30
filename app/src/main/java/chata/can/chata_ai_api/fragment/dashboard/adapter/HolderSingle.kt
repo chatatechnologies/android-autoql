@@ -49,66 +49,76 @@ class HolderSingle(itemView: View): Holder(itemView)
 			val titleToShow = if (item.title.isNotEmpty()) item.title else item.query
 			tvTitle?.text = titleToShow
 
-			if (item.queryBase != null)
+			if (item.isWaitingData)
 			{
-				item.queryBase?.let {
-					queryBase ->
+				if (item.queryBase != null)
+				{
+					item.queryBase?.let {
+						queryBase ->
 
-					when(queryBase.typeView)
-					{
-						TypeChatView.LEFT_VIEW ->
+						when(queryBase.typeView)
 						{
-							rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
-							tvContent?.visibility = View.VISIBLE
-							rlLoad?.visibility = View.GONE
-							webView?.visibility = View.GONE
-							tvExecute?.visibility = View.GONE
+							TypeChatView.LEFT_VIEW ->
+							{
+								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								tvContent?.visibility = View.VISIBLE
+								rlLoad?.visibility = View.GONE
+								webView?.visibility = View.GONE
+								tvExecute?.visibility = View.GONE
 
-							tvContent?.text = queryBase.contentHTML
-						}
-						TypeChatView.WEB_VIEW ->
-						{
-							changeHeightParent(queryBase.rowsTable)
-							tvContent?.visibility = View.GONE
-							tvExecute?.visibility = View.GONE
-							rlLoad?.visibility = View.VISIBLE
+								tvContent?.text = queryBase.contentHTML
+							}
+							TypeChatView.WEB_VIEW ->
+							{
+								changeHeightParent(queryBase.rowsTable)
+								tvContent?.visibility = View.GONE
+								tvExecute?.visibility = View.GONE
+								rlLoad?.visibility = View.VISIBLE
 
-							webView?.let {
-								with(it)
-								{
-									clearCache(true)
-									clearHistory()
-									requestLayout()
-									settings.javaScriptEnabled = true
-
-									loadDataWithBaseURL(
-										null,
-										queryBase.contentHTML,
-										"text/html",
-										"UTF-8",
-										null)
-									webViewClient = object: WebViewClient()
+								webView?.let {
+									with(it)
 									{
-										override fun onPageFinished(view: WebView?, url: String?)
+										clearCache(true)
+										clearHistory()
+										requestLayout()
+										settings.javaScriptEnabled = true
+
+										loadDataWithBaseURL(
+											null,
+											queryBase.contentHTML,
+											"text/html",
+											"UTF-8",
+											null)
+										webViewClient = object: WebViewClient()
 										{
-											rlLoad?.visibility = View.GONE
-											visibility = View.VISIBLE
+											override fun onPageFinished(view: WebView?, url: String?)
+											{
+												rlLoad?.visibility = View.GONE
+												visibility = View.VISIBLE
+											}
 										}
-									}
-									setOnTouchListener { view, _ ->
-										view.parent.requestDisallowInterceptTouchEvent(true)
-										false
+										setOnTouchListener { view, _ ->
+											view.parent.requestDisallowInterceptTouchEvent(true)
+											false
+										}
 									}
 								}
 							}
+							else -> {}
 						}
-						else -> {}
 					}
+				}
+				else
+				{
+					tvContent?.visibility = View.GONE
+					tvExecute?.visibility = View.GONE
+					rlLoad?.visibility = View.VISIBLE
 				}
 			}
 			else
 			{
 				webView?.visibility = View.GONE
+				tvExecute?.visibility = View.VISIBLE
 				rlLoad?.visibility = View.GONE
 			}
 		}

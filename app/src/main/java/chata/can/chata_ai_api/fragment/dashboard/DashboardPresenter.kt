@@ -29,7 +29,7 @@ class DashboardPresenter(
 				"getDashboardQueries" ->
 				{
 					val queryBase = QueryBase(jsonObject)
-					val currentItem = model[countExecutedQueries++]
+					val currentItem = model[countExecutedQueries]
 					currentItem?.let {
 						it.queryBase = queryBase
 					}
@@ -58,6 +58,7 @@ class DashboardPresenter(
 						else -> TypeChatView.LEFT_VIEW
 					}
 
+					view.notifyQueryAtIndex(countExecutedQueries++)
 				}
 				else ->
 				{
@@ -117,11 +118,6 @@ class DashboardPresenter(
 					}
 				}
 			}
-
-			if (countExecutedQueries == model.countData())
-			{
-				view.reloadQueries()
-			}
 		}
 	}
 
@@ -135,6 +131,9 @@ class DashboardPresenter(
 		for (index in 0 until model.countData())
 		{
 			model[index]?.let { dashboard ->
+				dashboard.isWaitingData = true
+				view.notifyQueryAtIndex(index)
+
 				val query = dashboard.query
 				val mInfoHolder = hashMapOf<String, Any>(
 					"query" to query,
