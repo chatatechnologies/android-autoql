@@ -2,4 +2,5 @@
 	<string name="app_name">ApiChata</string>
 	<string name="execute_dashboard">Execute Dashboard</string>
 	<string name="execute_run_dashboard">Hit \"Execute\" to run this dashboard</string>
+	<string name="run_dashboard_automatically">Run Dashboard Automatically</string>
 </resources>

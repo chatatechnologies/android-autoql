@@ -37,12 +37,24 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun initListener()
 	{
 		btnExecute.setOnClickListener(this)
+		swLoad.setOnCheckedChangeListener {
+			_, isChecked ->
+			isAutomatic = isChecked
+			if (isAutomatic)
+			{
+				getDashboardQueries()
+			}
+		}
 	}
 
 	override fun onResume()
 	{
 		super.onResume()
 		loadDashboard()
+		if (isAutomatic)
+		{
+			getDashboardQueries()
+		}
 	}
 
 	override fun onClick(view: View?)
@@ -52,7 +64,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			{
 				R.id.btnExecute ->
 				{
-					//adapter.notifyDataSetChanged()
+					getDashboardQueries()
 				}
 			}
 		}
@@ -61,18 +73,34 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun setDashboards()
 	{
 		activity?.let {
-			adapter = GridAdapter(SinglentonDashboard.mModel)
+			adapter = GridAdapter(model)
 
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
 		}
 	}
 
-	fun loadDashboard()
+	override fun reloadQueries()
 	{
-		presenter.getDashboards()
+		for (index in 0 until model.countData())
+		{
+			adapter.notifyItemChanged(index)
+		}
 	}
 
+	private fun loadDashboard()
+	{
+		if (!isLoaded)
+		{
+			isLoaded = true
+			presenter.getDashboards()
+		}
+	}
+
+	private fun getDashboardQueries()
+	{
+		presenter.getDashboardQueries()
+	}
 
 	companion object {
 		const val nameFragment = "Dashboard"
@@ -87,4 +115,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private lateinit var rvDashboard: RecyclerView
 	private lateinit var adapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
+	private var isAutomatic = false
+	private var isLoaded = false
+	val model = SinglentonDashboard.mModel
 }

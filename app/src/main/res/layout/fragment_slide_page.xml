@@ -11,8 +11,10 @@
 			android:gravity="center"
 			android:id="@+id/swLoad"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
 			android:layout_width="match_parent"
-			android:text="Run Dashboard Automatically"/>
+			android:text="@string/run_dashboard_automatically"/>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/btnExecute"

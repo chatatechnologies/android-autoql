@@ -542,7 +542,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun getDashboards()
+	override fun savePersistentData()
 	{
 		//region save preferences
 		activity?.let {
@@ -556,7 +556,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 		//endregion
-		servicePresenter.getDashboards()
 	}
 
 	private fun setColorOption(optionPath: String, idSelected: Int)

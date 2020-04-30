@@ -199,7 +199,7 @@ class BubbleHandle(private val context: Context)
 
 	fun reloadData()
 	{
-		SinglentonDrawer.mModel.clearData()
+		SinglentonDrawer.mModel.clear()
 		/*isVisible = true
 		placement = ConstantDrawer.RIGHT_PLACEMENT
 		title = "Data Messenger"

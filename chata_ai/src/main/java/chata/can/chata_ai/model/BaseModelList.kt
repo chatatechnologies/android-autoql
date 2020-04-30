@@ -17,7 +17,7 @@ open class BaseModelList<Model: Any>
 		this.aData.addAll(aData)
 	}
 
-	fun clearData()
+	fun clear()
 	{
 		aData.clear()
 	}

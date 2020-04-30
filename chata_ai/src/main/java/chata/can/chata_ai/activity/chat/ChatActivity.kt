@@ -144,7 +144,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				}
 				R.id.ivClear ->
 				{
-					model.clearData()
+					model.clear()
 
 					val introMessageRes = introMessage
 					val introMessage = String.format(introMessageRes, customerName)
@@ -509,7 +509,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		BubbleHandle.instance.isVisible = true
 		if (clearOnClose)
 		{
-			SinglentonDrawer.mModel.clearData()
+			SinglentonDrawer.mModel.clear()
 		}
 	}
 }
