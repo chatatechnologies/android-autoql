@@ -543,12 +543,27 @@ startScript();
 function startScript() {
   ${'$'}('.container, #idTableBasic, table').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
     chart = Highcharts.chart('container', defaultChart);
-    changeGraphic('column');
+    //changeGraphic('column');
+    var typeTmp = '';
+    if (type == 'table') {
+        typeTmp = 'column';
+    }
+    else {
+        typeTmp = type;
+    }
+    changeGraphic(typeTmp);
 }
 hideAll();
 function hideAll(){
     ${'$'}('.container, #container, #idTableBasic, table').css({ "width": "100%", "position": "absolute","height":"90%", "z-index": "0" });
-    ${'$'}( "#idTableDataPivot, #idTableDatePivot, #container" ).hide();
+    //${'$'}( "#idTableDataPivot, #container" ).hide();
+
+    if (type != "table") {
+      ${'$'}( "#idTableDataPivot, #idTableBasic" ).hide();
+    }
+    else {
+      ${'$'}( "#idTableDataPivot, #container" ).hide();
+    }
 }
 function hideTables(idHide, idShow, selectType) {
     ${'$'}( idHide ).hide("slow");
