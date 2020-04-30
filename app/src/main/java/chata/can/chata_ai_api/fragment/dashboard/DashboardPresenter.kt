@@ -28,7 +28,10 @@ class DashboardPresenter(
 				"getDashboardQueries" ->
 				{
 					val queryBase = QueryBase(jsonObject)
-					model[countExecutedQueries++]?.queryBase = queryBase
+					val currentItem = model[countExecutedQueries++]
+					currentItem?.let {
+						it.queryBase = queryBase
+					}
 
 					queryBase.typeView  = when(queryBase.displayType)
 					{
@@ -45,8 +48,7 @@ class DashboardPresenter(
 								}
 								numColumns > 1 ->
 								{
-//									queryBase.viewPresenter = this
-									queryBase.typeView = TypeChatView.WEB_VIEW
+									queryBase.displayType = currentItem?.displayType ?: "table"
 									TypeChatView.WEB_VIEW
 								}
 								else -> TypeChatView.LEFT_VIEW

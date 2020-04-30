@@ -111,7 +111,7 @@ object HtmlMarked
 	<div id="container" class="container" style="display:none;"></div>
 	${dataForWebView.datePivot}
 <script>
-	var type = 'table';
+	var type = '${dataForWebView.type}';
 	var xAxis = '';
 	var yAxis = '';
 	var dashBoardActive = false;

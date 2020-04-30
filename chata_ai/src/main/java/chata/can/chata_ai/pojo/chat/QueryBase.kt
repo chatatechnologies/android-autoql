@@ -179,6 +179,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					else ->
 					{
 						val dataForWebView = HtmlBuilder.build(this)
+						dataForWebView.type = displayType
 						contentHTML = HtmlMarked.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot
