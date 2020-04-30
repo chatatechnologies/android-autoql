@@ -33,6 +33,14 @@
 			android:layout_width="match_parent"
 			tools:ignore="UselessParent">
 			<!--region children-->
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvContent"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				android:textColor="@android:color/black"
+				android:textSize="20sp"/>
+
 			<WebView
 				android:scrollbars="none"
 				android:id="@+id/webView"

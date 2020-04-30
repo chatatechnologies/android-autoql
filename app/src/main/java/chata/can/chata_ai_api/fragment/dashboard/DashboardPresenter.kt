@@ -2,7 +2,9 @@ package chata.can.chata_ai_api.fragment.dashboard
 
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
@@ -27,6 +29,32 @@ class DashboardPresenter(
 				{
 					val queryBase = QueryBase(jsonObject)
 					model[countExecutedQueries++]?.queryBase = queryBase
+
+					queryBase.typeView  = when(queryBase.displayType)
+					{
+						dataKey ->
+						{
+							val numColumns = queryBase.numColumns
+							when
+							{
+								numColumns == 1 -> {
+									if( queryBase.hasHash)
+										TypeChatView.HELP_VIEW
+									else
+										TypeChatView.LEFT_VIEW
+								}
+								numColumns > 1 ->
+								{
+//									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
+								}
+								else -> TypeChatView.LEFT_VIEW
+							}
+						}
+						else -> TypeChatView.LEFT_VIEW
+					}
+
 				}
 				else ->
 				{

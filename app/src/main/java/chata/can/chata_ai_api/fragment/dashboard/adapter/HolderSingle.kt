@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -19,6 +20,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 	private val ll1 = itemView.findViewById<View>(R.id.ll1) ?: null
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView) ?: null
+	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent) ?: null
 	private val webView = itemView.findViewById<WebView>(R.id.webView) ?: null
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 	private val tvExecute = itemView.findViewById<TextView>(R.id.tvExecute) ?: null
@@ -47,20 +49,60 @@ class HolderSingle(itemView: View): Holder(itemView)
 
 			if (item.queryBase != null)
 			{
-				println("Queery $item")
-//				rlLoad?.visibility = View.VISIBLE
+				item.queryBase?.let {
+					queryBase ->
+					when(queryBase.typeView)
+					{
+						TypeChatView.LEFT_VIEW ->
+						{
+							tvContent?.visibility = View.VISIBLE
+							rlLoad?.visibility = View.GONE
+							webView?.visibility = View.GONE
+							tvExecute?.visibility = View.GONE
+
+							tvContent?.text = queryBase.contentHTML
+						}
+						TypeChatView.WEB_VIEW ->
+						{
+							tvContent?.visibility = View.GONE
+							tvExecute?.visibility = View.GONE
+							rlLoad?.visibility = View.VISIBLE
+
+							webView?.let {
+								with(it)
+								{
+									clearCache(true)
+									clearHistory()
+									requestLayout()
+									settings.javaScriptEnabled = true
+
+									loadDataWithBaseURL(
+										null,
+										queryBase.contentHTML,
+										"text/html",
+										"UTF-8",
+										null)
+									webViewClient = object: WebViewClient()
+									{
+										override fun onPageFinished(view: WebView?, url: String?)
+										{
+											rlLoad?.visibility = View.GONE
+											visibility = View.VISIBLE
+										}
+									}
+									setOnTouchListener { view, _ ->
+										view.parent.requestDisallowInterceptTouchEvent(true)
+										false
+									}
+								}
+							}
+						}
+						else -> {}
+					}
+				}
 //				webView?.let {
 //					with(it)
 //					{
-//						visibility = View.VISIBLE
-//
-//						clearCache(true)
-//						clearHistory()
-//						requestLayout()
-//
-//						val url = "https://gitlab.com/users/sign_in"
-//						settings.javaScriptEnabled = true
-//						webView.loadUrl(url)
 //						webViewClient = object: WebViewClient()
 //						{
 //							override fun onPageFinished(view: WebView?, url: String?)

@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.activity.chat.PropertyChatActivity
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -16,6 +17,14 @@ import chata.can.chata_ai_api.putArgs
 
 class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 {
+	override fun onRenderViews(view: View)
+	{
+		super.onRenderViews(view)
+		activity?.let {
+			PropertyChatActivity.context = it
+		}
+	}
+
 	override fun initViews(view: View)
 	{
 		swLoad = view.findViewById(R.id.swLoad)
