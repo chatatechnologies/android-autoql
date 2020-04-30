@@ -83,19 +83,16 @@ class HolderSingle(itemView: View): Holder(itemView)
 										requestLayout()
 										settings.javaScriptEnabled = true
 
-										loadDataWithBaseURL(
-											null,
-											queryBase.contentHTML,
-											"text/html",
-											"UTF-8",
-											null)
+										loadDataWithBaseURL(null, queryBase.contentHTML, null, "UTF-8", null)
 										webViewClient = object: WebViewClient()
 										{
 											override fun onPageFinished(view: WebView?, url: String?)
 											{
 												rlLoad?.visibility = View.GONE
 												visibility = View.VISIBLE
+												println("load webview")
 											}
+
 										}
 										setOnTouchListener { view, _ ->
 											view.parent.requestDisallowInterceptTouchEvent(true)

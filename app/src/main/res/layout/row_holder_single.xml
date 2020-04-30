@@ -28,6 +28,7 @@
 			android:layout_width="100dp"/>
 
 		<RelativeLayout
+			android:background="@color/blue"
 			android:id="@+id/rlWebView"
 			android:layout_height="240dp"
 			android:layout_width="match_parent"

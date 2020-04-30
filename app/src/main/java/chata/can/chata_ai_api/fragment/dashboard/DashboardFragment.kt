@@ -89,14 +89,6 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 	}
 
-	override fun reloadQueries()
-	{
-		for (index in 0 until model.countData())
-		{
-			//adapter.notifyItemChanged(index)
-		}
-	}
-
 	override fun notifyQueryAtIndex(index: Int)
 	{
 		adapter.notifyItemChanged(index)
