@@ -10,6 +10,7 @@ import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.concurrent.ConcurrentHashMap
 
 class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
@@ -66,6 +67,9 @@ class DashboardPresenter(
 							firstJSON ->
 							firstJSON.optJSONArray("data")?.let {
 								jaData ->
+								val aKeys = ArrayList<Pair<Int, Int>>()
+								val mPartial = ConcurrentHashMap<String, Dashboard>()
+
 								for (index in 0 until jaData.length())
 								{
 									jaData.optJSONObject(index)?.let {
@@ -86,14 +90,27 @@ class DashboardPresenter(
 											val static = optBoolean("static", false)
 											val title = optString("title", "")
 											val w = optInt("w", -1)
-											val x = optInt("x", -1)
-											val y = optInt("y", -1)
+											val axisX = optInt("x", -1)
+											val axisY = optInt("y", -1)
 
-											val dashboard = Dashboard(displayType, h, i, isNewTile, key, maxH, minH, minW, moved, query, splitView, static, title, w, x, y)
+											aKeys.add(Pair(axisY, axisX))
+											val dashboard = Dashboard(displayType, h, i, isNewTile, key, maxH, minH, minW, moved, query, splitView, static, title, w, axisX, axisY)
+											mPartial["${axisY}_$axisX"] = dashboard
+											//model.add(dashboard)
+										}
+									}
+								}
+								//region order dashboard
+								aKeys.sortedWith(compareBy ({ it.first }, { it.second })).let {
+									for (key in it)
+									{
+										val newKey = "${key.first}_${key.second}"
+										mPartial[newKey]?.let { dashboard ->
 											model.add(dashboard)
 										}
 									}
 								}
+								//endregion
 								view.setDashboards()
 							}
 						}
