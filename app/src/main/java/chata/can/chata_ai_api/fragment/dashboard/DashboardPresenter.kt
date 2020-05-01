@@ -18,7 +18,10 @@ class DashboardPresenter(
 	private var countExecutedQueries = 0
 	private val model = SinglentonDashboard.mModel
 
-	override fun onFailure(jsonObject: JSONObject?) {}
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		jsonObject.toString()
+	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{

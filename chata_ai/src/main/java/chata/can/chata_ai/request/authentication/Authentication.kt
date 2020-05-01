@@ -44,7 +44,7 @@ object Authentication
 		projectId: String,
 		listener: StatusResponse)
 	{
-		val url = "$urlChataIO${api1}jwt?user_id=$userId&project_id=$projectId"
+		val url = "$urlChataIO${api1}jwt?display_name=$userId&project_id=$projectId"
 		val mAuthorization = hashMapOf("Authorization" to "Bearer $beaverToken")
 		callStringRequest(
 			Request.Method.GET,

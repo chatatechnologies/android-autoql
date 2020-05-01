@@ -20,6 +20,7 @@ import chata.can.chata_ai_api.R
 class HolderSingle(itemView: View): Holder(itemView)
 {
 	private val ll1 = itemView.findViewById<View>(R.id.ll1) ?: null
+
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView) ?: null
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent) ?: null
@@ -55,22 +56,22 @@ class HolderSingle(itemView: View): Holder(itemView)
 				{
 					item.queryBase?.let {
 						queryBase ->
-
 						when(queryBase.typeView)
 						{
 							TypeChatView.LEFT_VIEW ->
 							{
 								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+
 								tvContent?.visibility = View.VISIBLE
-								rlLoad?.visibility = View.GONE
 								webView?.visibility = View.GONE
 								tvExecute?.visibility = View.GONE
+								rlLoad?.visibility = View.GONE
 
 								tvContent?.text = queryBase.contentHTML
 							}
 							TypeChatView.WEB_VIEW ->
 							{
-								changeHeightParent(queryBase.rowsTable)
+								/*changeHeightParent(queryBase.rowsTable)
 								tvContent?.visibility = View.GONE
 								tvExecute?.visibility = View.GONE
 								rlLoad?.visibility = View.VISIBLE
@@ -99,7 +100,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 											false
 										}
 									}
-								}
+								}*/
 							}
 							else -> {}
 						}
@@ -108,12 +109,14 @@ class HolderSingle(itemView: View): Holder(itemView)
 				else
 				{
 					tvContent?.visibility = View.GONE
+					webView?.visibility = View.GONE
 					tvExecute?.visibility = View.GONE
 					rlLoad?.visibility = View.VISIBLE
 				}
 			}
 			else
 			{
+				tvContent?.visibility = View.GONE
 				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.VISIBLE
 				rlLoad?.visibility = View.GONE

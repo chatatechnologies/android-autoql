@@ -3,6 +3,7 @@
 
 # Website demo
     https://github.com/chatatechnologies/react-autoql
+    https://chata-ai-test-page.herokuapp.com
     https://vicente_rincon.gitlab.io/widget/
 
 # Views

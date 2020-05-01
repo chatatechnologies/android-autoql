@@ -507,7 +507,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 			tvDomainUrl?.setText(domainUrl)
 			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
 			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
+			val userId = "vicente@rinro.com.mx"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
