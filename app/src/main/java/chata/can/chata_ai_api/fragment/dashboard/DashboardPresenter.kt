@@ -15,12 +15,25 @@ import java.util.concurrent.ConcurrentHashMap
 class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
 {
-	private var countExecutedQueries = 0
 	private val model = SinglentonDashboard.mModel
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		jsonObject.toString()
+		if (jsonObject != null)
+		{
+			val response = jsonObject.optString("RESPONSE") ?: ""
+			try {
+				val query = jsonObject.optString("query") ?: ""
+				val index = model.indexOfFirst { it.query == query }
+				val queryBase = QueryBase(JSONObject(response))
+				model[index]?.let { it.queryBase = queryBase }
+				if (index != -1)
+				{
+					view.notifyQueryAtIndex(index)
+				}
+			}
+			catch (e: Exception){ }
+		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -32,7 +45,10 @@ class DashboardPresenter(
 				"getDashboardQueries" ->
 				{
 					val queryBase = QueryBase(jsonObject)
-					val currentItem = model[countExecutedQueries]
+					val query = jsonObject.optString("query") ?: ""
+					val index = model.indexOfFirst { it.query == query }
+
+					val currentItem = model[index]
 					currentItem?.let {
 						it.queryBase = queryBase
 					}
@@ -61,7 +77,7 @@ class DashboardPresenter(
 						else -> TypeChatView.LEFT_VIEW
 					}
 
-					view.notifyQueryAtIndex(countExecutedQueries++)
+					view.notifyQueryAtIndex(index)
 				}
 				else ->
 				{
@@ -141,7 +157,7 @@ class DashboardPresenter(
 				val mInfoHolder = hashMapOf<String, Any>(
 					"query" to query,
 					"nameService" to "getDashboardQueries")
-				QueryRequest.callQuery(query, this, mInfoHolder)
+				QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 			}
 		}
 	}

@@ -106,10 +106,13 @@ object RequestBuilder
 					else
 					{
 						val statusCode = it.networkResponse.statusCode
+						val aResponse = it.networkResponse.data ?: byteArrayOf(0)
+						val response = String(aResponse)
 						/**
 						 * DEFINE MESSAGE IN @param json
 						 */
 						json.put("CODE", statusCode)
+						json.put("RESPONSE", response)
 					}
 				}
 				addInfoHolder(json)

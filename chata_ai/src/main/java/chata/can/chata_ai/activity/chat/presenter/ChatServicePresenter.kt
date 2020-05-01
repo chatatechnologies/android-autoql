@@ -38,7 +38,7 @@ class ChatServicePresenter(
 	{
 		isLoading(true)
 		val mInfoHolder = hashMapOf<String, Any>("query" to query)
-		QueryRequest.callQuery(query, this, mInfoHolder)
+		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)

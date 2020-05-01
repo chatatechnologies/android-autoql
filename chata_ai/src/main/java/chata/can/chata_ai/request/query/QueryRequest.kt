@@ -11,6 +11,7 @@ object QueryRequest
 	fun callQuery(
 		query: String,
 		listener: StatusResponse,
+		source: String,
 		infoHolder: HashMap<String, Any> ?= null)
 	{
 		var header: HashMap<String, String> ?= null
@@ -32,8 +33,7 @@ object QueryRequest
 			with(DataMessenger)
 			{
 				header = getAuthorizationJWT()
-				mParams["source"] = "data_messenger.user"
-//				mParams["source"] = "dashboards.user"
+				mParams["source"] = "$source.user"
 				"$domainUrl/autoql/${api1}query?key=$apiKey"
 			}
 		}

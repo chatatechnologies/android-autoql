@@ -61,65 +61,54 @@ class HolderSingle(itemView: View): Holder(itemView)
 							TypeChatView.LEFT_VIEW ->
 							{
 								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
-
-								tvContent?.visibility = View.VISIBLE
-								webView?.visibility = View.GONE
-								tvExecute?.visibility = View.GONE
-								rlLoad?.visibility = View.GONE
-
+								tvContent?.let { visibleOnGroup(it) }
 								tvContent?.text = queryBase.contentHTML
 							}
 							TypeChatView.WEB_VIEW ->
 							{
-								/*changeHeightParent(queryBase.rowsTable)
-								tvContent?.visibility = View.GONE
-								tvExecute?.visibility = View.GONE
-								rlLoad?.visibility = View.VISIBLE
-
-								webView?.let {
-									with(it)
-									{
-										clearCache(true)
-										clearHistory()
-										requestLayout()
-										settings.javaScriptEnabled = true
-
-										loadDataWithBaseURL(null, queryBase.contentHTML, null, "UTF-8", null)
-										webViewClient = object: WebViewClient()
-										{
-											override fun onPageFinished(view: WebView?, url: String?)
-											{
-												rlLoad?.visibility = View.GONE
-												visibility = View.VISIBLE
-												println("load webview")
-											}
-
-										}
-										setOnTouchListener { view, _ ->
-											view.parent.requestDisallowInterceptTouchEvent(true)
-											false
-										}
-									}
-								}*/
+								changeHeightParent(queryBase.rowsTable)
+								rlLoad?.let { visibleOnGroup(it) }
+//								webView?.let {
+//									with(it)
+//									{
+//										clearCache(true)
+//										clearHistory()
+//										requestLayout()
+//										settings.javaScriptEnabled = true
+//										loadDataWithBaseURL(null, queryBase.contentHTML, null, "UTF-8", null)
+//										webViewClient = object: WebViewClient()
+//										{
+//											override fun onPageFinished(view: WebView?, url: String?)
+//											{
+//												rlLoad?.visibility = View.GONE
+//												visibility = View.VISIBLE
+//											}
+//
+//										}
+//										setOnTouchListener { view, _ ->
+//											view.parent.requestDisallowInterceptTouchEvent(true)
+//											false
+//										}
+//									}
+//								}
 							}
-							else -> {}
+							else ->
+							{
+								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								tvContent?.let { visibleOnGroup(it) }
+								tvContent?.text = queryBase.message
+							}
 						}
 					}
 				}
 				else
 				{
-					tvContent?.visibility = View.GONE
-					webView?.visibility = View.GONE
-					tvExecute?.visibility = View.GONE
-					rlLoad?.visibility = View.VISIBLE
+					rlLoad?.let { visibleOnGroup(it) }
 				}
 			}
 			else
 			{
-				tvContent?.visibility = View.GONE
-				webView?.visibility = View.GONE
-				tvExecute?.visibility = View.VISIBLE
-				rlLoad?.visibility = View.GONE
+				tvExecute?.let { visibleOnGroup(it) }
 			}
 		}
 	}
@@ -135,5 +124,31 @@ class HolderSingle(itemView: View): Holder(itemView)
 			}
 			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
 		}
+	}
+
+	private fun visibleOnGroup(view: View)
+	{
+		when(view)
+		{
+			tvExecute ->
+			{
+				tvContent?.visibility = View.GONE
+				webView?.visibility = View.GONE
+				rlLoad?.visibility = View.GONE
+			}
+			tvContent ->
+			{
+				webView?.visibility = View.GONE
+				tvExecute?.visibility = View.GONE
+				rlLoad?.visibility = View.GONE
+			}
+			rlLoad ->
+			{
+				tvContent?.visibility = View.GONE
+				webView?.visibility = View.GONE
+				tvExecute?.visibility = View.GONE
+			}
+		}
+		view.visibility = View.VISIBLE
 	}
 }

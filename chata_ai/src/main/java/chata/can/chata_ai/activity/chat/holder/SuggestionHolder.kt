@@ -83,7 +83,7 @@ class SuggestionHolder(
 			setOnClickListener {
 				view.addChatMessage(2, content)
 				val mInfoHolder = hashMapOf<String, Any>("query" to content)
-				QueryRequest.callQuery(content, servicePresenter, mInfoHolder)
+				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
 			}
 		}
 	}
