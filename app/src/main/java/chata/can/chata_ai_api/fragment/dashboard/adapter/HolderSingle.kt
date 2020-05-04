@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -66,31 +67,35 @@ class HolderSingle(itemView: View): Holder(itemView)
 							}
 							TypeChatView.WEB_VIEW ->
 							{
-								changeHeightParent(queryBase.rowsTable)
 								rlLoad?.let { visibleOnGroup(it) }
-//								webView?.let {
-//									with(it)
-//									{
-//										clearCache(true)
-//										clearHistory()
-//										requestLayout()
-//										settings.javaScriptEnabled = true
-//										loadDataWithBaseURL(null, queryBase.contentHTML, null, "UTF-8", null)
-//										webViewClient = object: WebViewClient()
-//										{
-//											override fun onPageFinished(view: WebView?, url: String?)
-//											{
-//												rlLoad?.visibility = View.GONE
-//												visibility = View.VISIBLE
-//											}
-//
-//										}
-//										setOnTouchListener { view, _ ->
-//											view.parent.requestDisallowInterceptTouchEvent(true)
-//											false
-//										}
-//									}
-//								}
+								changeHeightParent(queryBase.rowsTable)
+								webView?.let {
+									it.clearCache(true)
+									it.clearHistory()
+									it.requestLayout()
+									it.settings.javaScriptEnabled = true
+									it.loadDataWithBaseURL(
+										null,
+										queryBase.contentHTML,
+										null,
+										"UTF-8",
+										null)
+									it.webViewClient = object: WebViewClient()
+									{
+										override fun onPageFinished(view: WebView?, url: String?)
+										{
+											rlLoad?.visibility = View.GONE
+											Handler().postDelayed({
+												webView.visibility = View.VISIBLE
+											}, 200)
+										}
+									}
+									it.setOnTouchListener { view, _ ->
+										view.parent.requestDisallowInterceptTouchEvent(true)
+										false
+									}
+
+								}
 							}
 							else ->
 							{
