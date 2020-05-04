@@ -30,8 +30,16 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 	override fun getItemViewType(position: Int): Int
 	{
 		return model[position]?.let {
+			if (it is Dashboard)
+			{
+				if (it.isWaitingData)
+				{
 
-			8
+					7
+				}
+				else 8
+			}
+			else 8
 		} ?: 8
 	}
 
