@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
 import android.annotation.SuppressLint
-import android.os.Handler
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -77,7 +76,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 									it.loadDataWithBaseURL(
 										null,
 										queryBase.contentHTML,
-										null,
+										"text/html",
 										"UTF-8",
 										null)
 									it.webViewClient = object: WebViewClient()
@@ -85,9 +84,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 										override fun onPageFinished(view: WebView?, url: String?)
 										{
 											rlLoad?.visibility = View.GONE
-											Handler().postDelayed({
-												webView.visibility = View.VISIBLE
-											}, 200)
+											webView.visibility = View.VISIBLE
 										}
 									}
 									it.setOnTouchListener { view, _ ->
@@ -138,19 +135,19 @@ class HolderSingle(itemView: View): Holder(itemView)
 			tvExecute ->
 			{
 				tvContent?.visibility = View.GONE
-				webView?.visibility = View.GONE
+				//webView?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			tvContent ->
 			{
-				webView?.visibility = View.GONE
+				//webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			rlLoad ->
 			{
 				tvContent?.visibility = View.GONE
-				webView?.visibility = View.GONE
+				//webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 			}
 		}
