@@ -82,6 +82,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun setDashboards()
 	{
 		activity?.let {
+			isLoaded = true
 			adapter = GridAdapter(model)
 
 			rvDashboard.layoutManager = LinearLayoutManager(it)
@@ -98,8 +99,11 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		if (!isLoaded)
 		{
-			isLoaded = true
 			presenter.getDashboards()
+		}
+		else
+		{
+			presenter.resetDashboards(!isAutomatic)
 		}
 	}
 

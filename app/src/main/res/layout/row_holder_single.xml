@@ -34,6 +34,12 @@
 			tools:ignore="UselessParent">
 			<!--region children-->
 			<!-- view one-->
+			<WebView
+				android:scrollbars="none"
+				android:id="@+id/webView"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"/>
+			<!-- view two-->
 			<TextView
 				android:gravity="center"
 				android:id="@+id/tvContent"
@@ -41,12 +47,6 @@
 				android:layout_width="match_parent"
 				android:textColor="@android:color/black"
 				android:textSize="20sp"/>
-			<!-- view two-->
-			<WebView
-				android:scrollbars="none"
-				android:id="@+id/webView"
-				android:layout_height="match_parent"
-				android:layout_width="match_parent"/>
 			<!-- view three-->
 			<RelativeLayout
 				android:id="@+id/rlLoad"

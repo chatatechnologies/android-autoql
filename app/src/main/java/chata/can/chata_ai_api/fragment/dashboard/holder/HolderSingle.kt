@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.fragment.dashboard.adapter
+package chata.can.chata_ai_api.fragment.dashboard.holder
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -135,19 +135,19 @@ class HolderSingle(itemView: View): Holder(itemView)
 			tvExecute ->
 			{
 				tvContent?.visibility = View.GONE
-				//webView?.visibility = View.GONE
+				webView?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			tvContent ->
 			{
-				//webView?.visibility = View.GONE
+				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			rlLoad ->
 			{
 				tvContent?.visibility = View.GONE
-				//webView?.visibility = View.GONE
+				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 			}
 		}

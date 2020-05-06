@@ -21,6 +21,7 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
+			println("content json error data: $jsonObject")
 			val response = jsonObject.optString("RESPONSE") ?: ""
 			try {
 				val query = jsonObject.optString("query") ?: ""
@@ -136,6 +137,17 @@ class DashboardPresenter(
 						}
 					}
 				}
+			}
+		}
+	}
+
+	fun resetDashboards(isWaiting: Boolean)
+	{
+		for (index in 0 until model.countData())
+		{
+			model[index]?.let {
+				it.isWaitingData = isWaiting
+				it.queryBase = null
 			}
 		}
 	}
