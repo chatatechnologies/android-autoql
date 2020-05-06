@@ -21,7 +21,7 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
-			println("content json error data: $jsonObject")
+//			println("content json error data: $jsonObject")
 			val response = jsonObject.optString("RESPONSE") ?: ""
 			try {
 				val query = jsonObject.optString("query") ?: ""

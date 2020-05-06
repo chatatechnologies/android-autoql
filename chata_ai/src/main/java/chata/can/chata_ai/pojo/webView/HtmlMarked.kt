@@ -49,7 +49,7 @@ object HtmlMarked
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 <script src="https://code.highcharts.com/modules/heatmap.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
-<link href=“https://fonts.googleapis.com/css?family=Titillium+Web” rel=“stylesheet”>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web” rel=“stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
 <meta http-equiv='pragma' content='no-cache'>

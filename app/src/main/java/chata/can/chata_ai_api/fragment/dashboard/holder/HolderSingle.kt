@@ -85,6 +85,10 @@ class HolderSingle(itemView: View): Holder(itemView)
 										{
 											rlLoad?.visibility = View.GONE
 											webView.visibility = View.VISIBLE
+											if (webView.visibility == View.VISIBLE)
+											{
+												println("Visible; ${queryBase.query}")
+											}
 										}
 									}
 									it.setOnTouchListener { view, _ ->
@@ -135,19 +139,19 @@ class HolderSingle(itemView: View): Holder(itemView)
 			tvExecute ->
 			{
 				tvContent?.visibility = View.GONE
-				webView?.visibility = View.GONE
+//				webView?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			tvContent ->
 			{
-				webView?.visibility = View.GONE
+//				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 				rlLoad?.visibility = View.GONE
 			}
 			rlLoad ->
 			{
 				tvContent?.visibility = View.GONE
-				webView?.visibility = View.GONE
+//				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
 			}
 		}
