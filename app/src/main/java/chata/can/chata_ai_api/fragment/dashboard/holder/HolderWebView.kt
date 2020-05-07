@@ -4,6 +4,9 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -11,7 +14,7 @@ import chata.can.chata_ai_api.R
 
 class HolderWebView(itemView: View): BaseHolder(itemView)
 {
-//	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
+	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 
@@ -22,7 +25,6 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 		if (item is Dashboard)
 		{
 			item.queryBase?.run {
-				rlLoad?.visibility = View.VISIBLE
 				if (!isLoadingHTML)
 				{
 					setDataWebView(this)
@@ -38,6 +40,8 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
+		rlLoad?.visibility = View.VISIBLE
+		changeHeightParent(queryBase.rowsTable)
 		webView?.run {
 			clearCache(true)
 			clearHistory()
@@ -61,6 +65,19 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 				view.parent.requestDisallowInterceptTouchEvent(true)
 				false
 			}
+		}
+	}
+
+	private fun changeHeightParent(numRows: Int)
+	{
+		rlWebView?.let {
+			val tmpRows = if (numRows == 0) 180 else numRows
+			var customHeight = it.dpToPx(30f * tmpRows) + 60
+			if (customHeight > 900)
+			{
+				customHeight = 900
+			}
+			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
 		}
 	}
 }

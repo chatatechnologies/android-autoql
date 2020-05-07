@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,6 @@ class PagerActivity: AppCompatActivity()
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
 	private val numPages = 2
-//	private val numPages = 1
 
 	private val overlayPermission = 1000
 
@@ -79,11 +79,6 @@ class PagerActivity: AppCompatActivity()
 		viewPager.adapter = adapter
 
 		RequestBuilder.initVolleyRequest(this)
-
-		if (BuildConfig.DEBUG)
-		{
-			//viewPager.currentItem = 1
-		}
 	}
 
 	/**
@@ -97,4 +92,12 @@ class PagerActivity: AppCompatActivity()
 	 */
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	private fun canDrawOverlays() = Settings.canDrawOverlays(this)
+
+
+	var isVisibleTabLayout: Boolean = true
+	set(value) {
+		val visible = if (value) View.VISIBLE else View.GONE
+		tabLayout.visibility = visible
+		field = value
+	}
 }

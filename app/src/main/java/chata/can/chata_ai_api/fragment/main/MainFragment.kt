@@ -21,6 +21,7 @@ import chata.can.chata_ai.pojo.DataMessenger.userID
 import chata.can.chata_ai.pojo.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
+import chata.can.chata_ai_api.main.PagerActivity
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -530,6 +531,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		{
 			isEnableLogin(true)
 			Pair("Authenticate", "Sucessfully logged out")
+		}
+
+		activity?.run {
+			if (this is PagerActivity)
+			{
+				this.isVisibleTabLayout = isAuthenticate
+			}
 		}
 
 		btnAuthenticate?.text = pair.first

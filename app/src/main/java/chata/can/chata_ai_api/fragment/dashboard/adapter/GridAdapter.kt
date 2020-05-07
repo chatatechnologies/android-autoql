@@ -16,12 +16,12 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 {
 	override fun getItemViewType(position: Int): Int
 	{
-		return model[position]?.let {
+		var viewType = 0
+		model[position]?.let {
 			if (it is Dashboard)
 			{
-				it.queryBase?.let {
-					queryBase ->
-					when(queryBase.typeView)
+				it.queryBase?.run {
+					when(typeView)
 					{
 						TypeChatView.LEFT_VIEW ->
 						{
@@ -29,14 +29,16 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 						}
 						TypeChatView.WEB_VIEW ->
 						{
-							4
+							viewType = 4
 						}
 						else -> 0
 					}
-				} ?: 0
+				}
 			}
 			else 0
-		} ?: 0
+		}
+
+		return viewType
 	}
 
 	override fun onBindViewHolder(holder: Holder, position: Int)
