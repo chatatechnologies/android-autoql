@@ -2,8 +2,6 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -60,7 +58,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 						{
 							TypeChatView.LEFT_VIEW ->
 							{
-								//rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
 								tvContent?.let { visibleOnGroup(it) }
 								tvContent?.text = queryBase.contentHTML
 							}
@@ -100,7 +98,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 //							}
 							else ->
 							{
-								//rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
 								tvContent?.let { visibleOnGroup(it) }
 								tvContent?.text = queryBase.message
 							}

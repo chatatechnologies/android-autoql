@@ -9,13 +9,13 @@ import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
-import chata.can.chata_ai.pojo.referenceIdKey
+//import chata.can.chata_ai.pojo.referenceIdKey
 import org.json.JSONObject
 
 class QueryBase(json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
-	private val referenceId = json.optString(referenceIdKey) ?: ""
+	//private val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
 

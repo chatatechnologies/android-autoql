@@ -21,7 +21,6 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
-//			println("content json error data: $jsonObject")
 			val response = jsonObject.optString("RESPONSE") ?: ""
 			try {
 				val query = jsonObject.optString("query") ?: ""
@@ -54,7 +53,7 @@ class DashboardPresenter(
 						it.queryBase = queryBase
 					}
 
-					queryBase.typeView  = when(queryBase.displayType)
+					queryBase.typeView = when(queryBase.displayType)
 					{
 						dataKey ->
 						{

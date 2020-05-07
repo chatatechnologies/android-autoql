@@ -45,7 +45,9 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 		model[position]?.let {
 			if (it is Dashboard)
 			{
-				it.queryBase?.checkData(holder)
+				it.queryBase?.run {
+					checkData(holder)
+				}
 			}
 		}
 	}
