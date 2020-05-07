@@ -84,7 +84,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 										override fun onPageFinished(view: WebView?, url: String?)
 										{
 											rlLoad?.visibility = View.GONE
-											webView.visibility = View.VISIBLE
+											//webView.visibility = View.VISIBLE
 											if (webView.visibility == View.VISIBLE)
 											{
 												println("Visible; ${queryBase.query}")

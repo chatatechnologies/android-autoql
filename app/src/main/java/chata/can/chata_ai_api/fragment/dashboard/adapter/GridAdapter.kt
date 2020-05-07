@@ -6,6 +6,7 @@ import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.holder.HolderSingle
@@ -18,7 +19,21 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 		return model[position]?.let {
 			if (it is Dashboard)
 			{
-				0
+				it.queryBase?.let {
+					queryBase ->
+					when(queryBase.typeView)
+					{
+						TypeChatView.LEFT_VIEW ->
+						{
+							0
+						}
+						TypeChatView.WEB_VIEW ->
+						{
+							4
+						}
+						else -> 0
+					}
+				} ?: 0
 			}
 			else 0
 		} ?: 0
@@ -40,11 +55,8 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 		val layoutInflater = LayoutInflater.from(parent.context)
 		return when(viewType)
 		{
-			4 ->
-				HolderWebView(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
-			else -> {
-				HolderSingle(layoutInflater.inflate(R.layout.row_holder_single, nullParent))
-			}
+			4 -> HolderWebView(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
+			else -> HolderSingle(layoutInflater.inflate(R.layout.row_holder_single, nullParent))
 		}
 	}
 }
