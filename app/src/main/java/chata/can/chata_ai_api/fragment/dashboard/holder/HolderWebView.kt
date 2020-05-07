@@ -24,7 +24,6 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 				rlLoad?.visibility = View.VISIBLE
 				setDataWebView(it)
 			}
-			println("WebView")
 		}
 	}
 
@@ -36,6 +35,7 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 			clearHistory()
 			requestLayout()
 			settings.javaScriptEnabled = true
+			println("URL ${if (queryBase.contentHTML.isEmpty()) "HTML empty" else "HTML contains data"}")
 			loadDataWithBaseURL(
 				null,
 				queryBase.contentHTML,
@@ -47,7 +47,7 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
 					rlLoad?.visibility = View.GONE
-					println("Visible; ${queryBase.query}")
+					println("Visible; $url}")
 				}
 			}
 			setOnTouchListener { view, _ ->

@@ -24,8 +24,8 @@ class HolderSingle(itemView: View): Holder(itemView)
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView) ?: null
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent) ?: null
-	private val webView = itemView.findViewById<WebView>(R.id.webView) ?: null
-	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
+//	private val webView = itemView.findViewById<WebView>(R.id.webView) ?: null
+//	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 	private val tvExecute = itemView.findViewById<TextView>(R.id.tvExecute) ?: null
 
 	override fun onPaint()
@@ -60,47 +60,47 @@ class HolderSingle(itemView: View): Holder(itemView)
 						{
 							TypeChatView.LEFT_VIEW ->
 							{
-								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								//rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
 								tvContent?.let { visibleOnGroup(it) }
 								tvContent?.text = queryBase.contentHTML
 							}
-							TypeChatView.WEB_VIEW ->
-							{
-								rlLoad?.let { visibleOnGroup(it) }
-								changeHeightParent(queryBase.rowsTable)
-								webView?.let {
-									it.clearCache(true)
-									it.clearHistory()
-									it.requestLayout()
-									it.settings.javaScriptEnabled = true
-									it.loadDataWithBaseURL(
-										null,
-										queryBase.contentHTML,
-										"text/html",
-										"UTF-8",
-										null)
-									it.webViewClient = object: WebViewClient()
-									{
-										override fun onPageFinished(view: WebView?, url: String?)
-										{
-											rlLoad?.visibility = View.GONE
-											//webView.visibility = View.VISIBLE
-											if (webView.visibility == View.VISIBLE)
-											{
-												println("Visible; ${queryBase.query}")
-											}
-										}
-									}
-									it.setOnTouchListener { view, _ ->
-										view.parent.requestDisallowInterceptTouchEvent(true)
-										false
-									}
-
-								}
-							}
+//							TypeChatView.WEB_VIEW ->
+//							{
+//								rlLoad?.let { visibleOnGroup(it) }
+//								changeHeightParent(queryBase.rowsTable)
+//								webView?.let {
+//									it.clearCache(true)
+//									it.clearHistory()
+//									it.requestLayout()
+//									it.settings.javaScriptEnabled = true
+//									it.loadDataWithBaseURL(
+//										null,
+//										queryBase.contentHTML,
+//										"text/html",
+//										"UTF-8",
+//										null)
+//									it.webViewClient = object: WebViewClient()
+//									{
+//										override fun onPageFinished(view: WebView?, url: String?)
+//										{
+//											rlLoad?.visibility = View.GONE
+//											//webView.visibility = View.VISIBLE
+//											if (webView.visibility == View.VISIBLE)
+//											{
+//												println("Visible; ${queryBase.query}")
+//											}
+//										}
+//									}
+//									it.setOnTouchListener { view, _ ->
+//										view.parent.requestDisallowInterceptTouchEvent(true)
+//										false
+//									}
+//
+//								}
+//							}
 							else ->
 							{
-								rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
+								//rlWebView?.layoutParams = LinearLayout.LayoutParams(-1, -2)
 								tvContent?.let { visibleOnGroup(it) }
 								tvContent?.text = queryBase.message
 							}
@@ -109,7 +109,7 @@ class HolderSingle(itemView: View): Holder(itemView)
 				}
 				else
 				{
-					rlLoad?.let { visibleOnGroup(it) }
+//					rlLoad?.let { visibleOnGroup(it) }
 				}
 			}
 			else
@@ -140,20 +140,20 @@ class HolderSingle(itemView: View): Holder(itemView)
 			{
 				tvContent?.visibility = View.GONE
 //				webView?.visibility = View.GONE
-				rlLoad?.visibility = View.GONE
+//				rlLoad?.visibility = View.GONE
 			}
 			tvContent ->
 			{
 //				webView?.visibility = View.GONE
 				tvExecute?.visibility = View.GONE
-				rlLoad?.visibility = View.GONE
+//				rlLoad?.visibility = View.GONE
 			}
-			rlLoad ->
-			{
-				tvContent?.visibility = View.GONE
+//			rlLoad ->
+//			{
+//				tvContent?.visibility = View.GONE
 //				webView?.visibility = View.GONE
-				tvExecute?.visibility = View.GONE
-			}
+//				tvExecute?.visibility = View.GONE
+//			}
 		}
 		view.visibility = View.VISIBLE
 	}
