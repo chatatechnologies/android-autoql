@@ -22,13 +22,4 @@ data class Dashboard(
 {
 	var queryBase: QueryBase ?= null
 	var isWaitingData = false
-
-	/**
-	 * 0 for start view (execute message)
-	 * 1 for loading data (gifView)
-	 * 2 for support message
-	 * 3 for simple text data
-	 * 4 for webView data
-	 */
-	var iTypeView = 0
 }

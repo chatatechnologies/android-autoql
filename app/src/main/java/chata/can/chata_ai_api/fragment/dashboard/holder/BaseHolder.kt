@@ -15,7 +15,7 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 	private val ll1 = itemView.findViewById<View>(R.id.ll1) ?: null
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null
 
-	private var drawerBackgroundColor = 0
+	protected var drawerBackgroundColor = 0
 	private var drawerColorPrimary = 0
 
 	override fun onPaint()

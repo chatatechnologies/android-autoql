@@ -9,13 +9,19 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
-import chata.can.chata_ai_api.fragment.dashboard.holder.HolderSingle
-import chata.can.chata_ai_api.fragment.dashboard.holder.HolderWebView
+import chata.can.chata_ai_api.fragment.dashboard.holder.*
 
 class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 {
 	override fun getItemViewType(position: Int): Int
 	{
+		/**
+		 * 0 for start view (execute message)
+		 * 1 for loading data (gifView)
+		 * 2 for support message
+		 * 3 for simple text data
+		 * 4 for webView data
+		 */
 		var viewType = 0
 		model[position]?.run {
 			if (this is Dashboard)
@@ -50,6 +56,10 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 		val layoutInflater = LayoutInflater.from(parent.context)
 		return when(viewType)
 		{
+			0 -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
+			1 -> HolderLoading(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
+			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
+			3 -> HolderContent(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> HolderWebView(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
 			else -> HolderSingle(layoutInflater.inflate(R.layout.row_holder_single, nullParent))
 		}

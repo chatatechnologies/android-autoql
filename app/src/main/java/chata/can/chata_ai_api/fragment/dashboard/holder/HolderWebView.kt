@@ -20,7 +20,6 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
-
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
