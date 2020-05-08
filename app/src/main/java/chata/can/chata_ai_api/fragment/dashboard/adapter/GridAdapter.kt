@@ -27,10 +27,16 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 			if (this is Dashboard)
 			{
 				queryBase?.run {
-
-					if (typeView == TypeChatView.WEB_VIEW)
+					viewType = when(typeView)
 					{
-						viewType = 4
+						TypeChatView.LEFT_VIEW -> 3
+						TypeChatView.WEB_VIEW -> 4
+						else -> 2
+					}
+				} ?: run {
+					if (isWaitingData)
+					{
+						viewType = 1
 					}
 				}
 			}
@@ -61,7 +67,7 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			3 -> HolderContent(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> HolderWebView(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
-			else -> HolderSingle(layoutInflater.inflate(R.layout.row_holder_single, nullParent))
+			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}
 	}
 }
