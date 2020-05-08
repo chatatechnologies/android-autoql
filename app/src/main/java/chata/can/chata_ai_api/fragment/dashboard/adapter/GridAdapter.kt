@@ -17,27 +17,18 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 	override fun getItemViewType(position: Int): Int
 	{
 		var viewType = 0
-		model[position]?.let {
-			if (it is Dashboard)
+		model[position]?.run {
+			if (this is Dashboard)
 			{
-				it.queryBase?.run {
-					when(typeView)
+				queryBase?.run {
+
+					if (typeView == TypeChatView.WEB_VIEW)
 					{
-						TypeChatView.LEFT_VIEW ->
-						{
-							0
-						}
-						TypeChatView.WEB_VIEW ->
-						{
-							viewType = 4
-						}
-						else -> 0
+						viewType = 4
 					}
 				}
 			}
-			else 0
 		}
-
 		return viewType
 	}
 
