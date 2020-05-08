@@ -44,6 +44,7 @@ class WebViewPresenter: StatusResponse
 				val message = jsonObject.optString(messageKey)
 				if (message == "Success")
 				{
+					println(message)
 				}
 			}
 		}
