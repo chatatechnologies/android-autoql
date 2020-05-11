@@ -63,10 +63,10 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 		return when(viewType)
 		{
 			0 -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
-			1 -> HolderLoading(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
+			1 -> LoadingHolder(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
-			3 -> HolderContent(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
-			4 -> HolderWebView(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
+			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
+			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
 			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}
 	}

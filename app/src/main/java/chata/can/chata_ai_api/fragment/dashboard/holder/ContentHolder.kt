@@ -6,7 +6,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
-class HolderContent(itemView: View): BaseHolder(itemView)
+class ContentHolder(itemView: View): BaseHolder(itemView)
 {
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
 

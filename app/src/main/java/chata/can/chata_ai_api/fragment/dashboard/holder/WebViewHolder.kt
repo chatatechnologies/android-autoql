@@ -11,8 +11,9 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
-class HolderWebView(itemView: View): BaseHolder(itemView)
+class WebViewHolder(itemView: View): BaseHolder(itemView)
 {
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
@@ -36,6 +37,8 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 		}
 	}
 
+
+
 	@SuppressLint("SetJavaScriptEnabled")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
@@ -47,6 +50,10 @@ class HolderWebView(itemView: View): BaseHolder(itemView)
 			requestLayout()
 			settings.javaScriptEnabled = true
 
+			if (queryBase.hasDrillDown)
+			{
+				addJavascriptInterface(JavascriptInterface(), "Android")
+			}
 			loadDataWithBaseURL(
 				null,
 				queryBase.contentHTML,
