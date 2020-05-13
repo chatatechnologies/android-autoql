@@ -28,8 +28,8 @@ class PagerActivity: AppCompatActivity()
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
-
 		tabLayout = findViewById(R.id.tabLayout)
+
 		tabLayout.setupWithViewPager(viewPager)
 
 		if (isMarshmallow())

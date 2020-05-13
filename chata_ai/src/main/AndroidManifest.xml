@@ -13,6 +13,11 @@
 			android:name=".activity.chat.ChatActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
+		<activity
+			android:hardwareAccelerated="false"
+			android:name=".activity.pager.PagerActivity"
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
 		<service android:name=".view.bubbles.BubblesService"
 			android:enabled="true"
 			android:exported="false"/>

@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Handler
 import android.speech.SpeechRecognizer
 import android.util.DisplayMetrics
-import android.view.Menu
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView

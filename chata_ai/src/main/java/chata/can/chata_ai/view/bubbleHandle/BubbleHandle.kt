@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatActivity
+import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
@@ -217,7 +218,8 @@ class BubbleHandle(private val context: Context)
 		{
 			isOpenChat = true
 			isVisible = false
-			val intent = Intent(context, ChatActivity::class.java)
+//			val intent = Intent(context, ChatActivity::class.java)
+			val intent = Intent(context, PagerActivity::class.java)
 			createIntentData(intent)
 			context.startActivity(intent)
 			(context as? AppCompatActivity)
