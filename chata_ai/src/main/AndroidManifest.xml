@@ -15,8 +15,7 @@
 
 		<activity
 			android:hardwareAccelerated="false"
-			android:name=".activity.pager.PagerActivity"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+			android:name=".activity.pager.PagerActivity"/>
 
 		<service android:name=".view.bubbles.BubblesService"
 			android:enabled="true"

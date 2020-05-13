@@ -14,19 +14,8 @@ class SlidePagerAdapter(fm: FragmentManager, private val numPages: Int)
 	override fun getItem(position: Int): Fragment
 	{
 		return if (position == 0)
-
 			DataMessengerFragment.newInstance()
 		else
 			ExploreQueriesFragment.newInstance()
-	}
-
-	override fun getPageTitle(position: Int): CharSequence?
-	{
-		return when(position)
-		{
-			0 -> DataMessengerFragment.nameFragment
-			1 -> ExploreQueriesFragment.nameFragment
-			else -> ""
-		}
 	}
 }
