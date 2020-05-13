@@ -27,10 +27,19 @@
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
 			android:layout_toEndOf="@id/ivCancel"
-			android:layout_toStartOf="@id/ivClear"
+			android:layout_toStartOf="@id/ivLight"
 			android:layout_width="match_parent"
 			android:textColor="@color/chata_drawer_hover_color"
 			android:textSize="18sp"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivLight"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="8dp"
+			android:layout_height="24dp"
+			android:layout_width="24dp"
+			android:layout_toStartOf="@id/ivClear"
+			android:src="@drawable/ic_light"/>
 		<ImageView
 			android:contentDescription="@null"
 			android:id="@+id/ivClear"

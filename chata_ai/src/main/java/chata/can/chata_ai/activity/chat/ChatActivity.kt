@@ -42,6 +42,8 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private lateinit var toolbar: View
 	private lateinit var tvToolbar: TextView
 	private lateinit var ivCancel: ImageView
+	private var isTips = false
+	private lateinit var ivLight: ImageView
 	private lateinit var ivClear: ImageView
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
@@ -79,12 +81,6 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 
 		renderPresenter.setData()
 		initSpeechInput()
-	}
-
-	override fun onCreateOptionsMenu(menu: Menu?): Boolean
-	{
-		menuInflater.inflate(R.menu.chat_menu, menu)
-		return true
 	}
 
 	override fun finish()
@@ -141,6 +137,19 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 				R.id.ivCancel ->
 				{
 					finish()
+				}
+				R.id.ivLight ->
+				{
+					isTips = if (isTips)
+					{
+						ivLight.setImageResource(R.drawable.ic_light)
+						false
+					}
+					else
+					{
+						ivLight.setImageResource(R.drawable.ic_delete)
+						true
+					}
 				}
 				R.id.ivClear ->
 				{
@@ -302,6 +311,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 		toolbar = findViewById(R.id.toolbar)
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
+		ivLight = findViewById(R.id.ivLight)
 		ivClear = findViewById(R.id.ivClear)
 		rvChat = findViewById(R.id.rvChat)
 		gifView = findViewById(R.id.gifView)
@@ -330,6 +340,7 @@ class ChatActivity: BaseActivity(R.layout.chat_activity), View.OnClickListener, 
 	private fun initListener()
 	{
 		ivCancel.setOnClickListener(this)
+		ivLight.setOnClickListener(this)
 		ivClear.setOnClickListener(this)
 
 		etQuery.addTextChangedListener(object: TextChanged
