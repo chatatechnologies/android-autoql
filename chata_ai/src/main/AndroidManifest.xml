@@ -10,8 +10,7 @@
 	<application>
 		<activity
 			android:hardwareAccelerated="false"
-			android:name=".activity.chat.ChatActivity"
-			android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+			android:name=".activity.chat.ChatActivity"/>
 
 		<activity
 			android:hardwareAccelerated="false"

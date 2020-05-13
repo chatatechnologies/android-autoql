@@ -14,11 +14,11 @@ class PagerActivity: AppCompatActivity()
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.pager_activity)
+		setContentView(R.layout.pager_queries_activity)
 		viewPager = findViewById(R.id.viewPager)
+
 		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
 		viewPager.adapter = adapter
-//		tabLayout.visibility = View.VISIBLE
 	}
 
 	override fun finish()
