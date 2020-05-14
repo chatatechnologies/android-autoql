@@ -1,6 +1,8 @@
 package chata.can.chata_ai.fragment.exploreQueries
 
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +35,12 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract
 		super.onRenderViews(view)
 		initList()
 		etQuery?.setOnEditorActionListener { _, _, _ ->
-			val query = etQuery?.text.toString()
-			presenter.validateQuery(query)
+			etQuery?.run {
+				val query = text.toString()
+				setText("")
+				hideKeyboard()
+				presenter.validateQuery(query)
+			}
 			true
 		}
 	}
@@ -64,6 +70,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract
 	{
 		with(relatedQuery)
 		{
+			model.clear()
 			model.addAll(aItems)
 			adapter.notifyDataSetChanged()
 		}
