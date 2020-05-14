@@ -30,6 +30,11 @@
 			android:paddingStart="10dp"/>
 	</LinearLayout>
 
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rvRelatedQueries"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"/>
+
 	<TextView
 		android:gravity="center"
 		android:layout_height="wrap_content"
