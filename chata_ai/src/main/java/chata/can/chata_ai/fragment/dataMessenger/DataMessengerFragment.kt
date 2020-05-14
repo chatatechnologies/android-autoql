@@ -1,15 +1,17 @@
-package chata.can.chata_ai.fragment
+package chata.can.chata_ai.fragment.dataMessenger
 
 import android.view.View
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
+import chata.can.chata_ai.fragment.exploreQueries.ExploreQueriesFragment
 import chata.can.chata_ai.putArgs
 
 class DataMessengerFragment: BaseFragment()
 {
 	companion object {
 		const val nameFragment = "Data Messenger"
-		fun newInstance() = ExploreQueriesFragment().putArgs {
+		fun newInstance() = ExploreQueriesFragment()
+			.putArgs {
 			putInt("LAYOUT", R.layout.fragment_date_messenger)
 		}
 	}
