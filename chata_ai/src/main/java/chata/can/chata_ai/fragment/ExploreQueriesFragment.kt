@@ -16,12 +16,14 @@ class ExploreQueriesFragment: BaseFragment()
 		}
 	}
 
+	private var llQuery: View ?= null
 	private var etQuery: EditText ?= null
 
 	override fun initViews(view: View)
 	{
 		view.run {
 			etQuery = findViewById(R.id.etQuery)
+			llQuery = findViewById(R.id.llQuery)
 		}
 	}
 
@@ -33,7 +35,7 @@ class ExploreQueriesFragment: BaseFragment()
 	override fun setColors()
 	{
 		activity?.let {
-			etQuery?.background = EditTextDrawable.getQueryDrawable(it)
+			llQuery?.background = EditTextDrawable.getQueryDrawable(it)
 		}
 	}
 }
