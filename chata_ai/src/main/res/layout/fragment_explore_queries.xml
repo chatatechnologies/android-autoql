@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	android:background="@color/chata_drawer_accent_color_dark"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
 
+	<EditText
+		android:hint="@string/explore_queries_hint"
+		android:id="@+id/etQuery"
+		android:inputType="text"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:paddingEnd="10dp"
+		android:paddingStart="10dp"/>
+
+	<TextView
+		android:gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="@string/explore_queries_msg_1"/>
+
+	<TextView
+		android:gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="@string/explore_queries_msg_2"/>
 </LinearLayout>

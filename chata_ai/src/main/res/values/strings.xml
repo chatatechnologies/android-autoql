@@ -10,4 +10,7 @@
 	<string name="msg_run_autoql">We run on AutoQL by Chata</string>
 	<string name="type_queries_here">Type your queries here</string>
 	<string name="great_news_help">Great news, I can with that:</string>
+	<string name="explore_queries_msg_1">Discover what you can ask by entering a topic in the search bar above.</string>
+	<string name="explore_queries_msg_2">Simply click on any of the returned options to run the query in Data Messenger.</string>
+	<string name="explore_queries_hint">Search relevant queries by topic</string>
 </resources>
