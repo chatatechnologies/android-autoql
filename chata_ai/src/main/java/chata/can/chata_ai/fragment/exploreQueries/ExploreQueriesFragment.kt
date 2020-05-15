@@ -1,8 +1,6 @@
 package chata.can.chata_ai.fragment.exploreQueries
 
-import android.content.Context
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +68,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract
 	{
 		with(relatedQuery)
 		{
+			rvRelatedQueries?.visibility = View.VISIBLE
 			model.clear()
 			model.addAll(aItems)
 			adapter.notifyDataSetChanged()
