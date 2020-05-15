@@ -51,8 +51,6 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 									aItems.add(joItem)
 								}
 							}
-
-							//notify in fragment
 						}
 						//endregion
 						joData.optJSONObject("pagination")?.let {

@@ -28,9 +28,11 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 
 	private var rvPager: View ?= null
 	private var tvPrevious: TextView ?= null
-	private var tvPageCenter: TextView ?= null
-	private var tvPageStart: TextView ?= null
-	private var tvPageEnd: TextView ?= null
+	private var tvCenterPage: TextView ?= null
+	private var tvFirstPage: TextView ?= null
+	private var tvSecondPage: TextView ?= null
+	private var tvPenultimatePage: TextView ?= null
+	private var tvLastPage: TextView ?= null
 	private var tvNext: TextView ?= null
 
 	private val presenter = ExploreQueriesPresenter(this)
@@ -45,9 +47,12 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 		etQuery?.setOnEditorActionListener { _, _, _ ->
 			etQuery?.run {
 				val query = text.toString()
-				setText("")
-				hideKeyboard()
-				presenter.validateQuery(query)
+				if (query.isNotEmpty())
+				{
+					setText("")
+					hideKeyboard()
+					presenter.validateQuery(query)
+				}
 			}
 			true
 		}
@@ -61,9 +66,11 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 			rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
 			rvPager = findViewById(R.id.rvPager)
 			tvPrevious = findViewById(R.id.tvPrevious)
-			tvPageCenter = findViewById(R.id.tvPageCenter)
-			tvPageStart = findViewById(R.id.tvPageStart)
-			tvPageEnd = findViewById(R.id.tvPageEnd)
+			tvCenterPage = findViewById(R.id.tvCenterPage)
+			tvFirstPage = findViewById(R.id.tvFirstPage)
+			tvSecondPage = findViewById(R.id.tvSecondPage)
+			tvPenultimatePage = findViewById(R.id.tvPenultimatePage)
+			tvLastPage = findViewById(R.id.tvLastPage)
 			tvNext = findViewById(R.id.tvNext)
 		}
 	}
@@ -71,9 +78,11 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 	override fun initListener()
 	{
 		tvPrevious?.setOnClickListener(this)
-		tvPageCenter?.setOnClickListener(this)
-		tvPageStart?.setOnClickListener(this)
-		tvPageEnd?.setOnClickListener(this)
+		tvFirstPage?.setOnClickListener(this)
+		tvSecondPage?.setOnClickListener(this)
+		tvCenterPage?.setOnClickListener(this)
+		tvPenultimatePage?.setOnClickListener(this)
+		tvLastPage?.setOnClickListener(this)
 		tvNext?.setOnClickListener(this)
 	}
 
@@ -90,9 +99,11 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 			when(it.id)
 			{
 				R.id.tvPrevious -> {}
-				R.id.tvPageCenter -> {}
-				R.id.tvPageStart -> {}
-				R.id.tvPageEnd -> {}
+				R.id.tvFirstPage -> {}
+				R.id.tvSecondPage -> {}
+				R.id.tvCenterPage -> {}
+				R.id.tvPenultimatePage -> {}
+				R.id.tvLastPage -> {}
 				R.id.tvNext -> {}
 			}
 		}
@@ -126,12 +137,12 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 
 		val totalPages = relatedQuery.totalPages
 
-		tvPageStart?.text = "1"
+		tvFirstPage?.text = "1"
 		val lastPage = totalPages - 1
 		if (lastPage != 1)
 		{
-			tvPageCenter?.text = "2"
+			tvCenterPage?.text = "2"
 		}
-		tvPageEnd?.text = "$totalPages"
+		tvLastPage?.text = "$totalPages"
 	}
 }
