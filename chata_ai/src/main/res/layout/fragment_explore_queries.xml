@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
@@ -60,14 +61,61 @@
 			android:text="@string/explore_queries_msg_2"/>
 	</LinearLayout>
 
-	<LinearLayout
-		android:gravity="center"
+	<RelativeLayout
+		android:id="@+id/rvPager"
 		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		android:layout_marginStart="32dp"
 		android:layout_width="match_parent"
-		android:orientation="horizontal">
+		android:orientation="horizontal"
+		android:visibility="gone">
 		<TextView
+			android:id="@+id/tvPrevious"
+			android:layout_alignParentStart="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="@string/app_name"/>
-	</LinearLayout>
+			android:textSize="30sp"
+			android:textStyle="bold"
+			android:text="@string/arrow_left"/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvPageCenter"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="32dp"
+			android:layout_marginStart="32dp"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="2"/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvPageStart"
+			android:layout_toStartOf="@id/tvPageCenter"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="1"/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvPageEnd"
+			android:layout_toEndOf="@id/tvPageCenter"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="3"/>
+
+		<TextView
+			android:id="@+id/tvNext"
+			android:layout_alignParentEnd="true"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textSize="30sp"
+			android:textStyle="bold"
+			android:text="@string/arrow_right"/>
+	</RelativeLayout>
 </LinearLayout>
