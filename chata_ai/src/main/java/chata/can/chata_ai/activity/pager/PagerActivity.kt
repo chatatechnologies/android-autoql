@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.pager
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
@@ -8,7 +9,7 @@ import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.PageSelectedListener
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
-class PagerActivity: BaseActivity(R.layout.pager_queries_activity)
+class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClickListener
 {
 	private var tvToolbar: TextView ?= null
 	private var ivLight: ImageView ?= null
@@ -49,8 +50,26 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity)
 //		}
 	}
 
+	override fun onClick(view: View?)
+	{
+		view?.let {
+			when(it.id)
+			{
+				R.id.ivLight ->
+				{
+					viewPager?.run {
+						currentItem = if (currentItem == 0) 1
+						else 0
+					}
+				}
+				else -> {}
+			}
+		}
+	}
+
 	private fun initListener()
 	{
+		ivLight?.setOnClickListener(this)
 		viewPager?.addOnPageChangeListener(object: PageSelectedListener
 		{
 			override fun onSelected(position: Int)
