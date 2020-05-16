@@ -64,8 +64,8 @@
 	<RelativeLayout
 		android:id="@+id/rvPager"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="32dp"
-		android:layout_marginStart="32dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:visibility="visible">
@@ -74,7 +74,7 @@
 			android:layout_alignParentStart="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:textSize="30sp"
+			android:textSize="32sp"
 			android:textStyle="bold"
 			android:text="@string/arrow_left"/>
 		<!--region pages-->
@@ -82,8 +82,8 @@
 			android:layout_centerInParent="true"
 			android:id="@+id/tvCenterPage"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="32dp"
-			android:layout_marginStart="32dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:layout_width="wrap_content"
 			android:textSize="20sp"
 			android:textStyle="bold"
@@ -103,8 +103,8 @@
 			android:layout_centerInParent="true"
 			android:id="@+id/tvSecondPage"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="32dp"
-			android:layout_toStartOf="@id/tvCenterPage"
+			android:layout_marginStart="20dp"
+			android:layout_toStartOf="@id/tvThirdPage"
 			android:layout_width="wrap_content"
 			android:textSize="20sp"
 			android:textStyle="bold"
@@ -112,14 +112,58 @@
 
 		<TextView
 			android:layout_centerInParent="true"
-			android:id="@+id/tvPenultimatePage"
+			android:id="@+id/tvThirdPage"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="32dp"
+			android:layout_marginStart="20dp"
+			android:layout_toStartOf="@id/tvBreakPage1"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="3"/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvBreakPage1"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="20dp"
+			android:layout_toStartOf="@id/tvCenterPage"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="..."/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvBreakPage2"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
 			android:layout_toEndOf="@id/tvCenterPage"
 			android:layout_width="wrap_content"
 			android:textSize="20sp"
 			android:textStyle="bold"
-			tools:text="P"/>
+			tools:text="..."/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvFifthPage"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
+			android:layout_toEndOf="@id/tvBreakPage2"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="5"/>
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:id="@+id/tvPenultimatePage"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="20dp"
+			android:layout_toEndOf="@id/tvFifthPage"
+			android:layout_width="wrap_content"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="6"/>
 
 		<TextView
 			android:layout_centerInParent="true"
@@ -129,14 +173,14 @@
 			android:layout_width="wrap_content"
 			android:textSize="20sp"
 			android:textStyle="bold"
-			tools:text="L"/>
+			tools:text="7"/>
 		<!--endregion pages-->
 		<TextView
 			android:id="@+id/tvNext"
 			android:layout_alignParentEnd="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:textSize="30sp"
+			android:textSize="32sp"
 			android:textStyle="bold"
 			android:text="@string/arrow_right"/>
 	</RelativeLayout>

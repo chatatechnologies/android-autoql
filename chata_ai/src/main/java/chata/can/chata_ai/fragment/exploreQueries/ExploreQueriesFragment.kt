@@ -31,6 +31,10 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 	private var tvCenterPage: TextView ?= null
 	private var tvFirstPage: TextView ?= null
 	private var tvSecondPage: TextView ?= null
+	private var tvThirdPage: TextView ?= null
+	private var tvBreakPage1: TextView ?= null
+	private var tvBreakPage2: TextView ?= null
+	private var tvFifthPage: TextView ?= null
 	private var tvPenultimatePage: TextView ?= null
 	private var tvLastPage: TextView ?= null
 	private var tvNext: TextView ?= null
@@ -38,6 +42,8 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 	private val presenter = ExploreQueriesPresenter(this)
 	private val model = BaseModelList<String>()
 	private lateinit var adapter: ExploreQueriesAdapter
+	private val visible = View.VISIBLE
+	private val gone = View.GONE
 	private var currentPage = 0
 
 	override fun onRenderViews(view: View)
@@ -69,6 +75,10 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 			tvCenterPage = findViewById(R.id.tvCenterPage)
 			tvFirstPage = findViewById(R.id.tvFirstPage)
 			tvSecondPage = findViewById(R.id.tvSecondPage)
+			tvThirdPage = findViewById(R.id.tvThirdPage)
+			tvBreakPage1 = findViewById(R.id.tvBreakPage1)
+			tvBreakPage2 = findViewById(R.id.tvBreakPage2)
+			tvFifthPage = findViewById(R.id.tvFifthPage)
 			tvPenultimatePage = findViewById(R.id.tvPenultimatePage)
 			tvLastPage = findViewById(R.id.tvLastPage)
 			tvNext = findViewById(R.id.tvNext)
@@ -80,6 +90,10 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 		tvPrevious?.setOnClickListener(this)
 		tvFirstPage?.setOnClickListener(this)
 		tvSecondPage?.setOnClickListener(this)
+		tvThirdPage?.setOnClickListener(this)
+		tvBreakPage1?.setOnClickListener(this)
+		tvBreakPage2?.setOnClickListener(this)
+		tvFifthPage?.setOnClickListener(this)
 		tvCenterPage?.setOnClickListener(this)
 		tvPenultimatePage?.setOnClickListener(this)
 		tvLastPage?.setOnClickListener(this)
@@ -101,7 +115,9 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 				R.id.tvPrevious -> {}
 				R.id.tvFirstPage -> {}
 				R.id.tvSecondPage -> {}
+				R.id.tvThirdPage -> {}
 				R.id.tvCenterPage -> {}
+				R.id.tvFirstPage -> {}
 				R.id.tvPenultimatePage -> {}
 				R.id.tvLastPage -> {}
 				R.id.tvNext -> {}
@@ -134,15 +150,83 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 	{
 		rvPager?.visibility = View.VISIBLE
 		currentPage = relatedQuery.currentPage
+		hideItemOnPager()
 
-		val totalPages = relatedQuery.totalPages
-
-		tvFirstPage?.text = "1"
-		val lastPage = totalPages - 1
-		if (lastPage != 1)
+		when(relatedQuery.totalPages)
 		{
-			tvCenterPage?.text = "2"
+			1 -> tvFirstPage?.visibility = visible
+			2 ->
+			{
+				tvFirstPage?.visibility = visible
+				tvSecondPage?.visibility = visible
+			}
+			3 ->
+			{
+				tvFirstPage?.visibility = visible
+				tvSecondPage?.visibility = visible
+				tvLastPage?.visibility = visible
+			}
+			4 ->
+			{
+				tvFirstPage?.visibility = visible
+				tvSecondPage?.visibility = visible
+				tvPenultimatePage?.visibility = visible
+				tvLastPage?.visibility = visible
+			}
 		}
-		tvLastPage?.text = "$totalPages"
+
+//		when(currentPage)
+//		{
+//			1 ->
+//			{
+//				tvFirstPage?.visibility = visible
+//			}
+//			2 ->
+//			{
+//				tvSecondPage?.visibility = visible
+//			}
+//			3 ->
+//			{
+//				tvCenterPage?.visibility = visible
+//			}
+//			4 ->
+//			{
+//				tvCenterPage?.visibility = visible
+//			}
+//			5 ->
+//			{
+//				tvCenterPage?.visibility = visible
+//			}
+//			6 ->
+//			{
+//				tvCenterPage?.visibility = visible
+//			}
+//			7 ->
+//			{
+//				tvPenultimatePage?.visibility = visible
+//			}
+//			8 ->
+//			{
+//				tvLastPage?.visibility = visible
+//			}
+//		}
+
+//
+//		tvFirstPage?.text = "1"
+//		val lastPage = totalPages - 1
+//		if (lastPage != 1)
+//		{
+//			tvCenterPage?.text = "2"
+//		}
+//		tvLastPage?.text = "$totalPages"
+	}
+
+	private fun hideItemOnPager()
+	{
+		tvFirstPage?.visibility = gone
+		tvSecondPage?.visibility = gone
+		tvCenterPage?.visibility = gone
+		tvPenultimatePage?.visibility = gone
+		tvLastPage?.visibility = gone
 	}
 }
