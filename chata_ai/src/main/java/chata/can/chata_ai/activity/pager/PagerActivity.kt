@@ -5,8 +5,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.PageSelectedListener
+import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClickListener
@@ -16,21 +19,22 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var viewPager: ViewPager ?= null
 	private val numPages = 2
 
-	val dataMessengerTile = "Data Messenger"
+	var dataMessengerTile = "Data Messenger"
 	val exploreQueriesTile = "Explore Queries"
 
 	override fun onCreateView()
 	{
+		PropertyChatActivity.context = this
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivLight = findViewById(R.id.ivLight)
 		viewPager = findViewById(R.id.viewPager)
 
-		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
-		viewPager?.adapter = adapter
+		initListener()
+		initData()
 
 		tvToolbar?.text = dataMessengerTile
-
-		initListener()
+		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
+		viewPager?.adapter = adapter
 	}
 
 	override fun finish()
@@ -84,5 +88,44 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 				ivLight?.setImageResource(pData.second)
 			}
 		})
+	}
+
+	private fun initConfig()
+	{
+		windowManager?.let {
+			ScreenData.defaultDisplay = it.defaultDisplay
+		}
+		resources?.let {
+			it.displayMetrics?.let {
+					itMetrics ->
+				ScreenData.densityByDP = itMetrics.density
+			}
+		}
+		RequestBuilder.initVolleyRequest(this)
+	}
+
+	private fun initData()
+	{
+		intent?.let {
+			PagerData.run {
+				customerName = it.getStringExtra("CUSTOMER_NAME") ?: ""
+				title = it.getStringExtra("TITLE") ?: ""
+				introMessage = it.getStringExtra("INTRO_MESSAGE") ?: ""
+				inputPlaceholder = it.getStringExtra("INPUT_PLACE_HOLDER") ?: ""
+				maxMessages = it.getIntExtra("MAX_MESSAGES", 0)
+				clearOnClose = it.getBooleanExtra("CLEAR_ON_CLOSE", false)
+				enableVoiceRecord = it.getBooleanExtra("ENABLE_VOICE_RECORD", true)
+			}
+		}
+
+		val title = PagerData.title
+		dataMessengerTile = if (title.isNotEmpty())
+		{
+			title
+		}
+		else
+		{
+			getString(R.string.data_messenger)
+		}
 	}
 }
