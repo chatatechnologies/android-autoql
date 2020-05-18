@@ -35,6 +35,8 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		tvToolbar?.text = dataMessengerTile
 		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
 		viewPager?.adapter = adapter
+
+		initConfig()
 	}
 
 	override fun finish()

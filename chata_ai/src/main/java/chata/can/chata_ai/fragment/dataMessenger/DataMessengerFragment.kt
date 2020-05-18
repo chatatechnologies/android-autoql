@@ -1,25 +1,31 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
+import android.os.Handler
 import android.speech.SpeechRecognizer
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
+import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
+import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.fragment.exploreQueries.ExploreQueriesFragment
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
 import java.net.URLEncoder
 
-class DataMessengerFragment: BaseFragment(), View.OnClickListener
+class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.View
 {
 	companion object {
 		const val nameFragment = "Data Messenger"
@@ -46,9 +52,9 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener
 	private lateinit var speechIntent: Intent
 
 	val model = SinglentonDrawer.mModel
-//	private lateinit var adapterAutoComplete: AutoCompleteAdapter
-//	private val renderPresenter = ChatRenderPresenter(this, this)
-//	private val servicePresenter = ChatServicePresenter(this, this)
+	private lateinit var adapterAutoComplete: AutoCompleteAdapter
+	private lateinit var renderPresenter: ChatRenderPresenter
+	private lateinit var servicePresenter: ChatServicePresenter
 //	private lateinit var chatAdapter: ChatAdapter
 
 	private var customerName = ""
@@ -67,6 +73,10 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener
 
 		renderPresenter.setData()
 		initSpeechInput()
+		activity?.run {
+			renderPresenter = ChatRenderPresenter(this, this@DataMessengerFragment)
+			servicePresenter = ChatServicePresenter(this, this@DataMessengerFragment)
+		}
 	}
 
 	override fun initViews(view: View)
@@ -150,6 +160,46 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener
 		}
 	}
 
+	override fun addChatMessage(typeView: Int, message: String)
+	{
+
+	}
+
+	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
+	{
+
+	}
+
+	override fun isLoading(isVisible: Boolean)
+	{
+
+	}
+
+	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
+	{
+
+	}
+
+	override fun setDataAutocomplete(aMatches: ArrayList<String>)
+	{
+
+	}
+
+	override fun setRecorder()
+	{
+
+	}
+
+	override fun setSpeech(message: String)
+	{
+
+	}
+
+	override fun setStopRecorder()
+	{
+
+	}
+
 	private fun setRequestQuery()
 	{
 		val query = etQuery.text.toString()
@@ -171,6 +221,51 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener
 			{
 				servicePresenter.getQuery(query)
 			}
+		}
+	}
+
+	private fun initSpeechInput()
+	{
+		activity?.run {
+			speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+			speechRecognizer.setRecognitionListener(VoiceRecognition(this@DataMessengerFragment))
+
+			speechIntent = renderPresenter.initSpeechInput()
+		}
+	}
+
+	private fun promptSpeechInput()
+	{
+		if (SpeechRecognizer.isRecognitionAvailable(this))
+		{
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != 0)
+			{
+				AlertDialog.Builder(this)
+					.setMessage(R.string.msg_permission_record)
+					.setNeutralButton("Ok", null)
+					.setOnDismissListener {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+						{
+							requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+						}
+					}.show()
+			}
+			else
+			{
+				speechRecognizer.startListening(speechIntent)
+			}
+		}
+		else
+		{
+			AlertDialog.Builder(this)
+				.setMessage("This device does not count an App with speech recognition.")
+				.setNeutralButton("Ok", null)
+				.setOnDismissListener {
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+					{
+						requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+					}
+				}.show()
 		}
 	}
 
@@ -209,5 +304,20 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener
 	private fun initList()
 	{
 		//TODO method for to build
+	}
+
+	private fun scrollToPosition()
+	{
+		//region value max number message
+		while (model.countData() > maxMessages)
+		{
+			model.removeAt(0)
+			chatAdapter.notifyItemRemoved(0)
+		}
+		//endregion
+		Handler().postDelayed({
+			val position = model.countData() - 1
+			rvChat.scrollToPosition(position)
+		}, 200)
 	}
 }

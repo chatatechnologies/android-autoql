@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat
+package chata.can.chata_ai.fragment.dataMessenger
 
 import android.graphics.drawable.GradientDrawable
 import chata.can.chata_ai.pojo.chat.SimpleQuery
@@ -16,6 +16,7 @@ interface ChatContract
 	{
 		fun addChatMessage(typeView: Int, message: String)
 		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
+		//fun scrollToPosition()
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 		fun isLoading(isVisible: Boolean)
 	}
