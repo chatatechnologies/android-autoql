@@ -6,8 +6,6 @@ import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
@@ -17,6 +15,8 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
 
 class FullSuggestionHolder(
 	itemView: View,

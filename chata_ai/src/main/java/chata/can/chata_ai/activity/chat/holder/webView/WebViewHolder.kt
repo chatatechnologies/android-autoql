@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.adapter.ChatAdapterContract
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.setColorFilter
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData

@@ -1,7 +1,9 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Handler
 import android.speech.SpeechRecognizer
 import android.view.MotionEvent
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
+import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.fragment.exploreQueries.ExploreQueriesFragment
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -55,7 +58,7 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private lateinit var renderPresenter: ChatRenderPresenter
 	private lateinit var servicePresenter: ChatServicePresenter
-//	private lateinit var chatAdapter: ChatAdapter
+	private lateinit var chatAdapter: ChatAdapter
 
 	private var customerName = ""
 	private var title = ""
@@ -111,7 +114,7 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 				{
 					if (SinglentonDrawer.mIsEnableAutocomplete)
 					{
-//						servicePresenter.getAutocomplete(URLEncoder.encode(string, "UTF-8"))
+						servicePresenter.getAutocomplete(URLEncoder.encode(string, "UTF-8"))
 					}
 					with(ivMicrophone)
 					{
@@ -236,12 +239,30 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 
 	private fun promptSpeechInput()
 	{
-		if (SpeechRecognizer.isRecognitionAvailable(this))
-		{
-			if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != 0)
+		activity?.run {
+			if (SpeechRecognizer.isRecognitionAvailable(this))
+			{
+				if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != 0)
+				{
+					AlertDialog.Builder(this)
+						.setMessage(R.string.msg_permission_record)
+						.setNeutralButton("Ok", null)
+						.setOnDismissListener {
+							if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+							{
+								requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+							}
+						}.show()
+				}
+				else
+				{
+					speechRecognizer.startListening(speechIntent)
+				}
+			}
+			else
 			{
 				AlertDialog.Builder(this)
-					.setMessage(R.string.msg_permission_record)
+					.setMessage("This device does not count an App with speech recognition.")
 					.setNeutralButton("Ok", null)
 					.setOnDismissListener {
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -250,23 +271,8 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 						}
 					}.show()
 			}
-			else
-			{
-				speechRecognizer.startListening(speechIntent)
-			}
 		}
-		else
-		{
-			AlertDialog.Builder(this)
-				.setMessage("This device does not count an App with speech recognition.")
-				.setNeutralButton("Ok", null)
-				.setOnDismissListener {
-					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-					{
-						requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
-					}
-				}.show()
-		}
+
 	}
 
 	private fun setTouchListener()

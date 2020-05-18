@@ -1,16 +1,16 @@
-package chata.can.chata_ai.activity.chat.adapter
+package chata.can.chata_ai.fragment.dataMessenger.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
 import chata.can.chata_ai.activity.chat.holder.HelpHolder
 import chata.can.chata_ai.activity.chat.holder.RightHolder
 import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
 import chata.can.chata_ai.activity.chat.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
@@ -38,7 +38,7 @@ class ChatAdapter(
 			if (it is ChatData)
 			{
 				it.simpleQuery?.let {
-					simpleQuery ->
+						simpleQuery ->
 					if (simpleQuery is QueryBase)
 					{
 						simpleQuery.checkData(holder)
@@ -59,31 +59,28 @@ class ChatAdapter(
 			}
 			TypeChatView.WEB_VIEW ->
 			{
-//				WebViewHolder(layoutInflater.inflate(R.layout.row_webview, nullValue), this, view)
-				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
+				WebViewHolder(
+					layoutInflater.inflate(R.layout.row_webview, nullValue), this, view)
 			}
 			TypeChatView.SUGGESTION_VIEW ->
 			{
-//				SuggestionHolder(
-//					layoutInflater.inflate(R.layout.row_suggestion, nullValue),
-//					view,
-//					servicePresenter)
-				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
+				SuggestionHolder(
+					layoutInflater.inflate(R.layout.row_suggestion, nullValue),
+					view,
+					servicePresenter)
 			}
 			TypeChatView.FULL_SUGGESTION_VIEW ->
 			{
-//				FullSuggestionHolder(
-//					layoutInflater.inflate(R.layout.row_full_suggestion, nullValue),
-//					view,
-//					servicePresenter)
-				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
+				FullSuggestionHolder(
+					layoutInflater.inflate(R.layout.row_full_suggestion, nullValue),
+					view,
+					servicePresenter)
 			}
 			TypeChatView.HELP_VIEW ->
 			{
 				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
 			}
-//			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
-			else -> HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
+			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}
 	}
 
