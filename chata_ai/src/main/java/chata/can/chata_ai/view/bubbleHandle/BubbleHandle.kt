@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.ChatActivity
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault

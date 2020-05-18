@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
 import chata.can.chata_ai.pojo.ScreenData
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.PageSelectedListener
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -16,6 +17,8 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 {
 	private var tvToolbar: TextView ?= null
 	private var ivLight: ImageView ?= null
+	private var ivCancel: ImageView ?= null
+	private var ivClear: ImageView ?= null
 	private var viewPager: ViewPager ?= null
 	private val numPages = 2
 
@@ -26,7 +29,9 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	{
 		PropertyChatActivity.context = this
 		tvToolbar = findViewById(R.id.tvToolbar)
+		ivCancel = findViewById(R.id.ivCancel)
 		ivLight = findViewById(R.id.ivLight)
+		ivClear = findViewById(R.id.ivClear)
 		viewPager = findViewById(R.id.viewPager)
 
 		initListener()
@@ -50,10 +55,10 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	{
 		super.onDestroy()
 		BubbleHandle.instance.isVisible = true
-//		if (clearOnClose)
-//		{
-//			SinglentonDrawer.mModel.clear()
-//		}
+		if (PagerData.clearOnClose)
+		{
+			SinglentonDrawer.mModel.clear()
+		}
 	}
 
 	override fun onClick(view: View?)
@@ -61,12 +66,20 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		view?.let {
 			when(it.id)
 			{
+				R.id.ivCancel ->
+				{
+					finish()
+				}
 				R.id.ivLight ->
 				{
 					viewPager?.run {
 						currentItem = if (currentItem == 0) 1
 						else 0
 					}
+				}
+				R.id.ivClear ->
+				{
+					//model.clear()
 				}
 				else -> {}
 			}
@@ -75,7 +88,10 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 
 	private fun initListener()
 	{
+		ivCancel?.setOnClickListener(this)
 		ivLight?.setOnClickListener(this)
+		ivClear?.setOnClickListener(this)
+
 		viewPager?.addOnPageChangeListener(object: PageSelectedListener
 		{
 			override fun onSelected(position: Int)

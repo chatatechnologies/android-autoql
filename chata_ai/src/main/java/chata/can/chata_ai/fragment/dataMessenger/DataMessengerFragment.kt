@@ -2,24 +2,29 @@ package chata.can.chata_ai.fragment.dataMessenger
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
 import android.speech.SpeechRecognizer
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
+import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
-import chata.can.chata_ai.fragment.exploreQueries.ExploreQueriesFragment
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -28,23 +33,17 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
 import java.net.URLEncoder
 
-class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.View
+class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
 	companion object {
-		const val nameFragment = "Data Messenger"
-		fun newInstance() = ExploreQueriesFragment()
+		//const val nameFragment = "Data Messenger"
+		fun newInstance() = DataMessengerFragment()
 			.putArgs {
 			putInt("LAYOUT", R.layout.fragment_date_messenger)
 		}
 	}
 
 	private lateinit var llParent: View
-	private lateinit var toolbar: View
-	private lateinit var tvToolbar: TextView
-	private lateinit var ivCancel: ImageView
-	private var isTips = false
-	private lateinit var ivLight: ImageView
-	private lateinit var ivClear: ImageView
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
 	private lateinit var ivRun: ImageView
@@ -60,26 +59,25 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 	private lateinit var servicePresenter: ChatServicePresenter
 	private lateinit var chatAdapter: ChatAdapter
 
-	private var customerName = ""
-	private var title = ""
-	private var introMessage = ""
-	private var inputPlaceholder = ""
-	private var maxMessages = 0
-	private var clearOnClose = false
-	private var enableVoiceRecord = true
+//	private var customerName = ""
+//	private var title = ""
+//	private var introMessage = ""
+//	private var inputPlaceholder = ""
+//	private var maxMessages = 0
+//	private var clearOnClose = false
+//	private var enableVoiceRecord = true
 
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-//		initData(); This data is current in object PagerData
-		initList()
-
-		renderPresenter.setData()
-		initSpeechInput()
 		activity?.run {
 			renderPresenter = ChatRenderPresenter(this, this@DataMessengerFragment)
 			servicePresenter = ChatServicePresenter(this, this@DataMessengerFragment)
 		}
+
+		initList()
+		renderPresenter.setData()
+		initSpeechInput()
 	}
 
 	override fun initViews(view: View)
@@ -87,11 +85,6 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 		with(view)
 		{
 			llParent = findViewById(R.id.llParent)
-			toolbar = findViewById(R.id.toolbar)
-			tvToolbar = findViewById(R.id.tvToolbar)
-			ivCancel = findViewById(R.id.ivCancel)
-			ivLight = findViewById(R.id.ivLight)
-			ivClear = findViewById(R.id.ivClear)
 			rvChat = findViewById(R.id.rvChat)
 			gifView = findViewById(R.id.gifView)
 			ivRun = findViewById(R.id.ivRun)
@@ -102,10 +95,6 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 
 	override fun initListener()
 	{
-		ivCancel.setOnClickListener(this)
-		ivLight.setOnClickListener(this)
-		ivClear.setOnClickListener(this)
-
 		etQuery.addTextChangedListener(object: TextChanged
 		{
 			override fun onTextChanged(string: String)
@@ -141,10 +130,6 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 			{
 				llParent.setBackgroundColor(ContextCompat.getColor(
 					activity, drawerBackgroundColor))
-				toolbar.setBackgroundColor(ContextCompat.getColor(
-					activity, drawerAccentColor))
-				tvToolbar.setTextColor(ContextCompat.getColor(
-					activity, R.color.white))
 				etQuery.setHintTextColor(ContextCompat.getColor(
 					activity, drawerHoverColor))
 				ivRun.setColorFilter(ContextCompat.getColor(
@@ -153,54 +138,146 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 		}
 	}
 
-	override fun onClick(view: View?)
-	{
-		view?.let {
-			when(it.id)
-			{
-
-			}
-		}
-	}
-
 	override fun addChatMessage(typeView: Int, message: String)
 	{
-
+		val chatData = ChatData(typeView, message)
+		model.add(chatData)
+		chatAdapter.notifyItemChanged(model.countData() - 1)
+		scrollToPosition()
 	}
 
 	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 	{
-
+		val chatData = ChatData(typeView, "", queryBase)
+		model.add(chatData)
+		chatAdapter.notifyItemChanged(model.countData() - 1)
+		scrollToPosition()
 	}
 
 	override fun isLoading(isVisible: Boolean)
 	{
-
+		gifView.visibility = if (isVisible)
+			View.VISIBLE
+		else
+			View.GONE
 	}
 
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 	{
+		etQuery.run {
+			background = pDrawable.second
+			val hint = if (PagerData.inputPlaceholder.isNotEmpty())
+			{
+				PagerData.inputPlaceholder
+			}
+			else
+			{
+				getString(R.string.type_queries_here)
+			}
+			setHint(hint)
 
+			activity?.let {
+				activity ->
+				adapterAutoComplete = AutoCompleteAdapter(activity, R.layout.row_spinner)
+				threshold = 1
+				setAdapter(adapterAutoComplete)
+				onItemClickListener = AdapterView.OnItemClickListener {
+						parent, _, position, _ ->
+					parent?.let {
+						it.adapter?.let {
+								adapter ->
+							val text = adapter.getItem(position).toString()
+							etQuery.setText(text)
+							setRequestQuery()
+						}
+					}
+				}
+			}
+
+			setOnEditorActionListener {
+					_, _, _ ->
+				setRequestQuery()
+				false
+			}
+
+			val displayMetrics = DisplayMetrics()
+			ScreenData.defaultDisplay.getMetrics(displayMetrics)
+			val width = displayMetrics.widthPixels
+			dropDownWidth = width
+
+			if (BuildConfig.DEBUG)
+			{
+				val urlDemo = "pie chart total sales"
+//				val urlDemo = ""
+//				val urlDemo = "monthly average expenses for the last quarter"
+//				val urlDemo = "heat map total revenue per customer per month"
+//				val urlDemo = "Bubble map total sales per customer per month"
+//				val urlDemo = "total expenditures and cash outflow by month this year"
+//				val urlDemo = "total overdue invoices by customer by month in a heat map"
+//				val urlDemo = "all sales"
+//				val urlDemo = "budget vs actuals per month"
+//				val urlDemo = "count invoices"
+//				val urlDemo = "heat map"
+//				val urlDemo = "what are our average expenses per day?"
+				setText(urlDemo)
+			}
+			ivMicrophone.background = pDrawable.first
+		}
 	}
 
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
+		adapterAutoComplete.clear()
+		if (aMatches.isNotEmpty())
+		{
+			adapterAutoComplete.addAll(aMatches)
 
+			val size = Point()
+			ScreenData.defaultDisplay.getSize(size)
+			val maxHeight = size.y * 0.35
+
+			val count = adapterAutoComplete.count
+			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
+
+			etQuery.dropDownHeight =
+				if (height < maxHeight)
+					height.toInt()
+				else
+					maxHeight.toInt()
+		}
+		adapterAutoComplete.notifyDataSetChanged()
 	}
 
 	override fun setRecorder()
 	{
-
+		activity?.run {
+			val red = ContextCompat.getColor(this, android.R.color.holo_red_dark)
+			val circleDrawable = GradientDrawable().apply {
+				shape = GradientDrawable.OVAL
+				setColor(red)
+			}
+			ivMicrophone.background = circleDrawable
+		}
 	}
 
 	override fun setSpeech(message: String)
 	{
-
+		etQuery.setText(message)
+		etQuery.setSelection(message.length)
 	}
 
 	override fun setStopRecorder()
 	{
-
+		activity?.run {
+			val red = ContextCompat.getColor(
+				this,
+				ThemeColor.currentColor.drawerAccentColor)
+			val circleDrawable = GradientDrawable().apply {
+				shape = GradientDrawable.OVAL
+				setColor(red)
+			}
+			ivMicrophone.background = circleDrawable
+		}
 	}
 
 	private fun setRequestQuery()
@@ -215,7 +292,6 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 
 			chatAdapter.notifyItemChanged(model.countData() - 1)
 
-			//val queryEncode = URLEncoder.encode(query, "UTF-8")
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
 				servicePresenter.getSafety(query)
@@ -279,7 +355,7 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 	{
 		with(ivMicrophone)
 		{
-			if (enableVoiceRecord)
+			if (PagerData.enableVoiceRecord)
 			{
 				setOnClickListener(null)
 				setOnTouchListener {
@@ -309,13 +385,33 @@ class DataMessengerFragment: BaseFragment(), View.OnClickListener, ChatContract.
 
 	private fun initList()
 	{
-		//TODO method for to build
+		chatAdapter = ChatAdapter(model, this, servicePresenter)
+		if (SinglentonDrawer.mModel.countData() == 0)
+		{
+			val introMessageRes =
+				if (PagerData.introMessage.isNotEmpty())
+				{
+					PagerData.introMessage
+				}
+				else
+				{
+					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				}
+
+			val introMessage = String.format(introMessageRes, PagerData.customerName)
+			model.add(ChatData(1, introMessage))
+		}
+		activity?.let {
+			activity ->
+			rvChat.layoutManager = LinearLayoutManager(activity)
+			rvChat.adapter = chatAdapter
+		}
 	}
 
 	private fun scrollToPosition()
 	{
 		//region value max number message
-		while (model.countData() > maxMessages)
+		while (model.countData() > PagerData.maxMessages)
 		{
 			model.removeAt(0)
 			chatAdapter.notifyItemRemoved(0)

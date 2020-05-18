@@ -15,7 +15,7 @@ import chata.can.chata_ai.putArgs
 class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueriesContract
 {
 	companion object {
-		const val nameFragment = "Explore Queries"
+		//const val nameFragment = "Explore Queries"
 		fun newInstance() = ExploreQueriesFragment()
 			.putArgs {
 			putInt("LAYOUT", R.layout.fragment_explore_queries)
