@@ -59,14 +59,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var servicePresenter: ChatServicePresenter
 	private lateinit var chatAdapter: ChatAdapter
 
-//	private var customerName = ""
-//	private var title = ""
-//	private var introMessage = ""
-//	private var inputPlaceholder = ""
-//	private var maxMessages = 0
-//	private var clearOnClose = false
-//	private var enableVoiceRecord = true
-
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
@@ -184,8 +176,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				onItemClickListener = AdapterView.OnItemClickListener {
 						parent, _, position, _ ->
 					parent?.let {
-						it.adapter?.let {
-								adapter ->
+						it.adapter?.let { adapter ->
 							val text = adapter.getItem(position).toString()
 							etQuery.setText(text)
 							setRequestQuery()
