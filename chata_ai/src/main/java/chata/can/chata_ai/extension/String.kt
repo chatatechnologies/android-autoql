@@ -5,6 +5,8 @@ import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
 
@@ -20,6 +22,29 @@ fun String.formatWithColumn(
 {
 	return when(columnQuery.type)
 	{
+		TypeDataQuery.DATE_STRING ->
+		{
+			return if (isEmpty() || this == "0") ""
+			else
+			{
+				val aDataDate = this.split("-")
+				if (aDataDate.size > 1)
+				{
+					var date = ""
+					val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
+					try {
+						dateFormat.parse(this)?.let {
+							dDate ->
+							val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
+							date = dateFormat2.format(dDate)
+						}
+					}
+					catch (ex: Exception) {}
+					date
+				}
+				else ""
+			}
+		}
 		TypeDataQuery.DATE ->
 		{
 			val format =

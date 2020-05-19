@@ -7,6 +7,7 @@ enum class TypeDataQuery
 	PERCENT,
 	NUMBER,
 	DATE,
+	DATE_STRING,
 	STRING,
 	UNKNOWN;
 }
