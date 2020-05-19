@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.exploreQueries
 import android.view.View
 import android.view.WindowManager
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +25,7 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 	}
 
 	private var llQuery: View ?= null
-	private var etQuery: AutoCompleteTextView ?= null
+	private var etQuery: EditText ?= null
 	private var rvRelatedQueries: RecyclerView ?= null
 
 	private var rvPager: View ?= null
