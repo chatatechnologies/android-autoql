@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 import chata.can.chata_ai_api.R
 
 class ContentHolder(itemView: View): BaseHolder(itemView)
@@ -16,7 +17,15 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 		if (item is Dashboard)
 		{
 			item.queryBase?.run {
-				tvContent?.text = contentHTML
+				tvContent?.run {
+					text = contentHTML
+					item.queryBase?.let {
+						simpleQuery ->
+						setOnClickListener {
+							DrillDownPresenter(simpleQuery, null).postDrillDown()
+						}
+					}
+				}
 			}
 		}
 	}
