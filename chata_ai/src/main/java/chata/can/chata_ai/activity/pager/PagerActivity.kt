@@ -6,10 +6,12 @@ import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.PageSelectedListener
+import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
@@ -20,8 +22,10 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var ivCancel: ImageView ?= null
 	private var ivClear: ImageView ?= null
 	private var viewPager: ViewPager ?= null
+	private var slidePagerAdapter: SlidePagerAdapter ?= null
 	private val numPages = 2
 
+	val model = SinglentonDrawer.mModel
 	var dataMessengerTile = "Data Messenger"
 	val exploreQueriesTile = "Explore Queries"
 
@@ -38,8 +42,8 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		initData()
 
 		tvToolbar?.text = dataMessengerTile
-		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
-		viewPager?.adapter = adapter
+		slidePagerAdapter = SlidePagerAdapter(supportFragmentManager, numPages)
+		viewPager?.adapter = slidePagerAdapter
 
 		initConfig()
 	}
@@ -79,7 +83,17 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 				}
 				R.id.ivClear ->
 				{
-					//model.clear()
+					model.clear()
+					val introMessage = String.format(PagerData.introMessage, PagerData.customerName)
+					model.add(ChatData(1, introMessage))
+
+					slidePagerAdapter?.getRegisteredFragment(0)?.let {
+						dataMessengerFragment ->
+						if (dataMessengerFragment is DataMessengerFragment)
+						{
+							dataMessengerFragment.notifyAdapter()
+						}
+					}
 				}
 				else -> {}
 			}

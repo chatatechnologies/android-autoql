@@ -53,7 +53,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var speechRecognizer: SpeechRecognizer
 	private lateinit var speechIntent: Intent
 
-	val model = SinglentonDrawer.mModel
+	private val model = SinglentonDrawer.mModel
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 	private lateinit var renderPresenter: ChatRenderPresenter
 	private lateinit var servicePresenter: ChatServicePresenter
@@ -406,6 +406,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			rvChat.layoutManager = LinearLayoutManager(activity)
 			rvChat.adapter = chatAdapter
 		}
+	}
+
+	fun notifyAdapter()
+	{
+		chatAdapter.notifyDataSetChanged()
 	}
 
 	private fun scrollToPosition()
