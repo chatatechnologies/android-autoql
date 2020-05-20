@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.Constant.nullParent
@@ -11,7 +12,9 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
 
-class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
+class GridAdapter(
+	private val context: Context,
+	private val model: BaseModelList<*>): BaseAdapter(model)
 {
 	override fun getItemViewType(position: Int): Int
 	{
@@ -65,7 +68,7 @@ class GridAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
 			0 -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 			1 -> LoadingHolder(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
-			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
+			3 -> ContentHolder(context, layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
 			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}

@@ -83,8 +83,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
-			adapter = GridAdapter(model)
-
+			adapter = GridAdapter(it, model)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
 		}
