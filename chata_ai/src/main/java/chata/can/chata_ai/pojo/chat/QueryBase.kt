@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.chat
 
 import chata.can.chata_ai.DoAsync
 import chata.can.chata_ai.activity.chat.presenter.PresenterContract
+import chata.can.chata_ai.dialog.drillDown.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.pojo.webView.HtmlMarked
@@ -73,6 +74,7 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract ?= null
+	var viewDrillDown: DrillDownContract ?= null
 	var isLoadingHTML = false
 
 	init {
@@ -189,6 +191,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 					}
 				}
 			},{
+				viewDrillDown?.loadDrillDown(this)
+
 				viewPresenter?.let {
 					viewPresenter?.isLoading(false)
 					viewPresenter?.addNewChat(typeView, this)

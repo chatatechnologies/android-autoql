@@ -24,8 +24,6 @@ class ContentHolder(private val context: Context, itemView: View): BaseHolder(it
 					item.queryBase?.let {
 						simpleQuery ->
 						setOnClickListener {
-							//DrillDownPresenter(simpleQuery, null).postDrillDown()
-							//TODO show the drillDown modal
 							DrillDownDialog(context, simpleQuery).show()
 						}
 					}

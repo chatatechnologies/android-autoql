@@ -3,6 +3,7 @@ package chata.can.chata_ai.dialog.drillDown
 import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
@@ -12,14 +13,21 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class DrillDownPresenter(
-	private val queryBase: QueryBase
+	private val queryBase: QueryBase,
+	private val view: DrillDownContract?
 ): StatusResponse
 {
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if (jsonObject != null)
 		{
-
+			val queryBase = QueryBase(jsonObject)
+			queryBase.hasDrillDown = false
+			if (queryBase.displayType == "table")
+			{
+				queryBase.displayType = dataKey
+			}
+			view?.loadDrillDown(queryBase)
 		}
 	}
 
