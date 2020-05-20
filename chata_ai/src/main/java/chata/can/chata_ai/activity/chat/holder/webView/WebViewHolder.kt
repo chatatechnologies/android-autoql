@@ -368,6 +368,6 @@ class WebViewHolder(
 		val gray = ContextCompat.getColor(
 			view.context,
 			ThemeColor.currentColor.drawerColorPrimary)
-		return  DrawableBuilder.setGradientDrawable(white,18f,1, gray)
+		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }
