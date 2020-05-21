@@ -27,17 +27,15 @@ object Categories
 				}
 				else cellUsed
 
-				parsed = when
+				parsed = if (hasQuotes)
 				{
-					hasQuotes && (column.type == TypeDataQuery.STRING || column.type == TypeDataQuery.DATE) ->
+					when(column.type)
 					{
-						"\"$parsed\""
-					}
-					else ->
-					{
-						parsed
+						TypeDataQuery.STRING, TypeDataQuery.DATE, TypeDataQuery.DATE_STRING -> "\"$parsed\""
+						else -> parsed
 					}
 				}
+				else parsed
 
 				if (allowRepeat)
 					aStacked.add(parsed)
