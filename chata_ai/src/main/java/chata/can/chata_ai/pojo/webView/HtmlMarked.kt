@@ -55,7 +55,6 @@ object HtmlMarked
 <meta http-equiv='pragma' content='no-cache'>
 </head>
 <body>
-<div id='container' class='container'></div>
     <style type="text/css">
     body, table, th{
         background: $backgroundColor !important;
@@ -129,7 +128,6 @@ object HtmlMarked
   var colorFill = "$backgroundColor";
 	var color1 = "$color1";
 	var actual = "";
-	var positions = [0,0];
 	var colors = $sColors;
 	var chart;
 	var colorGhost = 'rgba(0,0,0,0)';
@@ -385,7 +383,15 @@ object HtmlMarked
                             colorByPoint: false,
                             name: categoriesX,
                             data: dataChartBi
-                        }]
+                        }],
+										tooltip: {
+                      backgroundColor: colorGhost,
+                      style: styleTooltip,
+                      formatter: function () {
+                        drillDown(categoriesX[this.point.x])
+                        return "";
+                    }
+                  }
                 });
     }
     function biType3(type,inverted){
