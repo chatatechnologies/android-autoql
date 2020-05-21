@@ -53,5 +53,11 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 - Totel opereting expinses bu accaunt: <b>full suggestion</b>
 - pie chart total sales
 
+# Queries on dashboard (Title - Query)
+- (Historical Cash on Hand) - monthly cash on hand last 12 months
+- (Total Profit by Customer (2019)) - Total profit by customer last year
+- (2019 Tracking Category Revenue) - total revenue by month by tracking category
+- (Monthly Gross Margin 2) - who owes me money
+
 Pass apichata
 key apichata123
