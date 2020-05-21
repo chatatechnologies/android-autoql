@@ -185,6 +185,19 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 						{
 							dataForWebView.type = displayType
 						}
+						when(aColumn.size)
+						{
+							2 ->
+							{
+								val column0 = aColumn[0]
+								dataForWebView.xAxis = column0.displayName
+								val column1 = aColumn[1]
+								dataForWebView.yAxis = column1.displayName
+							}
+							3 -> {}
+							else -> {}
+						}
+
 						contentHTML = HtmlMarked.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot

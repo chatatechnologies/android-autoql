@@ -15,4 +15,6 @@ class DataForWebView(
 	var isBi = true
 
 	var type = "table"
+	var xAxis = ""
+	var yAxis = ""
 }

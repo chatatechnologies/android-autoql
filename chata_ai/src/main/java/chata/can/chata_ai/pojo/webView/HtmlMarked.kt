@@ -112,10 +112,8 @@ object HtmlMarked
 	${dataForWebView.datePivot}
 <script>
 	var type = '${dataForWebView.type}';
-	var xAxis = '';
-	var yAxis = '';
-	var dashBoardActive = false;
-	var rows = "400px";
+	var xAxis = '${dataForWebView.xAxis}';
+	var yAxis = '${dataForWebView.yAxis}';
 
 	var dataChartBi = ${if (isBi) dataChartBi else "[]"};
 	var datachartTri = ${if (isBi) "[]" else dataChartBi};
