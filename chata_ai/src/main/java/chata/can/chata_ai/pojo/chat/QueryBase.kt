@@ -10,12 +10,14 @@ import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
+import chata.can.chata_ai.pojo.webView.DashboardMaker
 //import chata.can.chata_ai.pojo.referenceIdKey
 import org.json.JSONObject
 
 class QueryBase(json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
+	var isDashboard = false
 	//private val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
@@ -198,7 +200,8 @@ class QueryBase(json: JSONObject): SimpleQuery(json)
 							else -> {}
 						}
 
-						contentHTML = HtmlMarked.getHTML(dataForWebView)
+						contentHTML = if (isDashboard) DashboardMaker.getHTML(dataForWebView)
+							else HtmlMarked.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot
 					}
