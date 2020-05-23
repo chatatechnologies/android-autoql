@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -36,7 +37,7 @@ class SuggestionHolder(
 			tvContent.context,
 			ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
-		llContent.background = buildBackgroundGrayWhite()
+		llContent.backgroundGrayWhite()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -73,7 +74,7 @@ class SuggestionHolder(
 	private fun buildSuggestionView(context: Context, content: String): TextView
 	{
 		return TextView(context).apply {
-			background = buildBackgroundGrayWhite()
+			backgroundGrayWhite()
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
@@ -86,14 +87,5 @@ class SuggestionHolder(
 				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
 			}
 		}
-	}
-
-	private fun buildBackgroundGrayWhite(): GradientDrawable
-	{
-		val white = ContextCompat.getColor(
-			tvContent.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
-		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

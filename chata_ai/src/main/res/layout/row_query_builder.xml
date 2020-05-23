@@ -28,8 +28,7 @@
 				android:layout_marginBottom="5dp"
 				android:layout_marginStart="10dp"
 				android:layout_marginTop="5dp"
-				android:layout_width="wrap_content"
-				android:text="@string/you_can_ask_me"/>
+				android:layout_width="wrap_content"/>
 		</LinearLayout>
 	</RelativeLayout>
 </RelativeLayout>

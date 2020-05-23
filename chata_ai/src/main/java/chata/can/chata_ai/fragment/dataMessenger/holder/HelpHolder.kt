@@ -1,18 +1,17 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.content.Intent
-import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class HelpHolder(itemView: View): Holder(itemView)
 {
@@ -23,9 +22,7 @@ class HelpHolder(itemView: View): Holder(itemView)
 
 	override fun onPaint()
 	{
-		llContent?.let {
-			it.background = backgroundGrayWhite(it)
-		}
+		llContent?.backgroundGrayWhite()
 
 		tvContent?.let {
 			val gray = ContextCompat.getColor(
@@ -33,7 +30,7 @@ class HelpHolder(itemView: View): Holder(itemView)
 				ThemeColor.currentColor.drawerColorPrimary)
 			it.setTextColor(gray)
 			tvGreatNewHelp?.setTextColor(gray)
-			llContent2?.background = backgroundGrayWhite(it)
+			llContent2?.backgroundGrayWhite()
 		}
 	}
 
@@ -57,16 +54,5 @@ class HelpHolder(itemView: View): Holder(itemView)
 				}
 			}
 		}
-	}
-
-	private fun backgroundGrayWhite(view: View): GradientDrawable
-	{
-		val white = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerColorPrimary)
-		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

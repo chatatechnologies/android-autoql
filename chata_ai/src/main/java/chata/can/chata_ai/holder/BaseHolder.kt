@@ -1,12 +1,12 @@
 package chata.can.chata_ai.holder
 
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
@@ -14,7 +14,6 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
@@ -34,10 +33,10 @@ open class BaseHolder(
 			tvContent.context,
 			ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(gray)
-		tvContent.background = backgroundGrayWhite(tvContent)
+		tvContent.backgroundGrayWhite()
 
 		rlDelete?.let {
-			it.background = backgroundGrayWhite(it)
+			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
 		}
 		ivDelete?.setColorFilter()
@@ -88,17 +87,6 @@ open class BaseHolder(
 				else -> {}
 			}
 		}
-	}
-
-	private fun backgroundGrayWhite(view: View): GradientDrawable
-	{
-		val white = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerColorPrimary)
-		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 
 	private fun processQueryBase(simpleQuery: QueryBase)

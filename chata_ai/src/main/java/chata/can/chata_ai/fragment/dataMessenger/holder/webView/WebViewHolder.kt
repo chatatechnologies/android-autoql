@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.GradientDrawable
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -9,8 +8,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.setColorFilter
@@ -20,8 +19,6 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class WebViewHolder(
 	itemView: View,
@@ -55,17 +52,15 @@ class WebViewHolder(
 	//region paint views
 	override fun onPaint()
 	{
-		llCharts?.let {
-			it.background = backgroundGrayWhite(it)
-		}
+		llCharts?.backgroundGrayWhite()
 		setColorFilters()
 		rlDelete?.let {
-			it.background = backgroundGrayWhite(it)
+			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
 		}
 		rvParent?.let {
 			parent ->
-			parent.background = backgroundGrayWhite(parent)
+			parent.backgroundGrayWhite()
 			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
 			parent.startAnimation(animation)
 		}
@@ -358,16 +353,5 @@ class WebViewHolder(
 			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
 			it.margin(12f, 24f, 12f, 1f)
 		}
-	}
-
-	private fun backgroundGrayWhite(view: View): GradientDrawable
-	{
-		val white = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(
-			view.context,
-			ThemeColor.currentColor.drawerColorPrimary)
-		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

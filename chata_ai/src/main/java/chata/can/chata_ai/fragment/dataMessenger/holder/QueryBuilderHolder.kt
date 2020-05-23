@@ -9,17 +9,19 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 
 class QueryBuilderHolder(view: View): Holder(view)
 {
+	private var llContent = view.findViewById<View>(R.id.llContent) ?: null
 	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
 
 	override fun onPaint()
 	{
-
+		llContent?.backgroundGrayWhite()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -34,13 +35,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun setColors()
 	{
-		activity?.let { activity ->
-			val white = ContextCompat.getColor(
-				activity,
-				ThemeColor.currentColor.drawerBackgroundColor)
-			val gray = ContextCompat.getColor(activity, ThemeColor.currentColor.drawerColorPrimary)
-			btnExecute.background = DrawableBuilder.setGradientDrawable(white,18f,1, gray)
-		}
+		btnExecute.backgroundGrayWhite()
 	}
 
 	override fun initListener()

@@ -1,18 +1,17 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
-import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
@@ -33,8 +32,8 @@ class FullSuggestionHolder(
 		val textColor = ContextCompat.getColor(
 			tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
-		llContent.background = buildBackgroundGrayWhite()
-		rlRunQuery.background = buildBackgroundGrayWhite()
+		llContent.backgroundGrayWhite()
+		rlRunQuery.backgroundGrayWhite()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -109,7 +108,7 @@ class FullSuggestionHolder(
 							//endregion
 							//region message
 							llSelectedView.apply {
-								background = buildBackgroundGrayWhite()
+								backgroundGrayWhite()
 								layoutParams = LinearLayout.LayoutParams(-1, -2).apply {
 									setGravity(Gravity.CENTER)
 								}
@@ -139,7 +138,7 @@ class FullSuggestionHolder(
 							subRow?.addView(relativeLayout)
 						} ?: run {
 							val textView = TextView(context).apply {
-								background = buildBackgroundGrayWhite()
+								backgroundGrayWhite()
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
 									weight = 1f
 								}
@@ -211,14 +210,5 @@ class FullSuggestionHolder(
 			}
 		}
 		return finalQuery.toString().trimEnd()
-	}
-
-	private fun buildBackgroundGrayWhite(): GradientDrawable
-	{
-		val white = ContextCompat.getColor(
-			tvContent.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
-		return DrawableBuilder.setGradientDrawable(white,18f,1, gray)
 	}
 }

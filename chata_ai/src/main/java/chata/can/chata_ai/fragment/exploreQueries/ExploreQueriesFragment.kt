@@ -1,15 +1,13 @@
 package chata.can.chata_ai.fragment.exploreQueries
 
 import android.view.View
-import android.view.WindowManager
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
-import chata.can.chata_ai.drawable.EditTextDrawable
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.fragment.exploreQueries.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.putArgs
@@ -105,9 +103,7 @@ class ExploreQueriesFragment: BaseFragment(), View.OnClickListener, ExploreQueri
 
 	override fun setColors()
 	{
-		activity?.let {
-			llQuery?.background = EditTextDrawable.getQueryDrawable(it)
-		}
+		llQuery?.backgroundGrayWhite(64f,1)
 	}
 
 	override fun onClick(view: View?)
