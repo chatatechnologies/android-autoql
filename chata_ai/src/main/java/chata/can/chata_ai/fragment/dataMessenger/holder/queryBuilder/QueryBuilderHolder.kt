@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.graphics.Color
 import android.text.SpannableString
@@ -8,9 +9,8 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
@@ -23,9 +23,11 @@ class QueryBuilderHolder(
 	view: View,
 	private val pagerActivity: Activity): Holder(view)
 {
-	private var llContent = view.findViewById<View>(R.id.llContent) ?: null
+	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
 	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
+
+	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
 
 	private val tmpClick = view.findViewById<View>(R.id.tmpClick)
 	private val tmpClick2 = view.findViewById<View>(R.id.tmpClick2)
@@ -72,30 +74,20 @@ class QueryBuilderHolder(
 		}
 
 		tmpClick.setOnClickListener {
-//			it.visibility = View.GONE
-			tmpClick2.visibility = View.VISIBLE
-
-			val anim = TranslateAnimation(0f, -500f, 0f, 0f)
-			anim.duration = 1000
-			anim.setAnimationListener(object: Animation.AnimationListener {
-				override fun onAnimationStart(animation: Animation?) {}
-
-				override fun onAnimationRepeat(animation: Animation?) {}
-
-				override fun onAnimationEnd(animation: Animation?)
-				{
-					(it.layoutParams as? LinearLayout.LayoutParams)?.let {
-						layoutParams ->
-						layoutParams.leftMargin = -500
-						tmpClick.layoutParams = layoutParams
-					}
-				}
-			})
-			it.startAnimation(anim)
+			ObjectAnimator.ofFloat(tmpClick, "translationX", -widthParent).run {
+				duration = 500
+				start()
+			}
 		}
-		tmpClick2.setOnClickListener {
-			tmpClick.visibility = View.VISIBLE
-			it.visibility = View.GONE
+
+		ivBackExplore?.setOnClickListener {
+			ObjectAnimator.ofFloat(tmpClick, "translationX", 0f).run {
+				duration = 500
+				start()
+			}
 		}
 	}
+
+	private val widthParent
+		get() = llContent?.measuredWidth?.toFloat() ?: 0f
 }

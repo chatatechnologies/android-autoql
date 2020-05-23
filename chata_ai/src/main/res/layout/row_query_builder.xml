@@ -24,23 +24,34 @@
 				android:layout_width="wrap_content"
 				android:text="@string/you_can_ask_me"/>
 
-			<LinearLayout
+			<RelativeLayout
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:orientation="horizontal">
+				android:layout_width="match_parent">
+
+				<LinearLayout
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:orientation="horizontal">
+					<ImageView
+						android:contentDescription="@null"
+						android:id="@+id/ivBackExplore"
+						android:layout_height="24dp"
+						android:layout_width="24dp"
+						android:src="@drawable/ic_back"/>
+					<View
+						android:background="@android:color/holo_green_dark"
+						android:id="@+id/tmpClick2"
+						android:layout_height="150dp"
+						android:layout_width="match_parent"/>
+				</LinearLayout>
+
 				<View
 					android:background="@android:color/holo_red_dark"
-
 					android:id="@+id/tmpClick"
 					android:layout_height="150dp"
 					android:layout_width="match_parent"/>
-				<View
-					android:background="@android:color/holo_green_dark"
 
-					android:id="@+id/tmpClick2"
-					android:layout_height="150dp"
-					android:layout_width="match_parent"/>
-			</LinearLayout>
+			</RelativeLayout>
 
 			<TextView
 				android:id="@+id/tvLink"
