@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat.holder.webView
+package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import chata.can.chata_ai.pojo.DataMessenger.apiKey
 import chata.can.chata_ai.pojo.DataMessenger.domainUrl

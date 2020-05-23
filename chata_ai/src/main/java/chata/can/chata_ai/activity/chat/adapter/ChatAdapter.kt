@@ -5,13 +5,9 @@ import android.view.ViewGroup
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.ChatContract
 import chata.can.chata_ai.activity.chat.presenter.ChatServicePresenter
-import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
-import chata.can.chata_ai.activity.chat.holder.HelpHolder
-import chata.can.chata_ai.activity.chat.holder.RightHolder
-import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
-import chata.can.chata_ai.activity.chat.holder.webView.WebViewHolder
+import chata.can.chata_ai.fragment.dataMessenger.holder.HelpHolder
+import chata.can.chata_ai.fragment.dataMessenger.holder.RightHolder
 import chata.can.chata_ai.adapter.BaseAdapter
-import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData

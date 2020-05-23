@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat.holder.webView
+package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import android.webkit.JavascriptInterface
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract

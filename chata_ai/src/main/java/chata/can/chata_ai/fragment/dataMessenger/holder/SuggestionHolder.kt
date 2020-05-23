@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat.holder
+package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable

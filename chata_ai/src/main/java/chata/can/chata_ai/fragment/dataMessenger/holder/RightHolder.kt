@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat.holder
+package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.view.View
 import android.view.animation.AnimationUtils

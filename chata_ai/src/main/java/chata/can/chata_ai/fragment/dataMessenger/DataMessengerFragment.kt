@@ -29,6 +29,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
 import java.net.URLEncoder
@@ -379,7 +380,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				}
 
 			val introMessage = String.format(introMessageRes, PagerData.customerName)
-			model.add(ChatData(1, introMessage))
+			model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		}
 		activity?.let {
 			activity ->

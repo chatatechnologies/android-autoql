@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.base.PageSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
@@ -84,8 +85,19 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 				R.id.ivClear ->
 				{
 					model.clear()
-					val introMessage = String.format(PagerData.introMessage, PagerData.customerName)
-					model.add(ChatData(1, introMessage))
+					val introMessageRes =
+						if (PagerData.introMessage.isNotEmpty())
+						{
+							PagerData.introMessage
+						}
+						else
+						{
+							"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+						}
+
+					val introMessage = String.format(introMessageRes, PagerData.customerName)
+					model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 
 					slidePagerAdapter?.getRegisteredFragment(0)?.let {
 						dataMessengerFragment ->

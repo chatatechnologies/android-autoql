@@ -3,14 +3,11 @@ package chata.can.chata_ai.fragment.dataMessenger.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.holder.FullSuggestionHolder
-import chata.can.chata_ai.activity.chat.holder.HelpHolder
-import chata.can.chata_ai.activity.chat.holder.RightHolder
-import chata.can.chata_ai.activity.chat.holder.SuggestionHolder
-import chata.can.chata_ai.activity.chat.holder.webView.WebViewHolder
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
+import chata.can.chata_ai.fragment.dataMessenger.holder.*
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
@@ -79,6 +76,10 @@ class ChatAdapter(
 			TypeChatView.HELP_VIEW ->
 			{
 				HelpHolder(layoutInflater.inflate(R.layout.row_help, nullValue))
+			}
+			TypeChatView.QUERY_BUILDER ->
+			{
+				QueryBuilderHolder(layoutInflater.inflate(R.layout.row_query_builder, nullValue))
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}

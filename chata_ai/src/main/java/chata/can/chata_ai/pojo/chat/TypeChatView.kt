@@ -8,4 +8,5 @@ object TypeChatView
 	const val SUGGESTION_VIEW = 4
 	const val FULL_SUGGESTION_VIEW = 5
 	const val HELP_VIEW = 6
+	const val QUERY_BUILDER = 7
 }

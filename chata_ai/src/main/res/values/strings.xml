@@ -15,4 +15,5 @@
 	<string name="explore_queries_hint">Search relevant queries by topic</string>
 	<string name="arrow_left">←</string>
 	<string name="arrow_right">→</string>
+	<string name="you_can_ask_me">Some things you can ask me:</string>
 </resources>
