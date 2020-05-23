@@ -9,6 +9,7 @@ import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
 import chata.can.chata_ai.fragment.dataMessenger.holder.*
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderHolder
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
@@ -83,7 +84,8 @@ class ChatAdapter(
 			{
 				QueryBuilderHolder(
 					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
-					pagerActivity)
+					pagerActivity
+				)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}

@@ -12,6 +12,7 @@
 		<LinearLayout
 			android:id="@+id/llContent"
 			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
 			android:layout_width="match_parent"
 			android:orientation="vertical">
 			<TextView
@@ -22,6 +23,25 @@
 				android:layout_marginTop="5dp"
 				android:layout_width="wrap_content"
 				android:text="@string/you_can_ask_me"/>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="horizontal">
+				<View
+					android:background="@android:color/holo_red_dark"
+
+					android:id="@+id/tmpClick"
+					android:layout_height="150dp"
+					android:layout_width="match_parent"/>
+				<View
+					android:background="@android:color/holo_green_dark"
+
+					android:id="@+id/tmpClick2"
+					android:layout_height="150dp"
+					android:layout_width="match_parent"/>
+			</LinearLayout>
+
 			<TextView
 				android:id="@+id/tvLink"
 				android:layout_height="wrap_content"
