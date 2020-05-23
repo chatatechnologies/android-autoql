@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
+import android.app.Activity
 import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
@@ -9,11 +10,14 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 
-class QueryBuilderHolder(view: View): Holder(view)
+class QueryBuilderHolder(
+	view: View,
+	private val pagerActivity: Activity): Holder(view)
 {
 	private var llContent = view.findViewById<View>(R.id.llContent) ?: null
 	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
@@ -32,7 +36,9 @@ class QueryBuilderHolder(view: View): Holder(view)
 		{
 			override fun onClick(widget: View)
 			{
-				println("Change to Explore Queries")
+				(pagerActivity as? PagerActivity)?.run {
+					selectPage(1)
+				}
 			}
 
 			override fun updateDrawState(textPaint: TextPaint)

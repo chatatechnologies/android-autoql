@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
@@ -19,7 +20,8 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-	private val servicePresenter: ChatServicePresenter
+	private val servicePresenter: ChatServicePresenter,
+	private val pagerActivity: Activity
 ): BaseAdapter(model), ChatAdapterContract
 {
 	override fun getItemViewType(position: Int): Int
@@ -79,7 +81,9 @@ class ChatAdapter(
 			}
 			TypeChatView.QUERY_BUILDER ->
 			{
-				QueryBuilderHolder(layoutInflater.inflate(R.layout.row_query_builder, nullValue))
+				QueryBuilderHolder(
+					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
+					pagerActivity)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}

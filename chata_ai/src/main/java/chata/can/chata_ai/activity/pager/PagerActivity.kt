@@ -112,6 +112,11 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		}
 	}
 
+	fun selectPage(index: Int)
+	{
+		viewPager?.currentItem = index
+	}
+
 	private fun initListener()
 	{
 		ivCancel?.setOnClickListener(this)

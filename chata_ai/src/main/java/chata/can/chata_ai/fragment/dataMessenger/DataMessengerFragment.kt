@@ -366,25 +366,26 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private fun initList()
 	{
-		chatAdapter = ChatAdapter(model, this, servicePresenter)
-		if (SinglentonDrawer.mModel.countData() == 0)
-		{
-			val introMessageRes =
-				if (PagerData.introMessage.isNotEmpty())
-				{
-					PagerData.introMessage
-				}
-				else
-				{
-					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-				}
-
-			val introMessage = String.format(introMessageRes, PagerData.customerName)
-			model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-		}
 		activity?.let {
 			activity ->
+			chatAdapter = ChatAdapter(model, this, servicePresenter, activity)
+			if (SinglentonDrawer.mModel.countData() == 0)
+			{
+				val introMessageRes =
+					if (PagerData.introMessage.isNotEmpty())
+					{
+						PagerData.introMessage
+					}
+					else
+					{
+						"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+					}
+
+				val introMessage = String.format(introMessageRes, PagerData.customerName)
+				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+			}
+
 			rvChat.layoutManager = LinearLayoutManager(activity)
 			rvChat.adapter = chatAdapter
 		}
