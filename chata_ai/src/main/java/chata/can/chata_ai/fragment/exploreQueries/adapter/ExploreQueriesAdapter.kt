@@ -8,7 +8,7 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.nullValue
 
-class ExploreQueriesAdapter(model: BaseModelList<*>) : BaseAdapter(model)
+class ExploreQueriesAdapter(model: BaseModelList<*>): BaseAdapter(model)
 {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{

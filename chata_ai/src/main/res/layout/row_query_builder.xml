@@ -26,7 +26,9 @@
 
 			<RelativeLayout
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent">
+				android:layout_width="match_parent"
+				android:paddingEnd="24dp"
+				android:paddingStart="24dp">
 
 				<LinearLayout
 					android:layout_height="wrap_content"
@@ -45,11 +47,13 @@
 						android:layout_width="match_parent"/>
 				</LinearLayout>
 
-				<View
-					android:background="@android:color/holo_red_dark"
-					android:id="@+id/tmpClick"
-					android:layout_height="150dp"
-					android:layout_width="match_parent"/>
+				<androidx.recyclerview.widget.RecyclerView
+					android:background="@color/white"
+
+					android:id="@+id/rvExplore"
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:scrollbars="none"/>
 
 			</RelativeLayout>
 

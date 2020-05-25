@@ -13,11 +13,15 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryBuilderAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.model.BaseModelList
 
 class QueryBuilderHolder(
 	view: View,
@@ -29,8 +33,12 @@ class QueryBuilderHolder(
 
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
 
-	private val tmpClick = view.findViewById<View>(R.id.tmpClick)
+	private var rvExplore = view.findViewById<RecyclerView>(R.id.rvExplore)
+
 	private val tmpClick2 = view.findViewById<View>(R.id.tmpClick2)
+
+	private var model: BaseModelList<String> ?= null
+	private var qbAdapter: QueryBuilderAdapter ?= null
 
 	override fun onPaint()
 	{
@@ -43,6 +51,7 @@ class QueryBuilderHolder(
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
+		//region set content
 		val linkMessage = "Use Explore Queries to further explore the possibilities."
 		val spannable = SpannableString(linkMessage)
 		val clickable = object: ClickableSpan()
@@ -72,20 +81,38 @@ class QueryBuilderHolder(
 			text = spannable
 			movementMethod = LinkMovementMethod.getInstance()
 		}
-
-		tmpClick.setOnClickListener {
-			ObjectAnimator.ofFloat(tmpClick, "translationX", -widthParent).run {
-				duration = 500
-				start()
-			}
-		}
+		//endregion
+		initList()
 
 		ivBackExplore?.setOnClickListener {
-			ObjectAnimator.ofFloat(tmpClick, "translationX", 0f).run {
+			ObjectAnimator.ofFloat(rvExplore, "translationX", 0f).run {
 				duration = 500
 				start()
 			}
 		}
+	}
+
+	private fun setData() = arrayListOf("Sales", "Items", "Expenses", "Purchase Orders")
+
+	private fun initList()
+	{
+		model = BaseModelList()
+		model?.let {
+			qbAdapter = QueryBuilderAdapter(it, object: OnItemClickListener
+			{
+				override fun onItemClick(any: Any)
+				{
+					ObjectAnimator.ofFloat(rvExplore, "translationX", -widthParent).run {
+						duration = 500
+						start()
+					}
+				}
+			})
+			it.addAll(setData())
+		}
+
+		rvExplore?.layoutManager = LinearLayoutManager(pagerActivity)
+		rvExplore?.adapter = qbAdapter
 	}
 
 	private val widthParent
