@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryBuilderAdapter
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -28,7 +28,7 @@ class QueryBuilderHolder(
 	private val pagerActivity: Activity): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
-	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
+//	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
 
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
@@ -38,7 +38,7 @@ class QueryBuilderHolder(
 	private val tmpClick2 = view.findViewById<View>(R.id.tmpClick2)
 
 	private var model: BaseModelList<String> ?= null
-	private var qbAdapter: QueryBuilderAdapter ?= null
+	private var qbAdapter: OptionAdapter ?= null
 
 	override fun onPaint()
 	{
@@ -85,10 +85,7 @@ class QueryBuilderHolder(
 		initList()
 
 		ivBackExplore?.setOnClickListener {
-			ObjectAnimator.ofFloat(rvExplore, "translationX", 0f).run {
-				duration = 500
-				start()
-			}
+			rvExplore.setAnimator(0f)
 		}
 	}
 
@@ -98,14 +95,11 @@ class QueryBuilderHolder(
 	{
 		model = BaseModelList()
 		model?.let {
-			qbAdapter = QueryBuilderAdapter(it, object: OnItemClickListener
+			qbAdapter = OptionAdapter(it, object: OnItemClickListener
 			{
 				override fun onItemClick(any: Any)
 				{
-					ObjectAnimator.ofFloat(rvExplore, "translationX", -widthParent).run {
-						duration = 500
-						start()
-					}
+					rvExplore.setAnimator(-widthParent)
 				}
 			})
 			it.addAll(setData())
@@ -117,4 +111,12 @@ class QueryBuilderHolder(
 
 	private val widthParent
 		get() = llContent?.measuredWidth?.toFloat() ?: 0f
+
+	fun View.setAnimator(yValue: Float)
+	{
+		ObjectAnimator.ofFloat(this, "translationX", yValue).run {
+			duration = 500
+			start()
+		}
+	}
 }

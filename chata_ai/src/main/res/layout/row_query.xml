@@ -12,19 +12,10 @@
 		android:paddingTop="4dp"
 		tools:ignore="UselessParent">
 		<TextView
-			android:id="@+id/tvQueryRoot"
+			android:id="@+id/tvQueryExplore"
 			android:layout_height="wrap_content"
 			android:layout_centerHorizontal="true"
 			android:layout_width="match_parent"
-			android:layout_toStartOf="@id/ivBackExplore"
 			android:textSize="16sp"/>
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivBackExplore"
-			android:layout_alignParentEnd="true"
-			android:layout_centerHorizontal="true"
-			android:layout_height="16dp"
-			android:layout_width="16dp"
-			android:src="@drawable/ic_forward"/>
 	</RelativeLayout>
 </RelativeLayout>

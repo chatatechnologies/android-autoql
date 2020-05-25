@@ -9,7 +9,7 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 
-class QueryBuilderAdapter(
+class QueryAdapter(
 	model: BaseModelList<*>,
 	listener: OnItemClickListener? = null
 ): BaseAdapter(model, listener)
@@ -17,6 +17,6 @@ class QueryBuilderAdapter(
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return OptionHolder(layoutInflater.inflate(R.layout.row_option, nullParent))
+		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent))
 	}
 }
