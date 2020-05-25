@@ -11,7 +11,7 @@ class OptionHolder(view: View): Holder(view)
 {
 	private val rlParent = view.findViewById<View>(R.id.rlParent)
 	private val tvQueryRoot = view.findViewById<TextView>(R.id.tvQueryRoot)
-	private val ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore)
+	private val ivForwardExplore = view.findViewById<ImageView>(R.id.ivForwardExplore)
 
 	override fun onPaint()
 	{

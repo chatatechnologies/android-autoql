@@ -19,6 +19,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -34,11 +35,12 @@ class QueryBuilderHolder(
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
 
 	private var rvExplore = view.findViewById<RecyclerView>(R.id.rvExplore)
+	private var rvQueries = view.findViewById<RecyclerView>(R.id.rvQueries)
 
-	private val tmpClick2 = view.findViewById<View>(R.id.tmpClick2)
-
-	private var model: BaseModelList<String> ?= null
+	private var modelRoot: BaseModelList<String> ?= null
 	private var qbAdapter: OptionAdapter ?= null
+	private var modelQueries: BaseModelList<String> ?= null
+	private var queriesAdapter: QueryAdapter ?= null
 
 	override fun onPaint()
 	{
@@ -82,7 +84,8 @@ class QueryBuilderHolder(
 			movementMethod = LinkMovementMethod.getInstance()
 		}
 		//endregion
-		initList()
+		initListRoot()
+		initListQueries()
 
 		ivBackExplore?.setOnClickListener {
 			rvExplore.setAnimator(0f)
@@ -91,10 +94,10 @@ class QueryBuilderHolder(
 
 	private fun setData() = arrayListOf("Sales", "Items", "Expenses", "Purchase Orders")
 
-	private fun initList()
+	private fun initListRoot()
 	{
-		model = BaseModelList()
-		model?.let {
+		modelRoot = BaseModelList()
+		modelRoot?.let {
 			qbAdapter = OptionAdapter(it, object: OnItemClickListener
 			{
 				override fun onItemClick(any: Any)
@@ -109,8 +112,34 @@ class QueryBuilderHolder(
 		rvExplore?.adapter = qbAdapter
 	}
 
+	private fun initListQueries()
+	{
+		modelQueries = BaseModelList()
+		modelQueries?.let {
+			it.addAll(
+				arrayListOf(
+					"Total sales",
+					"Top 5 customer by sales this year",
+					"Total sales by revenue account last year",
+					"Total sales by item from services last year",
+					"Average sales per month lats year"))
+			queriesAdapter = QueryAdapter(it, object: OnItemClickListener
+			{
+				override fun onItemClick(any: Any)
+				{
+					rvExplore.setAnimator(0f)
+				}
+			})
+		}
+		rvQueries?.layoutManager = LinearLayoutManager(pagerActivity)
+		rvQueries?.adapter = queriesAdapter
+	}
+
 	private val widthParent
 		get() = llContent?.measuredWidth?.toFloat() ?: 0f
+
+	private val widthListQueries
+		get() = rvQueries?.measuredWidth?.toFloat() ?: 0f
 
 	fun View.setAnimator(yValue: Float)
 	{
