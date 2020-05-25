@@ -12,6 +12,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,8 +39,8 @@ class QueryBuilderHolder(
 	private var rvQueries = view.findViewById<RecyclerView>(R.id.rvQueries)
 
 	private var modelRoot: BaseModelList<String> ?= null
-	private var qbAdapter: OptionAdapter ?= null
 	private var modelQueries: BaseModelList<String> ?= null
+	private var qbAdapter: OptionAdapter ?= null
 	private var queriesAdapter: QueryAdapter ?= null
 
 	override fun onPaint()
@@ -86,6 +87,7 @@ class QueryBuilderHolder(
 		//endregion
 		initListRoot()
 		initListQueries()
+		setWidthRoot()
 
 		ivBackExplore?.setOnClickListener {
 			rvExplore.setAnimator(0f)
@@ -110,6 +112,14 @@ class QueryBuilderHolder(
 
 		rvExplore?.layoutManager = LinearLayoutManager(pagerActivity)
 		rvExplore?.adapter = qbAdapter
+	}
+
+	private fun setWidthRoot()
+	{
+		val layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+			height = 70 * 6 /*items in proposal queries*/
+		}
+		rvExplore?.layoutParams = layoutParams
 	}
 
 	private fun initListQueries()
@@ -137,9 +147,6 @@ class QueryBuilderHolder(
 
 	private val widthParent
 		get() = llContent?.measuredWidth?.toFloat() ?: 0f
-
-	private val widthListQueries
-		get() = rvQueries?.measuredWidth?.toFloat() ?: 0f
 
 	fun View.setAnimator(yValue: Float)
 	{
