@@ -38,14 +38,30 @@
 						android:contentDescription="@null"
 						android:id="@+id/ivBackExplore"
 						android:layout_height="20dp"
-						android:layout_marginTop="4dp"
 						android:layout_width="20dp"
 						android:src="@drawable/ic_back"/>
-					<androidx.recyclerview.widget.RecyclerView
-						android:id="@+id/rvQueries"
+					<View
+						android:background="@color/black"
+						android:layout_height="match_parent"
+						android:layout_marginEnd="5dp"
+						android:layout_width="0.5dp"/>
+					<LinearLayout
+						android:id="@+id/llQueries"
 						android:layout_height="wrap_content"
 						android:layout_width="match_parent"
-						android:scrollbars="none"/>
+						android:orientation="vertical">
+						<TextView
+							android:id="@+id/tvCurrentExplore"
+							android:layout_height="wrap_content"
+							android:layout_width="match_parent"
+							android:textSize="16sp"
+							android:textStyle="bold"/>
+						<androidx.recyclerview.widget.RecyclerView
+							android:id="@+id/rvQueries"
+							android:layout_height="wrap_content"
+							android:layout_width="match_parent"
+							android:scrollbars="none"/>
+					</LinearLayout>
 				</LinearLayout>
 
 				<androidx.recyclerview.widget.RecyclerView

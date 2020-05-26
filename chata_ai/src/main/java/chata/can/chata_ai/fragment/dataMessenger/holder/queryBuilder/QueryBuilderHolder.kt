@@ -35,7 +35,8 @@ class QueryBuilderHolder(
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
 
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
-
+	private var llQueries = view.findViewById<View>(R.id.llQueries)
+	private var tvCurrentExplore = view.findViewById<TextView>(R.id.tvCurrentExplore)
 	private var rvExplore = view.findViewById<RecyclerView>(R.id.rvExplore)
 	private var rvQueries = view.findViewById<RecyclerView>(R.id.rvQueries)
 
@@ -105,7 +106,11 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
-					rvExplore.setAnimator(-widthParent)
+					if (any is String)
+					{
+						tvCurrentExplore?.text = any
+						rvExplore.setAnimator(-widthParent)
+					}
 				}
 			})
 			it.addAll(setData())
@@ -117,12 +122,12 @@ class QueryBuilderHolder(
 
 	private fun setWidthRoot()
 	{
-		rvQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+		llQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 		{
 			override fun onGlobalLayout()
 			{
-				rvQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-				val newHeight = rvQueries?.measuredHeight ?: 0
+				llQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+				val newHeight = llQueries?.measuredHeight ?: 0
 				rvExplore?.layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
 					height = newHeight
 				}
