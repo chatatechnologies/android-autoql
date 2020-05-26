@@ -109,6 +109,8 @@ class QueryBuilderHolder(
 					if (any is String)
 					{
 						tvCurrentExplore?.text = any
+						setListQueries(any)
+						setWidthRoot()
 						rvExplore.setAnimator(-widthParent)
 					}
 				}
@@ -139,14 +141,11 @@ class QueryBuilderHolder(
 	{
 		modelQueries = BaseModelList()
 		modelQueries?.let {
-			it.addAll(
-				arrayListOf(
-					"Total sales",
-					"Top 5 customer by sales this year",
-					"Total sales by revenue account last year",
-					"Total sales by item from services last year",
-					"Average sales per month lats year"))
-			queriesAdapter = QueryAdapter(it, object: OnItemClickListener
+			model ->
+			QueryBuilderData.mQueries["Sales"]?.let {
+				model.addAll(it)
+			}
+			queriesAdapter = QueryAdapter(model, object: OnItemClickListener
 			{
 				override fun onItemClick(any: Any)
 				{
@@ -156,6 +155,15 @@ class QueryBuilderHolder(
 		}
 		rvQueries?.layoutManager = LinearLayoutManager(pagerActivity)
 		rvQueries?.adapter = queriesAdapter
+	}
+
+	private fun setListQueries(wordExplore: String)
+	{
+		modelQueries?.clear()
+		QueryBuilderData.mQueries[wordExplore]?.let {
+			modelQueries?.addAll(it)
+		}
+		queriesAdapter?.notifyDataSetChanged()
 	}
 
 	private val widthParent
