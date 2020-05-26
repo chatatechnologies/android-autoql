@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    flavorDimensions "default"
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
@@ -19,6 +20,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        chata {
+            applicationId "autoql.chata.ai"
+            versionCode 1
+            versionName "1.0"
         }
     }
 }

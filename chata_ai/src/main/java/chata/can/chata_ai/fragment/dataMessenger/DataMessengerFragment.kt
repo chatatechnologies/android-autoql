@@ -383,7 +383,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 				val introMessage = String.format(introMessageRes, PagerData.customerName)
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+//				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 			}
 
 			rvChat.layoutManager = LinearLayoutManager(activity)
