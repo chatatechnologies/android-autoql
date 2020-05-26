@@ -44,9 +44,9 @@ object DashboardMaker
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/heatmap.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.js\"></script>\n" +
+				"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
+				"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -643,7 +643,6 @@ function hideAll(){
     ${'$'}('table').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
     ${'$'}( "#idTableBasic, #idTableDataPivot, #idTableDatePivot, #container" ).hide();
     if (type == "idTableBasic" || type == "idTableDataPivot" || type == "idTableDatePivot"){
-      console.log("tu hermana");
         ${'$'}("#"+type).show()
     } else{
         ${'$'}("#container").show()
