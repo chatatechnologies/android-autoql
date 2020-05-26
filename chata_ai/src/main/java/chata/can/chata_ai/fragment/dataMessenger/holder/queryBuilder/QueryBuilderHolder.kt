@@ -9,6 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -116,10 +117,17 @@ class QueryBuilderHolder(
 
 	private fun setWidthRoot()
 	{
-		val layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-			height = 70 * 6 /*items in proposal queries*/
-		}
-		rvExplore?.layoutParams = layoutParams
+		rvQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+		{
+			override fun onGlobalLayout()
+			{
+				rvQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+				val newHeight = rvQueries?.measuredHeight ?: 0
+				rvExplore?.layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+					height = newHeight
+				}
+			}
+		})
 	}
 
 	private fun initListQueries()
