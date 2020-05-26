@@ -34,6 +34,10 @@ object DashboardMaker
 			"\"$it\""
 		}
 
+		val typeChart = if(dataForWebView.type == "table" || dataForWebView.type.isEmpty())
+			"idTableBasic"
+		else dataForWebView.type
+
 		return with(dataForWebView) {
 			"""<!DOCTYPE html>
 <html lang="en">
@@ -108,7 +112,7 @@ ${dataForWebView.table}
 ${dataForWebView.datePivot}
 </div>
 <script>
-  var type = '${dataForWebView.type}';
+  var type = '$typeChart';
   var xAxis = '${dataForWebView.xAxis}';
   var yAxis = '${dataForWebView.yAxis}';
 

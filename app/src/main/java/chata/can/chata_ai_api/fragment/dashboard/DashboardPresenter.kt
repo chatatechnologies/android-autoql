@@ -48,7 +48,8 @@ class DashboardPresenter(
 					val queryBase = QueryBase(jsonObject)
 					queryBase.isDashboard = true
 					val query = jsonObject.optString("query") ?: ""
-					val index = model.indexOfFirst { it.query == query }
+					val title = jsonObject.optString("title") ?: ""
+					val index = model.indexOfFirst { it.query == query && it.title == title }
 
 					val currentItem = model[index]
 					currentItem?.let {
@@ -167,8 +168,10 @@ class DashboardPresenter(
 				view.notifyQueryAtIndex(index)
 
 				val query = dashboard.query
+				val title = dashboard.title
 				val mInfoHolder = hashMapOf<String, Any>(
 					"query" to query,
+					"title" to title,
 					"nameService" to "getDashboardQueries")
 				QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 			}
