@@ -44,6 +44,9 @@ object DashboardMaker
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
