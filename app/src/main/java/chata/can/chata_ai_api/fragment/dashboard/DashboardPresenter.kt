@@ -21,19 +21,25 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
-			val response = jsonObject.optString("RESPONSE") ?: ""
-			try {
-				val query = jsonObject.optString("query") ?: ""
-				val index = model.indexOfFirst { it.query == query }
-				val queryBase = QueryBase(JSONObject(response))
-				queryBase.isDashboard = true
-				model[index]?.let { it.queryBase = queryBase }
-				if (index != -1)
+			when(jsonObject.optString("nameService") ?: "")
+			{
+				"getDashboardQueries" ->
 				{
-					view.notifyQueryAtIndex(index)
+					val response = jsonObject.optString("RESPONSE") ?: ""
+					try {
+						val query = jsonObject.optString("query") ?: ""
+						val index = model.indexOfFirst { it.query == query }
+						val queryBase = QueryBase(JSONObject(response))
+						queryBase.isDashboard = true
+						model[index]?.let { it.queryBase = queryBase }
+						if (index != -1)
+						{
+							view.notifyQueryAtIndex(index)
+						}
+					}
+					catch (e: Exception){ }
 				}
 			}
-			catch (e: Exception){ }
 		}
 	}
 

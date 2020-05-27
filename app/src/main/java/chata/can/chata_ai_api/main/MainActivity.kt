@@ -501,13 +501,13 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 		if (BuildConfig.DEBUG)
 		{
-			val projectId = "qbo-1"
+			val projectId = "spira-staging.chata.io"
 			tvProjectId?.setText(projectId)
-			val domainUrl = "https://qbo-staging.chata.io"
+			val domainUrl = "spira-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD2J8pfYPSI8b--HfxliLYB8V5AehPv0ys"
+			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 			tvApiKey?.setText(apiKey)
-			val userId = "vicente@rinro.com.mx"
+			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)

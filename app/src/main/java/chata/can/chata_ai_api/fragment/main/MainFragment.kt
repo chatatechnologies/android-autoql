@@ -107,12 +107,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		if (BuildConfig.DEBUG)
 		{
-			val projectId = "accounting-demo"
+			val projectId = "qbo-1"
 			tvProjectId?.setText(projectId)
-			val domainUrl = "https://accounting-demo-staging.chata.io"
+			val domainUrl = "spira-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-//			val apiKey = "Ffgllooolkmmkkooplllloooo"
-			val apiKey = "AIzaSyC8Mf-qnDRMfTsN2ZHuVSZFiTtbnLTW75o"
+			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 			tvApiKey?.setText(apiKey)
 			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
