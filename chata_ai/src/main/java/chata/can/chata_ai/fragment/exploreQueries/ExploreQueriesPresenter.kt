@@ -70,13 +70,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-		if(jsonObject != null)
-		{
-
-		}
-	}
+	override fun onFailure(jsonObject: JSONObject?) {}
 
 	fun validateQuery(query: String)
 	{

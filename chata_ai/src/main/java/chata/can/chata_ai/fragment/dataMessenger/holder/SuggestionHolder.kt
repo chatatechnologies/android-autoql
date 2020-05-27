@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -16,7 +15,6 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract

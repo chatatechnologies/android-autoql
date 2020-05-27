@@ -3,14 +3,9 @@ package chata.can.chata_ai.extension
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.regex.Pattern
-
-//fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 

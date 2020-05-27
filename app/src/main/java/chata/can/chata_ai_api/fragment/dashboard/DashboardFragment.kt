@@ -3,14 +3,11 @@ package chata.can.chata_ai_api.fragment.dashboard
 import android.view.View
 import android.widget.Switch
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.pojo.SinglentonDashboard
-import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter

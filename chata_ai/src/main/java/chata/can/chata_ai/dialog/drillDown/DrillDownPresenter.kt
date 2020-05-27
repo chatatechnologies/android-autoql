@@ -31,13 +31,7 @@ class DrillDownPresenter(
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-		if (jsonObject != null)
-		{
-
-		}
-	}
+	override fun onFailure(jsonObject: JSONObject?) {}
 
 	fun getQueryDrillDown()
 	{
