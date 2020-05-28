@@ -43,7 +43,14 @@ class ChatServicePresenter(
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
-	override fun onFailure(jsonObject: JSONObject?) {}
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		val ja = JSONArray()
+		ja.put("No matches")
+		val json = JSONObject()
+		json.put("matches", ja)
+		makeMatches(json)
+	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
@@ -155,9 +162,17 @@ class ChatServicePresenter(
 		{
 			json.optJSONArray("matches")?.let {
 				val aData = ArrayList<String>()
-				for (index in 0 until it.length())
+				if (it.length() == 0)
 				{
-					aData.add(it.optString(index))
+					aData.add("No matches")
+				}
+				else
+				{
+					for (index in 0 until it.length())
+					{
+						aData.add(it.optString(index))
+					}
+
 				}
 				view?.setDataAutocomplete(aData)
 			}

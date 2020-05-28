@@ -71,6 +71,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: Switch ?= null
 	private var swEnableDrillDown: Switch ?= null
 	private var swEnableSpeechText: Switch ?= null
+	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
 
 	private lateinit var renderPresenter: MainRenderPresenter

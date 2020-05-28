@@ -1,4 +1,4 @@
-[links](#links)
+[Links](#links)
 
 # Data Messenger
 > Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
@@ -290,4 +290,4 @@ bubbleHandle.dataFormatting.monthYearFormat = monthYearFormat
 bubbleHandle.dataFormatting.dayMonthYearFormat = dayMonthYearFormat
 ```
 
-### Links
+## Links
