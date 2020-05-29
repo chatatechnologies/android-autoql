@@ -14,6 +14,10 @@
 
 ## Setting Up Data Messenger
 
+### Controlled Component
+> This widget is a controlled component in terms of its visibility. The Integrator is in full control of the visual state of Data Messenger within their application, making it easy to trigger the slide-in or slide-out functionality programmatically.
+
+![alt text](minimum_sdk.png "Minimum sdk")
 
 ## Setup View
 > Init BubbleHandle view
