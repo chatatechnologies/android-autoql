@@ -10,7 +10,10 @@
 
 >Throughout this document, the words "Data Messenger" and "widget" are used interchangeably. All widget components are open source, so Data Messenger is highly customizable in terms of both function and design.
 
-![alt text](example_query.png "Title Text")
+![alt text](example_query.png "Data Messenger")
+
+## Setting Up Data Messenger
+
 
 ## Setup View
 > Init BubbleHandle view
