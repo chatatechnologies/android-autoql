@@ -17,7 +17,28 @@
 ### Controlled Component
 > This widget is a controlled component in terms of its visibility. The Integrator is in full control of the visual state of Data Messenger within their application, making it easy to trigger the slide-in or slide-out functionality programmatically.
 
+>> Note: The data messenger component can only be used in SDK version 17 or higher. This is shown below.
+
 ![alt text](minimum_sdk.png "Minimum sdk")
+
+> If we want to incorporate the Data messenger widget it is necessary to download it from https://gitlab.com/chata-widget/android-widget.
+> To download the source code we have 2 ways:
+> 1. Download directly from the repository https://gitlab.com/chata-widget/android-widget.
+> 2. Download via Android Studio.
+
+#### Download directly from the repository
+
+> Download directly from the repository https://gitlab.com/chata-widget/android-widget.
+
+#### Download via Android Studio
+
+> We open Android Studio, select *Check out project from Version Control*, select *Git*.
+
+![alt text](import_repository.png "Minimum sdk")
+
+> We enter url _https://gitlab.com/chata-widget/android-widget_. We can press *Test* to verify the existence of the repository. In _Directory_ we select the download destination. At the end to download the repository press *Clone*.
+
+![alt text](import_repository_2.png "Minimum sdk")
 
 ## Setup View
 > Init BubbleHandle view
