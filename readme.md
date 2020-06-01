@@ -65,16 +65,15 @@
 
 ![alt text](8_data_module.png "data module")
 
+> The next step is to add the library to our build.gradle (Module: app) file.
 >
+> Add the line `implementation project (': chata_ai')`.
+>
+> Then we click on `Sync now` to synchronize the library with the project.
 
 ![alt text](9_implement_library.png "data module")
 
-
-
-
-
-## Setup View
-> Init BubbleHandle view
+### Add source code in project
 
 > To import the BubbleHandle class the following line is required.
 ```kotlin
@@ -85,7 +84,7 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 ```kotlin
 private lateinit var bubbleHandle: BubbleHandle
 
-bubbleHandle = BubbleHandle(this@MainActivity)
+bubbleHandle = BubbleHandle(this /*Context app*/)
 ```
 
 ## Support by Android version
