@@ -40,6 +40,35 @@
 
 ![alt text](import_repository_2.png "Minimum sdk")
 
+> Ahora en el proyecto que deseamos importar el componente Data Messenger
+> seguimos las siguientes instrucciones:
+>
+> En el menu File | New | Import Module...
+
+![alt text](5_import_new_module.png "new module")
+
+> A continuación buscaremos la ubicación del código fuente donde esta Data Messenger
+
+![alt text](6_import_module_from_source.png "import module")
+
+> En la ventana de Finder, buscaremos la carpeta donde descargamos el repositorio de gitlab.
+>
+> Buscamos la carpeta del repositorio descargado y dentro de la carpeta seleccionamos la carpeta `chata_ai`.
+>
+> Despues, damos clic en `open`.
+
+![alt text](7_choose_folder_module.png "choose folder")
+
+> Despues de abrir la carpeta `chata_ai`. Veremos la siguiente ventana.
+>
+> El texto dentro de la caja `Module name`, es el nombre del modulo que sera importado al proyecto.
+
+![alt text](8_data_module.png "data module")
+
+
+
+
+
 ## Setup View
 > Init BubbleHandle view
 
