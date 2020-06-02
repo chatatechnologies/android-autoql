@@ -94,13 +94,17 @@
 
 ![alt text](initBubbleHandle.png "is Marshmallow")
 
-> Ahora, si el usuario no ha aceptado los permisos de la superposición de pantalla para nuestra aplicación, vamos a llamar un intent para que el usuario la pueda aceptar.
-> A su vez, vamos a leer el resultado una vez que el usuario salga de la pantalla de permiso de superposicón.
-> Si el usuario acepto los permisos iniciaremos el componente BubbleHandle.
+> Now, if the user has not accepted the screen overlay permissions for our application, we are going to call an intent so that the user can accept it.
+> In turn, we are going to read the result once the user exits the overlay permission screen.
+> Once the user accepts the permissions, we start the BubbleHandle component.
 
 ![alt text](final_code.png "is Marshmallow")
 
+1. *Una vez es creada la actividad, es evaluada la versión de Android que corre nuestro disposiivo, si es igual o mayor a Marshmallow entrará en la primera sentencia `if`. Otherwise we start our BubbleHandle.*
+2. *En la segunda sentencia `if` revisamos la superposición de pantalla para nuestra App, si esta no ha sido aceptada mostramos la pantalla de permiso de superposición. Otherwise we start our BubbleHandle.*
+
 ![alt text](onActivityResult.png "is Marshmallow")
+*The response is read and checked if the user accepted the overlay permissions.*
 
 ## Props
 <table>
