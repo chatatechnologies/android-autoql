@@ -75,6 +75,25 @@
 
 ### Add source code in project
 
+> Let's start with the declaration and initiation of the variable bubbleHandle (BubbleHandle).
+
+![alt text](add_bubble_handle.png "bubble handle")
+
+> To use this component we must make some decisions regarding the version of the device.
+> We are going to determine if the device where our application will be executed is equal to or greater than Marshmallow.
+
+![alt text](isMarshmallow.png "is Marshmallow")
+
+> Another thing to consider is the on-screen overlay, for this we must give the application permission to see the BubbleHandle element on our screen.
+>
+> The way to evaluate that the overlay is active for our application is as follows.
+
+![alt text](canDrawOverlays.png "is Marshmallow")
+
+
+
+
+
 > To import the BubbleHandle class the following line is required.
 ```kotlin
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
