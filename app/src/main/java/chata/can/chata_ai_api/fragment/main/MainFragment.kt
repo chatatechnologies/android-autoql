@@ -12,13 +12,14 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
-import chata.can.chata_ai.pojo.DataMessenger
-import chata.can.chata_ai.pojo.DataMessenger.apiKey
-import chata.can.chata_ai.pojo.DataMessenger.domainUrl
-import chata.can.chata_ai.pojo.DataMessenger.password
-import chata.can.chata_ai.pojo.DataMessenger.projectId
-import chata.can.chata_ai.pojo.DataMessenger.userID
-import chata.can.chata_ai.pojo.DataMessenger.username
+import chata.can.chata_ai.view.bubbleHandle.Authentication
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.password
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.projectId
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
@@ -137,8 +138,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		{
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
-				bubbleHandle = BubbleHandle(it)
-				renderPresenter = MainRenderPresenter(it, this@MainFragment, bubbleHandle)
+				context ->
+				val authentication = Authentication("", "", "")
+				bubbleHandle = BubbleHandle(context, authentication)
+				renderPresenter = MainRenderPresenter(context, this@MainFragment, bubbleHandle)
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
 			renderPresenter.initViews(llContainer)

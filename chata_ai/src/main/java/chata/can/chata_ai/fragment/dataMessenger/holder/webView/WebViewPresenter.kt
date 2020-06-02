@@ -1,7 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
-import chata.can.chata_ai.pojo.DataMessenger.apiKey
-import chata.can.chata_ai.pojo.DataMessenger.domainUrl
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest

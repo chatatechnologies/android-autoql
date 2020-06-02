@@ -1,6 +1,6 @@
 package chata.can.chata_ai.fragment.exploreQueries
 
-import chata.can.chata_ai.pojo.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest

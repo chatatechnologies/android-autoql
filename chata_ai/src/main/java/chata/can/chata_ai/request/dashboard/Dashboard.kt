@@ -1,8 +1,8 @@
 package chata.can.chata_ai.request.dashboard
 
-import chata.can.chata_ai.pojo.DataMessenger.JWT
-import chata.can.chata_ai.pojo.DataMessenger.apiKey
-import chata.can.chata_ai.pojo.DataMessenger.domainUrl
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.JWT
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import com.android.volley.Request

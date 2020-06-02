@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
-import chata.can.chata_ai.pojo.DataMessenger
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -153,7 +152,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					if (isAuthenticate)
 					{
-						DataMessenger.clearData()
+//						DataMessenger.clearData()
 						isAuthenticate = false
 						changeStateAuthenticate()
 					}
@@ -202,36 +201,36 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun createAuthenticate()
 	{
-		with(DataMessenger)
-		{
-			projectId = (tvProjectId?.text ?: "").toString()
-			userID = (tvUserId?.text ?: "").toString()
-			apiKey = (tvApiKey?.text ?: "").toString()
-			domainUrl = (tvDomainUrl?.text ?: "").toString()
-			username = (tvUsername?.text ?: "").toString()
-			password = (tvPassword?.text ?: "").toString()
-
-			Authentication.callLogin(username, password,
-				object: StatusResponse
-				{
-					override fun onFailure(jsonObject: JSONObject?)
-					{
-						//if (jsonObject != null) { }
-					}
-
-					override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
-					{
-						if (jsonObject != null)
-						{
-							val token = jsonObject.optString("RESPONSE")
-							DataMessenger.token = token
-							createJWT()
-						}
-
-						//if (jsonArray != null)  { }
-					}
-				})
-		}
+//		with(DataMessenger)
+//		{
+//			projectId = (tvProjectId?.text ?: "").toString()
+//			userID = (tvUserId?.text ?: "").toString()
+//			apiKey = (tvApiKey?.text ?: "").toString()
+//			domainUrl = (tvDomainUrl?.text ?: "").toString()
+//			username = (tvUsername?.text ?: "").toString()
+//			password = (tvPassword?.text ?: "").toString()
+//
+//			Authentication.callLogin(username, password,
+//				object: StatusResponse
+//				{
+//					override fun onFailure(jsonObject: JSONObject?)
+//					{
+//						//if (jsonObject != null) { }
+//					}
+//
+//					override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+//					{
+//						if (jsonObject != null)
+//						{
+//							val token = jsonObject.optString("RESPONSE")
+//							DataMessenger.token = token
+//							createJWT()
+//						}
+//
+//						//if (jsonArray != null)  { }
+//					}
+//				})
+//		}
 	}
 
 	private fun createJWT()
@@ -240,7 +239,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 		val projectId = (tvProjectId?.text ?: "").toString()
 
 		Authentication.callJWL(
-			DataMessenger.token,
+			"",//DataMessenger.token
 			userId,
 			projectId,
 			object: StatusResponse
@@ -254,8 +253,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 				{
 					if (jsonObject != null)
 					{
-						val jwt = jsonObject.optString("RESPONSE")
-						DataMessenger.JWT = jwt
+//						val jwt = jsonObject.optString("RESPONSE")
+//						DataMessenger.JWT = jwt
 						isAuthenticate = true
 						changeStateAuthenticate()
 						getDashboards()
@@ -490,7 +489,7 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	 */
 	private fun initBubble()
 	{
-		bubbleHandle = BubbleHandle(this@MainActivity)
+		bubbleHandle = BubbleHandle(this@MainActivity, "", "", "")
 
 		initViews()
 		setColorOptions()
