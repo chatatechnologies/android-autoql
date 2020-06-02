@@ -90,84 +90,17 @@
 
 ![alt text](canDrawOverlays.png "is Marshmallow")
 
+> For a better understanding we are going to create the `initBubble` method to start our bubbleBundle.
 
+![alt text](initBubbleHandle.png "is Marshmallow")
 
+> Ahora, si el usuario no ha aceptado los permisos de la superposición de pantalla para nuestra aplicación, vamos a llamar un intent para que el usuario la pueda aceptar.
+> A su vez, vamos a leer el resultado una vez que el usuario salga de la pantalla de permiso de superposicón.
+> Si el usuario acepto los permisos iniciaremos el componente BubbleHandle.
 
+![alt text](final_code.png "is Marshmallow")
 
-> To import the BubbleHandle class the following line is required.
-```kotlin
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-```
-
-###### Initialize object bubble Handle
-```kotlin
-private lateinit var bubbleHandle: BubbleHandle
-
-bubbleHandle = BubbleHandle(this /*Context app*/)
-```
-
-## Support by Android version
-We have to evaluate the version of Android where our application. This can be checked with the following code:
-```kotlin
-/**
- * Build.VERSION_CODES.M is 23
- * Build.VERSION_CODES.M in android.os.Build class
- */
-private fun isMarshmallow() = Build.VERSION.SDK_INT >= 23
-```
-The above function can be used as follows:
-```kotlin
-if (isMarshmallow())
-{
-  //Code when Android version is major Marshmallow
-}
-else
-{
-  // code for to init BubbleHandle
-}
-```
-
-Another thing to consider is the overlay of on-screen views.
-We are going to ask our device if the application can
-draw overlapping elements on screen. This is done from the
-Following way:
-```kotlin
-/**
- * Build.VERSION_CODES.M is 23
- * M is for Marshmallow!
- */
-@RequiresApi(api = Build.VERSION_CODES.M)
-private fun canDrawOverlays() = Settings.canDrawOverlays(/*context*/this)
-```
-Next, how to check the overlap in our application:
-```kotlin
-if (!canDrawOverlays())
-{
-  with(Intent(
-    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-    Uri.parse("package:$packageName")))
-  {
-    startActivityForResult(this, overlayPermission)
-  }
-}
-else
-{
-  // code for to init BubbleHandle
-}
-```
-Next, a window will be displayed that asks the user if they want to allow overlapping in the application. The method to use is `onActivityResult()`:
-```kotlin
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-{
-  super.onActivityResult(requestCode, resultCode, data)
-  if (isMarshmallow())
-  {
-    // code for to init BubbleHandle 
-  }
-}
-```
-When you implemented this code don't forget to start the bubbleHandle
-variable `bubbleHandle: BubbleHandle`.
+![alt text](onActivityResult.png "is Marshmallow")
 
 ## Props
 <table>
