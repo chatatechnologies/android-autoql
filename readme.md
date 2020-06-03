@@ -1,3 +1,5 @@
+[a relative link](readme_local.md)
+
 # Data Messenger
 > Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
 <!-- [Support by Android version](#support-by-android-version) -->
