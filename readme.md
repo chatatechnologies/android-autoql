@@ -102,9 +102,11 @@
 2. *En la segunda sentencia `if` revisamos la superposición de pantalla para nuestra App, si esta no ha sido aceptada mostramos la pantalla de permiso de superposición. Otherwise we start our BubbleHandle.*
 
 ![alt text](onActivityResult.png "is Marshmallow")
+
 *The response is read and checked if the user accepted the overlay permissions.*
 
 > Once the app is installed you will see something similar to the following video.
+>
 ![alt text](procress_start_app.gif "procress start app")
 
 ## Props
