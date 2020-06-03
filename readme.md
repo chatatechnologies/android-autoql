@@ -104,6 +104,9 @@
 ![alt text](onActivityResult.png "is Marshmallow")
 *The response is read and checked if the user accepted the overlay permissions.*
 
+> Once the app is installed you will see something similar to the following video.
+![alt text](procress_start_app.gif "procress start app")
+
 ## Props
 <table>
   <thead>
