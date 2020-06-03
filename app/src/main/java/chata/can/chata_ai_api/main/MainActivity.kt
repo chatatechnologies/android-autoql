@@ -489,7 +489,8 @@ class MainActivity: AppCompatActivity(), View.OnClickListener
 	 */
 	private fun initBubble()
 	{
-		bubbleHandle = BubbleHandle(this@MainActivity, "", "", "")
+		val authentication = chata.can.chata_ai.view.bubbleHandle.Authentication("", "", "")
+		bubbleHandle = BubbleHandle(this@MainActivity, authentication)
 
 		initViews()
 		setColorOptions()
