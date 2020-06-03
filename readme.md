@@ -107,7 +107,7 @@
 
 > Once the app is installed you will see something similar to the following video.
 >
-![alt text](test_low.gif "process start app")
+![alt text](process_start_app.gif "process start app")
 
 ## Props
 <table>
