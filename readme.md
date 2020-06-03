@@ -74,6 +74,8 @@
 ### Add source code in project
 
 > Let's start with the declaration and initiation of the variable bubbleHandle (BubbleHandle).
+>
+> The Authentication object is the container for the apiKey, domain Url, and token.
 
 ![alt text](Documentation/add_bubble_handle.png "bubble handle")
 
