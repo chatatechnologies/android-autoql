@@ -199,7 +199,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = ""
+				val urlDemo = "pie chart total sales"
 				setText(urlDemo)
 			}
 			ivMicrophone.background = pDrawable.first

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+.barras div {
+    font-size: 10px;
+    background-color: green;
+    text-align: right;
+    padding: 8px;
+    margin: 3px;
+    color: white;
+}
+</style>
+<script src="d3.v4.min.js"></script>
+<script>
+    var datos = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144];
+    var x = d3.scaleLinear()
+        .domain([0, d3.max(datos)])
+        .range([0, 144])
+
+function graficar() {
+    d3.select('.barras')
+        .selectAll('div')
+        .data(datos)
+        .enter().append('div')
+        .style('width', function(d) {
+            return x(d) + "px"
+        })
+        .text(function(d){
+            return d
+        })
+}
+</script>
+<title></title>
+</head>
+<body onload="graficar()">
+    <div class="barras"></div>
+</body>
+</html>
