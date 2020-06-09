@@ -1,93 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-
-</style>
-<script src="d3.v4.min.js"></script>
-
-<title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="d3.v4.min.js"></script>
+  <title></title>
 </head>
 <body>
-  <script>
-    var data = [
-      {salesperson: "Bob", sales: 33},
-      {salesperson: "Robin", sales: 12},
-      {salesperson: "Anne", sales: 41},
-      {salesperson: "Mark", sales: 16},
-      {salesperson: "Eve", sales: 38},
-      {salesperson: "Karen", sales: 21},
-      {salesperson: "Kirsty", sales: 25},
-      {salesperson: "Chris", sales: 30},
-      {salesperson: "Lisa", sales: 47},
-      {salesperson: "Tom", sales: 5},
-      {salesperson: "Stacy", sales: 20},
-      {salesperson: "Charles", sales: 13},
-      {salesperson: "Mary", sales: 29},
-    ];
+    <script>
+      //data sources for svg
+      var data = [
+        {salesperson: "Bob", sales: 33},
+        {salesperson: "Robin", sales: 12},
+        {salesperson: "Anne", sales: 41},
+        {salesperson: "Mark", sales: 16},
+        {salesperson: "Eve", sales: 38},
+        {salesperson: "Karen", sales: 21},
+        {salesperson: "Kirsty", sales: 25},
+        {salesperson: "Chris", sales: 30},
+        {salesperson: "Lisa", sales: 47},
+        {salesperson: "Tom", sales: 5},
+        {salesperson: "Stacy", sales: 20},
+        {salesperson: "Charles", sales: 13},
+        {salesperson: "Mary", sales: 29},
+      ];
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+      //margin and size for svg
+      var margin = {top: 20, right: 20, bottom: 30, left: 40},
+          width = 960 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
 
-    var color = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
-
-    var scaleColor = d3.scaleOrdinal().range(color);
-
-    var x = d3.scaleBand()
+      var x = d3.scaleBand()
         .range([0, width])
         .padding(0.1);
-    var y = d3.scaleLinear()
-      .range([height, 0]);
+      var y = d3.scaleLinear()
+        .range([height, 0]);
 
-    var svg = d3.select("body").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    data.forEach(function(d) {
-      d.sales = +d.sales;
-    });
-
-    x.domain(data.map(function(d) { return d.salesperson; }));
-    y.domain([0, d3.max(data, function(d) { return d.sales; })]);
-
-    svg.selectAll(".bar")
-      .data(data)
-      .enter().append("rect")
-      .attr("class", "bar")
-      .style("fill", function(d) {
-        return scaleColor(d.sales);
-      })
-      .attr("x", function(d) { return x(d.salesperson); })
-      .attr("width", x.bandwidth())
-      .attr("y", function(d) { return y(d.sales); })
-      .attr("height", function(d) { return height - y(d.sales); });
-
-    //the order bar
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-    //the axis bar
-    svg.append("g")
-      .call(d3.axisLeft(y));
-
-/*function graficar() {
-    d3.select('.barras')
-        .selectAll('div')
-        .data(datos)
-        .enter().append('div')
-        .style('width', function(d) {
-            return x(d) + "px"
-        })
-        .text(function(d){
-            return d
-        })
-}*/
-</script>
+      var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    </script>
 </body>
 </html>
