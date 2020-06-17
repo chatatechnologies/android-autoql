@@ -35,7 +35,8 @@ object DashboardMaker
 		}
 
 		val typeChart = if(dataForWebView.type == "table" || dataForWebView.type.isEmpty())
-			"idTableBasic"
+			//"idTableBasic"
+			"idTableDataPivot"
 		else dataForWebView.type
 
 		return with(dataForWebView) {

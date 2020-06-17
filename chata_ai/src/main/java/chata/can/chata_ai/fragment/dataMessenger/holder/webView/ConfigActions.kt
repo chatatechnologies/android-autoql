@@ -8,12 +8,12 @@ object ConfigActions
 	 * configActions = 1
 	 */
 	val biConfig = arrayListOf(
-		R.id.ivTable,
+		R.id.ivPivot,
 		R.id.ivColumn,
 		R.id.ivBar,
 		R.id.ivLine,
 		R.id.ivPie,
-		R.id.ivPivot)
+		R.id.ivTable)
 
 	/**
 	 * configActions = 2

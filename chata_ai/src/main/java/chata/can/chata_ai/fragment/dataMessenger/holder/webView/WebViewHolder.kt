@@ -40,14 +40,15 @@ class WebViewHolder(
 	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
 	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
 	private val aDefaultActions =
-		arrayListOf(ivTable, ivColumn, ivBar, ivLine, ivPie, ivPivot, ivHeat, ivBubble)
+		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable, ivHeat, ivBubble)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
-	private var lastId = "#idTableBasic"
+	//private var lastId = "#idTableBasic"
+	private var lastId = "#idTableDataPivot"
 
 	//region paint views
 	override fun onPaint()
