@@ -102,7 +102,6 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         fill: $backgroundColor !important;
     }
     .splitView{
-        background: green;
         position: relative;
     }
 </style>
