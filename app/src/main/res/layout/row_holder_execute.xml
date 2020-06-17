@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+	<LinearLayout
+		android:id="@+id/ll1"
+		android:layout_height="match_parent"
+		android:layout_margin="8dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="8dp"
+		tools:ignore="UselessParent">
+		<include layout="@layout/layout_header_dashboard"/>
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvExecute"
+			android:layout_height="240dp"
+			android:layout_width="match_parent"
+			android:text="@string/execute_run_dashboard"/>
+	</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="d3.v4.min.js"></script>
+<style type="text/css">
+  /* 13. Basic Styling with CSS */
+  
+  /* Style the lines by removing the fill and applying a stroke */
+  .line {
+      fill: none;
+      stroke: #f8b195;
+      stroke-width: 3;
+  }
+  
+  /* Style the dots by assigning a fill and stroke */
+  .dot {
+      fill: #355c7d;
+      stroke: #fff;
+  }
+  
+</style>
+<title></title>
+</head>
+<body>
+<script>
+  
+
+  var data = [
+    {salesperson: "Bob", sales: 33},
+    {salesperson: "Robin", sales: 12},
+    {salesperson: "Anne", sales: 41},
+    {salesperson: "Mark", sales: 16},
+    {salesperson: "Eve", sales: 38},
+    {salesperson: "Karen", sales: 21},
+    {salesperson: "Kirsty", sales: 25},
+    {salesperson: "Chris", sales: 30},
+    {salesperson: "Lisa", sales: 47},
+    {salesperson: "Tom", sales: 5},
+    {salesperson: "Stacy", sales: 20},
+    {salesperson: "Charles", sales: 13},
+    {salesperson: "Mary", sales: 29},
+  ];
+
+// Create 2 datasets
+var data1 = [
+   {ser2: 4, word: "ST"},
+   {ser2: 16, word: "ND"},
+   {ser2: 8, word: "RD"}
+];
+
+// set the dimensions and margins of the graph
+var margin = {top: 10, right: 30, bottom: 30, left: 50},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+// append the svg object to the body of the page
+var svg = d3.select("body")
+  .append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// Initialise a X axis:
+var xScaleBand = d3.scaleBand()
+  .range([0, width])
+  .padding(0.1);
+// Initialize an Y axis
+var yScale = d3.scaleLinear().range([height, 0]);
+
+// create the X axis
+xScaleBand.domain(data1.map(function(d) { return d.word; }));
+// create the Y axis
+yScale.domain([0, d3.max(data1, function(d) { return d.ser2 }) ]);
+
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(xScaleBand));
+
+svg.append("g")
+  .call(d3.axisLeft(yScale));
+
+// Updata the line
+svg.selectAll()
+  .data([data1], function(d){ return d.ser2 })
+  .enter()
+  .append("path")
+  .attr("d", d3.line()
+    .x(function(d) { return xScaleBand(d.word); })
+    .y(function(d) { return yScale(d.ser2); })
+    .curve(d3.curveMonotoneX)
+  )
+  .attr("stroke", "red")
+  .attr("stroke-width", 2.5)
+  .attr("fill", "none")
+  
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="swDemoData" type="id"/>
+
+	<item name="hProjectId" type="id"/>
+	<item name="etProjectId" type="id"/>
+	<item name="hUserId" type="id"/>
+	<item name="etUserId" type="id"/>
+	<item name="hApiKey" type="id"/>
+	<item name="etApiKey" type="id"/>
+	<item name="hDomainUrl" type="id"/>
+	<item name="etDomainUrl" type="id"/>
+	<item name="hUsername" type="id"/>
+	<item name="etUsername" type="id"/>
+	<item name="hPassword" type="id"/>
+	<item name="etPassword" type="id"/>
+
+	<item name="btnAuthenticate" type="id"/>
+
+	<item name="btnReloadDrawer" type="id"/>
+	<item name="btnOpenDrawer" type="id"/>
+	<item name="swDrawerHandle" type="id"/>
+
+	<item name="tvLight" type="id"/>
+	<item name="tvDark" type="id"/>
+
+	<item name="tvTop" type="id"/>
+	<item name="tvBottom" type="id"/>
+	<item name="tvLeft" type="id"/>
+	<item name="tvRight" type="id"/>
+
+	<item name="etCurrencyCode" type="id"/>
+	<item name="etLanguageCode" type="id"/>
+	<item name="etFormatMonthYear" type="id"/>
+	<item name="etFormatDayMonthYear" type="id"/>
+	<item name="etDecimalsCurrency" type="id"/>
+	<item name="etDecimalsQuantity" type="id"/>
+	<item name="etIntroMessage" type="id"/>
+	<item name="etQueryPlaceholder" type="id"/>
+	<item name="swClearMessage" type="id"/>
+	<item name="etTitle" type="id"/>
+	<item name="etAddColor" type="id"/>
+
+	<item name="llColors" type="id"/>
+	<item name="etLightThemeColor" type="id"/>
+	<item name="etDarkThemeColor" type="id"/>
+	<item name="etMaxNumberMessage" type="id"/>
+	<item name="swEnableAutocomplete" type="id"/>
+	<item name="swEnableQuery" type="id"/>
+	<item name="swEnableSuggestion" type="id"/>
+	<item name="swEnableDrillDown" type="id"/>
+	<item name="swEnableSpeechText" type="id"/>
+
+	<item name="etCustomerMessage" type="id"/>
+</resources>

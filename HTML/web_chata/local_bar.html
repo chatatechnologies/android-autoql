@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="d3.v4.min.js"></script>
+  <title></title>
+  <style>
+    /*border for svg*/
+    svg {
+      border: 1px solid #aaa;
+    }
+  </style>
+</head>
+<body>
+    <script>
+      //data sources for svg
+      var data = [
+        {salesperson: "Bob", sales: 33},
+        {salesperson: "Robin", sales: 12},
+        {salesperson: "Anne", sales: 41},
+        {salesperson: "Mark", sales: 16},
+        {salesperson: "Eve", sales: 38},
+        {salesperson: "Karen", sales: 21},
+        {salesperson: "Kirsty", sales: 25},
+        {salesperson: "Chris", sales: 30},
+        {salesperson: "Lisa", sales: 47},
+        {salesperson: "Tom", sales: 5},
+        {salesperson: "Stacy", sales: 20},
+        {salesperson: "Charles", sales: 13},
+        {salesperson: "Mary", sales: 29},
+      ];
+
+      //margin and size for svg
+      var margin = {top: 20, right: 20, bottom: 30, left: 80},
+          width = 960 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+
+      var color = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
+      var scaleColor = d3.scaleOrdinal().range(color);
+
+      var xScaleBand = d3.scaleBand()
+        .range([height, 0])
+        .padding(0.1);
+      var y = d3.scaleLinear()
+        .range([0, width]);
+
+      var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      xScaleBand.domain(data.map(function(d) { return d.salesperson; }));
+      y.domain([0, d3.max(data, function(d) { return d.sales; })]);
+
+      svg.selectAll()
+        .data(data)
+        .enter().append("rect")
+        .style("fill", function(d) {
+          return scaleColor(d.sales);
+        })
+        .attr("x", function(d) { return xScaleBand(d.sales); })
+        .attr("width", function(d) { return y(d.sales); })
+        .attr("y", function(d) { return xScaleBand(d.salesperson); })
+        .attr("height", xScaleBand.bandwidth())
+        .on('click', function(d) {
+          console.log('Sales:' + d.sales);
+        });
+
+        svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(y));
+
+        svg.append("g")
+          .call(d3.axisLeft(xScaleBand))
+
+    </script>
+</body>
+</html>

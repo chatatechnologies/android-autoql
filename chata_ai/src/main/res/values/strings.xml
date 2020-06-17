@@ -1,0 +1,19 @@
+<resources>
+  <string name="app_name">chata_ai</string>
+	<string name="ask_me_anything">Ask me anything…</string>
+	<string name="data_messenger">Data Messenger</string>
+
+	<string name="msg_permission_record">We need access to your microphone to hear your query.</string>
+	<string name="msg_suggestion">I\'m not sure what you mean \'%1$s\'. Did you mean:</string>
+	<string name="msg_full_suggestion">Before I can try to find your answer, I need your help understanding a term you used that I don\'t see in your data. Click the dropdown to view suggestions so I can ensure you get the right data!</string>
+	<string name="run_query">Run Query</string>
+	<string name="msg_run_autoql">We run on AutoQL by Chata</string>
+	<string name="type_queries_here">Type your queries here</string>
+	<string name="great_news_help">Great news, I can with that:</string>
+	<string name="explore_queries_msg_1">Discover what you can ask by entering a topic in the search bar above.</string>
+	<string name="explore_queries_msg_2">Simply click on any of the returned options to run the query in Data Messenger.</string>
+	<string name="explore_queries_hint">Search relevant queries by topic</string>
+	<string name="arrow_left">←</string>
+	<string name="arrow_right">→</string>
+	<string name="you_can_ask_me">Some things you can ask me:</string>
+</resources>
