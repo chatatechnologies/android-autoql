@@ -372,21 +372,29 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		activity?.let {
 			activity ->
 			chatAdapter = ChatAdapter(model, this, servicePresenter, activity)
+
+			val introMessageRes =
+				if (PagerData.introMessage.isNotEmpty())
+				{
+					PagerData.introMessage
+				}
+				else
+				{
+					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				}
+
+			val introMessage = String.format(introMessageRes, PagerData.customerName)
+
 			if (SinglentonDrawer.mModel.countData() == 0)
 			{
-				val introMessageRes =
-					if (PagerData.introMessage.isNotEmpty())
-					{
-						PagerData.introMessage
-					}
-					else
-					{
-						"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-					}
-
-				val introMessage = String.format(introMessageRes, PagerData.customerName)
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 //				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+			}
+			else
+			{
+				model[0]?.let {
+					it.message = introMessage
+				}
 			}
 
 			rvChat.layoutManager = LinearLayoutManager(activity)

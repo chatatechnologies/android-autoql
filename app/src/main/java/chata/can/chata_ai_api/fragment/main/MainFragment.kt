@@ -2,11 +2,10 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
@@ -126,7 +125,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvPassword?.setText(password)
 			tvPassword?.setSelection(password.length)
 
-			val customerMessage = "Carlos"
+//			val customerMessage = "Carlos"
+			val customerMessage = ""
 			etCustomerMessage?.setText(customerMessage)
 			val title = nameFragment
 			etTitle?.setText(title)
@@ -336,9 +336,22 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 
-		etCustomerMessage?.setOnTextChanged {
-			bubbleHandle.userDisplayName = it
-		}
+//		etCustomerMessage?.setOnTextChanged {
+//			Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
+//			bubbleHandle.userDisplayName = it
+//		}
+
+		etCustomerMessage?.addTextChangedListener(object : TextWatcher
+		{
+			override fun afterTextChanged(p0: Editable?) {}
+
+			override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+			override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+				Toast.makeText(activity!!, p0.toString(), Toast.LENGTH_SHORT).show()
+				bubbleHandle.userDisplayName = p0.toString()
+			}
+		});
 
 		etIntroMessage?.setOnTextChanged {
 			bubbleHandle.introMessage = it
