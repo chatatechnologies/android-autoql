@@ -336,22 +336,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 
-//		etCustomerMessage?.setOnTextChanged {
-//			Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
-//			bubbleHandle.userDisplayName = it
-//		}
-
-		etCustomerMessage?.addTextChangedListener(object : TextWatcher
-		{
-			override fun afterTextChanged(p0: Editable?) {}
-
-			override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-			override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-				Toast.makeText(activity!!, p0.toString(), Toast.LENGTH_SHORT).show()
-				bubbleHandle.userDisplayName = p0.toString()
-			}
-		});
+		etCustomerMessage?.setOnTextChanged {
+			bubbleHandle.userDisplayName = it
+		}
 
 		etIntroMessage?.setOnTextChanged {
 			bubbleHandle.introMessage = it
