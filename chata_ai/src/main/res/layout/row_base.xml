@@ -12,7 +12,8 @@
 
 		<RelativeLayout
 			android:id="@+id/rvContent"
-			android:layout_height="65dp"
+			android:layout_height="wrap_content"
+			android:minHeight="65dp"
 			android:paddingEnd="20dp"
 			android:layout_width="wrap_content"
 			tools:ignore="RtlSymmetry">
