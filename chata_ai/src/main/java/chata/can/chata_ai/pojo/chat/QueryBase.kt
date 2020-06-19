@@ -5,7 +5,6 @@ import chata.can.chata_ai.activity.chat.presenter.PresenterContract
 import chata.can.chata_ai.dialog.drillDown.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
-import chata.can.chata_ai.pojo.webView.HtmlMarked
 import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.pojo.dataKey

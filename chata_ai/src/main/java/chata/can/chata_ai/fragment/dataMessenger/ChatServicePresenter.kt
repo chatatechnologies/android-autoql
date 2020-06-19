@@ -111,19 +111,26 @@ class ChatServicePresenter(
 						dataKey ->
 						{
 							val numColumns = queryBase.numColumns
+							val numRows = queryBase.aRows.size
 							when
 							{
-								numColumns == 1 -> {
-									if( queryBase.hasHash)
-										TypeChatView.HELP_VIEW
-									else
-										TypeChatView.LEFT_VIEW
+								numColumns == 1 && numRows > 1 ->
+								{
+									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
 								}
 								numColumns > 1 ->
 								{
 									queryBase.viewPresenter = this
 									queryBase.typeView = TypeChatView.WEB_VIEW
 									TypeChatView.WEB_VIEW
+								}
+								numColumns == 1 -> {
+									if( queryBase.hasHash)
+										TypeChatView.HELP_VIEW
+									else
+										TypeChatView.LEFT_VIEW
 								}
 								else -> TypeChatView.LEFT_VIEW
 							}
