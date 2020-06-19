@@ -200,7 +200,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "Budget VS actuals"
+				val urlDemo = "total revenue by month by tracking category"
 				//val urlDemo = ""
 				setText(urlDemo)
 			}

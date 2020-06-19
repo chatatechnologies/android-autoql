@@ -231,18 +231,18 @@ object DatePivot
 		//endregion
 
 		//region create table head
-		val headTable = StringBuilder("<thead><tr>")
+		val _headTable = StringBuilder("<thead><tr>")
 		val columnProvider = aColumn[0]
 		val columnDate = aColumn[1]
 		val dollarColumn = aColumn[2]
-		headTable.append("<th>${columnProvider.name}</th>")
-		for (date in aDates)
+
+		val headTable1 = StringBuilder("<thead><tr>")
+		headTable1.append("<th>${columnDate.displayName}</th>")
+		for (provider in aProvider)
 		{
-			val dateString = date.formatWithColumn(columnDate)
-			headTable.append("<th>$dateString</th>")
+			headTable1.append("<th>$provider</th>")
 		}
-		headTable.append("</tr></thead>")
-		//endregion
+		headTable1.append("</tr></thead>")
 
 		//region table
 		val bodyTable = StringBuilder("<tbody>")
@@ -263,7 +263,7 @@ object DatePivot
 
 		bodyTable.append("</tbody>")
 
-		return "<table id=\"idTableDataPivot\">$headTable$bodyTable</table>"
+		return "<table id=\"idTableDataPivot\">$headTable1$bodyTable</table>"
 		//endregion
 	}
 }
