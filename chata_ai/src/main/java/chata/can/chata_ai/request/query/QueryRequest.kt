@@ -63,7 +63,7 @@ object QueryRequest
 				url,
 				typeJSON,
 				headers = getAuthorizationJWT(),
-				//infoHolder = infoHolder,
+				infoHolder = hashMapOf("nameService" to "callRelatedQueries"),
 				listener = listener)
 		}
 	}

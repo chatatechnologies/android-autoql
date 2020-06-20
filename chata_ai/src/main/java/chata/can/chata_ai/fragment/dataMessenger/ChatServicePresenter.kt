@@ -3,10 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.content.Context
 import chata.can.chata_ai.activity.chat.presenter.PresenterContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
-import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.chat.SimpleQuery
-import chata.can.chata_ai.pojo.chat.TypeChatView
+import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -100,6 +97,18 @@ class ChatServicePresenter(
 							jsonObject.getJSONData()?.let {
 									data ->
 								makeSuggestion(data, "replacements", "text")
+							}
+						}
+						"callRelatedQueries" ->
+						{
+							jsonObject.optJSONObject("data")?.let {
+								joData ->
+								joData.optJSONArray("items")?.let {
+									jaItems ->
+									val simpleQuery = SuggestionQuery(jaItems)
+									simpleQuery.typeView = TypeChatView.SUGGESTION_VIEW
+									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, simpleQuery)
+								}
 							}
 						}
 						else ->
