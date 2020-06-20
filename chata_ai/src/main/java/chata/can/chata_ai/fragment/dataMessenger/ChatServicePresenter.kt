@@ -43,6 +43,12 @@ class ChatServicePresenter(
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
+	private fun getRelatedQueries(query: String)
+	{
+		val words = query.split(" ").joinTo(StringBuilder()).toString()
+		QueryRequest.callRelatedQueries(words, this)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		isLoading(false)
@@ -52,6 +58,8 @@ class ChatServicePresenter(
 			try {
 				val jsonError = JSONObject(textError)
 				val message = jsonError.optString("message")
+				val query = jsonObject?.optString("query") ?: ""
+				getRelatedQueries(query)
 				view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
 			}
 			catch (ex: Exception) { }

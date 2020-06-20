@@ -17,7 +17,7 @@ object QueryRequest
 	{
 		var header: HashMap<String, String> ?= null
 
-		val mParams = hashMapOf<String, Any>(
+		val mParams = hashMapOf(
 			"text" to query,
 			"debug" to true,
 			"test" to true)
@@ -47,5 +47,24 @@ object QueryRequest
 			parametersAny = mParams,
 			infoHolder = infoHolder,
 			listener = listener)
+	}
+
+	fun callRelatedQueries(
+		words: String,
+	  listener: StatusResponse)
+	{
+		with(DataMessenger)
+		{
+			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
+				"&search=$words&scope=narrow"
+
+			callStringRequest(
+				Request.Method.GET,
+				url,
+				typeJSON,
+				headers = getAuthorizationJWT(),
+				//infoHolder = infoHolder,
+				listener = listener)
+		}
 	}
 }
