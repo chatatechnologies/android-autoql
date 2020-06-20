@@ -1,10 +1,12 @@
 package chata.can.chata_ai_api
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 
 abstract class BaseFragment: Fragment()
@@ -25,6 +27,14 @@ abstract class BaseFragment: Fragment()
 			onRenderViews(view)
 			view
 		} ?: run { null }
+	}
+
+	fun hideKeyboard()
+	{
+		activity?.let {
+			(it.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+				?.hideSoftInputFromWindow(view?.windowToken, 0)
+		}
 	}
 
 	open fun onRenderViews(view: View)

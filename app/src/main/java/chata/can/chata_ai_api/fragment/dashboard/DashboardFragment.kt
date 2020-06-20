@@ -56,6 +56,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		{
 			getDashboardQueries()
 		}
+		hideKeyboard()
 	}
 
 	override fun onClick(view: View?)
