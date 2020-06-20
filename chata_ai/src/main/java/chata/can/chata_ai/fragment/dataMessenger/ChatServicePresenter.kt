@@ -45,11 +45,22 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		val ja = JSONArray()
-		ja.put("No matches")
-		val json = JSONObject()
-		json.put("matches", ja)
-		makeMatches(json)
+		isLoading(false)
+		val textError = jsonObject?.optString("RESPONSE") ?: ""
+		if (textError.isNotEmpty())
+		{
+			try {
+				val jsonError = JSONObject(textError)
+				val message = jsonError.optString("message")
+				view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
+			}
+			catch (ex: Exception) { }
+		}
+//		val ja = JSONArray()
+//		ja.put("No matches")
+//		val json = JSONObject()
+//		json.put("matches", ja)
+//		makeMatches(json)
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -126,7 +137,8 @@ class ChatServicePresenter(
 									queryBase.typeView = TypeChatView.WEB_VIEW
 									TypeChatView.WEB_VIEW
 								}
-								numColumns == 1 -> {
+								numColumns == 1 ->
+								{
 									if( queryBase.hasHash)
 										TypeChatView.HELP_VIEW
 									else
