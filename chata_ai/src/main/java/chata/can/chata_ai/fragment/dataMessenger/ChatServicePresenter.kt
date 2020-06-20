@@ -105,9 +105,15 @@ class ChatServicePresenter(
 								joData ->
 								joData.optJSONArray("items")?.let {
 									jaItems ->
-									val simpleQuery = SuggestionQuery(jaItems)
-									simpleQuery.typeView = TypeChatView.SUGGESTION_VIEW
-									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, simpleQuery)
+									val json = JSONObject().put("query", "")
+									val queryBase = QueryBase(json).apply {
+										for (index in 0 until jaItems.length())
+										{
+											val item = jaItems.opt(index).toString()
+											aRows.add(arrayListOf(item))
+										}
+									}
+									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
 								}
 							}
 						}

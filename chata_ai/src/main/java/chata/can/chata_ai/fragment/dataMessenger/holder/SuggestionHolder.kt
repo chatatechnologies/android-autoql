@@ -45,11 +45,19 @@ class SuggestionHolder(
 			item.simpleQuery?.let {
 				if (it is QueryBase)
 				{
-					tvContent.context?.let {
-						context ->
-						val introMessageRes = context.getStringResources(R.string.msg_suggestion)
-						val message = String.format(introMessageRes, it.message)
-						tvContent.text = message
+					if (it.query.isEmpty())
+					{
+						tvContent.visibility = View.GONE
+					}
+					else
+					{
+						tvContent.visibility = View.VISIBLE
+						tvContent.context?.let {
+								context ->
+							val introMessageRes = context.getStringResources(R.string.msg_suggestion)
+							val message = String.format(introMessageRes, it.message)
+							tvContent.text = message
+						}
 					}
 
 					val rows = it.aRows
