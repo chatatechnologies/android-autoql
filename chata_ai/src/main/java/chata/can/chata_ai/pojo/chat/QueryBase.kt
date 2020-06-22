@@ -71,6 +71,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var contentHTML = ""
 	var rowsTable = 0
 	var rowsPivot = 0
+	val aXAxis = ArrayList<String>()
+	val aYAxis = ArrayList<String>()
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract ?= null
@@ -200,6 +202,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 						/*contentHTML = if (isDashboard) DashboardMaker.getHTML(dataForWebView)
 							else HtmlMarked.getHTML(dataForWebView)*/
+						aXAxis.addAll(dataForWebView.aXAxis)
 						contentHTML = DashboardMaker.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot

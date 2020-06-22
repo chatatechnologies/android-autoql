@@ -17,4 +17,7 @@ class DataForWebView(
 	var type = "table"
 	var xAxis = ""
 	var yAxis = ""
+
+	val aXAxis = ArrayList<String>()
+	val aYAxis = ArrayList<String>()
 }

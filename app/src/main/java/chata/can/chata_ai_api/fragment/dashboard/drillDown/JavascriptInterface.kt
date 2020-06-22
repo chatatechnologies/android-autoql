@@ -12,7 +12,11 @@ class JavascriptInterface(private val queryBase: QueryBase)
 		{
 			"column" ->
 			{
+				val indexX = queryBase.aXAxis.indexOf(content)
+				if (indexX != -1)
+				{
 
+				}
 			}
 		}
 		println("Dashboard log: $content")
