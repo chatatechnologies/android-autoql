@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import chata.can.chata_ai_api.fragment.main.MainFragment
 import chata.can.chata_ai_api.fragment.dashboard.DashboardFragment
 
-class SlidePagerAdapter (fm: FragmentManager, private val numPages: Int)
+class SlidePagerAdapter (fm: FragmentManager, var numPages: Int)
 	: FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
 {
 	override fun getCount() = numPages

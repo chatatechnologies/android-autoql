@@ -18,7 +18,7 @@ class PagerActivity: AppCompatActivity()
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
-	private val numPages = 2
+	private lateinit var adapter: SlidePagerAdapter
 
 	private val overlayPermission = 1000
 
@@ -74,7 +74,7 @@ class PagerActivity: AppCompatActivity()
 
 	private fun initBubble()
 	{
-		val adapter = SlidePagerAdapter(supportFragmentManager, numPages)
+		adapter = SlidePagerAdapter(supportFragmentManager, 1)
 		viewPager.adapter = adapter
 
 		RequestBuilder.initVolleyRequest(this)
@@ -95,7 +95,14 @@ class PagerActivity: AppCompatActivity()
 
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
-		val visible = if (value) View.VISIBLE else View.GONE
+		val visible = if (value) {
+			adapter.numPages = 2
+			View.VISIBLE
+		} else {
+			adapter.numPages = 1
+			View.GONE
+		}
+		adapter.notifyDataSetChanged()
 		tabLayout.visibility = visible
 		field = value
 	}
