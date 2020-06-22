@@ -1,12 +1,20 @@
 package chata.can.chata_ai_api.fragment.dashboard.drillDown
 
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.pojo.chat.QueryBase
 
-class JavascriptInterface()
+class JavascriptInterface(private val queryBase: QueryBase)
 {
 	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
+		when(queryBase.displayType)
+		{
+			"column" ->
+			{
+
+			}
+		}
 		println("Dashboard log: $content")
 	}
 }

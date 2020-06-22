@@ -662,6 +662,16 @@ function hideTables(idHide, idShow, type2) {
     type = type2;
     changeGraphic(type2);
 }
+function drillDown(position)
+{
+    try
+    {
+        Android.boundMethod(position);
+    } catch(err)
+    {
+        console.log('The native context does not exist yet: '+position);
+    };
+}
 </script>
 </body>
 </html>
