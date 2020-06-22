@@ -289,16 +289,12 @@ class WebViewHolder(
 						loadUrl("javascript:hideTables(${pData.first});")
 					}, 200)
 				}
-				hideShowAction(iv)
+
+				ivActionHide?.visibility = View.VISIBLE
+				ivActionHide = iv
+				ivActionHide?.visibility = View.GONE
 			}
 		}
-	}
-
-	private fun hideShowAction(ivToHide: ImageView?)
-	{
-		ivActionHide?.visibility = View.VISIBLE
-		ivActionHide = ivToHide
-		ivActionHide?.visibility = View.GONE
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")

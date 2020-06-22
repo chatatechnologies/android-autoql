@@ -28,10 +28,10 @@ object ConfigActions
 	 * configActions = 3
 	 */
 	val triConfig = arrayListOf(
-		R.id.ivTable,
+		R.id.ivPivot,
 		R.id.ivColumn,
 		R.id.ivBar,
-		R.id.ivPivot,
+		R.id.ivTable,
 		R.id.ivHeat,
 		R.id.ivBubble)
 
