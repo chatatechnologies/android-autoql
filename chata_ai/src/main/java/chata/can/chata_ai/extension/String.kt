@@ -9,6 +9,22 @@ import java.util.regex.Pattern
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
+fun String.toDateMonthYear(format: String): String
+{
+	//"MMM yyyy"
+	val dateFormat = SimpleDateFormat(format, Locale.US)
+	return try
+	{
+		val value = this.toIntOrNull() ?: 0
+		val date = Date(value * 1000L)
+		dateFormat.format(date)
+	}
+	catch (e: Exception)
+	{
+		"No date"
+	}
+}
+
 fun String.formatWithColumn(
 	columnQuery: ColumnQuery,
 	currencySymbol: String = SinglentonDrawer.currencyCode,
