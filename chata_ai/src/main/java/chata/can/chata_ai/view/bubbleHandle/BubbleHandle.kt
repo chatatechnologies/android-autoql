@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -219,16 +220,27 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	 */
 	fun openChatActivity()
 	{
-		if (!isOpenChat)
+		if (DataMessenger.token.isEmpty() && DataMessenger.JWT.isEmpty())
 		{
-			isOpenChat = true
-			isVisible = false
+			AlertDialog.Builder(context)
+				.setCancelable(false)
+				.setMessage("Enter your authentication data.")
+				.setNeutralButton("Ok", null)
+				.show()
+		}
+		else
+		{
+			if (!isOpenChat)
+			{
+				isOpenChat = true
+				isVisible = false
 //			val intent = Intent(context, ChatActivity::class.java)
-			val intent = Intent(context, PagerActivity::class.java)
-			createIntentData(intent)
-			context.startActivity(intent)
-			(context as? AppCompatActivity)
-				?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+				val intent = Intent(context, PagerActivity::class.java)
+				createIntentData(intent)
+				context.startActivity(intent)
+				(context as? AppCompatActivity)
+					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+			}
 		}
 	}
 
