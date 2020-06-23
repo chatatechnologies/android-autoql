@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:paddingEnd="4dp"
+	android:paddingStart="4dp">
+	<RelativeLayout
+		android:id="@+id/rlTitle"
+		android:layout_height="36dp"
+		android:layout_width="match_parent">
+		<TextView
+			android:layout_centerInParent="true"
+			android:gravity="center"
+			android:id="@+id/tvTitle"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textStyle="bold"
+			android:textSize="16sp"/>
+		<ImageView
+			android:layout_alignParentEnd="true"
+			android:contentDescription="@null"
+			android:id="@+id/ivCancel"
+			android:layout_centerVertical="true"
+			android:layout_height="24dp"
+			android:layout_width="24dp"
+			android:src="@drawable/ic_cancel"/>
+	</RelativeLayout>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_height="match_parent"
+		android:layout_marginBottom="48dp"
+		android:layout_width="match_parent">
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guide"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent=".5"/>
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_height="0dp"
+			android:layout_width="0dp"
+			android:layout_margin="4dp"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintBottom_toBottomOf="@id/guide">
+			<WebView
+				android:scrollbars="none"
+				android:id="@+id/wbDrillDown1"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"/>
+
+			<RelativeLayout
+				android:id="@+id/ivLoad1"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent">
+				<chata.can.chata_ai.view.gif.GifView
+					android:layout_centerInParent="true"
+					android:layout_height="80dp"
+					android:layout_width="80dp"/>
+			</RelativeLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--	<RelativeLayout-->
+<!--		android:layout_below="@id/rlTitle"-->
+<!--		android:layout_margin="5dp"-->
+<!--		android:layout_height="match_parent"-->
+<!--		android:layout_width="match_parent"-->
+<!--		android:padding="10dp">-->
+<!--		<chata.can.chata_ai.view.gif.GifView-->
+<!--			android:layout_centerInParent="true"-->
+<!--			android:id="@+id/ivLoad"-->
+<!--			android:layout_height="160dp"-->
+<!--			android:layout_width="160dp"/>-->
+<!--		<WebView-->
+<!--			android:id="@+id/wbDrillDown"-->
+<!--			android:layout_height="match_parent"-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:visibility="gone"/>-->
+<!--	</RelativeLayout>-->
+</RelativeLayout>
