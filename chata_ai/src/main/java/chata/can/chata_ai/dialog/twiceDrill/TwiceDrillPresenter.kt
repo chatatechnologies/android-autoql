@@ -28,7 +28,8 @@ class TwiceDrillPresenter(
 	{
 		if (jsonObject != null)
 		{
-
+			val queryBase = QueryBase(jsonObject)
+			queryBase.hasDrillDown = false
 		}
 	}
 

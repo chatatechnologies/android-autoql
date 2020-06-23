@@ -7,6 +7,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
@@ -20,7 +21,9 @@ class TwiceDrillDialog(
 	private lateinit var ivCancel: ImageView
 	private lateinit var tvTitle: TextView
 	private lateinit var ivLoad1: View
+	private lateinit var ivLoad2: View
 	private lateinit var wbDrillDown1 : WebView
+	private lateinit var wbDrillDown2 : WebView
 
 	private val presenter = TwiceDrillPresenter(queryBase)
 
@@ -35,7 +38,9 @@ class TwiceDrillDialog(
 		ivCancel = findViewById(R.id.ivCancel)
 		tvTitle = findViewById(R.id.tvTitle)
 		ivLoad1 = findViewById(R.id.ivLoad1)
+		ivLoad2 = findViewById(R.id.ivLoad2)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
+		wbDrillDown2 = findViewById(R.id.wbDrillDown2)
 	}
 
 	override fun setColors()
@@ -56,6 +61,8 @@ class TwiceDrillDialog(
 		}
 
 		tvTitle.text = queryBase.query
+		ivCancel.setColorFilter(
+			ContextCompat.getColor(context, R.color.chata_drawer_background_color_dark))
 		loadWebView()
 		presenter.getQueryDrillDown()
 	}
