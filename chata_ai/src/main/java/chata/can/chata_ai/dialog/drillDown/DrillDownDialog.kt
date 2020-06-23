@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
+import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.view.gif.GifView
 
 class DrillDownDialog(
 	context: Context,
 	private val queryBase: QueryBase)
-	: BaseDialog(context, R.layout.dialog_drill_down), DrillDownContract
+	: BaseDialog(context, R.layout.dialog_drill_down),
+	DrillDownContract
 {
 	private var tvTitle: TextView ?= null
 	private var ivCancel: ImageView ?= null

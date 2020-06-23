@@ -1,5 +1,6 @@
 package chata.can.chata_ai.dialog.drillDown
 
+import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.chat.QueryBase

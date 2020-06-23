@@ -18,6 +18,6 @@ class DataForWebView(
 	var xAxis = ""
 	var yAxis = ""
 
-	val aXAxis = ArrayList<String>()
-	val aYAxis = ArrayList<String>()
+	lateinit var aXDrillDown: ArrayList<String>
+	lateinit var aYDrillDown: ArrayList<String>
 }

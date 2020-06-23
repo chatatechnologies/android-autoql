@@ -2,7 +2,7 @@ package chata.can.chata_ai.pojo.chat
 
 import chata.can.chata_ai.DoAsync
 import chata.can.chata_ai.activity.chat.presenter.PresenterContract
-import chata.can.chata_ai.dialog.drillDown.DrillDownContract
+import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.extension.enumValueOfOrNull
@@ -71,12 +71,14 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var contentHTML = ""
 	var rowsTable = 0
 	var rowsPivot = 0
-	val aXAxis = ArrayList<String>()
-	val aYAxis = ArrayList<String>()
+	lateinit var  aXAxis: ArrayList<String>
+	lateinit var aYAxis: ArrayList<String>
+	lateinit var aXDrillDown: ArrayList<String>
+	lateinit var aYDrillDown: ArrayList<String>
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract ?= null
-	var viewDrillDown: DrillDownContract ?= null
+	var viewDrillDown: DrillDownContract?= null
 	var isLoadingHTML = false
 
 	init {
@@ -202,7 +204,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 						/*contentHTML = if (isDashboard) DashboardMaker.getHTML(dataForWebView)
 							else HtmlMarked.getHTML(dataForWebView)*/
-						aXAxis.addAll(dataForWebView.aXAxis)
 						contentHTML = DashboardMaker.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot

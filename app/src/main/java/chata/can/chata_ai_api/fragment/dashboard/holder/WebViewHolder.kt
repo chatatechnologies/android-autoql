@@ -52,7 +52,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 
 			if (queryBase.hasDrillDown)
 			{
-				addJavascriptInterface(JavascriptInterface(queryBase), "Android")
+				addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
 			}
 			loadDataWithBaseURL(
 				null,

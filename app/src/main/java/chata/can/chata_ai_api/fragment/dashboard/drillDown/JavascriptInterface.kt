@@ -1,24 +1,31 @@
 package chata.can.chata_ai_api.fragment.dashboard.drillDown
 
+import android.app.Activity
+import android.content.Context
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.dialog.twiceDrill.TwiceDrillDialog
 import chata.can.chata_ai.pojo.chat.QueryBase
 
-class JavascriptInterface(private val queryBase: QueryBase)
+class JavascriptInterface(private val context: Context, private val queryBase: QueryBase)
 {
 	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
-		when(queryBase.displayType)
-		{
-			"column" ->
+		queryBase.run {
+			when(displayType)
 			{
-				val indexX = queryBase.aXAxis.indexOf(content)
-				if (indexX != -1)
+				"column" ->
 				{
-
+					val indexX = aXAxis.indexOf(content)
+					if (indexX != -1)
+					{
+						val value = aXDrillDown[indexX]
+						(context as? Activity)?.runOnUiThread {
+							TwiceDrillDialog(context, queryBase).show()
+						}
+					}
 				}
 			}
 		}
-		println("Dashboard log: $content")
 	}
 }

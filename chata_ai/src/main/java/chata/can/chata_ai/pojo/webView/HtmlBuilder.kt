@@ -76,9 +76,9 @@ object HtmlBuilder
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !configAllow))
 			//region xAxis
-			dataForWebView.aXAxis.addAll(buildCategoryByPosition(
+			queryBase.aXAxis = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
-					true, hasQuotes = false, allowRepeat = !configAllow)))
+					true, hasQuotes = false, allowRepeat = !configAllow))
 			//endregion
 			val aCatY = if (aColumn.size > posColumnY)
 			{
@@ -103,6 +103,11 @@ object HtmlBuilder
 						true, hasQuotes = true, allowRepeat = !configAllow))
 			}
 			else ArrayList()
+
+			queryBase.aXDrillDown = buildCategoryByPosition(
+				Category(aRows, aColumn[posColumnX], posColumnX,
+					false, hasQuotes = false, allowRepeat = true))
+
 			dataForWebView.drillX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = true, allowRepeat = true)).toString()

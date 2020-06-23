@@ -1,4 +1,4 @@
-package chata.can.chata_ai.dialog.drillDown
+package chata.can.chata_ai.dialog
 
 import chata.can.chata_ai.pojo.chat.QueryBase
 
