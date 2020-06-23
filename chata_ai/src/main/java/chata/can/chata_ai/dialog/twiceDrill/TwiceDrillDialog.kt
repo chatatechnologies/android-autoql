@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
@@ -15,6 +17,8 @@ class TwiceDrillDialog(
 	private val queryBase: QueryBase
 ): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
 {
+	private lateinit var ivCancel: ImageView
+	private lateinit var tvTitle: TextView
 	private lateinit var ivLoad1: View
 	private lateinit var wbDrillDown1 : WebView
 
@@ -28,6 +32,8 @@ class TwiceDrillDialog(
 
 	override fun setViews()
 	{
+		ivCancel = findViewById(R.id.ivCancel)
+		tvTitle = findViewById(R.id.tvTitle)
 		ivLoad1 = findViewById(R.id.ivLoad1)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
 	}
@@ -45,6 +51,11 @@ class TwiceDrillDialog(
 
 	private fun setData()
 	{
+		ivCancel.setOnClickListener {
+			dismiss()
+		}
+
+		tvTitle.text = queryBase.query
 		loadWebView()
 		presenter.getQueryDrillDown()
 	}

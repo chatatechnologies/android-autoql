@@ -8,16 +8,12 @@
 	android:paddingStart="4dp">
 	<RelativeLayout
 		android:id="@+id/rlTitle"
-		android:layout_height="36dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_marginRight="4dp"
+		android:layout_marginLeft="4dp"
+		android:layout_marginTop="16dp"
 		android:layout_width="match_parent">
-		<TextView
-			android:layout_centerInParent="true"
-			android:gravity="center"
-			android:id="@+id/tvTitle"
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:textStyle="bold"
-			android:textSize="16sp"/>
 		<ImageView
 			android:layout_alignParentEnd="true"
 			android:contentDescription="@null"
@@ -26,11 +22,20 @@
 			android:layout_height="24dp"
 			android:layout_width="24dp"
 			android:src="@drawable/ic_cancel"/>
+		<TextView
+			android:layout_centerInParent="true"
+			android:gravity="center"
+			android:id="@+id/tvTitle"
+			android:layout_height="wrap_content"
+			android:layout_toStartOf="@id/ivCancel"
+			android:layout_width="match_parent"
+			android:textStyle="bold"
+			android:textSize="16sp"/>
 	</RelativeLayout>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_below="@id/rlTitle"
 		android:layout_height="match_parent"
-		android:layout_marginBottom="48dp"
 		android:layout_width="match_parent">
 
 		<androidx.constraintlayout.widget.Guideline

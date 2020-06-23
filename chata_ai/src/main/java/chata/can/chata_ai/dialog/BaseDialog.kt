@@ -3,6 +3,7 @@ package chata.can.chata_ai.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.ViewGroup
 
 abstract class BaseDialog(context: Context, private val intRest: Int): Dialog(context)
 {
@@ -11,6 +12,7 @@ abstract class BaseDialog(context: Context, private val intRest: Int): Dialog(co
 		super.onCreate(savedInstanceState)
 		setCanceledOnTouchOutside(false)
 		setContentView(intRest)
+		window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 		onCreateView()
 	}
 
