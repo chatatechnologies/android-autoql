@@ -200,8 +200,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-//				val urlDemo = "sales of parts last year"
-				val urlDemo = ""
+				val urlDemo = "Gross margin by customer last year"
+//				val urlDemo = ""
 				setText(urlDemo)
 			}
 			ivMicrophone.background = pDrawable.first

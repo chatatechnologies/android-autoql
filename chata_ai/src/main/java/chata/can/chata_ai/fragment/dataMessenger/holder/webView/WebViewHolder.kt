@@ -74,10 +74,22 @@ class WebViewHolder(
 			val aConfigs = when(configActions)
 			{
 				1 -> ConfigActions.biConfig
-				2 -> ConfigActions.triReduceConfig
+				2 ->
+				{
+					lastId = "#idTableBasic"
+					ConfigActions.triReduceConfig
+				}
 				3 -> ConfigActions.triConfig
-				4 -> ConfigActions.biConfigReduce
-				else -> arrayListOf()
+				4 ->
+				{
+					lastId = "#idTableBasic"
+					ConfigActions.biConfigReduce
+				}
+				else ->
+				{
+					lastId = "#idTableBasic"
+					arrayListOf()
+				}
 			}
 			//region find the first item
 			aConfigs.firstOrNull()?.let {
@@ -97,11 +109,12 @@ class WebViewHolder(
 			}
 			//endregion
 
+			val tmpConfigs = aConfigs.subList(1, aConfigs.size)
 			for (index in 1 until aDefaultActions.size)
 			{
 				aDefaultActions[index]?.let {
 					val idView = it.id
-					it.visibility = if (idView in aConfigs)
+					it.visibility = if (idView in tmpConfigs)
 					{
 						it.setOnClickListener(this)
 						View.VISIBLE
