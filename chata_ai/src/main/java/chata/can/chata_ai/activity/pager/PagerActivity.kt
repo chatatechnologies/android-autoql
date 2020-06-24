@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.pager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.chat.PropertyChatActivity
@@ -85,28 +86,28 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 				}
 				R.id.ivClear ->
 				{
-					model.clear()
-					val introMessageRes =
-						if (PagerData.introMessage.isNotEmpty())
-						{
-							PagerData.introMessage
-						}
-						else
-						{
-							"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-						}
+					AlertDialog.Builder(this)
+						.setMessage("Clear all queries & responses?")
+						.setPositiveButton("Clear") { _, _ ->
+							model.clear()
+							val introMessageRes =
+								if (PagerData.introMessage.isNotEmpty()) {
+									PagerData.introMessage
+								} else {
+									"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+								}
 
-					val introMessage = String.format(introMessageRes, PagerData.customerName)
-					model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-//					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+							val introMessage = String.format(introMessageRes, PagerData.customerName)
+							model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+					//					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 
-					slidePagerAdapter?.getRegisteredFragment(0)?.let {
-						dataMessengerFragment ->
-						if (dataMessengerFragment is DataMessengerFragment)
-						{
-							dataMessengerFragment.notifyAdapter()
+							slidePagerAdapter?.getRegisteredFragment(0)?.let { dataMessengerFragment ->
+								if (dataMessengerFragment is DataMessengerFragment) {
+									dataMessengerFragment.notifyAdapter()
+								}
+							}
 						}
-					}
+						.setNegativeButton("Cancel", null).show()
 				}
 				else -> {}
 			}
