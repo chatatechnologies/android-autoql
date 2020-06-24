@@ -37,7 +37,7 @@ class ChatRenderPresenter(private val context: Context, private var contract: Ch
 		val speechIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 		with(speechIntent)
 		{
-			putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en")
+			putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
 			putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH)
 			putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
 			putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1)
