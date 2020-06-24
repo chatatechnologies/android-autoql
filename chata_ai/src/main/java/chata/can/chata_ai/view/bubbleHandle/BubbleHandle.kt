@@ -70,6 +70,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		}
 	}
 
+	var isNecessaryLogin = true
+
 	//region properties like docs react data messenger
 	var isVisible: Boolean = true
 		set(value) {
@@ -220,7 +222,7 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	 */
 	fun openChatActivity()
 	{
-		if (DataMessenger.token.isEmpty() && DataMessenger.JWT.isEmpty())
+		if (isNecessaryLogin && DataMessenger.token.isEmpty() && DataMessenger.JWT.isEmpty())
 		{
 			AlertDialog.Builder(context)
 				.setCancelable(false)

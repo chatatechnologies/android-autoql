@@ -273,6 +273,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			hPassword?.visibility = iVisible
 			tvPassword?.visibility = iVisible
 			btnAuthenticate?.visibility = iVisible
+			bubbleHandle.isNecessaryLogin = !isChecked
 		}
 
 		btnAuthenticate?.setOnClickListener(this)
