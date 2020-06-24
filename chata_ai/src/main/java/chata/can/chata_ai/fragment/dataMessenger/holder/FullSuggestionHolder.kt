@@ -179,7 +179,9 @@ class FullSuggestionHolder(
 								child ->
 								val pieceQuery = when(child)
 								{
-									is TextView -> child.text
+									is TextView -> {
+										child.text
+									}
 									is RelativeLayout ->
 									{
 										if (child.childCount == 2)
@@ -191,7 +193,11 @@ class FullSuggestionHolder(
 													linearLayout.getChildAt(0)?.let {
 														textView ->
 														if (textView is TextView)
-															textView.text
+														{
+//															textView.text
+															val aWords = textView.text.split(" (")
+															aWords[0]
+														}
 														else ""
 													} ?: run { "" }
 												}
