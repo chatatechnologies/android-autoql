@@ -48,24 +48,23 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		isLoading(false)
-		val textError = jsonObject?.optString("RESPONSE") ?: ""
-		if (textError.isNotEmpty())
+		val nameService = jsonObject?.optString("nameService") ?: ""
+		if (nameService.isEmpty())
 		{
-			try {
-				val jsonError = JSONObject(textError)
-				val message = jsonError.optString("message")
-				val query = jsonObject?.optString("query") ?: ""
-				getRelatedQueries(query)
-				view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
+			isLoading(false)
+			val textError = jsonObject?.optString("RESPONSE") ?: ""
+			if (textError.isNotEmpty())
+			{
+				try {
+					val jsonError = JSONObject(textError)
+					val message = jsonError.optString("message")
+					val query = jsonObject?.optString("query") ?: ""
+					getRelatedQueries(query)
+					view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
+				}
+				catch (ex: Exception) { }
 			}
-			catch (ex: Exception) { }
 		}
-//		val ja = JSONArray()
-//		ja.put("No matches")
-//		val json = JSONObject()
-//		json.put("matches", ja)
-//		makeMatches(json)
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
