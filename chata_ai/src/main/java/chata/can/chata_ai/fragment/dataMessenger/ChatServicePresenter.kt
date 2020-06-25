@@ -59,7 +59,7 @@ class ChatServicePresenter(
 					val jsonError = JSONObject(textError)
 					val message = jsonError.optString("message")
 					val query = jsonObject?.optString("query") ?: ""
-					getRelatedQueries(query)
+					//getRelatedQueries(query)
 					view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
 				}
 				catch (ex: Exception) { }
