@@ -1,7 +1,9 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
@@ -83,8 +85,21 @@ class FullSuggestionHolder(
 							val llSelectedView = LinearLayout(context)
 							val tvFirst = TextView(context)
 							//region spinner
-							it.add(0, currentText)
-							val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, it)
+							it.add("$currentText (Origin term)")//it.add(0, "$currentText (Origin term)")
+							val adapter = object: ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, it)
+							{
+								override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
+								{
+									var view = convertView
+									if (view == null)
+									{
+										view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_item, null)
+									}
+									getItem(position)
+
+									return super.getView(position, convertView, parent)
+								}
+							}
 							spinner.apply {
 								layoutParams = LinearLayout.LayoutParams(-1, -2)
 								setAdapter(adapter)
