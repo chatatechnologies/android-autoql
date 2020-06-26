@@ -272,9 +272,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			etQuery.setText("")
 			//model.add(ChatData(2, query))
 			//scrollToPosition()
-
 			//chatAdapter.notifyItemChanged(model.countData() - 1)
-
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
 				servicePresenter.getSafety(query)
