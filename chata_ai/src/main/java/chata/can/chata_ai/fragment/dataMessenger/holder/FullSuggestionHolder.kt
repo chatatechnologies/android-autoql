@@ -95,7 +95,15 @@ class FullSuggestionHolder(
 									{
 										view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_item, null)
 									}
-									getItem(position)
+
+									view?.findViewById<TextView>(android.R.id.text1)?.run {
+										val content = getItem(position) ?: ""
+										val aParts = content.split(" (")
+										if (aParts.isNotEmpty())
+										{
+											text = aParts[0]
+										}
+									}
 
 									return super.getView(position, convertView, parent)
 								}
@@ -104,7 +112,7 @@ class FullSuggestionHolder(
 								layoutParams = LinearLayout.LayoutParams(-1, -2)
 								setAdapter(adapter)
 								isEnabled = false
-								setSelection(0, false)
+								//setSelection(0, false)
 								onItemSelectedListener = object: ItemSelectedListener {
 									override fun onSelected(
 										parent: AdapterView<*>?, view: View?, position: Int, id: Long)
@@ -114,7 +122,8 @@ class FullSuggestionHolder(
 											adapterView.adapter?.let {
 												adapter ->
 												val newContent = adapter.getItem(position)?.toString() ?: ""
-												tvFirst.text = newContent
+												val aParts = newContent.split(" (")
+												tvFirst.text = aParts[0]
 											}
 										}
 									}
