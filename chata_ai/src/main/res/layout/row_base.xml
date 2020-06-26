@@ -5,6 +5,24 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<RelativeLayout
+		android:id="@+id/rvContentTop"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="80dp"
+		android:layout_width="match_parent"
+		tools:ignore="UselessParent">
+		<TextView
+			android:id="@+id/tvContentTop"
+			android:layout_alignParentEnd="true"
+			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:layout_width="wrap_content"
+			android:padding="8dp"
+
+			android:text="count invoices"/>
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:layout_below="@id/rvContentTop"
 		android:layout_height="wrap_content"
 		android:layout_marginEnd="80dp"
 		android:layout_width="match_parent"

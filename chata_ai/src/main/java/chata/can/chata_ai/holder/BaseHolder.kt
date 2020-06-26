@@ -14,6 +14,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
@@ -22,6 +23,8 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
+	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
+
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
@@ -29,6 +32,18 @@ open class BaseHolder(
 
 	override fun onPaint()
 	{
+		tvContentTop.run {
+			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			setTextColor(textColor)
+
+			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			background = queryDrawable
+
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
+		}
+
 		val gray = ContextCompat.getColor(
 			tvContent.context,
 			ThemeColor.currentColor.drawerColorPrimary)

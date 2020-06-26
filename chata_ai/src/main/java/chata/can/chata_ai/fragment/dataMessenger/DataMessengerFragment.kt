@@ -200,7 +200,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "Gross margin by customer last year"
+				val urlDemo = "count inventory"
 //				val urlDemo = ""
 				setText(urlDemo)
 			}
@@ -270,10 +270,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			hideKeyboard()
 			etQuery.setText("")
-			model.add(ChatData(2, query))
-			scrollToPosition()
+			//model.add(ChatData(2, query))
+			//scrollToPosition()
 
-			chatAdapter.notifyItemChanged(model.countData() - 1)
+			//chatAdapter.notifyItemChanged(model.countData() - 1)
 
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
