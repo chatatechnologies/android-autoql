@@ -100,7 +100,6 @@ class WebViewHolder(
 					{
 						if (view.id == firstConfig)
 						{
-							view.setOnClickListener(this)
 							ivActionHide = view
 							break
 						}
@@ -126,6 +125,7 @@ class WebViewHolder(
 					}
 				}
 			}
+			ivActionHide?.setOnClickListener(this)
 		}
 	}
 	//endregion
