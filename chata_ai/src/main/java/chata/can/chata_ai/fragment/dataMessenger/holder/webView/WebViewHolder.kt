@@ -8,6 +8,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
@@ -19,6 +21,8 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class WebViewHolder(
 	itemView: View,
@@ -26,6 +30,8 @@ class WebViewHolder(
 	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
+	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
+
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
@@ -53,6 +59,18 @@ class WebViewHolder(
 	//region paint views
 	override fun onPaint()
 	{
+		tvContentTop.run {
+			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			setTextColor(textColor)
+
+			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			background = queryDrawable
+
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
+		}
+
 		llCharts?.backgroundGrayWhite()
 		setColorFilters()
 		rlDelete?.let {
@@ -184,6 +202,7 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
+		tvContentTop.text = simpleQuery.query
 		queryBase = simpleQuery
 		addActionViews(simpleQuery.configActions)
 
