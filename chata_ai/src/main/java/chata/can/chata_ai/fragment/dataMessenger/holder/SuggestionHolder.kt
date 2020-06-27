@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -19,6 +20,7 @@ import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(
 	itemView: View,
@@ -31,11 +33,26 @@ class SuggestionHolder(
 
 	override fun onPaint()
 	{
+		tvContentTop.run {
+			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			setTextColor(textColor)
+
+			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			background = queryDrawable
+
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
+		}
+
 		val textColor = ContextCompat.getColor(
 			tvContent.context,
 			ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
+
+		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
+		llContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -45,6 +62,8 @@ class SuggestionHolder(
 			item.simpleQuery?.let {
 				if (it is QueryBase)
 				{
+					tvContentTop.text  = it.query
+
 					if (it.query.isEmpty())
 					{
 						tvContent.visibility = View.GONE

@@ -23,7 +23,7 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
-	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
+	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
