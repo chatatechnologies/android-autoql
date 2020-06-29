@@ -4,6 +4,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
@@ -18,6 +19,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class FullSuggestionHolder(
 	itemView: View,
@@ -31,6 +33,18 @@ class FullSuggestionHolder(
 
 	override fun onPaint()
 	{
+		tvContentTop.run {
+			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			setTextColor(textColor)
+
+			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			background = queryDrawable
+
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
+		}
+
 		val textColor = ContextCompat.getColor(
 			tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
@@ -45,6 +59,7 @@ class FullSuggestionHolder(
 			val simpleQuery = item.simpleQuery
 			if (simpleQuery is FullSuggestionQuery)
 			{
+				tvContentTop.text = simpleQuery.query
 				tvContent.context?.let {
 					context ->
 					context.resources?.let {
