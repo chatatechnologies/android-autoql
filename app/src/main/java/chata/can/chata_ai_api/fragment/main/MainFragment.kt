@@ -277,10 +277,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			bubbleHandle.isNecessaryLogin = !isChecked
 		}
 
-		//region REMOVE
-		swDemoData?.isChecked = true
-		//endregion
-
 		btnAuthenticate?.setOnClickListener(this)
 		btnReloadDrawer?.setOnClickListener(this)
 		btnOpenDrawer?.setOnClickListener(this)
