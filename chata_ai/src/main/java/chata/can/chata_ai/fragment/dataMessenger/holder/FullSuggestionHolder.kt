@@ -18,7 +18,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
-import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class FullSuggestionHolder(

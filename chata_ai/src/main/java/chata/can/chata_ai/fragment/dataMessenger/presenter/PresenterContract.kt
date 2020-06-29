@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.chat.presenter
+package chata.can.chata_ai.fragment.dataMessenger.presenter
 
 import chata.can.chata_ai.pojo.chat.SimpleQuery
 

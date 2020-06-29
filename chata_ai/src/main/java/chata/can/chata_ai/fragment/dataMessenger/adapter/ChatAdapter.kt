@@ -7,7 +7,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
-import chata.can.chata_ai.fragment.dataMessenger.ChatServicePresenter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.fragment.dataMessenger.holder.*
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderHolder
 import chata.can.chata_ai.holder.BaseHolder

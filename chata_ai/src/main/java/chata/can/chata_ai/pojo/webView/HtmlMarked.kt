@@ -1,7 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
 import androidx.core.content.ContextCompat
-import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.SinglentonDrawer.darkThemeColor
 import chata.can.chata_ai.pojo.SinglentonDrawer.lightThemeColor
@@ -19,7 +19,7 @@ object HtmlMarked
 
 		with(ThemeColor.currentColor)
 		{
-			PropertyChatActivity.context?.let {
+			ContextActivity.context?.let {
 				backgroundColor = "#" + Integer.toHexString(ContextCompat.getColor(
 					it,
 					drawerBackgroundColor) and 0x00ffffff)

@@ -24,6 +24,8 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatRenderPresenter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -65,8 +67,16 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		super.onRenderViews(view)
 		activity?.run {
-			renderPresenter = ChatRenderPresenter(this, this@DataMessengerFragment)
-			servicePresenter = ChatServicePresenter(this, this@DataMessengerFragment)
+			renderPresenter =
+				ChatRenderPresenter(
+					this,
+					this@DataMessengerFragment
+				)
+			servicePresenter =
+				ChatServicePresenter(
+					this,
+					this@DataMessengerFragment
+				)
 		}
 
 		initList()

@@ -1,7 +1,7 @@
 package chata.can.chata_ai.pojo.chat
 
 import chata.can.chata_ai.DoAsync
-import chata.can.chata_ai.activity.chat.presenter.PresenterContract
+import chata.can.chata_ai.fragment.dataMessenger.presenter.PresenterContract
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
@@ -77,7 +77,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	lateinit var aYDrillDown: ArrayList<String>
 
 	private var view: HolderContract? = null
-	var viewPresenter: PresenterContract ?= null
+	var viewPresenter: PresenterContract?= null
 	var viewDrillDown: DrillDownContract?= null
 	var isLoadingHTML = false
 

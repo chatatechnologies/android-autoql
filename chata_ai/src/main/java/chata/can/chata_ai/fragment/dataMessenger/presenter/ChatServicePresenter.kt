@@ -1,8 +1,8 @@
-package chata.can.chata_ai.activity.chat.presenter
+package chata.can.chata_ai.fragment.dataMessenger.presenter
 
 import android.content.Context
-import chata.can.chata_ai.activity.chat.ChatContract
-import chata.can.chata_ai.activity.chat.DataChatInteractor
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.dataKey
@@ -15,23 +15,25 @@ import org.json.JSONObject
 
 class ChatServicePresenter(
 	private val context: Context,
-	private var view: ChatContract.View?) : StatusResponse, PresenterContract
+	private var view: ChatContract.View?) : StatusResponse,
+	PresenterContract
 {
 	private var lastQuery = ""
-	private val interactor = DataChatInteractor()
+	private val contract =
+		DataChatContract()
 
 	fun getAutocomplete(suggestionQuery: String)
 	{
 		if (Network.checkInternetConnection(context))
 		{
 			lastQuery = suggestionQuery
-			interactor.getAutocomplete(lastQuery, this)
+			contract.getAutocomplete(lastQuery, this)
 		}
 	}
 
 	fun getSafety(query: String)
 	{
-		interactor.callSafetyNet(query, this)
+		contract.callSafetyNet(query, this)
 	}
 
 	fun getQuery(query: String)
@@ -41,9 +43,31 @@ class ChatServicePresenter(
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
+	private fun getRelatedQueries(query: String)
+	{
+		val words = query.split(" ").joinTo(StringBuilder()).toString()
+		QueryRequest.callRelatedQueries(words, this)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		jsonObject.toString()
+		val nameService = jsonObject?.optString("nameService") ?: ""
+		if (nameService.isEmpty())
+		{
+			isLoading(false)
+			val textError = jsonObject?.optString("RESPONSE") ?: ""
+			if (textError.isNotEmpty())
+			{
+				try {
+					val jsonError = JSONObject(textError)
+					val message = jsonError.optString("message")
+					val query = jsonObject?.optString("query") ?: ""
+					//getRelatedQueries(query)
+					view?.addChatMessage(TypeChatView.LEFT_VIEW, message)
+				}
+				catch (ex: Exception) { }
+			}
+		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -73,8 +97,26 @@ class ChatServicePresenter(
 						"validate" ->
 						{
 							jsonObject.getJSONData()?.let {
-								data ->
+									data ->
 								makeSuggestion(data, "replacements", "text")
+							}
+						}
+						"callRelatedQueries" ->
+						{
+							jsonObject.optJSONObject("data")?.let {
+								joData ->
+								joData.optJSONArray("items")?.let {
+									jaItems ->
+									val json = JSONObject().put("query", "")
+									val queryBase = QueryBase(json).apply {
+										for (index in 0 until jaItems.length())
+										{
+											val item = jaItems.opt(index).toString()
+											aRows.add(arrayListOf(item))
+										}
+									}
+									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+								}
 							}
 						}
 						else ->
@@ -105,19 +147,31 @@ class ChatServicePresenter(
 						dataKey ->
 						{
 							val numColumns = queryBase.numColumns
+							val numRows = queryBase.aRows.size
 							when
 							{
-								numColumns == 1 -> {
-									if( queryBase.hasHash)
-										TypeChatView.HELP_VIEW
-									else
-										TypeChatView.LEFT_VIEW
+								numRows == 0 ->
+								{
+									TypeChatView.LEFT_VIEW
+								}
+								numColumns == 1 && numRows > 1 ->
+								{
+									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
 								}
 								numColumns > 1 ->
 								{
 									queryBase.viewPresenter = this
 									queryBase.typeView = TypeChatView.WEB_VIEW
 									TypeChatView.WEB_VIEW
+								}
+								numColumns == 1 ->
+								{
+									if( queryBase.hasHash)
+										TypeChatView.HELP_VIEW
+									else
+										TypeChatView.LEFT_VIEW
 								}
 								else -> TypeChatView.LEFT_VIEW
 							}
@@ -136,8 +190,6 @@ class ChatServicePresenter(
 				}
 			}
 		}
-
-//		if (jsonArray != null) {}
 	}
 
 	override fun isLoading(isVisible: Boolean)
@@ -158,9 +210,17 @@ class ChatServicePresenter(
 		{
 			json.optJSONArray("matches")?.let {
 				val aData = ArrayList<String>()
-				for (index in 0 until it.length())
+				if (it.length() == 0)
 				{
-					aData.add(it.optString(index))
+					aData.add("No matches")
+				}
+				else
+				{
+					for (index in 0 until it.length())
+					{
+						aData.add(it.optString(index))
+					}
+
 				}
 				view?.setDataAutocomplete(aData)
 			}
@@ -189,9 +249,4 @@ class ChatServicePresenter(
 			}
 		}
 	}
-
-//	fun onDestroy()
-//	{
-//		view = null
-//	}
 }

@@ -10,10 +10,6 @@
 	<application>
 		<activity
 			android:hardwareAccelerated="false"
-			android:name=".activity.chat.ChatActivity"/>
-
-		<activity
-			android:hardwareAccelerated="false"
 			android:name=".activity.pager.PagerActivity"/>
 
 		<service android:name=".view.bubbles.BubblesService"

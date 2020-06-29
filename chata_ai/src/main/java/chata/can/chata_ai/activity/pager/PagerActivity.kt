@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.chat.PropertyChatActivity
+import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -34,7 +34,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 
 	override fun onCreateView()
 	{
-		PropertyChatActivity.context = this
+		ContextActivity.context = this
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
 		ivLight = findViewById(R.id.ivLight)
