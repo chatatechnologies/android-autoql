@@ -85,10 +85,7 @@ class ChatAdapter(
 
 	override fun deleteQuery(position: Int)
 	{
-		with(model)
-		{
-			removeAt(position)
-			notifyItemChanged(position)
-		}
+		model.removeAt(position)
+		notifyItemRemoved(position)
 	}
 }

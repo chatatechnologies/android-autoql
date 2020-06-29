@@ -131,6 +131,7 @@ open class BaseHolder(
 			{
 				if (simpleQuery.message.isNotEmpty())
 				{
+					rlDelete?.visibility = View.VISIBLE
 					simpleQuery.message
 				}
 				else
