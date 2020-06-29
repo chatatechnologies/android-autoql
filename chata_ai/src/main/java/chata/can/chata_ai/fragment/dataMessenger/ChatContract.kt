@@ -14,7 +14,7 @@ interface ChatContract
 
 	interface RenderView: VoiceView
 	{
-		fun addChatMessage(typeView: Int, message: String)
+		fun addChatMessage(typeView: Int, message: String, query: String)
 		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 		//fun scrollToPosition()
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)

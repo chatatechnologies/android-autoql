@@ -35,6 +35,7 @@ import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
+import org.json.JSONObject
 import java.net.URLEncoder
 
 class DataMessengerFragment: BaseFragment(), ChatContract.View
@@ -142,9 +143,14 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
-	override fun addChatMessage(typeView: Int, message: String)
+	override fun addChatMessage(typeView: Int, message: String, query: String)
 	{
-		val chatData = ChatData(typeView, message)
+		val json = JSONObject().apply {
+			put("query", query)
+		}
+		val simpleQuery = SimpleQuery(json)
+		simpleQuery.typeView = typeView
+		val chatData = ChatData(typeView, message, simpleQuery)
 		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
@@ -210,7 +216,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "All invoices last 4 types"
+				val urlDemo = "Totel salas"
 //				val urlDemo = ""
 				setText(urlDemo)
 			}

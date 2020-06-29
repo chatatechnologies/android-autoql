@@ -116,7 +116,7 @@ class SuggestionHolder(
 			setPadding(15,15,15,15)
 			text = content
 			setOnClickListener {
-				view.addChatMessage(2, content)
+				//view.addChatMessage(2, content)
 				val mInfoHolder = hashMapOf<String, Any>("query" to content)
 				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
 			}

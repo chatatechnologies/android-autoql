@@ -71,7 +71,14 @@ open class BaseHolder(
 					rlDelete?.visibility = View.GONE
 					tvContent.text = item.message
 
-					tvContentTop.visibility = View.GONE
+					item.simpleQuery?.let {
+						tvContentTop.visibility = View.VISIBLE
+						tvContentTop.text = it.query
+						rlDelete?.visibility = View.VISIBLE
+					} ?: run {
+						tvContentTop.visibility = View.GONE
+						rlDelete?.visibility = View.GONE
+					}
 				}
 				else
 				{
