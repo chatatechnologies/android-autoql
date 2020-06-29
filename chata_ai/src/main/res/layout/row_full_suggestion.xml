@@ -20,44 +20,67 @@
 			android:padding="8dp"/>
 	</RelativeLayout>
 
-	<LinearLayout
+	<RelativeLayout
 		android:layout_below="@id/rvContentTop"
-		android:id="@+id/llContent"
 		android:layout_height="wrap_content"
-		android:layout_margin="5dp"
-		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:padding="5dp"
-		tools:ignore="UselessParent">
-		<TextView
-			android:id="@+id/tvContent"
-			android:layout_height="wrap_content"
-			android:layout_margin="5dp"
-			android:layout_width="wrap_content"/>
+		android:layout_width="match_parent">
+
 		<LinearLayout
-			android:id="@+id/llSuggestion"
+			android:id="@+id/llContent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="12dp"
+			android:layout_marginRight="12dp"
+			android:layout_marginTop="28dp"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
-			android:padding="5dp"/>
-		<RelativeLayout
-			android:id="@+id/rlRunQuery"
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent">
+			android:padding="5dp"
+			tools:ignore="UselessParent">
 			<TextView
-				android:id="@+id/tvRunQuery"
-				android:layout_centerInParent="true"
+				android:id="@+id/tvContent"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="@string/run_query"
-				android:textSize="14sp"/>
+				android:layout_margin="5dp"
+				android:layout_width="wrap_content"/>
+			<LinearLayout
+				android:id="@+id/llSuggestion"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="vertical"
+				android:padding="5dp"/>
+			<RelativeLayout
+				android:id="@+id/rlRunQuery"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent">
+				<TextView
+					android:id="@+id/tvRunQuery"
+					android:layout_centerInParent="true"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="@string/run_query"
+					android:textSize="14sp"/>
+				<ImageView
+					android:contentDescription="@null"
+					android:layout_toStartOf="@id/tvRunQuery"
+					android:layout_centerVertical="true"
+					android:layout_height="20dp"
+					android:layout_width="20dp"
+					android:src="@drawable/ic_play"/>
+			</RelativeLayout>
+		</LinearLayout>
+
+		<RelativeLayout
+			android:layout_alignParentEnd="true"
+			android:id="@+id/rlDelete"
+			android:layout_margin="5dp"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
 			<ImageView
 				android:contentDescription="@null"
-				android:layout_toStartOf="@id/tvRunQuery"
-				android:layout_centerVertical="true"
-				android:layout_height="20dp"
-				android:layout_width="20dp"
-				android:src="@drawable/ic_play"/>
+				android:id="@+id/ivDelete"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_delete"
+				android:padding="4dp"/>
 		</RelativeLayout>
-	</LinearLayout>
+
+	</RelativeLayout>
 </RelativeLayout>

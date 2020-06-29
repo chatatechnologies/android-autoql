@@ -134,7 +134,6 @@
 				android:src="@drawable/ic_delete"
 				android:padding="4dp"/>
 		</RelativeLayout>
+
 	</RelativeLayout>
-
-
 </RelativeLayout>

@@ -11,12 +11,8 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 	val mapSuggestion = HashMap<String, ArrayList<String>>()
 	init {
 		initQuery = json.optStringInList(arrayListOf("query", "text"))
-//		if (json.has("full_suggestion"))
-//		if (json.has("replacements"))
 		if (json.hasInList(arrayListOf("full_suggestion","replacements")))
 		{
-//			val jaSuggestion = json.getJSONArray("full_suggestion")
-//			val jaSuggestion = json.getJSONArray("replacements")
 			val jaSuggestion = json.optJSONArrayInList(arrayListOf("full_suggestion", "replacements"))
 			for (index in 0 until jaSuggestion.length())
 			{
@@ -25,13 +21,12 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 				val end = jsonItem.getInt("end")
 
 				val key = initQuery.substring(start, end)
-				if (jsonItem.has("suggestion") )
+				if (jsonItem.has("suggestion"))
 				{
 					val suggestion = jsonItem.getString("suggestion")
 					mapSuggestion[key] = ArrayList()
 					mapSuggestion[key]?.add(suggestion)
 				}
-//				else if (jsonItem.has("suggestion_list"))
 				else if (jsonItem.hasInList(arrayListOf("suggestion_list", "suggestions")))
 				{
 					mapSuggestion[key] = ArrayList()

@@ -27,8 +27,8 @@ open class BaseHolder(
 
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
-	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
-	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
+	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
+	val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 
 	override fun onPaint()
 	{
