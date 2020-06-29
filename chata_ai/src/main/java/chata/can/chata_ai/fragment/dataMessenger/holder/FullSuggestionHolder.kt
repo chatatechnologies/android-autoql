@@ -28,7 +28,7 @@ class FullSuggestionHolder(
 	private val view: ChatContract.View,
 	private val adapterView: ChatAdapterContract?,
 	private val servicePresenter: ChatServicePresenter
-): BaseHolder(itemView), View.OnClickListener
+): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)

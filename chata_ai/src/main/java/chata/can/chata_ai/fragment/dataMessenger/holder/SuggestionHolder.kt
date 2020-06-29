@@ -18,13 +18,16 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(
 	itemView: View,
 	private val view: ChatContract.View,
+	private val adapterView: ChatAdapterContract?,
 	private val servicePresenter: ChatServicePresenter
 ): BaseHolder(itemView)
 {
@@ -50,6 +53,12 @@ class SuggestionHolder(
 			ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
+
+		rlDelete?.let {
+			it.backgroundGrayWhite()
+			it.setOnClickListener(this)
+		}
+		ivDelete?.setColorFilter()
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
@@ -110,6 +119,22 @@ class SuggestionHolder(
 				view.addChatMessage(2, content)
 				val mInfoHolder = hashMapOf<String, Any>("query" to content)
 				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
+			}
+		}
+	}
+
+	override fun onClick(v: View?)
+	{
+		v?.let {
+			when(it.id)
+			{
+				R.id.rlDelete ->
+				{
+					//region delete query
+					adapterView?.deleteQuery(adapterPosition)
+					//endregion
+				}
+				else -> {}
 			}
 		}
 	}

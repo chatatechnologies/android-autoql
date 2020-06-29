@@ -67,6 +67,7 @@ class ChatAdapter(
 				SuggestionHolder(
 					layoutInflater.inflate(R.layout.row_suggestion, nullValue),
 					view,
+					this,
 					servicePresenter)
 			}
 			TypeChatView.FULL_SUGGESTION_VIEW ->
