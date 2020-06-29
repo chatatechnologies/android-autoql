@@ -56,6 +56,22 @@
 			android:visibility="visible">
 			<ImageView
 				android:contentDescription="@null"
+				android:id="@+id/ivTable"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_table"
+				android:padding="4dp"
+				android:visibility="gone"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivPivot"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_pivot_table"
+				android:padding="4dp"
+				android:visibility="gone"/>
+			<ImageView
+				android:contentDescription="@null"
 				android:id="@+id/ivBar"
 				android:layout_height="40dp"
 				android:layout_width="40dp"
@@ -84,22 +100,6 @@
 				android:layout_height="40dp"
 				android:layout_width="40dp"
 				android:src="@drawable/ic_pie"
-				android:padding="4dp"
-				android:visibility="gone"/>
-			<ImageView
-				android:contentDescription="@null"
-				android:id="@+id/ivTable"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_table"
-				android:padding="4dp"
-				android:visibility="gone"/>
-			<ImageView
-				android:contentDescription="@null"
-				android:id="@+id/ivPivot"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_pivot_table"
 				android:padding="4dp"
 				android:visibility="gone"/>
 			<ImageView

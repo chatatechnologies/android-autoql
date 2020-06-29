@@ -9,11 +9,11 @@ object ConfigActions
 	 */
 	val biConfig = arrayListOf(
 		R.id.ivPivot,
+		R.id.ivTable,
 		R.id.ivColumn,
 		R.id.ivBar,
 		R.id.ivLine,
-		R.id.ivPie,
-		R.id.ivTable)
+		R.id.ivPie)
 
 	/**
 	 * configActions = 2
@@ -29,9 +29,9 @@ object ConfigActions
 	 */
 	val triConfig = arrayListOf(
 		R.id.ivPivot,
+		R.id.ivTable,
 		R.id.ivColumn,
 		R.id.ivBar,
-		R.id.ivTable,
 		R.id.ivHeat,
 		R.id.ivBubble)
 
