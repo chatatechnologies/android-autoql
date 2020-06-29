@@ -50,6 +50,9 @@ class FullSuggestionHolder(
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
 		rlRunQuery.backgroundGrayWhite()
+
+		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
+		llContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
