@@ -62,12 +62,12 @@ object TableHtmlBuilder
 							}
 							else
 							{
-								"_DELETE_"
+								"_--_"
 							}
 						}?: ""
 					}
 
-				if (valueRow != "_DELETE_")
+				if (valueRow != "_--_")
 					sRow.append("<td>$valueRow</td>")
 			}
 			numRows++

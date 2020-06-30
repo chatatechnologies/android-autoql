@@ -14,9 +14,7 @@ import org.json.JSONObject
 
 class TwiceDrillPresenter(
 	private var contract: DrillDownContract,
-	private val queryBase: QueryBase,
-	private val value1: String,
-	private val value2: String
+	private val queryBase: QueryBase
 ): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
@@ -32,13 +30,12 @@ class TwiceDrillPresenter(
 		if (jsonObject != null)
 		{
 			val queryBase = QueryBase(jsonObject)
-			queryBase.hasDrillDown = false
-
+			//queryBase.hasDrillDown = false
 			contract.loadDrillDown(queryBase)
 		}
 	}
 
-	fun getQueryDrillDown()
+	fun getQueryDrillDown(value1: String, value2: String = "")
 	{
 		val queryId = queryBase.queryId
 		with(DataMessenger)

@@ -3,6 +3,7 @@ package chata.can.chata_ai.dialog.twiceDrill
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
@@ -16,8 +17,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 class TwiceDrillDialog(
 	context: Context,
 	private val queryBase: QueryBase,
-	value1: String,
-	value2: String = ""
+	private var value1: String,
+	private var value2: String = ""
 ): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
 {
 	private lateinit var ivCancel: ImageView
@@ -27,7 +28,7 @@ class TwiceDrillDialog(
 	private lateinit var wbDrillDown1 : WebView
 	private lateinit var wbDrillDown2 : WebView
 
-	private val presenter = TwiceDrillPresenter(this, queryBase, value1, value2)
+	private val presenter = TwiceDrillPresenter(this, queryBase)
 
 	override fun onCreateView()
 	{
@@ -53,6 +54,9 @@ class TwiceDrillDialog(
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
+		ivLoad2.visibility = View.VISIBLE
+		wbDrillDown2.visibility = View.GONE
+
 		if (queryBase.contentHTML.isEmpty())
 		{
 			queryBase.viewDrillDown = this@TwiceDrillDialog
@@ -85,15 +89,50 @@ class TwiceDrillDialog(
 		ivCancel.setColorFilter(
 			ContextCompat.getColor(context, R.color.chata_drawer_background_color_dark))
 		loadWebView()
-		presenter.getQueryDrillDown()
+		presenter.getQueryDrillDown(value1, value2)
 	}
 
-	@SuppressLint("SetJavaScriptEnabled")
+	@SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
 	private fun loadWebView()
 	{
 		wbDrillDown1.run {
 			settings.javaScriptEnabled = true
 			clearCache(true)
+			addJavascriptInterface(object
+			{
+				@JavascriptInterface
+				fun boundMethod(content: String)
+				{
+					queryBase.run {
+						when(displayType)
+						{
+							"bar", "column", "line", "pie" ->
+							{
+								val indexX = aXAxis.indexOf(content)
+								if (indexX != -1)
+								{
+									value1 = aXDrillDown[indexX]
+									presenter.getQueryDrillDown(value1)
+								}
+							}
+							"heatmap" ->
+							{
+								val aValues = content.split("_")
+								if (aValues.isNotEmpty())
+								{
+									val indexX = aXAxis.indexOf(aValues[0])
+									if (indexX != -1)
+									{
+										value1 = aValues[0]
+										value2 = aValues[1]
+										presenter.getQueryDrillDown(value1, value2)
+									}
+								}
+							}
+						}
+					}
+				}
+			},"Android")
 			loadDataWithBaseURL(null, queryBase.contentHTML,"text/html","UTF-8", null)
 			webViewClient = object: WebViewClient()
 			{

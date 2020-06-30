@@ -34,7 +34,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 						if (indexX != -1)
 						{
 							(context as? Activity)?.runOnUiThread {
-								TwiceDrillDialog(context, queryBase, aValues[0], aValues[1]).show()
+								TwiceDrillDialog(context, this, aValues[0], aValues[1]).show()
 							}
 						}
 					}
