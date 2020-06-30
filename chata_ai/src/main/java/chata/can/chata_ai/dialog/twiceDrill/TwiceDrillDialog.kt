@@ -16,8 +16,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 class TwiceDrillDialog(
 	context: Context,
 	private val queryBase: QueryBase,
-	private val value1: String,
-	private val value2: String = ""
+	value1: String,
+	value2: String = ""
 ): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
 {
 	private lateinit var ivCancel: ImageView
@@ -55,7 +55,7 @@ class TwiceDrillDialog(
 	{
 		if (queryBase.contentHTML.isEmpty())
 		{
-
+			queryBase.viewDrillDown = this@TwiceDrillDialog
 		}
 		else
 		{

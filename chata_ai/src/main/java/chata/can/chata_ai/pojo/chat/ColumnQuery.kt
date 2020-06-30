@@ -5,4 +5,5 @@ data class ColumnQuery(
 	var type: TypeDataQuery,
 	val name: String,
 	val displayName: String = "",
-	val isActive: Boolean)
+	val isActive: Boolean,
+	val isVisible: Boolean)

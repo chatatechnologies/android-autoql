@@ -15,15 +15,18 @@ object TableHtmlBuilder
 		val headTable = StringBuilder("<thead><tr>")
 		for (column in aColumn)
 		{
-			val cellHead = if (column.displayName.isNotEmpty())
+			if (column.isVisible)
 			{
-				column.displayName
+				val cellHead = if (column.displayName.isNotEmpty())
+				{
+					column.displayName
+				}
+				else
+				{
+					column.name.toCapitalColumn()
+				}
+				headTable.append("<th>$cellHead</th>")
 			}
-			else
-			{
-				column.name.toCapitalColumn()
-			}
-			headTable.append("<th>$cellHead</th>")
 		}
 		headTable.append("</tr></thead>")
 		//endregion
@@ -48,14 +51,24 @@ object TableHtmlBuilder
 							if (pos == iterator)
 							{
 								column = aColumn[pos]
-								cell.formatWithColumn(column)
 								iterator++
 								break
 							}
 						}
-						column?.let { cell.formatWithColumn(it) }?: ""
+						column?.let {
+							if (it.isVisible)
+							{
+								cell.formatWithColumn(it)
+							}
+							else
+							{
+								"_DELETE_"
+							}
+						}?: ""
 					}
-				sRow.append("<td>$valueRow</td>")
+
+				if (valueRow != "_DELETE_")
+					sRow.append("<td>$valueRow</td>")
 			}
 			numRows++
 			bodyTable.append("<tr>$sRow</tr>")
