@@ -14,7 +14,7 @@ object DashboardMaker
 	{
 		val isBi = dataForWebView.isBi
 		var backgroundColor = "#FFFFFF"
-		var textColor = "#FFFFFF"
+		var textColor = "#000000"
 
 		with(ThemeColor.currentColor)
 		{
@@ -246,7 +246,7 @@ ${dataForWebView.datePivot}
     });
     function drillDown(position){
         try {
-            webkit.messageHandlers.drillDown.postMessage(position);
+            Android.boundMethod(position);
         } catch(err) {
             console.log(position);
         };
@@ -661,16 +661,6 @@ function hideTables(idHide, idShow, type2) {
     ${'$'}( idShow ).show("slow");
     type = type2;
     changeGraphic(type2);
-}
-function drillDown(position)
-{
-    try
-    {
-        Android.boundMethod(position);
-    } catch(err)
-    {
-        console.log('The native context does not exist yet: '+position);
-    };
 }
 </script>
 </body>

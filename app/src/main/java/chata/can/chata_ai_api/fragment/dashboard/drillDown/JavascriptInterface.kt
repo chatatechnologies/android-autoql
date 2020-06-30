@@ -14,7 +14,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 		queryBase.run {
 			when(displayType)
 			{
-				"bar", "column", "line" ->
+				"bar", "column", "line", "pie" ->
 				{
 					val indexX = aXAxis.indexOf(content)
 					if (indexX != -1)
