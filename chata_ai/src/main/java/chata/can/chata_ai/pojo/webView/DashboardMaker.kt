@@ -125,10 +125,8 @@ ${dataForWebView.datePivot}
   var drillX = ${dataForWebView.drillX};
   var drillY = ${dataForWebView.drillY};
 
-  var drillX = [];
   var drillTableY = [];
   var drillSpecial = [];
-  var drillY = [];
   var colorAxis = "$textColor";
   var colorFill = "$backgroundColor";
   var color1 = "$color1";
@@ -504,7 +502,7 @@ ${dataForWebView.datePivot}
                         backgroundColor: colorGhost,
                          style: styleTooltip,
                         formatter: function () {
-                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[this.point.y])
+                             drillDown(""+drillX[this.point.x]+"_"+drillY[this.point.y])
                             return "";
                         }
                     },

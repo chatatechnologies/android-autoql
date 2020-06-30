@@ -25,6 +25,20 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 						}
 					}
 				}
+				"heatmap" ->
+				{
+					val aValues = content.split("_")
+					if (aValues.isNotEmpty())
+					{
+						val indexX = aXAxis.indexOf(aValues[0])
+						if (indexX != -1)
+						{
+							(context as? Activity)?.runOnUiThread {
+								TwiceDrillDialog(context, queryBase, aValues[0], aValues[1]).show()
+							}
+						}
+					}
+				}
 			}
 		}
 	}

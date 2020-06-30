@@ -14,9 +14,10 @@ import org.json.JSONObject
 
 class TwiceDrillPresenter(
 	private var contract: DrillDownContract,
-	private val queryBase: QueryBase
-)
-	: StatusResponse
+	private val queryBase: QueryBase,
+	private val value1: String,
+	private val value2: String
+): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -37,15 +38,26 @@ class TwiceDrillPresenter(
 		}
 	}
 
-	fun getQueryDrillDown(value: String)
+	fun getQueryDrillDown()
 	{
 		val queryId = queryBase.queryId
 		with(DataMessenger)
 		{
 			val header = Authentication.getAuthorizationJWT()
-			val aColumn = arrayListOf(
-				hashMapOf("name" to queryBase.aColumn[0].name, "value" to value)
-			)
+
+			val aColumn = arrayListOf<HashMap<String, String>>()
+			when (queryBase.aColumn.size)
+			{
+				2 ->
+				{
+					aColumn.add(hashMapOf("name" to queryBase.aColumn[0].name, "value" to value1))
+				}
+				3 ->
+				{
+					aColumn.add(hashMapOf("name" to queryBase.aColumn[0].name, "value" to value1))
+					aColumn.add(hashMapOf("name" to queryBase.aColumn[1].name, "value" to value2))
+				}
+			}
 
 			val mParams = hashMapOf<String, Any>(
 				"columns" to aColumn,
