@@ -1,5 +1,6 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
+import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -12,6 +13,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class TwiceDrillPresenter(
+	private var contract: DrillDownContract,
 	private val queryBase: QueryBase
 )
 	: StatusResponse
@@ -30,6 +32,8 @@ class TwiceDrillPresenter(
 		{
 			val queryBase = QueryBase(jsonObject)
 			queryBase.hasDrillDown = false
+
+			contract.loadDrillDown(queryBase)
 		}
 	}
 
@@ -40,7 +44,6 @@ class TwiceDrillPresenter(
 		{
 			val header = Authentication.getAuthorizationJWT()
 			val aColumn = arrayListOf(
-				//hashMapOf("name" to queryBase.aColumn[0].name, "value" to queryBase.aXDrillDown[0])
 				hashMapOf("name" to queryBase.aColumn[0].name, "value" to value)
 			)
 

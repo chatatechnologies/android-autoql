@@ -20,10 +20,10 @@ class DrillDownDialog(
 	: BaseDialog(context, R.layout.dialog_drill_down),
 	DrillDownContract
 {
-	private var tvTitle: TextView ?= null
-	private var ivCancel: ImageView ?= null
-	private var ivLoad: GifView ?= null
-	private var wbDrillDown: WebView ?= null
+	private lateinit var tvTitle: TextView
+	private lateinit var ivCancel: ImageView
+	private lateinit var ivLoad: GifView
+	private lateinit var wbDrillDown: WebView
 
 	private val presenter = DrillDownPresenter(queryBase, this)
 
@@ -55,16 +55,16 @@ class DrillDownDialog(
 		}
 		else
 		{
-			wbDrillDown?.run {
+			wbDrillDown.run {
 				settings.javaScriptEnabled = true
 				clearCache(true)
-			loadDataWithBaseURL(null, queryBase.contentHTML,"text/html","UTF-8", null)
+				loadDataWithBaseURL(null, queryBase.contentHTML,"text/html","UTF-8", null)
 				webViewClient = object: WebViewClient()
 				{
 					override fun onPageFinished(view: WebView?, url: String?)
 					{
-						ivLoad?.visibility = View.GONE
-						wbDrillDown?.visibility = View.VISIBLE
+						ivLoad.visibility = View.GONE
+						wbDrillDown.visibility = View.VISIBLE
 					}
 				}
 			}
@@ -73,10 +73,10 @@ class DrillDownDialog(
 
 	private fun setData()
 	{
-		tvTitle?.text = queryBase.query
-		ivCancel?.setColorFilter(
+		tvTitle.text = queryBase.query
+		ivCancel.setColorFilter(
 			ContextCompat.getColor(context, R.color.chata_drawer_background_color_dark))
-		ivCancel?.setOnClickListener {
+		ivCancel.setOnClickListener {
 			dismiss()
 		}
 		presenter.getQueryDrillDown()

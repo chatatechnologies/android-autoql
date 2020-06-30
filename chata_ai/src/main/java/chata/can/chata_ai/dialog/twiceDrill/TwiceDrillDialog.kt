@@ -26,7 +26,7 @@ class TwiceDrillDialog(
 	private lateinit var wbDrillDown1 : WebView
 	private lateinit var wbDrillDown2 : WebView
 
-	private val presenter = TwiceDrillPresenter(queryBase)
+	private val presenter = TwiceDrillPresenter(this, queryBase)
 
 	override fun onCreateView()
 	{
@@ -52,7 +52,26 @@ class TwiceDrillDialog(
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
+		if (queryBase.contentHTML.isEmpty())
+		{
 
+		}
+		else
+		{
+			wbDrillDown2.run {
+				settings.javaScriptEnabled = true
+				clearCache(true)
+				loadDataWithBaseURL(null, queryBase.contentHTML,"text/html","UTF-8", null)
+				webViewClient = object: WebViewClient()
+				{
+					override fun onPageFinished(view: WebView?, url: String?)
+					{
+						ivLoad2.visibility = View.GONE
+						wbDrillDown2.visibility = View.VISIBLE
+					}
+				}
+			}
+		}
 	}
 
 	private fun setData()
