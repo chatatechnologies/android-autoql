@@ -21,7 +21,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 					{
 						val value = aXDrillDown[indexX]
 						(context as? Activity)?.runOnUiThread {
-							TwiceDrillDialog(context, queryBase).show()
+							TwiceDrillDialog(context, queryBase, value).show()
 						}
 					}
 				}

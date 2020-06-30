@@ -15,7 +15,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 
 class TwiceDrillDialog(
 	context: Context,
-	private val queryBase: QueryBase
+	private val queryBase: QueryBase,
+	private val value: String
 ): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
 {
 	private lateinit var ivCancel: ImageView
@@ -64,7 +65,7 @@ class TwiceDrillDialog(
 		ivCancel.setColorFilter(
 			ContextCompat.getColor(context, R.color.chata_drawer_background_color_dark))
 		loadWebView()
-		presenter.getQueryDrillDown()
+		presenter.getQueryDrillDown(value)
 	}
 
 	@SuppressLint("SetJavaScriptEnabled")

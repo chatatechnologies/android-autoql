@@ -33,14 +33,15 @@ class TwiceDrillPresenter(
 		}
 	}
 
-	fun getQueryDrillDown()
+	fun getQueryDrillDown(value: String)
 	{
 		val queryId = queryBase.queryId
 		with(DataMessenger)
 		{
 			val header = Authentication.getAuthorizationJWT()
 			val aColumn = arrayListOf(
-				hashMapOf("name" to queryBase.aColumn[0].name, "value" to queryBase.aXDrillDown[0])
+				//hashMapOf("name" to queryBase.aColumn[0].name, "value" to queryBase.aXDrillDown[0])
+				hashMapOf("name" to queryBase.aColumn[0].name, "value" to value)
 			)
 
 			val mParams = hashMapOf<String, Any>(
