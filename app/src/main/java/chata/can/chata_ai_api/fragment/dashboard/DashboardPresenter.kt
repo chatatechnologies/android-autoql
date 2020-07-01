@@ -99,7 +99,7 @@ class DashboardPresenter(
 				{
 					jsonObject.optJSONArray("array")?.let {
 						jsonArray1 ->
-						jsonArray1.optJSONObject(0)?.let {
+						jsonArray1.optJSONObject(1)?.let {
 							firstJSON ->
 							firstJSON.optJSONArray("data")?.let {
 								jaData ->
