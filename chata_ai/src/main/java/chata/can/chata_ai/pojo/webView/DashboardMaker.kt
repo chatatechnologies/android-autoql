@@ -323,8 +323,8 @@ ${dataForWebView.datePivot}
     }
             function pieType(){
        ${'$'}('.container, #container').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
-       chart.destroy()
-       chart = Highcharts.chart('container', defaultChart);
+       //chart.destroy()
+       //chart = Highcharts.chart('container', defaultChart);
            chart.update({
            chart: {
                type: "pie",

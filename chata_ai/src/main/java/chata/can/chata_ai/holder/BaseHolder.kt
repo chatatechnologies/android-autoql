@@ -68,7 +68,6 @@ open class BaseHolder(
 			{
 				if (item.message.isNotEmpty())
 				{
-					rlDelete?.visibility = View.GONE
 					tvContent.text = item.message
 
 					item.simpleQuery?.let {
