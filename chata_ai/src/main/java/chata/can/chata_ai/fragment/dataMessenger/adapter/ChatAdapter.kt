@@ -53,10 +53,6 @@ class ChatAdapter(
 		val layoutInflater = LayoutInflater.from(parent.context)
 		return when(viewType)
 		{
-			TypeChatView.RIGHT_VIEW ->
-			{
-				RightHolder(layoutInflater.inflate(R.layout.row_to_right, nullValue))
-			}
 			TypeChatView.WEB_VIEW ->
 			{
 				WebViewHolder(

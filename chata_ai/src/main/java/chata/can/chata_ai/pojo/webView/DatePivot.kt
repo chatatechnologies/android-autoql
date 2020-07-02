@@ -232,8 +232,6 @@ object DatePivot
 		//endregion
 
 		//region create table head
-		val _headTable = StringBuilder("<thead><tr>")
-		val columnProvider = aColumn[0]
 		val columnDate = aColumn[1]
 		val dollarColumn = aColumn[2]
 
