@@ -10,6 +10,11 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 object DashboardMaker
 {
+	fun String.tableOrPivot(): String
+	{
+		return if (isEmpty()) "idTableBasic" else "idTableDataPivot"
+	}
+
 	fun getHTML(dataForWebView: DataForWebView): String
 	{
 		val isBi = dataForWebView.isBi
@@ -34,9 +39,13 @@ object DashboardMaker
 			"\"$it\""
 		}
 
-		val typeChart = if(dataForWebView.type == "table" || dataForWebView.type.isEmpty())
-			if (dataForWebView.datePivot.isEmpty()) "idTableBasic" else "idTableDataPivot"
-		else dataForWebView.type
+		val typeChart = when(dataForWebView.type)
+		{
+			"table" -> dataForWebView.datePivot.tableOrPivot()
+			"pivot_table" -> "idTableDataPivot"
+			"" -> dataForWebView.datePivot.tableOrPivot()
+			else -> dataForWebView.type
+		}
 
 		return with(dataForWebView) {
 			"""<!DOCTYPE html>
