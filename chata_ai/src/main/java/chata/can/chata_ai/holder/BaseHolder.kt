@@ -71,8 +71,15 @@ open class BaseHolder(
 					tvContent.text = item.message
 
 					item.simpleQuery?.let {
-						tvContentTop.visibility = View.VISIBLE
-						tvContentTop.text = it.query
+						if (it.query.isNotEmpty())
+						{
+							tvContentTop.visibility = View.VISIBLE
+							tvContentTop.text = it.query
+						}
+						else
+						{
+							tvContentTop.visibility = View.GONE
+						}
 						rlDelete?.visibility = View.VISIBLE
 					} ?: run {
 						tvContentTop.visibility = View.GONE
@@ -114,7 +121,15 @@ open class BaseHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
-		tvContentTop.text = simpleQuery.query
+		if (simpleQuery.query.isNotEmpty())
+		{
+			tvContentTop.visibility = View.VISIBLE
+			tvContentTop.text = simpleQuery.query
+		}
+		else
+		{
+			tvContentTop.visibility = View.GONE
+		}
 		val message = when
 		{
 			simpleQuery.isSimpleText ->

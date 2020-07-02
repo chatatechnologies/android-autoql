@@ -202,7 +202,16 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
-		tvContentTop.text = simpleQuery.query
+		if (simpleQuery.query.isNotEmpty())
+		{
+			tvContentTop.visibility = View.VISIBLE
+			tvContentTop.text = simpleQuery.query
+		}
+		else
+		{
+			tvContentTop.visibility = View.GONE
+		}
+
 		queryBase = simpleQuery
 		addActionViews(simpleQuery.configActions)
 
