@@ -52,8 +52,8 @@ class ChatServicePresenter(
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.run {
-			val nameService = optString("nameService") ?: ""
-			if (nameService.isEmpty())
+			val codeService = optInt("CODE")
+			if (codeService == 400)
 			{
 				isLoading(false)
 				val textError = optString("RESPONSE") ?: ""
@@ -63,7 +63,7 @@ class ChatServicePresenter(
 						val jsonError = JSONObject(textError)
 						val message = jsonError.optString("message")
 						val query = optString("query") ?: ""
-						//getRelatedQueries(query)
+						getRelatedQueries(query)
 						view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 					}
 					catch (ex: Exception) { }
