@@ -26,7 +26,6 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(
 	itemView: View,
-	private val view: ChatContract.View,
 	private val adapterView: ChatAdapterContract?,
 	private val servicePresenter: ChatServicePresenter
 ): BaseHolder(itemView)
