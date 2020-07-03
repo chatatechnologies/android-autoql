@@ -323,20 +323,46 @@ ${dataForWebView.datePivot}
     }
             function pieType(){
        ${'$'}('.container, #container').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
-       //chart.destroy()
-       //chart = Highcharts.chart('container', defaultChart);
-           chart.update({
-           chart: {
-               type: "pie",
-               fill: colorGhost,
-               inverted: false
-           },
-
-           series: [{
-               colorByPoint: true,
-               data: dataChartBi
-           }]
-       });
+       chart.destroy()
+       var pieChart = {
+        chart: {
+					type: "pie",
+					fill: colorGhost,
+					inverted: false
+				},
+        title: subTitle,
+				subTitle: subTitle,
+				showInLegend: true,
+      	legend: false,
+      	dataLabels: {
+        	enabled: false
+				},
+				tooltip: {
+					backgroundColor: colorGhost,
+					style: styleTooltip,
+					formatter: function () {
+						if (dataChartBi.length > 0){
+							drillDown(categoriesX[this.point.x])
+						} else{
+							drillDown(drillX[this.point.y]);
+						}
+						return "";
+					}
+				},
+				plotOptions: {
+					pie: {
+						dataLabels: {
+							enabled: false
+						}
+					}
+				},
+				colors: colors,
+        series: [{
+					colorByPoint: true,
+					data: dataChartBi
+        }]
+       };
+       chart = Highcharts.chart('container', pieChart);
     }
     function lineType(){
         finalSize(false);
