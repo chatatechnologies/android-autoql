@@ -69,6 +69,16 @@ class SuggestionHolder(
 		if (item is ChatData)
 		{
 			item.simpleQuery?.let {
+				if (it.query.isNotEmpty())
+				{
+					tvContentTop.visibility = View.VISIBLE
+					tvContentTop.text = it.query
+				}
+				else
+				{
+					tvContentTop.visibility = View.GONE
+				}
+
 				if (it is QueryBase)
 				{
 					tvContentTop.text  = it.query
