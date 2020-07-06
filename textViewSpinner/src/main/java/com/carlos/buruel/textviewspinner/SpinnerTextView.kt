@@ -29,12 +29,17 @@ class SpinnerTextView: RelativeLayout
 
 	fun setText(text: String)
 	{
+		val span1 = SpannableString("uno dos tres")
+		span1.setSpan(getClickable(), 0, 3, 0 )
+		span1.setSpan(getClickable(), 4, 7, 0 )
+		tvContent.text = span1
+		tvContent.movementMethod = LinkMovementMethod.getInstance()
+
 		var ssb = SimpleSpanBuilder("Uno ")
-		val span1 = SpannableString(" dos ")
 		ssb += SimpleSpanBuilder.Span(" dos ")
 		ssb += SimpleSpanBuilder.Span(" tres ")
+		//tvContent.text = ssb.build()
 
-		tvContent.text = ssb.build()
 		//val spannable = SpannableString(text)
 		//spannable.setSpans(getClickable(), arrayListOf(Pair(0, 5), Pair(6, 15)))
 		//tvContent.text = spannable
@@ -45,15 +50,6 @@ class SpinnerTextView: RelativeLayout
 	{
 		val spannable = SpannableString("Hola ")
 		spannable.setSpan(getClickable(), 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-	}
-
-	private fun SpannableString.setSpans(clickable: ClickableSpan, aValues: ArrayList<Pair<Int, Int>>)
-	{
-		val ssb = SimpleSpanBuilder()
-		for (pair in aValues)
-		{
-			setSpan(clickable, pair.first, pair.second, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-		}
 	}
 
 	private fun getClickable(): ClickableSpan
