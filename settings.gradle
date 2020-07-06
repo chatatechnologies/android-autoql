@@ -1,2 +1,2 @@
-include ':app', ':chata_ai'
+include ':app', ':chata_ai', ':textViewSpinner'
 rootProject.name='ApiChata'

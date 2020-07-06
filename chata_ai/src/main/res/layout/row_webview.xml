@@ -118,6 +118,14 @@
 				android:src="@drawable/ic_bubble"
 				android:padding="4dp"
 				android:visibility="gone"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivArea"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_area"
+				android:padding="4dp"
+				android:visibility="gone"/>
 		</LinearLayout>
 
 		<RelativeLayout

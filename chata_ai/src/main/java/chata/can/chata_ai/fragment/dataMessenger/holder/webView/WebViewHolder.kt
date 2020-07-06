@@ -45,6 +45,7 @@ class WebViewHolder(
 	private val ivPivot = itemView.findViewById<ImageView>(R.id.ivPivot) ?: null
 	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
 	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
+	private var ivArea = itemView.findViewById<ImageView>(R.id.ivArea) ?: null
 	private val aDefaultActions =
 		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable, ivHeat, ivBubble)
 
@@ -235,6 +236,7 @@ class WebViewHolder(
 		ivPivot?.setColorFilter()
 		ivHeat?.setColorFilter()
 		ivBubble?.setColorFilter()
+		ivArea?.setColorFilter()
 		ivDelete?.setColorFilter()
 	}
 
