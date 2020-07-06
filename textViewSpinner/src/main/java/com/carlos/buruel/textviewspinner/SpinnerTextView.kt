@@ -3,7 +3,6 @@ package com.carlos.buruel.textviewspinner
 import android.content.Context
 import android.graphics.Color
 import android.text.SpannableString
-import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -22,6 +21,7 @@ class SpinnerTextView: RelativeLayout
 		tvContent = TextView(context).apply {
 			layoutParams = LayoutParams(-1, -2)
 			gravity = Gravity.CENTER
+			highlightColor = Color.TRANSPARENT
 		}
 
 		addView(tvContent)
@@ -30,26 +30,11 @@ class SpinnerTextView: RelativeLayout
 	fun setText(text: String)
 	{
 		val span1 = SpannableString("uno dos tres")
-		span1.setSpan(getClickable(), 0, 3, 0 )
-		span1.setSpan(getClickable(), 4, 7, 0 )
+		span1.setSpan(getClickable(), 0, 3, 0)
+		span1.setSpan(getClickable(), 4, 7, 0)
+		span1.setSpan(getClickable(), 8, 12, 0)
 		tvContent.text = span1
 		tvContent.movementMethod = LinkMovementMethod.getInstance()
-
-		var ssb = SimpleSpanBuilder("Uno ")
-		ssb += SimpleSpanBuilder.Span(" dos ")
-		ssb += SimpleSpanBuilder.Span(" tres ")
-		//tvContent.text = ssb.build()
-
-		//val spannable = SpannableString(text)
-		//spannable.setSpans(getClickable(), arrayListOf(Pair(0, 5), Pair(6, 15)))
-		//tvContent.text = spannable
-		//tvContent.movementMethod = LinkMovementMethod.getInstance()
-	}
-
-	fun generateSpannable()
-	{
-		val spannable = SpannableString("Hola ")
-		spannable.setSpan(getClickable(), 0, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 	}
 
 	private fun getClickable(): ClickableSpan
@@ -59,6 +44,7 @@ class SpinnerTextView: RelativeLayout
 			override fun onClick(widget: View)
 			{
 				Toast.makeText(context, "hola", Toast.LENGTH_SHORT).show()
+				tvContent.highlightColor = Color.TRANSPARENT
 			}
 
 			override fun updateDrawState(textPaint: TextPaint)
