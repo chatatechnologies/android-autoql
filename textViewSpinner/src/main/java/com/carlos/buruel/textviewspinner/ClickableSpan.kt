@@ -8,12 +8,13 @@ import android.widget.TextView
 
 class ClickableSpan(
 	private val tvSource: TextView,
-	private val action: () -> Unit
+	private val aSuggestion: ArrayList<String>,
+	private val action: (ArrayList<String>) -> Unit
 ): ClickableSpan()
 {
 	override fun onClick(view: View)
 	{
-		action()
+		action(aSuggestion)
 		tvSource.highlightColor = Color.TRANSPARENT
 	}
 

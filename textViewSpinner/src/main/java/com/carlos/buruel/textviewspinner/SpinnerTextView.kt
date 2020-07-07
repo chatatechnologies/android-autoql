@@ -11,13 +11,14 @@ import android.view.Gravity
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
+import com.carlos.buruel.textviewspinner.model.Suggestion
+import java.lang.StringBuilder
 
 class SpinnerTextView: RelativeLayout
 {
 	private fun init()
 	{
 		spSelect = Spinner(context).apply {
-			adapter = getDataSuggestion()
 			background = null
 			layoutParams = LayoutParams(-1, -2)
 		}
@@ -44,27 +45,31 @@ class SpinnerTextView: RelativeLayout
 		addView(tvContent)
 	}
 
-	private fun getDataSuggestion(): ArrayAdapter<String>
+	private fun getDataSuggestion(aData: ArrayList<String>): ArrayAdapter<String>
 	{
-		val aData = arrayListOf("First word", "Second word")
 		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 	}
 
-	private fun callSpinnerClick()
+	private fun callSpinnerClick(aData: ArrayList<String>)
 	{
+		spSelect?.adapter = getDataSuggestion(aData)
 		spSelect?.performClick()
 	}
 
-	fun setText(text: String = "totel opereting expinses bu accaunt")
+	fun setText(mData: LinkedHashMap<String, Suggestion>)
 	{
-		val aData = arrayListOf(Pair(0, 5), Pair(6, 15), Pair(16, 24), Pair(25, 27), Pair(28, 35))
+		val text = mData.keys.joinTo(StringBuilder(""), separator = "") {
+			" $it"
+		}.trim()
+
 		tvContent?.run {
 			val span = SpannableString(text)
-			for (pair in aData)
+			for ((key, suggestion) in mData)
 			{
-				span.setSpan(ClickableSpan(this) {
-					callSpinnerClick()
-				}, pair.first, pair.second, 0)
+				span.setSpan(ClickableSpan(this, suggestion.aSuggestion) {
+					it.add("$key (Original term)")
+					callSpinnerClick(it)
+				}, suggestion.start, suggestion.end, 0)
 			}
 			setText(span)
 			movementMethod = LinkMovementMethod.getInstance()
@@ -98,4 +103,6 @@ class SpinnerTextView: RelativeLayout
 	private var spSelect: Spinner?= null
 
 	private var windowManager: WindowManager?= null
+
+	var linkedHashMap = linkedMapOf<String, ArrayList<String>>()
 }
