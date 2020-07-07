@@ -29,30 +29,14 @@ class SpinnerTextView: RelativeLayout
 
 	fun setText(text: String)
 	{
-		val span1 = SpannableString("uno dos tres")
-		span1.setSpan(getClickable(), 0, 3, 0)
-		span1.setSpan(getClickable(), 4, 7, 0)
-		span1.setSpan(getClickable(), 8, 12, 0)
+		val span1 = SpannableString("totel opereting expinses bu accaunt")
+		span1.setSpan(ClickableSpan(tvContent), 0, 5, 0)
+		span1.setSpan(ClickableSpan(tvContent), 6, 15, 0)
+		span1.setSpan(ClickableSpan(tvContent), 16, 24, 0)
+		span1.setSpan(ClickableSpan(tvContent), 25, 27, 0)
+		span1.setSpan(ClickableSpan(tvContent), 28, 35, 0)
 		tvContent.text = span1
 		tvContent.movementMethod = LinkMovementMethod.getInstance()
-	}
-
-	private fun getClickable(): ClickableSpan
-	{
-		return object: ClickableSpan()
-		{
-			override fun onClick(widget: View)
-			{
-				Toast.makeText(context, "hola", Toast.LENGTH_SHORT).show()
-				tvContent.highlightColor = Color.TRANSPARENT
-			}
-
-			override fun updateDrawState(textPaint: TextPaint)
-			{
-				textPaint.color = Color.parseColor("#0000EE")
-				textPaint.isUnderlineText = true
-			}
-		}
 	}
 
 	constructor(context: Context): super(context)
