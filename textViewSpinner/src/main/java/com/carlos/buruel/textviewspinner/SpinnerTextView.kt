@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
@@ -28,7 +29,7 @@ class SpinnerTextView: RelativeLayout
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
 
 			viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 			{
@@ -53,6 +54,20 @@ class SpinnerTextView: RelativeLayout
 	private fun callSpinnerClick(aData: ArrayList<String>)
 	{
 		spSelect?.adapter = getDataSuggestion(aData)
+		spSelect?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
+		{
+			override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+			{
+				parent?.getItemAtPosition(position)?.let {
+					if (it is String)
+					{
+
+					}
+				}
+			}
+
+			override fun onNothingSelected(p0: AdapterView<*>?) {}
+		}
 		spSelect?.performClick()
 	}
 
@@ -67,8 +82,10 @@ class SpinnerTextView: RelativeLayout
 			for ((key, suggestion) in mData)
 			{
 				span.setSpan(ClickableSpan(this, suggestion.aSuggestion) {
-					it.add("$key (Original term)")
-					callSpinnerClick(it)
+					val newArray = ArrayList<String>()
+					newArray.addAll(it)
+					newArray.add("$key (Original term)")
+					callSpinnerClick(newArray)
 				}, suggestion.start, suggestion.end, 0)
 			}
 			setText(span)
