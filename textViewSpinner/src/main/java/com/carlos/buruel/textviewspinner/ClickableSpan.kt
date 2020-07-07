@@ -7,7 +7,10 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 
-class ClickableSpan(private val tvSource: TextView): ClickableSpan()
+class ClickableSpan(
+	private val tvSource: TextView
+	//, val action: () -> Unit
+): ClickableSpan()
 {
 	override fun onClick(view: View)
 	{
