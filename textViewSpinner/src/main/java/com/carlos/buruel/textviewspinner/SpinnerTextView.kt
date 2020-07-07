@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
 
@@ -27,6 +28,16 @@ class SpinnerTextView: RelativeLayout
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+
+			viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+			{
+				override fun onGlobalLayout()
+				{
+					tvContent?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+					val height = tvContent?.measuredHeight ?: 0
+					spSelect?.dropDownVerticalOffset = height
+				}
+			})
 		}
 
 		addView(spSelect)
@@ -39,21 +50,24 @@ class SpinnerTextView: RelativeLayout
 		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 	}
 
-	fun setText(text: String)
+	private fun callSpinnerClick()
 	{
-		tvContent?.run {
-			val span1 = SpannableString("totel opereting expinses bu accaunt")
-//			span1.setSpan(ClickableSpan(this), 0, 5, 0)
-//			span1.setSpan(ClickableSpan(this), 6, 15, 0)
-//			span1.setSpan(ClickableSpan(this), 16, 24, 0)
-//			span1.setSpan(ClickableSpan(this), 25, 27, 0)
-//			span1.setSpan(ClickableSpan(this), 28, 35, 0)
-			setText(span1)
-			movementMethod = LinkMovementMethod.getInstance()
+		spSelect?.performClick()
+	}
 
-			setOnClickListener {
-				spSelect?.performClick()
+	fun setText(text: String = "totel opereting expinses bu accaunt")
+	{
+		val aData = arrayListOf(Pair(0, 5), Pair(6, 15), Pair(16, 24), Pair(25, 27), Pair(28, 35))
+		tvContent?.run {
+			val span = SpannableString(text)
+			for (pair in aData)
+			{
+				span.setSpan(ClickableSpan(this) {
+					callSpinnerClick()
+				}, pair.first, pair.second, 0)
 			}
+			setText(span)
+			movementMethod = LinkMovementMethod.getInstance()
 		}
 	}
 

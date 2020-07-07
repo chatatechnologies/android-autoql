@@ -5,16 +5,15 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 
 class ClickableSpan(
-	private val tvSource: TextView
-	//, val action: () -> Unit
+	private val tvSource: TextView,
+	private val action: () -> Unit
 ): ClickableSpan()
 {
 	override fun onClick(view: View)
 	{
-		Toast.makeText(tvSource.context, "hola", Toast.LENGTH_SHORT).show()
+		action()
 		tvSource.highlightColor = Color.TRANSPARENT
 	}
 
