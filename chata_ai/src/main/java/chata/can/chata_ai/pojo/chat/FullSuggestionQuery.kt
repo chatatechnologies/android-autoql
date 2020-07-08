@@ -3,12 +3,14 @@ package chata.can.chata_ai.pojo.chat
 import chata.can.chata_ai.extension.hasInList
 import chata.can.chata_ai.extension.optJSONArrayInList
 import chata.can.chata_ai.extension.optStringInList
+import com.carlos.buruel.textviewspinner.model.Suggestion
 import org.json.JSONObject
 
 class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 {
 	var initQuery = ""
 	val mapSuggestion = LinkedHashMap<String, ArrayList<String>>()
+	val aSuggestion = ArrayList<Suggestion>()
 	init {
 		initQuery = json.optStringInList(arrayListOf("query", "text"))
 		if (json.hasInList(arrayListOf("full_suggestion","replacements")))

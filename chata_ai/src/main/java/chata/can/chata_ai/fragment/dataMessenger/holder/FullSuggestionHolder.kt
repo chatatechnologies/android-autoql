@@ -112,7 +112,7 @@ class FullSuggestionHolder(
 							val llSelectedView = LinearLayout(context)
 							val tvFirst = TextView(context)
 							//region spinner
-							it.add("$currentText (Origin term)")//it.add(0, "$currentText (Origin term)")
+							it.add("$currentText (Origin term)")
 							val adapter = object: ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, it)
 							{
 								override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
