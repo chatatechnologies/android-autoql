@@ -51,7 +51,6 @@ class SpinnerTextView: RelativeLayout
 		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 	}
 
-	private var lastData: ArrayList<String> ?= null
 	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>?)
 	{
 		aData?.let {
@@ -80,13 +79,9 @@ class SpinnerTextView: RelativeLayout
 								{
 
 									val newText = currentText.toString().replace(beforeSection, currentSection)
-									suggestion.run {
-										start = newText.indexOf(currentSection)
-										end = suggestion.start + currentSection.length
-										text = currentSection
-										this.position = position
-									}
-									//update text with span
+									suggestion.text = currentSection
+									suggestion.position = position
+									updateIndex(newText)
 									setText()
 								}
 							}
@@ -128,6 +123,17 @@ class SpinnerTextView: RelativeLayout
 		}
 	}
 
+	private fun updateIndex(newText: String)
+	{
+		for (suggestion in aData)
+		{
+			suggestion.run {
+				start = newText.indexOf(text)
+				end = start + text.length
+			}
+		}
+	}
+
 	fun setWindowManager(_windowManager: WindowManager)
 	{
 		this.windowManager = _windowManager
@@ -156,5 +162,6 @@ class SpinnerTextView: RelativeLayout
 
 	private var windowManager: WindowManager?= null
 
-	lateinit var aData: ArrayList<Suggestion>
+	private lateinit var aData: ArrayList<Suggestion>
+	private var lastData: ArrayList<String> ?= null
 }
