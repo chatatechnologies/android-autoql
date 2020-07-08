@@ -5,16 +5,17 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import com.carlos.buruel.textviewspinner.model.Suggestion
 
 class ClickableSpan(
 	private val tvSource: TextView,
-	private val aSuggestion: ArrayList<String>,
-	private val action: (ArrayList<String>) -> Unit
+	private val suggestion: Suggestion,
+	private val action: (Suggestion) -> Unit
 ): ClickableSpan()
 {
 	override fun onClick(view: View)
 	{
-		action(aSuggestion)
+		action(suggestion)
 		tvSource.highlightColor = Color.TRANSPARENT
 	}
 

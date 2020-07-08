@@ -51,7 +51,7 @@ class SpinnerTextView: RelativeLayout
 		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 	}
 
-	private fun callSpinnerClick(aData: ArrayList<String>)
+	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>)
 	{
 		spSelect?.adapter = getDataSuggestion(aData)
 		spSelect?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
@@ -61,7 +61,25 @@ class SpinnerTextView: RelativeLayout
 				parent?.getItemAtPosition(position)?.let {
 					if (it is String)
 					{
+						val aIt = it.split("(")
+						val currentSection = aIt[0]
+						val start = suggestion.start
+						val end = suggestion.end
+						val currentText = tvContent?.text ?: ""
 
+						val beforeSection = currentText.substring(start, end)
+						val newText = currentText.toString().replace(beforeSection, currentSection)
+						suggestion.start = newText.indexOf(currentSection)
+						suggestion.end = suggestion.start + currentSection.length
+
+						if (beforeSection != currentSection)
+						{
+							mData[beforeSection]?.let { _ ->
+								mData[currentSection] = suggestion
+								mData.remove(beforeSection)
+							}
+							mData.toString()
+						}
 					}
 				}
 			}
@@ -71,25 +89,31 @@ class SpinnerTextView: RelativeLayout
 		spSelect?.performClick()
 	}
 
-	fun setText(mData: LinkedHashMap<String, Suggestion>)
+	fun setText(mData: LinkedHashMap<String, Suggestion?> ?= null)
 	{
-		val text = mData.keys.joinTo(StringBuilder(""), separator = "") {
-			" $it"
-		}.trim()
+		mData?.let {
+			this.mData = mData
+		}
 
-		tvContent?.run {
-			val span = SpannableString(text)
-			for ((key, suggestion) in mData)
-			{
-				span.setSpan(ClickableSpan(this, suggestion.aSuggestion) {
-					val newArray = ArrayList<String>()
-					newArray.addAll(it)
-					newArray.add("$key (Original term)")
-					callSpinnerClick(newArray)
-				}, suggestion.start, suggestion.end, 0)
+		this.mData.let {
+			itmData ->
+			val text = itmData.keys.joinTo(StringBuilder(""), separator = "") {
+				" $it"
+			}.trim()
+
+			tvContent?.run {
+				val span = SpannableString(text)
+				for ((_, suggestion) in itmData)
+				{
+					suggestion?.let {
+						span.setSpan(ClickableSpan(this, suggestion) {
+							callSpinnerClick(suggestion, it.aSuggestion)
+						}, suggestion.start, suggestion.end, 0)
+					}
+				}
+				setText(span)
+				movementMethod = LinkMovementMethod.getInstance()
 			}
-			setText(span)
-			movementMethod = LinkMovementMethod.getInstance()
 		}
 	}
 
@@ -121,5 +145,5 @@ class SpinnerTextView: RelativeLayout
 
 	private var windowManager: WindowManager?= null
 
-	var linkedHashMap = linkedMapOf<String, ArrayList<String>>()
+	lateinit var mData: LinkedHashMap<String, Suggestion?>
 }
