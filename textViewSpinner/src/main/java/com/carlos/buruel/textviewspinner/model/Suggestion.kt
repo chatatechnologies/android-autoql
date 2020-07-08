@@ -5,3 +5,6 @@ class Suggestion(
 	var start: Int,
 	var end: Int,
 	val aSuggestion: ArrayList<String>?)
+{
+	var position = 0
+}

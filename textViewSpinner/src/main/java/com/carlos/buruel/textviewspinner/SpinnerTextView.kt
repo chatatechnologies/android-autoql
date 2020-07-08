@@ -51,36 +51,45 @@ class SpinnerTextView: RelativeLayout
 		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 	}
 
+	private var lastData: ArrayList<String> ?= null
 	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>?)
 	{
 		aData?.let {
-			spSelect?.adapter = getDataSuggestion(aData)
+			if (lastData != aData)
+			{
+				lastData = aData
+				spSelect?.adapter = getDataSuggestion(aData)
+			}
 			spSelect?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
 			{
 				override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
 				{
-					parent?.getItemAtPosition(position)?.let {
-						if (it is String)
-						{
-//						val aIt = it.split("(")
-//						val currentSection = aIt[0]
-//						val start = suggestion.start
-//						val end = suggestion.end
-//						val currentText = tvContent?.text ?: ""
-//
-//						val beforeSection = currentText.substring(start, end)
-//						val newText = currentText.toString().replace(beforeSection, currentSection)
-//						suggestion.start = newText.indexOf(currentSection)
-//						suggestion.end = suggestion.start + currentSection.length
-//
-//						if (beforeSection != currentSection)
-//						{
-//							mData[beforeSection]?.let { _ ->
-//								mData[currentSection] = suggestion
-//								mData.remove(beforeSection)
-//							}
-//							mData.toString()
-//						}
+					if (suggestion.position != position)
+					{
+						parent?.getItemAtPosition(position)?.let {
+							if (it is String)
+							{
+								val aIt = it.split(" (")
+								val currentText = tvContent?.text ?: ""
+								val currentSection = aIt[0]
+								val newStart = suggestion.start
+								val newEnd = suggestion.end
+								val beforeSection = currentText.substring(newStart, newEnd)
+
+								if (beforeSection != currentSection)
+								{
+
+									val newText = currentText.toString().replace(beforeSection, currentSection)
+									suggestion.run {
+										start = newText.indexOf(currentSection)
+										end = suggestion.start + currentSection.length
+										text = currentSection
+										this.position = position
+									}
+									//update text with span
+									setText()
+								}
+							}
 						}
 					}
 				}
@@ -97,14 +106,14 @@ class SpinnerTextView: RelativeLayout
 			this.aData = aData
 		}
 
-		aData?.let {
+		this.aData.let {
 			itData ->
 			val text = itData.joinTo(StringBuilder(""), separator = "") {
 				" ${it.text}"
 			}.trim()
 			tvContent?.run {
 				val span = SpannableString(text)
-				for (suggestion in aData)
+				for (suggestion in this@SpinnerTextView.aData)
 				{
 					if (suggestion.aSuggestion != null)
 					{
