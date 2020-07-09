@@ -10,9 +10,9 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 object DashboardMaker
 {
-	fun String.tableOrPivot(): String
+	private fun String.tableOrPivot(): String
 	{
-		return if (isEmpty()) "idTableBasic" else "idTableDataPivot"
+		return if (isEmpty()) "#idTableBasic" else "#idTableDataPivot"
 	}
 
 	fun getHTML(dataForWebView: DataForWebView): String
@@ -42,7 +42,7 @@ object DashboardMaker
 		val typeChart = when(dataForWebView.type)
 		{
 			"table" -> dataForWebView.datePivot.tableOrPivot()
-			"pivot_table" -> "idTableDataPivot"
+			"pivot_table" -> "#idTableDataPivot"
 			"" -> dataForWebView.datePivot.tableOrPivot()
 			else -> dataForWebView.type
 		}
@@ -58,8 +58,8 @@ object DashboardMaker
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.js\"></script>\n" +
-				"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
-				"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
+"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
+"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -68,8 +68,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 <body>
 <style type="text/css">
     body, table, th{
-        background: $backgroundColor !important;
-        color: $textColor !important;
+        background: #ffffff!important;
+        color: #5D5D5D!important;
     }
     table {
         padding-top: 0px!important;
@@ -98,7 +98,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         padding: 3px;
         text-align: center!important;
     }
-		td, th {
+    td, th {
       font-size: 16px;
       max-width: 200px;
       white-space: nowrap;
@@ -117,7 +117,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         display: none;
     }
     .highcharts-background{
-        fill: $backgroundColor !important;
+        fill: #ffffff!important;
     }
     .splitView{
         position: relative;
@@ -125,144 +125,144 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 </style>
 <div class="splitView">
 <div id='container' class='container'></div>
-${dataForWebView.table}
-${dataForWebView.datePivot}
+    ${dataForWebView.datePivot}
+    ${dataForWebView.table}
 </div>
 <script>
-  var type = '$typeChart';
-  var xAxis = '${dataForWebView.xAxis}';
-  var yAxis = '${dataForWebView.yAxis}';
-
-  var dataChartBi = ${if (isBi) dataChartBi else "[]"};
-  var datachartTri = ${if (isBi) "[]" else dataChartBi};
-
-  var dataChartLine = ${if (isBi) catY else catYS};
-  var categoriesX = ${ if (isBi) catX else catY};
-  var categoriesY = ${if (isBi) catYS else catX};
-
-  var drillX = ${dataForWebView.drillX};
-  var drillY = ${dataForWebView.drillY};
-
-  var drillTableY = [];
-  var drillSpecial = [];
-  var colorAxis = "$textColor";
-  var colorFill = "$backgroundColor";
-  var color1 = "$color1";
-  var actual = "";
-  var colors = $sColors;
-  var chart;
-  var colorGhost = 'rgba(0,0,0,0)';
-  var styleTooltip = {color: '#fff', display: 'none'}
-  var subTitle = { text:'' }
-  var yAxisTitle = {
-    title: {
-        text: yAxis,
-        style: {
-                color: colorAxis
-        }
-    }
-  }
-  var xAxisStyle = { color: colorAxis };
-  var defaultChart =
-    {
-      chart: {
-        backgroundColor: colorGhost,
-        fill: colorGhost,
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: "column"
-      },
-      title: subTitle,
-      subTitle: subTitle,
-      xAxis: {
-        gridLineWidth: 0,
-        categories: categoriesX,
-        labels: {
-          rotation: 50,
-          style: {
-                  color: colorAxis,
-                   fontSize:'8px'
-          }
-        },
-
+    var type = '$typeChart';
+    var xAxis = '${dataForWebView.xAxis}';
+    var yAxis = '${dataForWebView.yAxis}';
+		
+    var dataChartBi = ${if (isBi) dataChartBi else "[]"};
+    var datachartTri = ${if (isBi) "[]" else dataChartBi};
+		
+    var dataChartLine = ${if (isBi) catY else catYS};
+		var categoriesX = ${ if (isBi) catX else catY};
+		var categoriesY = ${if (isBi) catYS else catX};
+		
+    var drillX = ${dataForWebView.drillX};
+    var drillY = ${dataForWebView.drillY};
+		
+    var drillTableY = [];
+    var drillSpecial = [];
+    var colorAxis = "$textColor";
+    var colorFill = "$backgroundColor";
+		var color1 = "$color1";
+		var actual = "";
+		var colors = $sColors;
+		var chart;
+		var colorGhost = 'rgba(0,0,0,0)';
+		var styleTooltip = {color: '#fff', display: 'none'}
+		var subTitle = { text:'' }
+		var yAxisTitle = {
         title: {
-          text: xAxis,
-          style: {
-                  color: colorAxis
-              }
+            text: yAxis,
+            style: {
+                    color: colorAxis
+            }
         }
-      },
-      yAxis: {
-        gridLineWidth: 0,
-        labels: {
-          style: {
-              color: colorAxis,
-              fontSize:'8px'
-          }
-        },
-        title: yAxisTitle
-      },
-      colorAxis: {
-        reversed: false,
-        min: 0,
-        minColor: '#FFFFFF',
-        maxColor: '#26a7df'
-      },
-      showInLegend: true,
-      legend: false,
-      dataLabels: {
-        enabled: false
-      },
-      tooltip: {
-        backgroundColor: colorGhost,
-        style: styleTooltip,
-        formatter: function () {
-          if (dataChartBi.length > 0){
-               drillDown(categoriesX[this.point.x])
-          } else{
-               drillDown(drillX[this.point.y]);
-          }
-          return "";
-        }
-      },
-      plotOptions: {
-        pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: false,
-          style: {
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-          }
-        },
-          showInLegend: true
-        }
-      },
-      colors: colors,
-      series: [0]
-    };
-    ${'$'}('td').click(function() {
-      triTypeTable = datachartTri.length > 0;
-      var ${'$'}this = ${'$'}(this);
-      var row = ${'$'}this.closest('tr').index();
-      var column = ${'$'}this.closest('td').index();
-      var firstColumn = ${'$'}this.closest('tr');
-      var finalText = firstColumn[0].firstChild.innerText;
-      var strDate = firstColumn[0].children[1].innerText;
-      if (type == "idTableDataPivot" ){
-          finalText += "_"+drillSpecial[column - 1];
-      } else if (type == "idTableDatePivot" ) {
-          finalText = ${'$'}this[0].childNodes[0].id
-      } else if (type == "idTableBascic" && triTypeTable ) {
-          finalText += "_"+drillTableY[row];
       }
-      //var d = new Date( Date.parse('2017 2') );
-      drillDown( finalText );
+    var xAxisStyle = { color: colorAxis };
+    var defaultChart =
+      {
+        chart: {
+          backgroundColor: colorGhost,
+          fill: colorGhost,
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "column"
+        },
+        title: subTitle,
+        subTitle: subTitle,
+        xAxis: {
+          gridLineWidth: 0,
+          categories: categoriesX,
+          labels: {
+            rotation: -60,
+            style: {
+                    color: colorAxis,
+                     fontSize:'16px'
+            }
+          },
+
+          title: {
+            text: xAxis,
+            style: {
+                    color: colorAxis
+                }
+          }
+        },
+        yAxis: {
+          gridLineWidth: 0,
+          labels: {
+            style: {
+                color: colorAxis,
+                fontSize:'16px'
+            }
+          },
+          title: yAxisTitle
+        },
+        colorAxis: {
+          reversed: false,
+          min: 0,
+          minColor: '#FFFFFF',
+          maxColor: '#26a7df'
+        },
+        showInLegend: true,
+        legend: false,
+        dataLabels: {
+          enabled: false
+        },
+        tooltip: {
+          backgroundColor: colorGhost,
+          style: styleTooltip,
+          formatter: function () {
+            if (dataChartBi.length > 0){
+                 drillDown(drillX[this.point.x])
+            } else{
+                 drillDown(drillX[this.point.y]);
+            }
+            return "";
+          }
+        },
+        plotOptions: {
+          pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false,
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          },
+            showInLegend: true
+          }
+        },
+        colors: colors,
+        series: [0]
+      };
+            ${'$'}('td').click(function() {
+            triTypeTable = datachartTri.length > 0;
+            var ${'$'}this = ${'$'}(this);
+            var row = ${'$'}this.closest('tr').index();
+            var column = ${'$'}this.closest('td').index();
+            var firstColumn = ${'$'}this.closest('tr');
+            var finalText = firstColumn[0].firstChild.innerText;
+            var strDate = firstColumn[0].children[1].innerText;
+            if (type == "idTableDataPivot" ){
+                finalText += "_"+drillSpecial[column - 1];
+            } else if (type == "idTableDatePivot" ) {
+                finalText = ${'$'}this[0].childNodes[0].id
+            } else if (type == "idTableBascic" && triTypeTable ) {
+                finalText += "_"+drillTableY[row];
+            }
+            //var d = new Date( Date.parse('2017 2') );
+           drillDown( finalText );
     });
     function drillDown(position){
         try {
-            Android.boundMethod(position);
+            webkit.messageHandlers.drillDown.postMessage(position);
         } catch(err) {
             console.log(position);
         };
@@ -331,47 +331,92 @@ ${dataForWebView.datePivot}
         }
     }
             function pieType(){
-       ${'$'}('.container, #container').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
+       ${'$'}('.container, #container').css({ "width": "99%", "position": "relative","height":"80%", "z-index": "0" });
        chart.destroy()
-       var pieChart = {
+       chart = Highcharts.chart('container', {
+          
         chart: {
-					type: "pie",
-					fill: colorGhost,
-					inverted: false
-				},
+          backgroundColor: colorGhost,
+          fill: colorGhost,
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "pie",
+          inverted: false
+        },
         title: subTitle,
-				subTitle: subTitle,
-				showInLegend: true,
-      	legend: false,
-      	dataLabels: {
-        	enabled: false
-				},
-				tooltip: {
-					backgroundColor: colorGhost,
-					style: styleTooltip,
-					formatter: function () {
-						if (dataChartBi.length > 0){
-							drillDown(categoriesX[this.point.x])
-						} else{
-							drillDown(drillX[this.point.y]);
-						}
-						return "";
-					}
-				},
-				plotOptions: {
-					pie: {
-						dataLabels: {
-							enabled: false
-						}
-					}
-				},
-				colors: colors,
+        subTitle: subTitle,
+        xAxis: {
+          gridLineWidth: 0,
+          categories: categoriesX,
+          labels: {
+            rotation: -60,
+            style: {
+                    color: colorAxis,
+                     fontSize:'16px'
+            }
+          },
+
+          title: {
+            text: xAxis,
+            style: {
+                    color: colorAxis
+                }
+          }
+        },
+        yAxis: {
+          gridLineWidth: 0,
+          labels: {
+            style: {
+                color: colorAxis,
+                fontSize:'16px'
+            }
+          },
+          title: yAxisTitle
+        },
+        colorAxis: {
+          reversed: false,
+          min: 0,
+          minColor: '#FFFFFF',
+          maxColor: '#26a7df'
+        },
+        showInLegend: true,
+        legend: false,
+        dataLabels: {
+          enabled: false
+        },
+        tooltip: {
+          backgroundColor: colorGhost,
+          style: styleTooltip,
+          formatter: function () {
+            if (dataChartBi.length > 0){
+                 drillDown(drillX[this.point.x])
+            } else{
+                 drillDown(drillX[this.point.y]);
+            }
+            return "";
+          }
+        },
+        plotOptions: {
+          pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false,
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          },
+            showInLegend: true
+          }
+        },
+        colors: colors,
         series: [{
-					colorByPoint: true,
-					data: dataChartBi
-        }]
-       };
-       chart = Highcharts.chart('container', pieChart);
+               colorByPoint: true,
+               data: dataChartBi
+           }]
+       });
+
     }
     function lineType(){
         finalSize(false);
@@ -409,12 +454,12 @@ ${dataForWebView.datePivot}
                                color: colorAxis,
                            }
                          },
-
+                       
                         title: {
                             text: xAxis,
                             style: {
                                color: colorAxis,
-                               fontSize:'8px'
+                               fontSize:'16px'
                            }
                         }
                     },
@@ -424,12 +469,12 @@ ${dataForWebView.datePivot}
                     series: dataChartLine,
                     tooltip: {
                         formatter: function () {
-                            drillDown(categoriesX[this.point.x])
+                            drillDown(drillX[this.point.x])
                             return "";
                         }
                     },
                 });
-
+                
         }
     }
     function biType(type,inverted){
@@ -441,16 +486,15 @@ ${dataForWebView.datePivot}
                         type: type,
                         inverted: inverted
                     },
-
+                    
                     xAxis: {
                          gridLineWidth: 0,
                          categories: categoriesX,
-												 reversed: false,
                          labels: {
-                           rotation: inverted ? 0 : 60,
+                           rotation: inverted ? 0 : -60,
                            style: xAxisStyle
                          },
-
+                         
                          title: {
                            text: xAxis
                          }
@@ -464,7 +508,7 @@ ${dataForWebView.datePivot}
                         backgroundColor: colorGhost,
                         style: styleTooltip,
                         formatter: function () {
-                            drillDown(categoriesX[this.point.x])
+                            drillDown(drillX[this.point.x])
                             return "";
                         }
                     }
@@ -483,10 +527,10 @@ ${dataForWebView.datePivot}
                          gridLineWidth: 0,
                          categories: categoriesX,
                          labels: {
-                           rotation:90,
+                           rotation:-60,
                            style: xAxisStyle
                          },
-
+                         
                          title: {
                            text: xAxis
                          }
@@ -508,7 +552,7 @@ ${dataForWebView.datePivot}
                         gridLineWidth: 0,
                         categories: categoriesX,
                         labels: {
-                            rotation: 50,
+                            rotation: -60,
                             step:1,
                             style: xAxisStyle
                         },
@@ -546,7 +590,7 @@ ${dataForWebView.datePivot}
                         backgroundColor: colorGhost,
                          style: styleTooltip,
                         formatter: function () {
-                             drillDown(""+drillX[this.point.x]+"_"+drillY[this.point.y])
+                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[this.point.y])
                             return "";
                         }
                     },
@@ -559,7 +603,7 @@ ${dataForWebView.datePivot}
                    }]
                 });
     }
-
+    
     function stackedType(invert){
         finalSize(invert);
         var rotation = invert ? 10 : 40
@@ -621,7 +665,7 @@ ${dataForWebView.datePivot}
                 });
     }
 function stackedArea(){
-
+    
     var rotation = 40
     chart.destroy();
             chart = Highcharts.chart('container', {
@@ -688,8 +732,8 @@ hideAll();
 function hideAll(){
     ${'$'}('table').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
     ${'$'}( "#idTableBasic, #idTableDataPivot, #idTableDatePivot, #container" ).hide();
-    if (type == "idTableBasic" || type == "idTableDataPivot" || type == "idTableDatePivot"){
-        ${'$'}("#"+type).show()
+    if (type == "#idTableBasic" || type == "#idTableDataPivot" || type == "#idTableDatePivot"){
+        ${'$'}(""+type+"").show()
     } else{
         ${'$'}("#container").show()
         changeGraphic(type);
@@ -699,15 +743,17 @@ function hideAll(){
     }
 }
 function hideTables(idHide, idShow, type2) {
-    ${'$'}( idHide ).hide("slow");
-    ${'$'}( idShow ).show("slow");
+    if (idHide != idShow){
+      ${'$'}( idHide ).hide(0);
+      ${'$'}( idShow ).show(0);
+    }
+    //${'$'}( idShow ).show("slow");
     type = type2;
     changeGraphic(type2);
 }
 </script>
 </body>
-</html>
-"""
+</html>"""
 		}
 	}
 }
