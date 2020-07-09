@@ -99,7 +99,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					val jaLevel2 = jaRows.optJSONArray(index)
 					for (index2 in 0 until jaLevel2.length())
 					{
-						val cell = jaLevel2.optString(index2, "")
+						val cell = if (jaLevel2.isNull(index2)) ""
+						else jaLevel2.optString(index2, "")
 						newRow.add(cell)
 					}
 					aRows.add(newRow)

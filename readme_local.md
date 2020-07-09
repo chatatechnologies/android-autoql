@@ -52,6 +52,9 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 - Total invoices: <b>table</b> -> $
 - Totel opereting expinses bu accaunt: <b>full suggestion</b>
 - pie chart total sales
+- total tickets by customer per month: stacked_area; stacked_line
+- jobs by area by customer: stacked_area; stacked_line
+- total revenue by month
 
 # Queries on dashboard (Title - Query)
 - (Historical Cash on Hand) - monthly cash on hand last 12 months
