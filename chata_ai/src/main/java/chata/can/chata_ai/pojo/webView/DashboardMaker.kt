@@ -89,7 +89,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         border-color: grey;
     }
     table {
-        font-size: 12px;
+        font-size: 16px;
     }
     tr td:first-child {
         text-align: center;
@@ -97,6 +97,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     td {
         padding: 3px;
         text-align: center!important;
+    }
+		td, th {
+      font-size: 16px;
+      max-width: 200px;
+      white-space: nowrap;
+      width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 0.5px solid #cccccc;
     }
     .green{
         color: #2ecc40;
