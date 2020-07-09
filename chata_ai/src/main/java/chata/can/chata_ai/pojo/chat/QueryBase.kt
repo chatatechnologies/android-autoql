@@ -202,8 +202,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 							3 -> {}
 							else -> {}
 						}
-						/*contentHTML = if (isDashboard) DashboardMaker.getHTML(dataForWebView)
-							else HtmlMarked.getHTML(dataForWebView)*/
 						contentHTML = DashboardMaker.getHTML(dataForWebView)
 						rowsTable = dataForWebView.rowsTable
 						rowsPivot = dataForWebView.rowsPivot

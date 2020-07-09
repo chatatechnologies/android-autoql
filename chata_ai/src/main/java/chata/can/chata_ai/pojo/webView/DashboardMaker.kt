@@ -262,7 +262,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     });
     function drillDown(position){
         try {
-            webkit.messageHandlers.drillDown.postMessage(position);
+            Android.boundMethod(position);
         } catch(err) {
             console.log(position);
         };
