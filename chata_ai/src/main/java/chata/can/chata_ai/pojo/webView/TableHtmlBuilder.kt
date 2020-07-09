@@ -42,7 +42,11 @@ object TableHtmlBuilder
 			for (cell in aRow)
 			{
 				val valueRow =
-					if (cell.isEmpty()) ""
+					if (cell.isEmpty())
+					{
+						iterator++
+						""
+					}
 					else
 					{
 						var column: ColumnQuery? = null
