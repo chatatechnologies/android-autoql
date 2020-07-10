@@ -6,6 +6,29 @@ import chata.can.chata_ai.pojo.chat.ColumnQuery
 
 object TableTriBuilder
 {
+	fun getMapDataTable(aDataTable: ArrayList<ArrayList<Any>>): LinkedHashMap<String, String>
+	{
+		val mData = LinkedHashMap<String, String>()
+		if (aDataTable.isNotEmpty())
+		{
+			aDataTable.firstOrNull()?.let {
+				for (data in aDataTable)
+				{
+					val x = data.getOrElse(0) { "" }.toString()
+					val y = data.getOrElse(1) { "" }.toString()
+					val value = data.getOrElse(2) { "" }.toString()
+					mData["${x}_$y"] = value
+				}
+			}
+		}
+		return mData
+	}
+
+	fun buildDataPivot()
+	{
+
+	}
+
 	fun generateDataTableTri(
 		aRows: ArrayList<ArrayList<String>>,
 		columns: ColumnQuery,
@@ -41,7 +64,7 @@ object TableTriBuilder
 			}
 
 			//val aNewRow = arrayListOf<Any>(indexX, indexY, value.toDoubleNotNull())
-			val aNewRow = arrayListOf<Any>(indexY, indexX, value.toDoubleNotNull())
+			val aNewRow = arrayListOf(indexY, indexX, value.toDoubleNotNull())
 			aDataTable.add(aNewRow)
 		}
 		return aDataTable

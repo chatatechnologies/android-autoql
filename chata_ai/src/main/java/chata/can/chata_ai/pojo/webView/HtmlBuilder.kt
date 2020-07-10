@@ -126,6 +126,7 @@ object HtmlBuilder
 				{
 					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
+					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
 					queryBase.isTri = true
