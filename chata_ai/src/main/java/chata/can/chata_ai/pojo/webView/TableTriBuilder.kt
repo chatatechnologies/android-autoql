@@ -1,7 +1,10 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.clearDecimals
+import chata.can.chata_ai.extension.formatDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 
 object TableTriBuilder
@@ -41,7 +44,8 @@ object TableTriBuilder
 			val sbRow = StringBuilder("<td>${categoryX.replace("\"", "")}</td>")
 			for (indexY in aCatY.indices)
 			{
-				val cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				cell = cell.clearDecimals()
 				sbRow.append("<td>$cell</td>")
 			}
 			sbBody.append("<tr>$sbRow</tr>")
