@@ -24,9 +24,29 @@ object TableTriBuilder
 		return mData
 	}
 
-	fun buildDataPivot()
+	fun buildDataPivot(
+		mDataPivot: LinkedHashMap<String, String>, aCatX: ArrayList<String>, aCatY: ArrayList<String>): String
 	{
+		val sbHead = StringBuilder("<thead><tr><th></th>")
+		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+			"<th>${it.replace("\"", "")}</th>"
+		})
+		sbHead.append("</tr></thead>")
 
+		val sbBody = StringBuilder("<tbody>")
+		for (indexY in aCatY.indices)
+		{
+			val y = aCatY[indexY]
+			val sbRow = StringBuilder("<td>${y.replace("\"", "")}</td>")
+			for (indexX in aCatX.indices)
+			{
+				val cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				sbRow.append("<td>$cell</td>")
+			}
+			sbBody.append("<tr>$sbRow</tr>")
+		}
+		sbBody.append("</tbody>")
+		return "<table id=\"idTableDataPivot\">$sbHead$sbBody</table>"
 	}
 
 	fun generateDataTableTri(
