@@ -1,10 +1,8 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.clearDecimals
-import chata.can.chata_ai.extension.formatDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 
 object TableTriBuilder

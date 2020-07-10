@@ -44,4 +44,17 @@ object ConfigActions
 		R.id.ivBar,
 		R.id.ivLine,
 		R.id.ivPie)
+
+	/**
+	 * configActions = 5
+	 */
+	val triStackedConfig = arrayListOf(
+		R.id.ivPivot,
+		R.id.ivHeat,
+		R.id.ivBubble
+//		,
+//		R.id.stackedBar,
+//		R.id.stackedColumn,
+//		R.id.stackedArea,
+	)
 }
