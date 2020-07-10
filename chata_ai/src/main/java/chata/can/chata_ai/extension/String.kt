@@ -88,7 +88,14 @@ fun String.formatWithColumn(
 		TypeDataQuery.QUANTITY ->
 		{
 			val tmp = toDoubleNotNull()
-			tmp.formatDecimals(SinglentonDrawer.quantityDecimals)
+			if ((tmp % 1.0) == 0.0)
+			{
+				tmp.formatDecimals(0)
+			}
+			else
+			{
+				tmp.formatDecimals(SinglentonDrawer.quantityDecimals)
+			}
 		}
 		TypeDataQuery.PERCENT ->
 		{
