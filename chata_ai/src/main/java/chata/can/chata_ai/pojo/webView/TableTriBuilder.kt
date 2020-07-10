@@ -17,7 +17,7 @@ object TableTriBuilder
 					val x = data.getOrElse(0) { "" }.toString()
 					val y = data.getOrElse(1) { "" }.toString()
 					val value = data.getOrElse(2) { "" }.toString()
-					mData["${x}_$y"] = value
+					mData["${y}_$x"] = value
 				}
 			}
 		}
@@ -25,7 +25,8 @@ object TableTriBuilder
 	}
 
 	fun buildDataPivot(
-		mDataPivot: LinkedHashMap<String, String>, aCatX: ArrayList<String>, aCatY: ArrayList<String>): String
+		mDataPivot: LinkedHashMap<String, String>, aCatX: ArrayList<String>, aCatY: ArrayList<String>
+	): Pair<String, Int>
 	{
 		val sbHead = StringBuilder("<thead><tr><th></th>")
 		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
@@ -34,11 +35,11 @@ object TableTriBuilder
 		sbHead.append("</tr></thead>")
 
 		val sbBody = StringBuilder("<tbody>")
-		for (indexY in aCatY.indices)
+		for (indexX in aCatX.indices)
 		{
-			val y = aCatY[indexY]
-			val sbRow = StringBuilder("<td>${y.replace("\"", "")}</td>")
-			for (indexX in aCatX.indices)
+			val categoryX = aCatX[indexX]
+			val sbRow = StringBuilder("<td>${categoryX.replace("\"", "")}</td>")
+			for (indexY in aCatY.indices)
 			{
 				val cell = mDataPivot["${indexX}_$indexY"] ?: ""
 				sbRow.append("<td>$cell</td>")
@@ -46,7 +47,7 @@ object TableTriBuilder
 			sbBody.append("<tr>$sbRow</tr>")
 		}
 		sbBody.append("</tbody>")
-		return "<table id=\"idTableDataPivot\">$sbHead$sbBody</table>"
+		return Pair("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size)
 	}
 
 	fun generateDataTableTri(
@@ -58,8 +59,6 @@ object TableTriBuilder
 		val aDataTable = ArrayList<ArrayList<Any>>()
 		for (aCells in aRows)
 		{
-			//val text = row.replaceCommaSharp()
-			//val aCells = ArrayList<String>(text.split(","))
 			val valueX = "\"${aCells[0]}\""
 			var valueY = "\"${aCells[1]}\""
 			val value = aCells[2]
