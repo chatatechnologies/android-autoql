@@ -43,7 +43,8 @@ object TableTriBuilder
 			for (indexY in aCatY.indices)
 			{
 				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
-				cell = cell.clearDecimals()
+				if (cell.isNotEmpty())
+					cell = cell.clearDecimals()
 				sbRow.append("<td>$cell</td>")
 			}
 			sbBody.append("<tr>$sbRow</tr>")
