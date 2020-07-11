@@ -45,9 +45,9 @@ class WebViewHolder(
 	private val ivPivot = itemView.findViewById<ImageView>(R.id.ivPivot) ?: null
 	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
 	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
-	private var ivArea = itemView.findViewById<ImageView>(R.id.ivArea) ?: null
+	private var ivStackedArea = itemView.findViewById<ImageView>(R.id.ivStackedArea) ?: null
 	private val aDefaultActions =
-		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable, ivHeat, ivBubble)
+		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable, ivHeat, ivBubble, ivStackedArea)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
@@ -103,6 +103,10 @@ class WebViewHolder(
 				{
 					lastId = "#idTableBasic"
 					ConfigActions.biConfigReduce
+				}
+				5 ->
+				{
+					ConfigActions.triStackedConfig
 				}
 				else ->
 				{
@@ -236,7 +240,7 @@ class WebViewHolder(
 		ivPivot?.setColorFilter()
 		ivHeat?.setColorFilter()
 		ivBubble?.setColorFilter()
-		ivArea?.setColorFilter()
+		ivStackedArea?.setColorFilter()
 		ivDelete?.setColorFilter()
 	}
 

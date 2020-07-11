@@ -60,13 +60,13 @@ object HtmlBuilder
 			queryBase.configActions = when(aColumn.size)
 			{
 				2 -> 4
+				3 -> 5
 				else -> 0
 			}
 		}
 		//endregion
 		val configAllow = aColumn.size == 3
 
-		//if (queryBase.configActions == 1 || queryBase.configActions == 3) { }
 		with(Categories)
 		{
 			val posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
@@ -82,12 +82,6 @@ object HtmlBuilder
 			//endregion
 			val aCatY = if (aColumn.size > posColumnY)
 			{
-				//region yAxis
-//				dataForWebView.aYAxis.addAll(
-//					buildCategoryByPosition(
-//						Category(aRows, aColumn[posColumnY], posColumnY,
-//							true, hasQuotes = true, allowRepeat = !configAllow)))
-				//endregion
 				buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !configAllow))
