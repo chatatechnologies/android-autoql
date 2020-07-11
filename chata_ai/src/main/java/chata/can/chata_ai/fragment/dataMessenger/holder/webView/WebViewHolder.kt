@@ -159,7 +159,7 @@ class WebViewHolder(
 			when(it.id)
 			{
 				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot,
-				R.id.ivBubble, R.id.ivHeat ->
+				R.id.ivBubble, R.id.ivHeat, R.id.ivStackedArea ->
 				{
 					(it as? ImageView)?.let { imageView -> callAction(imageView) }
 				}
@@ -326,6 +326,12 @@ class WebViewHolder(
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
 						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
+					}
+					R.id.ivStackedArea ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'stacked_area'", factorHeight)
 					}
 					else -> Pair("", factorHeight)
 				}
