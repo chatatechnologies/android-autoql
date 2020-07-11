@@ -193,14 +193,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						}
 						when(aColumn.size)
 						{
-							2 ->
+							2, 3 ->
 							{
-								val column0 = aColumn[0]
-								dataForWebView.xAxis = column0.displayName
-								val column1 = aColumn[1]
-								dataForWebView.yAxis = column1.displayName
+								dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
+								dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
 							}
-							3 -> {}
 							else -> {}
 						}
 						contentHTML = DashboardMaker.getHTML(dataForWebView)
