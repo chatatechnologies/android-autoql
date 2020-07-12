@@ -18,7 +18,7 @@ object TableTriBuilder
 					val x = data.getOrElse(0) { "" }.toString()
 					val y = data.getOrElse(1) { "" }.toString()
 					val value = data.getOrElse(2) { "" }.toString()
-					mData["${y}_$x"] = value
+					mData["${x}_$y"] = value
 				}
 			}
 		}
