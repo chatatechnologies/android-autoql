@@ -85,7 +85,7 @@ object TableTriBuilder
 				indexY = aCatY.indexOf(valueY)
 			}
 
-			//val aNewRow = arrayListOf(indexY, indexX, value.toDoubleNotNull())
+//			val aNewRow = arrayListOf(indexY, indexX, value.toDoubleNotNull())
 			val aNewRow = arrayListOf(indexX, indexY, value.toDoubleNotNull())
 			aDataTable.add(aNewRow)
 		}

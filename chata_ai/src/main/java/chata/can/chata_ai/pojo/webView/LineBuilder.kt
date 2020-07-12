@@ -13,9 +13,11 @@ object LineBuilder
 			val aData = ArrayList<Double>()
 			for (value in aDataFilter)
 			{
-				aData.add(value[2] as Double)
+				(value[2] as? Double)?.let {
+					aData.add(it)
+				}
 			}
-			val item = "{name:$category, data:$aData}"
+			val item = "{\"data\":$aData, \"name\":$category}"
 			aChartLine.add(item)
 		}
 		return aChartLine
