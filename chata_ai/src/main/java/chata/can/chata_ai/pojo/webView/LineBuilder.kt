@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.clearDecimals
+
 object LineBuilder
 {
 	fun generateDataChartLine(
@@ -17,7 +19,8 @@ object LineBuilder
 					aData.add(it)
 				}
 			}
-			val item = "{\"data\":$aData, \"name\":$category}"
+			val sData = aData.joinTo(StringBuilder("["), postfix = "]", separator = ",") { "$it".clearDecimals() }
+			val item = "{\"data\":$sData, \"name\":$category}"
 			aChartLine.add(item)
 		}
 		return aChartLine
