@@ -500,9 +500,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                          }
                        },
 										yAxis: {
-                        title: {
-                            text: yAxis
-                        }
+											title: {
+												text: yAxis
+											}
                     },
                     series: [{
                             colorByPoint: false,

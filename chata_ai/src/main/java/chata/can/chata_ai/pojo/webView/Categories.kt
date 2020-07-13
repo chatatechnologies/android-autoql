@@ -13,11 +13,8 @@ object Categories
 		{
 			for (index in aRows.indices)
 			{
-				val aRow = aRows[index]//.replaceCommaSharp()
-				//val aRow = ArrayList(text.split(","))
-
+				val aRow = aRows[index]
 				val cellUsed = aRow[position]
-
 				var parsed = if (isFormatted)
 				{
 					cellUsed.formatWithColumn(
@@ -47,6 +44,7 @@ object Categories
 			}
 		}
 
+		//aStacked.reverse()
 		return aStacked
 	}
 }
