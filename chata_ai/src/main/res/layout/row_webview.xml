@@ -120,6 +120,22 @@
 				android:visibility="gone"/>
 			<ImageView
 				android:contentDescription="@null"
+				android:id="@+id/ivStackedBar"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_stacked_bar"
+				android:padding="4dp"
+				android:visibility="gone"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivStackedColumn"
+				android:layout_height="40dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_stacked_column"
+				android:padding="4dp"
+				android:visibility="gone"/>
+			<ImageView
+				android:contentDescription="@null"
 				android:id="@+id/ivStackedArea"
 				android:layout_height="40dp"
 				android:layout_width="40dp"

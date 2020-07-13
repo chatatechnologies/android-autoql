@@ -45,9 +45,12 @@ class WebViewHolder(
 	private val ivPivot = itemView.findViewById<ImageView>(R.id.ivPivot) ?: null
 	private val ivHeat = itemView.findViewById<ImageView>(R.id.ivHeat) ?: null
 	private val ivBubble = itemView.findViewById<ImageView>(R.id.ivBubble) ?: null
+	private var ivStackedBar = itemView.findViewById<ImageView>(R.id.ivStackedBar) ?: null
+	private var ivStackedColumn = itemView.findViewById<ImageView>(R.id.ivStackedColumn) ?: null
 	private var ivStackedArea = itemView.findViewById<ImageView>(R.id.ivStackedArea) ?: null
 	private val aDefaultActions =
-		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable, ivHeat, ivBubble, ivStackedArea)
+		arrayListOf(ivPivot, ivColumn, ivBar, ivLine, ivPie, ivTable,
+			ivHeat, ivBubble, ivStackedBar, ivStackedColumn, ivStackedArea)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
@@ -159,7 +162,7 @@ class WebViewHolder(
 			when(it.id)
 			{
 				R.id.ivTable, R.id.ivBar, R.id.ivColumn, R.id.ivLine, R.id.ivPie, R.id.ivPivot,
-				R.id.ivBubble, R.id.ivHeat, R.id.ivStackedArea ->
+				R.id.ivBubble, R.id.ivHeat, R.id.ivStackedBar, R.id.ivStackedColumn, R.id.ivStackedArea ->
 				{
 					(it as? ImageView)?.let { imageView -> callAction(imageView) }
 				}
@@ -240,6 +243,8 @@ class WebViewHolder(
 		ivPivot?.setColorFilter()
 		ivHeat?.setColorFilter()
 		ivBubble?.setColorFilter()
+		ivStackedBar?.setColorFilter()
+		ivStackedColumn?.setColorFilter()
 		ivStackedArea?.setColorFilter()
 		ivDelete?.setColorFilter()
 	}
@@ -326,6 +331,18 @@ class WebViewHolder(
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
 						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
+					}
+					R.id.ivStackedBar ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
+					}
+					R.id.ivStackedColumn ->
+					{
+						val idHide = lastId
+						lastId = "#container"
+						Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
 					}
 					R.id.ivStackedArea ->
 					{

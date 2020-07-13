@@ -53,6 +53,8 @@ object ConfigActions
 		R.id.ivTable,
 		R.id.ivHeat,
 		R.id.ivBubble,
+		R.id.ivStackedBar,
+		R.id.ivStackedColumn,
 		R.id.ivStackedArea
 //		R.id.stackedBar,
 //		R.id.stackedColumn
