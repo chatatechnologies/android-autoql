@@ -20,7 +20,7 @@ object LineBuilder
 				}
 			}
 			val sData = aData.joinTo(StringBuilder("["), postfix = "]", separator = ",") { "$it".clearDecimals() }
-			val item = "{\"data\":$sData, \"name\":$category}"
+			val item = "{\"data\":$sData,\"name\":$category}"
 			aChartLine.add(item)
 		}
 		return aChartLine
