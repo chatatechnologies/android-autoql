@@ -69,8 +69,15 @@ object HtmlBuilder
 
 		with(Categories)
 		{
-			val posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
-			val posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
+			var posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
+			var posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
+
+//			if (configAllow)
+//			{
+//				val tmp = posColumnX
+//				posColumnX = posColumnY
+//				posColumnY = tmp
+//			}
 
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,

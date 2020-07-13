@@ -137,8 +137,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     var datachartTri = ${if (isBi) "[]" else dataChartBi};
 		
     var dataChartLine = ${if (isBi) catY else catYS};
-		var categoriesX = ${ if (isBi) catX else catY};
-		var categoriesY = ${if (isBi) catYS else catX};
+		var categoriesX = $catX;
+		var categoriesY = ${if (isBi) catYS else catY};
 		
     var drillX = ${dataForWebView.drillX};
     var drillY = ${dataForWebView.drillY};

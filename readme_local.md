@@ -41,6 +41,7 @@ fun setInitializationCallback(listener: OnInitializedCallback): Builder
 ```
 
 # Queries
+- Average revenue by area last year: bi -> 13/7/2020
 - Count invoices: simpleText
 - All invoices: <b>table</b>
 - All invoices to Billy Bob: <b>table</b>
