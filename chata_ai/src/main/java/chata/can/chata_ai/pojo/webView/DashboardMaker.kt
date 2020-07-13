@@ -499,6 +499,11 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                            text: xAxis
                          }
                        },
+										yAxis: {
+                        title: {
+                            text: yAxis
+                        }
+                    },
                     series: [{
                             colorByPoint: false,
                             name: categoriesX,
