@@ -115,7 +115,7 @@ object HtmlBuilder
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
 				buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
-						false, hasQuotes = true, allowRepeat = true)).toString()
+						true, hasQuotes = true, allowRepeat = !configAllow)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.catX = aCatX.toString()
