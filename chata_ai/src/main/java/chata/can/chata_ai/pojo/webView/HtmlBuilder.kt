@@ -118,6 +118,11 @@ object HtmlBuilder
 						true, hasQuotes = true, allowRepeat = !configAllow)).toString()
 			} else arrayListOf<String>().toString()
 
+			dataForWebView.drillTableY = if (aColumn.size > posColumnY) {
+				buildCategoryByPosition(Category(aRows, aColumn[posColumnY],
+					posColumnY, true, hasQuotes = true, allowRepeat = configAllow)).toString()
+			} else arrayListOf<String>().toString()
+
 			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 

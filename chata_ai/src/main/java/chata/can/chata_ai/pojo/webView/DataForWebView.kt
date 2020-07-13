@@ -12,6 +12,7 @@ class DataForWebView(
 	var dataChartBi = "[]"
 	var drillX = "[]"
 	var drillY = "[]"
+	var drillTableY = "[]"
 	var isBi = true
 
 	var type = "table"

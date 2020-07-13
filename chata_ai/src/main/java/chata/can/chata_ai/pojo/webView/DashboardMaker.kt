@@ -143,7 +143,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     var drillX = ${dataForWebView.drillX};
     var drillY = ${dataForWebView.drillY};
 		
-    var drillTableY = [];
+    var drillTableY = ${dataForWebView.drillTableY};
     var drillSpecial = ${dataForWebView.drillY};
     var colorAxis = "$textColor";
     var colorFill = "$backgroundColor";
