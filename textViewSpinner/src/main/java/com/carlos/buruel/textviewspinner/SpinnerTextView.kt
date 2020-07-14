@@ -29,7 +29,7 @@ class SpinnerTextView: RelativeLayout
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
-			//setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 			viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 			{
 				override fun onGlobalLayout()
