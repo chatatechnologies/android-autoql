@@ -43,12 +43,7 @@
 			<com.carlos.buruel.textviewspinner.SpinnerTextView
 				android:id="@+id/stvContent"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"/>
-			<LinearLayout
-				android:id="@+id/llSuggestion"
-				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:orientation="vertical"
 				android:padding="5dp"/>
 			<RelativeLayout
 				android:id="@+id/rlRunQuery"

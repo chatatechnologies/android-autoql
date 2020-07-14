@@ -1,29 +1,21 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.*
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
-import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import com.carlos.buruel.textviewspinner.SpinnerTextView
-import com.carlos.buruel.textviewspinner.model.Suggestion
 
 class FullSuggestionHolder(
 	itemView: View,
@@ -33,7 +25,6 @@ class FullSuggestionHolder(
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
-	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 
 	override fun onPaint()
@@ -72,18 +63,6 @@ class FullSuggestionHolder(
 	{
 		if (item is ChatData)
 		{
-			//region REMOVE
-//			val aData = arrayListOf(
-//				//Suggestion("total",0,0, null),
-//				Suggestion("total",0,5, arrayListOf("total", "totel (Original term)")),
-//				Suggestion("stationery and printing",6, 29, arrayListOf("stationery and printing (account name)", "Digital Post Printing (vendor name)", "opereting (Original term)")),
-//				Suggestion("expenses",30,38, arrayListOf("expenses", "expinses (Original term)")),
-//				Suggestion("by",39,41, arrayListOf("by", "bu (Original term)")),
-//				Suggestion("account",42,49, arrayListOf("account", "accaunt (Original term)"))
-//			)
-//			stvContent.setText(aData)
-			//endregion
-
 			val simpleQuery = item.simpleQuery
 			if (simpleQuery is FullSuggestionQuery)
 			{
@@ -98,193 +77,14 @@ class FullSuggestionHolder(
 
 					stvContent.setText(simpleQuery.aSuggestion)
 
-					llSuggestion.removeAllViews()
-					val aWords = simpleQuery.initQuery.split(" ")
-					val mapSuggestion = simpleQuery.mapSuggestion
-
-					var subRow: LinearLayout ?= null
-
-					for(index in aWords.indices)
-					{
-						val childCount = llSuggestion.childCount
-						if (childCount == 0 || index % 3 == 0)
-						{
-							subRow = LinearLayout(context).apply {
-								layoutParams = LinearLayout.LayoutParams(-1, -2)
-								orientation = LinearLayout.HORIZONTAL
-							}
-							llSuggestion.addView(subRow)
-						}
-
-						val currentText = aWords[index]
-						mapSuggestion[currentText]?.let {
-							//region parent view
-							val relativeLayout = RelativeLayout(context).apply {
-								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
-									weight = 1f
-								}
-								margin(5f, 0f, 5f, 0f)
-							}
-							//endregion
-							val spinner = Spinner(context)
-							val llSelectedView = LinearLayout(context)
-							val tvFirst = TextView(context)
-							//region spinner
-							it.add("$currentText (Origin term)")
-							val adapter = object: ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, it)
-							{
-								override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
-								{
-									var view = convertView
-									if (view == null)
-									{
-										view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_item, null)
-									}
-
-									view?.findViewById<TextView>(android.R.id.text1)?.run {
-										val content = getItem(position) ?: ""
-										val aParts = content.split(" (")
-										if (aParts.isNotEmpty())
-										{
-											text = aParts[0]
-										}
-									}
-
-									return super.getView(position, convertView, parent)
-								}
-							}
-							spinner.apply {
-								layoutParams = LinearLayout.LayoutParams(-1, -2)
-								setAdapter(adapter)
-								isEnabled = false
-								//setSelection(0, false)
-								onItemSelectedListener = object: ItemSelectedListener {
-									override fun onSelected(
-										parent: AdapterView<*>?, view: View?, position: Int, id: Long)
-									{
-										parent?.let {
-											adapterView ->
-											adapterView.adapter?.let {
-												adapter ->
-												val newContent = adapter.getItem(position)?.toString() ?: ""
-												val aParts = newContent.split(" (")
-												tvFirst.text = aParts[0]
-											}
-										}
-									}
-								}
-							}
-							//endregion
-							//region message
-							llSelectedView.apply {
-								backgroundGrayWhite()
-								layoutParams = LinearLayout.LayoutParams(-1, -2).apply {
-									setGravity(Gravity.CENTER)
-								}
-								orientation = LinearLayout.HORIZONTAL
-								//setPadding(9,9,9,9)
-
-								tvFirst.apply {
-									layoutParams = RelativeLayout.LayoutParams(-2, -2)
-									setPadding(15,15,15,15)
-									gravity = Gravity.CENTER
-									text = currentText
-									setOnClickListener { spinner.performClick() }
-								}
-								val doubleArrow = ImageView(context).apply {
-									layoutParams = RelativeLayout.LayoutParams(dpToPx(16f), dpToPx(16f))
-									setImageResource(R.drawable.ic_double_arrow)
-									setOnClickListener { spinner.performClick() }
-								}
-
-								addView(tvFirst)
-								addView(doubleArrow)
-							}
-							//endregion
-
-							relativeLayout.addView(spinner)
-							relativeLayout.addView(llSelectedView)
-							subRow?.addView(relativeLayout)
-						} ?: run {
-							val textView = TextView(context).apply {
-								backgroundGrayWhite()
-								layoutParams = LinearLayout.LayoutParams(0, -2).apply {
-									weight = 1f
-								}
-								margin(5f, 0f, 5f, 0f)
-								setPadding(15,15,15,15)
-								gravity = Gravity.CENTER
-								text = currentText
-							}
-							subRow?.addView(textView)
-						}
-					}
-
 					rlRunQuery.setOnClickListener {
-						val query = buildQuery()
+						val query = stvContent.text
 						//view.addChatMessage(2, query)
 						servicePresenter.getQuery(query)
 					}
 				}
 			}
 		}
-	}
-
-	private fun buildQuery(): String
-	{
-		val finalQuery = StringBuilder()
-		llSuggestion?.let {
-			val childCount = it.childCount
-			for (index in 0 until childCount)
-			{
-				it.getChildAt(index)?.let {
-					child0 ->
-					if (child0 is LinearLayout)
-					{
-						val child0Count = child0.childCount
-						for (index1 in 0 until child0Count)
-						{
-							child0.getChildAt(index1)?.let {
-								child ->
-								val pieceQuery = when(child)
-								{
-									is TextView -> {
-										child.text
-									}
-									is RelativeLayout ->
-									{
-										if (child.childCount == 2)
-										{
-											child.getChildAt(1)?.let {
-												linearLayout ->
-												if (linearLayout is LinearLayout)
-												{
-													linearLayout.getChildAt(0)?.let {
-														textView ->
-														if (textView is TextView)
-														{
-//															textView.text
-															val aWords = textView.text.split(" (")
-															aWords[0]
-														}
-														else ""
-													} ?: run { "" }
-												}
-												else ""
-											}
-										}
-										else ""
-									}
-									else -> ""
-								}
-								finalQuery.append("$pieceQuery ")
-							}
-						}
-					}
-				}
-			}
-		}
-		return finalQuery.toString().trimEnd()
 	}
 
 	override fun onClick(v: View?)

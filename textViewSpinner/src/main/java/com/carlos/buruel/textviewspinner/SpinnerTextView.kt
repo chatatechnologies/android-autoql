@@ -94,6 +94,9 @@ class SpinnerTextView: RelativeLayout
 		}
 	}
 
+	val text: String
+	get() = tvContent?.text.toString()
+
 	fun setText(aData: ArrayList<Suggestion> ?= null)
 	{
 		aData?.let {
