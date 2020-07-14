@@ -10,7 +10,6 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 {
 	var initQuery = ""
 	val mapSuggestion = LinkedHashMap<String, ArrayList<String>>()
-	val aSuggestion = ArrayList<Suggestion>()
 	init {
 		initQuery = json.optStringInList(arrayListOf("query", "text"))
 		if (json.hasInList(arrayListOf("full_suggestion","replacements")))

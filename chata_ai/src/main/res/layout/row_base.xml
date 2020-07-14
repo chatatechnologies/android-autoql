@@ -37,7 +37,7 @@
 				android:layout_alignParentBottom="true"
 				android:id="@+id/tvContent"
 				android:layout_height="wrap_content"
-				android:layout_margin="5dp"
+				android:layout_margin="6dp"
 				android:layout_width="wrap_content"
 				android:padding="8dp"/>
 		</RelativeLayout>

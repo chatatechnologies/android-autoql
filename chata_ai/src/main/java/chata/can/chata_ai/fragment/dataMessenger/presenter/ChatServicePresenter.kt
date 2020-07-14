@@ -99,8 +99,7 @@ class ChatServicePresenter(
 						}
 						"validate" ->
 						{
-							jsonObject.getJSONData()?.let {
-									data ->
+							jsonObject.getJSONData()?.let { data ->
 								makeSuggestion(data, "replacements", "text")
 							}
 						}
