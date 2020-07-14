@@ -15,6 +15,21 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 		if (json.hasInList(arrayListOf("full_suggestion","replacements")))
 		{
 			val jaSuggestion = json.optJSONArrayInList(arrayListOf("full_suggestion", "replacements"))
+			val aSuggestionsTmp = ArrayList<Suggestion>()
+			for (index in 0 until jaSuggestion.length())
+			{
+				val jsonItem = jaSuggestion.getJSONObject(index)
+				aSuggestionsTmp.add(Suggestion(jsonItem))
+			}
+			val aWords = initQuery.split(" ")
+			for (word in aWords)
+			{
+				val start = initQuery.indexOf(word)
+				val end = start + word.length
+				val text = word
+				val suggestion = Suggestion(text, start, end)
+			}
+
 			for (index in 0 until jaSuggestion.length())
 			{
 				val jsonItem = jaSuggestion.getJSONObject(index)
