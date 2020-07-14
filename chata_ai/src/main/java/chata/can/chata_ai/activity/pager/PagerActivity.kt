@@ -144,6 +144,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private fun initConfig()
 	{
 		windowManager?.let {
+			ScreenData.windowManager = it
 			ScreenData.defaultDisplay = it.defaultDisplay
 		}
 		resources?.let {

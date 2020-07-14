@@ -40,6 +40,11 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="5dp"
 				android:layout_width="wrap_content"/>
+			<com.carlos.buruel.textviewspinner.SpinnerTextView
+				android:layout_margin="8dp"
+				android:id="@+id/stvContent"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"/>
 			<LinearLayout
 				android:id="@+id/llSuggestion"
 				android:layout_height="wrap_content"

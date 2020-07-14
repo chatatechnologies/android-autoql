@@ -18,19 +18,21 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.setColorFilter
-import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import com.carlos.buruel.textviewspinner.SpinnerTextView
+import com.carlos.buruel.textviewspinner.model.Suggestion
 
 class FullSuggestionHolder(
 	itemView: View,
-	private val view: ChatContract.View,
 	private val adapterView: ChatAdapterContract?,
 	private val servicePresenter: ChatServicePresenter
 ): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
+	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 
@@ -62,12 +64,26 @@ class FullSuggestionHolder(
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
+
+		stvContent.setWindowManager(ScreenData.windowManager)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		if (item is ChatData)
 		{
+			//region REMOVE
+			val aData = arrayListOf(
+				//Suggestion("total",0,0, null),
+				Suggestion("total",0,5, arrayListOf("total", "totel (Original term)")),
+				Suggestion("stationery and printing",6, 29, arrayListOf("stationery and printing (account name)", "Digital Post Printing (vendor name)", "opereting (Original term)")),
+				Suggestion("expenses",30,38, arrayListOf("expenses", "expinses (Original term)")),
+				Suggestion("by",39,41, arrayListOf("by", "bu (Original term)")),
+				Suggestion("account",42,49, arrayListOf("account", "accaunt (Original term)"))
+			)
+			stvContent.setText(aData)
+			//endregion
+
 			val simpleQuery = item.simpleQuery
 			if (simpleQuery is FullSuggestionQuery)
 			{
