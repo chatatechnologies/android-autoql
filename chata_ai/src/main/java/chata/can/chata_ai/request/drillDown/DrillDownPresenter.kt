@@ -104,10 +104,13 @@ class DrillDownPresenter(
 				dataKey ->
 				{
 					val numColumns = queryBase.numColumns
+					val numRows = queryBase.aRows.size
+					numRows.toString()
 					when
 					{
+						numRows == 0 -> TypeChatView.LEFT_VIEW
+						(numColumns == 1 && numRows > 1) || numColumns > 1 -> TypeChatView.WEB_VIEW
 						numColumns == 1 -> TypeChatView.LEFT_VIEW
-						numColumns > 1 -> TypeChatView.WEB_VIEW
 						else -> TypeChatView.LEFT_VIEW
 					}
 				}

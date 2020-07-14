@@ -6,6 +6,7 @@ import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
@@ -61,7 +62,7 @@ class ChatServicePresenter(
 				{
 					try {
 						val jsonError = JSONObject(textError)
-						val message = jsonError.optString("message")
+						val message = jsonError.optString(messageKey)
 						val query = optString("query") ?: ""
 						getRelatedQueries(query)
 						view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
