@@ -73,15 +73,15 @@ class FullSuggestionHolder(
 		if (item is ChatData)
 		{
 			//region REMOVE
-			val aData = arrayListOf(
-				//Suggestion("total",0,0, null),
-				Suggestion("total",0,5, arrayListOf("total", "totel (Original term)")),
-				Suggestion("stationery and printing",6, 29, arrayListOf("stationery and printing (account name)", "Digital Post Printing (vendor name)", "opereting (Original term)")),
-				Suggestion("expenses",30,38, arrayListOf("expenses", "expinses (Original term)")),
-				Suggestion("by",39,41, arrayListOf("by", "bu (Original term)")),
-				Suggestion("account",42,49, arrayListOf("account", "accaunt (Original term)"))
-			)
-			stvContent.setText(aData)
+//			val aData = arrayListOf(
+//				//Suggestion("total",0,0, null),
+//				Suggestion("total",0,5, arrayListOf("total", "totel (Original term)")),
+//				Suggestion("stationery and printing",6, 29, arrayListOf("stationery and printing (account name)", "Digital Post Printing (vendor name)", "opereting (Original term)")),
+//				Suggestion("expenses",30,38, arrayListOf("expenses", "expinses (Original term)")),
+//				Suggestion("by",39,41, arrayListOf("by", "bu (Original term)")),
+//				Suggestion("account",42,49, arrayListOf("account", "accaunt (Original term)"))
+//			)
+//			stvContent.setText(aData)
 			//endregion
 
 			val simpleQuery = item.simpleQuery
@@ -95,6 +95,8 @@ class FullSuggestionHolder(
 						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
 					}
+
+					stvContent.setText(simpleQuery.aSuggestion)
 
 					llSuggestion.removeAllViews()
 					val aWords = simpleQuery.initQuery.split(" ")

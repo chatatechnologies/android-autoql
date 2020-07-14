@@ -9,6 +9,7 @@ import org.json.JSONObject
 class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 {
 	var initQuery = ""
+	val aSuggestion = ArrayList<Suggestion>()
 	val mapSuggestion = LinkedHashMap<String, ArrayList<String>>()
 	init {
 		initQuery = json.optStringInList(arrayListOf("query", "text"))
@@ -26,41 +27,48 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 			{
 				val start = initQuery.indexOf(word)
 				val end = start + word.length
-				val text = word
-				val suggestion = Suggestion(text, start, end)
-			}
-
-			for (index in 0 until jaSuggestion.length())
-			{
-				val jsonItem = jaSuggestion.getJSONObject(index)
-				val start = jsonItem.getInt("start")
-				val end = jsonItem.getInt("end")
-
-				val key = initQuery.substring(start, end)
-				if (jsonItem.has("suggestion"))
-				{
-					val suggestion = jsonItem.getString("suggestion")
-					mapSuggestion[key] = ArrayList()
-					mapSuggestion[key]?.add(suggestion)
-				}
-				else if (jsonItem.hasInList(arrayListOf("suggestion_list", "suggestions")))
-				{
-					mapSuggestion[key] = ArrayList()
-					val aJsonList = jsonItem.optJSONArrayInList(arrayListOf("suggestion_list", "suggestions"))
-					for (iList in 0 until aJsonList.length())
-					{
-						val oJson = aJsonList.getJSONObject(iList)
-						var suggestion = oJson.optString("text") ?: ""
-						val extra = oJson.optString("value_label") ?: ""
-						if (extra.isNotEmpty())
-						{
-							suggestion = "$suggestion ($extra)"
-						}
-						mapSuggestion[key]?.add(suggestion)
+				val suggestion = Suggestion(word, start, end)
+				aSuggestionsTmp.find { it.start == suggestion.start && it.end == suggestion.end }?.let {
+					suggestion.aSuggestion = ArrayList()
+					it.aSuggestion?.let {
+						itSuggestion ->
+						suggestion.aSuggestion?.addAll(itSuggestion)
+						suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
 					}
 				}
+				aSuggestion.add(suggestion)
 			}
-			toString()
+
+//			for (index in 0 until jaSuggestion.length())
+//			{
+//				val jsonItem = jaSuggestion.getJSONObject(index)
+//				val start = jsonItem.getInt("start")
+//				val end = jsonItem.getInt("end")
+//
+//				val key = initQuery.substring(start, end)
+//				if (jsonItem.has("suggestion"))
+//				{
+//					val suggestion = jsonItem.getString("suggestion")
+//					mapSuggestion[key] = ArrayList()
+//					mapSuggestion[key]?.add(suggestion)
+//				}
+//				else if (jsonItem.hasInList(arrayListOf("suggestion_list", "suggestions")))
+//				{
+//					mapSuggestion[key] = ArrayList()
+//					val aJsonList = jsonItem.optJSONArrayInList(arrayListOf("suggestion_list", "suggestions"))
+//					for (iList in 0 until aJsonList.length())
+//					{
+//						val oJson = aJsonList.getJSONObject(iList)
+//						var suggestion = oJson.optString("text") ?: ""
+//						val extra = oJson.optString("value_label") ?: ""
+//						if (extra.isNotEmpty())
+//						{
+//							suggestion = "$suggestion ($extra)"
+//						}
+//						mapSuggestion[key]?.add(suggestion)
+//					}
+//				}
+//			}
 		}
 	}
 }
