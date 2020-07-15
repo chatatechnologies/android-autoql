@@ -2,8 +2,6 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.graphics.Color
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog

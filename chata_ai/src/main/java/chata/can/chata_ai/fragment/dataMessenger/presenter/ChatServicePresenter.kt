@@ -52,22 +52,37 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
+		isLoading(false)
 		jsonObject?.run {
-			val codeService = optInt("CODE")
-			if (codeService == 400)
+			when(optInt("CODE"))
 			{
-				isLoading(false)
-				val textError = optString("RESPONSE") ?: ""
-				if (textError.isNotEmpty())
+				400 ->
 				{
-					try {
-						val jsonError = JSONObject(textError)
-						val message = jsonError.optString(messageKey)
-						val query = optString("query") ?: ""
-						getRelatedQueries(query)
-						view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+					val textError = optString("RESPONSE") ?: ""
+					if (textError.isNotEmpty())
+					{
+						try {
+							val jsonError = JSONObject(textError)
+							val message = jsonError.optString(messageKey)
+							val query = optString("query") ?: ""
+							getRelatedQueries(query)
+							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+						}
+						catch (ex: Exception) { }
 					}
-					catch (ex: Exception) { }
+				}
+				500 ->
+				{
+					val query = optString("query") ?: ""
+					val response = optString("RESPONSE")
+					if (response.isNotEmpty())
+					{
+						try {
+							val joResponse = JSONObject(response)
+							val message = joResponse.optString(messageKey)
+							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+						} catch (ex: Exception) {}
+					}
 				}
 			}
 		}
