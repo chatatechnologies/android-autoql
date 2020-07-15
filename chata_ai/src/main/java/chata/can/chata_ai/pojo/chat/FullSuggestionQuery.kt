@@ -31,10 +31,10 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 					suggestion.aSuggestion = ArrayList()
 					it.aSuggestion?.let {
 						itSuggestion ->
-						val aTmp = itSuggestion[0].split(" (")
-						updateQuery(suggestion, aTmp[0])
 						suggestion.aSuggestion?.addAll(itSuggestion)
 						suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
+						val aTmp = itSuggestion[0].split(" (")
+						updateQuery(suggestion, aTmp[0])
 					}
 				}
 				aSuggestion.add(suggestion)
