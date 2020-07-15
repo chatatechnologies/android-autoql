@@ -31,6 +31,8 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 					suggestion.aSuggestion = ArrayList()
 					it.aSuggestion?.let {
 						itSuggestion ->
+						val aTmp = itSuggestion[0].split(" (")
+						updateQuery(suggestion, aTmp[0])
 						suggestion.aSuggestion?.addAll(itSuggestion)
 						suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
 					}
@@ -38,5 +40,14 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 				aSuggestion.add(suggestion)
 			}
 		}
+	}
+
+	private fun updateQuery(suggestion: Suggestion, newText: String)
+	{
+		val oldText = suggestion.text
+		initQuery = initQuery.replace(oldText, newText)
+		suggestion.text = newText
+		suggestion.start = initQuery.indexOf(newText)
+		suggestion.end = suggestion.start + newText.length
 	}
 }
