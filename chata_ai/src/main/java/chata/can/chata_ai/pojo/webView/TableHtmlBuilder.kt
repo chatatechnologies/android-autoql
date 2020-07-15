@@ -41,35 +41,29 @@ object TableHtmlBuilder
 			val sRow = StringBuilder("")
 			for (cell in aRow)
 			{
-				val valueRow =
-					if (cell.isEmpty())
+				var column: ColumnQuery? = null
+				for ((_, pos) in mIndexColumn)
+				{
+					if (pos == iterator)
 					{
+						column = aColumn[pos]
 						iterator++
-						""
+						break
+					}
+				}
+
+				val valueRow = column?.let {
+					if (it.isVisible)
+					{
+						if (cell.isNotEmpty())
+							cell.formatWithColumn(it)
+						else ""
 					}
 					else
 					{
-						var column: ColumnQuery? = null
-						for ((_, pos) in mIndexColumn)
-						{
-							if (pos == iterator)
-							{
-								column = aColumn[pos]
-								iterator++
-								break
-							}
-						}
-						column?.let {
-							if (it.isVisible)
-							{
-								cell.formatWithColumn(it)
-							}
-							else
-							{
-								"_--_"
-							}
-						}?: ""
+						"_--_"
 					}
+				}?: ""
 
 				if (valueRow != "_--_")
 					sRow.append("<td>$valueRow</td>")
