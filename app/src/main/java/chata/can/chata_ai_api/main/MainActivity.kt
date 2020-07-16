@@ -15,6 +15,11 @@ class MainActivity: AppCompatActivity()
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
+		baseContext?.let {
+			it.display
+		}
+		val newDisplay = this.display
+
 		val aData = arrayListOf(
 			//Suggestion("total",0,0, null),
 			Suggestion("total",0,5, arrayListOf("total", "totel (Original term)")),

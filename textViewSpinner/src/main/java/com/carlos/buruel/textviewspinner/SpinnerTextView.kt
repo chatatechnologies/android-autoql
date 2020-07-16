@@ -141,6 +141,9 @@ class SpinnerTextView: RelativeLayout
 		this.windowManager = _windowManager
 
 		val displayMetrics = DisplayMetrics()
+
+		val newDisplay = this.display
+
 		val defaultDisplay = this.windowManager?.defaultDisplay
 		defaultDisplay?.getMetrics(displayMetrics)
 		val width = displayMetrics.widthPixels
