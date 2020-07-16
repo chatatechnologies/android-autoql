@@ -1,4 +1,4 @@
-package com.carlos.buruel.textviewspinner.model
+package chata.can.chata_ai.view.textViewSpinner.model
 
 import org.json.JSONObject
 

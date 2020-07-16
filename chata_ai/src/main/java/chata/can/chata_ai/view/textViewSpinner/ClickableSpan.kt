@@ -1,11 +1,11 @@
-package com.carlos.buruel.textviewspinner
+package chata.can.chata_ai.view.textViewSpinner
 
 import android.graphics.Color
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
-import com.carlos.buruel.textviewspinner.model.Suggestion
+import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
 
 class ClickableSpan(
 	private val tvSource: TextView,

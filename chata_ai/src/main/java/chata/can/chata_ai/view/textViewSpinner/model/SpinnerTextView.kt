@@ -1,4 +1,4 @@
-package com.carlos.buruel.textviewspinner
+package chata.can.chata_ai.view.textViewSpinner.model
 
 import android.content.Context
 import android.graphics.Color
@@ -12,8 +12,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
-import com.carlos.buruel.textviewspinner.model.Suggestion
-import java.lang.StringBuilder
+import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
 
 class SpinnerTextView: RelativeLayout
 {
@@ -95,7 +94,7 @@ class SpinnerTextView: RelativeLayout
 	}
 
 	val text: String
-	get() = tvContent?.text.toString()
+		get() = tvContent?.text.toString()
 
 	fun setText(aData: ArrayList<Suggestion> ?= null)
 	{
@@ -104,7 +103,7 @@ class SpinnerTextView: RelativeLayout
 		}
 
 		this.aData.let {
-			itData ->
+				itData ->
 			val text = itData.joinTo(StringBuilder(""), separator = "") {
 				" ${it.text}"
 			}.trim()
@@ -141,8 +140,6 @@ class SpinnerTextView: RelativeLayout
 		this.windowManager = _windowManager
 
 		val displayMetrics = DisplayMetrics()
-
-		val newDisplay = this.display
 
 		val defaultDisplay = this.windowManager?.defaultDisplay
 		defaultDisplay?.getMetrics(displayMetrics)

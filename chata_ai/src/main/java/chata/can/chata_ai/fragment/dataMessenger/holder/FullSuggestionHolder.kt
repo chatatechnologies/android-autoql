@@ -15,7 +15,7 @@ import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import com.carlos.buruel.textviewspinner.SpinnerTextView
+import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 
 class FullSuggestionHolder(
 	itemView: View,
