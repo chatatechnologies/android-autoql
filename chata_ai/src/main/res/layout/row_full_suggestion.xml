@@ -40,7 +40,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="5dp"
 				android:layout_width="wrap_content"/>
-			<com.carlos.buruel.textviewspinner.SpinnerTextView
+			<chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 				android:id="@+id/stvContent"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"

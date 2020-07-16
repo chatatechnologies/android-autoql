@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/carlosburuel/AndroidStudioProjects/android-widget/apiKey.jks')
+            storePassword 'apichata123'
+            keyPassword 'apichata123'
+            keyAlias 'apichata'
+        }
+    }
     flavorDimensions "default"
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
@@ -20,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
