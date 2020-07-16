@@ -15,6 +15,8 @@ object DataMessenger
 	var token = ""
 	var JWT = ""
 
+	var isNecessaryLogin = true
+
 	fun clearData()
 	{
 		projectId = ""

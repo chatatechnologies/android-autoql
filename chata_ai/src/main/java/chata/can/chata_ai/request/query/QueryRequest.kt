@@ -22,7 +22,7 @@ object QueryRequest
 			"debug" to true,
 			"test" to true)
 
-		val url = if (DataMessenger.domainUrl.isEmpty())
+		val url = if (!DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty())
 		{
 			mParams["source"] = "data_messenger"
 			mParams["user_id"] = "demo"

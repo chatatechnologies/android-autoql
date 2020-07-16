@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -16,7 +17,7 @@ class WebViewPresenter: StatusResponse
 {
 	fun putReport(idQuery: String)
 	{
-		if (domainUrl.isNotEmpty())
+		if (!DataMessenger.isNecessaryLogin || domainUrl.isNotEmpty())
 		{
 			val url = "$domainUrl/autoql/${api1}query/$idQuery?key=$apiKey"
 			val header= getAuthorizationJWT()

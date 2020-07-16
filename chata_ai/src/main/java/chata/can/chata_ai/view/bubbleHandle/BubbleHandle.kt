@@ -71,6 +71,10 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	}
 
 	var isNecessaryLogin = true
+	set(value) {
+		DataMessenger.isNecessaryLogin = value
+		field = value
+	}
 
 	//region properties like docs react data messenger
 	var isVisible: Boolean = true
@@ -333,8 +337,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		}
 	}
 
-	fun onDestroy()
-	{
-		bubblesManager.recycle()
-	}
+//	fun onDestroy()
+//	{
+//		bubblesManager.recycle()
+//	}
 }

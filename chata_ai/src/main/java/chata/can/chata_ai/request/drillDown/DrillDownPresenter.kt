@@ -22,7 +22,7 @@ class DrillDownPresenter(
 
 		val mParams = hashMapOf<String, Any>()
 
-		val url = if (DataMessenger.domainUrl.isEmpty())
+		val url = if (!DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty())
 		{
 			val column = queryBase.aColumn[0]
 			val nameColumn = column.name
