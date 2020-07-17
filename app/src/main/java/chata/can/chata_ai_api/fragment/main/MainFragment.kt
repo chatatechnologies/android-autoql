@@ -115,7 +115,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
+			val userId = "carlos@rinro.com"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)

@@ -132,11 +132,15 @@ object HtmlBuilder
 				{
 					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
-					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-					val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
 
-					dataForWebView.datePivot = pPivot.first
-					dataForWebView.rowsPivot = pPivot.second
+					if (dataForWebView.datePivot.isEmpty())
+					{
+						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
+
+						dataForWebView.datePivot = pPivot.first
+						dataForWebView.rowsPivot = pPivot.second
+					}
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
 					queryBase.isTri = true
