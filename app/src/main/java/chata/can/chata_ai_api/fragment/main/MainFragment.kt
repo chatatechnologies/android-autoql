@@ -109,13 +109,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
-			val domainUrl = "https://spira-staging.chata.io"
+			val domainUrl = "spira-staging.chata.io"
 //			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
 			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com"
+			val userId = "vidhyak464@gmail.com"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)

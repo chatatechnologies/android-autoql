@@ -72,9 +72,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var rowsTable = 0
 	var rowsPivot = 0
 	lateinit var  aXAxis: ArrayList<String>
-	lateinit var aYAxis: ArrayList<String>
 	lateinit var aXDrillDown: ArrayList<String>
-	lateinit var aYDrillDown: ArrayList<String>
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null
