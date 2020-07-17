@@ -3,14 +3,12 @@ package chata.can.chata_ai.fragment.dataMessenger.presenter
 import android.content.Context
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
-import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.*
-import chata.can.chata_ai.pojo.dataKey
-import chata.can.chata_ai.pojo.messageKey
-import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -52,6 +50,9 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
+		val url = "${DataMessenger.domainUrl}/autoql/${api1}query/autocomplete?text=CONTENT&key=${DataMessenger.apiKey}"
+		view?.addChatMessage(TypeChatView.LEFT_VIEW, url, "ERROR")
+		return
 		isLoading(false)
 		if (jsonObject != null)
 		{
@@ -87,7 +88,8 @@ class ChatServicePresenter(
 					//region REMOVE BY TESTING
 					else
 					{
-						view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
+						val url = "${DataMessenger.domainUrl}/autoql/${api1}query/autocomplete?text=CONTENT&key=${DataMessenger.apiKey}"
+						view?.addChatMessage(TypeChatView.LEFT_VIEW, url, "ERROR")
 					}
 					//endregion
 				}

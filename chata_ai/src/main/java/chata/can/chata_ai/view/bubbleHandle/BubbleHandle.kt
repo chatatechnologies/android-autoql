@@ -33,9 +33,9 @@ import java.io.InputStreamReader
 class BubbleHandle(private val context: Context, authentication: Authentication)
 {
 	init {
-		DataMessenger.apiKey = authentication.apiKey
-		DataMessenger.domainUrl = authentication.domainUrl
-		DataMessenger.token = authentication.token
+//		DataMessenger.apiKey = authentication.apiKey
+//		DataMessenger.domainUrl = authentication.domainUrl
+//		DataMessenger.token = authentication.token
 	}
 
 	private lateinit var bubblesManager: BubblesManager
@@ -161,8 +161,6 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 			field = value
 		}
 	}
-
-
 	//endregion
 
 	private fun updateColor()

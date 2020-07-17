@@ -106,20 +106,20 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		if (BuildConfig.DEBUG)
 		{
-			val projectId = "spira-demo3"
+			val projectId = " spira-demo3 "
 //			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
-			val domainUrl = "spira-staging.chata.io"
+			val domainUrl = " https://spira-staging.chata.io "
 //			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
+			val apiKey = " AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU "
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "vidhyak464@gmail.com"
+			val userId = " vidhyak464@gmail.com "
 			tvUserId?.setText(userId)
-			val username = "admin"
+			val username = " admin "
 			tvUsername?.setText(username)
-			val password = "admin123"
+			val password = " admin123 "
 			tvPassword?.setText(password)
 			tvPassword?.setSelection(password.length)
 
@@ -458,12 +458,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					else
 					{
-						projectId = (tvProjectId?.text ?: "").toString()
-						userID = (tvUserId?.text ?: "").toString()
-						apiKey = (tvApiKey?.text ?: "").toString()
-						domainUrl = (tvDomainUrl?.text ?: "").toString()
-						username = (tvUsername?.text ?: "").toString()
-						password = (tvPassword?.text ?: "").toString()
+						projectId = (tvProjectId?.text ?: "").toString().trim()
+						userID = (tvUserId?.text ?: "").toString().trim()
+						apiKey = (tvApiKey?.text ?: "").toString().trim()
+						domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+						username = (tvUsername?.text ?: "").toString().trim()
+						password = (tvPassword?.text ?: "").toString().trim()
 
 						servicePresenter.createAuthenticate()
 					}

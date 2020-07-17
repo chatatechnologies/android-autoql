@@ -59,9 +59,7 @@ object CustomViews
 
 	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
 		TextView(context).apply {
-		setBackgroundColor(ContextCompat.getColor(context,
-			R.color.colorButton
-		))
+		setBackgroundColor(ContextCompat.getColor(context, R.color.colorButton))
 		layoutParams = LinearLayout.LayoutParams(-1, 90)
 		(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 		gravity = Gravity.CENTER
