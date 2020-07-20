@@ -3,7 +3,9 @@ package chata.can.chata_ai_api
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.text.InputFilter
 import android.text.InputType
+import android.text.Spanned
 import android.util.SparseBooleanArray
 import android.view.Gravity
 import android.view.View
@@ -15,6 +17,8 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai_api.model.DemoParameter
+import chata.can.chata_ai_api.model.TypeInput
+import java.util.regex.Pattern
 
 object CustomViews
 {
@@ -51,9 +55,60 @@ object CustomViews
 			imeOptions = EditorInfo.IME_ACTION_DONE
 		}
 
-		if (demoParam.isPassword)
+		when(demoParam.typeInput)
 		{
-			inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+			TypeInput.COLOR ->
+			{
+				val inputFilterText = object: InputFilter {
+					override fun filter(
+						source: CharSequence?,
+						start: Int,
+						end: Int,
+						dest: Spanned?,
+						dstart: Int,
+						dend: Int
+					): CharSequence {
+						val pattern = Pattern.compile("^\\p{XDigit}+$")
+						val sb = StringBuilder()
+						for (i in start until end)
+						{
+							val chart = source?.elementAt(i) ?: ' '
+							if (!Character.isLetterOrDigit(chart) && Character.isSpaceChar(chart))
+							{
+								return ""
+							}
+
+							val matcher = pattern.matcher(java.lang.String.valueOf(chart))
+							if (matcher.matches())
+							{
+								return ""
+							}
+
+							sb.append(chart)
+						}
+						return sb.toString().toUpperCase()
+					}
+				}
+
+				filters = arrayOf(inputFilterText)
+				inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+			}
+			TypeInput.INTEGER ->
+			{
+				inputType = InputType.TYPE_CLASS_NUMBER
+			}
+			TypeInput.EMAIL ->
+			{
+				inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+			}
+			TypeInput.PASSWORD ->
+			{
+				inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+			}
+			TypeInput.TEXT ->
+			{
+				inputType = InputType.TYPE_CLASS_TEXT
+			}
 		}
 	}
 
@@ -63,9 +118,7 @@ object CustomViews
 		layoutParams = LinearLayout.LayoutParams(-1, 90)
 		(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 		gravity = Gravity.CENTER
-		setTextColor(ContextCompat.getColor(context,
-			R.color.textButton
-		))
+		setTextColor(ContextCompat.getColor(context, R.color.textButton))
 		id = demoParam.idView
 		if (id != 0)
 		{

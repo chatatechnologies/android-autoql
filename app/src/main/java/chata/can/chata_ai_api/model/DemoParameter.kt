@@ -9,4 +9,4 @@ data class DemoParameter(
 	val hint: String = "",
 	val labelId: Int = 0,
 	val idView: Int = 0,
-	val isPassword: Boolean = false)
+	val typeInput: TypeInput = TypeInput.TEXT)
