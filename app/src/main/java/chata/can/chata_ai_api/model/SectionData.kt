@@ -67,12 +67,12 @@ object SectionData
 			arrayListOf(
 				DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
-				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor),
-				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor)
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR)
 			),
 		"More Configurations" to
 			arrayListOf(
-				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage),
+				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
 				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
 				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),

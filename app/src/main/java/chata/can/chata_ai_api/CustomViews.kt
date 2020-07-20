@@ -57,42 +57,6 @@ object CustomViews
 
 		when(demoParam.typeInput)
 		{
-			TypeInput.COLOR ->
-			{
-				val inputFilterText = object: InputFilter {
-					override fun filter(
-						source: CharSequence?,
-						start: Int,
-						end: Int,
-						dest: Spanned?,
-						dstart: Int,
-						dend: Int
-					): CharSequence {
-						val pattern = Pattern.compile("^\\p{XDigit}+$")
-						val sb = StringBuilder()
-						for (i in start until end)
-						{
-							val chart = source?.elementAt(i) ?: ' '
-							if (!Character.isLetterOrDigit(chart) && Character.isSpaceChar(chart))
-							{
-								return ""
-							}
-
-							val matcher = pattern.matcher(java.lang.String.valueOf(chart))
-							if (matcher.matches())
-							{
-								return ""
-							}
-
-							sb.append(chart)
-						}
-						return sb.toString().toUpperCase()
-					}
-				}
-
-				filters = arrayOf(inputFilterText)
-				inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-			}
 			TypeInput.INTEGER ->
 			{
 				inputType = InputType.TYPE_CLASS_NUMBER
@@ -105,7 +69,7 @@ object CustomViews
 			{
 				inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
 			}
-			TypeInput.TEXT ->
+			else ->
 			{
 				inputType = InputType.TYPE_CLASS_TEXT
 			}
@@ -214,6 +178,47 @@ object CustomViews
 					gravity = Gravity.CENTER
 					setTextColor(Color.WHITE)
 					id = demoParam.idView
+
+					val inputFilterText = object: InputFilter {
+						override fun filter(
+							source: CharSequence?,
+							start: Int,
+							end: Int,
+							dest: Spanned?,
+							dstart: Int,
+							dend: Int
+						): CharSequence {
+							val pattern = Pattern.compile("^\\p{XDigit}+$")
+							val sb = StringBuilder()
+							for (i in start until end)
+							{
+								val chart = source?.elementAt(i) ?: ' '
+								if (chart == '#')
+								{
+									sb.append(chart)
+									continue
+								}
+
+								if (!Character.isLetterOrDigit(chart) && Character.isSpaceChar(chart))
+								{
+									return ""
+								}
+
+								val matcher = pattern.matcher(java.lang.String.valueOf(chart))
+								if (!matcher.matches())
+								{
+									return ""
+								}
+
+								sb.append(chart)
+							}
+							return sb.toString().toUpperCase()
+						}
+					}
+
+					filters = arrayOf(inputFilterText)
+					inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+
 					setText(valueColor)
 				}
 			}
