@@ -50,8 +50,7 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-//		val url = "${DataMessenger.domainUrl}/autoql/${api1}query/autocomplete?text=CONTENT&key=${DataMessenger.apiKey}"
-//		view?.addChatMessage(TypeChatView.LEFT_VIEW, url, "ERROR")
+//		view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
 //		return
 		isLoading(false)
 		if (jsonObject != null)
@@ -88,8 +87,7 @@ class ChatServicePresenter(
 					//region REMOVE BY TESTING
 					else
 					{
-						val url = "${DataMessenger.domainUrl}/autoql/${api1}query/autocomplete?text=CONTENT&key=${DataMessenger.apiKey}"
-						view?.addChatMessage(TypeChatView.LEFT_VIEW, url, "ERROR")
+						view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
 					}
 					//endregion
 				}

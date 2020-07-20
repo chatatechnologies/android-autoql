@@ -104,18 +104,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 
-		if (BuildConfig.DEBUG)
+		if (true)
+		//if (BuildConfig.DEBUG)
 		{
-			val projectId = "spira-demo3 "
+			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://spira-staging.chata.io"
 //			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU "
+			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "vidhyak464@gmail.com "
+			val userId = "vidhyak464@gmail.com"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
@@ -139,6 +140,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etQueryPlaceholder?.setText(etQueryPlaceholder?.text ?: "")
 			etMaxNumberMessage?.setText(etMaxNumberMessage?.text ?: "")
 		}
+
+		//region autologin REMOVE
+		projectId = (tvProjectId?.text ?: "").toString().trim()
+		userID = (tvUserId?.text ?: "").toString().trim()
+		apiKey = (tvApiKey?.text ?: "").toString().trim()
+		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+		username = (tvUsername?.text ?: "").toString().trim()
+		password = (tvPassword?.text ?: "").toString().trim()
+
+		servicePresenter.createAuthenticate()
+		//endregion
 	}
 
 	override fun initViews(view: View)
