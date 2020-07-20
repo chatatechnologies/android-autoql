@@ -96,12 +96,14 @@ object RequestBuilder
 				if (it is UnknownHostException)
 				{
 					json.put("CODE", 500)
+					json.put("CONTENT", "UnknownHostException")
 				}
 				else
 				{
 					if (it.networkResponse == null)
 					{
 						json.put("CODE", 500)
+						json.put("CONTENT", "networkResponse is empty")
 					}
 					else
 					{

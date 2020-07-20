@@ -24,7 +24,7 @@ class DataChatContract
 		{
 			with(DataMessenger)
 			{
-				header = getAuthorizationJWT()
+				//header = getAuthorizationJWT()
 				nameService = "autocomplete"
 				"$domainUrl/autoql/${api1}query/autocomplete?text=$content&key=$apiKey"
 			}
