@@ -454,6 +454,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	override fun onDestroy() {
+		super.onDestroy()
+	}
+
+	override fun onDestroyView() {
+		super.onDestroyView()
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {

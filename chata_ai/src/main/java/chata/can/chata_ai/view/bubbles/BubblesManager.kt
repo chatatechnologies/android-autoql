@@ -9,15 +9,15 @@ import android.os.IBinder
 open class BubblesManager(context: Context)
 {
 	companion object {
-		private var INSTANCE: BubblesManager ?= null
+//		private var INSTANCE: BubblesManager ?= null
 
 		fun getInstance(context: Context): BubblesManager?
 		{
-			if (INSTANCE == null)
-			{
-				INSTANCE = BubblesManager(context)
-			}
-			return INSTANCE
+//			if (INSTANCE == null)
+//			{
+//				INSTANCE = BubblesManager(context)
+//			}
+			return BubblesManager(context)
 		}
 	}
 
@@ -26,7 +26,7 @@ open class BubblesManager(context: Context)
 	private var bubblesService: BubblesService ?= null
 	private var listener: OnInitializedCallback ?= null
 
-	private val bubbleServiceConnection = object: ServiceConnection
+	private var bubbleServiceConnection = object: ServiceConnection
 	{
 		override fun onServiceConnected(name: ComponentName?, service: IBinder?)
 		{

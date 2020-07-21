@@ -92,7 +92,6 @@ class PagerActivity: AppCompatActivity()
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	private fun canDrawOverlays() = Settings.canDrawOverlays(this)
 
-
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {

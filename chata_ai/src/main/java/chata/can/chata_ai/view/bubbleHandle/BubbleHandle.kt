@@ -44,10 +44,6 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	private lateinit var parentCircle: RelativeLayout
 	private lateinit var circleImageView: CircleImageView
 
-	init {
-		instance = this
-	}
-
 	companion object {
 		lateinit var instance: BubbleHandle
 
@@ -58,6 +54,7 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	}
 
 	init {
+		instance = this
 		getCurrency()
 		BubblesManager.Builder(context)
 			.setInitializationCallback { initBubbleLayout() }
@@ -335,8 +332,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		}
 	}
 
-//	fun onDestroy()
-//	{
-//		bubblesManager.recycle()
-//	}
+	fun onDestroy()
+	{
+		bubblesManager.recycle()
+	}
 }
