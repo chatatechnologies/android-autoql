@@ -19,65 +19,12 @@ object HtmlBuilder
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
-		//region date pivot
-		if (queryBase.isTypeColumn(TypeDataQuery.DATE) || queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
-		{
-			when(aColumn.size)
-			{
-				2 ->
-				{
-					//pData = DatePivot.buildBi(aRows, aColumn)
-					pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING)) DatePivot.buildDateString(aRows, aColumn) else DatePivot.buildBi(aRows, aColumn)
-					with(dataForWebView)
-					{
-						datePivot = pData.first
-						rowsPivot = pData.second
-					}
-					queryBase.configActions = 1
-				}
-				3 ->
-				{
-					val isDate = aColumn[0].type == TypeDataQuery.DATE
-					val isDollar1 = aColumn[1].type == TypeDataQuery.DOLLAR_AMT
-					val isDollar2 = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
-
-					if (isDate && isDollar1 && isDollar2)
-					{
-						queryBase.configActions = 2
-					}
-					else
-					{
-						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
-						dataForWebView.rowsPivot = 180
-						queryBase.configActions = 3
-					}
-				}
-				else -> {}
-			}
-		}
-		else
-		{
-			queryBase.configActions = when(aColumn.size)
-			{
-				2 -> 4
-				3 -> 5
-				else -> 0
-			}
-		}
-		//endregion
 		val configAllow = aColumn.size == 3
 
 		with(Categories)
 		{
-			var posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
-			var posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
-
-//			if (configAllow)
-//			{
-//				val tmp = posColumnX
-//				posColumnX = posColumnY
-//				posColumnY = tmp
-//			}
+			val posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
+			val posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
 
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
@@ -128,18 +75,32 @@ object HtmlBuilder
 
 			if (configAllow)
 			{
+				val isDate0 = aColumn[0].type == TypeDataQuery.DATE
+				val isDate1 = aColumn[1].type == TypeDataQuery.DATE
+
+				val isDollar1 = aColumn[1].type == TypeDataQuery.DOLLAR_AMT
+				val isDollar2 = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
+
 				if (aColumn.size > 1)
 				{
 					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
 
-					if (dataForWebView.datePivot.isEmpty())
+					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
 					{
 						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
 						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
 
 						dataForWebView.datePivot = pPivot.first
 						dataForWebView.rowsPivot = pPivot.second
+
+						queryBase.configActions = 2
+					}
+					else
+					{
+						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+						dataForWebView.rowsPivot = 180
+						queryBase.configActions = 3
 					}
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
@@ -170,9 +131,27 @@ object HtmlBuilder
 			}
 			else
 			{
+				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
+					DatePivot.buildDateString(aRows, aColumn)
+				else DatePivot.buildBi(aRows, aColumn)
+
+				with(dataForWebView)
+				{
+					datePivot = pData.first
+					rowsPivot = pData.second
+				}
+				queryBase.configActions = 1
+
 				dataForWebView.catYS = aCatYS.toString()
 				dataForWebView.dataChartBi = Table.generateDataTable(
 					aRows, aColumn,queryBase.mIndexColumn,true)
+
+				queryBase.configActions = when(aColumn.size)
+				{
+					2 -> 4
+					3 -> 5
+					else -> 0
+				}
 			}
 		}
 

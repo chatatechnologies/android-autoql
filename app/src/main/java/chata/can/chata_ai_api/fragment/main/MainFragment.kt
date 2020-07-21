@@ -104,19 +104,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 
-		if (true)
-		//if (BuildConfig.DEBUG)
+//		if (true)
+		if (BuildConfig.DEBUG)
 		{
-			val projectId = "spira-demo3"
-//			val projectId = "accounting-demo"
+//			val projectId = "spira-demo3"
+			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
-			val domainUrl = "https://spira-staging.chata.io"
-//			val domainUrl = "https://accounting-demo-staging.chata.io"
+//			val domainUrl = "https://spira-staging.chata.io"
+			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
-//			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
+//			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
+			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "vidhyak464@gmail.com"
+			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
