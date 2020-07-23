@@ -35,7 +35,7 @@ class DataChatContract
 			url,
 			typeJSON,
 			headers = header,
-			infoHolder = hashMapOf("nameService" to nameService),
+			infoHolder = hashMapOf("nameService" to nameService, "url" to url),
 			listener = listener)
 	}
 

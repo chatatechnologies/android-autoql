@@ -8,7 +8,6 @@ import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -18,8 +17,7 @@ class ChatServicePresenter(
 	PresenterContract
 {
 	private var lastQuery = ""
-	private val contract =
-		DataChatContract()
+	private val contract = DataChatContract()
 
 	fun getAutocomplete(suggestionQuery: String)
 	{
@@ -50,8 +48,8 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-//		view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
-//		return
+		view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
+		return
 		isLoading(false)
 		if (jsonObject != null)
 		{
