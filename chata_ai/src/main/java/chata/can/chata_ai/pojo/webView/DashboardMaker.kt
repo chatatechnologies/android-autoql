@@ -133,7 +133,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     var xAxis = '${dataForWebView.xAxis}';
     var yAxis = '${dataForWebView.yAxis}';
 		
-    var dataChartBi = ${if (isBi) dataChartBi else "[]"};
+    var dataChartBi = ${if (isBi) dataChartBi else dataChartBiWithTri};
     var datachartTri = ${if (isBi) "[]" else dataChartBi};
 		
     var dataChartLine = ${if (isBi) catY else catYS};

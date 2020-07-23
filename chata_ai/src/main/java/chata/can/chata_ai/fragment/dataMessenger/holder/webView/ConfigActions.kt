@@ -56,7 +56,18 @@ object ConfigActions
 		R.id.ivStackedBar,
 		R.id.ivStackedColumn,
 		R.id.ivStackedArea
-//		R.id.stackedBar,
-//		R.id.stackedColumn
+	)
+
+	/**
+	 * configActions = 6
+	 */
+	val triBiBarColumnConfig = arrayListOf(
+		R.id.ivPivot,
+		R.id.ivTable,
+		R.id.ivHeat,
+		R.id.ivBubble,
+		R.id.ivBar,
+		R.id.ivColumn,
+		R.id.ivStackedArea
 	)
 }

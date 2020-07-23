@@ -106,6 +106,16 @@ object HtmlBuilder
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
 					queryBase.isTri = true
 					dataForWebView.isBi = false
+
+					val isDate = aColumn[0].type == TypeDataQuery.STRING
+					val isDateString = aColumn[1].type == TypeDataQuery.DATE_STRING
+					val isDollar = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
+					if (isDate && isDateString && isDollar)
+					{
+						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
+							aRows, aColumn,queryBase.mIndexColumn,true)
+						queryBase.configActions = 6
+					}
 				}
 
 				if (queryBase.configActions == 2)

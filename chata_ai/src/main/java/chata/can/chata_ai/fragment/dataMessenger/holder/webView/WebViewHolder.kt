@@ -111,6 +111,10 @@ class WebViewHolder(
 				{
 					ConfigActions.triStackedConfig
 				}
+				6 ->
+				{
+					ConfigActions.triBiBarColumnConfig
+				}
 				else ->
 				{
 					lastId = "#idTableBasic"
