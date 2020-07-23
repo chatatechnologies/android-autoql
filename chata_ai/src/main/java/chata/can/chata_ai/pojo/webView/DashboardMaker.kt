@@ -478,6 +478,10 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         }
     }
     function biType(type,inverted){
+				var newCategory = categoriesX;
+        if (categoriesX.length == 1 && newCategory[0] === "") {
+            var newCategory = categoriesY;
+        }
         finalSize(inverted);
         chart.destroy()
                 chart = Highcharts.chart('container', defaultChart);
@@ -489,7 +493,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     
                     xAxis: {
                          gridLineWidth: 0,
-                         categories: categoriesX,
+                         categories: newCategory,
                          labels: {
                            rotation: inverted ? 0 : -60,
                            style: xAxisStyle
@@ -506,7 +510,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     },
                     series: [{
                             colorByPoint: false,
-                            name: categoriesX,
+                            name: newCategory,
                             data: dataChartBi
                         }],
                     tooltip: {
