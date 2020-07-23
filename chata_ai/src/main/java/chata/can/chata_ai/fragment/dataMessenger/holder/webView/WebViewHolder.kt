@@ -275,7 +275,7 @@ class WebViewHolder(
 							Pair("'$idHide', '#container', 'contrast_bar'", factorHeight)
 						else
 						{
-							if (queryBase.isTri)
+							if (queryBase.isTri && !queryBase.isTriInBi)
 							{
 								Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
 							}
@@ -293,7 +293,7 @@ class WebViewHolder(
 							Pair("'$idHide', '#container', 'contrast_column'", factorHeight)
 						else
 						{
-							if (queryBase.isTri)
+							if (queryBase.isTri && !queryBase.isTriInBi)
 							{
 								Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
 							}

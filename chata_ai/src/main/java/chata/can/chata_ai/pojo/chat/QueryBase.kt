@@ -68,6 +68,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var configActions = 0
 	var isContrast = false
 	var isTri = false
+	var isTriInBi = false
 	var contentHTML = ""
 	var rowsTable = 0
 	var rowsPivot = 0
