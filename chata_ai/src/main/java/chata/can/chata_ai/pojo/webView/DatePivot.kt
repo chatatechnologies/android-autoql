@@ -102,7 +102,12 @@ object DatePivot
 				}
 			}
 			bodyTable.append("</tbody>")
-			return Pair("<table id=\"idTableDataPivot\">$headTable$bodyTable</table>", numRows)
+			if (bodyTable.toString() == "<tbody></tbody>")
+			{
+				Pair("", 0)
+			}
+			else
+				Pair("<table id=\"idTableDataPivot\">$headTable$bodyTable</table>", numRows)
 			//endregion
 		}
 		return Pair("", 0)
