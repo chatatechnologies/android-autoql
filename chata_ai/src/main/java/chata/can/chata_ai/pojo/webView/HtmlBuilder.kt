@@ -115,6 +115,7 @@ object HtmlBuilder
 						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
 							aRows, aColumn,queryBase.mIndexColumn,true)
 						queryBase.isTriInBi = true
+						dataForWebView.catX = aCatY.toString()
 						queryBase.configActions = 6
 					}
 				}
