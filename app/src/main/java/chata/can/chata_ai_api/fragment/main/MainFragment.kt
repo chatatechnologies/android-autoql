@@ -142,13 +142,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText((etMaxNumberMessage?.text ?: "").trim())
 		}
 
-		projectId = (tvProjectId?.text ?: "").toString().trim()
-		userID = (tvUserId?.text ?: "").toString().trim()
-		apiKey = (tvApiKey?.text ?: "").toString().trim()
-		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
-		username = (tvUsername?.text ?: "").toString().trim()
-		password = (tvPassword?.text ?: "").toString().trim()
-		servicePresenter.createAuthenticate()
+//		projectId = (tvProjectId?.text ?: "").toString().trim()
+//		userID = (tvUserId?.text ?: "").toString().trim()
+//		apiKey = (tvApiKey?.text ?: "").toString().trim()
+//		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+//		username = (tvUsername?.text ?: "").toString().trim()
+//		password = (tvPassword?.text ?: "").toString().trim()
+//		servicePresenter.createAuthenticate()
 	}
 
 	override fun initViews(view: View)
@@ -473,6 +473,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						DataMessenger.clearData()
 						isAuthenticate = false
 						changeStateAuthenticate()
+
+						bubbleHandle.setImageResource(R.drawable.ic_bubble_main)
 					}
 					else
 					{
@@ -539,6 +541,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		val userId = (tvUserId?.text ?: "").toString()
 		val projectId = (tvProjectId?.text ?: "").toString()
+
+		if (projectId.contains("spira"))
+		{
+			bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
+		}
+		else
+		{
+			bubbleHandle.setImageResource(R.drawable.ic_bubble_main)
+		}
 
 		servicePresenter.createJWT(userId, projectId)
 	}

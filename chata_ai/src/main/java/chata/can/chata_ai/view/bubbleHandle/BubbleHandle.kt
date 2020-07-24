@@ -286,9 +286,13 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 			}
 			setImageResource(R.drawable.ic_bubble_main)
 			setCircleBackgroundColorResource(R.color.white)
-
 		}
 		return parentCircle
+	}
+
+	fun setImageResource(intRest: Int)
+	{
+		circleImageView.setImageResource(intRest)
 	}
 
 	private fun getCurrency()

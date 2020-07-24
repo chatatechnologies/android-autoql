@@ -46,7 +46,7 @@ object SectionData
 			arrayListOf(
 				DemoParameter("Reload Drawer", TypeParameter.BUTTON, idView = R.id.btnReloadDrawer),
 				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer),
-				DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
+				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = aPlacement),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
@@ -60,8 +60,7 @@ object SectionData
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
 				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle)
-				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif"),
-				//DemoParameter("Show Drawer Handle", TypeParameter.TOGGLE)
+				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")
 			),
 		"Chat Colors" to
 			arrayListOf(
