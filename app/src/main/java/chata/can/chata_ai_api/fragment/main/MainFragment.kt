@@ -104,7 +104,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 
-		if (BuildConfig.DEBUG)
+		//if (BuildConfig.DEBUG)
+		if (true)
 		{
 			val projectId = "spira-demo3"
 			//\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000c
@@ -116,7 +117,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "carlos@rinro.com.mx"
+			val userId = "vidhyak464@gmail.com"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
@@ -134,19 +135,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		else
 		{
-			val projectId = "spira-demo3"
-			tvProjectId?.setText(projectId)
-			val userId = "vidhyak464@gmail.com"
-			tvUserId?.setText(userId)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
-			tvApiKey?.setText(apiKey)
-			val domainUrl = "https://spira-staging.chata.io"
-			tvDomainUrl?.setText(domainUrl)
-			val username = "admin"
-			tvUsername?.setText(username)
-			val password = "admin123"
-			tvPassword?.setText(password)
-
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
@@ -154,7 +142,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText((etMaxNumberMessage?.text ?: "").trim())
 		}
 
-//		servicePresenter.createAuthenticate()
+		projectId = (tvProjectId?.text ?: "").toString().trim()
+		userID = (tvUserId?.text ?: "").toString().trim()
+		apiKey = (tvApiKey?.text ?: "").toString().trim()
+		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+		username = (tvUsername?.text ?: "").toString().trim()
+		password = (tvPassword?.text ?: "").toString().trim()
+		servicePresenter.createAuthenticate()
 	}
 
 	override fun initViews(view: View)
