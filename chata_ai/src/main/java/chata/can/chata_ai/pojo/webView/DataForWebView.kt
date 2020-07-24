@@ -19,7 +19,4 @@ class DataForWebView(
 	var type = "table"
 	var xAxis = ""
 	var yAxis = ""
-
-	lateinit var aXDrillDown: ArrayList<String>
-	lateinit var aYDrillDown: ArrayList<String>
 }

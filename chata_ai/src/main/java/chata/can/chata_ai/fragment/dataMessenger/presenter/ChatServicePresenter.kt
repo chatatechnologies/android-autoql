@@ -48,8 +48,6 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
-		return
 		isLoading(false)
 		if (jsonObject != null)
 		{
@@ -85,7 +83,7 @@ class ChatServicePresenter(
 					//region REMOVE BY TESTING
 					else
 					{
-						view?.addChatMessage(TypeChatView.LEFT_VIEW, jsonObject.toString(), "ERROR")
+						view?.addChatMessage(TypeChatView.LEFT_VIEW, "Data not found", "Error")
 					}
 					//endregion
 				}

@@ -107,7 +107,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		if (BuildConfig.DEBUG)
 		{
 			val projectId = "spira-demo3"
-//			val projectId = "accounting-demo\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000"
+			//\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000c
+//			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://spira-staging.chata.io"
 //			val domainUrl = "https://accounting-demo-staging.chata.io"
@@ -133,6 +134,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		else
 		{
+			val projectId = "spira-demo3"
+			tvProjectId?.setText(projectId)
+			val userId = "vidhyak464@gmail.com"
+			tvUserId?.setText(userId)
+			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
+			tvApiKey?.setText(apiKey)
+			val domainUrl = "https://spira-staging.chata.io"
+			tvDomainUrl?.setText(domainUrl)
+			val username = "admin"
+			tvUsername?.setText(username)
+			val password = "admin123"
+			tvPassword?.setText(password)
+
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
