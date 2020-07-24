@@ -1,7 +1,11 @@
 package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -42,11 +46,26 @@ class MainRenderPresenter(
 					{
 						layoutParams = LinearLayout.LayoutParams(-1, -2)
 						gravity = Gravity.CENTER_HORIZONTAL
-						text = demoParam.label
+//						text = demoParam.label
+						//region check * character
+						if (demoParam.label.contains("*"))
+						{
+							SpannableStringBuilder().run {
+								val spannable = SpannableString(demoParam.label)
+								spannable.setSpan(ForegroundColorSpan(Color.RED), 0, 1, 0)
+								append(spannable)
+								setText(this, TextView.BufferType.SPANNABLE)
+							}
+						}
+						else
+						{
+							text = demoParam.label
+						}
+						//endregion
+
 						if (demoParam.labelId != 0)
 						{
 							id = demoParam.labelId
-
 						}
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 						llContainer.addView(this)
