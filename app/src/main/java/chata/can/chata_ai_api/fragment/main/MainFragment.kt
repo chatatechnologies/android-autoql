@@ -475,6 +475,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						changeStateAuthenticate()
 
 						bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
+						bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
 					}
 					else
 					{
@@ -545,10 +546,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		if (projectId.contains("spira"))
 		{
 			bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
+			bubbleHandle.setBackgroundColor(R.color.white)
 		}
 		else
 		{
 			bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
+			bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
 		}
 
 		servicePresenter.createJWT(userId, projectId)

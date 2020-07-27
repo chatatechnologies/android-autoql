@@ -68,10 +68,10 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	}
 
 	var isNecessaryLogin = true
-	set(value) {
-		DataMessenger.isNecessaryLogin = value
-		field = value
-	}
+		set(value) {
+			DataMessenger.isNecessaryLogin = value
+			field = value
+		}
 
 	//region properties like docs react data messenger
 	var isVisible: Boolean = true
@@ -85,22 +85,22 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		}
 
 	var placement = ConstantDrawer.RIGHT_PLACEMENT
-	set(value) {
-		if (placement != value && placement > 0)
-		{
-			field = value
-			bubbleLayout.definePositionInScreen(placement)
+		set(value) {
+			if (placement != value && placement > 0)
+			{
+				field = value
+				bubbleLayout.definePositionInScreen(placement)
+			}
 		}
-	}
 
 	var title = "Data Messenger"
 	var userDisplayName = "there"
 	var introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
 	var inputPlaceholder = "Type your queries here"
 	var maxMessages = 2
-	set(value) {
-		field = if (value > 1) value else 2
-	}
+		set(value) {
+			field = if (value > 1) value else 2
+		}
 
 	var clearOnClose = false
 	var enableVoiceRecord = true
@@ -143,20 +143,20 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 
 	private var aThemePossible = arrayListOf("light", "dark")
 	var theme: String = "light"
-	set(value) {
-		if (theme != value && value in aThemePossible)
-		{
-			SinglentonDrawer.themeColor = value
-			val themeColor = when(value)
+		set(value) {
+			if (theme != value && value in aThemePossible)
 			{
-				"light" -> ThemeColor.lightColor
-				"dark" -> ThemeColor.darkColor
-				else -> ThemeColor.lightColor
+				SinglentonDrawer.themeColor = value
+				val themeColor = when(value)
+				{
+					"light" -> ThemeColor.lightColor
+					"dark" -> ThemeColor.darkColor
+					else -> ThemeColor.lightColor
+				}
+				ThemeColor.currentColor = themeColor
+				field = value
 			}
-			ThemeColor.currentColor = themeColor
-			field = value
 		}
-	}
 	//endregion
 
 	fun changeColor(indexColor: Int, valueColor: String)
@@ -254,7 +254,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		val lp = RelativeLayout.LayoutParams(-2, -2)
 		parentCircle.layoutParams = lp
 
-		val color = ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary)
+		val color = ContextCompat.getColor(context,
+			ThemeColor.currentColor.drawerColorPrimary)
 		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
 		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 
@@ -281,6 +282,11 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 	fun setImageResource(intRest: Int)
 	{
 		circleImageView.setImageResource(intRest)
+	}
+
+	fun setBackgroundColor(intColor: Int)
+	{
+		circleImageView.setCircleBackgroundColorResource(intColor)
 	}
 
 	private fun getCurrency()
