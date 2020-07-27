@@ -42,6 +42,11 @@ object SectionData
 				DemoParameter("* Password", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, typeInput = TypeInput.PASSWORD),
 				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
 			),
+		"Customize Widgets" to
+			arrayListOf(
+				DemoParameter("Reload Drawer", TypeParameter.BUTTON, idView = R.id.btnReloadDrawer),
+				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer)
+			),
 		"AutoQl Api Configuration Options" to
 			arrayListOf(
 				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
@@ -49,40 +54,33 @@ object SectionData
 				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
 				DemoParameter("Enable Drilldowns", TypeParameter.TOGGLE, "true", idView = R.id.swEnableDrillDown)
 			),
-		"Customize Widgets" to
-			arrayListOf(
-				DemoParameter("Reload Drawer", TypeParameter.BUTTON, idView = R.id.btnReloadDrawer),
-					DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer)
-			),
-		"Drawer Props" to
+		"UI Configuration Options" to
 			arrayListOf(
 				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
+				//Shift Screen on Open/Close    TypeParameter.TOGGLE
+				//Darken Background Behind Data Messenger   TypeParameter.TOGGLE
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
-				DemoParameter("Drawer Placement", TypeParameter.SEGMENT, options = aPlacement),
+				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT, options = aPlacement),
+				//Default Tab   (Must click 'Reload Data Messenger' to apply this) data-messengerexplore-queries
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US", idView = R.id.etLanguageCode),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY", idView = R.id.etFormatMonthYear),
 				DemoParameter("Format for Day, Month, Year", TypeParameter.INPUT, "MMM DD, YYYY", idView = R.id.etFormatDayMonthYear),
 				DemoParameter("Number of Decimals for Currency Values", TypeParameter.INPUT, "2", idView = R.id.etDecimalsCurrency, typeInput = TypeInput.INTEGER),
 				DemoParameter("Number of Decimals for Quantity Values", TypeParameter.INPUT, "1", idView = R.id.etDecimalsQuantity, typeInput = TypeInput.INTEGER),
-				DemoParameter("Customer Name", TypeParameter.INPUT, idView = R.id.etCustomerMessage),
+				DemoParameter("User Display Name", TypeParameter.INPUT, idView = R.id.etCustomerMessage),
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
-				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle)
+				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle),
 				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")
-			),
-		"Chat Colors" to
-			arrayListOf(
 				DemoParameter("This an array of colors used for the charts...", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
 				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
-				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR)
-			),
-		"More Configurations" to
-			arrayListOf(
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
 			)
+		//"Chat Colors"
 	)
 }
