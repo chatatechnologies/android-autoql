@@ -154,21 +154,10 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 				else -> ThemeColor.lightColor
 			}
 			ThemeColor.currentColor = themeColor
-			updateColor()
 			field = value
 		}
 	}
 	//endregion
-
-	private fun updateColor()
-	{
-		val color = ContextCompat.getColor(context,
-			ThemeColor.currentColor.drawerColorPrimary)
-		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
-		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
-		parentCircle.background = drawable
-		circleImageView.setCircleBackgroundColorResource(ThemeColor.currentColor.drawerBackgroundColor)
-	}
 
 	fun changeColor(indexColor: Int, valueColor: String)
 	{
@@ -265,8 +254,7 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		val lp = RelativeLayout.LayoutParams(-2, -2)
 		parentCircle.layoutParams = lp
 
-		val color = ContextCompat.getColor(context,
-			ThemeColor.currentColor.drawerColorPrimary)
+		val color = ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary)
 		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
 		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 
@@ -284,8 +272,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(
 					marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
 			}
-			setImageResource(R.drawable.ic_bubble_main)
-			setCircleBackgroundColorResource(R.color.white)
+			setImageResource(R.drawable.ic_bubble_chata)
+			setCircleBackgroundColorResource(R.color.blue_chata_circle)
 		}
 		return parentCircle
 	}

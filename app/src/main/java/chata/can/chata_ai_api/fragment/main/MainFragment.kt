@@ -474,7 +474,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						isAuthenticate = false
 						changeStateAuthenticate()
 
-						bubbleHandle.setImageResource(R.drawable.ic_bubble_main)
+						bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
 					}
 					else
 					{
@@ -548,7 +548,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		else
 		{
-			bubbleHandle.setImageResource(R.drawable.ic_bubble_main)
+			bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
 		}
 
 		servicePresenter.createJWT(userId, projectId)

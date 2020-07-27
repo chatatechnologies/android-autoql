@@ -26,4 +26,6 @@
 
 	<color name="chata_drawer_text_color_placeholder">#0000009C</color>
 	<color name="chata_drawer_text_color_placeholder_dark">#FFFFFF9C</color>
+
+	<color name="blue_chata_circle">#31A9DD</color>
 </resources>
