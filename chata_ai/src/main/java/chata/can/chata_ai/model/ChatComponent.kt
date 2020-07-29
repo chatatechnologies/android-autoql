@@ -6,7 +6,7 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatComponent(jsonObject: JSONObject)
+class ChatComponent(jsonObject: JSONObject, type: String = "")
 {
 	init {
 		jsonObject.run {
@@ -14,17 +14,18 @@ class ChatComponent(jsonObject: JSONObject)
 			if (length() > 0)
 			{
 				val jaColumns = optJSONArray("columns") ?: JSONArray()
-				val finalType = optString("display_type")
+				val finalType = if (type.isEmpty()) optString("display_type") else type
 
-				var displayType = enumValueOfOrNull<TypeDataQuery>(
+				var displayType = enumValueOfOrNull<ChatComponentType>(
 					finalType
-				) ?: run { TypeDataQuery.UNKNOWN }
+				) ?: run { ChatComponentType.UNKNOWN }
 
 				val idQuery = optString("query_id", "")
 				val jaRows = optJSONArray("rows") ?: JSONArray()
-				val aColumn = ArrayList<ColumnQuery>()
+				val columnsFinal = ArrayList<ColumnQuery>()
 
-				val user = true
+				var textFinal = ""
+				var user = true
 				var numRow = 20
 
 				for (index in 0 until jaColumns.length())
@@ -33,14 +34,14 @@ class ChatComponent(jsonObject: JSONObject)
 					//is login
 					val name = if (true) column.optString("display_name") else column.optString("name")
 					val originalName = column.optString("name", "")
-					val type = column.optString("type")
+					val typeLocal = column.optString("type")
 					val isVisible = column.optBoolean("is_visible", true)
 
 					val typeColumn = enumValueOfOrNull<TypeDataQuery>(
-						type
+						typeLocal
 					) ?: run { TypeDataQuery.UNKNOWN }
 
-					aColumn.add(ColumnQuery(false, typeColumn, name, originalName, false, isVisible))
+					columnsFinal.add(ColumnQuery(false, typeColumn, name, originalName, false, isVisible))
 				}
 
 				//region Rows
@@ -60,14 +61,34 @@ class ChatComponent(jsonObject: JSONObject)
 				//endregion
 				numRow = aRows.size
 
-				val columnsF = aColumn.map { it.name }
+				val columnsF = columnsFinal.map { it.name }
 
-				if (displayType == TypeDataQuery.)
-//				let suggestions: [String] = displayType == ChatComponentType.Suggestion ?
-//				rows.map{ (element) -> String in
-//					return "\(element[0])"
-//				} : []
+				val suggestions = if (displayType == ChatComponentType.SUGGESTION)
+				{
+					aRows.map { it[0] }
+				}
+				else arrayListOf()
+
 				var webView = ""
+				val chartsBi = displayType == ChatComponentType.PIE || displayType == ChatComponentType.BAR || displayType == ChatComponentType.COLUMN || displayType == ChatComponentType.LINE
+				val chartsTri = displayType == ChatComponentType.HEAT_MAP || displayType == ChatComponentType.BUBBLE || displayType == ChatComponentType.STACK_COLUMN || displayType == ChatComponentType.STACK_BAR || displayType == ChatComponentType.STACK_AREA
+
+				val aColumnType = columnsFinal.map { it.type }
+
+				if (columnsF.isEmpty() && aRows.isEmpty())
+				{
+					displayType = ChatComponentType.INTRODUCTION
+					user = false
+					textFinal = "Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
+				}
+
+				if (displayType == ChatComponentType.WEB_VIEW || displayType == ChatComponentType.TABLE || chartsBi || chartsTri)
+				{
+					val supportTri = columnsFinal.size == 3
+					var datePivotStr = ""
+					var dataPivotStr = ""
+					var tableBasicStr = ""
+				}
 			}
 		}
 	}

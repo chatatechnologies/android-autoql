@@ -9,5 +9,5 @@ enum class TypeDataQuery
 	DATE,
 	DATE_STRING,
 	STRING,
-	UNKNOWN;
+	UNKNOWN
 }

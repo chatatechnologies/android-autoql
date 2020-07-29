@@ -1,6 +1,6 @@
 package chata.can.chata_ai.model
 
-enum class ChatComponentType(val type: String)
+enum class ChatComponentType(val type: String = "")
 {
 	INTRODUCTION("text"),
 	QUERY_BUILDER("qb"),
@@ -16,5 +16,6 @@ enum class ChatComponentType(val type: String)
 	STACK_BAR("stacked_bar"),
 	TABLE("table"),
 	SUGGESTION("suggestion"),
-	SAFETY("safetynet")
+	SAFETY("safetynet"),
+	UNKNOWN
 }
