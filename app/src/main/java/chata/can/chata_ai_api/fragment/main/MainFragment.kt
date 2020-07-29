@@ -543,6 +543,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		val userId = (tvUserId?.text ?: "").toString()
 		val projectId = (tvProjectId?.text ?: "").toString()
 
+		servicePresenter.createJWT(userId, projectId)
+	}
+
+	override fun callRelated()
+	{
+		val projectId = (tvProjectId?.text ?: "").toString()
+
 		if (projectId.contains("spira"))
 		{
 			bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
@@ -554,7 +561,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
 		}
 
-		servicePresenter.createJWT(userId, projectId)
+		servicePresenter.callRelated()
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)

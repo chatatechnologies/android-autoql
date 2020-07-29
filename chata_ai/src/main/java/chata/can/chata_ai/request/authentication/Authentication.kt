@@ -53,4 +53,18 @@ object Authentication
 			infoHolder = hashMapOf("nameService" to "callJWL"),
 			listener = listener)
 	}
+
+	fun callRelatedQuery(listener: StatusResponse)
+	{
+		val url = "${DataMessenger.domainUrl}/autoql/${api1}query/related-queries?key=${DataMessenger.apiKey}&search=test"
+		val mAuthorization = getAuthorizationJWT()
+
+		callStringRequest(
+			Request.Method.GET,
+			url,
+			headers = mAuthorization,
+			infoHolder = hashMapOf("nameService" to "callRelatedQuery"),
+			listener = listener
+		)
+	}
 }

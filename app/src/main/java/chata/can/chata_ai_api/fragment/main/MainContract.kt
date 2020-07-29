@@ -4,6 +4,7 @@ interface MainContract
 {
 	fun changeStateAuthenticate()
 	fun callJWt()
+	fun callRelated()
 	fun changeAuthenticate(isAuthenticate: Boolean)
 	fun isEnableLogin(isEnable: Boolean)
 	fun savePersistentData()

@@ -21,6 +21,11 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		Authentication.callJWL(DataMessenger.token, userId, projectId, this)
 	}
 
+	fun callRelated()
+	{
+		Authentication.callRelatedQuery(this)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
@@ -51,6 +56,10 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 				{
 					val jwt = jsonObject.optString("RESPONSE") ?: ""
 					DataMessenger.JWT = jwt
+					view.callRelated()
+				}
+				"callRelatedQuery" ->
+				{
 					with(view)
 					{
 						changeAuthenticate(true)
