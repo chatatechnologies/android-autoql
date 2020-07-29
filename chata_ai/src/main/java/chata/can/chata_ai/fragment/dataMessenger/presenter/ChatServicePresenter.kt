@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger.presenter
 import android.content.Context
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
+import chata.can.chata_ai.model.ChatComponent
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -148,6 +149,7 @@ class ChatServicePresenter(
 				jsonObject.has(referenceIdKey) ->
 				{
 					val queryBase = QueryBase(jsonObject)
+					ChatComponent(jsonObject)
 					val typeView = when(queryBase.displayType)
 					{
 						"suggestion" ->
