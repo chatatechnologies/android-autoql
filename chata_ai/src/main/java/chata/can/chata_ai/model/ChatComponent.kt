@@ -62,7 +62,7 @@ class ChatComponent(jsonObject: JSONObject)
 
 				val columnsF = aColumn.map { it.name }
 
-				if ()
+				if (displayType == TypeDataQuery.)
 //				let suggestions: [String] = displayType == ChatComponentType.Suggestion ?
 //				rows.map{ (element) -> String in
 //					return "\(element[0])"
