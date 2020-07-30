@@ -179,13 +179,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
           gridLineWidth: 0,
           categories: categoriesX,
           labels: {
-            rotation: -60,
-            style: {
-                    color: colorAxis,
-                     fontSize:'16px'
-            }
-          },
-
+		        rotation: -60,
+		        style: {
+		            color: colorAxis,
+		             fontSize:‘16px’
+		        },
+		        formatter: function(){
+		         return formatterLabel(this.value);
+		        }
+		       },
           title: {
             text: xAxis,
             style: {
@@ -260,6 +262,12 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             //var d = new Date( Date.parse('2017 2') );
            drillDown( finalText );
     });
+		function formatterLabel(value) {
+      if (value.length > 7) {
+        return value.slice(0, 7) + “...“;
+      }
+     return value;
+    }
     function drillDown(position){
         try {
             Android.boundMethod(position);
@@ -350,13 +358,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
           gridLineWidth: 0,
           categories: categoriesX,
           labels: {
-            rotation: -60,
-            style: {
-                    color: colorAxis,
-                     fontSize:'16px'
-            }
-          },
-
+		        rotation: -60,
+		        style: {
+		            color: colorAxis,
+		             fontSize:‘16px’
+		        },
+		        formatter: function(){
+		         return formatterLabel(this.value);
+		        }
+		       },
           title: {
             text: xAxis,
             style: {
@@ -450,11 +460,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                             step:1
                         },
                         labels: {
-                           style: {
-                               color: colorAxis,
-                           }
-                         },
-                       
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:‘16px’
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
                         title: {
                             text: xAxis,
                             style: {
@@ -495,9 +509,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                          gridLineWidth: 0,
                          categories: newCategory,
                          labels: {
-                           rotation: inverted ? 0 : -60,
-                           style: xAxisStyle
-                         },
+										        rotation: -60,
+										        style: {
+										            color: colorAxis,
+										             fontSize:‘16px’
+										        },
+										        formatter: function(){
+										         return formatterLabel(this.value);
+										        }
+										       },
                          
                          title: {
                            text: xAxis
@@ -536,10 +556,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                          gridLineWidth: 0,
                          categories: categoriesX,
                          labels: {
-                           rotation:-60,
-                           style: xAxisStyle
-                         },
-                         
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:‘16px’
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
                          title: {
                            text: xAxis
                          }
@@ -561,10 +586,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                         gridLineWidth: 0,
                         categories: categoriesX,
                         labels: {
-                            rotation: -60,
-                            step:1,
-                            style: xAxisStyle
-                        },
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:‘16px’
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
                         title: {
                             text: xAxis
                         }
@@ -640,10 +670,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     xAxis: {
                         categories: categoriesX,
                         labels: {
-                            rotation: rotation,
-                            step:1,
-                            style: xAxisStyle
-                        },
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:‘16px’
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
                         title: {
                             text: xAxis
                         }
@@ -700,10 +735,15 @@ function stackedArea(){
                 xAxis: {
                     categories: categoriesX,
                     labels: {
-                        rotation: rotation,
-                        step:1,
-                        style: xAxisStyle
-                    },
+							        rotation: -60,
+							        style: {
+							            color: colorAxis,
+							             fontSize:‘16px’
+							        },
+							        formatter: function(){
+							         return formatterLabel(this.value);
+							        }
+							       },
                     title: {
                         text: xAxis
                     }
