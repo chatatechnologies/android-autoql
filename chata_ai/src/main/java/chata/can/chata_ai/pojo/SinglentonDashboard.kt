@@ -26,4 +26,6 @@ object SinglentonDashboard
 	}
 
 	fun getCurrentDashboard() = aDashboardModel[dashboardSelect].mModel
+
+	fun getDashboardNames() = aDashboardModel.map { it.name }
 }

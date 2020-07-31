@@ -1,6 +1,8 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,17 +20,21 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		swLoad = view.findViewById(R.id.swLoad)
 		btnExecute = view.findViewById(R.id.btnExecute)
+		btnDashboard = view.findViewById(R.id.btnDashboard)
+		spDashboard = view.findViewById(R.id.spDashboard)
 		rvDashboard = view.findViewById(R.id.rvDashboard)
 	}
 
 	override fun setColors()
 	{
 		btnExecute.backgroundGrayWhite()
+		btnDashboard.backgroundGrayWhite()
 	}
 
 	override fun initListener()
 	{
 		btnExecute.setOnClickListener(this)
+		btnDashboard.setOnClickListener(this)
 		swLoad.setOnCheckedChangeListener {
 			_, isChecked ->
 			isAutomatic = isChecked
@@ -59,6 +65,11 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				{
 					getDashboardQueries()
 				}
+				R.id.btnDashboard ->
+				{
+					spDashboard.performClick()
+				}
+				else -> {}
 			}
 		}
 	}
@@ -70,6 +81,12 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			adapter = GridAdapter(SinglentonDashboard.getCurrentDashboard())
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
+
+			val adapter = ArrayAdapter(
+				it,
+				android.R.layout.simple_spinner_item,
+				SinglentonDashboard.getDashboardNames())
+			spDashboard.adapter = adapter
 		}
 	}
 
@@ -105,6 +122,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	private lateinit var swLoad: Switch
 	private lateinit var btnExecute: TextView
+	private lateinit var btnDashboard: TextView
+	private lateinit var spDashboard: Spinner
 	private lateinit var rvDashboard: RecyclerView
 	private lateinit var adapter: GridAdapter
 	private var presenter = DashboardPresenter(this)

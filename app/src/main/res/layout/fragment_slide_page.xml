@@ -15,6 +15,20 @@
 			android:layout_marginRight="20dp"
 			android:layout_width="match_parent"
 			android:text="@string/run_dashboard_automatically"/>
+		<RelativeLayout
+			android:layout_height="40dp"
+			android:layout_width="match_parent">
+			<Spinner
+				android:id="@+id/spDashboard"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				android:visibility="gone"/>
+			<TextView
+				android:gravity="center"
+				android:id="@+id/btnDashboard"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"/>
+		</RelativeLayout>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/btnExecute"
