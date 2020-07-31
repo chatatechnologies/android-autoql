@@ -25,7 +25,10 @@ object SinglentonDashboard
 		aDashboardModel.sortBy { it.idDashboard }
 	}
 
-	fun getCurrentDashboard() = aDashboardModel[dashboardSelect].mModel
+	fun getCurrentDashboard(): BaseModelList<Dashboard>
+	{
+		return aDashboardModel[dashboardSelect].mModel
+	}
 
 	fun getDashboardNames() = aDashboardModel.map { it.name }
 }

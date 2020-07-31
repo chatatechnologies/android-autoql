@@ -78,7 +78,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
-			mModel = SinglentonDashboard.getCurrentDashboard()
+			mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
 			gridAdapter = GridAdapter(mModel)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = gridAdapter
@@ -102,7 +102,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 							btnDashboard.text = content
 							SinglentonDashboard.setDashboardSelect(position)
 
-							val model =  SinglentonDashboard.getCurrentDashboard()
+							val model = SinglentonDashboard.getCurrentDashboard()
 							mModel.clear()
 							mModel.addAll(model.getData())
 							gridAdapter.notifyDataSetChanged()
@@ -153,7 +153,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private lateinit var rvDashboard: RecyclerView
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
-	private lateinit var mModel: BaseModelList<Dashboard>
+	private val mModel = BaseModelList<Dashboard>()
 	private var isAutomatic = false
 	private var isLoaded = false
 }
