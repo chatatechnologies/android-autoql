@@ -16,9 +16,13 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		}
 	}
 
-	fun createJWT(userId: String, projectId: String)
+	fun createJWT()
 	{
-		Authentication.callJWL(DataMessenger.token, userId, projectId, this)
+		Authentication.callJWL(
+			DataMessenger.token,
+			DataMessenger.userID,
+			DataMessenger.projectId,
+			this)
 	}
 
 	fun callRelated()

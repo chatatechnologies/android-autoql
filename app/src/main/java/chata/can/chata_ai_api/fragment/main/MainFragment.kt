@@ -107,8 +107,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		if (BuildConfig.DEBUG)
 		//if (true)
 		{
-			val projectId = "spira-demo3"
 			//\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000c
+			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://spira-staging.chata.io"
@@ -117,7 +117,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
-			val userId = "vidhyak464@gmail.com"
+			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
 			val username = "admin"
 			tvUsername?.setText(username)
@@ -141,14 +141,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etQueryPlaceholder?.setText((etQueryPlaceholder?.text ?: "").trim())
 			etMaxNumberMessage?.setText((etMaxNumberMessage?.text ?: "").trim())
 		}
-
-//		projectId = (tvProjectId?.text ?: "").toString().trim()
-//		userID = (tvUserId?.text ?: "").toString().trim()
-//		apiKey = (tvApiKey?.text ?: "").toString().trim()
-//		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
-//		username = (tvUsername?.text ?: "").toString().trim()
-//		password = (tvPassword?.text ?: "").toString().trim()
-//		servicePresenter.createAuthenticate()
 	}
 
 	override fun initViews(view: View)
@@ -452,14 +444,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun onDestroy() {
-		super.onDestroy()
-	}
-
-	override fun onDestroyView() {
-		super.onDestroyView()
-	}
-
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -529,10 +513,33 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun showError(errorCode: String, errorService: String)
 	{
+//		projectId = (tvProjectId?.text ?: "").toString().trim()
+//		userID = (tvUserId?.text ?: "").toString().trim()
+//		apiKey = (tvApiKey?.text ?: "").toString().trim()
+//		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+//		username = (tvUsername?.text ?: "").toString().trim()
+//		password = (tvPassword?.text ?: "").toString().trim()
 		parentActivity?.let {
+			val messageData =
+"""
+Project Id:
+->$projectId<-
+User Id:
+->$userID<-
+apiKey:
+->$apiKey<-
+domainUrl:
+->$domainUrl<-
+username:
+->$username<-
+password:
+->$password<-
+"""
+
 			AlertDialog.Builder(it)
 				.setCancelable(false)
-				.setMessage("Error: code $errorCode on service \"$errorService\"")
+				//.setMessage("Error: code $errorCode on service \"$errorService\"")
+				.setMessage(messageData)
 				.setNeutralButton("Error", null)
 				.show()
 		}
@@ -540,26 +547,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun callJWt()
 	{
-		val userId = (tvUserId?.text ?: "").toString()
-		val projectId = (tvProjectId?.text ?: "").toString()
-
-		servicePresenter.createJWT(userId, projectId)
+		servicePresenter.createJWT()
 	}
 
 	override fun callRelated()
 	{
-		val projectId = (tvProjectId?.text ?: "").toString()
 
-		if (projectId.contains("spira"))
-		{
-			bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
-			bubbleHandle.setBackgroundColor(R.color.white)
-		}
-		else
-		{
-			bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
-			bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
-		}
 
 		servicePresenter.callRelated()
 	}
@@ -578,6 +571,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		val pair = if (isAuthenticate)
 		{
+			if (projectId.contains("spira"))
+			{
+				bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
+				bubbleHandle.setBackgroundColor(R.color.white)
+			}
+			else
+			{
+				bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
+				bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
+			}
+
 			Pair("Log Out", "Login Successful")
 		}
 		else
