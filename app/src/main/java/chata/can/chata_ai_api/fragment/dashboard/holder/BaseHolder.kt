@@ -35,7 +35,13 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 	{
 		if (item is Dashboard)
 		{
-			val titleToShow = if (item.title.isNotEmpty()) item.title else item.query
+			val titleToShow =
+				if (item.title.isNotEmpty()) item.title
+				else
+				{
+					if (item.query.isNotEmpty()) item.query
+					else "Untitled"
+				}
 			tvTitle?.text = titleToShow
 		}
 	}
