@@ -182,7 +182,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 		        rotation: -60,
 		        style: {
 		            color: colorAxis,
-		             fontSize:‘16px’
+		             fontSize:'16px'
 		        },
 		        formatter: function(){
 		         return formatterLabel(this.value);
@@ -264,7 +264,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     });
 		function formatterLabel(value) {
       if (value.length > 7) {
-        return value.slice(0, 7) + “...“;
+        return value.slice(0, 7) + "...";
       }
      return value;
     }
@@ -361,7 +361,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 		        rotation: -60,
 		        style: {
 		            color: colorAxis,
-		             fontSize:‘16px’
+		             fontSize:'16px'
 		        },
 		        formatter: function(){
 		         return formatterLabel(this.value);
@@ -463,7 +463,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 									        rotation: -60,
 									        style: {
 									            color: colorAxis,
-									             fontSize:‘16px’
+									             fontSize:'16px'
 									        },
 									        formatter: function(){
 									         return formatterLabel(this.value);
@@ -512,7 +512,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 										        rotation: -60,
 										        style: {
 										            color: colorAxis,
-										             fontSize:‘16px’
+										             fontSize:'16px'
 										        },
 										        formatter: function(){
 										         return formatterLabel(this.value);
@@ -559,7 +559,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 									        rotation: -60,
 									        style: {
 									            color: colorAxis,
-									             fontSize:‘16px’
+									             fontSize:'16px'
 									        },
 									        formatter: function(){
 									         return formatterLabel(this.value);
@@ -589,7 +589,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 									        rotation: -60,
 									        style: {
 									            color: colorAxis,
-									             fontSize:‘16px’
+									             fontSize:'16px'
 									        },
 									        formatter: function(){
 									         return formatterLabel(this.value);
@@ -673,7 +673,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 									        rotation: -60,
 									        style: {
 									            color: colorAxis,
-									             fontSize:‘16px’
+									             fontSize:'16px'
 									        },
 									        formatter: function(){
 									         return formatterLabel(this.value);
@@ -738,7 +738,7 @@ function stackedArea(){
 							        rotation: -60,
 							        style: {
 							            color: colorAxis,
-							             fontSize:‘16px’
+							             fontSize:'16px'
 							        },
 							        formatter: function(){
 							         return formatterLabel(this.value);
