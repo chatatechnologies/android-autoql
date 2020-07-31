@@ -3,7 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.model.dashboard.DashboardSingle
 import chata.can.chata_ai.pojo.SinglentonDashboard
-import chata.can.chata_ai.pojo.SinglentonDashboard.aDashboardModel
+import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -18,29 +18,28 @@ import java.util.concurrent.ConcurrentHashMap
 class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
 {
-	private val model = SinglentonDashboard.mModel
-
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
 		{
+			val model = getCurrentDashboard()
 			when(jsonObject.optString("nameService") ?: "")
 			{
 				"getDashboardQueries" ->
 				{
-//					val response = jsonObject.optString("RESPONSE") ?: ""
-//					try {
-//						val query = jsonObject.optString("query") ?: ""
-//						val index = model.indexOfFirst { it.query == query }
-//						val queryBase = QueryBase(JSONObject(response))
-//						queryBase.isDashboard = true
-//						model[index]?.let { it.queryBase = queryBase }
-//						if (index != -1)
-//						{
-//							view.notifyQueryAtIndex(index)
-//						}
-//					}
-//					catch (e: Exception){ }
+					val response = jsonObject.optString("RESPONSE") ?: ""
+					try {
+						val query = jsonObject.optString("query") ?: ""
+						val index = model.indexOfFirst { it.query == query }
+						val queryBase = QueryBase(JSONObject(response))
+						queryBase.isDashboard = true
+						model[index]?.let { it.queryBase = queryBase }
+						if (index != -1)
+						{
+							view.notifyQueryAtIndex(index)
+						}
+					}
+					catch (e: Exception){ }
 				}
 			}
 		}
@@ -54,6 +53,8 @@ class DashboardPresenter(
 			{
 				"getDashboardQueries" ->
 				{
+					val model = getCurrentDashboard()
+
 					val queryBase = QueryBase(jsonObject)
 					queryBase.isDashboard = true
 					val query = jsonObject.optString("query") ?: ""
@@ -159,14 +160,11 @@ class DashboardPresenter(
 									}
 									//endregion
 								}
-								aDashboardModel.add(
-									DashboardSingle(
-										idDashboard,
-										nameDashboard,
-										mModel)
-								)
+
+								SinglentonDashboard.add(idDashboard, nameDashboard, mModel)
 							}
 						}
+						SinglentonDashboard.sortData()
 						view.setDashboards()
 					}
 				}
@@ -176,6 +174,8 @@ class DashboardPresenter(
 
 	fun resetDashboards(isWaiting: Boolean)
 	{
+		val model = getCurrentDashboard()
+
 		for (index in 0 until model.countData())
 		{
 			model[index]?.let {
@@ -192,6 +192,8 @@ class DashboardPresenter(
 
 	fun getDashboardQueries()
 	{
+		val model = getCurrentDashboard()
+
 		for (index in 0 until model.countData())
 		{
 			model[index]?.let { dashboard ->

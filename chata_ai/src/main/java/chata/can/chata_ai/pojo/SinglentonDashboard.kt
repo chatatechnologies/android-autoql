@@ -6,6 +6,24 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 
 object SinglentonDashboard
 {
-	val aDashboardModel = ArrayList<DashboardSingle>()
-	val mModel = BaseModelList<Dashboard>()
+	private var dashboardSelect = 0
+
+	private val aDashboardModel = ArrayList<DashboardSingle>()
+
+	fun add(idDashboard: Int, nameDashboard: String, mModel: BaseModelList<Dashboard>)
+	{
+		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
+	}
+
+	fun setDashboardSelect(index: Int)
+	{
+		dashboardSelect = index
+	}
+
+	fun sortData()
+	{
+		aDashboardModel.sortBy { it.idDashboard }
+	}
+
+	fun getCurrentDashboard() = aDashboardModel[dashboardSelect].mModel
 }

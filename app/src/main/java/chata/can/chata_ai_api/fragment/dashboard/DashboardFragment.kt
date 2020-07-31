@@ -67,7 +67,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
-			adapter = GridAdapter(model)
+			adapter = GridAdapter(SinglentonDashboard.getCurrentDashboard())
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
 		}
@@ -110,5 +110,4 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private var presenter = DashboardPresenter(this)
 	private var isAutomatic = false
 	private var isLoaded = false
-	val model = SinglentonDashboard.mModel
 }
