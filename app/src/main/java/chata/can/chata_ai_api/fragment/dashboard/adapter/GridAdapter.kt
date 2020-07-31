@@ -37,7 +37,10 @@ class GridAdapter(
 				} ?: run {
 					if (isWaitingData)
 					{
-						viewType = 1
+						viewType = if (query.isEmpty()) {
+							8
+						}
+						else 1
 					}
 				}
 			}
@@ -68,6 +71,7 @@ class GridAdapter(
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
+			8 -> NoQueryHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}
 	}

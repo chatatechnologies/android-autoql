@@ -201,12 +201,15 @@ class DashboardPresenter(
 				view.notifyQueryAtIndex(index)
 
 				val query = dashboard.query
-				val title = dashboard.title
-				val mInfoHolder = hashMapOf<String, Any>(
-					"query" to query,
-					"title" to title,
-					"nameService" to "getDashboardQueries")
-				QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+				if (query.isNotEmpty())
+				{
+					val title = dashboard.title
+					val mInfoHolder = hashMapOf<String, Any>(
+						"query" to query,
+						"title" to title,
+						"nameService" to "getDashboardQueries")
+					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+				}
 			}
 		}
 	}
