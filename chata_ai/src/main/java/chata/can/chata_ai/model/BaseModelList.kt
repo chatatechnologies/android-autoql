@@ -7,6 +7,8 @@ open class BaseModelList<Model: Any>
 {
 	private val aData = ArrayList<Model>()
 
+	fun getData() = aData
+
 	fun add(data: Model)
 	{
 		aData.add(data)

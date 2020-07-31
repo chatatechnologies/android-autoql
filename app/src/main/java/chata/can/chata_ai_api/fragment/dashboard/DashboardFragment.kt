@@ -5,8 +5,10 @@ import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
+import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
@@ -76,9 +78,10 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
-			adapter = GridAdapter(SinglentonDashboard.getCurrentDashboard())
+			mModel = SinglentonDashboard.getCurrentDashboard()
+			gridAdapter = GridAdapter(mModel)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
-			rvDashboard.adapter = adapter
+			rvDashboard.adapter = gridAdapter
 
 			val aData = SinglentonDashboard.getDashboardNames()
 			val adapter = ArrayAdapter(
@@ -88,6 +91,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			spDashboard.adapter = adapter
 			btnDashboard.text = aData.firstOrNull() ?: ""
 
+			spDashboard.setSelection(0, false)
 			spDashboard.onItemSelectedListener = object: ItemSelectedListener
 			{
 				override fun onSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
@@ -96,6 +100,12 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 						if (content is String)
 						{
 							btnDashboard.text = content
+							SinglentonDashboard.setDashboardSelect(position)
+
+							val model =  SinglentonDashboard.getCurrentDashboard()
+							mModel.clear()
+							mModel.addAll(model.getData())
+							gridAdapter.notifyDataSetChanged()
 						}
 					}
 				}
@@ -108,7 +118,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun notifyQueryAtIndex(index: Int)
 	{
-		adapter.notifyItemChanged(index)
+		gridAdapter.notifyItemChanged(index)
 	}
 
 	private fun loadDashboard()
@@ -141,8 +151,9 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private lateinit var btnDashboard: TextView
 	private lateinit var spDashboard: Spinner
 	private lateinit var rvDashboard: RecyclerView
-	private lateinit var adapter: GridAdapter
+	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
+	private lateinit var mModel: BaseModelList<Dashboard>
 	private var isAutomatic = false
 	private var isLoaded = false
 }
