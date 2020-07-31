@@ -1,14 +1,12 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.pojo.SinglentonDashboard
+import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
@@ -82,11 +80,29 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = adapter
 
+			val aData = SinglentonDashboard.getDashboardNames()
 			val adapter = ArrayAdapter(
 				it,
 				android.R.layout.simple_spinner_item,
-				SinglentonDashboard.getDashboardNames())
+				aData)
 			spDashboard.adapter = adapter
+			btnDashboard.text = aData.firstOrNull() ?: ""
+
+			spDashboard.onItemSelectedListener = object: ItemSelectedListener
+			{
+				override fun onSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+				{
+					parent?.getItemAtPosition(position)?.let { content ->
+						if (content is String)
+						{
+							btnDashboard.text = content
+						}
+					}
+				}
+			}
+
+			spDashboard.dropDownVerticalOffset = btnDashboard.height
+			spDashboard.dropDownWidth = btnDashboard.width
 		}
 	}
 

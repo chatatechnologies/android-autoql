@@ -132,6 +132,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
+
+			//TODO REMOVE
+			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
+			userID = (tvUserId?.text ?: "").toString().trim()
+			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+
+			servicePresenter.createAuthenticate()
 		}
 		else
 		{
