@@ -31,7 +31,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	}
 
 	private lateinit var llContainer: LinearLayout
-	private var swDemoData: Switch ?= null
+	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
 	private var tvProjectId: EditText?= null
 	private var hUserId: TextView ?= null
@@ -167,7 +167,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			renderPresenter.initViews(llContainer)
 
-			swDemoData = findViewById(R.id.swDemoData)
+			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
 			tvProjectId = findViewById(R.id.etProjectId)
 			hUserId = findViewById(R.id.hUserId)
@@ -267,25 +267,25 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun initListener() {
 
-		swDemoData?.setOnCheckedChangeListener {
-			_, isChecked ->
-			val iVisible = if (!isChecked) View.VISIBLE else View.GONE
-
-			hProjectId?.visibility = iVisible
-			tvProjectId?.visibility = iVisible
-			hUserId?.visibility = iVisible
-			tvUserId?.visibility = iVisible
-			hApiKey?.visibility = iVisible
-			tvApiKey?.visibility = iVisible
-			hDomainUrl?.visibility = iVisible
-			tvDomainUrl?.visibility = iVisible
-			hUsername?.visibility = iVisible
-			tvUsername?.visibility = iVisible
-			hPassword?.visibility = iVisible
-			tvPassword?.visibility = iVisible
-			btnAuthenticate?.visibility = iVisible
-			bubbleHandle.isNecessaryLogin = !isChecked
-		}
+//		swDemoData?.setOnCheckedChangeListener {
+//			_, isChecked ->
+//			val iVisible = if (!isChecked) View.VISIBLE else View.GONE
+//
+//			hProjectId?.visibility = iVisible
+//			tvProjectId?.visibility = iVisible
+//			hUserId?.visibility = iVisible
+//			tvUserId?.visibility = iVisible
+//			hApiKey?.visibility = iVisible
+//			tvApiKey?.visibility = iVisible
+//			hDomainUrl?.visibility = iVisible
+//			tvDomainUrl?.visibility = iVisible
+//			hUsername?.visibility = iVisible
+//			tvUsername?.visibility = iVisible
+//			hPassword?.visibility = iVisible
+//			tvPassword?.visibility = iVisible
+//			btnAuthenticate?.visibility = iVisible
+//			bubbleHandle.isNecessaryLogin = !isChecked
+//		}
 
 		btnAuthenticate?.setOnClickListener(this)
 		btnReloadDrawer?.setOnClickListener(this)
