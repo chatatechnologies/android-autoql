@@ -137,7 +137,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
 			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
 			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
 			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
 
@@ -476,7 +476,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						projectId = (tvProjectId?.text ?: "").toString().trim()
 						userID = (tvUserId?.text ?: "").toString().trim()
 						apiKey = (tvApiKey?.text ?: "").toString().trim()
-						domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
+						domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
 						username = (tvUsername?.text ?: "").toString().trim()
 						password = (tvPassword?.text ?: "").toString().trim()
 
@@ -523,12 +523,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun showError(errorCode: String, errorService: String)
 	{
-//		projectId = (tvProjectId?.text ?: "").toString().trim()
-//		userID = (tvUserId?.text ?: "").toString().trim()
-//		apiKey = (tvApiKey?.text ?: "").toString().trim()
-//		domainUrl = (tvDomainUrl?.text ?: "").toString().trim()
-//		username = (tvUsername?.text ?: "").toString().trim()
-//		password = (tvPassword?.text ?: "").toString().trim()
 		parentActivity?.let {
 			val messageData =
 """
@@ -631,6 +625,11 @@ password:
 			}
 		}
 		//endregion
+	}
+
+	private fun String.prepareDomain(): String
+	{
+		return this.trim().replace("/", "")
 	}
 
 	private fun setColorOption(optionPath: String, idSelected: Int)
