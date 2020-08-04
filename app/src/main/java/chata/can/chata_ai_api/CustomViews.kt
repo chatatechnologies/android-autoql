@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
+import java.util.*
 import java.util.regex.Pattern
 
 object CustomViews
@@ -142,8 +143,50 @@ object CustomViews
 			setTextColor(Color.WHITE)
 			setText(valueColor)
 			tag = indexColor
+
+			filters = aFilters
+			inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
 		}
 	}
+	//endregion
+	//region FILTERS
+	private val inputFilterText = object: InputFilter {
+		override fun filter(
+			source: CharSequence?,
+			start: Int,
+			end: Int,
+			dest: Spanned?,
+			dstart: Int,
+			dend: Int
+		): CharSequence {
+			val pattern = Pattern.compile("^\\p{XDigit}+$")
+			val sb = StringBuilder()
+			for (i in start until end)
+			{
+				val chart = source?.elementAt(i) ?: ' '
+				if (chart == '#')
+				{
+					sb.append(chart)
+					continue
+				}
+
+				if (!Character.isLetterOrDigit(chart) && Character.isSpaceChar(chart))
+				{
+					return ""
+				}
+
+				val matcher = pattern.matcher(java.lang.String.valueOf(chart))
+				if (!matcher.matches())
+				{
+					return ""
+				}
+
+				sb.append(chart)
+			}
+			return sb.toString().toUpperCase(Locale.US)
+		}
+	}
+	private val aFilters = arrayOf(inputFilterText, InputFilter.LengthFilter(7))
 	//endregion
 
 	fun getColor(context: Context, demoParam: DemoParameter, addColor: (String) -> Unit): View {
@@ -172,6 +215,9 @@ object CustomViews
 						addColor(valueColor)
 						setText(valueColor)
 						tag = indexColor
+
+						filters = aFilters
+						inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
 					}
 				})
 			}
@@ -196,45 +242,9 @@ object CustomViews
 					setTextColor(Color.WHITE)
 					id = demoParam.idView
 
-					val inputFilterText = object: InputFilter {
-						override fun filter(
-							source: CharSequence?,
-							start: Int,
-							end: Int,
-							dest: Spanned?,
-							dstart: Int,
-							dend: Int
-						): CharSequence {
-							val pattern = Pattern.compile("^\\p{XDigit}+$")
-							val sb = StringBuilder()
-							for (i in start until end)
-							{
-								val chart = source?.elementAt(i) ?: ' '
-								if (chart == '#')
-								{
-									sb.append(chart)
-									continue
-								}
-
-								if (!Character.isLetterOrDigit(chart) && Character.isSpaceChar(chart))
-								{
-									return ""
-								}
-
-								val matcher = pattern.matcher(java.lang.String.valueOf(chart))
-								if (!matcher.matches())
-								{
-									return ""
-								}
-
-								sb.append(chart)
-							}
-							return sb.toString().toUpperCase()
-						}
-					}
-
-					filters = arrayOf(inputFilterText)
+					filters = aFilters
 					inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+
 
 					setText(valueColor)
 				}
