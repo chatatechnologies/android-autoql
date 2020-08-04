@@ -80,8 +80,8 @@ object SectionData
 				//DemoParameter("Dashboard Title Color", TypeParameter.INPUT, idView = 0, hint = "#48698E"),
 				//DemoParameter("Dashboard Background Color", TypeParameter.INPUT, idView = 0, hint = "#FAFAFA"),
 
-				//DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
-				//DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
 			)

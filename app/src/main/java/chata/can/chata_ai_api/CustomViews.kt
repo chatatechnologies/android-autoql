@@ -128,6 +128,24 @@ object CustomViews
 		return subView
 	}
 
+	//region new color
+	fun setNewColor(context: Context, valueColor: String, indexColor: Int) = EditText(context).apply {
+		try
+		{
+			setBackgroundColor(Color.parseColor(valueColor))
+		}
+		finally
+		{
+			layoutParams = LinearLayout.LayoutParams(-1, 120)
+			(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+			gravity = Gravity.CENTER
+			setTextColor(Color.WHITE)
+			setText(valueColor)
+			tag = indexColor
+		}
+	}
+	//endregion
+
 	fun getColor(context: Context, demoParam: DemoParameter, addColor: (String) -> Unit): View {
 		//Has several colors
 		if (demoParam.colors.size > 0)
@@ -136,9 +154,9 @@ object CustomViews
 			subView.layoutParams = LinearLayout.LayoutParams(-1, -2)
 			subView.orientation = LinearLayout.VERTICAL
 
-			for (index in demoParam.colors.indices)
+			for (indexColor in demoParam.colors.indices)
 			{
-				val color = demoParam.colors[index]
+				val color = demoParam.colors[indexColor]
 				subView.addView(EditText(context).apply {
 					val valueColor = color.value
 					try
@@ -153,7 +171,7 @@ object CustomViews
 						setTextColor(Color.WHITE)
 						addColor(valueColor)
 						setText(valueColor)
-						tag = index
+						tag = indexColor
 					}
 				})
 			}

@@ -60,6 +60,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var etQueryPlaceholder: EditText ?= null
 	private var swClearMessage: Switch ?= null
 	private var etTitle: EditText ?= null
+	private var llColors: LinearLayout ?= null
 	private var etAddColor: EditText ?= null
 	private var etLightThemeColor: EditText ?= null
 	private var etDarkThemeColor: EditText ?= null
@@ -196,11 +197,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swClearMessage = findViewById(R.id.swClearMessage)
 			etTitle = findViewById(R.id.etTitle)
 			//region llColors
-			findViewById<LinearLayout>(R.id.llColors)?.let {
-				llColors ->
-				for (index in 0 until llColors.childCount)
+			llColors = findViewById<LinearLayout>(R.id.llColors)?.apply {
+				for (index in 0 until this.childCount)
 				{
-					val child = llColors.getChildAt(index)
+					val child = this.getChildAt(index)
 					if (child is EditText)
 					{
 						child.setOnTextChanged {
@@ -372,7 +372,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etAddColor?.setOnEditorActionListener {
 			textView, _, _ ->
 			val text = (textView.text ?: "").toString()
-			bubbleHandle.addChartColor(text)
+
+			val pData = text.isColor()
+			if (pData.second)
+			{
+				val newColor = pData.first
+				llColors?.let { llColors ->
+					val newView = CustomViews.setNewColor(textView.context, newColor, llColors.childCount)
+					llColors.addView(newView, llColors.childCount)
+				}
+
+				bubbleHandle.addChartColor(newColor)
+			}
+
 			textView.text = ""
 			false
 		}
