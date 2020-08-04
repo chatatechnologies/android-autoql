@@ -93,9 +93,15 @@ class MainRenderPresenter(
 					}
 					TypeParameter.COLOR ->
 					{
-						CustomViews.getColor(context, demoParam) {
-							valueColor ->
-							bubbleHandle.addChartColor(valueColor)
+						if (demoParam.colors.isEmpty())
+						{
+							CustomViews.getColor(context, demoParam) {}
+						}
+						else
+						{
+							CustomViews.getColor(context, demoParam) {
+								bubbleHandle.addChartColor(it)
+							}
 						}
 					}
 				}

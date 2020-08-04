@@ -128,7 +128,8 @@ object CustomViews
 		return subView
 	}
 
-	fun getColor(context: Context, demoParam: DemoParameter, addColor:(String) -> Unit): View {
+	fun getColor(context: Context, demoParam: DemoParameter, addColor: (String) -> Unit): View {
+		//Has several colors
 		if (demoParam.colors.size > 0)
 		{
 			val subView = LinearLayout(context)
@@ -151,7 +152,6 @@ object CustomViews
 						gravity = Gravity.CENTER
 						setTextColor(Color.WHITE)
 						addColor(valueColor)
-						//bubbleHandle.addChartColor(valueColor)
 						setText(valueColor)
 						tag = index
 					}
@@ -161,6 +161,7 @@ object CustomViews
 			subView.id = demoParam.idView
 			return subView
 		}
+		//Has one color
 		else
 		{
 			return EditText(context).apply {
