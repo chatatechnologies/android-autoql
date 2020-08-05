@@ -2,6 +2,7 @@ package chata.can.chata_ai_api
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.text.*
 import android.util.SparseBooleanArray
@@ -71,6 +72,7 @@ object CustomViews
 			else ->
 			{
 				inputType = InputType.TYPE_CLASS_TEXT
+				typeface = Typeface.MONOSPACE
 			}
 		}
 	}

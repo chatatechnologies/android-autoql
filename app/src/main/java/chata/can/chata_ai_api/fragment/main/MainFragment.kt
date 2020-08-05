@@ -146,9 +146,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		else
 		{
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
-			tvApiKey?.setText(apiKey)
-
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
