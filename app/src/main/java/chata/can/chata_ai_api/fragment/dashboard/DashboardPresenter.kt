@@ -68,7 +68,9 @@ class DashboardPresenter(
 						{
 							model[secondIndex]?.let { dashboard ->
 								dashboard.queryBase2 = queryBase
+								configQueryBase(dashboard, queryBase)
 							}
+							view.notifyQueryAtIndex(secondIndex)
 						}
 					}
 					else
@@ -78,31 +80,7 @@ class DashboardPresenter(
 						{
 							model[index]?.let { dashboard ->
 								dashboard.queryBase = queryBase
-
-								queryBase.typeView = when(queryBase.displayType)
-								{
-									dataKey ->
-									{
-										val numColumns = queryBase.numColumns
-										when
-										{
-											numColumns == 1 ->
-											{
-												if(queryBase.hasHash)
-													TypeChatView.HELP_VIEW
-												else
-													TypeChatView.LEFT_VIEW
-											}
-											numColumns > 1 ->
-											{
-												queryBase.displayType = dashboard.displayType
-												TypeChatView.WEB_VIEW
-											}
-											else -> TypeChatView.LEFT_VIEW
-										}
-									}
-									else -> TypeChatView.LEFT_VIEW
-								}
+								configQueryBase(dashboard, queryBase)
 							}
 							view.notifyQueryAtIndex(index)
 						}
@@ -191,6 +169,34 @@ class DashboardPresenter(
 			}
 			SinglentonDashboard.sortData()
 			view.setDashboards()
+		}
+	}
+
+	private fun configQueryBase(dashboard: Dashboard, queryBase: QueryBase)
+	{
+		queryBase.typeView = when(queryBase.displayType)
+		{
+			dataKey ->
+			{
+				val numColumns = queryBase.numColumns
+				when
+				{
+					numColumns == 1 ->
+					{
+						if(queryBase.hasHash)
+							TypeChatView.HELP_VIEW
+						else
+							TypeChatView.LEFT_VIEW
+					}
+					numColumns > 1 ->
+					{
+						queryBase.displayType = dashboard.displayType
+						TypeChatView.WEB_VIEW
+					}
+					else -> TypeChatView.LEFT_VIEW
+				}
+			}
+			else -> TypeChatView.LEFT_VIEW
 		}
 	}
 
