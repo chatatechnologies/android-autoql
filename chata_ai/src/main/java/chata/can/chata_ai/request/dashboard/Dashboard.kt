@@ -1,5 +1,6 @@
 package chata.can.chata_ai.request.dashboard
 
+import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.JWT
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
@@ -12,8 +13,7 @@ object Dashboard
 {
 	fun getDashboard(listener: StatusResponse)
 	{
-		val url = "https://backend-staging.chata.io/api/v1/dashboards" +
-			"?key=$apiKey&project_id=$projectId"
+		val url = "https://backend-staging.chata.io/${api1}dashboards?key=$apiKey&project_id=$projectId"
 		val mAuthorization = hashMapOf(
 			"Authorization" to "Bearer $JWT",
 			"Integrator-Domain" to domainUrl)
