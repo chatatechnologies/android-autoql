@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -115,7 +116,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val domainUrl = "https://spira-staging.chata.io"
 //			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
+			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU_"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
 			val userId = "carlos@rinro.com.mx"
@@ -552,12 +553,14 @@ password:
 ->$password<-
 """
 
-			AlertDialog.Builder(it)
+			val alert = AlertDialog.Builder(it)
 				.setCancelable(false)
 				//.setMessage("Error: code $errorCode on service \"$errorService\"")
 				.setMessage(messageData)
 				.setNeutralButton("Error", null)
 				.show()
+
+			alert.findViewById<TextView>(android.R.id.message)?.typeface = Typeface.MONOSPACE
 		}
 	}
 
