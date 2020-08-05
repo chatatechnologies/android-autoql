@@ -60,43 +60,43 @@ class DashboardPresenter(
 					val title = jsonObject.optString("title") ?: ""
 					val index = model.indexOfFirst { it.query == query && it.title == title }
 
-					val currentItem = model[index]
-					currentItem?.let {
-						it.queryBase = queryBase
-						if (it.splitView)
-						{
-							it.queryBase?.run {
-								it.querySecondary = this.copy()
-								it.querySecondary?.displayType = it.secondDisplayType
-							}
-						}
-					}
-
-					queryBase.typeView = when(queryBase.displayType)
+					if (index != -1)
 					{
-						dataKey ->
-						{
-							val numColumns = queryBase.numColumns
-							when
+						model[index]?.let { dashboard ->
+							dashboard.queryBase = queryBase
+
+							queryBase.typeView = when(queryBase.displayType)
 							{
-								numColumns == 1 -> {
-									if( queryBase.hasHash)
-										TypeChatView.HELP_VIEW
-									else
-										TypeChatView.LEFT_VIEW
-								}
-								numColumns > 1 ->
+								dataKey ->
 								{
-									queryBase.displayType = currentItem?.displayType ?: "table"
-									TypeChatView.WEB_VIEW
+									val numColumns = queryBase.numColumns
+									when
+									{
+										numColumns == 1 ->
+										{
+											if(queryBase.hasHash)
+												TypeChatView.HELP_VIEW
+											else
+												TypeChatView.LEFT_VIEW
+										}
+										numColumns > 1 ->
+										{
+											queryBase.displayType = dashboard.displayType
+											TypeChatView.WEB_VIEW
+										}
+										else -> TypeChatView.LEFT_VIEW
+									}
 								}
 								else -> TypeChatView.LEFT_VIEW
 							}
 						}
-						else -> TypeChatView.LEFT_VIEW
+						view.notifyQueryAtIndex(index)
 					}
+					else
+					{
+						//search secondQuery
 
-					view.notifyQueryAtIndex(index)
+					}
 				}
 				"getDashboard" ->
 				{
