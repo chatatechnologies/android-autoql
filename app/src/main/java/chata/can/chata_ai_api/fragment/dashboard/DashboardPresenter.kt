@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
 import chata.can.chata_ai.model.BaseModelList
-import chata.can.chata_ai.model.dashboard.DashboardSingle
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -99,76 +98,84 @@ class DashboardPresenter(
 
 					view.notifyQueryAtIndex(index)
 				}
+				"getDashboard" ->
+				{
+					setDashboard(jsonObject)
+				}
 				else ->
 				{
-					jsonObject.optJSONArray("array")?.let {
-						jsonArray1 ->
-						for (index in 0 until jsonArray1.length())
-						{
-							val joDashboard = jsonArray1.optJSONObject(index) ?: JSONObject()
-							val idDashboard = joDashboard.optInt("id", 0)
-							val nameDashboard = joDashboard.optString("name", "")
 
-							val mModel = BaseModelList<Dashboard>()
-
-							if (idDashboard != 0 && joDashboard.length() > 0)
-							{
-								joDashboard.optJSONArray("data")?.let { jaData ->
-									val aKeys = ArrayList<Pair<Int, Int>>()
-									val mPartial = ConcurrentHashMap<String, Dashboard>()
-
-									for (index2 in 0 until jaData.length())
-									{
-										jaData.optJSONObject(index2)?.let { json ->
-											with(json)
-											{
-												val displayType = optString("displayType", "")
-												val h = optInt("h", -1)
-												val i = optString("i", "")
-												val isNewTile = optBoolean("isNewTile", false)
-												val key = optString("key", "")
-												val maxH = optInt("maxH", -1)
-												val minH = optInt("minH", -1)
-												val minW = optInt("minW", -1)
-												val moved = optBoolean("moved", false)
-												val query = optString("query", "")
-												val splitView = optBoolean("splitView", false)
-												val secondDisplayType = optString("secondDisplayType", "")
-												val static = optBoolean("static", false)
-												val title = optString("title", "")
-												val w = optInt("w", -1)
-												val axisX = optInt("x", -1)
-												val axisY = optInt("y", -1)
-
-												aKeys.add(Pair(axisY, axisX))
-												val dashboard = Dashboard(displayType, h, i, isNewTile, key, maxH, minH, minW, moved, query, splitView, static, title, w, axisX, axisY)
-												dashboard.secondDisplayType = secondDisplayType
-												mPartial["${axisY}_$axisX"] = dashboard
-											}
-										}
-									}
-									//region order dashboard
-									aKeys.sortedWith(compareBy ({ it.first }, { it.second })).let {
-										for (key in it)
-										{
-											val newKey = "${key.first}_${key.second}"
-											mPartial[newKey]?.let { dashboard ->
-												//model.add(dashboard)
-												mModel.add(dashboard)
-											}
-										}
-									}
-									//endregion
-								}
-
-								SinglentonDashboard.add(idDashboard, nameDashboard, mModel)
-							}
-						}
-						SinglentonDashboard.sortData()
-						view.setDashboards()
-					}
 				}
 			}
+		}
+	}
+
+	private fun setDashboard(jsonObject: JSONObject)
+	{
+		jsonObject.optJSONArray("items")?.let { jsonArray1 ->
+			for (index in 0 until jsonArray1.length())
+			{
+				val joDashboard = jsonArray1.optJSONObject(index) ?: JSONObject()
+				val idDashboard = joDashboard.optInt("id", 0)
+				val nameDashboard = joDashboard.optString("name", "")
+
+				val mModel = BaseModelList<Dashboard>()
+
+				if (idDashboard != 0 && joDashboard.length() > 0)
+				{
+					joDashboard.optJSONArray("data")?.let { jaData ->
+						val aKeys = ArrayList<Pair<Int, Int>>()
+						val mPartial = ConcurrentHashMap<String, Dashboard>()
+
+						for (index2 in 0 until jaData.length())
+						{
+							jaData.optJSONObject(index2)?.let { json ->
+								with(json)
+								{
+									val displayType = optString("displayType", "")
+									val h = optInt("h", -1)
+									val i = optString("i", "")
+									val isNewTile = optBoolean("isNewTile", false)
+									val key = optString("key", "")
+									val maxH = optInt("maxH", -1)
+									val minH = optInt("minH", -1)
+									val minW = optInt("minW", -1)
+									val moved = optBoolean("moved", false)
+									val query = optString("query", "")
+									val splitView = optBoolean("splitView", false)
+									val secondDisplayType = optString("secondDisplayType", "")
+									val static = optBoolean("static", false)
+									val title = optString("title", "")
+									val w = optInt("w", -1)
+									val axisX = optInt("x", -1)
+									val axisY = optInt("y", -1)
+
+									aKeys.add(Pair(axisY, axisX))
+									val dashboard = Dashboard(displayType, h, i, isNewTile, key, maxH, minH, minW, moved, query, splitView, static, title, w, axisX, axisY)
+									dashboard.secondDisplayType = secondDisplayType
+									mPartial["${axisY}_$axisX"] = dashboard
+								}
+							}
+						}
+						//region order dashboard
+						aKeys.sortedWith(compareBy ({ it.first }, { it.second })).let {
+							for (key in it)
+							{
+								val newKey = "${key.first}_${key.second}"
+								mPartial[newKey]?.let { dashboard ->
+									//model.add(dashboard)
+									mModel.add(dashboard)
+								}
+							}
+						}
+						//endregion
+					}
+
+					SinglentonDashboard.add(idDashboard, nameDashboard, mModel)
+				}
+			}
+			SinglentonDashboard.sortData()
+			view.setDashboards()
 		}
 	}
 
