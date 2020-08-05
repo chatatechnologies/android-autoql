@@ -20,8 +20,9 @@ data class Dashboard(
 	val x: Int,
 	val y: Int)
 {
+	var secondQuery = ""
 	var secondDisplayType = ""
 	var queryBase: QueryBase ?= null
-	var querySecondary: QueryBase ?= null
+	var queryBase2: QueryBase ?= null
 	var isWaitingData = false
 }

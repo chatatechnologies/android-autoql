@@ -58,44 +58,54 @@ class DashboardPresenter(
 					queryBase.isDashboard = true
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
-					val index = model.indexOfFirst { it.query == query && it.title == title }
+					val isSecond = jsonObject.optBoolean("isSecond", false)
 
-					if (index != -1)
+					if (isSecond)
 					{
-						model[index]?.let { dashboard ->
-							dashboard.queryBase = queryBase
-
-							queryBase.typeView = when(queryBase.displayType)
-							{
-								dataKey ->
-								{
-									val numColumns = queryBase.numColumns
-									when
-									{
-										numColumns == 1 ->
-										{
-											if(queryBase.hasHash)
-												TypeChatView.HELP_VIEW
-											else
-												TypeChatView.LEFT_VIEW
-										}
-										numColumns > 1 ->
-										{
-											queryBase.displayType = dashboard.displayType
-											TypeChatView.WEB_VIEW
-										}
-										else -> TypeChatView.LEFT_VIEW
-									}
-								}
-								else -> TypeChatView.LEFT_VIEW
+						//search secondQuery
+						val secondIndex = model.indexOfFirst { it.secondQuery == query && it.title == title }
+						if (secondIndex != -1)
+						{
+							model[secondIndex]?.let { dashboard ->
+								dashboard.queryBase2 = queryBase
 							}
 						}
-						view.notifyQueryAtIndex(index)
 					}
 					else
 					{
-						//search secondQuery
+						val index = model.indexOfFirst { it.query == query && it.title == title }
+						if (index != -1)
+						{
+							model[index]?.let { dashboard ->
+								dashboard.queryBase = queryBase
 
+								queryBase.typeView = when(queryBase.displayType)
+								{
+									dataKey ->
+									{
+										val numColumns = queryBase.numColumns
+										when
+										{
+											numColumns == 1 ->
+											{
+												if(queryBase.hasHash)
+													TypeChatView.HELP_VIEW
+												else
+													TypeChatView.LEFT_VIEW
+											}
+											numColumns > 1 ->
+											{
+												queryBase.displayType = dashboard.displayType
+												TypeChatView.WEB_VIEW
+											}
+											else -> TypeChatView.LEFT_VIEW
+										}
+									}
+									else -> TypeChatView.LEFT_VIEW
+								}
+							}
+							view.notifyQueryAtIndex(index)
+						}
 					}
 				}
 				"getDashboard" ->
@@ -143,7 +153,6 @@ class DashboardPresenter(
 									val moved = optBoolean("moved", false)
 									val query = optString("query", "")
 									val splitView = optBoolean("splitView", false)
-									val secondDisplayType = optString("secondDisplayType", "")
 									val static = optBoolean("static", false)
 									val title = optString("title", "")
 									val w = optInt("w", -1)
@@ -152,7 +161,13 @@ class DashboardPresenter(
 
 									aKeys.add(Pair(axisY, axisX))
 									val dashboard = Dashboard(displayType, h, i, isNewTile, key, maxH, minH, minW, moved, query, splitView, static, title, w, axisX, axisY)
-									dashboard.secondDisplayType = secondDisplayType
+									if (splitView)
+									{
+										val secondDisplayType = optString("secondDisplayType", "")
+										val secondQuery = optString("secondQuery", "")
+										dashboard.secondDisplayType = secondDisplayType
+										dashboard.secondQuery = secondQuery
+									}
 									mPartial["${axisY}_$axisX"] = dashboard
 								}
 							}
@@ -210,10 +225,19 @@ class DashboardPresenter(
 				val query = dashboard.query
 				if (query.isNotEmpty())
 				{
-					val title = dashboard.title
 					val mInfoHolder = hashMapOf<String, Any>(
 						"query" to query,
-						"title" to title,
+						"title" to dashboard.title,
+						"nameService" to "getDashboardQueries")
+					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+				}
+				val secondQuery = dashboard.secondQuery
+				if (secondQuery.isNotEmpty())
+				{
+					val mInfoHolder = hashMapOf(
+						"isSecond" to true,
+						"query" to secondQuery,
+						"title" to dashboard.title,
 						"nameService" to "getDashboardQueries")
 					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 				}
