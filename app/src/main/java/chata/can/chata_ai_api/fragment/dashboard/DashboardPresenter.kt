@@ -22,11 +22,11 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
-			val model = getCurrentDashboard()
 			when(jsonObject.optString("nameService") ?: "")
 			{
 				"getDashboardQueries" ->
 				{
+					val model = getCurrentDashboard()
 					val response = jsonObject.optString("RESPONSE") ?: ""
 					try {
 						val query = jsonObject.optString("query") ?: ""

@@ -36,7 +36,6 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
 import org.json.JSONObject
-import java.net.URLEncoder
 
 class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
@@ -108,7 +107,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				{
 					if (SinglentonDrawer.mIsEnableAutocomplete)
 					{
-						servicePresenter.getAutocomplete(URLEncoder.encode(string, "UTF-8"))
+						servicePresenter.getAutocomplete(string)
 					}
 					with(ivMicrophone)
 					{
@@ -216,8 +215,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val urlDemo = "Tickets by customer per month"
-//				val urlDemo = ""
+//				val urlDemo = "Tickets by customer per month"
+				val urlDemo = ""
 				setText(urlDemo)
 			}
 			ivMicrophone.background = pDrawable.first
