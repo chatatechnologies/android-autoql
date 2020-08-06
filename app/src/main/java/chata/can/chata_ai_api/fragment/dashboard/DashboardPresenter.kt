@@ -68,6 +68,7 @@ class DashboardPresenter(
 						{
 							model[secondIndex]?.let { dashboard ->
 								dashboard.queryBase2 = queryBase
+								queryBase.isSplitView = true
 								configQueryBase(dashboard, queryBase)
 							}
 							view.notifyQueryAtIndex(secondIndex)
@@ -237,16 +238,16 @@ class DashboardPresenter(
 						"nameService" to "getDashboardQueries")
 					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 				}
-				val secondQuery = dashboard.secondQuery
-				if (secondQuery.isNotEmpty())
-				{
-					val mInfoHolder = hashMapOf(
-						"isSecond" to true,
-						"query" to secondQuery,
-						"title" to dashboard.title,
-						"nameService" to "getDashboardQueries")
-					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
-				}
+//				val secondQuery = dashboard.secondQuery
+//				if (secondQuery.isNotEmpty())
+//				{
+//					val mInfoHolder = hashMapOf(
+//						"isSecond" to true,
+//						"query" to secondQuery,
+//						"title" to dashboard.title,
+//						"nameService" to "getDashboardQueries")
+//					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+//				}
 			}
 		}
 	}

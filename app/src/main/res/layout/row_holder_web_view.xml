@@ -17,16 +17,11 @@
 		<RelativeLayout
 			android:id="@+id/rlWebView"
 			android:layout_height="240dp"
-			android:layout_width="match_parent"
-			tools:ignore="UselessParent">
-			<!--region children-->
-			<!-- view one-->
+			android:layout_width="match_parent">
 			<WebView
-				android:scrollbars=""
 				android:id="@+id/webView"
 				android:layout_height="match_parent"
 				android:layout_width="match_parent"/>
-			<!-- view three-->
 			<RelativeLayout
 				android:id="@+id/rlLoad"
 				android:layout_height="match_parent"
@@ -36,7 +31,27 @@
 					android:layout_height="80dp"
 					android:layout_width="80dp"/>
 			</RelativeLayout>
-			<!--endregion-->
 		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/rvSplitView"
+			android:layout_height="240dp"
+			android:layout_width="match_parent"
+			android:visibility="gone">
+			<WebView
+				android:id="@+id/webView2"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"/>
+			<RelativeLayout
+				android:id="@+id/rlLoad2"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent">
+				<chata.can.chata_ai.view.gif.GifView
+					android:layout_centerInParent="true"
+					android:layout_height="80dp"
+					android:layout_width="80dp"/>
+			</RelativeLayout>
+		</RelativeLayout>
+
 	</LinearLayout>
 </RelativeLayout>

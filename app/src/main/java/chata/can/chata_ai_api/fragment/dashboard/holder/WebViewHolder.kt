@@ -19,6 +19,8 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 
+	private val rvSplitView = itemView.findViewById<RelativeLayout>(R.id.rvSplitView)
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		super.onBind(item, listener)
@@ -30,14 +32,18 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 					setDataWebView(this)
 				}
 			}
+//			item.queryBase2?.run {
+//				if (!isLoadingHTML)
+//					rvSplitView.visibility = View.VISIBLE
+//				else
+//					rvSplitView.visibility = View.GONE
+//			}
 		}
 		if (item is QueryBase)
 		{
 			setDataWebView(item)
 		}
 	}
-
-
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
