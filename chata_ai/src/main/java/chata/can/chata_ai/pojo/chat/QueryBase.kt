@@ -16,6 +16,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
 	var isDashboard = false
+	var isSplitView = false
 	//private val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
@@ -78,7 +79,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null
 	var viewDrillDown: DrillDownContract?= null
-	var isLoadingHTML = false
+	var isLoadingHTML = true
 
 	init {
 		joData?.let {
@@ -181,7 +182,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						aColumn.firstOrNull()?.let {
 							column ->
 							contentHTML = simpleText.formatWithColumn(column)
-						} ?: run { "" }
+						}
 					}
 					else ->
 					{
