@@ -62,8 +62,11 @@ class DashboardPresenter(
 
 					if (isSecond)
 					{
+						val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
 						//search secondQuery
-						val secondIndex = model.indexOfFirst { it.secondQuery == query && it.title == title }
+						val secondIndex = model.indexOfFirst {
+							it.secondQuery == query && it.query == primaryQuery && it.title == title
+						}
 						if (secondIndex != -1)
 						{
 							model[secondIndex]?.let { dashboard ->
@@ -238,16 +241,17 @@ class DashboardPresenter(
 						"nameService" to "getDashboardQueries")
 					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 				}
-//				val secondQuery = dashboard.secondQuery
-//				if (secondQuery.isNotEmpty())
-//				{
-//					val mInfoHolder = hashMapOf(
-//						"isSecond" to true,
-//						"query" to secondQuery,
-//						"title" to dashboard.title,
-//						"nameService" to "getDashboardQueries")
-//					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
-//				}
+				val secondQuery = dashboard.secondQuery
+				if (secondQuery.isNotEmpty())
+				{
+					val mInfoHolder = hashMapOf(
+						"isSecond" to true,
+						"primaryQuery" to query,
+						"query" to secondQuery,
+						"title" to dashboard.title,
+						"nameService" to "getDashboardQueries")
+					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+				}
 			}
 		}
 	}

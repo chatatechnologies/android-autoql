@@ -20,6 +20,8 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 
 	private val rvSplitView = itemView.findViewById<RelativeLayout>(R.id.rvSplitView)
+	private val webView2 = itemView.findViewById<WebView>(R.id.webView2)
+	private val rlLoad2 = itemView.findViewById<View>(R.id.rlLoad2)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
@@ -29,27 +31,35 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			item.queryBase?.run {
 				if (!isLoadingHTML)
 				{
-					setDataWebView(this)
+					setDataWebView(rlLoad, webView, this, rlWebView)
 				}
 			}
-//			item.queryBase2?.run {
-//				if (!isLoadingHTML)
-//					rvSplitView.visibility = View.VISIBLE
-//				else
-//					rvSplitView.visibility = View.GONE
-//			}
+			item.queryBase2?.run {
+				if (!isLoadingHTML)
+				{
+					rvSplitView.visibility = View.VISIBLE
+					setDataWebView(rlLoad2, webView2,this, rvSplitView)
+				}
+				else
+					rvSplitView.visibility = View.GONE
+			}
 		}
 		if (item is QueryBase)
 		{
-			setDataWebView(item)
+			if (item.isSplitView)
+			{
+				setDataWebView(rlLoad2, webView2, item, rvSplitView)
+			}
+			else
+				setDataWebView(rlLoad, webView, item, rlWebView)
 		}
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
-	private fun setDataWebView(queryBase: QueryBase)
+	private fun setDataWebView(rlLoad: View?, webView: WebView?, queryBase: QueryBase, rlWebView: RelativeLayout)
 	{
 		rlLoad?.visibility = View.VISIBLE
-		changeHeightParent(queryBase.rowsTable)
+		changeHeightParent(rlWebView, queryBase.rowsTable)
 		webView?.run {
 			clearCache(true)
 			clearHistory()
@@ -80,9 +90,9 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		}
 	}
 
-	private fun changeHeightParent(numRows: Int)
+	private fun changeHeightParent(rlWebView: RelativeLayout, numRows: Int)
 	{
-		rlWebView?.let {
+		rlWebView.let {
 			val tmpRows = if (numRows == 0) 180 else numRows
 			var customHeight = it.dpToPx(30f * tmpRows) + 60
 			if (customHeight > 900)
