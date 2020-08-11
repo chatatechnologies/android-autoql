@@ -34,21 +34,21 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 					setDataWebView(rlLoad, webView, this, rlWebView)
 				}
 			}
-			item.queryBase2?.run {
-				if (!isLoadingHTML)
-				{
-					rvSplitView.visibility = View.VISIBLE
-					setDataWebView(rlLoad2, webView2,this, rvSplitView)
-				}
-				else
-					rvSplitView.visibility = View.GONE
-			}
+//			item.queryBase2?.run {
+//				if (!isLoadingHTML)
+//				{
+//					rvSplitView.visibility = View.VISIBLE
+//					setDataWebView(rlLoad2, webView2,this, rvSplitView)
+//				}
+//				else
+//					rvSplitView.visibility = View.GONE
+//			}
 		}
 		if (item is QueryBase)
 		{
 			if (item.isSplitView)
 			{
-				setDataWebView(rlLoad2, webView2, item, rvSplitView)
+				//setDataWebView(rlLoad2, webView2, item, rvSplitView)
 			}
 			else
 				setDataWebView(rlLoad, webView, item, rlWebView)

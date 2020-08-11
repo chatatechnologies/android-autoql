@@ -21,23 +21,49 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 				val jsonItem = jaSuggestion.getJSONObject(index)
 				aSuggestionsTmp.add(Suggestion(jsonItem))
 			}
-			val aWords = initQuery.split(" ")
-			for (word in aWords)
+
+			if (aSuggestionsTmp.isNotEmpty())
 			{
-				val start = initQuery.indexOf(word)
-				val end = start + word.length
-				val suggestion = Suggestion(word, start, end)
-				aSuggestionsTmp.find { it.start == suggestion.start && it.end == suggestion.end }?.let {
-					suggestion.aSuggestion = ArrayList()
-					it.aSuggestion?.let {
-						itSuggestion ->
-						suggestion.aSuggestion?.addAll(itSuggestion)
-						suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
-						val aTmp = itSuggestion[0].split(" (")
-						updateQuery(suggestion, aTmp[0])
+				//Order suggestion
+				aSuggestionsTmp.sortBy { it.start }
+
+				val aWords = ArrayList<String>()
+				var header = 0
+				var countSuggestion = 0
+				do {
+					val suggestion = aSuggestionsTmp[countSuggestion]
+					header = if (header != suggestion.start)
+					{
+						val word = initQuery.substring(header, suggestion.start - 1)
+						aWords.add(word)
+						suggestion.start
 					}
+					else
+					{
+						val word = initQuery.substring(suggestion.start, suggestion.end)
+						aWords.add(word)
+						countSuggestion++
+						suggestion.end
+					}
+				} while (header < initQuery.length)
+
+				for (word in aWords)
+				{
+					val start = initQuery.indexOf(word)
+					val end = start + word.length
+					val suggestion = Suggestion(word, start, end)
+					aSuggestionsTmp.find { it.start == suggestion.start && it.end == suggestion.end }?.let {
+						suggestion.aSuggestion = ArrayList()
+						it.aSuggestion?.let {
+								itSuggestion ->
+							suggestion.aSuggestion?.addAll(itSuggestion)
+							suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
+							val aTmp = itSuggestion[0].split(" (")
+							updateQuery(suggestion, aTmp[0])
+						}
+					}
+					aSuggestion.add(suggestion)
 				}
-				aSuggestion.add(suggestion)
 			}
 		}
 	}
