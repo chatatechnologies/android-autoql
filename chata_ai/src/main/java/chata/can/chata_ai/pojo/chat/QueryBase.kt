@@ -16,7 +16,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
 	var isDashboard = false
-	var isSplitView = false
 	//private val referenceId = json.optString(referenceIdKey) ?: ""no
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""

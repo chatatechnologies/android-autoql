@@ -34,32 +34,34 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 					setDataWebView(rlLoad, webView, this, rlWebView)
 				}
 			}
-			//TODO REMOVE
 			item.queryBase2?.run {
-				if (!isLoadingHTML)
-				{
-					rvSplitView.visibility = View.VISIBLE
-					setDataWebView(rlLoad2, webView2,this, rvSplitView)
-				}
-				else
-					rvSplitView.visibility = View.GONE
+//				if (!isLoadingHTML)
+//				{
+//					rvSplitView.visibility = View.VISIBLE
+//					setDataWebView(rlLoad2, webView2,this, rvSplitView)
+//				}
+//				else
+//					rvSplitView.visibility = View.GONE
 			}
 		}
 		if (item is QueryBase)
 		{
-			if (item.isSplitView)
-			{
-				//TODO REMOVE
-				if (!item.isLoadingHTML)
-				{
-					rvSplitView.visibility = View.VISIBLE
-					setDataWebView(rlLoad2, webView2,item, rvSplitView)
-				}
-				else
-					rvSplitView.visibility = View.GONE
-			}
-			else
-				setDataWebView(rlLoad, webView, item, rlWebView)
+//			if (item.isSplitView)
+//			{
+//				if (!item.isLoadingHTML)
+//				{
+//					rvSplitView.visibility = View.VISIBLE
+//					setDataWebView(rlLoad2, webView2, item, rvSplitView)
+//				}
+//				else
+//					rvSplitView.visibility = View.GONE
+//			}
+//			else
+//			{
+//				//Main set data to webView
+//				setDataWebView(rlLoad, webView, item, rlWebView)
+//			}
+			setDataWebView(rlLoad, webView, item, rlWebView)
 		}
 	}
 

@@ -71,10 +71,12 @@ class DashboardPresenter(
 						{
 							model[secondIndex]?.let { dashboard ->
 								dashboard.queryBase2 = queryBase
-								queryBase.isSplitView = true
 								configQueryBase(dashboard, queryBase)
+								if (checkQueriesDashboard(dashboard))
+								{
+									//view.notifyQueryAtIndex(secondIndex)
+								}
 							}
-							view.notifyQueryAtIndex(secondIndex)
 						}
 					}
 					else
@@ -85,8 +87,18 @@ class DashboardPresenter(
 							model[index]?.let { dashboard ->
 								dashboard.queryBase = queryBase
 								configQueryBase(dashboard, queryBase)
+								if (dashboard.splitView)
+								{
+									if (checkQueriesDashboard(dashboard))
+									{
+										view.notifyQueryAtIndex(index)
+									}
+								}
+								else
+								{
+									view.notifyQueryAtIndex(index)
+								}
 							}
-							view.notifyQueryAtIndex(index)
 						}
 					}
 				}
@@ -100,6 +112,11 @@ class DashboardPresenter(
 				}
 			}
 		}
+	}
+
+	private fun checkQueriesDashboard(dashboard: Dashboard): Boolean
+	{
+		return dashboard.queryBase != null && dashboard.queryBase2 != null
 	}
 
 	private fun setDashboard(jsonObject: JSONObject)
