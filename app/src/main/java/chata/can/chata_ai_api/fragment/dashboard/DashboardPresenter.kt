@@ -241,17 +241,17 @@ class DashboardPresenter(
 						"nameService" to "getDashboardQueries")
 					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 				}
-//				val secondQuery = dashboard.secondQuery
-//				if (secondQuery.isNotEmpty())
-//				{
-//					val mInfoHolder = hashMapOf(
-//						"isSecond" to true,
-//						"primaryQuery" to query,
-//						"query" to secondQuery,
-//						"title" to dashboard.title,
-//						"nameService" to "getDashboardQueries")
-//					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
-//				}
+				val secondQuery = dashboard.secondQuery
+				if (secondQuery.isNotEmpty())
+				{
+					val mInfoHolder = hashMapOf(
+						"isSecond" to true,
+						"primaryQuery" to query,
+						"query" to secondQuery,
+						"title" to dashboard.title,
+						"nameService" to "getDashboardQueries")
+					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+				}
 			}
 		}
 	}
