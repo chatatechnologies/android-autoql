@@ -29,6 +29,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
+	var isSplitView = json.optBoolean("isSplitView", false)
+	var splitQuery: QueryBase ?= null
+
 	fun isTypeColumn(type: TypeDataQuery): Boolean
 	{
 		for (column in aColumn)
@@ -185,23 +188,36 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					}
 					else ->
 					{
-						val dataForWebView = HtmlBuilder.build(this)
-						if (displayType != "data")
+						//region generate html CODE
+						if (isSplitView)
 						{
-							dataForWebView.type = displayType
-						}
-						when(aColumn.size)
-						{
-							2, 3 ->
+							println("Is isSplitView")
+							if (splitQuery != null)
 							{
-								dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
-								dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
+
 							}
-							else -> {}
 						}
-						contentHTML = DashboardMaker.getHTML(dataForWebView)
-						rowsTable = dataForWebView.rowsTable
-						rowsPivot = dataForWebView.rowsPivot
+						else
+						{
+							val dataForWebView = HtmlBuilder.build(this)
+							if (displayType != "data")
+							{
+								dataForWebView.type = displayType
+							}
+							when(aColumn.size)
+							{
+								2, 3 ->
+								{
+									dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
+									dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
+								}
+								else -> {}
+							}
+							contentHTML = DashboardMaker.getHTML(dataForWebView)
+							rowsTable = dataForWebView.rowsTable
+							rowsPivot = dataForWebView.rowsPivot
+						}
+						//endregion
 					}
 				}
 			},{
@@ -229,6 +245,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 	private fun showData()
 	{
-		view?.onBind(this)
+		if (contentHTML.isNotEmpty())
+		{
+			view?.onBind(this)
+		}
 	}
 }

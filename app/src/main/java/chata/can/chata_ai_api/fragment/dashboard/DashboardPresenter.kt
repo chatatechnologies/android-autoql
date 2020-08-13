@@ -58,9 +58,9 @@ class DashboardPresenter(
 					queryBase.isDashboard = true
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
-					val isSecond = jsonObject.optBoolean("isSecond", false)
+					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
-					if (isSecond)
+					if (isSecondaryQuery)
 					{
 						val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
 						//search secondQuery
@@ -74,6 +74,9 @@ class DashboardPresenter(
 								configQueryBase(dashboard, queryBase)
 								if (checkQueriesDashboard(dashboard))
 								{
+									dashboard.queryBase?.run {
+										splitQuery = queryBase
+									}
 									//view.notifyQueryAtIndex(secondIndex)
 								}
 							}
@@ -91,7 +94,10 @@ class DashboardPresenter(
 								{
 									if (checkQueriesDashboard(dashboard))
 									{
-										view.notifyQueryAtIndex(index)
+										dashboard.queryBase?.run {
+											splitQuery = dashboard.queryBase2
+										}
+										//view.notifyQueryAtIndex(index)
 									}
 								}
 								else
@@ -252,7 +258,8 @@ class DashboardPresenter(
 				val query = dashboard.query
 				if (query.isNotEmpty())
 				{
-					val mInfoHolder = hashMapOf<String, Any>(
+					val mInfoHolder = hashMapOf(
+						"isSplitView" to dashboard.splitView,
 						"query" to query,
 						"title" to dashboard.title,
 						"nameService" to "getDashboardQueries")
@@ -262,7 +269,8 @@ class DashboardPresenter(
 				if (secondQuery.isNotEmpty())
 				{
 					val mInfoHolder = hashMapOf(
-						"isSecond" to true,
+						"isSplitView" to true,
+						"isSecondaryQuery" to true,
 						"primaryQuery" to query,
 						"query" to secondQuery,
 						"title" to dashboard.title,
