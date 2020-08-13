@@ -34,7 +34,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 					setDataWebView(rlLoad, webView, this, rlWebView)
 				}
 			}
-			item.queryBase2?.run {
+//			item.queryBase2?.run {
 //				if (!isLoadingHTML)
 //				{
 //					rvSplitView.visibility = View.VISIBLE
@@ -42,7 +42,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 //				}
 //				else
 //					rvSplitView.visibility = View.GONE
-			}
+//			}
 		}
 		if (item is QueryBase)
 		{

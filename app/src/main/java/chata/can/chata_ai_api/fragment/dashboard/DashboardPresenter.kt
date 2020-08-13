@@ -53,9 +53,6 @@ class DashboardPresenter(
 				"getDashboardQueries" ->
 				{
 					val model = getCurrentDashboard()
-
-					val queryBase = QueryBase(jsonObject)
-					queryBase.isDashboard = true
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
@@ -70,12 +67,13 @@ class DashboardPresenter(
 						if (secondIndex != -1)
 						{
 							model[secondIndex]?.let { dashboard ->
-								dashboard.queryBase2 = queryBase
-								configQueryBase(dashboard, queryBase)
+								dashboard.jsonSecondary = jsonObject
+//								dashboard.queryBase2 = queryBase
+
 								if (checkQueriesDashboard(dashboard))
 								{
 									dashboard.queryBase?.run {
-										splitQuery = queryBase
+//										splitQuery = queryBase
 									}
 									//view.notifyQueryAtIndex(secondIndex)
 								}
@@ -88,20 +86,22 @@ class DashboardPresenter(
 						if (index != -1)
 						{
 							model[index]?.let { dashboard ->
-								dashboard.queryBase = queryBase
-								configQueryBase(dashboard, queryBase)
+								dashboard.jsonPrimary = jsonObject
 								if (dashboard.splitView)
 								{
 									if (checkQueriesDashboard(dashboard))
 									{
+//										dashboard.queryBase = queryBase
+
 										dashboard.queryBase?.run {
-											splitQuery = dashboard.queryBase2
+//											splitQuery = dashboard.queryBase2
 										}
 										//view.notifyQueryAtIndex(index)
 									}
 								}
 								else
 								{
+									dashboard.queryBase = initQueryBase(dashboard, jsonObject)
 									view.notifyQueryAtIndex(index)
 								}
 							}
@@ -120,9 +120,17 @@ class DashboardPresenter(
 		}
 	}
 
+	private fun initQueryBase(dashboard: Dashboard, jsonObject: JSONObject): QueryBase
+	{
+		return QueryBase(jsonObject).apply {
+			isDashboard = true
+			configQueryBase(dashboard, this)
+		}
+	}
+
 	private fun checkQueriesDashboard(dashboard: Dashboard): Boolean
 	{
-		return dashboard.queryBase != null && dashboard.queryBase2 != null
+		return dashboard.jsonPrimary != null && dashboard.jsonSecondary != null
 	}
 
 	private fun setDashboard(jsonObject: JSONObject)

@@ -57,9 +57,6 @@ class GridAdapter(
 				it.queryBase?.run {
 					checkData(holder)
 				}
-				it.queryBase2?.run {
-					checkData(holder)
-				}
 			}
 		}
 	}

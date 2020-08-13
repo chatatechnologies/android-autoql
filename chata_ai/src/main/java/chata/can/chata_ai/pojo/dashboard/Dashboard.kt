@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.dashboard
 
 import chata.can.chata_ai.pojo.chat.QueryBase
+import org.json.JSONObject
 
 data class Dashboard(
 	val displayType: String,
@@ -23,6 +24,8 @@ data class Dashboard(
 	var secondQuery = ""
 	var secondDisplayType = ""
 	var queryBase: QueryBase ?= null
-	var queryBase2: QueryBase ?= null
+	var jsonPrimary: JSONObject ?= null
+//	var queryBase2: QueryBase ?= null
+	var jsonSecondary: JSONObject ?= null
 	var isWaitingData = false
 }
