@@ -81,7 +81,8 @@ class ChatAdapter(
 			{
 				QueryBuilderHolder(
 					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
-					pagerActivity
+					pagerActivity,
+					servicePresenter
 				)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)

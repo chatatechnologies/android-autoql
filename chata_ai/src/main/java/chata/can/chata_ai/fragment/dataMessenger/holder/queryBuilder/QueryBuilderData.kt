@@ -2,10 +2,10 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
 object QueryBuilderData
 {
-	val mQueries = hashMapOf(
+	val mQueries = linkedMapOf(
 		"Sales" to arrayListOf(
 			"Total sales last month",
-			"Top 5 customer by sales thus year",
+			"Top 5 customer by sales this year",
 			"Total sales by revenue account last year",
 			"Total sales by item from services last year",
 			"Average sales per month last year"),

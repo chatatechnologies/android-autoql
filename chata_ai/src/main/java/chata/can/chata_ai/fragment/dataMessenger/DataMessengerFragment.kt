@@ -215,9 +215,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-//				val urlDemo = "Tickets by customer per month"
-				val urlDemo = "Revenue by account"
-//				val urlDemo = ""
+//				val urlDemo = "Revenue by account"
+				val urlDemo = ""
 				setText(urlDemo)
 			}
 			ivMicrophone.background = pDrawable.first
@@ -402,7 +401,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (SinglentonDrawer.mModel.countData() == 0)
 			{
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-//				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 			}
 			else
 			{

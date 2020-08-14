@@ -79,7 +79,6 @@ class FullSuggestionHolder(
 
 					rlRunQuery.setOnClickListener {
 						val query = stvContent.text
-						//view.addChatMessage(2, query)
 						servicePresenter.getQuery(query)
 					}
 				}

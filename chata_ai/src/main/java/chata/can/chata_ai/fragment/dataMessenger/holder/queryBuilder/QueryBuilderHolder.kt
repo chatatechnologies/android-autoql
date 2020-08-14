@@ -22,13 +22,16 @@ import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 
 class QueryBuilderHolder(
 	view: View,
-	private val pagerActivity: Activity): Holder(view)
+	private val pagerActivity: Activity,
+	private val servicePresenter: ChatServicePresenter
+): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
 //	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
@@ -150,6 +153,10 @@ class QueryBuilderHolder(
 				override fun onItemClick(any: Any)
 				{
 					rvExplore.setAnimator(0f)
+					if (any is String)
+					{
+						servicePresenter.getQuery(any)
+					}
 				}
 			})
 		}
