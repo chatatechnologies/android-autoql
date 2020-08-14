@@ -19,7 +19,7 @@ object QueryRequest
 
 		val mParams = hashMapOf(
 			"text" to query,
-			"debug" to true,
+			//"debug" to true,
 			"test" to true)
 
 		val url = if (!DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty())
@@ -35,6 +35,7 @@ object QueryRequest
 			{
 				header = getAuthorizationJWT()
 				mParams["source"] = "$source.user"
+				mParams["translation"] = "include"
 				"$domainUrl/autoql/${api1}query?key=$apiKey"
 			}
 		}

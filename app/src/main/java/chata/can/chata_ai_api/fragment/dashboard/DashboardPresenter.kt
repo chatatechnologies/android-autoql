@@ -291,7 +291,7 @@ class DashboardPresenter(
 						"query" to secondQuery,
 						"title" to dashboard.title,
 						"nameService" to "getDashboardQueries")
-					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+					QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
 				}
 			}
 		}
