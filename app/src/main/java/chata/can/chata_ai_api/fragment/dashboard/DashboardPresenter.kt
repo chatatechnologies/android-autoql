@@ -29,7 +29,8 @@ class DashboardPresenter(
 					val response = jsonObject.optString("RESPONSE") ?: ""
 					try {
 						val query = jsonObject.optString("query") ?: ""
-						val index = model.indexOfFirst { it.query == query }
+						val title = jsonObject.optString("title") ?: ""
+						val index = model.indexOfFirst { it.query == query && it.title == title }
 						val queryBase = QueryBase(JSONObject(response))
 						queryBase.isDashboard = true
 						model[index]?.let { it.queryBase = queryBase }
