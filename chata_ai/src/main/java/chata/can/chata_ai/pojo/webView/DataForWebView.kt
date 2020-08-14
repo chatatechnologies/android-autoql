@@ -19,4 +19,6 @@ class DataForWebView(
 	var type = "table"
 	var xAxis = ""
 	var yAxis = ""
+
+	var secondaryPart = ""
 }

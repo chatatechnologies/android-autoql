@@ -9,7 +9,8 @@ object TableHtmlBuilder
 	fun buildTable(
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>,
-		mIndexColumn: LinkedHashMap<Int, Int>): Pair<String, Int>
+		mIndexColumn: LinkedHashMap<Int, Int>,
+		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
 		//region create table head
 		val headTable = StringBuilder("<thead><tr>")
@@ -75,6 +76,6 @@ object TableHtmlBuilder
 		bodyTable.append("</tbody>")
 		//endregion
 
-		return Pair("<table id=\"idTableBasic\">$headTable$bodyTable</table>", numRows)
+		return Pair("<table id=\"$idTable\">$headTable$bodyTable</table>", numRows)
 	}
 }

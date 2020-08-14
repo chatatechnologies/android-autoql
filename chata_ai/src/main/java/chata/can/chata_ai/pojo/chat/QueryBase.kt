@@ -29,7 +29,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
-	var isSplitView = json.optBoolean("isSplitView", false)
+	private var isSplitView = json.optBoolean("isSplitView", false)
+	//Define creation of html code
+	private var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 	var splitQuery: QueryBase ?= null
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
@@ -189,20 +191,28 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					else ->
 					{
 						//region generate html CODE
+						var otherPart = ""
 						if (isSplitView)
 						{
-							println("Is isSplitView")
-							if (splitQuery != null)
+							if (!isSecondaryQuery && splitQuery != null)
 							{
-
+								splitQuery?.let { splitQuery ->
+									otherPart = HtmlBuilder.getByParts(splitQuery)
+								}
 							}
 						}
-						else
+
+						//Only is execute when queryBase is primary
+						if (!isSecondaryQuery)
 						{
 							val dataForWebView = HtmlBuilder.build(this)
 							if (displayType != "data")
 							{
 								dataForWebView.type = displayType
+							}
+							if (otherPart.isNotEmpty())
+							{
+								dataForWebView.secondaryPart = otherPart
 							}
 							when(aColumn.size)
 							{

@@ -127,6 +127,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 <div id='container' class='container'></div>
     ${dataForWebView.datePivot}
     ${dataForWebView.table}
+    ${dataForWebView.secondaryPart}
 </div>
 <script>
     var type = '$typeChart';

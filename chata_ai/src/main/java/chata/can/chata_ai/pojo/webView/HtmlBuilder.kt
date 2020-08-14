@@ -7,6 +7,28 @@ import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
+	fun getByParts(queryBase: QueryBase): String
+	{
+		with(queryBase)
+		{
+			return when(queryBase.displayType)
+			{
+				"table" ->
+				{
+					TableHtmlBuilder.buildTable(
+						aRows,
+						aColumn,
+						queryBase.mIndexColumn,
+						"idTableBasic2").first
+				}
+				else ->
+				{
+					""
+				}
+			}
+		}
+	}
+
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows

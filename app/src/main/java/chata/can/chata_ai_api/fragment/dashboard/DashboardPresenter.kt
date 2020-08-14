@@ -68,12 +68,13 @@ class DashboardPresenter(
 						{
 							model[secondIndex]?.let { dashboard ->
 								dashboard.jsonSecondary = jsonObject
-//								dashboard.queryBase2 = queryBase
-
 								if (checkQueriesDashboard(dashboard))
 								{
-									dashboard.queryBase?.run {
-//										splitQuery = queryBase
+									val secondQuery = initSecondaryQuery(jsonObject, dashboard)
+									dashboard.jsonPrimary?.let {
+										dashboard.queryBase = initQueryBase(dashboard, it)
+										//Init secondary query
+										dashboard.queryBase?.splitQuery = secondQuery
 									}
 									//view.notifyQueryAtIndex(secondIndex)
 								}
@@ -91,10 +92,10 @@ class DashboardPresenter(
 								{
 									if (checkQueriesDashboard(dashboard))
 									{
-//										dashboard.queryBase = queryBase
-
-										dashboard.queryBase?.run {
-//											splitQuery = dashboard.queryBase2
+										dashboard.jsonSecondary?.let {
+											val secondQuery = initSecondaryQuery(it, dashboard)
+											dashboard.queryBase = initQueryBase(dashboard, jsonObject)
+											dashboard.queryBase?.splitQuery = secondQuery
 										}
 										//view.notifyQueryAtIndex(index)
 									}
@@ -125,6 +126,13 @@ class DashboardPresenter(
 		return QueryBase(jsonObject).apply {
 			isDashboard = true
 			configQueryBase(dashboard, this)
+		}
+	}
+
+	private fun initSecondaryQuery(jsonObject: JSONObject, dashboard: Dashboard): QueryBase
+	{
+		return QueryBase(jsonObject).apply {
+			displayType = dashboard.secondDisplayType
 		}
 	}
 
