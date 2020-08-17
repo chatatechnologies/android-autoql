@@ -13,7 +13,6 @@ import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -93,7 +92,7 @@ class QueryBuilderHolder(
 		//endregion
 		initListRoot()
 		initListQueries()
-		setWidthRoot()
+		setHeightRoot()
 
 		ivBackExplore?.setOnClickListener {
 			rvExplore.setAnimator(0f)
@@ -131,7 +130,7 @@ class QueryBuilderHolder(
 					{
 						tvCurrentExplore?.text = any
 						setListQueries(any)
-						setWidthRoot()
+						setHeightRoot()
 						rvExplore.setAnimator(-widthParent)
 					}
 				}
@@ -143,19 +142,36 @@ class QueryBuilderHolder(
 		rvExplore?.adapter = qbAdapter
 	}
 
-	private fun setWidthRoot()
+	private fun setHeightRoot()
 	{
-		llQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+//		llQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+//		{
+//			override fun onGlobalLayout()
+//			{
+//				llQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+//				val newHeight = llQueries?.measuredHeight ?: 0
+//				rvExplore?.layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+//					height = newHeight
+//				}
+//			}
+//		})
+
+		rvExplore?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 		{
 			override fun onGlobalLayout()
 			{
-				llQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-				val newHeight = llQueries?.measuredHeight ?: 0
-				rvExplore?.layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+				rvExplore?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+				val newHeight = rvExplore?.measuredHeight ?: 0
+				llQueries?.layoutParams = (llQueries?.layoutParams as? LinearLayout.LayoutParams)?.apply {
 					height = newHeight
 				}
 			}
 		})
+	}
+
+	private fun setHeightSecondary()
+	{
+
 	}
 
 	private fun initListQueries()
