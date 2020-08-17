@@ -10,6 +10,116 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 object DashboardMaker
 {
+	//region HTML
+	fun getHeader(): String
+	{
+		return """<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://unpkg.com/sticky-table-headers"></script>
+		${(getHTMLCharts(true))}
+		<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+		</head>
+    <body>
+		${(getHTMLStyle())}
+		"""
+	}
+
+	fun getHTMLCharts(isTri: Boolean): String
+	{
+		return if (isTri) """<script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>"""
+		else
+			"""<script src="https://code.highcharts.com/highcharts.js"></script>"""
+	}
+
+	fun getHTMLStyle(): String
+	{
+		val chataDrawerWebViewBackground = ""
+		val chataDrawerWebViewText = ""
+		return """<style type="text/css">
+        body, table, th{
+            background: $chataDrawerWebViewBackground!important;
+            color: $chataDrawerWebViewText!important;
+        }
+        table {
+            padding-top: 0px!important;
+        }
+        th {
+            position: sticky;
+            top: 0px;
+            z-index: 10;
+            padding: 10px 3px 5px 3px;
+        }
+        table {
+            display: table;
+            min-width: 100%;
+            white-space: nowrap;
+            border-collapse: separate;
+            border-spacing: 0px!important;
+            border-color: grey;
+        }
+        table {
+            font-family: '-apple-system','HelveticaNeue';
+            font-size: 15.5px;
+        }
+        tr td:first-child {
+            text-align: center;
+        }
+        td {
+            padding: 3px;
+            text-align: center!important;
+        }
+        td, th {
+          font-family: '-apple-system','HelveticaNeue';
+          font-size: 15.5px;
+          max-width: 200px;
+          white-space: nowrap;
+          width: 50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          border: 0.5px solid #cccccc;
+        }
+        .green{
+            color: #2ecc40;
+        }
+        .red {
+            color: red;
+        }
+        .highcharts-credits,.highcharts-button-symbol, .highcharts-exporting-group {
+            display: none;
+        }
+        .highcharts-background{
+            fill: $chataDrawerWebViewBackground!important;
+        }
+        .splitView{
+            position: relative;
+        }
+    </style>"""
+	}
+
+	fun getHTMLFooter(aRows: ArrayList<ArrayList<String>>, aColumns: ArrayList<String>)
+	{
+		var scriptJS = ""
+		if (aRows.size > 0 && aColumns.size > 0)
+		{
+
+		}
+	}
+
+	//endregion
+
+
+
 	private fun String.tableOrPivot(): String
 	{
 		return if (isEmpty()) "#idTableBasic" else "#idTableDataPivot"
