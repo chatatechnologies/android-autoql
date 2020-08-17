@@ -113,7 +113,7 @@ class QueryBuilderHolder(
 		val data = when(DataMessenger.projectId)
 		{
 			"accounting-demo" -> QueryBuilderData.mQueriesAccounting
-			"spira-demo3" -> QueryBuilderData.mQueriesAccounting
+			"spira-demo3" -> QueryBuilderData.mQueriesSpira
 			else -> QueryBuilderData.mQueriesAccounting
 		}
 		return data[path] ?: arrayListOf()
@@ -163,7 +163,8 @@ class QueryBuilderHolder(
 		modelQueries = BaseModelList()
 		modelQueries?.let {
 			model ->
-			secondaryData("Sales").let {
+			val first = modelRoot?.get(0) ?: ""
+			secondaryData(first).let {
 				model.addAll(it)
 			}
 			queriesAdapter = QueryAdapter(model, object: OnItemClickListener
