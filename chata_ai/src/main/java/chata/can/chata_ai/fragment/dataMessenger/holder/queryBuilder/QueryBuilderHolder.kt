@@ -35,7 +35,6 @@ class QueryBuilderHolder(
 ): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
-//	private var tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
 
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
@@ -50,7 +49,6 @@ class QueryBuilderHolder(
 	private var queriesAdapter: QueryAdapter ?= null
 
 	private var heightRoot = 0
-	private var heightSecondary = 0
 
 	override fun onPaint()
 	{
@@ -159,7 +157,6 @@ class QueryBuilderHolder(
 					heightRoot = rvExplore?.measuredHeight ?: 0
 				}
 				llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-					heightSecondary = llQueries?.measuredHeight ?: 0
 					height = heightRoot
 				}
 			}
@@ -176,7 +173,7 @@ class QueryBuilderHolder(
 	private fun setHeightSecondary()
 	{
 		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-			height = heightSecondary
+			height = -2
 		}
 	}
 
