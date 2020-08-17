@@ -97,8 +97,7 @@ class QueryBuilderHolder(
 		initHeightRoot()
 
 		ivBackExplore?.setOnClickListener {
-			setHeightRoot()
-			rvExplore.setAnimator(0f)
+			configViews(true)
 		}
 	}
 
@@ -132,9 +131,8 @@ class QueryBuilderHolder(
 					if (any is String)
 					{
 						tvCurrentExplore?.text = any
-						setHeightSecondary()
+						configViews(false)
 						setListQueries(any)
-						rvExplore.setAnimator(-widthParent)
 					}
 				}
 			})
@@ -147,6 +145,7 @@ class QueryBuilderHolder(
 
 	private fun initHeightRoot()
 	{
+
 		rvExplore?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 		{
 			override fun onGlobalLayout()
@@ -156,24 +155,31 @@ class QueryBuilderHolder(
 				{
 					heightRoot = rvExplore?.measuredHeight ?: 0
 				}
-				llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-					height = heightRoot
-				}
+				configViews(true)
 			}
 		})
 	}
 
-	private fun setHeightRoot()
+	private fun configViews(isPrimary: Boolean)
 	{
-		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-			height = heightRoot
-		}
-	}
+		var visible1 = View.VISIBLE
+		var visible2 = View.GONE
+		var widthAnimator = widthParent
+		var heightFinal = heightRoot
 
-	private fun setHeightSecondary()
-	{
+		if (!isPrimary)
+		{
+			visible1 = View.GONE
+			visible2 = View.VISIBLE
+			widthAnimator = 0f
+			heightFinal = -2
+		}
+
+		rvExplore?.visibility = visible1
+		llQueries?.visibility = visible2
+		llQueries?.setAnimator(widthAnimator)
 		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-			height = -2
+			height = heightFinal
 		}
 	}
 
@@ -190,8 +196,7 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
-					setHeightRoot()
-					rvExplore.setAnimator(0f)
+					configViews(true)
 					if (any is String)
 					{
 						servicePresenter.getQuery(any)
@@ -215,7 +220,7 @@ class QueryBuilderHolder(
 	private val widthParent
 		get() = llContent?.measuredWidth?.toFloat() ?: 0f
 
-	fun View.setAnimator(yValue: Float)
+	private fun View.setAnimator(yValue: Float)
 	{
 		ObjectAnimator.ofFloat(this, "translationX", yValue).run {
 			duration = 500
