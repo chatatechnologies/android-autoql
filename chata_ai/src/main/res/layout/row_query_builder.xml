@@ -29,6 +29,7 @@
 				android:layout_width="match_parent">
 
 				<LinearLayout
+					android:id="@+id/llQueries"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="2dp"
 					android:layout_marginEnd="2dp"
@@ -46,7 +47,6 @@
 						android:layout_marginEnd="5dp"
 						android:layout_width="0.5dp"/>
 					<LinearLayout
-						android:id="@+id/llQueries"
 						android:layout_height="wrap_content"
 						android:layout_width="match_parent"
 						android:orientation="vertical">

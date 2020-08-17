@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +48,9 @@ class QueryBuilderHolder(
 	private var modelQueries: BaseModelList<String> ?= null
 	private var qbAdapter: OptionAdapter ?= null
 	private var queriesAdapter: QueryAdapter ?= null
+
+	private var heightRoot = 0
+	private var heightSecondary = 0
 
 	override fun onPaint()
 	{
@@ -92,9 +96,10 @@ class QueryBuilderHolder(
 		//endregion
 		initListRoot()
 		initListQueries()
-		setHeightRoot()
+		initHeightRoot()
 
 		ivBackExplore?.setOnClickListener {
+			setHeightRoot()
 			rvExplore.setAnimator(0f)
 		}
 	}
@@ -129,8 +134,8 @@ class QueryBuilderHolder(
 					if (any is String)
 					{
 						tvCurrentExplore?.text = any
+						setHeightSecondary()
 						setListQueries(any)
-						setHeightRoot()
 						rvExplore.setAnimator(-widthParent)
 					}
 				}
@@ -142,36 +147,37 @@ class QueryBuilderHolder(
 		rvExplore?.adapter = qbAdapter
 	}
 
-	private fun setHeightRoot()
+	private fun initHeightRoot()
 	{
-//		llQueries?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
-//		{
-//			override fun onGlobalLayout()
-//			{
-//				llQueries?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-//				val newHeight = llQueries?.measuredHeight ?: 0
-//				rvExplore?.layoutParams = (rvExplore?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
-//					height = newHeight
-//				}
-//			}
-//		})
-
 		rvExplore?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 		{
 			override fun onGlobalLayout()
 			{
 				rvExplore?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
-				val newHeight = rvExplore?.measuredHeight ?: 0
-				llQueries?.layoutParams = (llQueries?.layoutParams as? LinearLayout.LayoutParams)?.apply {
-					height = newHeight
+				if (heightRoot == 0)
+				{
+					heightRoot = rvExplore?.measuredHeight ?: 0
+				}
+				llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+					heightSecondary = llQueries?.measuredHeight ?: 0
+					height = heightRoot
 				}
 			}
 		})
 	}
 
+	private fun setHeightRoot()
+	{
+		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+			height = heightRoot
+		}
+	}
+
 	private fun setHeightSecondary()
 	{
-
+		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
+			height = heightSecondary
+		}
 	}
 
 	private fun initListQueries()
@@ -187,6 +193,7 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
+					setHeightRoot()
 					rvExplore.setAnimator(0f)
 					if (any is String)
 					{
