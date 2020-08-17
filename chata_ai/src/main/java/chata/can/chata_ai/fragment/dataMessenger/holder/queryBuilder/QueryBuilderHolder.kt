@@ -26,6 +26,7 @@ import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 
 class QueryBuilderHolder(
 	view: View,
@@ -99,7 +100,24 @@ class QueryBuilderHolder(
 		}
 	}
 
-	private fun setData() = arrayListOf("Sales", "Items", "Expenses", "Purchase Orders")
+	private fun mainData() =
+		when(DataMessenger.projectId)
+		{
+			"accounting-demo" -> QueryBuilderData.aDataAccounting
+			"spira-demo3" -> QueryBuilderData.aDataSpira
+			else -> QueryBuilderData.aDataAccounting
+		}
+
+	private fun secondaryData(path: String): ArrayList<String>
+	{
+		val data = when(DataMessenger.projectId)
+		{
+			"accounting-demo" -> QueryBuilderData.mQueriesAccounting
+			"spira-demo3" -> QueryBuilderData.mQueriesAccounting
+			else -> QueryBuilderData.mQueriesAccounting
+		}
+		return data[path] ?: arrayListOf()
+	}
 
 	private fun initListRoot()
 	{
@@ -118,7 +136,7 @@ class QueryBuilderHolder(
 					}
 				}
 			})
-			it.addAll(setData())
+			it.addAll(mainData())
 		}
 
 		rvExplore?.layoutManager = LinearLayoutManager(pagerActivity)
@@ -145,7 +163,7 @@ class QueryBuilderHolder(
 		modelQueries = BaseModelList()
 		modelQueries?.let {
 			model ->
-			QueryBuilderData.mQueries["Sales"]?.let {
+			secondaryData("Sales").let {
 				model.addAll(it)
 			}
 			queriesAdapter = QueryAdapter(model, object: OnItemClickListener
@@ -167,7 +185,7 @@ class QueryBuilderHolder(
 	private fun setListQueries(wordExplore: String)
 	{
 		modelQueries?.clear()
-		QueryBuilderData.mQueries[wordExplore]?.let {
+		secondaryData(wordExplore).let {
 			modelQueries?.addAll(it)
 		}
 		queriesAdapter?.notifyDataSetChanged()

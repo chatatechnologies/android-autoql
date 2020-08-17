@@ -2,7 +2,8 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
 object QueryBuilderData
 {
-	val mQueries = linkedMapOf(
+	val aDataAccounting = arrayListOf("Sales", "Items", "Expenses", "Purchase Orders")
+	val mQueriesAccounting = linkedMapOf(
 		"Sales" to arrayListOf(
 			"Total sales last month",
 			"Top 5 customer by sales this year",
@@ -28,5 +29,10 @@ object QueryBuilderData
 			"Total purchase orders by quarter last year",
 			"Top 5 vendor by purchase orders"
 		)
+	)
+
+	val aDataSpira = arrayListOf("Revenue", "Cost", "Estimates", "Utilization", "Jobs", "Tickets")
+	val mQueriesSpira = linkedMapOf(
+		"Revenue" to arrayListOf("")
 	)
 }
