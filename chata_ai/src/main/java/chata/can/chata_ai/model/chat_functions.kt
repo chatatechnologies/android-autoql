@@ -1,6 +1,7 @@
 package chata.can.chata_ai.model
 
 import chata.can.chata_ai.extension.enumValueOfOrNull
+import chata.can.chata_ai.extension.toDateV2
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
@@ -26,14 +27,17 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 			typeLocal
 		) ?: run { TypeDataQuery.UNKNOWN }
 
+		val columnQuery = ColumnQuery(isGroupable, typeColumn, name, originalName, isVisible)
 		//region generate format date
 		if (typeColumn == TypeDataQuery.DATE_STRING)
 		{
-			typeColumn.toString()
+			val index1 = originalName.indexOf("'")
+			val index2 = originalName.lastIndexOf("'")
+			val sDate = originalName.substring(index1 + 1, index2)
+			columnQuery.formatDate = sDate
 		}
 		//endregion
-
-		columnsFinal.add(ColumnQuery(isGroupable, typeColumn, name, originalName, isVisible))
+		columnsFinal.add(columnQuery)
 	}
 	return columnsFinal
 }
@@ -50,10 +54,11 @@ fun getRows(rows: ArrayList<ArrayList<Any>>, columnsFinal: ArrayList<ColumnQuery
 		//By each column on row
 		for ((index, element) in row.withIndex())
 		{
-			if (columnsFinal[index].type == TypeDataQuery.DATE_STRING)
+			val column = columnsFinal[index]
+			if (column.type == TypeDataQuery.DATE_STRING)
 			{
 				val sDate = element.toString()
-				finalRow.add(sDate)
+				finalRow.add(sDate.toDateV2(column.formatDate))
 				finalRowClean.add(sDate)
 			}
 			else
@@ -62,6 +67,8 @@ fun getRows(rows: ArrayList<ArrayList<Any>>, columnsFinal: ArrayList<ColumnQuery
 				finalRowClean.add("$element")
 			}
 		}
+		rowsFinalClean.add(finalRowClean)
+		rowsFinal.add(finalRow)
 	}
 
 	rowsFinal.toString()

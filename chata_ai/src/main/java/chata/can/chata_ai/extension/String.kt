@@ -11,7 +11,7 @@ import java.util.regex.Pattern
 fun String.toDateV2(format: String = "yyyy-MM"): String
 {
 	val aDate = this.split("-")
-	val aFormat = this.split("-")
+	val aFormat = format.split("-")
 	var year = ""
 	var month = ""
 
