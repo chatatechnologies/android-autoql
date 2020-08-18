@@ -18,9 +18,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 					val jaColumns = optJSONArray("columns") ?: JSONArray()
 					val finalType = if (type.isEmpty()) optString("display_type") else type
 
-					var displayType = enumValueOfOrNull<ChatComponentType>(
-						finalType
-					) ?: run {
+					var displayType = enumValueOfOrNull<ChatComponentType>(finalType) ?: run {
 						if (finalType == "data")
 							ChatComponentType.WEB_VIEW
 						else
@@ -34,11 +32,12 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 					var textFinal = ""
 					var user = true
 					var numRow = 20
-
+					//region columns
 					for (index in 0 until jaColumns.length())
 					{
 						val column = jaColumns.getJSONObject(index)
 						//is login
+						//let finalType = type == "" ? (data["display_type"] as? String ?? "") : type
 						val name = if (true) column.optString("display_name") else column.optString("name")
 						val originalName = column.optString("name", "")
 						val typeLocal = column.optString("type")
@@ -50,12 +49,12 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 
 						columnsFinal.add(ColumnQuery(false, typeColumn, name, originalName, false, isVisible))
 					}
-
-					//region Rows
-					val aRows = ArrayList<ArrayList<String>>()
+					//endregion
+					//region jaRows to aRows
+					val aRows = ArrayList<ArrayList<Any>>()
 					for (index in 0 until jaRows.length())
 					{
-						val newRow = ArrayList<String>()
+						val newRow = ArrayList<Any>()
 						val jaLevel2 = jaRows.optJSONArray(index)
 						for (index2 in 0 until jaLevel2.length())
 						{
@@ -66,6 +65,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 						aRows.add(newRow)
 					}
 					//endregion
+					getRows(aRows, columnsFinal)
 					numRow = aRows.size
 
 					val columnsF = columnsFinal.map { it.name }

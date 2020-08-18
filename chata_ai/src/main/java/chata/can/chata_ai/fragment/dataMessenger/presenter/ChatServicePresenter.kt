@@ -148,8 +148,8 @@ class ChatServicePresenter(
 				}
 				jsonObject.has(referenceIdKey) ->
 				{
-					val queryBase = QueryBase(jsonObject)
 					ChatComponent(jsonObject)
+					val queryBase = QueryBase(jsonObject)
 					val typeView = when(queryBase.displayType)
 					{
 						"suggestion" ->
