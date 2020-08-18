@@ -29,5 +29,5 @@ object DataMessenger
 		JWT = ""
 	}
 
-	var isDemo = !isNecessaryLogin || domainUrl.isEmpty()
+	fun isDemo() = !DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty()
 }

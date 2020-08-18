@@ -3,6 +3,11 @@ package chata.can.chata_ai.model
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
+fun getColumns()
+{
+
+}
+
 fun getRows(rows: ArrayList<ArrayList<Any>>, columnsFinal: ArrayList<ColumnQuery>)
 	//: Pair< ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>> >
 {
