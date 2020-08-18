@@ -124,14 +124,13 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						val type = joColumn.optString("type", "")
 						val name = joColumn.optString("name", "")
 						val displayName = joColumn.optString("display_name", "")
-						val isActive = joColumn.optBoolean("active", false)
 						val isVisible = joColumn.optBoolean("is_visible", true)
 
 						val typeColumn = enumValueOfOrNull<TypeDataQuery>(
 							type
 						) ?: run { TypeDataQuery.UNKNOWN }
 
-						val column = ColumnQuery(isGroupable, typeColumn, name, displayName, isActive, isVisible)
+						val column = ColumnQuery(isGroupable, typeColumn, name, displayName, isVisible)
 						aColumn.add(column)
 					}
 				}

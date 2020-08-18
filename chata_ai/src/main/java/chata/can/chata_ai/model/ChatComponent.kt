@@ -27,29 +27,12 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 
 					val idQuery = optString("query_id", "")
 					val jaRows = optJSONArray("rows") ?: JSONArray()
-					val columnsFinal = ArrayList<ColumnQuery>()
 
 					var textFinal = ""
 					var user = true
 					var numRow = 20
-					//region columns
-					for (index in 0 until jaColumns.length())
-					{
-						val column = jaColumns.getJSONObject(index)
-						//is login
-						//let finalType = type == "" ? (data["display_type"] as? String ?? "") : type
-						val name = if (true) column.optString("display_name") else column.optString("name")
-						val originalName = column.optString("name", "")
-						val typeLocal = column.optString("type")
-						val isVisible = column.optBoolean("is_visible", true)
 
-						val typeColumn = enumValueOfOrNull<TypeDataQuery>(
-							typeLocal
-						) ?: run { TypeDataQuery.UNKNOWN }
-
-						columnsFinal.add(ColumnQuery(false, typeColumn, name, originalName, false, isVisible))
-					}
-					//endregion
+					val columnsFinal = getColumns(jaColumns)
 					//region jaRows to aRows
 					val aRows = ArrayList<ArrayList<Any>>()
 					for (index in 0 until jaRows.length())
