@@ -7,6 +7,29 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
+//region new version
+fun String.toDateV2(format: String = "yyyy-MM"): String
+{
+	val aDate = this.split("-")
+	val aFormat = this.split("-")
+	var year = ""
+	var month = ""
+
+	for ((index, _format) in aFormat.withIndex())
+	{
+		when (_format.toLowerCase(Locale.US))
+		{
+			"yyyy" -> year = aDate[index]
+			"mm", "m" -> month = aDate[index]
+			"mmm" -> month = aDate[index]
+			"mmmm" -> month = aDate[index]
+		}
+	}
+	return "$month $year"
+}
+
+//endregion
+
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
 fun String.toDateMonthYear(format: String): String

@@ -26,6 +26,13 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 			typeLocal
 		) ?: run { TypeDataQuery.UNKNOWN }
 
+		//region generate format date
+		if (typeColumn == TypeDataQuery.DATE_STRING)
+		{
+			typeColumn.toString()
+		}
+		//endregion
+
 		columnsFinal.add(ColumnQuery(isGroupable, typeColumn, name, originalName, isVisible))
 	}
 	return columnsFinal
