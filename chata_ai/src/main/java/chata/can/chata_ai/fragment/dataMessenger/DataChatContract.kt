@@ -15,7 +15,7 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
-		val url = if (!DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty())
+		val url = if (DataMessenger.isDemo)
 		{
 			nameService = "demoAutocomplete"
 			"$urlBase${api1}autocomplete?q=$content&projectid=1&user_id=demo&customer_id=demo"
@@ -43,7 +43,7 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
-		val url = if (!DataMessenger.isNecessaryLogin || DataMessenger.domainUrl.isEmpty())
+		val url = if (DataMessenger.isDemo)
 		{
 			nameService = "safetynet"
 			"$urlBase${api1}safetynet?q=$query&projectId=1&user_id=demo&customer_id=demo"

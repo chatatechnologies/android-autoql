@@ -1,7 +1,5 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -17,9 +15,9 @@ class WebViewPresenter: StatusResponse
 {
 	fun putReport(idQuery: String)
 	{
-		if (!DataMessenger.isNecessaryLogin || domainUrl.isNotEmpty())
+		if (DataMessenger.isDemo)
 		{
-			val url = "$domainUrl/autoql/${api1}query/$idQuery?key=$apiKey"
+			val url = "${DataMessenger.domainUrl}/autoql/${api1}query/$idQuery?key=${DataMessenger.apiKey}"
 			val header= getAuthorizationJWT()
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)

@@ -28,4 +28,6 @@ object DataMessenger
 		token = ""
 		JWT = ""
 	}
+
+	var isDemo = !isNecessaryLogin || domainUrl.isEmpty()
 }
