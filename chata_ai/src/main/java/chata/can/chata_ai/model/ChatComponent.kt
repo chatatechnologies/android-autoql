@@ -84,6 +84,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 
 					if (displayType == ChatComponentType.WEB_VIEW || displayType == ChatComponentType.TABLE || chartsBi || chartsTri)
 					{
+						val existsDatePivot = isSupportPivot(aColumnType)
 						val supportTri = columnsFinal.size == 3
 						var datePivotStr = ""
 						var dataPivotStr = ""
