@@ -23,3 +23,14 @@ fun isSupportPivot(aColumns: List<TypeDataQuery>): Boolean
 
 	return support
 }
+
+fun validateArray(array: ArrayList<String>, pos: Int): Any
+{
+	return if (pos == -1) 0
+	else {
+		if (array.size > pos)
+			array[pos]
+		else
+			0
+	}
+}
