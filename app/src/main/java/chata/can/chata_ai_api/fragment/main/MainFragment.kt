@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
@@ -49,7 +50,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private var btnReloadDrawer: TextView ?= null
 	private var btnOpenDrawer: TextView ?= null
-	private var swDrawerHandle: Switch ?= null
+	private var swDrawerHandle: SwitchCompat ?= null
 	private var etCurrencyCode: EditText ?= null
 	private var etFormatMonthYear: EditText ?= null
 	private var etFormatDayMonthYear: EditText ?= null
@@ -59,18 +60,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var etCustomerMessage: EditText ?= null
 	private var etIntroMessage: EditText ?= null
 	private var etQueryPlaceholder: EditText ?= null
-	private var swClearMessage: Switch ?= null
+	private var swClearMessage: SwitchCompat ?= null
 	private var etTitle: EditText ?= null
 	private var llColors: LinearLayout ?= null
 	private var etAddColor: EditText ?= null
 	private var etLightThemeColor: EditText ?= null
 	private var etDarkThemeColor: EditText ?= null
 	private var etMaxNumberMessage: EditText ?= null
-	private var swEnableAutocomplete: Switch ?= null
-	private var swEnableQuery: Switch ?= null
-	private var swEnableSuggestion: Switch ?= null
-	private var swEnableDrillDown: Switch ?= null
-	private var swEnableSpeechText: Switch ?= null
+	private var swEnableAutocomplete: SwitchCompat ?= null
+	private var swEnableQuery: SwitchCompat ?= null
+	private var swEnableSuggestion: SwitchCompat ?= null
+	private var swEnableDrillDown: SwitchCompat ?= null
+	private var swEnableSpeechText: SwitchCompat ?= null
 	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
 

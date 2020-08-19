@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
@@ -24,7 +24,7 @@ object CustomViews
 {
 	val mViews = linkedMapOf<String, SparseBooleanArray>()
 
-	fun getSwitch(context: Context, value: String, idView: Int) = Switch(context).apply {
+	fun getSwitch(context: Context, value: String, idView: Int) = SwitchCompat(context).apply {
 		layoutParams = LinearLayout.LayoutParams(-2, -2)
 		gravity = Gravity.CENTER_HORIZONTAL
 		isChecked = value == "true"
