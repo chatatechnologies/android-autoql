@@ -18,10 +18,13 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 					val finalType = if (type.isEmpty()) optString("display_type") else type
 
 					var displayType = enumValueOfOrNull<ChatComponentType>(finalType) ?: run {
-						if (finalType == "data")
-							ChatComponentType.WEB_VIEW
-						else
-						ChatComponentType.UNKNOWN
+						when(finalType)
+						{
+							"data" -> ChatComponentType.WEB_VIEW
+							"table" -> ChatComponentType.TABLE
+							else -> ChatComponentType.UNKNOWN
+						}
+
 					}
 
 					val idQuery = optString("query_id", "")
@@ -85,6 +88,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 						var datePivotStr = ""
 						var dataPivotStr = ""
 						var tableBasicStr = ""
+						val drills = ArrayList<String>()
 
 						if (supportTri)
 						{
