@@ -11,7 +11,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 object DashboardMaker
 {
 	//region HTML
-	fun getHeader(): String
+	fun getHeader(isTri: Boolean = false): String
 	{
 		return """<!DOCTYPE html>
     <html lang="en">
@@ -21,7 +21,7 @@ object DashboardMaker
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://unpkg.com/sticky-table-headers"></script>
-		${(getHTMLCharts(true))}
+		${(getHTMLCharts(isTri))}
 		<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <meta http-equiv='cache-control' content='no-cache'>
     <meta http-equiv='expires' content='0'>

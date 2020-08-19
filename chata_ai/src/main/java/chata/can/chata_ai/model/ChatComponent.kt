@@ -2,10 +2,11 @@ package chata.can.chata_ai.model
 
 import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ChatComponent(jsonObject: JSONObject, type: String = "")
+class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = false)
 {
 	init {
 		jsonObject.run {
@@ -102,13 +103,19 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 						{
 
 						}
-
 						tableBasicStr = tableString(
 							pRowFinal.first,
 							columnsF,
 							"idTableBasic",
 							columnsFinal,
 							false)
+						val typeFinal = if (type.isEmpty()) "#idTableBasic" else type
+
+						webView = """
+							${DashboardMaker.getHeader(supportTri)}
+							$datePivotStr
+							$tableBasicStr
+						"""
 					}
 				}
 			}
