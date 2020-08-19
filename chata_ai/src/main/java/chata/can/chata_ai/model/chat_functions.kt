@@ -43,7 +43,7 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 }
 
 fun getRows(rows: ArrayList<ArrayList<Any>>, columnsFinal: ArrayList<ColumnQuery>)
-	//: Pair< ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>> >
+	: Pair< ArrayList<ArrayList<String>>, ArrayList<ArrayList<String>> >
 {
 	val rowsFinal = ArrayList<ArrayList<String>>()
 	val rowsFinalClean = ArrayList<ArrayList<String>>()
@@ -71,6 +71,5 @@ fun getRows(rows: ArrayList<ArrayList<Any>>, columnsFinal: ArrayList<ColumnQuery
 		rowsFinal.add(finalRow)
 	}
 
-	rowsFinal.toString()
-	rowsFinalClean.toString()
+	return Pair(rowsFinal, rowsFinalClean)
 }

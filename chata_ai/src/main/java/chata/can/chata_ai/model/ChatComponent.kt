@@ -1,8 +1,7 @@
 package chata.can.chata_ai.model
 
 import chata.can.chata_ai.extension.enumValueOfOrNull
-import chata.can.chata_ai.pojo.chat.ColumnQuery
-import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.extension.formatWithColumn
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -48,7 +47,15 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 						aRows.add(newRow)
 					}
 					//endregion
-					getRows(aRows, columnsFinal)
+					//first is rowsFinal; second is rowsFinalClean
+					val pRowFinal = getRows(aRows, columnsFinal)
+					//region check case when rows is one
+					if (pRowFinal.second.size == 1)
+					{
+						val aTmp = pRowFinal.second
+						textFinal = aTmp[0][0].formatWithColumn(columnsFinal[0])
+					}
+					//endregion
 					numRow = aRows.size
 
 					val columnsF = columnsFinal.map { it.name }
