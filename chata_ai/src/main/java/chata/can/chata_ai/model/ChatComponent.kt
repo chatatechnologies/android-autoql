@@ -91,10 +91,24 @@ class ChatComponent(jsonObject: JSONObject, type: String = "")
 						var tableBasicStr = ""
 						val drills = ArrayList<String>()
 
+						//region existsDatePivot
+						if (existsDatePivot)
+						{
+
+						}
+						//endregion
+
 						if (supportTri)
 						{
 
 						}
+
+						tableBasicStr = tableString(
+							pRowFinal.first,
+							columnsF,
+							"idTableBasic",
+							columnsFinal,
+							false)
 					}
 				}
 			}
