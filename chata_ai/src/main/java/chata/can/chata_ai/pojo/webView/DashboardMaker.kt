@@ -2,12 +2,14 @@ package chata.can.chata_ai.pojo.webView
 
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.context.ContextActivity
+import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDateV2
 import chata.can.chata_ai.model.validateArray
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.SinglentonDrawer.darkThemeColor
 import chata.can.chata_ai.pojo.SinglentonDrawer.lightThemeColor
 import chata.can.chata_ai.pojo.SinglentonDrawer.themeColor
+import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 
@@ -112,7 +114,7 @@ object DashboardMaker
 
 	fun getHTMLFooter(
 		aRows: ArrayList<ArrayList<String>>,
-		aColumns: List<String>,
+		aColumnQuery: List<ColumnQuery>,
 		types: List<TypeDataQuery>,
 		drills: ArrayList<String>,
 		type: String,
@@ -120,9 +122,9 @@ object DashboardMaker
 	): String
 	{
 		var scriptJS = ""
-		if (aRows.isNotEmpty() && aColumns.isNotEmpty())
+		if (aRows.isNotEmpty() && aColumnQuery.isNotEmpty())
 		{
-			getChartFooter(aRows, aColumns, types, drills)
+			getChartFooter(aRows, aColumnQuery, types, drills)
 		}
 
 		return ""
@@ -130,7 +132,7 @@ object DashboardMaker
 
 	fun getChartFooter(
 		row: ArrayList<ArrayList<String>>,
-		columns: List<String>,
+		aColumnQuery: List<ColumnQuery>,
 		type: List<TypeDataQuery>,
 		drills: ArrayList<String>,
 		mainType: String = "idTableBasic")
@@ -144,7 +146,14 @@ object DashboardMaker
 		val stacked = ArrayList<ArrayList<Double>>()
 
 		var catXFormat = row.map {
-			validateArray(it,0).toString().toDateV2()
+			validateArray(it,0).toString().formatWithColumn(aColumnQuery[0])
+		}
+		var dataChartLine = row.map {
+			validateArray(it,1).toString().toDouble()
+		}
+		if (type.size == 3)
+		{
+
 		}
 	}
 

@@ -115,7 +115,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 							${DashboardMaker.getHeader(supportTri)}
 							$datePivotStr
 							$tableBasicStr
-							${DashboardMaker.getHTMLFooter(pRowFinal.first, columnsF, aColumnType, drills, type)}
+							${DashboardMaker.getHTMLFooter(pRowFinal.first, columnsFinal, aColumnType, drills, type)}
 						"""
 					}
 				}
