@@ -270,6 +270,7 @@ class DashboardPresenter(
 		{
 			model[index]?.let { dashboard ->
 				dashboard.isWaitingData = true
+				dashboard.queryBase = null
 				view.notifyQueryAtIndex(index)
 
 				val query = dashboard.query

@@ -139,13 +139,13 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		{
 			presenter.getDashboards()
 		}
-		else
-		{
+//		else
+//		{
 //			if (isAutomatic)
 //			{
 //				presenter.resetDashboards(!isAutomatic)
 //			}
-		}
+//		}
 	}
 
 	private fun getDashboardQueries()
