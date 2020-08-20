@@ -42,8 +42,8 @@ class DrillDownPresenter(
 			val header = getAuthorizationJWT()
 			val mParams = hashMapOf<String, Any>(
 				"columns" to ArrayList<String>(),
-				"debug" to true,
-				"test" to true)
+				"test" to true,
+				"translation" to "include")
 
 			val url = "$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
 			callStringRequest(

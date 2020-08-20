@@ -19,7 +19,6 @@ class DrillDownPresenter(
 	fun postDrillDown(valueInRow: String = "")
 	{
 		var header: HashMap<String, String> ?= null
-
 		val mParams = hashMapOf<String, Any>()
 
 		val url = if (DataMessenger.isDemo())
@@ -55,7 +54,8 @@ class DrillDownPresenter(
 						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
 					}
 				}
-				mParams["debug"] = false
+				mParams["translation"] = "include"
+				mParams["test"] = true
 				mParams["columns"] = aColumns
 				"$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
 			}
