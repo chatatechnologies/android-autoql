@@ -7,7 +7,7 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical">
-		<Switch
+		<androidx.appcompat.widget.SwitchCompat
 			android:gravity="center"
 			android:id="@+id/swLoad"
 			android:layout_height="wrap_content"

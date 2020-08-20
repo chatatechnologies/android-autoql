@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.dashboard
 
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
@@ -129,7 +130,10 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 		else
 		{
-			presenter.resetDashboards(!isAutomatic)
+			if (isAutomatic)
+			{
+				presenter.resetDashboards(!isAutomatic)
+			}
 		}
 	}
 
@@ -146,7 +150,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			}
 	}
 
-	private lateinit var swLoad: Switch
+	private lateinit var swLoad: SwitchCompat
 	private lateinit var btnExecute: TextView
 	private lateinit var btnDashboard: TextView
 	private lateinit var spDashboard: Spinner
