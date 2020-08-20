@@ -104,7 +104,7 @@ class WebViewHolder(
 				3 -> ConfigActions.triConfig
 				4 ->
 				{
-					lastId = "#idTableBasic"
+//					lastId = "#idTableBasic"
 					ConfigActions.biConfigReduce
 				}
 				5 ->
