@@ -168,11 +168,11 @@ object HtmlBuilder
 					DatePivot.buildDateString(aRows, aColumn)
 				else DatePivot.buildBi(aRows, aColumn)
 
-				with(dataForWebView)
-				{
-					datePivot = pData.first
-					rowsPivot = pData.second
-				}
+//				with(dataForWebView)
+//				{
+//					datePivot = pData.first
+//					rowsPivot = pData.second
+//				}
 				queryBase.configActions = 1
 
 				dataForWebView.catYS = aCatYS.toString()
