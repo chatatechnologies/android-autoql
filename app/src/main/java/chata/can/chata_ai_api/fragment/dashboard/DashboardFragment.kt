@@ -57,6 +57,17 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		hideKeyboard()
 	}
 
+	override fun onPause()
+	{
+		super.onPause()
+		if (isLoaded && !isQueryClean)
+		{
+			isQueryClean = true
+			presenter.resetDashboards(false)
+			gridAdapter.notifyDataSetChanged()
+		}
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -130,15 +141,16 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 		else
 		{
-			if (isAutomatic)
-			{
-				presenter.resetDashboards(!isAutomatic)
-			}
+//			if (isAutomatic)
+//			{
+//				presenter.resetDashboards(!isAutomatic)
+//			}
 		}
 	}
 
 	private fun getDashboardQueries()
 	{
+		isQueryClean = false
 		presenter.getDashboardQueries()
 	}
 
@@ -158,6 +170,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
 	private val mModel = BaseModelList<Dashboard>()
+	private var isQueryClean = true
 	private var isAutomatic = false
 	private var isLoaded = false
 }
