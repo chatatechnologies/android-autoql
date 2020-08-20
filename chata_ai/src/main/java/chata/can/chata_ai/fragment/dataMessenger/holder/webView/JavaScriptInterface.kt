@@ -31,6 +31,14 @@ class JavaScriptInterface(
 						}
 					}
 				}
+				else
+				{
+					val index = queryBase.aXAxis.indexOf(newContent)
+					if (index != -1)
+					{
+						newContent = queryBase.aXDrillDown[index]
+					}
+				}
 			}
 			3 ->
 			{
