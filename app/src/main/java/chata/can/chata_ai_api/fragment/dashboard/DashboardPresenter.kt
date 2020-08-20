@@ -30,14 +30,68 @@ class DashboardPresenter(
 					try {
 						val query = jsonObject.optString("query") ?: ""
 						val title = jsonObject.optString("title") ?: ""
-						val index = model.indexOfFirst { it.query == query && it.title == title }
-						val queryBase = QueryBase(JSONObject(response))
-						queryBase.isDashboard = true
-						model[index]?.let { it.queryBase = queryBase }
-						if (index != -1)
+						val key = jsonObject.optString("key") ?: ""
+						val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+
+						if (isSecondaryQuery)
 						{
-							view.notifyQueryAtIndex(index)
+							val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
+							//search secondQuery
+							val secondIndex = model.indexOfFirst {
+								it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
+							}
+							if (secondIndex != -1)
+							{
+								model[secondIndex]?.let { dashboard ->
+									val secondQuery = initSecondaryQuery(JSONObject(response), dashboard)
+									dashboard.jsonPrimary?.let {
+										dashboard.queryBase = initQueryBase(dashboard, it)
+										//Init secondary query
+										dashboard.queryBase?.splitQuery = secondQuery
+
+										view.notifyQueryAtIndex(secondIndex)
+									}
+								}
+							}
 						}
+						else
+						{
+							val index = model.indexOfFirst {
+								it.query == query && it.title == title && it.key == key
+							}
+							if (index != -1)
+							{
+								model[index]?.let { dashboard ->
+									dashboard.jsonPrimary = JSONObject(response)
+									if (dashboard.splitView)
+									{
+										if (checkQueriesDashboard(dashboard))
+										{
+											dashboard.jsonSecondary?.let {
+												val secondQuery = initSecondaryQuery(it, dashboard)
+												dashboard.queryBase = initQueryBase(dashboard, jsonObject)
+												dashboard.queryBase?.splitQuery = secondQuery
+
+												view.notifyQueryAtIndex(index)
+											}
+										}
+									}
+									else
+									{
+										dashboard.queryBase = initQueryBase(dashboard, jsonObject)
+										view.notifyQueryAtIndex(index)
+									}
+								}
+							}
+						}
+//						val index = model.indexOfFirst { it.query == query && it.title == title }
+//						val queryBase = QueryBase(JSONObject(response))
+//						queryBase.isDashboard = true
+//						model[index]?.let { it.queryBase = queryBase }
+//						if (index != -1)
+//						{
+//							view.notifyQueryAtIndex(index)
+//						}
 					}
 					catch (e: Exception){ }
 				}
