@@ -56,6 +56,7 @@ class DashboardPresenter(
 					val model = getCurrentDashboard()
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
+					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
 					if (isSecondaryQuery)
@@ -63,7 +64,7 @@ class DashboardPresenter(
 						val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
 						//search secondQuery
 						val secondIndex = model.indexOfFirst {
-							it.secondQuery == query && it.query == primaryQuery && it.title == title
+							it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
 						}
 						if (secondIndex != -1)
 						{
@@ -84,7 +85,9 @@ class DashboardPresenter(
 					}
 					else
 					{
-						val index = model.indexOfFirst { it.query == query && it.title == title }
+						val index = model.indexOfFirst {
+							it.query == query && it.title == title && it.key == key
+						}
 						if (index != -1)
 						{
 							model[index]?.let { dashboard ->
@@ -277,6 +280,7 @@ class DashboardPresenter(
 				if (query.isNotEmpty())
 				{
 					val mInfoHolder = hashMapOf(
+						"key" to dashboard.key,
 						"isSplitView" to dashboard.splitView,
 						"query" to query,
 						"title" to dashboard.title,
@@ -287,6 +291,7 @@ class DashboardPresenter(
 				if (secondQuery.isNotEmpty())
 				{
 					val mInfoHolder = hashMapOf(
+						"key" to dashboard.key,
 						"isSplitView" to true,
 						"isSecondaryQuery" to true,
 						"primaryQuery" to query,
