@@ -1,6 +1,5 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.graphics.Color
 import android.text.SpannableString
@@ -20,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
@@ -177,7 +177,7 @@ class QueryBuilderHolder(
 
 		rvExplore?.visibility = visible1
 		llQueries?.visibility = visible2
-		llQueries?.setAnimator(widthAnimator)
+		llQueries?.setAnimator(widthAnimator, "translationX")
 		llQueries?.layoutParams = (llQueries?.layoutParams as? RelativeLayout.LayoutParams)?.apply {
 			height = heightFinal
 		}
@@ -219,12 +219,4 @@ class QueryBuilderHolder(
 
 	private val widthParent
 		get() = llContent?.measuredWidth?.toFloat() ?: 0f
-
-	private fun View.setAnimator(yValue: Float)
-	{
-		ObjectAnimator.ofFloat(this, "translationX", yValue).run {
-			duration = 500
-			start()
-		}
-	}
 }

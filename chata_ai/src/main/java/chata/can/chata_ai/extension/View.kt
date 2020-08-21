@@ -1,5 +1,6 @@
 package chata.can.chata_ai.extension
 
+import android.animation.ObjectAnimator
 import android.graphics.PorterDuff
 import android.view.View
 import android.widget.EditText
@@ -37,4 +38,12 @@ fun View.backgroundGrayWhite(iCornerRadius: Float = 18f, iWidthRadius: Int = 1)
 		context,
 		ThemeColor.currentColor.drawerColorPrimary)
 	background = DrawableBuilder.setGradientDrawable(white,iCornerRadius,iWidthRadius, gray)
+}
+
+fun View.setAnimator(yValue: Float, property: String)
+{
+	ObjectAnimator.ofFloat(this, property, yValue).run {
+		duration = 500
+		start()
+	}
 }

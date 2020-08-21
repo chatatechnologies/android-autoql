@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
+import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.view.bubbleHandle.Authentication
@@ -22,6 +23,8 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import java.util.*
+import java.util.logging.Handler
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -72,6 +75,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
+	private lateinit var llAlert: Button
 	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
 
@@ -137,14 +141,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText("$maxMessage")
 
 			//TODO REMOVE
-			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
-			userID = (tvUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
-
-			servicePresenter.createAuthenticate()
+//			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
+//			userID = (tvUserId?.text ?: "").toString().trim()
+//			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+//			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
+//			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+//			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+//
+//			servicePresenter.createAuthenticate()
 		}
 		else
 		{
@@ -160,6 +164,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		with(view)
 		{
+			llAlert = findViewById(R.id.llAlert)
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
 				context ->
@@ -288,6 +293,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //			btnAuthenticate?.visibility = iVisible
 //			bubbleHandle.isNecessaryLogin = !isChecked
 //		}
+
+		llAlert.setAnimator(-300f, "translationY")
 
 		btnAuthenticate?.setOnClickListener(this)
 		btnReloadDrawer?.setOnClickListener(this)
@@ -618,13 +625,21 @@ password:
 		}
 
 		btnAuthenticate?.text = pair.first
-		parentActivity?.let {
-			AlertDialog.Builder(it)
-				.setCancelable(false)
-				.setMessage(pair.second)
-				.setNeutralButton("Ok", null)
-				.show()
-		}
+		llAlert.text = pair.second
+
+		llAlert.visibility = View.VISIBLE
+		llAlert.setAnimator(80f, "translationY")
+
+		android.os.Handler().postDelayed({
+			llAlert.setAnimator(-300f, "translationY")
+		}, 1500)
+//		parentActivity?.let {
+//			AlertDialog.Builder(it)
+//				.setCancelable(false)
+//				.setMessage(pair.second)
+//				.setNeutralButton("Ok", null)
+//				.show()
+//		}
 	}
 
 	override fun savePersistentData()
