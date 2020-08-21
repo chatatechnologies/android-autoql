@@ -35,7 +35,35 @@ class DashboardPresenter(
 
 						if (isSecondaryQuery)
 						{
-
+							val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
+							//search secondQuery
+							val secondIndex = model.indexOfFirst {
+								it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
+							}
+							if (secondIndex != -1)
+							{
+								model[secondIndex]?.let { dashboard ->
+									dashboard.jsonSecondary = JSONObject(response)
+									if (checkQueriesDashboard(dashboard))
+									{
+										//region initQueryBase
+										val secondQuery = QueryBase(JSONObject(response))
+										secondQuery.isDashboard = true
+										dashboard.queryBase = secondQuery
+										//endregion
+										dashboard.jsonPrimary?.let {
+											//region initQueryBase
+											val queryBase = QueryBase(JSONObject(response))
+											queryBase.isDashboard = true
+											dashboard.queryBase = queryBase
+											//endregion
+											//Init secondary query
+											dashboard.queryBase?.splitQuery = secondQuery
+											view.notifyQueryAtIndex(secondIndex)
+										}
+									}
+								}
+							}
 						}
 						else
 						{
@@ -48,11 +76,15 @@ class DashboardPresenter(
 									dashboard.jsonPrimary = JSONObject(response)
 									if (dashboard.splitView)
 									{
-										val secondQuery = QueryBase(JSONObject(response))
-										secondQuery.isDashboard = true
-										dashboard.queryBase = secondQuery
-
-										view.notifyQueryAtIndex(index)
+										if (checkQueriesDashboard(dashboard))
+										{
+											dashboard.jsonSecondary?.let {
+												val secondQuery = QueryBase(JSONObject(response))
+												secondQuery.isDashboard = true
+												dashboard.queryBase = secondQuery
+											}
+											view.notifyQueryAtIndex(index)
+										}
 									}
 									else
 									{
