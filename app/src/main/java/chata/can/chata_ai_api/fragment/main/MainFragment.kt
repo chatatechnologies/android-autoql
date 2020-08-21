@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.main
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -23,8 +24,6 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import java.util.*
-import java.util.logging.Handler
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -630,9 +629,12 @@ password:
 		llAlert.visibility = View.VISIBLE
 		llAlert.setAnimator(80f, "translationY")
 
-		android.os.Handler().postDelayed({
-			llAlert.setAnimator(-300f, "translationY")
-		}, 1500)
+		Looper.getMainLooper()?.let {
+			android.os.Handler(it).postDelayed({
+				llAlert.setAnimator(-300f, "translationY")
+			}, 1500)
+		}
+
 //		parentActivity?.let {
 //			AlertDialog.Builder(it)
 //				.setCancelable(false)
