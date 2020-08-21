@@ -47,15 +47,11 @@ class DashboardPresenter(
 									if (checkQueriesDashboard(dashboard))
 									{
 										//region initQueryBase
-										val secondQuery = QueryBase(JSONObject(response))
-										secondQuery.isDashboard = true
-										dashboard.queryBase = secondQuery
+										val secondQuery = initQueryEmpty(dashboard, response = response)
 										//endregion
 										dashboard.jsonPrimary?.let {
 											//region initQueryBase
-											val queryBase = QueryBase(JSONObject(response))
-											queryBase.isDashboard = true
-											dashboard.queryBase = queryBase
+											initQueryEmpty(dashboard, it)
 											//endregion
 											//Init secondary query
 											dashboard.queryBase?.splitQuery = secondQuery
@@ -79,9 +75,7 @@ class DashboardPresenter(
 										if (checkQueriesDashboard(dashboard))
 										{
 											dashboard.jsonSecondary?.let {
-												val secondQuery = QueryBase(JSONObject(response))
-												secondQuery.isDashboard = true
-												dashboard.queryBase = secondQuery
+												initQueryEmpty(dashboard, it)
 											}
 											view.notifyQueryAtIndex(index)
 										}
@@ -196,6 +190,18 @@ class DashboardPresenter(
 	{
 		return QueryBase(jsonObject).apply {
 			displayType = dashboard.secondDisplayType
+		}
+	}
+
+	private fun initQueryEmpty(
+		dashboard: Dashboard,
+		json: JSONObject = JSONObject(),
+		response: String = ""): QueryBase
+	{
+		val finalJSON = if (response.isEmpty()) json else JSONObject(response)
+		return QueryBase(finalJSON).apply {
+			isDashboard = true
+			dashboard.queryBase = this
 		}
 	}
 
