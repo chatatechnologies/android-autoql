@@ -35,24 +35,7 @@ class DashboardPresenter(
 
 						if (isSecondaryQuery)
 						{
-							val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
-							//search secondQuery
-							val secondIndex = model.indexOfFirst {
-								it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
-							}
-							if (secondIndex != -1)
-							{
-								model[secondIndex]?.let { dashboard ->
-									val secondQuery = initSecondaryQuery(JSONObject(response), dashboard)
-									dashboard.jsonPrimary?.let {
-										dashboard.queryBase = initQueryBase(dashboard, it)
-										//Init secondary query
-										dashboard.queryBase?.splitQuery = secondQuery
 
-										view.notifyQueryAtIndex(secondIndex)
-									}
-								}
-							}
 						}
 						else
 						{
@@ -65,33 +48,23 @@ class DashboardPresenter(
 									dashboard.jsonPrimary = JSONObject(response)
 									if (dashboard.splitView)
 									{
-										if (checkQueriesDashboard(dashboard))
-										{
-											dashboard.jsonSecondary?.let {
-												val secondQuery = initSecondaryQuery(it, dashboard)
-												dashboard.queryBase = initQueryBase(dashboard, jsonObject)
-												dashboard.queryBase?.splitQuery = secondQuery
+										val secondQuery = QueryBase(JSONObject(response))
+										secondQuery.isDashboard = true
+										dashboard.queryBase = secondQuery
 
-												view.notifyQueryAtIndex(index)
-											}
-										}
+										view.notifyQueryAtIndex(index)
 									}
 									else
 									{
-										dashboard.queryBase = initQueryBase(dashboard, jsonObject)
+										val queryBase = QueryBase(JSONObject(response))
+										queryBase.isDashboard = true
+										dashboard.queryBase = queryBase
+
 										view.notifyQueryAtIndex(index)
 									}
 								}
 							}
 						}
-//						val index = model.indexOfFirst { it.query == query && it.title == title }
-//						val queryBase = QueryBase(JSONObject(response))
-//						queryBase.isDashboard = true
-//						model[index]?.let { it.queryBase = queryBase }
-//						if (index != -1)
-//						{
-//							view.notifyQueryAtIndex(index)
-//						}
 					}
 					catch (e: Exception){ }
 				}
