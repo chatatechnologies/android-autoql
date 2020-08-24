@@ -3,15 +3,6 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="wrap_content"
 	android:layout_width="match_parent">
-	<Button
-		android:background="@color/borderEditText"
-		android:id="@+id/llAlert"
-		android:layout_centerHorizontal="true"
-		android:layout_width="150dp"
-		android:layout_height="60dp"
-		android:textAllCaps="false"
-		android:visibility="gone"/>
-
 	<ScrollView
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
@@ -26,5 +17,18 @@
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:orientation="vertical"/>
-</ScrollView>
+	</ScrollView>
+
+	<LinearLayout
+		android:id="@+id/rlAlert"
+		android:layout_centerHorizontal="true"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+		<Button
+			android:background="@color/borderEditText"
+			android:id="@+id/tvAlert"
+			android:layout_width="150dp"
+			android:layout_height="60dp"
+			android:textAllCaps="false"/>
+	</LinearLayout>
 </RelativeLayout>

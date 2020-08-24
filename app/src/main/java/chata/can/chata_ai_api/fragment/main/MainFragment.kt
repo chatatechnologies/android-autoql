@@ -74,7 +74,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
-	private lateinit var llAlert: Button
+	private lateinit var rlAlert: LinearLayout
+	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
 
@@ -163,7 +164,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		with(view)
 		{
-			llAlert = findViewById(R.id.llAlert)
+			rlAlert = findViewById(R.id.rlAlert)
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
 				context ->
@@ -173,6 +174,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
 			renderPresenter.initViews(llContainer)
+			//TODO show alert
+			animationAlert = AnimationAlert(rlAlert)
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
@@ -293,7 +296,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //			bubbleHandle.isNecessaryLogin = !isChecked
 //		}
 
-		llAlert.setAnimator(-300f, "translationY")
+		rlAlert.setAnimator(-300f, "translationY")
 
 		btnAuthenticate?.setOnClickListener(this)
 		btnReloadDrawer?.setOnClickListener(this)
@@ -624,14 +627,14 @@ password:
 		}
 
 		btnAuthenticate?.text = pair.first
-		llAlert.text = pair.second
+		animationAlert.setText(pair.second)
 
-		llAlert.visibility = View.VISIBLE
-		llAlert.setAnimator(80f, "translationY")
+		rlAlert.visibility = View.VISIBLE
+		rlAlert.setAnimator(80f, "translationY")
 
 		Looper.getMainLooper()?.let {
 			android.os.Handler(it).postDelayed({
-				llAlert.setAnimator(-300f, "translationY")
+				rlAlert.setAnimator(-300f, "translationY")
 			}, 1500)
 		}
 
