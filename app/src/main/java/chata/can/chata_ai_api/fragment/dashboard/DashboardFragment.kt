@@ -24,6 +24,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		btnDashboard = view.findViewById(R.id.btnDashboard)
 		spDashboard = view.findViewById(R.id.spDashboard)
 		rvDashboard = view.findViewById(R.id.rvDashboard)
+		tvEmptyDashboard = view.findViewById(R.id.tvEmptyDashboard)
 	}
 
 	override fun setColors()
@@ -118,6 +119,17 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 							mModel.clear()
 							mModel.addAll(model.getData())
 							gridAdapter.notifyDataSetChanged()
+
+							if (model.countData() == 0)
+							{
+								tvEmptyDashboard.visibility = View.VISIBLE
+								rvDashboard.visibility = View.GONE
+							}
+							else
+							{
+								tvEmptyDashboard.visibility = View.GONE
+								rvDashboard.visibility = View.VISIBLE
+							}
 						}
 					}
 				}
@@ -167,6 +179,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private lateinit var btnDashboard: TextView
 	private lateinit var spDashboard: Spinner
 	private lateinit var rvDashboard: RecyclerView
+	private lateinit var tvEmptyDashboard: TextView
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
 	private val mModel = BaseModelList<Dashboard>()

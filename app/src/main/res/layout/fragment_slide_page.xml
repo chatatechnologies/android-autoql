@@ -41,5 +41,13 @@
 			android:id="@+id/rvDashboard"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"/>
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvEmptyDashboard"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="24dp"
+			android:layout_width="match_parent"
+			android:text="@string/empty_dashboard"
+			android:visibility="gone"/>
 	</LinearLayout>
 </ScrollView>
