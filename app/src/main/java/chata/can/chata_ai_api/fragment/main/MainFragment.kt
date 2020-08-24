@@ -485,6 +485,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						DataMessenger.clearData()
 						isAuthenticate = false
 						changeStateAuthenticate()
+						showAlert("Successfully logged out", R.drawable.ic_done)
 
 						bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
 						bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
