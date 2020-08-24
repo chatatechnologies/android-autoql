@@ -2,11 +2,11 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
+//import android.graphics.Typeface
 import android.os.Looper
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
+//import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
@@ -544,35 +544,48 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun showError(errorCode: String, errorService: String)
+	override fun showAlert(message: String, intRes: Int)
 	{
-		parentActivity?.let {
-			val messageData =
-"""
-Project Id:
-->$projectId<-
-User Id:
-->$userID<-
-apiKey:
-->$apiKey<-
-domainUrl:
-->$domainUrl<-
-username:
-->$username<-
-password:
-->$password<-
-"""
+		animationAlert.setText(message)
+		animationAlert.setResource(intRes)
+		rlAlert.visibility = View.VISIBLE
+		rlAlert.setAnimator(80f, "translationY")
 
-			val alert = AlertDialog.Builder(it)
-				.setCancelable(false)
-				//.setMessage("Error: code $errorCode on service \"$errorService\"")
-				.setMessage(messageData)
-				.setNeutralButton("Error", null)
-				.show()
-
-			alert.findViewById<TextView>(android.R.id.message)?.typeface = Typeface.MONOSPACE
+		Looper.getMainLooper()?.let {
+			android.os.Handler(it).postDelayed({
+				rlAlert.setAnimator(-300f, "translationY")
+			}, 1500)
 		}
 	}
+
+//	override fun showError(errorCode: String, errorService: String)
+//	{
+//		parentActivity?.let {
+//			val messageData =
+//"""
+//Project Id:
+//->$projectId<-
+//User Id:
+//->$userID<-
+//apiKey:
+//->$apiKey<-
+//domainUrl:
+//->$domainUrl<-
+//username:
+//->$username<-
+//password:
+//->$password<-
+//"""
+//			val alert = AlertDialog.Builder(it)
+//				.setCancelable(false)
+////				.setMessage("Error: code $errorCode on service \"$errorService\"")
+//				.setMessage(messageData)
+//				.setNeutralButton("Error", null)
+//				.show()
+//
+//			alert.findViewById<TextView>(android.R.id.message)?.typeface = Typeface.MONOSPACE
+//		}
+//	}
 
 	override fun callJWt()
 	{
@@ -581,8 +594,6 @@ password:
 
 	override fun callRelated()
 	{
-
-
 		servicePresenter.callRelated()
 	}
 
@@ -598,7 +609,7 @@ password:
 
 	override fun changeStateAuthenticate()
 	{
-		val pair = if (isAuthenticate)
+		val text = if (isAuthenticate)
 		{
 			if (projectId.contains("spira"))
 			{
@@ -610,13 +621,14 @@ password:
 				bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
 				bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
 			}
-
-			Pair("Log Out", "Login Successful")
+//			Pair("Log Out", "Login Successful")
+			"Log Out"
 		}
 		else
 		{
 			isEnableLogin(true)
-			Pair("Authenticate", "Sucessfully logged out")
+//			Pair("Authenticate", "Successfully logged out")
+			"Authenticate"
 		}
 
 		activity?.run {
@@ -626,27 +638,7 @@ password:
 			}
 		}
 
-		btnAuthenticate?.text = pair.first
-		animationAlert.setText(pair.second)
-
-		animationAlert.setResource(R.drawable.ic_done)
-
-		rlAlert.visibility = View.VISIBLE
-		rlAlert.setAnimator(80f, "translationY")
-
-		Looper.getMainLooper()?.let {
-			android.os.Handler(it).postDelayed({
-				rlAlert.setAnimator(-300f, "translationY")
-			}, 1500)
-		}
-
-//		parentActivity?.let {
-//			AlertDialog.Builder(it)
-//				.setCancelable(false)
-//				.setMessage(pair.second)
-//				.setNeutralButton("Ok", null)
-//				.show()
-//		}
+		btnAuthenticate?.text = text
 	}
 
 	override fun savePersistentData()

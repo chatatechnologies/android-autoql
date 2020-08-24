@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.main
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai_api.R
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -34,12 +35,13 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 	{
 		if (jsonObject != null)
 		{
-			val errorCode = jsonObject.optString("CODE", "")
-			val errorService = jsonObject.optString("nameService", "")
+//			val errorCode = jsonObject.optString("CODE", "")
+//			val errorService = jsonObject.optString("nameService", "")
 			with(view)
 			{
 				isEnableLogin(true)
-				showError(errorCode, errorService)
+				//showError(errorCode, errorService)
+				showAlert("Invalid Credentials", R.drawable.ic_error)
 			}
 		}
 	}
@@ -68,6 +70,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 					{
 						changeAuthenticate(true)
 						changeStateAuthenticate()
+						showAlert("Login Successful", R.drawable.ic_done)
 						isEnableLogin(true)
 						savePersistentData()
 					}

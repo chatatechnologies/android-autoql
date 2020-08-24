@@ -24,7 +24,8 @@
 		android:id="@+id/rlAlert"
 		android:layout_centerHorizontal="true"
 		android:layout_height="60dp"
-		android:layout_width="200dp">
+		android:layout_width="200dp"
+		android:visibility="gone">
 		<ImageView
 			android:layout_centerVertical="true"
 			android:id="@+id/ivAlert"

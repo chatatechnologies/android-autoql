@@ -8,5 +8,7 @@ interface MainContract
 	fun changeAuthenticate(isAuthenticate: Boolean)
 	fun isEnableLogin(isEnable: Boolean)
 	fun savePersistentData()
-	fun showError(errorCode: String, errorService: String)
+
+	fun showAlert(message: String, intRes: Int)
+	//fun showError(errorCode: String, errorService: String)
 }
