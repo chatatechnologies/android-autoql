@@ -74,7 +74,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
-	private lateinit var rlAlert: LinearLayout
+	private lateinit var rlAlert: RelativeLayout
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
@@ -141,14 +141,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText("$maxMessage")
 
 			//TODO REMOVE
-//			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
-//			userID = (tvUserId?.text ?: "").toString().trim()
-//			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-//			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-//			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-//			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
-//
-//			servicePresenter.createAuthenticate()
+			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
+			userID = (tvUserId?.text ?: "").toString().trim()
+			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
+			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+
+			servicePresenter.createAuthenticate()
 		}
 		else
 		{
@@ -628,6 +628,8 @@ password:
 
 		btnAuthenticate?.text = pair.first
 		animationAlert.setText(pair.second)
+
+		animationAlert.setResource(R.drawable.ic_done)
 
 		rlAlert.visibility = View.VISIBLE
 		rlAlert.setAnimator(80f, "translationY")
