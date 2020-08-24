@@ -2,15 +2,12 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.graphics.Color
-//import android.graphics.Typeface
 import android.os.Looper
 import android.view.View
 import android.widget.*
-//import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
-import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.view.bubbleHandle.Authentication
@@ -74,7 +71,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
-	private lateinit var rlAlert: RelativeLayout
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
 	private lateinit var bubbleHandle: BubbleHandle
@@ -164,7 +160,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		with(view)
 		{
-			rlAlert = findViewById(R.id.rlAlert)
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
 				context ->
@@ -175,7 +170,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			renderPresenter.initViews(llContainer)
 			//TODO show alert
-			animationAlert = AnimationAlert(rlAlert)
+			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
@@ -296,7 +291,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //			bubbleHandle.isNecessaryLogin = !isChecked
 //		}
 
-		rlAlert.setAnimator(-300f, "translationY")
+		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)
 		btnReloadDrawer?.setOnClickListener(this)
@@ -548,12 +543,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		animationAlert.setText(message)
 		animationAlert.setResource(intRes)
-		rlAlert.visibility = View.VISIBLE
-		rlAlert.setAnimator(80f, "translationY")
+		animationAlert.showAlert()
 
 		Looper.getMainLooper()?.let {
 			android.os.Handler(it).postDelayed({
-				rlAlert.setAnimator(-300f, "translationY")
+				animationAlert.hideAlert()
 			}, 1500)
 		}
 	}
