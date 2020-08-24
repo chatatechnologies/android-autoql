@@ -82,20 +82,25 @@ class DashboardPresenter(
 									}
 									else
 									{
-										val code = jsonObject.optInt("CODE") ?: 500
+										val code = jsonObject.optInt("CODE")
 
 										val json = JSONObject(response)
 										if (code == 400)
 										{
-											json.put(
-												"message",
-												"I want to make sure I understood your query. Did you mean:")
+											val words = query.split(" ").joinTo(StringBuilder()).toString()
+											QueryRequest.callRelatedQueries(words, this)
+											//call again query on dashboard
+//												"message"
+//												"I want to make sure I understood your query. Did you mean:"
 										}
-										val queryBase = QueryBase(json)
-										queryBase.isDashboard = true
-										dashboard.queryBase = queryBase
+										else
+										{
+											val queryBase = QueryBase(json)
+											queryBase.isDashboard = true
+											dashboard.queryBase = queryBase
 
-										view.notifyQueryAtIndex(index)
+											view.notifyQueryAtIndex(index)
+										}
 									}
 								}
 							}
@@ -113,6 +118,10 @@ class DashboardPresenter(
 		{
 			when(jsonObject.optString("nameService") ?: "")
 			{
+				"callRelatedQueries" ->
+				{
+					jsonObject.toString()
+				}
 				"getDashboardQueries" ->
 				{
 					val model = getCurrentDashboard()
