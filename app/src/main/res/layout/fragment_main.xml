@@ -20,16 +20,19 @@
 	</ScrollView>
 
 	<RelativeLayout
-		android:background="@color/white"
 		android:id="@+id/rlAlert"
 		android:layout_centerHorizontal="true"
 		android:layout_height="60dp"
 		android:layout_width="match_parent"
-		android:visibility="gone">
+		android:visibility="gone"
+		android:padding="5dp">
 		<LinearLayout
+			android:background="@color/white"
+			android:id="@+id/llAlert"
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content">
+			android:layout_width="wrap_content"
+			android:padding="5dp">
 			<ImageView
 				android:id="@+id/ivAlert"
 				android:layout_height="48dp"
