@@ -82,7 +82,16 @@ class DashboardPresenter(
 									}
 									else
 									{
-										val queryBase = QueryBase(JSONObject(response))
+										val code = jsonObject.optInt("CODE") ?: 500
+
+										val json = JSONObject(response)
+										if (code == 400)
+										{
+											json.put(
+												"message",
+												"I want to make sure I understood your query. Did you mean:")
+										}
+										val queryBase = QueryBase(json)
 										queryBase.isDashboard = true
 										dashboard.queryBase = queryBase
 
