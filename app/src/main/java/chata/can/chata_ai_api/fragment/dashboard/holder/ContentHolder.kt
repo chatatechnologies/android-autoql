@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
-import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
@@ -20,7 +19,6 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 		{
 			item.queryBase?.run {
 				tvContent?.let {
-					it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
 					if (isLoadingHTML)
 					{
 						isLoadingHTML = false

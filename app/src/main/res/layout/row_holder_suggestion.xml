@@ -29,7 +29,8 @@
 				android:id="@+id/tvContent"
 				android:layout_height="wrap_content"
 				android:layout_margin="5dp"
-				android:layout_width="wrap_content"/>
+				android:layout_width="wrap_content"
+				android:textSize="16sp"/>
 			<LinearLayout
 				android:id="@+id/llSuggestion"
 				android:layout_height="wrap_content"

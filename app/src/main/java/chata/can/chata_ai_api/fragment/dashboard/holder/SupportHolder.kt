@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
-import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -17,7 +16,6 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 		if (item is Dashboard)
 		{
 			item.queryBase?.run {
-				tvContent?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 				tvContent?.text = message
 			}
 		}

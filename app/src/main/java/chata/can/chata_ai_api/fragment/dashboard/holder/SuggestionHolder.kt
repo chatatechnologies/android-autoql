@@ -26,7 +26,6 @@ class SuggestionHolder(itemView: View): BaseHolder(itemView)
 		if (item is Dashboard)
 		{
 			item.queryBase?.let {
-				tvContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 				tvContent.context?.let { context ->
 					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
 					val message = String.format(introMessageRes, it.message)
@@ -56,7 +55,7 @@ class SuggestionHolder(itemView: View): BaseHolder(itemView)
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 			setPadding(15,15,15,15)
 			text = content
 			setOnClickListener {
