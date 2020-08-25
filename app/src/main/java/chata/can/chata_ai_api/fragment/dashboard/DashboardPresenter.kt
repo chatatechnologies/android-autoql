@@ -136,12 +136,15 @@ class DashboardPresenter(
 							jaItems ->
 							val json = JSONObject().put("query", "")
 							val queryBase = QueryBase(json).apply {
+								isDashboard = true
+
 								for (index in 0 until jaItems.length())
 								{
 									val item = jaItems.opt(index).toString()
 									aRows.add(arrayListOf(item))
 								}
 							}
+							queryBase.typeView = TypeChatView.SUGGESTION_VIEW
 
 							val model = getCurrentDashboard()
 							val index = model.indexOfFirst {
@@ -151,7 +154,8 @@ class DashboardPresenter(
 							if (index != -1)
 							{
 								model[index]?.let { dashboard ->
-
+									dashboard.queryBase = queryBase
+									view.notifyQueryAtIndex(index)
 								}
 							}
 						}

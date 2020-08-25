@@ -22,6 +22,7 @@ class GridAdapter(
 		 * 2 for support message
 		 * 3 for simple text data
 		 * 4 for webView data
+		 * 8 for no query data
 		 */
 		var viewType = 0
 		model[position]?.run {
@@ -32,6 +33,7 @@ class GridAdapter(
 					{
 						TypeChatView.LEFT_VIEW -> 3
 						TypeChatView.WEB_VIEW -> 4
+						TypeChatView.SUGGESTION_VIEW -> 5
 						else -> 2
 					}
 				} ?: run {
@@ -71,6 +73,7 @@ class GridAdapter(
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
+			5 -> SuggestionHolder(layoutInflater.inflate(R.layout.row_holder_suggestion, nullParent))
 			8 -> NoQueryHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}
