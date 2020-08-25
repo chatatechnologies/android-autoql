@@ -52,19 +52,30 @@ object QueryRequest
 
 	fun callRelatedQueries(
 		words: String,
-	  listener: StatusResponse)
+	  listener: StatusResponse,
+		mData: HashMap<String, Any> ?= null)
 	{
 		with(DataMessenger)
 		{
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
 				"&search=$words&scope=narrow"
 
+			val mFinal = if (mData != null)
+			{
+				mData["nameService"] = "callRelatedQueries"
+				mData
+			}
+			else
+			{
+				hashMapOf<String, Any>("nameService" to "callRelatedQueries")
+			}
+
 			callStringRequest(
 				Request.Method.GET,
 				url,
 				typeJSON,
 				headers = getAuthorizationJWT(),
-				infoHolder = hashMapOf("nameService" to "callRelatedQueries"),
+				infoHolder = mFinal,
 				listener = listener)
 		}
 	}

@@ -87,11 +87,15 @@ class DashboardPresenter(
 										val json = JSONObject(response)
 										if (code == 400)
 										{
-											val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
-											QueryRequest.callRelatedQueries(words, this)
-											//call again query on dashboard
-//												"message"
-//												"I want to make sure I understood your query. Did you mean:"
+											val mData = hashMapOf(
+												"query" to query,
+												"title" to title,
+												"key" to key,
+												"isSecondaryQuery" to isSecondaryQuery)
+
+											val words = query.split(" ")
+												.joinTo(StringBuilder(), separator = ",").toString()
+											QueryRequest.callRelatedQueries(words, this, mData)
 										}
 										else
 										{
@@ -120,7 +124,47 @@ class DashboardPresenter(
 			{
 				"callRelatedQueries" ->
 				{
-					jsonObject.toString()
+					val query = jsonObject.optString("query") ?: ""
+					val title = jsonObject.optString("title") ?: ""
+					val key = jsonObject.optString("key") ?: ""
+					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+
+					//region build json for suggestion
+					jsonObject.optJSONObject("data")?.let {
+						joData ->
+						joData.optJSONArray("items")?.let {
+							jaItems ->
+							val json = JSONObject().put("query", "")
+							val queryBase = QueryBase(json).apply {
+								for (index in 0 until jaItems.length())
+								{
+									val item = jaItems.opt(index).toString()
+									aRows.add(arrayListOf(item))
+								}
+							}
+
+							val model = getCurrentDashboard()
+							val index = model.indexOfFirst {
+								it.query == query && it.title == title && it.key == key
+							}
+
+							if (index != -1)
+							{
+								model[index]?.let { dashboard ->
+
+								}
+							}
+						}
+					}
+					//endregion
+//					if (isSecondaryQuery)
+//					{
+//
+//					}
+//					else
+//					{
+//
+//					}
 				}
 				"getDashboardQueries" ->
 				{
