@@ -43,7 +43,7 @@ class ChatServicePresenter(
 
 	private fun getRelatedQueries(query: String)
 	{
-		val words = query.split(" ").joinTo(StringBuilder()).toString()
+		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 		QueryRequest.callRelatedQueries(words, this)
 	}
 

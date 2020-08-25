@@ -87,7 +87,7 @@ class DashboardPresenter(
 										val json = JSONObject(response)
 										if (code == 400)
 										{
-											val words = query.split(" ").joinTo(StringBuilder()).toString()
+											val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 											QueryRequest.callRelatedQueries(words, this)
 											//call again query on dashboard
 //												"message"
