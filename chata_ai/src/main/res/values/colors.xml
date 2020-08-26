@@ -28,4 +28,6 @@
 	<color name="chata_drawer_text_color_placeholder_dark">#FFFFFF9C</color>
 
 	<color name="blue_chata_circle">#31A9DD</color>
+
+	<color name="selected_gray">#d3d3d3</color>
 </resources>
