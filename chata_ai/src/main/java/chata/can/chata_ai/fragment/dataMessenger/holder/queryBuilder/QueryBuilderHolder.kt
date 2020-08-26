@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
@@ -26,6 +27,7 @@ import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 
 class QueryBuilderHolder(
@@ -77,7 +79,9 @@ class QueryBuilderHolder(
 			{
 				textPaint.run {
 					try {
-						color = Color.parseColor("#0000EE")
+						tvLink?.context?.let {
+							color = ContextCompat.getColor(it, ThemeColor.currentColor.drawerColorPrimary)
+						}
 					}
 					finally {
 						bgColor = Color.parseColor("#FFFFFF")
