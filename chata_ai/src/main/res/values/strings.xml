@@ -4,7 +4,7 @@
 	<string name="data_messenger">Data Messenger</string>
 
 	<string name="msg_permission_record">We need access to your microphone to hear your query.</string>
-	<string name="msg_suggestion">I\'m not sure what you mean \'%1$s\'. Did you mean:</string>
+	<string name="msg_suggestion">I want to make sure I understood your query. Did you mean:</string>
 	<string name="msg_full_suggestion">Before I can try to find your answer, I need your help understanding a term you used that I don\'t see in your data. Click the dropdown to view suggestions so I can ensure you get the right data!</string>
 	<string name="run_query">Run Query</string>
 	<string name="msg_run_autoql">We run on AutoQL by Chata</string>
