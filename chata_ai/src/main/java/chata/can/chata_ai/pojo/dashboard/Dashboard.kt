@@ -23,9 +23,15 @@ data class Dashboard(
 {
 	var secondQuery = ""
 	var secondDisplayType = ""
+
 	var queryBase: QueryBase ?= null
+	//no is necessary
 	var jsonPrimary: JSONObject ?= null
-//	var queryBase2: QueryBase ?= null
+
+	var queryBase2: QueryBase ?= null
+	//no is necessary
 	var jsonSecondary: JSONObject ?= null
+
 	var isWaitingData = false
+	var isWaitingData2 = false
 }
