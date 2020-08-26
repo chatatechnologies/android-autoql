@@ -6,8 +6,11 @@
 	android:layout_width="match_parent">
 	<LinearLayout
 		android:id="@+id/ll1"
-		android:layout_height="match_parent"
-		android:layout_margin="8dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="1dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginTop="8dp"
 		android:layout_width="match_parent"
 		android:orientation="vertical"
 		android:padding="8dp"
@@ -19,6 +22,19 @@
 			android:layout_height="240dp"
 			android:layout_width="match_parent"
 			android:text="@string/execute_run_dashboard"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/ll2"
+		android:layout_below="@id/ll1"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginRight="8dp"
+		android:layout_marginTop="1dp"
+		android:layout_width="match_parent"
+		android:padding="8dp"
+		tools:ignore="UselessParent">
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvExecute2"

@@ -23,12 +23,11 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 				layoutParams.height = tvExecute.dpToPx(180f)
 				val layoutParams2 = tvExecute2.layoutParams
 				layoutParams2.height = tvExecute2.dpToPx(180f)
-				tvExecute2.visibility = View.VISIBLE
+				ll2?.visibility = View.VISIBLE
 			}
 			else
 			{
-
-				tvExecute2.visibility = View.GONE
+				ll2?.visibility = View.GONE
 			}
 		}
 	}
