@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
 import chata.can.chata_ai_api.putArgs
 
@@ -97,10 +98,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			rvDashboard.adapter = gridAdapter
 
 			val aData = SinglentonDashboard.getDashboardNames()
-			val adapter = ArrayAdapter(
-				it,
-				android.R.layout.simple_spinner_item,
-				aData)
+			val adapter = DashboardSpinnerAdapter(it, aData)
 			spDashboard.adapter = adapter
 			btnDashboard.text = aData.firstOrNull() ?: ""
 
@@ -109,6 +107,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			{
 				override fun onSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
 				{
+					adapter.positionSelect = position
 					parent?.getItemAtPosition(position)?.let { content ->
 						if (content is String)
 						{
