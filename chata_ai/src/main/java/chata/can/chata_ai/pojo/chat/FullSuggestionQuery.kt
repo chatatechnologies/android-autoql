@@ -26,24 +26,32 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 			{
 				//Order suggestion
 				aSuggestionsTmp.sortBy { it.start }
-
 				val aWords = ArrayList<String>()
 				var header = 0
 				var countSuggestion = 0
 				do {
-					val suggestion = aSuggestionsTmp[countSuggestion]
-					header = if (header != suggestion.start)
+					if (countSuggestion < aSuggestionsTmp.size)
 					{
-						val word = initQuery.substring(header, suggestion.start - 1)
-						aWords.add(word)
-						suggestion.start
+						val suggestion = aSuggestionsTmp[countSuggestion]
+						header = if (header != suggestion.start)
+						{
+							val word = initQuery.substring(header, suggestion.start - 1)
+							aWords.add(word)
+							suggestion.start
+						}
+						else
+						{
+							val word = initQuery.substring(suggestion.start, suggestion.end)
+							aWords.add(word)
+							countSuggestion++
+							suggestion.end
+						}
 					}
 					else
 					{
-						val word = initQuery.substring(suggestion.start, suggestion.end)
+						val word = initQuery.substring(header, initQuery.length)
 						aWords.add(word)
-						countSuggestion++
-						suggestion.end
+						header = initQuery.length
 					}
 				} while (header < initQuery.length)
 
