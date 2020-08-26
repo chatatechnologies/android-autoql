@@ -80,7 +80,7 @@ class QueryBuilderHolder(
 				textPaint.run {
 					try {
 						tvLink?.context?.let {
-							color = ContextCompat.getColor(it, ThemeColor.currentColor.drawerColorPrimary)
+							color = ContextCompat.getColor(it, ThemeColor.currentColor.drawerAccentColor)
 						}
 					}
 					finally {
