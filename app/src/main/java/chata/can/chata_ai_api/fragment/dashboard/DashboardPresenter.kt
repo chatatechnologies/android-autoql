@@ -55,7 +55,7 @@ class DashboardPresenter(
 											//endregion
 											//Init secondary query
 											dashboard.queryBase?.splitQuery = secondQuery
-											view.notifyQueryAtIndex(secondIndex)
+											notifyQueryByIndex(secondIndex)
 										}
 									}
 								}
@@ -77,7 +77,7 @@ class DashboardPresenter(
 											dashboard.jsonSecondary?.let {
 												initQueryEmpty(dashboard, it)
 											}
-											view.notifyQueryAtIndex(index)
+											notifyQueryByIndex(index)
 										}
 									}
 									else
@@ -102,8 +102,7 @@ class DashboardPresenter(
 											val queryBase = QueryBase(json)
 											queryBase.isDashboard = true
 											dashboard.queryBase = queryBase
-
-											view.notifyQueryAtIndex(index)
+											notifyQueryByIndex(index)
 										}
 									}
 								}
@@ -155,7 +154,7 @@ class DashboardPresenter(
 							{
 								model[index]?.let { dashboard ->
 									dashboard.queryBase = queryBase
-									view.notifyQueryAtIndex(index)
+									notifyQueryByIndex(index)
 								}
 							}
 						}
@@ -197,7 +196,7 @@ class DashboardPresenter(
 										//Init secondary query
 										dashboard.queryBase?.splitQuery = secondQuery
 									}
-									//view.notifyQueryAtIndex(secondIndex)
+									//notifyQueryByIndex(secondIndex)
 								}
 							}
 						}
@@ -220,13 +219,13 @@ class DashboardPresenter(
 											dashboard.queryBase = initQueryBase(dashboard, jsonObject)
 											dashboard.queryBase?.splitQuery = secondQuery
 										}
-										//view.notifyQueryAtIndex(index)
+										//notifyQueryByIndex(index)
 									}
 								}
 								else
 								{
 									dashboard.queryBase = initQueryBase(dashboard, jsonObject)
-									view.notifyQueryAtIndex(index)
+									notifyQueryByIndex(index)
 								}
 							}
 						}
@@ -404,7 +403,7 @@ class DashboardPresenter(
 			model[index]?.let { dashboard ->
 				dashboard.isWaitingData = true
 				dashboard.queryBase = null
-				view.notifyQueryAtIndex(index)
+				notifyQueryByIndex(index)
 				callQuery(dashboard)
 			}
 		}
@@ -433,6 +432,11 @@ class DashboardPresenter(
 			}
 			return mInfoHolder
 		}
+	}
+
+	fun notifyQueryByIndex(index: Int)
+	{
+		view.notifyQueryAtIndex(index)
 	}
 
 	fun callQuery(dashboard: Dashboard)

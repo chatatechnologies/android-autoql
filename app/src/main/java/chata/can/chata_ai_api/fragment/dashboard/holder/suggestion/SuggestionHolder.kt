@@ -10,6 +10,7 @@ import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
@@ -62,15 +63,19 @@ class SuggestionHolder(
 			text = content
 			setOnClickListener {
 //				view.addChatMessage(2, content)
-//				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
-				presenter.callQuery(
-					dashboard.apply {
-						query = content
-						title = content
-						isWaitingData = true
-						queryBase = null
-					}
-				)
+				val index = SinglentonDashboard.indexDashboard(dashboard)
+				if (index != -1)
+				{
+					presenter.notifyQueryByIndex(index)
+					presenter.callQuery(
+						dashboard.apply {
+							query = content
+							title = content
+							isWaitingData = true
+							queryBase = null
+						}
+					)
+				}
 			}
 		}
 	}

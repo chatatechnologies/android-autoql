@@ -31,4 +31,6 @@ object SinglentonDashboard
 	}
 
 	fun getDashboardNames() = aDashboardModel.map { it.name }
+
+	fun indexDashboard(dashboard: Dashboard) = getCurrentDashboard().indexOfFirst { it == dashboard }
 }
