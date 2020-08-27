@@ -147,7 +147,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				}
 			}
 
-			spDashboard.dropDownVerticalOffset = (btnDashboard.height + 150)
+			spDashboard.dropDownVerticalOffset = btnDashboard.height
 			spDashboard.dropDownWidth = btnDashboard.width
 		}
 	}

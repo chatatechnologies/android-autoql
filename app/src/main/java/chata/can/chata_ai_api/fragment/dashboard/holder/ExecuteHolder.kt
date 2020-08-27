@@ -33,10 +33,10 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 			if (item.splitView)
 			{
 				val layoutParams = tvExecute.layoutParams
-				layoutParams.height = tvExecute.dpToPx(180f)
+				layoutParams.height = tvExecute.dpToPx(150f)
 
 				val layoutParams2 = tvExecute2.layoutParams
-				layoutParams2.height = tvExecute2.dpToPx(180f)
+				layoutParams2.height = tvExecute2.dpToPx(150f)
 				tvExecute2.visibility = View.VISIBLE
 				iView?.setBackgroundColor(drawerColorPrimary)
 			}
