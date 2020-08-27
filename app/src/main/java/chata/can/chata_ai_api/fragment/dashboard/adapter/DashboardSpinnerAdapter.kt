@@ -29,8 +29,13 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 					if (position == positionSelect)
 						pColors.first
 					else
-						pColors.second
-					)
+					{
+						if (position == positionSelect - 1)
+							R.color.white
+						else
+							pColors.second
+					}
+				)
 			)
 		}
 	}
