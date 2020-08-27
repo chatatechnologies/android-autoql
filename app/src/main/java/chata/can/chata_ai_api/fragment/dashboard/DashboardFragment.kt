@@ -44,7 +44,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			spDashboard.context,
 			ThemeColor.currentColor.drawerColorPrimary)
 		spDashboard.setPopupBackgroundDrawable(
-			DrawableBuilder.setGradientDrawable(Color.GREEN,18f,1, gray))
+			DrawableBuilder.setGradientDrawable(white,18f,2, gray))
 	}
 
 	override fun initListener()

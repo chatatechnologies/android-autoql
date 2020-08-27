@@ -46,7 +46,7 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 			R.layout.row_spinner_dashboard, nullParent)
 		val tv = view.findViewById<TextView>(R.id.tvDashboard)
 		tv.text = getItem(position) ?: ""
-		//view.background = backgroundByPosition(position)
+		tv.background = backgroundByPosition(position)
 		return view
 	}
 }
