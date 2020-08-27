@@ -1,15 +1,19 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
+import android.graphics.Color
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
@@ -32,6 +36,15 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		btnExecute.backgroundGrayWhite()
 		btnDashboard.backgroundGrayWhite()
+
+		val white = ContextCompat.getColor(
+			spDashboard.context,
+			ThemeColor.currentColor.drawerBackgroundColor)
+		val gray = ContextCompat.getColor(
+			spDashboard.context,
+			ThemeColor.currentColor.drawerColorPrimary)
+		spDashboard.setPopupBackgroundDrawable(
+			DrawableBuilder.setGradientDrawable(Color.GREEN,18f,1, gray))
 	}
 
 	override fun initListener()
@@ -100,6 +113,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			val aData = SinglentonDashboard.getDashboardNames()
 			val adapter = DashboardSpinnerAdapter(it, aData)
 			spDashboard.adapter = adapter
+
 			btnDashboard.text = aData.firstOrNull() ?: ""
 
 			spDashboard.setSelection(0, false)
@@ -134,7 +148,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				}
 			}
 
-			spDashboard.dropDownVerticalOffset = btnDashboard.height
+			spDashboard.dropDownVerticalOffset = (btnDashboard.height + 150)
 			spDashboard.dropDownWidth = btnDashboard.width
 		}
 	}

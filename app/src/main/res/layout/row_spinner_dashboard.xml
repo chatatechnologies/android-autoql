@@ -1,10 +1,15 @@
-<TextView
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:ellipsize="marquee"
-	android:id="@android:id/text1"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:padding="5dp"
-	android:singleLine="true"
-	android:textAlignment="inherit"
-	style="?android:attr/spinnerItemStyle"/>
+	android:layout_height="wrap_content">
+	<TextView
+		android:ellipsize="marquee"
+		android:id="@+id/tvDashboard"
+		android:layout_height="wrap_content"
+		android:layout_margin="10dp"
+		android:layout_width="match_parent"
+		android:padding="5dp"
+		android:singleLine="true"
+		android:textAlignment="inherit"
+		style="?android:attr/spinnerItemStyle"/>
+</RelativeLayout>

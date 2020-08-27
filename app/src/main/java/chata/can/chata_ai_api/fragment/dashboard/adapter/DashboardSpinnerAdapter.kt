@@ -13,7 +13,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai_api.R
 
 class DashboardSpinnerAdapter(context: Context, aData: List<String>)
-	: ArrayAdapter<String>(context, R.layout.row_spinner_dashboard, aData)
+	: ArrayAdapter<String>(context, 0, aData)
 {
 	var positionSelect = 0
 
@@ -31,15 +31,22 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 		}
 	}
 
+	override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
+	{
+		val view = convertView ?: LayoutInflater.from(context).inflate(
+			R.layout.row_spinner_dashboard, nullParent)
+		val tv = view.findViewById<TextView>(R.id.tvDashboard)
+		tv.text = getItem(position) ?: ""
+		return view
+	}
+
 	override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View
 	{
 		val view = convertView ?: LayoutInflater.from(context).inflate(
 			R.layout.row_spinner_dashboard, nullParent)
-
-		val tv = view.findViewById<TextView>(android.R.id.text1)
-
+		val tv = view.findViewById<TextView>(R.id.tvDashboard)
 		tv.text = getItem(position) ?: ""
-		view.background = backgroundByPosition(position)
+		//view.background = backgroundByPosition(position)
 		return view
 	}
 }
