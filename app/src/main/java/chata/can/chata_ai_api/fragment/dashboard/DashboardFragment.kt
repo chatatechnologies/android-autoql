@@ -125,7 +125,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 						if (content is String)
 						{
 							btnDashboard.text = content
-							SinglentonDashboard.setDashboardSelect(position)
+							SinglentonDashboard.clearDashboard()
+							SinglentonDashboard.setDashboardIndex(position)
 
 							val model = SinglentonDashboard.getCurrentDashboard()
 							mModel.clear()

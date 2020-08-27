@@ -15,7 +15,19 @@ object SinglentonDashboard
 		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
 	}
 
-	fun setDashboardSelect(index: Int)
+	fun clearDashboard()
+	{
+		val model = getCurrentDashboard()
+		for (index in 0 until model.countData())
+		{
+			model[index]?.let {
+				it.isWaitingData = false
+				it.queryBase = null
+			}
+		}
+	}
+
+	fun setDashboardIndex(index: Int)
 	{
 		dashboardSelect = index
 	}
