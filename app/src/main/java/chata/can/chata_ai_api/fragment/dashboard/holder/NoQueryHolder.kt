@@ -22,6 +22,8 @@ class NoQueryHolder(itemView: View): BaseHolder(itemView)
 				iView.layoutParams = layout
 			}
 		}
+		tvExecute?.setTextColor(drawerColorPrimary)
+		tvExecute2.setTextColor(drawerColorPrimary)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

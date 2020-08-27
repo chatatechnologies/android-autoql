@@ -24,6 +24,12 @@ class SuggestionHolder(
 	private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	private val llSuggestion: LinearLayout = itemView.findViewById(R.id.llSuggestion)
 
+	override fun onPaint()
+	{
+		super.onPaint()
+		tvContent.setTextColor(drawerColorPrimary)
+	}
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		super.onBind(item, listener)

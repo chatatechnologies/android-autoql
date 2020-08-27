@@ -13,6 +13,7 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 	override fun onPaint()
 	{
 		super.onPaint()
+		tvContent.setTextColor(drawerColorPrimary)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
