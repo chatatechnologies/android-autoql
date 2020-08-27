@@ -33,73 +33,71 @@ class DashboardPresenter(
 						val key = jsonObject.optString("key") ?: ""
 						val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
-						if (isSecondaryQuery)
+						val code = jsonObject.optInt("CODE")
+						if (code == 400)
 						{
-							val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
-							//search secondQuery
-							val secondIndex = model.indexOfFirst {
-								it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
-							}
-							if (secondIndex != -1)
+							val mData = hashMapOf(
+								"query" to query,
+								"title" to title,
+								"key" to key,
+								"isSecondaryQuery" to isSecondaryQuery)
+							val words = query.split(" ")
+								.joinTo(StringBuilder(), separator = ",").toString()
+							QueryRequest.callRelatedQueries(words, this, mData)
+						}
+						else
+						{
+							if (isSecondaryQuery)
 							{
-								model[secondIndex]?.let { dashboard ->
-									dashboard.jsonSecondary = JSONObject(response)
-									if (checkQueriesDashboard(dashboard))
-									{
-										//region initQueryBase
-										val secondQuery = initQueryEmpty(dashboard, response = response)
-										//endregion
-										dashboard.jsonPrimary?.let {
+								val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
+								//search secondQuery
+								val secondIndex = model.indexOfFirst {
+									it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
+								}
+								if (secondIndex != -1)
+								{
+									model[secondIndex]?.let { dashboard ->
+										dashboard.jsonSecondary = JSONObject(response)
+										if (checkQueriesDashboard(dashboard))
+										{
 											//region initQueryBase
-											initQueryEmpty(dashboard, it)
+											val secondQuery = initQueryEmpty(dashboard, response = response)
 											//endregion
-											//Init secondary query
-											dashboard.queryBase?.splitQuery = secondQuery
-											notifyQueryByIndex(secondIndex)
+											dashboard.jsonPrimary?.let {
+												//region initQueryBase
+												initQueryEmpty(dashboard, it)
+												//endregion
+												//Init secondary query
+												dashboard.queryBase?.splitQuery = secondQuery
+												notifyQueryByIndex(secondIndex)
+											}
 										}
 									}
 								}
 							}
-						}
-						else
-						{
-							val index = model.indexOfFirst {
-								it.query == query && it.title == title && it.key == key
-							}
-							if (index != -1)
+							else
 							{
-								model[index]?.let { dashboard ->
-									dashboard.jsonPrimary = JSONObject(response)
-									if (dashboard.splitView)
-									{
-										if (checkQueriesDashboard(dashboard))
+								val joCurrent = JSONObject(response)
+								val index = model.indexOfFirst {
+									it.query == query && it.title == title && it.key == key
+								}
+								if (index != -1)
+								{
+									model[index]?.let { dashboard ->
+										dashboard.jsonPrimary = JSONObject(response)
+										if (dashboard.splitView)
 										{
-											dashboard.jsonSecondary?.let {
-												initQueryEmpty(dashboard, it)
+											if (checkQueriesDashboard(dashboard))
+											{
+												dashboard.jsonSecondary?.let {
+													initQueryEmpty(dashboard, it)
+												}
+												notifyQueryByIndex(index)
 											}
-											notifyQueryByIndex(index)
-										}
-									}
-									else
-									{
-										val code = jsonObject.optInt("CODE")
-
-										val json = JSONObject(response)
-										if (code == 400)
-										{
-											val mData = hashMapOf(
-												"query" to query,
-												"title" to title,
-												"key" to key,
-												"isSecondaryQuery" to isSecondaryQuery)
-
-											val words = query.split(" ")
-												.joinTo(StringBuilder(), separator = ",").toString()
-											QueryRequest.callRelatedQueries(words, this, mData)
 										}
 										else
 										{
-											val queryBase = QueryBase(json)
+											val queryBase = QueryBase(joCurrent)
 											queryBase.isDashboard = true
 											dashboard.queryBase = queryBase
 											notifyQueryByIndex(index)
@@ -126,17 +124,14 @@ class DashboardPresenter(
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
 					val key = jsonObject.optString("key") ?: ""
-					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+					//val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
 					//region build json for suggestion
-					jsonObject.optJSONObject("data")?.let {
-						joData ->
-						joData.optJSONArray("items")?.let {
-							jaItems ->
+					jsonObject.optJSONObject("data")?.let { joData ->
+						joData.optJSONArray("items")?.let { jaItems ->
 							val json = JSONObject().put("query", "")
 							val queryBase = QueryBase(json).apply {
 								isDashboard = true
-
 								for (index in 0 until jaItems.length())
 								{
 									val item = jaItems.opt(index).toString()
@@ -160,14 +155,6 @@ class DashboardPresenter(
 						}
 					}
 					//endregion
-//					if (isSecondaryQuery)
-//					{
-//
-//					}
-//					else
-//					{
-//
-//					}
 				}
 				"getDashboardQueries" ->
 				{
@@ -380,7 +367,6 @@ class DashboardPresenter(
 	fun resetDashboards(isWaiting: Boolean)
 	{
 		val model = getCurrentDashboard()
-
 		for (index in 0 until model.countData())
 		{
 			model[index]?.let {
