@@ -62,10 +62,15 @@ class SuggestionHolder(
 			text = content
 			setOnClickListener {
 //				view.addChatMessage(2, content)
-				dashboard.query = content
-				dashboard.title = content
 //				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
-				presenter.callQuery(dashboard)
+				presenter.callQuery(
+					dashboard.apply {
+						query = content
+						title = content
+						isWaitingData = true
+						queryBase = null
+					}
+				)
 			}
 		}
 	}

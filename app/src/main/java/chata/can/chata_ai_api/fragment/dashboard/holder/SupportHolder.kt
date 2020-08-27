@@ -10,6 +10,11 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 {
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
 
+	override fun onPaint()
+	{
+		super.onPaint()
+	}
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		super.onBind(item, listener)
