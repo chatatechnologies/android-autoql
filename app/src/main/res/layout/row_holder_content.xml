@@ -16,7 +16,7 @@
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvContent"
-			android:layout_height="wrap_content"
+			android:layout_height="180dp"
 			android:layout_width="match_parent"
 			android:textColor="@android:color/black"
 			android:textSize="16sp"/>

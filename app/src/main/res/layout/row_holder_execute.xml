@@ -19,7 +19,7 @@
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvExecute"
-			android:layout_height="200dp"
+			android:layout_height="180dp"
 			android:layout_width="match_parent"
 			android:text="@string/execute_run_dashboard"/>
 		<View
@@ -31,7 +31,7 @@
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvExecute2"
-			android:layout_height="200dp"
+			android:layout_height="180dp"
 			android:layout_width="match_parent"
 			android:text="@string/execute_run_dashboard"/>
 	</LinearLayout>
