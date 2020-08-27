@@ -15,7 +15,7 @@
 		<include layout="@layout/layout_header_dashboard"/>
 		<RelativeLayout
 			android:id="@+id/rlLoad"
-			android:layout_height="match_parent"
+			android:layout_height="180dp"
 			android:layout_width="match_parent">
 			<chata.can.chata_ai.view.gif.GifView
 				android:layout_centerInParent="true"

@@ -15,6 +15,7 @@ import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 class WebViewHolder(itemView: View): BaseHolder(itemView)
 {
+	private val iView = itemView.findViewById<View>(R.id.iView) ?: null
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
@@ -23,11 +24,33 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val webView2 = itemView.findViewById<WebView>(R.id.webView2)
 	private val rlLoad2 = itemView.findViewById<View>(R.id.rlLoad2)
 
+	override fun onPaint()
+	{
+		super.onPaint()
+		iView?.let {
+			(it.layoutParams as? LinearLayout.LayoutParams)?.let { layout ->
+				layout.height = 1
+				iView.layoutParams = layout
+			}
+		}
+	}
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
+			if (item.splitView)
+			{
+				rvSplitView.visibility = View.VISIBLE
+				iView?.setBackgroundColor(drawerColorPrimary)
+			}
+			else
+			{
+				rvSplitView.visibility = View.GONE
+				iView?.setBackgroundColor(drawerBackgroundColor)
+			}
+
 			item.queryBase?.run {
 				if (!isLoadingHTML)
 				{
