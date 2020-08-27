@@ -13,11 +13,10 @@ import chata.can.chata_ai_api.R
 abstract class BaseHolder(itemView: View): Holder(itemView)
 {
 	private val ll1 = itemView.findViewById<View>(R.id.ll1) ?: null
-	protected val ll2 = itemView.findViewById<View>(R.id.ll2) ?: null
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null
 
-	private var drawerBackgroundColor = 0
-	private var drawerColorPrimary = 0
+	protected var drawerBackgroundColor = 0
+	protected var drawerColorPrimary = 0
 
 	override fun onPaint()
 	{
@@ -31,8 +30,6 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 			it.background = DrawableBuilder.setGradientDrawable(
 				drawerBackgroundColor,18f,1, drawerColorPrimary)
 		}
-		ll2?.background = DrawableBuilder.setGradientDrawable(
-			drawerBackgroundColor,18f,1, drawerColorPrimary)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

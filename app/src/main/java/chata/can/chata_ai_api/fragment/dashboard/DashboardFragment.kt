@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
-import android.graphics.Color
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
