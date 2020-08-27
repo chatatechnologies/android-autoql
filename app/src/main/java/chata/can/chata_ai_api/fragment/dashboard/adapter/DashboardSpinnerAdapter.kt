@@ -17,16 +17,20 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 {
 	var positionSelect = 0
 
-	private fun backgroundByPosition(position: Int): GradientDrawable
+	private val pBackgroundColors = Pair(R.color.selected_gray, ThemeColor.currentColor.drawerBackgroundColor)
+	private val pLineColors = Pair(R.color.white, R.color.selected_gray)
+
+	private fun backgroundByPosition(position: Int, pColors: Pair<Int, Int>): GradientDrawable
 	{
 		return GradientDrawable().apply {
 			shape = GradientDrawable.RECTANGLE
 			setColor(
 				ContextCompat.getColor(context,
 					if (position == positionSelect)
-						R.color.selected_gray
+						pColors.first
 					else
-						ThemeColor.currentColor.drawerBackgroundColor)
+						pColors.second
+					)
 			)
 		}
 	}
@@ -45,8 +49,12 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 		val view = convertView ?: LayoutInflater.from(context).inflate(
 			R.layout.row_spinner_dashboard, nullParent)
 		val tv = view.findViewById<TextView>(R.id.tvDashboard)
+		val iView = view.findViewById<View>(R.id.iView)
+
 		tv.text = getItem(position) ?: ""
-		tv.background = backgroundByPosition(position)
+		tv.background = backgroundByPosition(position, pBackgroundColors)
+
+		iView.background = backgroundByPosition(position, pLineColors)
 		return view
 	}
 }
