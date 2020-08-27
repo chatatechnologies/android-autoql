@@ -11,11 +11,14 @@ import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.dashboard.Dashboard
-import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
 
-class SuggestionHolder(itemView: View): BaseHolder(itemView)
+class SuggestionHolder(
+	itemView: View,
+	private val presenter: DashboardPresenter
+): BaseHolder(itemView)
 {
 	private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	private val llSuggestion: LinearLayout = itemView.findViewById(R.id.llSuggestion)
@@ -37,10 +40,9 @@ class SuggestionHolder(itemView: View): BaseHolder(itemView)
 				for (index in 0 until rows.size)
 				{
 					val singleRow = rows[index]
-					singleRow.firstOrNull()?.let {
-							suggestion ->
+					singleRow.firstOrNull()?.let { suggestion ->
 						//add new view for suggestion
-						val tv = buildSuggestionView(llSuggestion.context, suggestion)
+						val tv = buildSuggestionView(llSuggestion.context, suggestion, item)
 						llSuggestion.addView(tv)
 					}
 				}
@@ -48,7 +50,7 @@ class SuggestionHolder(itemView: View): BaseHolder(itemView)
 		}
 	}
 
-	private fun buildSuggestionView(context: Context, content: String): TextView
+	private fun buildSuggestionView(context: Context, content: String, dashboard: Dashboard): TextView
 	{
 		return TextView(context).apply {
 			backgroundGrayWhite()
@@ -59,9 +61,11 @@ class SuggestionHolder(itemView: View): BaseHolder(itemView)
 			setPadding(15,15,15,15)
 			text = content
 			setOnClickListener {
-				//view.addChatMessage(2, content)
-				val mInfoHolder = hashMapOf<String, Any>("query" to content)
+//				view.addChatMessage(2, content)
+				dashboard.query = content
+				dashboard.title = content
 //				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
+				presenter.callQuery(dashboard)
 			}
 		}
 	}

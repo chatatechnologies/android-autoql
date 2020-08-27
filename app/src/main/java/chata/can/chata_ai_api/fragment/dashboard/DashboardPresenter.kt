@@ -406,32 +406,6 @@ class DashboardPresenter(
 				dashboard.queryBase = null
 				view.notifyQueryAtIndex(index)
 				callQuery(dashboard)
-//				val query = dashboard.query
-//				if (query.isNotEmpty())
-//				{
-//					val mInfoHolder = hashMapOf(
-//						"key" to dashboard.key,
-//						"isSplitView" to dashboard.splitView,
-//						"title" to dashboard.title,
-//						"nameService" to "getDashboardQueries",
-//						"query" to query)
-//					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
-//				}
-//				val secondQuery = dashboard.secondQuery
-//				if (secondQuery.isNotEmpty())
-//				{
-//					val mInfoHolder = hashMapOf(
-//						"key" to dashboard.key,
-//						"isSplitView" to dashboard.splitView,
-//						"title" to dashboard.title,
-//						"nameService" to "getDashboardQueries",
-//
-//						"isSecondaryQuery" to true,
-//						"primaryQuery" to query,
-//						"query" to secondQuery
-//						)
-//					//QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
-//				}
 			}
 		}
 	}

@@ -105,7 +105,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		activity?.let {
 			isLoaded = true
 			mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
-			gridAdapter = GridAdapter(mModel)
+			gridAdapter = GridAdapter(mModel, presenter)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
 			rvDashboard.adapter = gridAdapter
 

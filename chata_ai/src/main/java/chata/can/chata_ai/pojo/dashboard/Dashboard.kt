@@ -13,10 +13,10 @@ data class Dashboard(
 	val minH: Int,
 	val minW: Int,
 	val moved: Boolean,
-	val query: String,
+	var query: String,
 	val splitView: Boolean,
 	val static: Boolean,
-	val title: String,
+	var title: String,
 	val w: Int,
 	val x: Int,
 	val y: Int)

@@ -9,11 +9,14 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
 import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
-	private val model: BaseModelList<*>): BaseAdapter(model)
+	private val model: BaseModelList<*>,
+	private val presenter: DashboardPresenter
+): BaseAdapter(model)
 {
 	override fun getItemViewType(position: Int): Int
 	{
@@ -74,7 +77,8 @@ class GridAdapter(
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
-			5 -> SuggestionHolder(layoutInflater.inflate(R.layout.row_holder_suggestion, nullParent))
+			5 -> SuggestionHolder(
+				layoutInflater.inflate(R.layout.row_holder_suggestion, nullParent), presenter)
 			8 -> NoQueryHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 			else -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 		}
