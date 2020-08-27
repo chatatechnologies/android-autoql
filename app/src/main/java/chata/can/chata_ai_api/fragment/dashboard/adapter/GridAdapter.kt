@@ -10,6 +10,7 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
+import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
 	private val model: BaseModelList<*>): BaseAdapter(model)

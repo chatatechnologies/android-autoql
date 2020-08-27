@@ -399,39 +399,81 @@ class DashboardPresenter(
 	fun getDashboardQueries()
 	{
 		val model = getCurrentDashboard()
-
 		for (index in 0 until model.countData())
 		{
 			model[index]?.let { dashboard ->
 				dashboard.isWaitingData = true
 				dashboard.queryBase = null
 				view.notifyQueryAtIndex(index)
-
-				val query = dashboard.query
-				if (query.isNotEmpty())
-				{
-					val mInfoHolder = hashMapOf(
-						"key" to dashboard.key,
-						"isSplitView" to dashboard.splitView,
-						"query" to query,
-						"title" to dashboard.title,
-						"nameService" to "getDashboardQueries")
-					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
-				}
-				val secondQuery = dashboard.secondQuery
-				if (secondQuery.isNotEmpty())
-				{
-					val mInfoHolder = hashMapOf(
-						"key" to dashboard.key,
-						"isSplitView" to true,
-						"isSecondaryQuery" to true,
-						"primaryQuery" to query,
-						"query" to secondQuery,
-						"title" to dashboard.title,
-						"nameService" to "getDashboardQueries")
-					QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
-				}
+				callQuery(dashboard)
+//				val query = dashboard.query
+//				if (query.isNotEmpty())
+//				{
+//					val mInfoHolder = hashMapOf(
+//						"key" to dashboard.key,
+//						"isSplitView" to dashboard.splitView,
+//						"title" to dashboard.title,
+//						"nameService" to "getDashboardQueries",
+//						"query" to query)
+//					QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+//				}
+//				val secondQuery = dashboard.secondQuery
+//				if (secondQuery.isNotEmpty())
+//				{
+//					val mInfoHolder = hashMapOf(
+//						"key" to dashboard.key,
+//						"isSplitView" to dashboard.splitView,
+//						"title" to dashboard.title,
+//						"nameService" to "getDashboardQueries",
+//
+//						"isSecondaryQuery" to true,
+//						"primaryQuery" to query,
+//						"query" to secondQuery
+//						)
+//					//QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
+//				}
 			}
+		}
+	}
+
+	private fun getDataQuery(dashboard: Dashboard, wantSplitView: Boolean): HashMap<String, Any>
+	{
+		with(dashboard)
+		{
+			val mInfoHolder = hashMapOf(
+				"key" to key,
+				"isSplitView" to splitView,
+				"title" to title,
+				"nameService" to "getDashboardQueries")
+
+			if (wantSplitView && splitView)
+			{
+				val secondQuery = secondQuery
+				mInfoHolder["isSecondaryQuery"] = true
+				mInfoHolder["primaryQuery"] = query
+				mInfoHolder["query"] = secondQuery
+			}
+			else
+			{
+				mInfoHolder["query"] = query
+			}
+			return mInfoHolder
+		}
+	}
+
+	fun callQuery(dashboard: Dashboard)
+	{
+		val query = dashboard.query
+		if (query.isNotEmpty())
+		{
+			val mInfoHolder = getDataQuery(dashboard,false)
+			QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+		}
+		val secondQuery = dashboard.secondQuery
+		if (secondQuery.isNotEmpty())
+		{
+			val mInfoHolder = getDataQuery(dashboard,true)
+			QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
 		}
 	}
 }
