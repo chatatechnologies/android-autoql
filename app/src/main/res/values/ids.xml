@@ -6,4 +6,6 @@
 	<item name="tvExecute" type="id"/>
 	<item name="iView" type="id"/>
 	<item name="tvExecute2" type="id"/>
+
+	<item name="rlLoad" type="id"/>
 </resources>

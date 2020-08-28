@@ -9,6 +9,7 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getRowExecute
+import chata.can.chata_ai_api.DashboardView.getRowLoading
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
@@ -74,7 +75,7 @@ class GridAdapter(
 		return when(viewType)
 		{
 			0 -> ExecuteHolder(getRowExecute(parent.context))
-			1 -> LoadingHolder(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
+			1 -> LoadingHolder(getRowLoading(parent.context))
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			3 -> ContentHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))

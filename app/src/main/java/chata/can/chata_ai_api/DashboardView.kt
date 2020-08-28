@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.view.gif.GifView
 
 object DashboardView
 {
@@ -65,7 +66,7 @@ object DashboardView
 	{
 		return RelativeLayout(context).apply {
 			val llRoot = getLinearLayoutBase(context).apply {
-				margin(8f, 1f, 8f, 8f)
+				margin(8f, 8f, 8f, 8f)
 				paddingAll(8f)
 				id = R.id.ll1
 
@@ -82,6 +83,35 @@ object DashboardView
 				addView(tvExecute)
 				addView(iView)
 				addView(tvExecute2)
+			}
+			addView(llRoot)
+		}
+	}
+	//endregion
+	//region row loading
+	fun getRowLoading(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val llRoot = getLinearLayoutBase(context).apply {
+				margin(8f, 8f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
+
+				val llHeader = getHeaderDashboard(context)
+				val rlLoad = RelativeLayout(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+					id = R.id.rlLoad
+
+					val gifView = GifView(context).apply {
+						val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+						layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+						layoutParams = layoutParams1
+					}
+					addView(gifView)
+				}
+
+				addView(llHeader)
+				addView(rlLoad)
 			}
 			addView(llRoot)
 		}
