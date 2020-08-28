@@ -63,7 +63,7 @@ class DashboardPresenter(
 										if (isSecondaryQuery)
 											dashboard.queryBase2 = queryBase
 										else
-											dashboard.queryBase2 = queryBase
+											dashboard.queryBase = queryBase
 										notifyQueryByIndex(index)
 									}
 								}
