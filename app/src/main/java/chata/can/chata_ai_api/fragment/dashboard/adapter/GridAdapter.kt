@@ -73,7 +73,6 @@ class GridAdapter(
 		val layoutInflater = LayoutInflater.from(parent.context)
 		return when(viewType)
 		{
-//			0 -> ExecuteHolder(layoutInflater.inflate(R.layout.row_holder_execute, nullParent))
 			0 -> ExecuteHolder(getRowExecute(parent.context))
 			1 -> LoadingHolder(layoutInflater.inflate(R.layout.row_holder_loading, nullParent))
 			2 -> SupportHolder(layoutInflater.inflate(R.layout.row_holder_content, nullParent))
