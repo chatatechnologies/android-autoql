@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 
 fun View.margin(
-	left: Float? = null,
+	start: Float? = null,
 	top: Float? = null,
-	right: Float? = null,
+	end: Float? = null,
 	bottom: Float? = null)
 {
 	layoutParams<ViewGroup.MarginLayoutParams>
 	{
-		left?.run { leftMargin = dpToPx(this) }
+		start?.run { marginStart = dpToPx(this) }
 		top?.run { topMargin = dpToPx(this) }
-		right?.run { rightMargin = dpToPx(this) }
+		end?.run { marginEnd = dpToPx(this) }
 		bottom?.run { bottomMargin = dpToPx(this) }
 	}
 }

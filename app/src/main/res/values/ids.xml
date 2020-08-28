@@ -3,4 +3,7 @@
 	<item name="tvTitle" type="id"/>
 
 	<item name="ll1" type="id"/>
+	<item name="tvExecute" type="id"/>
+	<item name="iView" type="id"/>
+	<item name="tvExecute2" type="id"/>
 </resources>

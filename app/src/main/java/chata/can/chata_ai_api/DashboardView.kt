@@ -17,6 +17,8 @@ object DashboardView
 	private const val MATCH_PARENT = -1
 	private const val WRAP_CONTENT = -2
 
+	private const val GRAVITY_CENTER = 17
+
 	private fun getLinearLayoutBase(context: Context): LinearLayout
 	{
 		return LinearLayout(context).apply {
@@ -25,18 +27,19 @@ object DashboardView
 		}
 	}
 
-	fun getHeaderDashboard(context: Context)
+	private fun getHeaderDashboard(context: Context): LinearLayout
 	{
-		getLinearLayoutBase(context).apply {
+		return getLinearLayoutBase(context).apply {
 
 			val tvTitle = TextView(context).apply {
 				layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 				setTextColor(ContextCompat.getColor(context, R.color.blue))
 				setTypeface(typeface, Typeface.BOLD)
 				setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+				id = R.id.tvTitle
 			}
 			val view = View(context).apply {
-				layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(100f))
+				layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
 				setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
 				margin(bottom = 5f, top = 5f)
 			}
@@ -46,19 +49,42 @@ object DashboardView
 		}
 	}
 
-	//region row execute
-	fun getRowExecute(context: Context)
+	private fun getExecute(context: Context, idView: Int): TextView
 	{
-		val rlRoot = RelativeLayout(context)
-		val llRoot = getLinearLayoutBase(context).apply {
-			margin(8f, 1f, 8f, 8f)
-			paddingAll(8f)
+		return TextView(context).apply {
+			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			gravity = GRAVITY_CENTER
+			val message = context.getString(R.string.execute_run_dashboard)
+			text = message
+			id = idView
 		}
+	}
 
+	//region row execute
+	fun getRowExecute(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val llRoot = getLinearLayoutBase(context).apply {
+				margin(8f, 1f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
 
+				val llHeader = getHeaderDashboard(context)
+				val tvExecute = getExecute(context, R.id.tvExecute)
+				val iView = View(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+					margin(start = 4f, end = 4f)
+					id = R.id.iView
+				}
+				val tvExecute2 = getExecute(context, R.id.tvExecute2)
 
-
-		rlRoot.addView(llRoot)
+				addView(llHeader)
+				addView(tvExecute)
+				addView(iView)
+				addView(tvExecute2)
+			}
+			addView(llRoot)
+		}
 	}
 	//endregion
 }
