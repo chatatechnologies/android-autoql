@@ -117,4 +117,29 @@ object DashboardView
 		}
 	}
 	//endregion
+	//region row support
+	fun getRowContent(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val llRoot = getLinearLayoutBase(context).apply {
+				margin(8f, 8f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
+
+				val llHeader = getHeaderDashboard(context)
+				val tvContent = TextView(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
+					gravity = GRAVITY_CENTER
+					setTextColor(ContextCompat.getColor(context, R.color.black))
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+					id = R.id.tvContent
+				}
+
+				addView(llHeader)
+				addView(tvContent)
+			}
+			addView(llRoot)
+		}
+	}
+	//endregion
 }

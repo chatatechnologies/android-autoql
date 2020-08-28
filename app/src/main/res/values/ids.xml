@@ -8,4 +8,6 @@
 	<item name="tvExecute2" type="id"/>
 
 	<item name="rlLoad" type="id"/>
+
+	<item name="tvContent" type="id"/>
 </resources>
