@@ -20,6 +20,12 @@ fun View.margin(
 	}
 }
 
+fun View.paddingAll(padding: Float)
+{
+	val dpVal = dpToPx(padding)
+	setPadding(dpVal, dpVal, dpVal, dpVal)
+}
+
 inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(block: T.() -> Unit)
 {
 	if (layoutParams is T) block(layoutParams as T)
