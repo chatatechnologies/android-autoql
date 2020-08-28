@@ -10,4 +10,5 @@
 	<item name="rlLoad" type="id"/>
 
 	<item name="tvContent" type="id"/>
+	<item name="llSuggestion" type="id"/>
 </resources>

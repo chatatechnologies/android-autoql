@@ -11,6 +11,7 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getRowContent
 import chata.can.chata_ai_api.DashboardView.getRowExecute
 import chata.can.chata_ai_api.DashboardView.getRowLoading
+import chata.can.chata_ai_api.DashboardView.getRowSuggestion
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
@@ -80,8 +81,7 @@ class GridAdapter(
 			2 -> SupportHolder(getRowContent(parent.context))
 			3 -> ContentHolder(getRowContent(parent.context))
 			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
-			5 -> SuggestionHolder(
-				layoutInflater.inflate(R.layout.row_holder_suggestion, nullParent), presenter)
+			5 -> SuggestionHolder(getRowSuggestion(parent.context), presenter)
 			8 -> NoQueryHolder(getRowExecute(parent.context))
 			else -> ExecuteHolder(getRowExecute(parent.context))
 		}

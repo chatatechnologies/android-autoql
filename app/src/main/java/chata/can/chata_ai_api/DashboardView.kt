@@ -65,7 +65,7 @@ object DashboardView
 	fun getRowExecute(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			val llRoot = getLinearLayoutBase(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
 				margin(8f, 8f, 8f, 8f)
 				paddingAll(8f)
 				id = R.id.ll1
@@ -84,7 +84,7 @@ object DashboardView
 				addView(iView)
 				addView(tvExecute2)
 			}
-			addView(llRoot)
+			addView(ll1)
 		}
 	}
 	//endregion
@@ -92,7 +92,7 @@ object DashboardView
 	fun getRowLoading(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			val llRoot = getLinearLayoutBase(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
 				margin(8f, 8f, 8f, 8f)
 				paddingAll(8f)
 				id = R.id.ll1
@@ -113,7 +113,7 @@ object DashboardView
 				addView(llHeader)
 				addView(rlLoad)
 			}
-			addView(llRoot)
+			addView(ll1)
 		}
 	}
 	//endregion
@@ -121,7 +121,7 @@ object DashboardView
 	fun getRowContent(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			val llRoot = getLinearLayoutBase(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
 				margin(8f, 8f, 8f, 8f)
 				paddingAll(8f)
 				id = R.id.ll1
@@ -138,7 +138,41 @@ object DashboardView
 				addView(llHeader)
 				addView(tvContent)
 			}
-			addView(llRoot)
+			addView(ll1)
+		}
+	}
+	//endregion
+	//region
+	fun getRowSuggestion(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
+				margin(8f, 8f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
+
+				val llHeader = getHeaderDashboard(context)
+				val llRoot = getLinearLayoutBase(context).apply {
+					margin(start = 12f, end = 12f)
+					paddingAll(5f)
+
+					val tvContent = TextView(context).apply {
+						layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+						margin(5f, 5f, 5f, 5f)
+						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+						id = R.id.tvContent
+					}
+					val llSuggestion = getLinearLayoutBase(context).apply {
+						margin(5f, 5f, 5f, 5f)
+						id = R.id.llSuggestion
+					}
+					addView(tvContent)
+					addView(llSuggestion)
+				}
+				addView(llHeader)
+				addView(llRoot)
+			}
+			addView(ll1)
 		}
 	}
 	//endregion
