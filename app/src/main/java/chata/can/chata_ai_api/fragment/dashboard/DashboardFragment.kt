@@ -176,6 +176,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private fun getDashboardQueries()
 	{
 		isQueryClean = false
+		presenter.updateModel()
 		presenter.getDashboardQueries()
 	}
 

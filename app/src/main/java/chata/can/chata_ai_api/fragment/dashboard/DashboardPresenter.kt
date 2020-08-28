@@ -17,6 +17,8 @@ import java.util.concurrent.ConcurrentHashMap
 class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
 {
+	private var mModel: BaseModelList<Dashboard> ?= null
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
@@ -27,6 +29,8 @@ class DashboardPresenter(
 				{
 					val model = getCurrentDashboard()
 					val response = jsonObject.optString("RESPONSE") ?: ""
+					val joCurrent = JSONObject(response)
+
 					try {
 						val query = jsonObject.optString("query") ?: ""
 						val title = jsonObject.optString("title") ?: ""
@@ -57,7 +61,7 @@ class DashboardPresenter(
 								if (secondIndex != -1)
 								{
 									model[secondIndex]?.let { dashboard ->
-										dashboard.jsonSecondary = JSONObject(response)
+										dashboard.jsonSecondary = joCurrent
 										if (checkQueriesDashboard(dashboard))
 										{
 											//region initQueryBase
@@ -77,14 +81,13 @@ class DashboardPresenter(
 							}
 							else
 							{
-								val joCurrent = JSONObject(response)
 								val index = model.indexOfFirst {
 									it.query == query && it.title == title && it.key == key
 								}
 								if (index != -1)
 								{
 									model[index]?.let { dashboard ->
-										dashboard.jsonPrimary = JSONObject(response)
+										dashboard.jsonPrimary = joCurrent
 										if (dashboard.splitView)
 										{
 											if (checkQueriesDashboard(dashboard))
@@ -158,62 +161,18 @@ class DashboardPresenter(
 				}
 				"getDashboardQueries" ->
 				{
-					val model = getCurrentDashboard()
-					val query = jsonObject.optString("query") ?: ""
-					val title = jsonObject.optString("title") ?: ""
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-
-					if (isSecondaryQuery)
-					{
-						val primaryQuery = jsonObject.optString("primaryQuery") ?: ""
-						//search secondQuery
-						val secondIndex = model.indexOfFirst {
-							it.secondQuery == query && it.query == primaryQuery && it.title == title && it.key == key
-						}
-						if (secondIndex != -1)
-						{
-							model[secondIndex]?.let { dashboard ->
-								dashboard.jsonSecondary = jsonObject
-								if (checkQueriesDashboard(dashboard))
-								{
-									val secondQuery = initSecondaryQuery(jsonObject, dashboard)
-									dashboard.jsonPrimary?.let {
-										dashboard.queryBase = initQueryBase(dashboard, it)
-										//Init secondary query
-										dashboard.queryBase?.splitQuery = secondQuery
-									}
-									//notifyQueryByIndex(secondIndex)
-								}
-							}
-						}
-					}
-					else
-					{
-						val index = model.indexOfFirst {
-							it.query == query && it.title == title && it.key == key
-						}
+					mModel?.run {
+						val index = indexOfFirst { it.key == key }
 						if (index != -1)
 						{
-							model[index]?.let { dashboard ->
-								dashboard.jsonPrimary = jsonObject
-								if (dashboard.splitView)
-								{
-									if (checkQueriesDashboard(dashboard))
-									{
-										dashboard.jsonSecondary?.let {
-											val secondQuery = initSecondaryQuery(it, dashboard)
-											dashboard.queryBase = initQueryBase(dashboard, jsonObject)
-											dashboard.queryBase?.splitQuery = secondQuery
-										}
-										//notifyQueryByIndex(index)
-									}
+							this[index]?.let { dashboard ->
+								dashboard.queryBase = QueryBase(jsonObject).apply {
+									isDashboard = true
+									configQueryBase(dashboard, this, isSecondaryQuery)
 								}
-								else
-								{
-									dashboard.queryBase = initQueryBase(dashboard, jsonObject)
-									notifyQueryByIndex(index)
-								}
+								notifyQueryByIndex(index)
 							}
 						}
 					}
@@ -230,19 +189,12 @@ class DashboardPresenter(
 		}
 	}
 
-	private fun initQueryBase(dashboard: Dashboard, jsonObject: JSONObject): QueryBase
+	/**
+	 * Update for each update on current dashboard
+	 */
+	fun updateModel()
 	{
-		return QueryBase(jsonObject).apply {
-			isDashboard = true
-			configQueryBase(dashboard, this)
-		}
-	}
-
-	private fun initSecondaryQuery(jsonObject: JSONObject, dashboard: Dashboard): QueryBase
-	{
-		return QueryBase(jsonObject).apply {
-			displayType = dashboard.secondDisplayType
-		}
+		mModel = getCurrentDashboard()
 	}
 
 	private fun initQueryEmpty(
@@ -336,7 +288,7 @@ class DashboardPresenter(
 		}
 	}
 
-	private fun configQueryBase(dashboard: Dashboard, queryBase: QueryBase)
+	private fun configQueryBase(dashboard: Dashboard, queryBase: QueryBase, isSplitView: Boolean)
 	{
 		queryBase.typeView = when(queryBase.displayType)
 		{
@@ -354,7 +306,8 @@ class DashboardPresenter(
 					}
 					numColumns > 1 ->
 					{
-						queryBase.displayType = dashboard.displayType
+						queryBase.displayType =
+							if (isSplitView) dashboard.secondDisplayType else dashboard.displayType
 						TypeChatView.WEB_VIEW
 					}
 					else -> TypeChatView.LEFT_VIEW
@@ -366,14 +319,16 @@ class DashboardPresenter(
 
 	fun resetDashboards(isWaiting: Boolean)
 	{
-		val model = getCurrentDashboard()
-		for (index in 0 until model.countData())
-		{
-			model[index]?.let {
-				it.isWaitingData = isWaiting
-				it.queryBase = null
+		mModel?.run {
+			for (index in 0 until this.countData())
+			{
+				this[index]?.let {
+					it.isWaitingData = isWaiting
+					it.queryBase = null
+				}
 			}
 		}
+
 	}
 
 	fun getDashboards()
@@ -383,14 +338,15 @@ class DashboardPresenter(
 
 	fun getDashboardQueries()
 	{
-		val model = getCurrentDashboard()
-		for (index in 0 until model.countData())
-		{
-			model[index]?.let { dashboard ->
-				dashboard.isWaitingData = true
-				dashboard.queryBase = null
-				notifyQueryByIndex(index)
-				callQuery(dashboard)
+		mModel?.run {
+			for (index in 0 until this.countData())
+			{
+				this[index]?.let { dashboard ->
+					dashboard.isWaitingData = true
+					dashboard.queryBase = null
+					notifyQueryByIndex(index)
+					callQuery(dashboard)
+				}
 			}
 		}
 	}
