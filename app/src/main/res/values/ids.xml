@@ -11,4 +11,10 @@
 
 	<item name="tvContent" type="id"/>
 	<item name="llSuggestion" type="id"/>
+
+	<item name="rlWebView" type="id"/>
+	<item name="webView" type="id"/>
+	<item name="rvSplitView" type="id"/>
+	<item name="webView2" type="id"/>
+	<item name="rlLoad2" type="id"/>
 </resources>

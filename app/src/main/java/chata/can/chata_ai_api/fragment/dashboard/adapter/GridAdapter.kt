@@ -1,8 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
@@ -12,7 +10,7 @@ import chata.can.chata_ai_api.DashboardView.getRowContent
 import chata.can.chata_ai_api.DashboardView.getRowExecute
 import chata.can.chata_ai_api.DashboardView.getRowLoading
 import chata.can.chata_ai_api.DashboardView.getRowSuggestion
-import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.DashboardView.getRowWebView
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
 import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
@@ -73,17 +71,17 @@ class GridAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
-		val layoutInflater = LayoutInflater.from(parent.context)
+		val context = parent.context
 		return when(viewType)
 		{
-			0 -> ExecuteHolder(getRowExecute(parent.context))
-			1 -> LoadingHolder(getRowLoading(parent.context))
-			2 -> SupportHolder(getRowContent(parent.context))
-			3 -> ContentHolder(getRowContent(parent.context))
-			4 -> WebViewHolder(layoutInflater.inflate(R.layout.row_holder_web_view, nullParent))
-			5 -> SuggestionHolder(getRowSuggestion(parent.context), presenter)
-			8 -> NoQueryHolder(getRowExecute(parent.context))
-			else -> ExecuteHolder(getRowExecute(parent.context))
+			0 -> ExecuteHolder(getRowExecute(context))
+			1 -> LoadingHolder(getRowLoading(context))
+			2 -> SupportHolder(getRowContent(context))
+			3 -> ContentHolder(getRowContent(context))
+			4 -> WebViewHolder(getRowWebView(context))
+			5 -> SuggestionHolder(getRowSuggestion(context), presenter)
+			8 -> NoQueryHolder(getRowExecute(context))
+			else -> ExecuteHolder(getRowExecute(context))
 		}
 	}
 }

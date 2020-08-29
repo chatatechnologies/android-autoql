@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
+import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -171,6 +172,75 @@ object DashboardView
 				}
 				addView(llHeader)
 				addView(llRoot)
+			}
+			addView(ll1)
+		}
+	}
+	//endregion
+	//region
+	fun getRowWebView(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
+				margin(8f, 8f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
+
+				val llHeader = getHeaderDashboard(context)
+				val rlWebView = RelativeLayout(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+					id = R.id.rlWebView
+					val webView = WebView(context).apply {
+						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						id = R.id.webView
+					}
+					val rlLoad = RelativeLayout(context).apply {
+						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						id = R.id.rlLoad
+
+						val gifView = GifView(context).apply {
+							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+							layoutParams = layoutParams1
+						}
+						addView(gifView)
+					}
+					addView(webView)
+					addView(rlLoad)
+				}
+
+				val iView = View(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+					margin(4f, 2f, 4f, 2f)
+					id = R.id.iView
+				}
+
+				val rvSplitView = RelativeLayout(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+					id = R.id.rvSplitView
+					val webView = WebView(context).apply {
+						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						id = R.id.webView2
+					}
+					val rlLoad = RelativeLayout(context).apply {
+						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						id = R.id.rlLoad2
+
+						val gifView = GifView(context).apply {
+							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+							layoutParams = layoutParams1
+						}
+						addView(gifView)
+					}
+					addView(webView)
+					addView(rlLoad)
+				}
+
+				addView(llHeader)
+				addView(rlWebView)
+				addView(iView)
+				addView(rvSplitView)
 			}
 			addView(ll1)
 		}
