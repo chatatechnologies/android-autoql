@@ -21,6 +21,11 @@ object DashboardView
 
 	private const val GRAVITY_CENTER = 17
 
+	private fun layoutParams(): RelativeLayout.LayoutParams
+	{
+		return RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+	}
+
 	private fun getLinearLayoutBase(context: Context): LinearLayout
 	{
 		return LinearLayout(context).apply {
@@ -178,6 +183,7 @@ object DashboardView
 	}
 	//endregion
 	//region
+	//receiver data for generate views for dual holder
 	fun getRowWebView(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -191,11 +197,11 @@ object DashboardView
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
 					id = R.id.rlWebView
 					val webView = WebView(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						layoutParams = layoutParams()
 						id = R.id.webView
 					}
 					val rlLoad = RelativeLayout(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						layoutParams = layoutParams()
 						id = R.id.rlLoad
 
 						val gifView = GifView(context).apply {
@@ -219,11 +225,11 @@ object DashboardView
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
 					id = R.id.rvSplitView
 					val webView = WebView(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						layoutParams = layoutParams()
 						id = R.id.webView2
 					}
 					val rlLoad = RelativeLayout(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+						layoutParams = layoutParams()
 						id = R.id.rlLoad2
 
 						val gifView = GifView(context).apply {

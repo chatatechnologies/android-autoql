@@ -20,9 +20,9 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 
-	private val rvSplitView = itemView.findViewById<RelativeLayout>(R.id.rvSplitView)
-	private val webView2 = itemView.findViewById<WebView>(R.id.webView2)
-	private val rlLoad2 = itemView.findViewById<View>(R.id.rlLoad2)
+//	private val rvSplitView = itemView.findViewById<RelativeLayout>(R.id.rvSplitView)
+//	private val webView2 = itemView.findViewById<WebView>(R.id.webView2)
+//	private val rlLoad2 = itemView.findViewById<View>(R.id.rlLoad2)
 
 	override fun onPaint()
 	{
@@ -40,24 +40,24 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
-			if (item.splitView)
-			{
-				rvSplitView.visibility = View.VISIBLE
-				iView?.setBackgroundColor(drawerColorPrimary)
-			}
-			else
-			{
-				rvSplitView.visibility = View.GONE
-				iView?.setBackgroundColor(drawerBackgroundColor)
-			}
-
+//			if (item.splitView)
+//			{
+//				rvSplitView.visibility = View.VISIBLE
+//				iView?.setBackgroundColor(drawerColorPrimary)
+//			}
+//			else
+//			{
+//				rvSplitView.visibility = View.GONE
+//				iView?.setBackgroundColor(drawerBackgroundColor)
+//			}
 			item.queryBase?.run {
 				if (!isLoadingHTML)
 				{
 					setDataWebView(rlLoad, webView, this, rlWebView)
 				}
 			}
-//			item.queryBase2?.run {
+			item.queryBase2?.run {
+				this.toString()
 //				if (!isLoadingHTML)
 //				{
 //					rvSplitView.visibility = View.VISIBLE
@@ -65,12 +65,13 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 //				}
 //				else
 //					rvSplitView.visibility = View.GONE
-//			}
+			}
 		}
 		if (item is QueryBase)
 		{
-//			if (item.isSplitView)
-//			{
+			if (item.isSplitView)
+			{
+				item.toString()
 //				if (!item.isLoadingHTML)
 //				{
 //					rvSplitView.visibility = View.VISIBLE
@@ -78,7 +79,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 //				}
 //				else
 //					rvSplitView.visibility = View.GONE
-//			}
+			}
 //			else
 //			{
 //				//Main set data to webView

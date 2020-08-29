@@ -29,7 +29,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
-	private var isSplitView = json.optBoolean("isSplitView", false)
+	var isSplitView = json.optBoolean("isSplitView", false)
 	//Define creation of html code
 	private var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 	var splitQuery: QueryBase ?= null
