@@ -14,6 +14,7 @@ import chata.can.chata_ai_api.DashboardView.getRowTwin
 import chata.can.chata_ai_api.DashboardView.getRowWebView
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
+import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
 import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
@@ -53,9 +54,8 @@ class GridAdapter(
 					} ?: run {
 						if (isWaitingData)
 						{
-							viewType = if (query.isEmpty()) {
+							viewType = if (query.isEmpty())
 								8
-							}
 							else 1
 						}
 					}
@@ -91,7 +91,6 @@ class GridAdapter(
 			1 -> LoadingHolder(getRowLoading(context))
 			2 -> SupportHolder(getRowContent(context))//dynamic
 			3 -> ContentHolder(getRowContent(context))//dynamic
-			//change for DynamicHolder
 			4 -> WebViewHolder(getRowWebView(context))
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> NoQueryHolder(getRowExecute(context))//dynamic
