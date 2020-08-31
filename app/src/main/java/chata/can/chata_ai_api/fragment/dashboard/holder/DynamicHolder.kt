@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.chat.TypeChatView
@@ -18,8 +17,12 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 
-class DynamicHolder(itemView: View): BaseHolder(itemView)
+class DynamicHolder(
+	itemView: View,
+	private val presenter: DashboardPresenter
+): BaseHolder(itemView)
 {
 	private val lls1 = itemView.findViewById<LinearLayout>(R.id.lls1)
 	private val lls2 = itemView.findViewById<LinearLayout>(R.id.lls2)
@@ -36,7 +39,7 @@ class DynamicHolder(itemView: View): BaseHolder(itemView)
 						TypeChatView.SUGGESTION_VIEW ->
 						{
 							val viewSuggestion = getChildSuggestion(lls1.context)
-							ChildSuggestion(viewSuggestion, it)
+							ChildSuggestion(viewSuggestion, it, presenter)
 							lls1.addView(viewSuggestion)
 						}
 						else ->
@@ -52,7 +55,8 @@ class DynamicHolder(itemView: View): BaseHolder(itemView)
 	//region presenter suggestion
 	class ChildSuggestion(
 		view: View,
-		private val dashboard: Dashboard
+		private val dashboard: Dashboard,
+		private val presenter: DashboardPresenter
 	)
 	{
 		private val tvContent = view.findViewById<TextView>(R.id.tvContent)?: null
@@ -99,7 +103,8 @@ class DynamicHolder(itemView: View): BaseHolder(itemView)
 			}
 		}
 
-		private fun buildSuggestionView(context: Context, content: String, dashboard: Dashboard): TextView
+		private fun buildSuggestionView(
+			context: Context, content: String, dashboard: Dashboard): TextView
 		{
 			return TextView(context).apply {
 				backgroundGrayWhite()
@@ -110,19 +115,18 @@ class DynamicHolder(itemView: View): BaseHolder(itemView)
 				setPadding(15,15,15,15)
 				text = content
 				setOnClickListener {
-//				view.addChatMessage(2, content)
 					val index = SinglentonDashboard.indexDashboard(dashboard)
 					if (index != -1)
 					{
-//						presenter.notifyQueryByIndex(index)
-//						presenter.callQuery(
-//							dashboard.apply {
-//								query = content
-//								title = content
-//								isWaitingData = true
-//								queryBase = null
-//							}
-//						)
+						presenter.notifyQueryByIndex(index)
+						presenter.callQuery(
+							dashboard.apply {
+								query = content
+								title = content
+								isWaitingData = true
+								queryBase = null
+							}
+						)
 					}
 				}
 			}

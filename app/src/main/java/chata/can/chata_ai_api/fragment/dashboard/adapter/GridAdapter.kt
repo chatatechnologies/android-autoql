@@ -95,7 +95,7 @@ class GridAdapter(
 			4 -> WebViewHolder(getRowWebView(context))
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> NoQueryHolder(getRowExecute(context))//dynamic
-			10 -> DynamicHolder(getRowTwin(context))
+			10 -> DynamicHolder(getRowTwin(context), presenter)
 			else -> ExecuteHolder(getRowExecute(context))
 		}
 	}
