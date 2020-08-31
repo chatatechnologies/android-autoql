@@ -150,11 +150,15 @@ object DashboardView
 	}
 	//endregion
 	//region suggestion
+	/**
+	 * view with id main (llMainSuggestion)
+	 */
 	fun getChildSuggestion(context: Context): LinearLayout
 	{
 		return getLinearLayoutBase(context).apply {
 			margin(start = 12f, end = 12f)
 			paddingAll(5f)
+			id = R.id.llMainSuggestion
 
 			val tvContent = TextView(context).apply {
 				layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
@@ -226,6 +230,9 @@ object DashboardView
 	//endregion
 
 	//region receiver data for generate views for dual holder
+	/**
+	 * view with id main (rlWebView)
+	 */
 	fun getChildWebView(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {

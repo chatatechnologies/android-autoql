@@ -20,4 +20,8 @@
 
 	<item name="lls1" type="id"/>
 	<item name="lls2" type="id"/>
+
+	<!--region IDs control layout-->
+	<item name="llMainSuggestion" type="id"/>
+	<!--endregion-->
 </resources>

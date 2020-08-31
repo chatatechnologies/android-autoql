@@ -23,17 +23,20 @@ class DynamicHolder(
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		super.onBind(item, listener)
-		item?.let {
-			if (it is Dashboard)
+		item?.let { dashboard ->
+			if (dashboard is Dashboard)
 			{
-				it.queryBase?.let { queryBase ->
+				dashboard.queryBase?.let { queryBase ->
 					when(queryBase.typeView)
 					{
 						TypeChatView.SUGGESTION_VIEW ->
 						{
-							val viewSuggestion = getChildSuggestion(lls1.context)
-							ChildSuggestion(viewSuggestion, it, presenter)
-							lls1.addView(viewSuggestion)
+							val viewSuggestion = lls1.searchView(R.id.llMainSuggestion)?: run {
+								getChildSuggestion(lls1.context).apply {
+									lls1.addView(this)
+								}
+							}
+							ChildSuggestion(viewSuggestion, dashboard, presenter)
 						}
 						else ->
 						{
@@ -42,7 +45,7 @@ class DynamicHolder(
 					}
 				}
 
-				it.queryBase2?.let { queryBase ->
+				dashboard.queryBase2?.let { queryBase ->
 					when(queryBase.typeView)
 					{
 						TypeChatView.WEB_VIEW ->
@@ -59,13 +62,22 @@ class DynamicHolder(
 				{
 					TypeChatView.WEB_VIEW ->
 					{
-						val childWebView = getChildWebView(lls2.context)
+						val childWebView = lls2.searchView(R.id.rlWebView)?: run {
+							getChildWebView(lls2.context).apply {
+								lls1.addView(this)
+							}
+						}
+
 						ChildWebView(childWebView, item)
-						lls2.addView(childWebView)
 					}
 				}
 			}
 		}
+	}
+
+	private fun View.searchView(id: Int): View?
+	{
+		return findViewById(id)
 	}
 //	when(typeView)
 //	{
