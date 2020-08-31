@@ -32,7 +32,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var isSplitView = json.optBoolean("isSplitView", false)
 	//Define creation of html code
 	private var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
-	var splitQuery: QueryBase ?= null
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
 	{
@@ -193,12 +192,12 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						var otherPart = ""
 						if (isSplitView)
 						{
-							if (!isSecondaryQuery && splitQuery != null)
-							{
-								splitQuery?.let { splitQuery ->
-									otherPart = HtmlBuilder.getByParts(splitQuery)
-								}
-							}
+//							if (!isSecondaryQuery && splitQuery != null)
+//							{
+//								splitQuery?.let { splitQuery ->
+//									otherPart = HtmlBuilder.getByParts(splitQuery)
+//								}
+//							}
 						}
 
 						//Only is execute when queryBase is primary

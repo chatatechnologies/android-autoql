@@ -149,7 +149,28 @@ object DashboardView
 		}
 	}
 	//endregion
-	//region
+	//region suggestion
+	fun getChildSuggestion(context: Context): LinearLayout
+	{
+		return getLinearLayoutBase(context).apply {
+			margin(start = 12f, end = 12f)
+			paddingAll(5f)
+
+			val tvContent = TextView(context).apply {
+				layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+				margin(5f, 5f, 5f, 5f)
+				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				id = R.id.tvContent
+			}
+			val llSuggestion = getLinearLayoutBase(context).apply {
+				margin(5f, 5f, 5f, 5f)
+				id = R.id.llSuggestion
+			}
+			addView(tvContent)
+			addView(llSuggestion)
+		}
+	}
+
 	fun getRowSuggestion(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -159,23 +180,7 @@ object DashboardView
 				id = R.id.ll1
 
 				val llHeader = getHeaderDashboard(context)
-				val llRoot = getLinearLayoutBase(context).apply {
-					margin(start = 12f, end = 12f)
-					paddingAll(5f)
-
-					val tvContent = TextView(context).apply {
-						layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-						margin(5f, 5f, 5f, 5f)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-						id = R.id.tvContent
-					}
-					val llSuggestion = getLinearLayoutBase(context).apply {
-						margin(5f, 5f, 5f, 5f)
-						id = R.id.llSuggestion
-					}
-					addView(tvContent)
-					addView(llSuggestion)
-				}
+				val llRoot = getChildSuggestion(context)
 				addView(llHeader)
 				addView(llRoot)
 			}
