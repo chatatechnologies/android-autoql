@@ -96,8 +96,6 @@ class DynamicHolder(itemView: View): BaseHolder(itemView)
 						}
 					}
 				}
-
-
 			}
 		}
 

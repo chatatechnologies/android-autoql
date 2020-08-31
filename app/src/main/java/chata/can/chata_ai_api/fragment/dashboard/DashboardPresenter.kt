@@ -85,10 +85,10 @@ class DashboardPresenter(
 			{
 				"callRelatedQueries" ->
 				{
-					val query = jsonObject.optString("query") ?: ""
-					val title = jsonObject.optString("title") ?: ""
+//					val query = jsonObject.optString("query") ?: ""
+//					val title = jsonObject.optString("title") ?: ""
 					val key = jsonObject.optString("key") ?: ""
-					//val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
 					//region build json for suggestion
 					jsonObject.optJSONObject("data")?.let { joData ->
@@ -105,14 +105,16 @@ class DashboardPresenter(
 							queryBase.typeView = TypeChatView.SUGGESTION_VIEW
 
 							val model = getCurrentDashboard()
-							val index = model.indexOfFirst {
-								it.query == query && it.title == title && it.key == key
-							}
+							val index = model.indexOfFirst { it.key == key }
 
 							if (index != -1)
 							{
 								model[index]?.let { dashboard ->
-									dashboard.queryBase = queryBase
+									if (isSecondaryQuery)
+										dashboard.queryBase2 = queryBase
+									else
+										dashboard.queryBase = queryBase
+
 									notifyQueryByIndex(index)
 								}
 							}
@@ -129,10 +131,14 @@ class DashboardPresenter(
 						if (index != -1)
 						{
 							this[index]?.let { dashboard ->
-								dashboard.queryBase = QueryBase(jsonObject).apply {
+								val queryBase = QueryBase(jsonObject).apply {
 									isDashboard = true
 									configQueryBase(dashboard, this, isSecondaryQuery)
 								}
+								if (isSecondaryQuery)
+									dashboard.queryBase2 = queryBase
+								else
+									dashboard.queryBase = queryBase
 								notifyQueryByIndex(index)
 							}
 						}
