@@ -10,6 +10,7 @@ import chata.can.chata_ai_api.DashboardView.getRowContent
 import chata.can.chata_ai_api.DashboardView.getRowExecute
 import chata.can.chata_ai_api.DashboardView.getRowLoading
 import chata.can.chata_ai_api.DashboardView.getRowSuggestion
+import chata.can.chata_ai_api.DashboardView.getRowTwin
 import chata.can.chata_ai_api.DashboardView.getRowWebView
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
@@ -34,23 +35,32 @@ class GridAdapter(
 		model[position]?.run {
 			if (this is Dashboard)
 			{
-				queryBase?.run {
-					viewType = when(typeView)
-					{
-						TypeChatView.LEFT_VIEW -> 3
-						TypeChatView.WEB_VIEW -> 4
-						TypeChatView.SUGGESTION_VIEW -> 5
-						else -> 2
-					}
-				} ?: run {
-					if (isWaitingData)
-					{
-						viewType = if (query.isEmpty()) {
-							8
+				if (splitView)
+				{
+					viewType = 10
+				}
+				//region once QueryBase
+				else
+				{
+					queryBase?.run {
+						viewType = when(typeView)
+						{
+							TypeChatView.LEFT_VIEW -> 3
+							TypeChatView.WEB_VIEW -> 4
+							TypeChatView.SUGGESTION_VIEW -> 5
+							else -> 2
 						}
-						else 1
+					} ?: run {
+						if (isWaitingData)
+						{
+							viewType = if (query.isEmpty()) {
+								8
+							}
+							else 1
+						}
 					}
 				}
+				//endregion
 			}
 		}
 		return viewType
@@ -65,9 +75,9 @@ class GridAdapter(
 				it.queryBase?.run {
 					checkData(holder)
 				}
-				it.queryBase2?.run {
-					checkData(holder)
-				}
+//				it.queryBase2?.run {
+//					checkData(holder)
+//				}
 			}
 		}
 	}
@@ -85,6 +95,7 @@ class GridAdapter(
 			4 -> WebViewHolder(getRowWebView(context))
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> NoQueryHolder(getRowExecute(context))//dynamic
+			10 -> DynamicHolder(getRowTwin(context))
 			else -> ExecuteHolder(getRowExecute(context))
 		}
 	}

@@ -17,4 +17,7 @@
 	<item name="rvSplitView" type="id"/>
 	<item name="webView2" type="id"/>
 	<item name="rlLoad2" type="id"/>
+
+	<item name="lls1" type="id"/>
+	<item name="lls2" type="id"/>
 </resources>

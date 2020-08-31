@@ -183,8 +183,44 @@ object DashboardView
 		}
 	}
 	//endregion
-	//region
-	//receiver data for generate views for dual holder
+
+	//region view dynamic
+	fun getRowTwin(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			val ll1 = getLinearLayoutBase(context).apply {
+				margin(8f, 8f, 8f, 8f)
+				paddingAll(8f)
+				id = R.id.ll1
+
+				val llHeader = getHeaderDashboard(context)
+
+				val ll1 = getLinearLayoutBase(context).apply {
+					id = R.id.lls1
+				}
+
+				val iView = View(context).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+					margin(4f, 2f, 4f, 2f)
+					id = R.id.iView
+				}
+
+				val ll2 = getLinearLayoutBase(context).apply {
+					id = R.id.lls2
+				}
+
+				addView(llHeader)
+				addView(ll1)
+				addView(iView)
+				addView(ll2)
+			}
+			addView(ll1)
+		}
+	}
+	//endregion
+
+	//region receiver data for generate views for dual holder
 	fun getRowWebView(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -216,39 +252,39 @@ object DashboardView
 					addView(rlLoad)
 				}
 
-				val iView = View(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
-					margin(4f, 2f, 4f, 2f)
-					id = R.id.iView
-				}
-
-				val rvSplitView = RelativeLayout(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
-					id = R.id.rvSplitView
-					val webView = WebView(context).apply {
-						layoutParams = layoutParams()
-						id = R.id.webView2
-					}
-					val rlLoad = RelativeLayout(context).apply {
-						layoutParams = layoutParams()
-						id = R.id.rlLoad2
-
-						val gifView = GifView(context).apply {
-							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
-							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
-							layoutParams = layoutParams1
-						}
-						addView(gifView)
-					}
-					addView(webView)
-					addView(rlLoad)
-				}
+//				val iView = View(context).apply {
+//					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+//					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+//					margin(4f, 2f, 4f, 2f)
+//					id = R.id.iView
+//				}
+//
+//				val rvSplitView = RelativeLayout(context).apply {
+//					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+//					id = R.id.rvSplitView
+//					val webView = WebView(context).apply {
+//						layoutParams = layoutParams()
+//						id = R.id.webView2
+//					}
+//					val rlLoad = RelativeLayout(context).apply {
+//						layoutParams = layoutParams()
+//						id = R.id.rlLoad2
+//
+//						val gifView = GifView(context).apply {
+//							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+//							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+//							layoutParams = layoutParams1
+//						}
+//						addView(gifView)
+//					}
+//					addView(webView)
+//					addView(rlLoad)
+//				}
 
 				addView(llHeader)
 				addView(rlWebView)
-				addView(iView)
-				addView(rvSplitView)
+//				addView(iView)
+//				addView(rvSplitView)
 			}
 			addView(ll1)
 		}
