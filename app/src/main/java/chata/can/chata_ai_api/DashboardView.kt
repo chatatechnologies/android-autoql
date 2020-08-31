@@ -226,6 +226,31 @@ object DashboardView
 	//endregion
 
 	//region receiver data for generate views for dual holder
+	fun getChildWebView(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+			id = R.id.rlWebView
+			val webView = WebView(context).apply {
+				layoutParams = layoutParams()
+				id = R.id.webView
+			}
+			val rlLoad = RelativeLayout(context).apply {
+				layoutParams = layoutParams()
+				id = R.id.rlLoad
+
+				val gifView = GifView(context).apply {
+					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+					layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+					layoutParams = layoutParams1
+				}
+				addView(gifView)
+			}
+			addView(webView)
+			addView(rlLoad)
+		}
+	}
+
 	fun getRowWebView(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -235,27 +260,7 @@ object DashboardView
 				id = R.id.ll1
 
 				val llHeader = getHeaderDashboard(context)
-				val rlWebView = RelativeLayout(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
-					id = R.id.rlWebView
-					val webView = WebView(context).apply {
-						layoutParams = layoutParams()
-						id = R.id.webView
-					}
-					val rlLoad = RelativeLayout(context).apply {
-						layoutParams = layoutParams()
-						id = R.id.rlLoad
-
-						val gifView = GifView(context).apply {
-							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
-							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
-							layoutParams = layoutParams1
-						}
-						addView(gifView)
-					}
-					addView(webView)
-					addView(rlLoad)
-				}
+				val rlWebView = getChildWebView(context)
 
 //				val iView = View(context).apply {
 //					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))

@@ -7,6 +7,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
+import chata.can.chata_ai_api.DashboardView.getChildWebView
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
@@ -58,7 +59,9 @@ class DynamicHolder(
 				{
 					TypeChatView.WEB_VIEW ->
 					{
-						//ChildWebView(/*viewWebView*/, item)
+						val childWebView = getChildWebView(lls2.context)
+						ChildWebView(childWebView, item)
+						lls2.addView(childWebView)
 					}
 				}
 			}

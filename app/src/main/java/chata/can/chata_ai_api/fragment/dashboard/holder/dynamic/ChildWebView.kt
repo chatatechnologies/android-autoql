@@ -21,6 +21,10 @@ class ChildWebView(
 	private val webView = view.findViewById<WebView>(R.id.webView)?: null
 	private val rlLoad = view.findViewById<View>(R.id.rlLoad)?: null
 
+	init {
+		onBind()
+	}
+
 	fun onBind()
 	{
 		queryBase?.let {
