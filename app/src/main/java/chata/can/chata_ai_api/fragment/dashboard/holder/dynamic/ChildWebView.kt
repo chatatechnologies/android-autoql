@@ -8,14 +8,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 class ChildWebView(
 	view: View,
-	private val dashboard: Dashboard,
-	private val isSecondary: Boolean
+	private val queryBase: QueryBase ?= null
 )
 {
 	private val iView = view.findViewById<View>(R.id.iView)?: null
@@ -23,7 +21,7 @@ class ChildWebView(
 	private val webView = view.findViewById<WebView>(R.id.webView)?: null
 	private val rlLoad = view.findViewById<View>(R.id.rlLoad)?: null
 
-	fun onBind(queryBase: QueryBase ?= null)
+	fun onBind()
 	{
 		queryBase?.let {
 			rlWebView?.let { rlWebView ->

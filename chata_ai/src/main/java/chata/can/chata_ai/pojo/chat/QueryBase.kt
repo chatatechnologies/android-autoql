@@ -29,7 +29,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
-	var isSplitView = json.optBoolean("isSplitView", false)
 	//Define creation of html code
 	private var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 
@@ -189,43 +188,28 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					else ->
 					{
 						//region generate html CODE
-						var otherPart = ""
-						if (isSplitView)
+//						var otherPart = ""
+						val dataForWebView = HtmlBuilder.build(this)
+						if (displayType != "data")
 						{
-//							if (!isSecondaryQuery && splitQuery != null)
-//							{
-//								splitQuery?.let { splitQuery ->
-//									otherPart = HtmlBuilder.getByParts(splitQuery)
-//								}
-//							}
+							dataForWebView.type = displayType
 						}
-
-						//Only is execute when queryBase is primary
-						if (!isSecondaryQuery)
+//						if (otherPart.isNotEmpty())
+//						{
+//							dataForWebView.secondaryPart = otherPart
+//						}
+						when(aColumn.size)
 						{
-							val dataForWebView = HtmlBuilder.build(this)
-							if (displayType != "data")
+							2, 3 ->
 							{
-								dataForWebView.type = displayType
+								dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
+								dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
 							}
-							if (otherPart.isNotEmpty())
-							{
-								dataForWebView.secondaryPart = otherPart
-							}
-							when(aColumn.size)
-							{
-								2, 3 ->
-								{
-									dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
-									dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
-								}
-								else -> {}
-							}
-							contentHTML = DashboardMaker.getHTML(dataForWebView)
-							rowsTable = dataForWebView.rowsTable
-							rowsPivot = dataForWebView.rowsPivot
+							else -> {}
 						}
-						//endregion
+						contentHTML = DashboardMaker.getHTML(dataForWebView)
+						rowsTable = dataForWebView.rowsTable
+						rowsPivot = dataForWebView.rowsPivot
 					}
 				}
 			},{

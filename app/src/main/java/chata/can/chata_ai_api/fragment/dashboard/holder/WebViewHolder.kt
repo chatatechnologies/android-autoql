@@ -69,9 +69,8 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		}
 		if (item is QueryBase)
 		{
-			if (item.isSplitView)
-			{
-				item.toString()
+//			if (item.isSplitView)
+//			{
 //				if (!item.isLoadingHTML)
 //				{
 //					rvSplitView.visibility = View.VISIBLE
@@ -79,7 +78,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 //				}
 //				else
 //					rvSplitView.visibility = View.GONE
-			}
+//			}
 //			else
 //			{
 //				//Main set data to webView

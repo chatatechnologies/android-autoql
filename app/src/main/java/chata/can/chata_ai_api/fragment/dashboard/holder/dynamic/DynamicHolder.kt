@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 import android.view.View
 import android.widget.LinearLayout
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
@@ -47,6 +48,17 @@ class DynamicHolder(
 						{
 
 						}
+					}
+				}
+			}
+
+			if (item is QueryBase)
+			{
+				when(item.typeView)
+				{
+					TypeChatView.WEB_VIEW ->
+					{
+						//ChildWebView(/*viewWebView*/, item)
 					}
 				}
 			}
