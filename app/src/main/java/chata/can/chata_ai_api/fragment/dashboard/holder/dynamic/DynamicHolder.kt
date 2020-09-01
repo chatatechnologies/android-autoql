@@ -40,7 +40,7 @@ class DynamicHolder(
 							if (vSuggestion == null)
 							{
 								vSuggestion = getChildSuggestion(lls1.context)
-								lls1.addView(vSuggestion)
+								addView(lls1, vSuggestion)
 							}
 							ChildSuggestion(vSuggestion, dashboard, presenter)
 						}
@@ -55,9 +55,18 @@ class DynamicHolder(
 							if (vExecute == null)
 							{
 								vExecute = getExecute(lls1.context, R.id.tvNoQuery)
-								lls1.addView(vExecute)
+								addView(lls1, vExecute)
 							}
 							ChildNoQuery(vExecute, dashboard, true)
+						}
+					}
+					else
+					{
+						var vExecute = lls1.searchView(R.id.tvExecute)
+						if (vExecute == null)
+						{
+							vExecute = getExecute(lls1.context, R.id.tvExecute)
+							addView(lls1, vExecute)
 						}
 					}
 				}
@@ -78,6 +87,29 @@ class DynamicHolder(
 
 						}
 					}
+				} ?: run {
+					if (dashboard.isWaitingData)
+					{
+						if (dashboard.query.isEmpty())
+						{
+							var vExecute2 = lls2.searchView(R.id.tvNoQuery)
+							if (vExecute2 == null)
+							{
+								vExecute2 = getExecute(lls2.context, R.id.tvNoQuery)
+								addView(lls2, vExecute2)
+							}
+							ChildNoQuery(vExecute2, dashboard, true)
+						}
+					}
+					else
+					{
+						var vExecute2 = lls2.searchView(R.id.tvExecute)
+						if (vExecute2 == null)
+						{
+							vExecute2 = getExecute(lls2.context, R.id.tvExecute)
+							addView(lls2, vExecute2)
+						}
+					}
 				}
 			}
 
@@ -87,12 +119,12 @@ class DynamicHolder(
 				{
 					TypeChatView.WEB_VIEW ->
 					{
-						val childWebView = lls2.searchView(R.id.rlWebView)?: run {
-							getChildWebView(lls2.context).apply {
-								lls2.addView(this)
-							}
+						var childWebView = lls2.searchView(R.id.rlWebView)
+						if (childWebView == null)
+						{
+							childWebView = getChildWebView(lls2.context)
+							addView(lls2, childWebView)
 						}
-
 						ChildWebView(childWebView, item)
 					}
 				}
@@ -103,6 +135,14 @@ class DynamicHolder(
 	private fun View.searchView(id: Int): View?
 	{
 		return findViewById(id)
+	}
+
+	private fun addView(llRoot: LinearLayout, newView: View)
+	{
+		llRoot.run {
+			removeAllViews()
+			addView(newView)
+		}
 	}
 //	when(typeView)
 //	{
