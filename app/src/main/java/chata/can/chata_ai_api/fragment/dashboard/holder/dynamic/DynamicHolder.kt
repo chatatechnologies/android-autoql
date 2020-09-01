@@ -40,34 +40,24 @@ class DynamicHolder(
 							if (vSuggestion == null)
 							{
 								vSuggestion = getChildSuggestion(lls1.context)
+								lls1.addView(vSuggestion)
 							}
-							lls1.addView(vSuggestion)
 							ChildSuggestion(vSuggestion, dashboard, presenter)
 						}
-						else ->
+						else -> { }
+					}
+				} ?: run {
+					if (dashboard.isWaitingData)
+					{
+						if (dashboard.query.isEmpty())
 						{
-							if (dashboard.isWaitingData)
+							var vExecute = lls1.searchView(R.id.tvNoQuery)
+							if (vExecute == null)
 							{
-								if (queryBase.query.isEmpty())
-								{
-									var vExecute = lls1.searchView(R.id.tvNoQuery)
-									if (vExecute == null)
-									{
-										vExecute = getExecute(lls1.context, R.id.tvNoQuery)
-									}
-									else {}
-
-									lls1.addView(vExecute)
-								}
-								else
-								{
-
-								}
+								vExecute = getExecute(lls1.context, R.id.tvNoQuery)
+								lls1.addView(vExecute)
 							}
-							else
-							{
-
-							}
+							ChildNoQuery(vExecute, dashboard, true)
 						}
 					}
 				}
