@@ -359,6 +359,7 @@ class DashboardPresenter(
 		val secondQuery = dashboard.secondQuery
 		if (secondQuery.isNotEmpty())
 		{
+			dashboard.isWaitingData2 = true
 			val mInfoHolder = getDataQuery(dashboard,true)
 			QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
 		}

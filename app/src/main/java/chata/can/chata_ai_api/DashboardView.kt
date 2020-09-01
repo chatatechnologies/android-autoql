@@ -56,7 +56,7 @@ object DashboardView
 		}
 	}
 
-	private fun getExecute(context: Context, idView: Int): TextView
+	fun getExecute(context: Context, idView: Int): TextView
 	{
 		return TextView(context).apply {
 			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))

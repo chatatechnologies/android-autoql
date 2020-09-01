@@ -23,5 +23,7 @@
 
 	<!--region IDs control layout-->
 	<item name="llMainSuggestion" type="id"/>
+	<item name="tvNoQuery" type="id"/>
+	<item name="tvNoQuery2" type="id"/>
 	<!--endregion-->
 </resources>

@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
 import chata.can.chata_ai_api.DashboardView.getChildWebView
+import chata.can.chata_ai_api.DashboardView.getExecute
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
@@ -29,18 +30,44 @@ class DynamicHolder(
 				dashboard.queryBase?.let { queryBase ->
 					when(queryBase.typeView)
 					{
+						TypeChatView.LEFT_VIEW ->
+						{
+
+						}
 						TypeChatView.SUGGESTION_VIEW ->
 						{
-							val viewSuggestion = lls1.searchView(R.id.llMainSuggestion)?: run {
-								getChildSuggestion(lls1.context).apply {
-									lls1.addView(this)
-								}
+							var vSuggestion = lls1.searchView(R.id.llMainSuggestion)
+							if (vSuggestion == null)
+							{
+								vSuggestion = getChildSuggestion(lls1.context)
 							}
-							ChildSuggestion(viewSuggestion, dashboard, presenter)
+							lls1.addView(vSuggestion)
+							ChildSuggestion(vSuggestion, dashboard, presenter)
 						}
 						else ->
 						{
+							if (dashboard.isWaitingData)
+							{
+								if (queryBase.query.isEmpty())
+								{
+									var vExecute = lls1.searchView(R.id.tvNoQuery)
+									if (vExecute == null)
+									{
+										vExecute = getExecute(lls1.context, R.id.tvNoQuery)
+									}
+									else {}
 
+									lls1.addView(vExecute)
+								}
+								else
+								{
+
+								}
+							}
+							else
+							{
+
+							}
 						}
 					}
 				}
@@ -48,7 +75,15 @@ class DynamicHolder(
 				dashboard.queryBase2?.let { queryBase ->
 					when(queryBase.typeView)
 					{
+						TypeChatView.LEFT_VIEW ->
+						{
+
+						}
 						TypeChatView.WEB_VIEW ->
+						{
+
+						}
+						else ->
 						{
 
 						}
@@ -64,7 +99,7 @@ class DynamicHolder(
 					{
 						val childWebView = lls2.searchView(R.id.rlWebView)?: run {
 							getChildWebView(lls2.context).apply {
-								lls1.addView(this)
+								lls2.addView(this)
 							}
 						}
 

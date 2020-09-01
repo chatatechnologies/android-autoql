@@ -30,8 +30,6 @@ class ChildSuggestion(
 		onBind()
 	}
 
-	//Is necessary method for set data on tvTitle
-
 	private fun onPaint()
 	{
 		tvContent?.let {
