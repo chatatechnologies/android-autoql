@@ -32,24 +32,19 @@ class ChildNoQuery(
 
 	private fun onBind()
 	{
-		with(dashboard)
-		{
+		dashboard.run {
 			if (isPrimary)
 			{
-				queryBase?.let {
-					if (it.query.isEmpty())
-					{
-						tvNoQuery?.text = noQueryText
-					}
+				if (query.isEmpty())
+				{
+					tvNoQuery?.text = noQueryText
 				}
 			}
 			else
 			{
-				queryBase2?.let {
-					if (it.query.isEmpty())
-					{
-						tvNoQuery?.text = noQueryText
-					}
+				if (secondQuery.isEmpty())
+				{
+					tvNoQuery?.text = noQueryText
 				}
 			}
 		}

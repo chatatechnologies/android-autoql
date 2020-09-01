@@ -71,24 +71,10 @@ class DynamicHolder(
 					}
 				}
 
-				dashboard.queryBase2?.let { queryBase ->
-					when(queryBase.typeView)
-					{
-						TypeChatView.LEFT_VIEW ->
-						{
+				dashboard.queryBase2?.let {
 
-						}
-						TypeChatView.WEB_VIEW ->
-						{
-
-						}
-						else ->
-						{
-
-						}
-					}
 				} ?: run {
-					if (dashboard.isWaitingData)
+					if (dashboard.isWaitingData2)
 					{
 						if (dashboard.query.isEmpty())
 						{
@@ -98,7 +84,7 @@ class DynamicHolder(
 								vExecute2 = getExecute(lls2.context, R.id.tvNoQuery)
 								addView(lls2, vExecute2)
 							}
-							ChildNoQuery(vExecute2, dashboard, true)
+							ChildNoQuery(vExecute2, dashboard, false)
 						}
 					}
 					else
