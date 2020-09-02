@@ -38,7 +38,9 @@ class DashboardPresenter(
 
 						//region scope for call related queries
 						val code = jsonObject.optInt("CODE")
-						if (code == 400)
+						val referenceId = joCurrent.optString("reference_id") ?: ""
+						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431"
+						if (code == 400 && isSuggestion)
 						{
 							val mData = hashMapOf(
 								"query" to query,
