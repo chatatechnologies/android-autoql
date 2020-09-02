@@ -208,7 +208,6 @@ object DashboardView
 				id = R.id.ll1
 
 				val llHeader = getHeaderDashboard(context)
-
 				val ll1 = getLinearLayoutBase(context).apply {
 					id = R.id.lls1
 				}
@@ -216,7 +215,7 @@ object DashboardView
 				val iView = View(context).apply {
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
 					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
-					margin(4f, 2f, 4f, 2f)
+					margin(bottom = 2f, top = 2f)
 					id = R.id.iView
 				}
 
@@ -278,39 +277,8 @@ object DashboardView
 				val llHeader = getHeaderDashboard(context)
 				val rlWebView = getChildWebView(context)
 
-//				val iView = View(context).apply {
-//					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-//					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
-//					margin(4f, 2f, 4f, 2f)
-//					id = R.id.iView
-//				}
-//
-//				val rvSplitView = RelativeLayout(context).apply {
-//					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
-//					id = R.id.rvSplitView
-//					val webView = WebView(context).apply {
-//						layoutParams = layoutParams()
-//						id = R.id.webView2
-//					}
-//					val rlLoad = RelativeLayout(context).apply {
-//						layoutParams = layoutParams()
-//						id = R.id.rlLoad2
-//
-//						val gifView = GifView(context).apply {
-//							val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
-//							layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
-//							layoutParams = layoutParams1
-//						}
-//						addView(gifView)
-//					}
-//					addView(webView)
-//					addView(rlLoad)
-//				}
-
 				addView(llHeader)
 				addView(rlWebView)
-//				addView(iView)
-//				addView(rvSplitView)
 			}
 			addView(ll1)
 		}

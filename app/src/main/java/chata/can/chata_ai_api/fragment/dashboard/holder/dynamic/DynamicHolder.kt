@@ -70,7 +70,7 @@ class DynamicHolder(
 					}
 					else
 					{
-						lls1.searchView(R.id.tvExecute)?.let {
+						lls1.searchView(R.id.tvExecute)?:run {
 							val vExecute = getExecute(lls1.context, R.id.tvExecute)
 							addView(lls1, vExecute)
 						}
@@ -99,7 +99,7 @@ class DynamicHolder(
 					}
 					else
 					{
-						lls2.searchView(R.id.tvExecute)?.let {
+						lls2.searchView(R.id.tvExecute)?:run {
 							val vExecute2 = getExecute(lls2.context, R.id.tvExecute)
 							addView(lls2, vExecute2)
 						}
