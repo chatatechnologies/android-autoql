@@ -18,6 +18,9 @@ class DynamicHolder(
 	private val presenter: DashboardPresenter
 ): BaseHolder(itemView)
 {
+	private val tData1 = Triple(R.id.rlWebView, R.id.webView, R.id.rlLoad)
+	private val tData2 = Triple(R.id.rvSplitView, R.id.webView2, R.id.rlLoad2)
+
 	private val lls1 = itemView.findViewById<LinearLayout>(R.id.lls1)
 	private val lls2 = itemView.findViewById<LinearLayout>(R.id.lls2)
 
@@ -105,13 +108,23 @@ class DynamicHolder(
 				{
 					TypeChatView.WEB_VIEW ->
 					{
-						var childWebView = lls2.searchView(R.id.rlWebView)
-						if (childWebView == null)
+						val tData = if (item.isSecondaryQuery)
 						{
-							childWebView = getChildWebView(lls2.context)
-							addView(lls2, childWebView)
+							Triple(lls2, R.id.rvSplitView, tData2)
 						}
-						ChildWebView(childWebView, item)
+						else
+						{
+							Triple(lls1, R.id.rlWebView, tData1)
+						}
+						tData.run {
+							var childWebView = first.searchView(second)
+							if (childWebView == null)
+							{
+								childWebView = getChildWebView(first.context, second)
+								addView(first, childWebView)
+							}
+							ChildWebView(childWebView, item, tData.third)
+						}
 					}
 				}
 			}

@@ -13,13 +13,13 @@ import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 class ChildWebView(
 	view: View,
-	private val queryBase: QueryBase ?= null
+	private val queryBase: QueryBase ?= null,
+	private val tData: Triple<Int, Int, Int>
 )
 {
-	private val iView = view.findViewById<View>(R.id.iView)?: null
-	private val rlWebView = view.findViewById<RelativeLayout>(R.id.rlWebView)?: null
-	private val webView = view.findViewById<WebView>(R.id.webView)?: null
-	private val rlLoad = view.findViewById<View>(R.id.rlLoad)?: null
+	private val rlWebView = view.findViewById<RelativeLayout>(tData.first)?: null
+	private val webView = view.findViewById<WebView>(tData.second)?: null
+	private val rlLoad = view.findViewById<View>(tData.third)?: null
 
 	init {
 		onBind()

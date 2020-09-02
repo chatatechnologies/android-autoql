@@ -233,18 +233,22 @@ object DashboardView
 	/**
 	 * view with id main (rlWebView)
 	 */
-	fun getChildWebView(context: Context): RelativeLayout
+	fun getChildWebView(context: Context, newId: Int = R.id.rlWebView): RelativeLayout
 	{
+		val pData = if (newId == R.id.rlWebView)
+			 Pair(R.id.webView, R.id.rlLoad)
+		else Pair(R.id.webView2, R.id.rlLoad2)
+
 		return RelativeLayout(context).apply {
 			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
-			id = R.id.rlWebView
+			id = newId
 			val webView = WebView(context).apply {
 				layoutParams = layoutParams()
-				id = R.id.webView
+				id = pData.first
 			}
 			val rlLoad = RelativeLayout(context).apply {
 				layoutParams = layoutParams()
-				id = R.id.rlLoad
+				id = pData.second
 
 				val gifView = GifView(context).apply {
 					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))

@@ -29,8 +29,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
-	//Define creation of html code
-	private var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
+	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 
 	fun isTypeColumn(type: TypeDataQuery): Boolean
 	{
