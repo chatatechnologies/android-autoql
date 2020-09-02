@@ -35,6 +35,15 @@ class DynamicHolder(
 				dashboard.queryBase?.let { queryBase ->
 					when(queryBase.typeView)
 					{
+						TypeChatView.SUPPORT ->
+						{
+							val view = lls1.searchView(R.id.tvContent)?: run {
+								val view = getChildContent(lls1.context)
+								addView(lls1, view)
+								view
+							}
+							ChildSupport(view, dashboard, true)
+						}
 						TypeChatView.LEFT_VIEW ->
 						{
 							val view = lls1.searchView(R.id.tvContent)?: run {
