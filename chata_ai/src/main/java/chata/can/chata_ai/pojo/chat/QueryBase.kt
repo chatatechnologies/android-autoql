@@ -178,6 +178,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				isLoadingHTML = true
 				when
 				{
+					message == "No Data Found" ->
+					{
+						contentHTML = message
+					}
 					aRows.size == 0 || isSimpleText || displayType == "suggestion" ->
 					{
 						aColumn.firstOrNull()?.let {

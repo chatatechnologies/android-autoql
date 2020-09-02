@@ -25,7 +25,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 		{
 			item.queryBase?.run {
 				tvContent?.let {
-					if (isLoadingHTML)
+					if (isLoadingHTML && contentHTML.isEmpty())
 					{
 						isLoadingHTML = false
 						aColumn.firstOrNull()?.let { column ->
