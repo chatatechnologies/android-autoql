@@ -34,4 +34,7 @@ data class Dashboard(
 
 	var isWaitingData = false
 	var isWaitingData2 = false
+
+	var value = ""
+	var valueLabel = ""
 }

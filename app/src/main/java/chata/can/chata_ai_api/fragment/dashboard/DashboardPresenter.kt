@@ -87,8 +87,6 @@ class DashboardPresenter(
 			{
 				"callRelatedQueries" ->
 				{
-//					val query = jsonObject.optString("query") ?: ""
-//					val title = jsonObject.optString("title") ?: ""
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 
@@ -231,6 +229,12 @@ class DashboardPresenter(
 										dashboard.secondDisplayType = secondDisplayType
 										dashboard.secondQuery = secondQuery
 									}
+									optJSONArray("queryValidationSelections")?.let {
+										it.optJSONObject(0)?.let { qvs ->
+											dashboard.value = qvs.optString("text")
+											dashboard.valueLabel = qvs.optString("value_label")
+										}
+									}
 									mPartial["${axisY}_$axisX"] = dashboard
 								}
 							}
@@ -341,6 +345,14 @@ class DashboardPresenter(
 			else
 			{
 				mInfoHolder["query"] = query
+				if (value.isNotEmpty() && valueLabel.isNotEmpty())
+				{
+					val mUserSelection = hashMapOf(
+						"value" to value,
+						"value_label" to valueLabel,
+						"canonical" to "ORIGINAL_TEXT")
+					mInfoHolder["user_selection"] = mUserSelection
+				}
 			}
 			return mInfoHolder
 		}

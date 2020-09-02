@@ -36,6 +36,16 @@ object QueryRequest
 				header = getAuthorizationJWT()
 				mParams["source"] = "$source.user"
 				mParams["translation"] = "include"
+
+				infoHolder?.let {
+					it["user_selection"]?.let { mUserSelection ->
+						if (mUserSelection is HashMap<*, *>)
+						{
+							mParams["user_selection"] = mUserSelection
+						}
+					}
+				}
+
 				"$domainUrl/autoql/${api1}query?key=$apiKey"
 			}
 		}
