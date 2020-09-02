@@ -15,6 +15,11 @@ object SinglentonDashboard
 		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
 	}
 
+	fun releaseDashboard()
+	{
+		aDashboardModel.clear()
+	}
+
 	fun clearDashboard()
 	{
 		val model = getCurrentDashboard()

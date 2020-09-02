@@ -616,13 +616,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
 				bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
 			}
-//			Pair("Log Out", "Login Successful")
 			"Log Out"
 		}
 		else
 		{
 			isEnableLogin(true)
-//			Pair("Authenticate", "Successfully logged out")
 			"Authenticate"
 		}
 

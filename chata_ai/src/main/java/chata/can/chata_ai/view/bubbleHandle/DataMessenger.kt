@@ -1,5 +1,7 @@
 package chata.can.chata_ai.view.bubbleHandle
 
+import chata.can.chata_ai.pojo.SinglentonDashboard
+
 object DataMessenger
 {
 	var projectId = ""
@@ -27,6 +29,8 @@ object DataMessenger
 		password = ""
 		token = ""
 		JWT = ""
+
+		SinglentonDashboard.clearDashboard()
 	}
 
 	fun isDemo() = !isNecessaryLogin || domainUrl.isEmpty()
