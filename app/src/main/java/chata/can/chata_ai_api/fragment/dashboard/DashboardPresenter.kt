@@ -61,6 +61,7 @@ class DashboardPresenter(
 									this[index]?.let { dashboard ->
 										val queryBase = QueryBase(joCurrent).apply {
 											isDashboard = true
+											configQueryBase(dashboard, this, isSecondaryQuery)
 										}
 										if (isSecondaryQuery)
 											dashboard.queryBase2 = queryBase

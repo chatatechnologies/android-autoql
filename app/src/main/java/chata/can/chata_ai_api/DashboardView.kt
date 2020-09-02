@@ -130,6 +130,17 @@ object DashboardView
 	}
 	//endregion
 	//region row support
+	fun getChildContent(context: Context): TextView
+	{
+		return TextView(context).apply {
+			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
+			gravity = GRAVITY_CENTER
+			setTextColor(ContextCompat.getColor(context, R.color.black))
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			id = R.id.tvContent
+		}
+	}
+
 	fun getRowContent(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -139,13 +150,7 @@ object DashboardView
 				id = R.id.ll1
 
 				val llHeader = getHeaderDashboard(context)
-				val tvContent = TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
-					gravity = GRAVITY_CENTER
-					setTextColor(ContextCompat.getColor(context, R.color.black))
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-					id = R.id.tvContent
-				}
+				val tvContent = getChildContent(context)
 
 				addView(llHeader)
 				addView(tvContent)

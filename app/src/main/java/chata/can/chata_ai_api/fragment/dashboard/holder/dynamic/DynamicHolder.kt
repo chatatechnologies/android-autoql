@@ -6,6 +6,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai_api.DashboardView.getChildContent
 import chata.can.chata_ai_api.DashboardView.getChildLoading
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
 import chata.can.chata_ai_api.DashboardView.getChildWebView
@@ -36,7 +37,12 @@ class DynamicHolder(
 					{
 						TypeChatView.LEFT_VIEW ->
 						{
-
+							val view = lls1.searchView(R.id.tvContent)?: run {
+								val view = getChildContent(lls1.context)
+								addView(lls1, view)
+								view
+							}
+							ChildContent(view, dashboard, true)
 						}
 						TypeChatView.SUGGESTION_VIEW ->
 						{
