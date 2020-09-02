@@ -6,6 +6,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai_api.DashboardView.getChildLoading
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
 import chata.can.chata_ai_api.DashboardView.getChildWebView
 import chata.can.chata_ai_api.DashboardView.getExecute
@@ -62,13 +63,15 @@ class DynamicHolder(
 							}
 							ChildNoQuery(vExecute, dashboard, true)
 						}
+						else
+						{
+							addView(lls1, getChildLoading(lls1.context))
+						}
 					}
 					else
 					{
-						var vExecute = lls1.searchView(R.id.tvExecute)
-						if (vExecute == null)
-						{
-							vExecute = getExecute(lls1.context, R.id.tvExecute)
+						lls1.searchView(R.id.tvExecute)?.let {
+							val vExecute = getExecute(lls1.context, R.id.tvExecute)
 							addView(lls1, vExecute)
 						}
 					}
@@ -89,13 +92,15 @@ class DynamicHolder(
 							}
 							ChildNoQuery(vExecute2, dashboard, false)
 						}
+						else
+						{
+							addView(lls2, getChildLoading(lls2.context))
+						}
 					}
 					else
 					{
-						var vExecute2 = lls2.searchView(R.id.tvExecute)
-						if (vExecute2 == null)
-						{
-							vExecute2 = getExecute(lls2.context, R.id.tvExecute)
+						lls2.searchView(R.id.tvExecute)?.let {
+							val vExecute2 = getExecute(lls2.context, R.id.tvExecute)
 							addView(lls2, vExecute2)
 						}
 					}

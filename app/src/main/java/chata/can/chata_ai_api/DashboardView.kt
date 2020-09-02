@@ -96,6 +96,21 @@ object DashboardView
 	}
 	//endregion
 	//region row loading
+	fun getChildLoading(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			id = R.id.rlLoad
+
+			val gifView = GifView(context).apply {
+				val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+				layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
+				layoutParams = layoutParams1
+			}
+			addView(gifView)
+		}
+	}
+
 	fun getRowLoading(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -105,17 +120,7 @@ object DashboardView
 				id = R.id.ll1
 
 				val llHeader = getHeaderDashboard(context)
-				val rlLoad = RelativeLayout(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
-					id = R.id.rlLoad
-
-					val gifView = GifView(context).apply {
-						val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
-						layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
-						layoutParams = layoutParams1
-					}
-					addView(gifView)
-				}
+				val rlLoad = getChildLoading(context)
 
 				addView(llHeader)
 				addView(rlLoad)
