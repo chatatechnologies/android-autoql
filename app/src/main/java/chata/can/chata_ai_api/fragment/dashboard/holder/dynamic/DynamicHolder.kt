@@ -154,11 +154,4 @@ class DynamicHolder(
 			addView(newView)
 		}
 	}
-//	when(typeView)
-//	{
-//		TypeChatView.LEFT_VIEW -> 3
-//		TypeChatView.WEB_VIEW -> 4
-//		TypeChatView.SUGGESTION_VIEW -> 5
-//		else -> 2
-//	}
 }

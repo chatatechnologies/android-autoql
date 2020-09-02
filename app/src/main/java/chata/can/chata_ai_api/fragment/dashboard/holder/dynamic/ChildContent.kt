@@ -22,7 +22,7 @@ class ChildContent(
 			if (isPrimary)
 			{
 				queryBase?.let {
-					tvContent?.text = it.message
+					tvContent?.text = it.contentHTML
 				}
 			}
 			else

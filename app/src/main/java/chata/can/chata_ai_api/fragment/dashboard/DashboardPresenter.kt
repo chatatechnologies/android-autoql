@@ -61,7 +61,7 @@ class DashboardPresenter(
 									this[index]?.let { dashboard ->
 										val queryBase = QueryBase(joCurrent).apply {
 											isDashboard = true
-											configQueryBase(dashboard, this, isSecondaryQuery)
+											typeView = 2
 										}
 										if (isSecondaryQuery)
 											dashboard.queryBase2 = queryBase
@@ -163,18 +163,6 @@ class DashboardPresenter(
 	fun updateModel()
 	{
 		mModel = getCurrentDashboard()
-	}
-
-	private fun initQueryEmpty(
-		dashboard: Dashboard,
-		json: JSONObject = JSONObject(),
-		response: String = ""): QueryBase
-	{
-		val finalJSON = if (response.isEmpty()) json else JSONObject(response)
-		return QueryBase(finalJSON).apply {
-			isDashboard = true
-			dashboard.queryBase = this
-		}
 	}
 
 	private fun checkQueriesDashboard(dashboard: Dashboard): Boolean
