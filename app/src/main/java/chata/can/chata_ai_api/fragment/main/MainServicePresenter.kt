@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.main
 
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
@@ -84,12 +85,23 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 				"callTopics" ->
 				{
 					jsonObject.optJSONArray("items")?.let { jaItems ->
+						val aMainData = QueryBuilderData.aMainData
+						val mMainQuery = QueryBuilderData.mMainQuery
+
 						for (index in 0 until jaItems.length())
 						{
 							val json = jaItems.optJSONObject(index)
-							json.optString("topic")
+							val topic = json.optString("topic", "")
+							aMainData.add(topic)
+
 							json.optJSONArray("queries")?.let { jaQueries ->
-								jaQueries.toString()
+								val aData = ArrayList<String>()
+								for (index2 in 0 until jaQueries.length())
+								{
+									val query = jaQueries.optString(index2) ?: ""
+									aData.add(query)
+								}
+								mMainQuery[topic] = aData
 							}
 						}
 					}

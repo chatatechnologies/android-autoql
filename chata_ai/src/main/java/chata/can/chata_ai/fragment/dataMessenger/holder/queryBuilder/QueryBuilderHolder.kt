@@ -105,23 +105,11 @@ class QueryBuilderHolder(
 		}
 	}
 
-	private fun mainData() =
-		when(DataMessenger.projectId)
-		{
-			"accounting-demo" -> QueryBuilderData.aDataAccounting
-			"spira-demo3" -> QueryBuilderData.aDataSpira
-			else -> QueryBuilderData.aDataAccounting
-		}
+	private fun mainData() = QueryBuilderData.aMainData
 
 	private fun secondaryData(path: String): ArrayList<String>
 	{
-		val data = when(DataMessenger.projectId)
-		{
-			"accounting-demo" -> QueryBuilderData.mQueriesAccounting
-			"spira-demo3" -> QueryBuilderData.mQueriesSpira
-			else -> QueryBuilderData.mQueriesAccounting
-		}
-		return data[path] ?: arrayListOf()
+		return QueryBuilderData.mMainQuery[path] ?: arrayListOf()
 	}
 
 	private fun initListRoot()
