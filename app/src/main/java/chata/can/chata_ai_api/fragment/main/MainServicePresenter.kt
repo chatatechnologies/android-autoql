@@ -31,6 +31,11 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		Authentication.callRelatedQuery(this)
 	}
 
+	fun callTopics()
+	{
+		Authentication.callTopics(this)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
@@ -73,6 +78,20 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 						showAlert("Login Successful", R.drawable.ic_done)
 						isEnableLogin(true)
 						savePersistentData()
+						callTopics()
+					}
+				}
+				"callTopics" ->
+				{
+					jsonObject.optJSONArray("items")?.let { jaItems ->
+						for (index in 0 until jaItems.length())
+						{
+							val json = jaItems.optJSONObject(index)
+							json.optString("topic")
+							json.optJSONArray("queries")?.let { jaQueries ->
+								jaQueries.toString()
+							}
+						}
 					}
 				}
 			}

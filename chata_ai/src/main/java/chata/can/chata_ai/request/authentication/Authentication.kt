@@ -67,4 +67,20 @@ object Authentication
 			listener = listener
 		)
 	}
+
+	fun callTopics(listener: StatusResponse)
+	{
+		val url = "${urlChataIO}${api1}topics?" +
+			"key=${DataMessenger.apiKey}&project_id=${DataMessenger.projectId}"
+		val mAuthorization = getAuthorizationJWT()
+		mAuthorization["Integrator-Domain"] = DataMessenger.domainUrl
+
+		callStringRequest(
+			Request.Method.GET,
+			url,
+			headers = mAuthorization,
+			infoHolder = hashMapOf("nameService" to "callTopics"),
+			listener = listener
+		)
+	}
 }

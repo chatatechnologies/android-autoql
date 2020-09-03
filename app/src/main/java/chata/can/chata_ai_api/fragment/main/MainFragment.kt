@@ -592,6 +592,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		servicePresenter.callRelated()
 	}
 
+	override fun callTopics()
+	{
+		servicePresenter.callTopics()
+	}
+
 	override fun changeAuthenticate(isAuthenticate: Boolean)
 	{
 		this.isAuthenticate = isAuthenticate
