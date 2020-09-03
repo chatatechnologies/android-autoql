@@ -215,7 +215,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val queryDemo = "Total hours utilization by resource category this year"
+				val queryDemo = "Number of jobs this year"
 //				val queryDemo = "Bottom two customers"
 //				val queryDemo = "total revenue by month last year"
 //				val queryDemo = "number of tickets in 2019"

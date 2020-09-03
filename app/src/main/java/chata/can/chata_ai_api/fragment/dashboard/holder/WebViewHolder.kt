@@ -20,10 +20,6 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 
-//	private val rvSplitView = itemView.findViewById<RelativeLayout>(R.id.rvSplitView)
-//	private val webView2 = itemView.findViewById<WebView>(R.id.webView2)
-//	private val rlLoad2 = itemView.findViewById<View>(R.id.rlLoad2)
-
 	override fun onPaint()
 	{
 		super.onPaint()
@@ -40,16 +36,6 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
-//			if (item.splitView)
-//			{
-//				rvSplitView.visibility = View.VISIBLE
-//				iView?.setBackgroundColor(drawerColorPrimary)
-//			}
-//			else
-//			{
-//				rvSplitView.visibility = View.GONE
-//				iView?.setBackgroundColor(drawerBackgroundColor)
-//			}
 			item.queryBase?.run {
 				if (!isLoadingHTML)
 				{
@@ -58,32 +44,10 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			}
 			item.queryBase2?.run {
 				this.toString()
-//				if (!isLoadingHTML)
-//				{
-//					rvSplitView.visibility = View.VISIBLE
-//					setDataWebView(rlLoad2, webView2,this, rvSplitView)
-//				}
-//				else
-//					rvSplitView.visibility = View.GONE
 			}
 		}
 		if (item is QueryBase)
 		{
-//			if (item.isSplitView)
-//			{
-//				if (!item.isLoadingHTML)
-//				{
-//					rvSplitView.visibility = View.VISIBLE
-//					setDataWebView(rlLoad2, webView2, item, rvSplitView)
-//				}
-//				else
-//					rvSplitView.visibility = View.GONE
-//			}
-//			else
-//			{
-//				//Main set data to webView
-//				setDataWebView(rlLoad, webView, item, rlWebView)
-//			}
 			setDataWebView(rlLoad, webView, item, rlWebView)
 		}
 	}

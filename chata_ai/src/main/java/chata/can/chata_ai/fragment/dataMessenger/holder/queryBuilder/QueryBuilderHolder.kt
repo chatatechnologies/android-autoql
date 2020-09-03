@@ -28,7 +28,6 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 
 class QueryBuilderHolder(
 	view: View,

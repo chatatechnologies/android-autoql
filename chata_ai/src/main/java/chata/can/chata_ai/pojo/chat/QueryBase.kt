@@ -101,14 +101,24 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					for (index2 in 0 until jaLevel2.length())
 					{
 						val cell = if (jaLevel2.isNull(index2)) ""
-						else jaLevel2.optString(index2, "")
+						else
+						{
+							val cellObj = jaLevel2.opt(index2)
+							if (cellObj is Double)
+							{
+								cellObj.toBigDecimal().toPlainString()
+							}
+							else
+							{
+								cellObj.toString()
+							}
+						}
 						newRow.add(cell)
 					}
 					aRows.add(newRow)
 				}
 			}
 			//endregion
-
 			//region columns
 			it.optJSONArray("columns")?.let {
 				jaColumns ->
