@@ -35,15 +35,6 @@ class DynamicHolder(
 				dashboard.queryBase?.let { queryBase ->
 					when(queryBase.typeView)
 					{
-						TypeChatView.SUPPORT ->
-						{
-							val view = lls1.searchView(R.id.tvContent)?: run {
-								val view = getChildContent(lls1.context)
-								addView(lls1, view)
-								view
-							}
-							ChildSupport(view, dashboard, true)
-						}
 						TypeChatView.LEFT_VIEW ->
 						{
 							val view = lls1.searchView(R.id.tvContent)?: run {
@@ -52,6 +43,15 @@ class DynamicHolder(
 								view
 							}
 							ChildContent(view, dashboard, true)
+						}
+						TypeChatView.SUPPORT ->
+						{
+							val view = lls1.searchView(R.id.tvContent)?: run {
+								val view = getChildContent(lls1.context)
+								addView(lls1, view)
+								view
+							}
+							ChildSupport(view, dashboard, true)
 						}
 						TypeChatView.SUGGESTION_VIEW ->
 						{
@@ -92,8 +92,24 @@ class DynamicHolder(
 					}
 				}
 
-				dashboard.queryBase2?.let {
-
+				dashboard.queryBase2?.let { queryBase ->
+					when(queryBase.typeView)
+					{
+						TypeChatView.LEFT_VIEW ->
+						{
+							val view = lls2.searchView(R.id.tvContent)?: run {
+								val view = getChildContent(lls2.context)
+								addView(lls2, view)
+								view
+							}
+							ChildContent(view, dashboard, false)
+						}
+						TypeChatView.SUPPORT ->
+						{
+							toString()
+						}
+						else -> {}
+					}
 				} ?: run {
 					if (dashboard.isWaitingData2)
 					{

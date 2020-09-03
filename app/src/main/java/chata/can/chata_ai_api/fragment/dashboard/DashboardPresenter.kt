@@ -229,7 +229,6 @@ class DashboardPresenter(
 							{
 								val newKey = "${key.first}_${key.second}"
 								mPartial[newKey]?.let { dashboard ->
-									//model.add(dashboard)
 									mModel.add(dashboard)
 								}
 							}

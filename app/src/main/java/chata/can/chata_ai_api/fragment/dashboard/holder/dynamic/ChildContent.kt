@@ -28,7 +28,7 @@ class ChildContent(
 			else
 			{
 				queryBase2?.let {
-					tvContent?.text = it.message
+					tvContent?.text = it.contentHTML
 				}
 			}
 		}
