@@ -42,7 +42,7 @@ class DynamicHolder(
 								addView(lls1, view)
 								view
 							}
-							ChildContent(view, dashboard, true)
+							ChildContent.onPain(view, dashboard, true)
 						}
 						TypeChatView.SUPPORT ->
 						{
@@ -76,7 +76,7 @@ class DynamicHolder(
 								vExecute = getExecute(lls1.context, R.id.tvNoQuery)
 								addView(lls1, vExecute)
 							}
-							ChildNoQuery(vExecute, dashboard, true)
+							ChildNoQuery.onPaint(vExecute, dashboard, true)
 						}
 						else
 						{
@@ -85,10 +85,12 @@ class DynamicHolder(
 					}
 					else
 					{
-						lls1.searchView(R.id.tvExecute)?:run {
+						val vExecute = lls1.searchView(R.id.tvExecute)?:run {
 							val vExecute = getExecute(lls1.context, R.id.tvExecute)
 							addView(lls1, vExecute)
+							vExecute
 						}
+						ChildExecute.onPaint(vExecute)
 					}
 				}
 
@@ -102,7 +104,7 @@ class DynamicHolder(
 								addView(lls2, view)
 								view
 							}
-							ChildContent(view, dashboard, false)
+							ChildContent.onPain(view, dashboard, false)
 						}
 						TypeChatView.SUPPORT ->
 						{
@@ -121,7 +123,7 @@ class DynamicHolder(
 								vExecute2 = getExecute(lls2.context, R.id.tvNoQuery)
 								addView(lls2, vExecute2)
 							}
-							ChildNoQuery(vExecute2, dashboard, false)
+							ChildNoQuery.onPaint(vExecute2, dashboard, false)
 						}
 						else
 						{
@@ -130,10 +132,12 @@ class DynamicHolder(
 					}
 					else
 					{
-						lls2.searchView(R.id.tvExecute)?:run {
+						val vExecute2 = lls2.searchView(R.id.tvExecute)?:run {
 							val vExecute2 = getExecute(lls2.context, R.id.tvExecute)
 							addView(lls2, vExecute2)
+							vExecute2
 						}
+						ChildExecute.onPaint(vExecute2)
 					}
 				}
 			}

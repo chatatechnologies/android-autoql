@@ -7,44 +7,30 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
-class ChildNoQuery(
-	view: View,
-	private val dashboard: Dashboard,
-	private val isPrimary: Boolean
-)
-{
-	private val noQueryText = "No query was supplied for this title"
-	private val tvNoQuery = view.findViewById<TextView>(R.id.tvNoQuery)?: null
+object ChildNoQuery {
+	private const val noQueryText = "No query was supplied for this title"
 
-	init {
-		onPaint()
-		onBind()
-	}
-
-	private fun onPaint()
+	fun onPaint(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
-		tvNoQuery?.let {
-			val drawerColorPrimary =
-				ContextCompat.getColor(it.context, ThemeColor.currentColor.drawerColorPrimary)
-			it.setTextColor(drawerColorPrimary)
-		}
-	}
+		view.findViewById<TextView>(R.id.tvNoQuery)?.let { tvNoQuery ->
+			val drawerColorPrimary = ContextCompat.getColor(
+				tvNoQuery.context, ThemeColor.currentColor.drawerColorPrimary)
+			tvNoQuery.setTextColor(drawerColorPrimary)
 
-	private fun onBind()
-	{
-		dashboard.run {
-			if (isPrimary)
-			{
-				if (query.isEmpty())
+			dashboard.run {
+				if (isPrimary)
 				{
-					tvNoQuery?.text = noQueryText
+					if (query.isEmpty())
+					{
+						tvNoQuery.text = noQueryText
+					}
 				}
-			}
-			else
-			{
-				if (secondQuery.isEmpty())
+				else
 				{
-					tvNoQuery?.text = noQueryText
+					if (secondQuery.isEmpty())
+					{
+						tvNoQuery.text = noQueryText
+					}
 				}
 			}
 		}
