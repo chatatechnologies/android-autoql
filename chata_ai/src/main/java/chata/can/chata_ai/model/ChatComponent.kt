@@ -18,14 +18,13 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 					val jaColumns = optJSONArray("columns") ?: JSONArray()
 					val finalType = if (type.isEmpty()) optString("display_type") else type
 
-					var displayType = enumValueOfOrNull<ChatComponentType>(finalType) ?: run {
+					var displayType = enumValueOfOrNull(finalType) ?: run {
 						when(finalType)
 						{
 							"data" -> ChatComponentType.WEB_VIEW
 							"table" -> ChatComponentType.TABLE
 							else -> ChatComponentType.UNKNOWN
 						}
-
 					}
 
 					val idQuery = optString("query_id", "")
@@ -87,7 +86,6 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 					{
 						val existsDatePivot = isSupportPivot(aColumnType)
 						val supportTri = columnsFinal.size == 3
-						var datePivotStr = ""
 						var dataPivotStr = ""
 						var tableBasicStr = ""
 						val drills = ArrayList<String>()
@@ -113,7 +111,6 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 
 						webView = """
 							${DashboardMaker.getHeader(supportTri)}
-							$datePivotStr
 							$tableBasicStr
 							${DashboardMaker.getHTMLFooter(pRowFinal.first, columnsFinal, aColumnType, drills, type)}
 						"""

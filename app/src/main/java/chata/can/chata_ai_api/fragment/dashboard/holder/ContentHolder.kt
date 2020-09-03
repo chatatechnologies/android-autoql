@@ -35,8 +35,8 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					it.text = contentHTML
 					item.queryBase?.let {
 						simpleQuery ->
-						it.setOnClickListener {
-							DrillDownDialog(it.context, simpleQuery).show()
+						it.setOnClickListener { view ->
+							DrillDownDialog(view.context, simpleQuery).show()
 						}
 					}
 				}

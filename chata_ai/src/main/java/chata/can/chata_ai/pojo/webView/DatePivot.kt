@@ -230,9 +230,9 @@ object DatePivot
 		with(aDates)
 		{
 			val aDateDistinct = distinct()
-			aDates.clear()
-			aDates.addAll(aDateDistinct)
-			aDates.sort()
+			clear()
+			addAll(aDateDistinct)
+			sort()
 		}
 		//endregion
 
