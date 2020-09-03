@@ -10,7 +10,7 @@ import chata.can.chata_ai_api.R
 object ChildNoQuery {
 	private const val noQueryText = "No query was supplied for this title"
 
-	fun onPaint(view: View, dashboard: Dashboard, isPrimary: Boolean)
+	fun onBind(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
 		view.findViewById<TextView>(R.id.tvNoQuery)?.let { tvNoQuery ->
 			val drawerColorPrimary = ContextCompat.getColor(

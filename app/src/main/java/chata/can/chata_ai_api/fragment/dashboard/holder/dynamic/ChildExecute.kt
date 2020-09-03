@@ -8,7 +8,7 @@ import chata.can.chata_ai_api.R
 
 object ChildExecute
 {
-	fun onPaint(view: View)
+	fun onBind(view: View)
 	{
 		view.findViewById<TextView>(R.id.tvExecute)?.let {
 			val drawerColorPrimary = ContextCompat.getColor(

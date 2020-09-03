@@ -8,30 +8,24 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
-class ChildWebView(
-	view: View,
-	private val queryBase: QueryBase ?= null,
-	tData: Triple<Int, Int, Int>
-)
-{
-	private val rlWebView = view.findViewById<RelativeLayout>(tData.first)?: null
-	private val webView = view.findViewById<WebView>(tData.second)?: null
-	private val rlLoad = view.findViewById<View>(tData.third)?: null
-
-	init {
-		onBind()
-	}
-
-	fun onBind()
+object ChildWebView {
+	fun onBind(view: View, queryBase: QueryBase ?= null, tData: Triple<Int, Int, Int>)
 	{
+		val rlWebView = view.findViewById<RelativeLayout>(tData.first)?: null
+		val webView = view.findViewById<WebView>(tData.second)?: null
+		val rlLoad = view.findViewById<View>(tData.third)?: null
+
 		queryBase?.let {
 			rlWebView?.let { rlWebView ->
-				if (!queryBase.isLoadingHTML)
-				{
-					setDataWebView(rlLoad, webView, queryBase, rlWebView)
+				webView?.let { webView ->
+					rlLoad?.let { rlLoad ->
+						if (!queryBase.isLoadingHTML)
+						{
+							setDataWebView(rlLoad, webView, queryBase, rlWebView)
+						}
+					}
 				}
 			}
 		}

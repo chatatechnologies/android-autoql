@@ -42,7 +42,7 @@ class DynamicHolder(
 								addView(lls1, view)
 								view
 							}
-							ChildContent.onPain(view, dashboard, true)
+							ChildContent.onBind(view, dashboard, true)
 						}
 						TypeChatView.SUPPORT ->
 						{
@@ -51,7 +51,7 @@ class DynamicHolder(
 								addView(lls1, view)
 								view
 							}
-							ChildSupport(view, dashboard, true)
+							ChildSupport.onBind(view, dashboard, true)
 						}
 						TypeChatView.SUGGESTION_VIEW ->
 						{
@@ -61,7 +61,7 @@ class DynamicHolder(
 								vSuggestion = getChildSuggestion(lls1.context)
 								addView(lls1, vSuggestion)
 							}
-							ChildSuggestion(vSuggestion, dashboard, presenter)
+							ChildSuggestion.onBind(vSuggestion, dashboard, presenter)
 						}
 						else -> { }
 					}
@@ -76,7 +76,7 @@ class DynamicHolder(
 								vExecute = getExecute(lls1.context, R.id.tvNoQuery)
 								addView(lls1, vExecute)
 							}
-							ChildNoQuery.onPaint(vExecute, dashboard, true)
+							ChildNoQuery.onBind(vExecute, dashboard, true)
 						}
 						else
 						{
@@ -90,7 +90,7 @@ class DynamicHolder(
 							addView(lls1, vExecute)
 							vExecute
 						}
-						ChildExecute.onPaint(vExecute)
+						ChildExecute.onBind(vExecute)
 					}
 				}
 
@@ -104,7 +104,7 @@ class DynamicHolder(
 								addView(lls2, view)
 								view
 							}
-							ChildContent.onPain(view, dashboard, false)
+							ChildContent.onBind(view, dashboard, false)
 						}
 						TypeChatView.SUPPORT ->
 						{
@@ -123,7 +123,7 @@ class DynamicHolder(
 								vExecute2 = getExecute(lls2.context, R.id.tvNoQuery)
 								addView(lls2, vExecute2)
 							}
-							ChildNoQuery.onPaint(vExecute2, dashboard, false)
+							ChildNoQuery.onBind(vExecute2, dashboard, false)
 						}
 						else
 						{
@@ -137,7 +137,7 @@ class DynamicHolder(
 							addView(lls2, vExecute2)
 							vExecute2
 						}
-						ChildExecute.onPaint(vExecute2)
+						ChildExecute.onBind(vExecute2)
 					}
 				}
 			}
@@ -163,7 +163,7 @@ class DynamicHolder(
 								childWebView = getChildWebView(first.context, second)
 								addView(first, childWebView)
 							}
-							ChildWebView(childWebView, item, tData.third)
+							ChildWebView.onBind(childWebView, item, tData.third)
 						}
 					}
 				}

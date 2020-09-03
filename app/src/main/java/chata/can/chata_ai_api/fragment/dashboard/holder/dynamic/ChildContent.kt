@@ -8,7 +8,7 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
 object ChildContent {
-	fun onPain(view: View, dashboard: Dashboard, isPrimary: Boolean)
+	fun onBind(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
 		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
 			val drawerColorPrimary = ContextCompat.getColor(
