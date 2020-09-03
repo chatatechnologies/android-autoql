@@ -42,7 +42,7 @@ class DashboardPresenter(
 						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431"
 						if (code == 400 && isSuggestion)
 						{
-							val mData = hashMapOf(
+							val mData = hashMapOf<String, Any>(
 								"query" to query,
 								"title" to title,
 								"key" to key,
@@ -312,7 +312,7 @@ class DashboardPresenter(
 	{
 		with(dashboard)
 		{
-			val mInfoHolder = hashMapOf(
+			val mInfoHolder = hashMapOf<String, Any>(
 				"key" to key,
 				"isSplitView" to splitView,
 				"title" to title,

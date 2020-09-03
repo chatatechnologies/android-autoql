@@ -17,7 +17,7 @@ object QueryRequest
 	{
 		var header: HashMap<String, String> ?= null
 
-		val mParams = hashMapOf(
+		val mParams = hashMapOf<String, Any>(
 			"text" to query,
 			//"debug" to true,
 			"test" to true)

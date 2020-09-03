@@ -86,7 +86,7 @@ object TableTriBuilder
 			}
 
 //			val aNewRow = arrayListOf(indexY, indexX, value.toDoubleNotNull())
-			val aNewRow = arrayListOf(indexX, indexY, value.toDoubleNotNull())
+			val aNewRow = arrayListOf<Any>(indexX, indexY, value.toDoubleNotNull())
 			aDataTable.add(aNewRow)
 		}
 		return aDataTable
