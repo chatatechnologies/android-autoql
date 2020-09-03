@@ -63,6 +63,12 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun onResume()
 	{
 		super.onResume()
+		if (SinglentonDashboard.isEmpty())
+		{
+			isQueryClean = true
+			isAutomatic = false
+			isLoaded = false
+		}
 		loadDashboard()
 		if (isAutomatic)
 		{

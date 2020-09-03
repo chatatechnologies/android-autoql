@@ -30,7 +30,7 @@ object DataMessenger
 		token = ""
 		JWT = ""
 
-		SinglentonDashboard.clearDashboard()
+		SinglentonDashboard.releaseDashboard()
 	}
 
 	fun isDemo() = !isNecessaryLogin || domainUrl.isEmpty()

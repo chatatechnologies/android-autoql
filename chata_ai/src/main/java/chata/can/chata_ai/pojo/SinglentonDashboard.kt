@@ -20,6 +20,8 @@ object SinglentonDashboard
 		aDashboardModel.clear()
 	}
 
+	fun isEmpty() = aDashboardModel.isEmpty()
+
 	fun clearDashboard()
 	{
 		val model = getCurrentDashboard()
