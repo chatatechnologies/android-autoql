@@ -215,11 +215,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (BuildConfig.DEBUG)
 			{
-				val queryDemo = "all tickets"
-//				val queryDemo = "Bottom two customers"
 //				val queryDemo = "total revenue by month last year"
-//				val queryDemo = "number of tickets in 2019"
-//				val queryDemo = ""
+				val queryDemo = "all tickets"
+//				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
 			}
 			ivMicrophone.background = pDrawable.first

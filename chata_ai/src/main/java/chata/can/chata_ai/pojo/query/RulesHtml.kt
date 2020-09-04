@@ -3,74 +3,66 @@ package chata.can.chata_ai.pojo.query
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
-object RulesHtml
+class RulesHtml(
+	private val aColumns: ArrayList<ColumnQuery>,
+	private val countColumn: CountColumn)
 {
-	var countDollarAMT = 0
-	var countQuantity = 0
-	var countPercent = 0
-	var countNumber = 0
-	var countDate = 0
-	var countDateString = 0
-	var countString = 0
-
-	fun getSupportCharts(aColumns: ArrayList<ColumnQuery>): Int
+	fun getSupportCharts(): SupportCase
 	{
-		init()
+		countColumn.clearData()
 		getDifferentTypes(aColumns)
-		val case: SupportCase
+		var case: SupportCase ?= null
 
-		when
-		{
-			aColumns.size > 2 ->
+		countColumn.run {
+			when
 			{
-				//Case 5; bar, line, column, pie
-				if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
+				aColumns.size == 2 ->
 				{
-					case = SupportCase.CASE_5
+					//case 1; bar, line, column, pie; 1 series
+					if (countGroupable == 1 && numberColumns() == 1)
+					{
+						case = SupportCase.CASE_1
+					}
+				}
+				aColumns.size > 2 ->
+				{
+					//Case 5; bar, line, column, pie
+					if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
+					{
+						case = SupportCase.CASE_5
+					}
 				}
 			}
 		}
-		return 0
+		return case ?: SupportCase.NO_CASE
 	}
 
 	//region internal methods
-	private fun init()
-	{
-		countDollarAMT = 0
-		countQuantity = 0
-		countPercent = 0
-		countNumber = 0
-		countDate = 0
-		countDateString = 0
-		countString = 0
-	}
-
 	private fun getDifferentTypes(aColumns: ArrayList<ColumnQuery>)
 	{
-		for (column in aColumns)
-		{
-			when(column.type)
+		countColumn.run {
+			for (column in aColumns)
 			{
-				TypeDataQuery.DOLLAR_AMT -> countDollarAMT++
-				TypeDataQuery.QUANTITY -> countQuantity++
-				TypeDataQuery.PERCENT -> countPercent++
-				TypeDataQuery.NUMBER -> countNumber++
-				TypeDataQuery.DATE -> countDate++
-				TypeDataQuery.DATE_STRING -> countDateString++
-				TypeDataQuery.STRING -> countString++
-				else -> {}
+				//region column types
+				when(column.type)
+				{
+					TypeDataQuery.DOLLAR_AMT -> countDollarAMT++
+					TypeDataQuery.QUANTITY -> countQuantity++
+					TypeDataQuery.PERCENT -> countPercent++
+					TypeDataQuery.NUMBER -> countNumber++
+					TypeDataQuery.DATE -> countDate++
+					TypeDataQuery.DATE_STRING -> countDateString++
+					TypeDataQuery.STRING -> countString++
+					else -> {}
+				}
+				//endregion
+
+				if (column.isGroupable)
+				{
+					countGroupable++
+				}
 			}
 		}
-	}
-
-	private fun numberColumns() = countDollarAMT + countQuantity + countPercent + countNumber
-
-	private fun isUseOnlyNumber(): Boolean
-	{
-		val isDollar = countDollarAMT > 0 && countQuantity == 0 && countPercent == 0
-		val isQuality = countDollarAMT == 0 && countQuantity > 0 && countPercent == 0
-		val isPercent = countDollarAMT == 0 && countQuantity == 0 && countPercent > 0
-		return isDollar ||isQuality || isPercent
 	}
 	//endregion
 }

@@ -9,6 +9,7 @@ import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
+import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
@@ -184,7 +185,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				}
 			}
 
-			RulesHtml.getSupportCharts(aColumn)
+			//val supportCase = RulesHtml(aColumn, CountColumn())
 
 			DoAsync({
 				isLoadingHTML = true
