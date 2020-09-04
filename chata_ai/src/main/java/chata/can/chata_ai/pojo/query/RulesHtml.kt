@@ -5,50 +5,72 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object RulesHtml
 {
+	var countDollarAMT = 0
+	var countQuantity = 0
+	var countPercent = 0
+	var countNumber = 0
+	var countDate = 0
+	var countDateString = 0
+	var countString = 0
+
 	fun getSupportCharts(aColumns: ArrayList<ColumnQuery>): Int
 	{
-		val aTypes = getDifferentTypes(aColumns)
-		val isNumber = isUniqueNumber(aTypes)
+		init()
+		getDifferentTypes(aColumns)
+		val case: SupportCase
 
+		when
+		{
+			aColumns.size > 2 ->
+			{
+				//Case 5; bar, line, column, pie
+				if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
+				{
+					case = SupportCase.CASE_5
+				}
+			}
+		}
 		return 0
 	}
 
 	//region internal methods
-	fun getDifferentTypes(aColumns: ArrayList<ColumnQuery>): ArrayList<TypeDataQuery>
+	private fun init()
 	{
-		val aTypes = ArrayList<TypeDataQuery>()
-
-		for (column in aColumns)
-		{
-			if (column.type !in aTypes)
-			{
-				aTypes.add(column.type)
-			}
-		}
-		return aTypes
+		countDollarAMT = 0
+		countQuantity = 0
+		countPercent = 0
+		countNumber = 0
+		countDate = 0
+		countDateString = 0
+		countString = 0
 	}
 
-	fun isUniqueNumber(aTypes: ArrayList<TypeDataQuery>): Boolean
+	private fun getDifferentTypes(aColumns: ArrayList<ColumnQuery>)
 	{
-		//DOLLAR_AMT
-		var countDollarAMT = 0
-		//QUANTITY
-		var countQuantity = 0
-		//PERCENT
-		var countPercent = 0
-
-		for (type in aTypes)
+		for (column in aColumns)
 		{
-			when(type)
+			when(column.type)
 			{
 				TypeDataQuery.DOLLAR_AMT -> countDollarAMT++
 				TypeDataQuery.QUANTITY -> countQuantity++
 				TypeDataQuery.PERCENT -> countPercent++
+				TypeDataQuery.NUMBER -> countNumber++
+				TypeDataQuery.DATE -> countDate++
+				TypeDataQuery.DATE_STRING -> countDateString++
+				TypeDataQuery.STRING -> countString++
 				else -> {}
 			}
 		}
+	}
 
-		return false
+	private fun numberColumns() = countDollarAMT + countQuantity + countPercent + countNumber
+
+	private fun isUseOnlyNumber(): Boolean
+	{
+		val isDollar = countDollarAMT > 0 && countQuantity == 0 && countPercent == 0
+		val isQuality = countDollarAMT == 0 && countQuantity > 0 && countPercent == 0
+		val isPercent = countDollarAMT == 0 && countQuantity == 0 && countPercent > 0
+		return isDollar ||isQuality || isPercent
 	}
 	//endregion
 }
