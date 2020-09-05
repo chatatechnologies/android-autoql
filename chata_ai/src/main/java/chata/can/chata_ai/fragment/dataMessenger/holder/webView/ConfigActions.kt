@@ -36,6 +36,7 @@ object ConfigActions
 		R.id.ivBubble)
 
 	/**
+	 * CASE_1
 	 * configActions = 4
 	 */
 	val biConfigReduce = arrayListOf(

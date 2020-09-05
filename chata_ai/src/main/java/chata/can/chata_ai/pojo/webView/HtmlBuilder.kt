@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.toCapitalColumn
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.ConfigActions
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -22,7 +23,12 @@ object HtmlBuilder
 
 		var posColumnX = 0
 		var posColumnY = 1
+		var isTriConfig = false
 		//region define data with support Case
+		/**
+		 * configAllow in false is bi dimensional
+		 * configAllow in true is tri dimensional
+		 */
 		when(queryBase.supportCase)
 		{
 			SupportCase.CASE_1 ->
@@ -32,34 +38,35 @@ object HtmlBuilder
 
 				posColumnX = aGroupable[0]
 				posColumnY = aNumber[0]
+				queryBase.configActions = 4
 			}
 			SupportCase.CASE_5 ->
 			{
 
 			}
-			else -> {}
+			else ->
+			{
+				isTriConfig = true
+			}
 		}
-
 		//endregion
 
 		//TODO CHECK SUPPORT CASES
-		val configAllow = aColumn.size == 3
-
 		with(Categories)
 		{
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
-					true, hasQuotes = true, allowRepeat = !configAllow))
+					true, hasQuotes = true, allowRepeat = !isTriConfig))
 			//region xAxis
 			queryBase.aXAxis = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
-					true, hasQuotes = false, allowRepeat = !configAllow))
+					true, hasQuotes = false, allowRepeat = !isTriConfig))
 			//endregion
 			val aCatY = if (aColumn.size > posColumnY)
 			{
 				buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !configAllow))
+						true, hasQuotes = true, allowRepeat = !isTriConfig))
 			}
 			else
 			{
@@ -69,7 +76,7 @@ object HtmlBuilder
 			{
 				buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !configAllow))
+						true, hasQuotes = true, allowRepeat = !isTriConfig))
 			}
 			else ArrayList()
 
@@ -83,18 +90,18 @@ object HtmlBuilder
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
 				buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !configAllow)).toString()
+						true, hasQuotes = true, allowRepeat = !isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.drillTableY = if (aColumn.size > posColumnY) {
 				buildCategoryByPosition(Category(aRows, aColumn[posColumnY],
-					posColumnY, true, hasQuotes = true, allowRepeat = configAllow)).toString()
+					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
-			if (configAllow)
+			if (isTriConfig)
 			{
 				val isDate0 = aColumn[0].type == TypeDataQuery.DATE
 				val isDate1 = aColumn[1].type == TypeDataQuery.DATE
@@ -115,13 +122,13 @@ object HtmlBuilder
 						dataForWebView.datePivot = pPivot.first
 						dataForWebView.rowsPivot = pPivot.second
 
-						queryBase.configActions = 2
+						//queryBase.configActions = 2
 					}
 					else
 					{
 						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
 						dataForWebView.rowsPivot = 180
-						queryBase.configActions = 3
+//						queryBase.configActions = 3
 					}
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
@@ -136,30 +143,30 @@ object HtmlBuilder
 						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
 							aRows, aColumn,queryBase.mIndexColumn,true)
 						queryBase.isTriInBi = true
-						queryBase.configActions = 6
+//						queryBase.configActions = 6
 					}
 				}
 
-				if (queryBase.configActions == 2)
-				{
-					val aDataXAxis = ArrayList<String>()
-					val aDataYAxis = ArrayList<String>()
-
-					for (row in aRows)
-					{
-						if (row.size == 3)
-							aDataXAxis.add(row[1])
-						aDataYAxis.add(row[2])
-					}
-
-					val title1 = aColumn[0].name
-					val title2 = aColumn[1].name
-					dataForWebView.catYS = "[{name:\"${title1.toCapitalColumn()}\", data:$aDataXAxis}," +
-						"{name:\"${title2.toCapitalColumn()}\", data:$aDataYAxis}]"
-					queryBase.isContrast = true
-					queryBase.isTri = true
-					dataForWebView.isBi = false
-				}
+//				if (queryBase.configActions == 2)
+//				{
+//					val aDataXAxis = ArrayList<String>()
+//					val aDataYAxis = ArrayList<String>()
+//
+//					for (row in aRows)
+//					{
+//						if (row.size == 3)
+//							aDataXAxis.add(row[1])
+//						aDataYAxis.add(row[2])
+//					}
+//
+//					val title1 = aColumn[0].name
+//					val title2 = aColumn[1].name
+//					dataForWebView.catYS = "[{name:\"${title1.toCapitalColumn()}\", data:$aDataXAxis}," +
+//						"{name:\"${title2.toCapitalColumn()}\", data:$aDataYAxis}]"
+//					queryBase.isContrast = true
+//					queryBase.isTri = true
+//					dataForWebView.isBi = false
+//				}
 			}
 			else
 			{
@@ -167,18 +174,18 @@ object HtmlBuilder
 					DatePivot.buildDateString(aRows, aColumn)
 				else DatePivot.buildBi(aRows, aColumn)
 
-				queryBase.configActions = 1
+//				queryBase.configActions = 1
 
 				dataForWebView.catYS = aCatYS.toString()
 				dataForWebView.dataChartBi = Table.generateDataTable(
 					aRows, aColumn,queryBase.mIndexColumn,true)
 
-				queryBase.configActions = when(aColumn.size)
-				{
-					2 -> 4
-					3 -> 5
-					else -> 0
-				}
+//				queryBase.configActions = when(aColumn.size)
+//				{
+//					2 -> 4
+//					3 -> 5
+//					else -> 0
+//				}
 			}
 		}
 
