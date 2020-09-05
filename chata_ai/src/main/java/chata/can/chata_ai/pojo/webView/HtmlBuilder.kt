@@ -20,13 +20,18 @@ object HtmlBuilder
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
+		var posColumnX = 0
+		var posColumnY = 1
 		//region define data with support Case
 		when(queryBase.supportCase)
 		{
 			SupportCase.CASE_1 ->
 			{
-				val aIndices = SearchColumn.getGroupableIndices(queryBase.aColumn)
+				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 1)
+				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
 
+				posColumnX = aGroupable[0]
+				posColumnY = aNumber[0]
 			}
 			SupportCase.CASE_5 ->
 			{
@@ -42,9 +47,6 @@ object HtmlBuilder
 
 		with(Categories)
 		{
-			val posColumnX = queryBase.mIndexColumn[0] ?: 0//posColumnX
-			val posColumnY = queryBase.mIndexColumn[1] ?: 1//posColumnY
-
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !configAllow))
