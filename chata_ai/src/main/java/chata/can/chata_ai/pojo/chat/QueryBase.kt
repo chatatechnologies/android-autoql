@@ -11,6 +11,7 @@ import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
+import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
@@ -27,7 +28,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var displayType = ""
 	private var interpretation = ""
 
+	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
+	//TODO REMOVE
 	var mIndexColumn = linkedMapOf<Int, Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
@@ -185,8 +188,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				}
 			}
 
-			//val supportCase = RulesHtml(aColumn, CountColumn())
-
 			DoAsync({
 				isLoadingHTML = true
 				when
@@ -204,17 +205,16 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					}
 					else ->
 					{
-						//region generate html CODE
-//						var otherPart = ""
+						//region generate contentHTML
+						val rulesHTML = RulesHtml(aColumn, CountColumn())
+						supportCase = rulesHTML.getSupportCharts()
+
 						val dataForWebView = HtmlBuilder.build(this)
 						if (displayType != "data")
 						{
 							dataForWebView.type = displayType
 						}
-//						if (otherPart.isNotEmpty())
-//						{
-//							dataForWebView.secondaryPart = otherPart
-//						}
+
 						when(aColumn.size)
 						{
 							2, 3 ->

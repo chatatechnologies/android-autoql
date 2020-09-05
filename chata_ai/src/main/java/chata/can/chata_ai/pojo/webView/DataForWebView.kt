@@ -20,5 +20,9 @@ class DataForWebView(
 	var xAxis = ""
 	var yAxis = ""
 
-	var secondaryPart = ""
+	//new config html
+	var indexGroupable1 = -1
+	var indexGroupable2 = -1
+	var indexNumber = -1
+	//
 }

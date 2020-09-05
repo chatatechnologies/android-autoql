@@ -3,37 +3,16 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.pojo.query.SearchColumn
+import chata.can.chata_ai.pojo.query.SupportCase
 import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
-	fun getByParts(queryBase: QueryBase): String
-	{
-		with(queryBase)
-		{
-			return when(queryBase.displayType)
-			{
-				"table" ->
-				{
-					TableHtmlBuilder.buildTable(
-						aRows,
-						aColumn,
-						queryBase.mIndexColumn,
-						"idTableBasic2").first
-				}
-				else ->
-				{
-					""
-				}
-			}
-		}
-	}
-
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
-
 		val dataForWebView = DataForWebView()
 
 		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
@@ -41,6 +20,24 @@ object HtmlBuilder
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
+		//region define data with support Case
+		when(queryBase.supportCase)
+		{
+			SupportCase.CASE_1 ->
+			{
+				val aIndices = SearchColumn.getGroupableIndices(queryBase.aColumn)
+
+			}
+			SupportCase.CASE_5 ->
+			{
+
+			}
+			else -> {}
+		}
+
+		//endregion
+
+		//TODO CHECK SUPPORT CASES
 		val configAllow = aColumn.size == 3
 
 		with(Categories)
@@ -168,11 +165,6 @@ object HtmlBuilder
 					DatePivot.buildDateString(aRows, aColumn)
 				else DatePivot.buildBi(aRows, aColumn)
 
-//				with(dataForWebView)
-//				{
-//					datePivot = pData.first
-//					rowsPivot = pData.second
-//				}
 				queryBase.configActions = 1
 
 				dataForWebView.catYS = aCatYS.toString()
