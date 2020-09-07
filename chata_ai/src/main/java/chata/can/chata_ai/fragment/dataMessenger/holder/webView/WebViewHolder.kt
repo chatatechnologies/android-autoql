@@ -14,7 +14,6 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
@@ -76,7 +75,6 @@ class WebViewHolder(
 		}
 
 		llCharts?.backgroundGrayWhite()
-		setColorFilters()
 		rlDelete?.let {
 			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
@@ -235,22 +233,6 @@ class WebViewHolder(
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
-	}
-
-	private fun setColorFilters()
-	{
-		ivTable?.setColorFilter()
-		ivBar?.setColorFilter()
-		ivColumn?.setColorFilter()
-		ivLine?.setColorFilter()
-		ivPie?.setColorFilter()
-		ivPivot?.setColorFilter()
-		ivHeat?.setColorFilter()
-		ivBubble?.setColorFilter()
-		ivStackedBar?.setColorFilter()
-		ivStackedColumn?.setColorFilter()
-		ivStackedArea?.setColorFilter()
-		ivDelete?.setColorFilter()
 	}
 
 	private fun callAction(iv: ImageView?)

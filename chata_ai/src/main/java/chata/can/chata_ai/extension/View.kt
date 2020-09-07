@@ -1,10 +1,8 @@
 package chata.can.chata_ai.extension
 
 import android.animation.ObjectAnimator
-import android.graphics.PorterDuff
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -20,13 +18,6 @@ fun EditText.setOnTextChanged(listener: (String) -> Unit)
 			}
 		}
 	)
-}
-
-fun ImageView.setColorFilter()
-{
-	setColorFilter(
-		ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary),
-		PorterDuff.Mode.SRC_ATOP)
 }
 
 fun View.backgroundGrayWhite(iCornerRadius: Float = 18f, iWidthRadius: Int = 1)

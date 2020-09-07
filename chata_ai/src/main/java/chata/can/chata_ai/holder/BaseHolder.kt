@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -54,7 +53,6 @@ open class BaseHolder(
 			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
 		}
-		ivDelete?.setColorFilter()
 
 		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
 		tvContent.startAnimation(animation)

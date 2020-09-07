@@ -18,7 +18,6 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.setColorFilter
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -56,7 +55,6 @@ class SuggestionHolder(
 			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
 		}
-		ivDelete?.setColorFilter()
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
