@@ -53,6 +53,7 @@ class WebViewHolder(
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
+	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
@@ -75,10 +76,11 @@ class WebViewHolder(
 		}
 
 		llCharts?.backgroundGrayWhite()
-		rlDelete?.let {
-			it.backgroundGrayWhite()
-			it.setOnClickListener(this)
-		}
+		rlDelete?.backgroundGrayWhite()
+
+		ivDelete?.setOnClickListener(this)
+		ivReport?.setOnClickListener(this)
+
 		rvParent?.let {
 			parent ->
 			parent.backgroundGrayWhite()
@@ -168,7 +170,7 @@ class WebViewHolder(
 				{
 					(it as? ImageView)?.let { imageView -> callAction(imageView) }
 				}
-				R.id.rlDelete ->
+				R.id.ivDelete ->
 				{
 					//region delete query
 					adapterView?.deleteQuery(adapterPosition)
@@ -182,10 +184,11 @@ class WebViewHolder(
 //						clipboard.setPrimaryClip(clip)
 //					}
 					//endregion
-					//region report problem
-//					val presenter = WebViewPresenter()
-//					presenter.putReport(queryBase?.queryId ?: "")
-					//endregion
+				}
+				R.id.ivReport ->
+				{
+					val presenter = WebViewPresenter()
+					presenter.putReport(queryBase?.queryId ?: "")
 				}
 				else -> {}
 			}

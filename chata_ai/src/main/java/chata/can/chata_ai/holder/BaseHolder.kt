@@ -49,10 +49,8 @@ open class BaseHolder(
 		tvContent.setTextColor(gray)
 		tvContent.backgroundGrayWhite()
 
-		rlDelete?.let {
-			it.backgroundGrayWhite()
-			it.setOnClickListener(this)
-		}
+		rlDelete?.backgroundGrayWhite()
+		ivDelete?.setOnClickListener(this)
 
 		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
 		tvContent.startAnimation(animation)
@@ -106,7 +104,7 @@ open class BaseHolder(
 		v?.let {
 			when(it.id)
 			{
-				R.id.rlDelete ->
+				R.id.ivDelete ->
 				{
 					//region delete query
 					view?.deleteQuery(adapterPosition)
