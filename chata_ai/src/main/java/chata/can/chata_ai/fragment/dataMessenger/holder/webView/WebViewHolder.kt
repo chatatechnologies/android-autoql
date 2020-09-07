@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
@@ -187,8 +188,9 @@ class WebViewHolder(
 				}
 				R.id.ivReport ->
 				{
-					val presenter = WebViewPresenter()
-					presenter.putReport(queryBase?.queryId ?: "")
+					ListPopup.showListPopup(it)
+//					val presenter = WebViewPresenter()
+//					presenter.putReport(queryBase?.queryId ?: "")
 				}
 				else -> {}
 			}

@@ -15,12 +15,13 @@ class WebViewPresenter: StatusResponse
 {
 	fun putReport(idQuery: String)
 	{
-		if (DataMessenger.isDemo())
+		if (!DataMessenger.isDemo())
 		{
 			val url = "${DataMessenger.domainUrl}/autoql/${api1}query/$idQuery?key=${DataMessenger.apiKey}"
 			val header= getAuthorizationJWT()
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)
+			//message -> when message is not empty
 
 			callStringRequest(
 				Request.Method.PUT,
@@ -34,7 +35,10 @@ class WebViewPresenter: StatusResponse
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-
+		if (jsonObject != null)
+		{
+			println(jsonObject)
+		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
