@@ -55,4 +55,25 @@ object SearchColumn
 		}
 		return aIndices
 	}
+
+	fun hasDecimals(
+		aRows: ArrayList<ArrayList<String>>,
+		indexCheck: Int): Boolean
+	{
+		var isDecimal = true
+		for (row in aRows)
+		{
+			if (indexCheck < aRows.size)
+			{
+				row[indexCheck].let { string ->
+					string.toDoubleOrNull()?.let {
+						isDecimal = (it % 1.0) != 0.0
+					} ?: run {
+						isDecimal = false
+					}
+				}
+			}
+		}
+		return isDecimal
+	}
 }

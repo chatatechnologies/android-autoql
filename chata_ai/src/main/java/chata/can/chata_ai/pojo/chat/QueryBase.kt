@@ -30,23 +30,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
-	//TODO REMOVE
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
-
-	fun isTypeColumn(type: TypeDataQuery): Boolean
-	{
-		for (column in aColumn)
-		{
-			if (type == column.type)
-			{
-				return true
-			}
-		}
-		return false
-	}
 
 	val numColumns: Int
 	get() {
@@ -79,7 +66,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var contentHTML = ""
 	var rowsTable = 0
 	var rowsPivot = 0
-	lateinit var  aXAxis: ArrayList<String>
+	lateinit var aXAxis: ArrayList<String>
 	lateinit var aXDrillDown: ArrayList<String>
 
 	private var view: HolderContract? = null

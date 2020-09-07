@@ -16,7 +16,6 @@ object HtmlBuilder
 		val aColumn = queryBase.aColumn
 		val dataForWebView = DataForWebView()
 
-		//TODO COMPLETE
 		var pData = TableHtmlBuilder.buildTable(aRows, aColumn)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
@@ -46,7 +45,12 @@ object HtmlBuilder
 						add(posColumnY)
 					}
 				}
-				queryBase.configActions = 4
+
+				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
+				if (hasDecimals)
+					queryBase.configActions = 0
+				else
+					queryBase.configActions = 4
 			}
 			SupportCase.CASE_5 ->
 			{
@@ -70,10 +74,17 @@ object HtmlBuilder
 						add(posColumnY)
 					}
 				}
+
+				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
+				if (hasDecimals)
+					queryBase.configActions = 0
+				else
+					queryBase.configActions = 4
 			}
 			else ->
 			{
-				isTriConfig = true
+				queryBase.supportCase.toString()
+				//isTriConfig = true
 			}
 		}
 		//endregion
@@ -198,6 +209,7 @@ object HtmlBuilder
 			}
 			else
 			{
+				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
 //					DatePivot.buildDateString(aRows, aColumn)
 //				else DatePivot.buildBi(aRows, aColumn)
