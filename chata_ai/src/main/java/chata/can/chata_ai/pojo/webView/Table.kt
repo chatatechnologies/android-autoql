@@ -11,7 +11,7 @@ object Table
 	fun generateDataTable(
 		aRows: ArrayList<ArrayList<String>>,
 	  aColumns: ArrayList<ColumnQuery>,
-		mIndexColumn: LinkedHashMap<Int, Int>,
+		aIndex: ArrayList<Int>,
 		isDataCenter: Boolean) : String
 	{
 		val formatter = DecimalFormat("###,###,##0.00")
@@ -22,7 +22,7 @@ object Table
 			for (aRow in aRows)
 			{
 				var sRow = ""
-				for ( (_, indexValue) in mIndexColumn)
+				for (indexValue in aIndex)
 				{
 					val oColumn = aColumns[indexValue]
 					if (oColumn.isVisible)

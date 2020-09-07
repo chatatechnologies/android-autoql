@@ -16,10 +16,10 @@ object HtmlBuilder
 		val aColumn = queryBase.aColumn
 		val dataForWebView = DataForWebView()
 
-		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
-
-		dataForWebView.table = pData.first
-		dataForWebView.rowsTable = pData.second
+		//TODO COMPLETE
+//		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
+//		dataForWebView.table = pData.first
+//		dataForWebView.rowsTable = pData.second
 
 		var posColumnX = 0
 		var posColumnY = 1
@@ -38,6 +38,14 @@ object HtmlBuilder
 
 				posColumnX = aGroupable[0]
 				posColumnY = aNumber[0]
+
+				if (posColumnX != -1 && posColumnY != -1)
+				{
+					queryBase.aIndex.run {
+						add(posColumnX)
+						add(posColumnY)
+					}
+				}
 				queryBase.configActions = 4
 			}
 			SupportCase.CASE_5 ->
@@ -54,6 +62,14 @@ object HtmlBuilder
 				}
 				if (aNumber.isNotEmpty())
 					posColumnY = aNumber[0]
+
+				if (posColumnX != -1 && posColumnY != -1)
+				{
+					queryBase.aIndex.run {
+						add(posColumnX)
+						add(posColumnY)
+					}
+				}
 			}
 			else ->
 			{
@@ -151,8 +167,9 @@ object HtmlBuilder
 					val isDollar = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
 					if (isDate && isDateString && isDollar)
 					{
-						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
-							aRows, aColumn,queryBase.mIndexColumn,true)
+						//TODO COMPLETE
+//						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
+//							aRows, aColumn,queryBase.mIndexColumn,true)
 						queryBase.isTriInBi = true
 //						queryBase.configActions = 6
 					}
@@ -181,15 +198,15 @@ object HtmlBuilder
 			}
 			else
 			{
-				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
-					DatePivot.buildDateString(aRows, aColumn)
-				else DatePivot.buildBi(aRows, aColumn)
+//				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
+//					DatePivot.buildDateString(aRows, aColumn)
+//				else DatePivot.buildBi(aRows, aColumn)
 
 //				queryBase.configActions = 1
 
 				dataForWebView.catYS = aCatYS.toString()
 				dataForWebView.dataChartBi = Table.generateDataTable(
-					aRows, aColumn,queryBase.mIndexColumn,true)
+					aRows, aColumn, queryBase.aIndex,true)
 
 //				queryBase.configActions = when(aColumn.size)
 //				{

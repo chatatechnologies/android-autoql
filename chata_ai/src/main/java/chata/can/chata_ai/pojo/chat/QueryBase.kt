@@ -31,7 +31,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
 	//TODO REMOVE
-	var mIndexColumn = linkedMapOf<Int, Int>()
+	//var mIndexColumn = linkedMapOf<Int, Int>()
+	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
@@ -148,45 +149,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				}
 			}
 			//endregion
-
-			if (aColumn.size < 4)
-			{
-				for (index in aColumn.indices)
-				{
-					val column = aColumn[index]
-					if (column.isGroupable)
-					{
-						mIndexColumn[mIndexColumn.size] = index
-					}
-				}
-
-				//region swap 1 or two by groupable
-				if (mIndexColumn[0] == 1)
-				{
-					mIndexColumn[1]?.let {
-						mIndexColumn[1] = 0
-					} ?: run { mIndexColumn[1] = 0}
-				}
-
-				while (mIndexColumn.size < aColumn.size)
-				{
-					val values = mIndexColumn.values
-					for (index in 0 until aColumn.size)
-					{
-						if (index !in values)
-						{
-							mIndexColumn[mIndexColumn.size] = index
-						}
-					}
-				}
-			}
-			else
-			{
-				for (index in aColumn.indices)
-				{
-					mIndexColumn[index] = index
-				}
-			}
 
 			DoAsync({
 				isLoadingHTML = true
