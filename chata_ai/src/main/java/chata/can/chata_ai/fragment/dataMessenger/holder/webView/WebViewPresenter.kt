@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 class WebViewPresenter: StatusResponse
 {
-	fun putReport(idQuery: String)
+	fun putReport(idQuery: String, message: String)
 	{
 		if (!DataMessenger.isDemo())
 		{
@@ -21,7 +21,10 @@ class WebViewPresenter: StatusResponse
 			val header= getAuthorizationJWT()
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)
-			//message -> when message is not empty
+			if (message.isNotEmpty())
+			{
+				mParams["message"] = message
+			}
 
 			callStringRequest(
 				Request.Method.PUT,

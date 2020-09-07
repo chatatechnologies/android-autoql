@@ -16,4 +16,7 @@
 	<string name="arrow_left">←</string>
 	<string name="arrow_right">→</string>
 	<string name="you_can_ask_me">Some things you can ask me:</string>
+	<string name="the_data_is_incorrect">The data is incorrect</string>
+	<string name="the_data_is_incomplete">The data is incomplete</string>
+	<string name="other">Other...</string>
 </resources>

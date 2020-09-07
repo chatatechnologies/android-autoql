@@ -188,9 +188,7 @@ class WebViewHolder(
 				}
 				R.id.ivReport ->
 				{
-					ListPopup.showListPopup(it)
-//					val presenter = WebViewPresenter()
-//					presenter.putReport(queryBase?.queryId ?: "")
+					ListPopup.showListPopup(it, queryBase?.queryId ?: "")
 				}
 				else -> {}
 			}

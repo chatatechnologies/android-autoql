@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
 		android:id="@+id/iIncorrect"
-		android:title="The data is incorrect"/>
+		android:title="@string/the_data_is_incorrect"/>
 	<item
 		android:id="@+id/iIncomplete"
-		android:title="The data is incomplete"/>
+		android:title="@string/the_data_is_incomplete"/>
 	<item
 		android:id="@+id/iOther"
-		android:title="Other"/>
+		android:title="@string/other"/>
 </menu>
