@@ -31,7 +31,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
 	//TODO REMOVE
-	//var mIndexColumn = linkedMapOf<Int, Int>()
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 

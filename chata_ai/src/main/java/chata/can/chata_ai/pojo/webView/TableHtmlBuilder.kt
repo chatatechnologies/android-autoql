@@ -9,7 +9,6 @@ object TableHtmlBuilder
 	fun buildTable(
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>,
-		mIndexColumn: LinkedHashMap<Int, Int>,
 		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
 		//region create table head
@@ -37,34 +36,18 @@ object TableHtmlBuilder
 		val bodyTable = StringBuilder("<tbody>")
 		for (aRow in aRows)
 		{
-			var iterator = 0
-
 			val sRow = StringBuilder("")
-			for (cell in aRow)
+			for ((index, cell) in aRow.withIndex())
 			{
-				var column: ColumnQuery? = null
-				for ((_, pos) in mIndexColumn)
+				val column = aColumn[index]
+				val valueRow = if (column.isVisible)
 				{
-					if (pos == iterator)
-					{
-						column = aColumn[pos]
-						iterator++
-						break
-					}
+					if (cell.isNotEmpty())
+						cell.formatWithColumn(column)
+					else ""
 				}
-
-				val valueRow = column?.let {
-					if (it.isVisible)
-					{
-						if (cell.isNotEmpty())
-							cell.formatWithColumn(it)
-						else ""
-					}
-					else
-					{
-						"_--_"
-					}
-				}?: ""
+				else
+					"_--_"
 
 				if (valueRow != "_--_")
 					sRow.append("<td>$valueRow</td>")

@@ -17,9 +17,9 @@ object HtmlBuilder
 		val dataForWebView = DataForWebView()
 
 		//TODO COMPLETE
-//		var pData = TableHtmlBuilder.buildTable(aRows, aColumn, queryBase.mIndexColumn)
-//		dataForWebView.table = pData.first
-//		dataForWebView.rowsTable = pData.second
+		var pData = TableHtmlBuilder.buildTable(aRows, aColumn)
+		dataForWebView.table = pData.first
+		dataForWebView.rowsTable = pData.second
 
 		var posColumnX = 0
 		var posColumnY = 1
