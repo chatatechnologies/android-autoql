@@ -39,15 +39,20 @@ object SearchColumn
 		return aIndices
 	}
 
-	fun getIndexString(aColumn: ArrayList<ColumnQuery>): Int
+	fun getTypeIndices(
+		aColumns: ArrayList<ColumnQuery>,
+		type: TypeDataQuery,
+		count: Int): ArrayList<Int>
 	{
-		var position = 0
-		aColumn.forEachIndexed { index, columnQuery ->
-			if (columnQuery.type == TypeDataQuery.STRING)
+		val aIndices = ArrayList<Int>()
+		for (index in aColumns.indices)
+		{
+			if (aColumns[index].type == type)
 			{
-				position = index
+				aIndices.add(index)
+				if (count == aIndices.size) break
 			}
 		}
-		return position
+		return aIndices
 	}
 }

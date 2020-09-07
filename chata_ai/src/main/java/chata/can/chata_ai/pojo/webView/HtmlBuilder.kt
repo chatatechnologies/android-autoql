@@ -42,7 +42,18 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_5 ->
 			{
-
+				//get second string column
+				val aString = SearchColumn.getTypeIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
+				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
+				if (aString.isNotEmpty())
+				{
+					posColumnX = if (aString.size == 2)
+						aString[1]
+					else
+						aString[0]
+				}
+				if (aNumber.isNotEmpty())
+					posColumnY = aNumber[0]
 			}
 			else ->
 			{

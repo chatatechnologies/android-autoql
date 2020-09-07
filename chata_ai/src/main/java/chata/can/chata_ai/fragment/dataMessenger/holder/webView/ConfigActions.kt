@@ -37,6 +37,7 @@ object ConfigActions
 
 	/**
 	 * CASE_1
+	 * CASE_5
 	 * configActions = 4
 	 */
 	val biConfigReduce = arrayListOf(
