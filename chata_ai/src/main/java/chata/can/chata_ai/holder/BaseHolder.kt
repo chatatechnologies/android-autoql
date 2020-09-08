@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
@@ -23,12 +24,11 @@ open class BaseHolder(
 ): Holder(itemView), View.OnClickListener
 {
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
-
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
-
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
+	protected var queryBase: QueryBase ?= null
 
 	override fun onPaint()
 	{
@@ -108,13 +108,11 @@ open class BaseHolder(
 			{
 				R.id.ivReport ->
 				{
-
+					ListPopup.showListPopup(it, queryBase?.queryId ?: "", chatView)
 				}
 				R.id.ivDelete ->
 				{
-					//region delete query
 					view?.deleteQuery(adapterPosition)
-					//endregion
 				}
 				else -> {}
 			}
@@ -132,6 +130,7 @@ open class BaseHolder(
 		{
 			tvContentTop.visibility = View.GONE
 		}
+		queryBase = simpleQuery
 		val message = when
 		{
 			simpleQuery.isSimpleText ->
