@@ -1,5 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
+import chata.can.chata_ai.R
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -11,7 +13,7 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class WebViewPresenter: StatusResponse
+class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 {
 	fun putReport(idQuery: String, message: String)
 	{
@@ -53,6 +55,7 @@ class WebViewPresenter: StatusResponse
 				val message = jsonObject.optString(messageKey)
 				if (message == "Success")
 				{
+					chatView?.showAlert("Thank you for your feedback.", R.drawable.ic_done)
 					println(message)
 				}
 			}

@@ -188,7 +188,7 @@ class WebViewHolder(
 				}
 				R.id.ivReport ->
 				{
-					ListPopup.showListPopup(it, queryBase?.queryId ?: "")
+					ListPopup.showListPopup(it, queryBase?.queryId ?: "", chatView)
 				}
 				else -> {}
 			}
