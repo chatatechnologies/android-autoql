@@ -27,7 +27,8 @@ open class BaseHolder(
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
-	val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
+	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
+	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 
 	override fun onPaint()
 	{
@@ -51,6 +52,7 @@ open class BaseHolder(
 
 		rlDelete?.backgroundGrayWhite()
 		ivDelete?.setOnClickListener(this)
+		ivReport?.setOnClickListener(this)
 
 		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
 		tvContent.startAnimation(animation)
@@ -104,6 +106,10 @@ open class BaseHolder(
 		v?.let {
 			when(it.id)
 			{
+				R.id.ivReport ->
+				{
+
+				}
 				R.id.ivDelete ->
 				{
 					//region delete query
