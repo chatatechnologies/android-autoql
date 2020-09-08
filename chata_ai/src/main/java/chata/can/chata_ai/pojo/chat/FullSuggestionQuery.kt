@@ -66,6 +66,8 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 								itSuggestion ->
 							suggestion.aSuggestion?.addAll(itSuggestion)
 							suggestion.aSuggestion?.add("${suggestion.text} (Original term)")
+							//item for delete
+							suggestion.aSuggestion?.add("Remove term")
 							val aTmp = itSuggestion[0].split(" (")
 							updateQuery(suggestion, aTmp[0])
 						}

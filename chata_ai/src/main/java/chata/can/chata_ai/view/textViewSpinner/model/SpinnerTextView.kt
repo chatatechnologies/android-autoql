@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver
 import android.view.WindowManager
 import android.widget.*
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
+import chata.can.chata_ai.view.textViewSpinner.TermAdapter
 
 class SpinnerTextView: RelativeLayout
 {
@@ -46,7 +47,8 @@ class SpinnerTextView: RelativeLayout
 
 	private fun getDataSuggestion(aData: ArrayList<String>): ArrayAdapter<String>
 	{
-		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
+//		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
+		return TermAdapter(context, aData)
 	}
 
 	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>?)
