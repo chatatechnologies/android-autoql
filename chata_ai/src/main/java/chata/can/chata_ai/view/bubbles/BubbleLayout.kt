@@ -27,7 +27,7 @@ class BubbleLayout: BubbleBaseLayout
 	private var initialX = 0
 	private var initialY = 0
 	private var onBubbleClickListener: OnBubbleClickListener ?= null
-	private val touchTimeThreshold = 150
+	private val touchTimeThreshold = 200
 	private var lastTouchDown = 0L
 	private var animator: MoveAnimator ?= null
 

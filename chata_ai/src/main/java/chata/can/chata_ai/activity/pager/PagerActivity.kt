@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.context.ContextActivity
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -40,6 +41,8 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		ivLight = findViewById(R.id.ivLight)
 		ivClear = findViewById(R.id.ivClear)
 		viewPager = findViewById(R.id.viewPager)
+
+		ivClear?.setColorFilter(getParsedColor(R.color.white))
 
 		initListener()
 		initData()
