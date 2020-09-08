@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -21,14 +22,12 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 	override fun onPaint()
 	{
 		ll1?.let {
-			val context = it.context
-			drawerBackgroundColor = ContextCompat.getColor(
-				context,
-				ThemeColor.currentColor.drawerBackgroundColor)
-			drawerColorPrimary = ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary)
-
+			it.context.run {
+				drawerBackgroundColor = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+				drawerColorPrimary = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 			it.background = DrawableBuilder.setGradientDrawable(
 				drawerBackgroundColor,18f,1, drawerColorPrimary)
+			}
 		}
 	}
 

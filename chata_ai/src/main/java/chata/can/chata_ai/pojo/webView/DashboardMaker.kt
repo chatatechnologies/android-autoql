@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.getFooterScript
 import chata.can.chata_ai.model.validateArray
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
@@ -176,13 +177,10 @@ object DashboardMaker
 		with(ThemeColor.currentColor)
 		{
 			ContextActivity.context?.let {
-				backgroundColor = "#" + Integer.toHexString(ContextCompat.getColor(
-					it,
-					drawerBackgroundColor) and 0x00ffffff)
-
-				textColor = "#" + Integer.toHexString(ContextCompat.getColor(
-					it,
-					drawerColorPrimary) and 0x00ffffff)
+				backgroundColor = "#" + Integer.toHexString(
+					it.getParsedColor(drawerBackgroundColor) and 0x00ffffff)
+				textColor = "#" + Integer.toHexString(
+					it.getParsedColor(drawerColorPrimary) and 0x00ffffff)
 			}
 		}
 		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor

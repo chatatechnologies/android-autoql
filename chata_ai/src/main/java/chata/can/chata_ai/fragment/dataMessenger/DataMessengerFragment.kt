@@ -23,6 +23,7 @@ import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerData
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatRenderPresenter
@@ -138,12 +139,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			activity ->
 			with(ThemeColor.currentColor)
 			{
-				llParent.setBackgroundColor(ContextCompat.getColor(
-					activity, drawerBackgroundColor))
-				etQuery.setHintTextColor(ContextCompat.getColor(
-					activity, drawerHoverColor))
-				ivRun.setColorFilter(ContextCompat.getColor(
-					activity, R.color.chata_drawer_hover_color_dark))
+				llParent.setBackgroundColor(activity.getParsedColor(drawerBackgroundColor))
+				etQuery.setHintTextColor(activity.getParsedColor(drawerHoverColor))
+				ivRun.setColorFilter(activity.getParsedColor(R.color.chata_drawer_hover_color_dark))
 			}
 		}
 	}
@@ -268,7 +266,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setRecorder()
 	{
 		activity?.run {
-			val red = ContextCompat.getColor(this, android.R.color.holo_red_dark)
+			val red = getParsedColor(android.R.color.holo_red_dark)
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
 				setColor(red)
@@ -286,9 +284,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setStopRecorder()
 	{
 		activity?.run {
-			val red = ContextCompat.getColor(
-				this,
-				ThemeColor.currentColor.drawerAccentColor)
+			val red = getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
 				setColor(red)

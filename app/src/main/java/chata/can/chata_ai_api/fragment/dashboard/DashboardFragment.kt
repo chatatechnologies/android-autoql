@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
@@ -36,14 +37,12 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		btnExecute.backgroundGrayWhite()
 		btnDashboard.backgroundGrayWhite()
 
-		val white = ContextCompat.getColor(
-			spDashboard.context,
-			ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(
-			spDashboard.context,
-			ThemeColor.currentColor.drawerColorPrimary)
-		spDashboard.setPopupBackgroundDrawable(
-			DrawableBuilder.setGradientDrawable(white,18f,2, gray))
+		spDashboard.context.run {
+			val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+			spDashboard.setPopupBackgroundDrawable(
+				DrawableBuilder.setGradientDrawable(white,18f,2, gray))
+		}
 	}
 
 	override fun initListener()

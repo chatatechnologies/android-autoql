@@ -22,13 +22,11 @@ fun EditText.setOnTextChanged(listener: (String) -> Unit)
 
 fun View.backgroundGrayWhite(iCornerRadius: Float = 18f, iWidthRadius: Int = 1)
 {
-	val white = ContextCompat.getColor(
-		context,
-		ThemeColor.currentColor.drawerBackgroundColor)
-	val gray = ContextCompat.getColor(
-		context,
-		ThemeColor.currentColor.drawerColorPrimary)
-	background = DrawableBuilder.setGradientDrawable(white,iCornerRadius,iWidthRadius, gray)
+	context.run {
+		val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+		val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+		background = DrawableBuilder.setGradientDrawable(white,iCornerRadius,iWidthRadius, gray)
+	}
 }
 
 fun View.setAnimator(yValue: Float, property: String)

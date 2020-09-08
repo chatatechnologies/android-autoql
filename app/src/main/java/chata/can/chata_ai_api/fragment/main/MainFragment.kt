@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
@@ -252,10 +253,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 							tv ->
 						if (isEnabled)
 						{
-							tv.setBackgroundColor(
-								ContextCompat.getColor(activity,
-									R.color.blue
-								))
+							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
 							tv.setTextColor(Color.WHITE)
 						}
 						else
@@ -696,7 +694,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					if (isEnabled)
 					{
 						parentActivity?.let { activity ->
-							tv.setBackgroundColor(ContextCompat.getColor(activity, R.color.blue))
+							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
 						}
 						tv.setTextColor(Color.WHITE)
 					}

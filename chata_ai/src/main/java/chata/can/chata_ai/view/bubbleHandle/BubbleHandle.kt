@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
@@ -254,8 +255,7 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		val lp = RelativeLayout.LayoutParams(-2, -2)
 		parentCircle.layoutParams = lp
 
-		val color = ContextCompat.getColor(context,
-			ThemeColor.currentColor.drawerColorPrimary)
+		val color = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
 		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 

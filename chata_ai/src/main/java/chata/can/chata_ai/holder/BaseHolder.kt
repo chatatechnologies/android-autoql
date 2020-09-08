@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -33,10 +34,10 @@ open class BaseHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
-			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 			background = queryDrawable
 
@@ -44,9 +45,7 @@ open class BaseHolder(
 			startAnimation(animationTop)
 		}
 
-		val gray = ContextCompat.getColor(
-			tvContent.context,
-			ThemeColor.currentColor.drawerColorPrimary)
+		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(gray)
 		tvContent.backgroundGrayWhite()
 

@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.view.gif.GifView
 
@@ -75,7 +76,7 @@ class DrillDownDialog(
 	{
 		tvTitle.text = queryBase.query
 		ivCancel.setColorFilter(
-			ContextCompat.getColor(context, R.color.chata_drawer_background_color_dark))
+			context.getParsedColor(R.color.chata_drawer_background_color_dark))
 		ivCancel.setOnClickListener {
 			dismiss()
 		}

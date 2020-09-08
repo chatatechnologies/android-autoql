@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.Constant.nullParent
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai_api.R
 
@@ -25,7 +26,7 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 		return GradientDrawable().apply {
 			shape = GradientDrawable.RECTANGLE
 			setColor(
-				ContextCompat.getColor(context,
+				context.getParsedColor(
 					if (position == positionSelect)
 						pColors.first
 					else

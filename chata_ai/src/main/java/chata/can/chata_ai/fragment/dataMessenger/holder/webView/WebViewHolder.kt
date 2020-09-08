@@ -14,6 +14,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
@@ -65,10 +66,10 @@ class WebViewHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
-			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 			background = queryDrawable
 

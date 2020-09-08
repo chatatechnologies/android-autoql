@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
@@ -31,67 +32,72 @@ object CustomViews
 		id = idView
 	}
 
-	fun getEditText(context: Context, demoParam: DemoParameter) = EditText(context).apply {
-		background = GradientDrawable().apply {
-			shape = GradientDrawable.RECTANGLE
-			setColor(ContextCompat.getColor(context, R.color.white))
-			cornerRadius = 15f
-			setStroke(3, (ContextCompat.getColor(context, R.color.borderEditText)))
-		}
-		layoutParams = LinearLayout.LayoutParams(-1, -2)
-		(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-		gravity = Gravity.CENTER_HORIZONTAL
-		id = demoParam.idView
-		if (demoParam.value.isNotEmpty() &&
-			demoParam.value != "true" && demoParam.value != "false")
-		{
-			setText(demoParam.value)
-		}
-		if (demoParam.hint.isNotEmpty())
-		{
-			hint = demoParam.hint
-			setLines(1)
-			setSingleLine()
-			imeOptions = EditorInfo.IME_ACTION_DONE
+	fun getEditText(context: Context, demoParam: DemoParameter) =
+		context.run {
+			EditText(context).apply {
+				background = GradientDrawable().apply {
+					shape = GradientDrawable.RECTANGLE
+					setColor(getParsedColor(R.color.white))
+					cornerRadius = 15f
+					setStroke(3, getParsedColor(R.color.borderEditText))
+				}
+				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				gravity = Gravity.CENTER_HORIZONTAL
+				id = demoParam.idView
+				if (demoParam.value.isNotEmpty() &&
+					demoParam.value != "true" && demoParam.value != "false")
+				{
+					setText(demoParam.value)
+				}
+				if (demoParam.hint.isNotEmpty())
+				{
+					hint = demoParam.hint
+					setLines(1)
+					setSingleLine()
+					imeOptions = EditorInfo.IME_ACTION_DONE
+				}
+
+				when(demoParam.typeInput)
+				{
+					TypeInput.INTEGER ->
+					{
+						inputType = InputType.TYPE_CLASS_NUMBER
+					}
+					TypeInput.EMAIL ->
+					{
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+					}
+					TypeInput.PASSWORD ->
+					{
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+					}
+					else ->
+					{
+						inputType = InputType.TYPE_CLASS_TEXT
+						typeface = Typeface.MONOSPACE
+					}
+				}
+			}
 		}
 
-		when(demoParam.typeInput)
-		{
-			TypeInput.INTEGER ->
-			{
-				inputType = InputType.TYPE_CLASS_NUMBER
-			}
-			TypeInput.EMAIL ->
-			{
-				inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-			}
-			TypeInput.PASSWORD ->
-			{
-				inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
-			}
-			else ->
-			{
-				inputType = InputType.TYPE_CLASS_TEXT
-				typeface = Typeface.MONOSPACE
-			}
-		}
-	}
 
 	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
-		TextView(context).apply {
-		setBackgroundColor(ContextCompat.getColor(context, R.color.colorButton))
-		layoutParams = LinearLayout.LayoutParams(-1, 90)
-		(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-		gravity = Gravity.CENTER
-		setTextColor(ContextCompat.getColor(context, R.color.textButton))
-		id = demoParam.idView
-		if (id != 0)
-		{
-			setOnClickListener(onClickListener)
+		context.run {
+			TextView(context).apply {
+				setBackgroundColor(getParsedColor(R.color.colorButton))
+				layoutParams = LinearLayout.LayoutParams(-1, 90)
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				gravity = Gravity.CENTER
+				setTextColor(getParsedColor(R.color.textButton))
+				id = demoParam.idView
+				if (id != 0)
+				{
+					setOnClickListener(onClickListener)
+				}
+				text = demoParam.label
+			}
 		}
-		text = demoParam.label
-	}
-
 
 	fun getSegment(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener)
 		: LinearLayout

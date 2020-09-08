@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.SinglentonDashboard
@@ -20,8 +21,8 @@ object ChildSuggestion {
 	fun onBind(view: View, dashboard: Dashboard, presenter: DashboardPresenter)
 	{
 		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
-			val drawerColorPrimary = ContextCompat.getColor(
-				tvContent.context, ThemeColor.currentColor.drawerColorPrimary)
+			val drawerColorPrimary = tvContent.context.getParsedColor(
+				ThemeColor.currentColor.drawerColorPrimary)
 			tvContent.setTextColor(drawerColorPrimary)
 
 			dashboard.queryBase?.let { queryBase ->

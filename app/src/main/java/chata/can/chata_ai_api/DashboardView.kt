@@ -8,8 +8,8 @@ import android.webkit.WebView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.view.gif.GifView
@@ -37,22 +37,22 @@ object DashboardView
 	private fun getHeaderDashboard(context: Context): LinearLayout
 	{
 		return getLinearLayoutBase(context).apply {
-
-			val tvTitle = TextView(context).apply {
-				layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-				setTextColor(ContextCompat.getColor(context, R.color.blue))
-				setTypeface(typeface, Typeface.BOLD)
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-				id = R.id.tvTitle
+			context.run {
+				val tvTitle = TextView(this).apply {
+					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+					setTextColor(getParsedColor(R.color.blue))
+					setTypeface(typeface, Typeface.BOLD)
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+					id = R.id.tvTitle
+				}
+				val view = View(context).apply {
+					layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
+					setBackgroundColor(getParsedColor(R.color.selected_gray))
+					margin(bottom = 5f, top = 5f)
+				}
+				addView(tvTitle)
+				addView(view)
 			}
-			val view = View(context).apply {
-				layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
-				setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
-				margin(bottom = 5f, top = 5f)
-			}
-
-			addView(tvTitle)
-			addView(view)
 		}
 	}
 
@@ -71,27 +71,29 @@ object DashboardView
 	fun getRowExecute(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			val ll1 = getLinearLayoutBase(context).apply {
-				margin(8f, 8f, 8f, 8f)
-				paddingAll(8f)
-				id = R.id.ll1
+			context.run {
+				val ll1 = getLinearLayoutBase(context).apply {
+					margin(8f, 8f, 8f, 8f)
+					paddingAll(8f)
+					id = R.id.ll1
 
-				val llHeader = getHeaderDashboard(context)
-				val tvExecute = getExecute(context, R.id.tvExecute)
-				val iView = View(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-					setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
-					margin(start = 4f, end = 4f)
-					id = R.id.iView
+					val llHeader = getHeaderDashboard(context)
+					val tvExecute = getExecute(context, R.id.tvExecute)
+					val iView = View(context).apply {
+						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+						setBackgroundColor(getParsedColor(R.color.selected_gray))
+						margin(start = 4f, end = 4f)
+						id = R.id.iView
+					}
+					val tvExecute2 = getExecute(context, R.id.tvExecute2)
+
+					addView(llHeader)
+					addView(tvExecute)
+					addView(iView)
+					addView(tvExecute2)
 				}
-				val tvExecute2 = getExecute(context, R.id.tvExecute2)
-
-				addView(llHeader)
-				addView(tvExecute)
-				addView(iView)
-				addView(tvExecute2)
+				addView(ll1)
 			}
-			addView(ll1)
 		}
 	}
 	//endregion
@@ -130,16 +132,16 @@ object DashboardView
 	}
 	//endregion
 	//region row support
-	fun getChildContent(context: Context): TextView
-	{
-		return TextView(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
-			gravity = GRAVITY_CENTER
-			setTextColor(ContextCompat.getColor(context, R.color.black))
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-			id = R.id.tvContent
+	fun getChildContent(context: Context) =
+		context.run {
+			TextView(context).apply {
+				layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
+				gravity = GRAVITY_CENTER
+				setTextColor(getParsedColor( R.color.black))
+				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				id = R.id.tvContent
+			}
 		}
-	}
 
 	fun getRowContent(context: Context): RelativeLayout
 	{
@@ -207,33 +209,35 @@ object DashboardView
 	fun getRowTwin(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			val ll1 = getLinearLayoutBase(context).apply {
-				margin(8f, 8f, 8f, 8f)
-				paddingAll(8f)
-				id = R.id.ll1
+			context.run {
+				val ll1 = getLinearLayoutBase(this).apply {
+					margin(8f, 8f, 8f, 8f)
+					paddingAll(8f)
+					id = R.id.ll1
 
-				val llHeader = getHeaderDashboard(context)
-				val ll1 = getLinearLayoutBase(context).apply {
-					id = R.id.lls1
+					val llHeader = getHeaderDashboard(context)
+					val ll1 = getLinearLayoutBase(context).apply {
+						id = R.id.lls1
+					}
+
+					val iView = View(context).apply {
+						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+						setBackgroundColor(getParsedColor(R.color.selected_gray))
+						margin(bottom = 2f, top = 2f)
+						id = R.id.iView
+					}
+
+					val ll2 = getLinearLayoutBase(context).apply {
+						id = R.id.lls2
+					}
+
+					addView(llHeader)
+					addView(ll1)
+					addView(iView)
+					addView(ll2)
 				}
-
-				val iView = View(context).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-					setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
-					margin(bottom = 2f, top = 2f)
-					id = R.id.iView
-				}
-
-				val ll2 = getLinearLayoutBase(context).apply {
-					id = R.id.lls2
-				}
-
-				addView(llHeader)
 				addView(ll1)
-				addView(iView)
-				addView(ll2)
 			}
-			addView(ll1)
 		}
 	}
 	//endregion

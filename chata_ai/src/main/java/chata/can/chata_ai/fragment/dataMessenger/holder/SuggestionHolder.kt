@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -34,10 +35,10 @@ class SuggestionHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
-			val textColor = ContextCompat.getColor(context, R.color.chata_drawer_hover_color)
+			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = ContextCompat.getColor(context, ThemeColor.currentColor.drawerAccentColor)
+			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 			background = queryDrawable
 
@@ -45,9 +46,7 @@ class SuggestionHolder(
 			startAnimation(animationTop)
 		}
 
-		val textColor = ContextCompat.getColor(
-			tvContent.context,
-			ThemeColor.currentColor.drawerColorPrimary)
+		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
 

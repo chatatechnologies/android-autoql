@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -26,7 +27,7 @@ class OptionHolder(view: View): Holder(view)
 		if (item is String)
 		{
 			ivForwardExplore?.setColorFilter(
-				ContextCompat.getColor(ivForwardExplore.context, ThemeColor.currentColor.drawerColorPrimary),
+				ivForwardExplore.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary),
 				PorterDuff.Mode.SRC_ATOP)
 
 			tvQueryRoot?.text = item

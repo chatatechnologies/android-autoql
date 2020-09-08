@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.getParsedColor
 import kotlin.math.min
 import kotlin.math.pow
 
@@ -189,7 +190,7 @@ class CircleImageView: AppCompatImageView
 	fun setCircleBackgroundColorResource(circleBackgroundRes: Int)
 	{
 		context?.let {
-			setCircleBackgroundColor(ContextCompat.getColor(it, circleBackgroundRes))
+			setCircleBackgroundColor(it.getParsedColor(circleBackgroundRes))
 		}
 	}
 

@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
@@ -13,8 +14,8 @@ object ChildNoQuery {
 	fun onBind(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
 		view.findViewById<TextView>(R.id.tvNoQuery)?.let { tvNoQuery ->
-			val drawerColorPrimary = ContextCompat.getColor(
-				tvNoQuery.context, ThemeColor.currentColor.drawerColorPrimary)
+			val drawerColorPrimary = tvNoQuery.context.getParsedColor(
+				ThemeColor.currentColor.drawerColorPrimary)
 			tvNoQuery.setTextColor(drawerColorPrimary)
 
 			dashboard.run {

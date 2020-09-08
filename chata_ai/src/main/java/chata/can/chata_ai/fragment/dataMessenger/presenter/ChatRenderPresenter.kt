@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.speech.RecognizerIntent
 import androidx.core.content.ContextCompat
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -18,16 +19,14 @@ class ChatRenderPresenter(private val context: Context, private var contract: Ch
 
 	private fun backgroundBorder(): Pair<GradientDrawable, GradientDrawable>
 	{
-		val blue = ContextCompat.getColor(
-			context,
-			ThemeColor.currentColor.drawerAccentColor)
+		val blue = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 		val circleDrawable = GradientDrawable().apply {
 			shape = GradientDrawable.OVAL
 			setColor(blue)
 		}
 
-		val white = ContextCompat.getColor(context, ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = ContextCompat.getColor(context, ThemeColor.currentColor.drawerColorPrimary)
+		val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+		val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 
 		val queryDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 		return Pair(circleDrawable, queryDrawable)
