@@ -90,7 +90,8 @@ class QueryBuilderHolder(
 				}
 			}
 		}
-		spannable.setSpan(clickable, 4, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+		//TODO UNCOMMENT WHEN TIPS IS READY
+//		spannable.setSpan(clickable, 4, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 		tvLink?.run {
 			text = spannable
 			movementMethod = LinkMovementMethod.getInstance()

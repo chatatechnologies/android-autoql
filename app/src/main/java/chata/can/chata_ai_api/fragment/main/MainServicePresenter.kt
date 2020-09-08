@@ -86,7 +86,9 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 				{
 					jsonObject.optJSONArray("items")?.let { jaItems ->
 						val aMainData = QueryBuilderData.aMainData
+						aMainData.clear()
 						val mMainQuery = QueryBuilderData.mMainQuery
+						mMainQuery.clear()
 
 						for (index in 0 until jaItems.length())
 						{
