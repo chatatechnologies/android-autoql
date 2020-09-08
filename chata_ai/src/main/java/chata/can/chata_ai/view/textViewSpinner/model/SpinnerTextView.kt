@@ -47,7 +47,6 @@ class SpinnerTextView: RelativeLayout
 
 	private fun getDataSuggestion(aData: ArrayList<String>): ArrayAdapter<String>
 	{
-//		return ArrayAdapter(context, android.R.layout.simple_spinner_item, aData)
 		return TermAdapter(context, aData)
 	}
 
@@ -65,27 +64,35 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.position != position)
 					{
-						parent?.getItemAtPosition(position)?.let {
-							if (it is String)
-							{
-								val aIt = it.split(" (")
-								val currentText = tvContent?.text ?: ""
-								val currentSection = aIt[0]
-								val newStart = suggestion.start
-								val newEnd = suggestion.end
-								val beforeSection = currentText.substring(newStart, newEnd)
-
-								if (beforeSection != currentSection)
+						if (position == aData.size - 1)
+						{
+							//TODO remove suggestion when items is clicked
+							toString()
+						}
+						else
+						{
+							parent?.getItemAtPosition(position)?.let {
+								if (it is String)
 								{
+									val aIt = it.split(" (")
+									val currentText = tvContent?.text ?: ""
+									val currentSection = aIt[0]
+									val newStart = suggestion.start
+									val newEnd = suggestion.end
+									val beforeSection = currentText.substring(newStart, newEnd)
 
-									val newText = currentText.toString().replace(beforeSection, currentSection)
-									suggestion.text = currentSection
-									suggestion.position = position
-									updateIndex(newText)
-									setText()
+									if (beforeSection != currentSection)
+									{
+										val newText = currentText.toString().replace(beforeSection, currentSection)
+										suggestion.text = currentSection
+										suggestion.position = position
+										updateIndex(newText)
+										setText()
+									}
 								}
 							}
 						}
+
 					}
 				}
 
