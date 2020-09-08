@@ -22,7 +22,7 @@ object ListPopup
 					}
 					R.id.iOther ->
 					{
-						ReportProblem(view.context).show()
+						ReportProblemDialog(view.context, queryId, chatView).show()
 					}
 					else -> {}
 				}

@@ -31,6 +31,10 @@
 				android:src="@drawable/ic_cancel"/>
 		</RelativeLayout>
 		<!--endregion-->
+		<View
+			android:background="@color/selected_gray"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"/>
 		<!--region body-->
 		<LinearLayout
 			android:layout_height="wrap_content"
@@ -42,8 +46,9 @@
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"/>
 			<EditText
+				android:gravity="top|start"
 				android:id="@+id/etMessage"
-				android:inputType="text"
+				android:inputType="textMultiLine|text"
 				android:lines="2"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
@@ -53,6 +58,10 @@
 				android:scrollbars="vertical"/>
 		</LinearLayout>
 		<!--endregion-->
+		<View
+			android:background="@color/selected_gray"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"/>
 		<!--region foot-->
 		<LinearLayout
 			android:layout_height="wrap_content"

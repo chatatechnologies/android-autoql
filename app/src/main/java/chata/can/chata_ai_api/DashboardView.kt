@@ -47,7 +47,7 @@ object DashboardView
 			}
 			val view = View(context).apply {
 				layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
-				setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+				setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
 				margin(bottom = 5f, top = 5f)
 			}
 
@@ -80,7 +80,7 @@ object DashboardView
 				val tvExecute = getExecute(context, R.id.tvExecute)
 				val iView = View(context).apply {
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+					setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
 					margin(start = 4f, end = 4f)
 					id = R.id.iView
 				}
@@ -219,7 +219,7 @@ object DashboardView
 
 				val iView = View(context).apply {
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-					setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
+					setBackgroundColor(ContextCompat.getColor(context, R.color.selected_gray))
 					margin(bottom = 2f, top = 2f)
 					id = R.id.iView
 				}
