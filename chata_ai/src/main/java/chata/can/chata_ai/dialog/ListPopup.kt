@@ -20,7 +20,10 @@ object ListPopup
 					{
 						presenter.putReport(queryId, item.title.toString())
 					}
-					R.id.iOther -> {}
+					R.id.iOther ->
+					{
+						ReportProblem(view.context).show()
+					}
 					else -> {}
 				}
 				true

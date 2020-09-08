@@ -43,8 +43,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
 	companion object {
 		//const val nameFragment = "Data Messenger"
-		fun newInstance() = DataMessengerFragment()
-			.putArgs {
+		fun newInstance() = DataMessengerFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_date_messenger)
 		}
 	}

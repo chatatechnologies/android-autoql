@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+		<!--region header-->
+		<RelativeLayout
+			android:id="@+id/rlTitle"
+			android:layout_height="36dp"
+			android:layout_width="match_parent">
+			<TextView
+				android:layout_centerInParent="true"
+				android:gravity="center"
+				android:id="@+id/tvTitle"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textStyle="bold"
+				android:textSize="16sp"/>
+			<ImageView
+				android:layout_alignParentEnd="true"
+				android:contentDescription="@null"
+				android:id="@+id/ivCancel"
+				android:layout_centerVertical="true"
+				android:layout_height="24dp"
+				android:layout_width="24dp"
+				android:src="@drawable/ic_cancel"/>
+		</RelativeLayout>
+		<!--endregion-->
+		<!--region body-->
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_margin="16dp"
+			android:layout_width="match_parent"
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/tvMessage"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"/>
+			<EditText
+				android:id="@+id/etMessage"
+				android:inputType="text"
+				android:lines="2"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_marginTop="8dp"
+				android:maxLines="4"
+				android:minLines="2"
+				android:scrollbars="vertical"/>
+		</LinearLayout>
+		<!--endregion-->
+		<!--region foot-->
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_margin="16dp"
+			android:layout_width="match_parent"
+			android:layout_gravity="end"
+			android:gravity="end">
+			<Button
+				android:id="@+id/btnCancel"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="2dp"
+				android:layout_width="wrap_content"
+				android:textAllCaps="false"/>
+			<Button
+				android:id="@+id/btnReport"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="2dp"
+				android:layout_width="wrap_content"
+				android:textAllCaps="false"/>
+		</LinearLayout>
+		<!--endregion-->
+	</LinearLayout>
+</RelativeLayout>

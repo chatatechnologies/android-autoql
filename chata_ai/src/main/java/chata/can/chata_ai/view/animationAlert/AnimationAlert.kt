@@ -32,7 +32,7 @@ class AnimationAlert(private val parentView: RelativeLayout)
 	fun showAlert()
 	{
 		parentView.visibility = View.VISIBLE
-		parentView.setAnimator(80f, "translationY")
+		parentView.setAnimator(40f, "translationY")
 	}
 
 	fun hideAlert()
