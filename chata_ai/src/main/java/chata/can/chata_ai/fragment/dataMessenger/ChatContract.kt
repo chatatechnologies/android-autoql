@@ -19,6 +19,7 @@ interface ChatContract
 		//fun scrollToPosition()
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 		fun isLoading(isVisible: Boolean)
+		fun showAlert(message: String, intRes: Int)
 	}
 
 	interface ServiceView

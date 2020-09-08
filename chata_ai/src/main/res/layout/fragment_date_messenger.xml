@@ -1,69 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/llParent"
 	android:layout_height="match_parent"
-	android:layout_width="match_parent"
-	android:orientation="vertical">
+	android:layout_width="match_parent">
+	<LinearLayout
+		android:id="@+id/llParent"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/rvChat"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:layout_width="match_parent"/>
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/rvChat"
+			android:layout_height="0dp"
+			android:layout_weight="1"
+			android:layout_width="match_parent"/>
 
-	<chata.can.chata_ai.view.gif.GifView
-		android:id="@+id/gifView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:visibility="gone"/>
+		<chata.can.chata_ai.view.gif.GifView
+			android:id="@+id/gifView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:visibility="gone"/>
+
+		<RelativeLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent">
+			<TextView
+				android:id="@+id/tvMsg"
+				android:layout_centerInParent="true"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:textColor="@color/chata_drawer_hover_color_dark"
+				android:textSize="12sp"
+				android:text="@string/msg_run_autoql"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivRun"
+				android:layout_centerInParent="true"
+				android:layout_marginEnd="4dp"
+				android:layout_toStartOf="@id/tvMsg"
+				android:layout_height="12dp"
+				android:layout_width="12dp"
+				android:src="@drawable/ic_chata"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_height="40dp"
+			android:layout_marginBottom="7dp"
+			android:layout_marginEnd="10dp"
+			android:layout_marginStart="10dp"
+			android:layout_marginTop="7dp"
+			android:layout_width="match_parent">
+			<AutoCompleteTextView
+				android:hint="@string/ask_me_anything"
+				android:id="@+id/etQuery"
+				android:inputType="text"
+				android:layout_height="match_parent"
+				android:layout_toStartOf="@id/ivMicrophone"
+				android:layout_width="match_parent"
+				android:paddingEnd="10dp"
+				android:paddingStart="10dp"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivMicrophone"
+				android:layout_alignParentEnd="true"
+				android:layout_height="40dp"
+				android:layout_marginStart="10dp"
+				android:layout_width="40dp"
+				android:src="@drawable/ic_microphone"
+				android:padding="10dp"/>
+		</RelativeLayout>
+	</LinearLayout>
 
 	<RelativeLayout
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent">
-		<TextView
-			android:id="@+id/tvMsg"
+		android:id="@+id/rlAlert"
+		android:layout_centerHorizontal="true"
+		android:layout_height="60dp"
+		android:layout_width="match_parent"
+		android:visibility="gone"
+		android:padding="5dp">
+		<LinearLayout
+			android:background="@color/white"
+			android:id="@+id/llAlert"
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:textColor="@color/chata_drawer_hover_color_dark"
-			android:textSize="12sp"
-			android:text="@string/msg_run_autoql"/>
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivRun"
-			android:layout_centerInParent="true"
-			android:layout_marginEnd="4dp"
-			android:layout_toStartOf="@id/tvMsg"
-			android:layout_height="12dp"
-			android:layout_width="12dp"
-			android:src="@drawable/ic_chata"/>
-	</RelativeLayout>
+			android:padding="5dp">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivAlert"
+				android:layout_height="48dp"
+				android:layout_width="48dp"
+				android:scaleType="centerInside"
+				android:src="@drawable/ic_done"/>
+			<Button
+				android:background="@android:color/transparent"
+				android:id="@+id/tvAlert"
+				android:layout_height="match_parent"
+				android:layout_width="wrap_content"
+				android:textAllCaps="false"/>
+		</LinearLayout>
 
-	<RelativeLayout
-		android:layout_height="40dp"
-		android:layout_marginBottom="7dp"
-		android:layout_marginEnd="10dp"
-		android:layout_marginStart="10dp"
-		android:layout_marginTop="7dp"
-		android:layout_width="match_parent">
-		<AutoCompleteTextView
-			android:hint="@string/ask_me_anything"
-			android:id="@+id/etQuery"
-			android:inputType="text"
-			android:layout_height="match_parent"
-			android:layout_toStartOf="@id/ivMicrophone"
-			android:layout_width="match_parent"
-			android:paddingEnd="10dp"
-			android:paddingStart="10dp"/>
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivMicrophone"
-			android:layout_alignParentEnd="true"
-			android:layout_height="40dp"
-			android:layout_marginStart="10dp"
-			android:layout_width="40dp"
-			android:src="@drawable/ic_microphone"
-			android:padding="10dp"/>
 	</RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

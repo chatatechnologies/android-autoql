@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.fragment.main
+package chata.can.chata_ai.view.animationAlert
 
 import android.view.View
 import android.widget.ImageView
@@ -6,8 +6,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.ViewCompat
+import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.setAnimator
-import chata.can.chata_ai_api.R
 
 class AnimationAlert(private val parentView: RelativeLayout)
 {

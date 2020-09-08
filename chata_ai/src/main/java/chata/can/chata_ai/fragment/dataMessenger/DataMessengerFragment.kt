@@ -7,6 +7,7 @@ import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.speech.SpeechRecognizer
 import android.util.DisplayMetrics
 import android.view.MotionEvent
@@ -35,6 +36,7 @@ import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import org.json.JSONObject
 
 class DataMessengerFragment: BaseFragment(), ChatContract.View
@@ -62,6 +64,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var renderPresenter: ChatRenderPresenter
 	private lateinit var servicePresenter: ChatServicePresenter
 	private lateinit var chatAdapter: ChatAdapter
+	private lateinit var animationAlert: AnimationAlert
 
 	override fun onRenderViews(view: View)
 	{
@@ -94,11 +97,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			ivRun = findViewById(R.id.ivRun)
 			etQuery = findViewById(R.id.etQuery)
 			ivMicrophone = findViewById(R.id.ivMicrophone)
+
+			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 		}
 	}
 
 	override fun initListener()
 	{
+		animationAlert.hideAlert()
+
 		etQuery.addTextChangedListener(object: TextChanged
 		{
 			override fun onTextChanged(string: String)
@@ -169,6 +176,18 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			View.VISIBLE
 		else
 			View.GONE
+	}
+
+	override fun showAlert(message: String, intRes: Int)
+	{
+		animationAlert.setText(message)
+		animationAlert.setResource(intRes)
+		animationAlert.showAlert()
+		Looper.getMainLooper()?.let {
+			Handler(it).postDelayed({
+				animationAlert.hideAlert()
+			}, 1500)
+		}
 	}
 
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)

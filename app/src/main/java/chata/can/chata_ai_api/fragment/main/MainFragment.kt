@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
@@ -169,7 +170,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
 			renderPresenter.initViews(llContainer)
-			//TODO show alert
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			//swDemoData = findViewById(R.id.swDemoData)
