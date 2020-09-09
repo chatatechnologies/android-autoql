@@ -3,6 +3,7 @@ package chata.can.chata_ai.holder
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
@@ -24,6 +25,7 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
+	val llMainBase = itemView.findViewById<LinearLayout>(R.id.llMainBase) ?: null
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
@@ -65,7 +67,15 @@ open class BaseHolder(
 			{
 				if (item.message.isNotEmpty())
 				{
-					tvContent.text = item.message
+					if (item.message == "I want to make sure I understood your query. Did you mean:")
+					{
+						llMainBase?.visibility = View.GONE
+					}
+					else
+					{
+						llMainBase?.visibility = View.VISIBLE
+						tvContent.text = item.message
+					}
 
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
