@@ -1,7 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.toCapitalColumn
-import chata.can.chata_ai.fragment.dataMessenger.holder.webView.ConfigActions
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
