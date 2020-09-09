@@ -14,23 +14,30 @@ class RulesHtml(
 		var case: SupportCase ?= null
 
 		countColumn.run {
+			val columnSize = aColumns.size
 			when
 			{
-				aColumns.size == 2 ->
+				columnSize == 2 ->
 				{
 					//case 1; bar, line, column, pie; 1 series
 					if (countGroupable == 1 && numberColumns() == 1)
 					{
-
 						case = SupportCase.CASE_1
 					}
 				}
-				aColumns.size > 2 ->
+				columnSize > 2 ->
 				{
-					//Case 5; bar, line, column, pie
-					if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
+					if (columnSize == 3)
 					{
-						case = SupportCase.CASE_5
+						//Case 3; heat_map, bubble, stacked bar, stacked column
+						if (countGroupable == 2 && numberColumns() == 1)
+							case = SupportCase.CASE_3
+					}
+					else
+					{
+						//Case 5; bar, line, column, pie
+						if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
+							case = SupportCase.CASE_5
 					}
 				}
 			}
