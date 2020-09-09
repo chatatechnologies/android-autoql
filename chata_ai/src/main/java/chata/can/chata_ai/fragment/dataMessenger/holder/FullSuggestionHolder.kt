@@ -77,7 +77,10 @@ class FullSuggestionHolder(
 
 					rlRunQuery.setOnClickListener {
 						val query = stvContent.text
-						servicePresenter.getQuery(query)
+						if (query.isNotEmpty())
+						{
+							servicePresenter.getQuery(query)
+						}
 					}
 				}
 			}

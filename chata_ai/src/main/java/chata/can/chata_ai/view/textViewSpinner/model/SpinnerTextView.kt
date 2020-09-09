@@ -9,7 +9,7 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager
 import android.widget.*
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
@@ -30,7 +30,7 @@ class SpinnerTextView: RelativeLayout
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-			viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
+			viewTreeObserver?.addOnGlobalLayoutListener(object: OnGlobalLayoutListener
 			{
 				override fun onGlobalLayout()
 				{
@@ -66,8 +66,10 @@ class SpinnerTextView: RelativeLayout
 					{
 						if (position == aData.size - 1)
 						{
-							//TODO remove suggestion when items is clicked
-							toString()
+							this@SpinnerTextView.aData.run {
+								remove(suggestion)
+								setText(this)
+							}
 						}
 						else
 						{
@@ -111,8 +113,7 @@ class SpinnerTextView: RelativeLayout
 			this.aData = aData
 		}
 
-		this.aData.let {
-				itData ->
+		this.aData.let { itData ->
 			val text = itData.joinTo(StringBuilder(""), separator = "") {
 				" ${it.text}"
 			}.trim()
