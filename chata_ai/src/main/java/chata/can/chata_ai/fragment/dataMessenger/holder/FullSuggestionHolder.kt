@@ -2,7 +2,6 @@ package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.view.View
 import android.view.animation.AnimationUtils
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor

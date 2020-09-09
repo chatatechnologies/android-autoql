@@ -301,9 +301,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			hideKeyboard()
 			etQuery.setText("")
-			//model.add(ChatData(2, query))
-			//scrollToPosition()
-			//chatAdapter.notifyItemChanged(model.countData() - 1)
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
 				servicePresenter.getSafety(query)
@@ -428,6 +425,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			rvChat.layoutManager = LinearLayoutManager(activity)
 			rvChat.adapter = chatAdapter
+			scrollToPosition()
 		}
 	}
 
