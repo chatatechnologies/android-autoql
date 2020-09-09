@@ -74,10 +74,6 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 				{
 					with(view)
 					{
-						changeAuthenticate(true)
-						changeStateAuthenticate()
-						showAlert("Login Successful", R.drawable.ic_done)
-						isEnableLogin(true)
 						savePersistentData()
 						callTopics()
 					}
@@ -106,6 +102,13 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 								mMainQuery[topic] = aData
 							}
 						}
+					}
+					with(view)
+					{
+						changeAuthenticate(true)
+						changeStateAuthenticate()
+						isEnableLogin(true)
+						showAlert("Login Successful", R.drawable.ic_done)
 					}
 				}
 			}
