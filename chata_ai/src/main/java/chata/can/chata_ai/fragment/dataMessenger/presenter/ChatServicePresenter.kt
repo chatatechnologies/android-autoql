@@ -40,10 +40,11 @@ class ChatServicePresenter(
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
-	private fun getRelatedQueries(query: String)
+	private fun getRelatedQueries(query: String, message: String)
 	{
 		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
-		QueryRequest.callRelatedQueries(words, this)
+		val mData = hashMapOf<String, Any>("message" to message)
+		QueryRequest.callRelatedQueries(words, this, mData)
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
@@ -62,7 +63,7 @@ class ChatServicePresenter(
 							val jsonError = JSONObject(textError)
 							val message = jsonError.optString(messageKey)
 							val query = jsonObject.optString("query") ?: ""
-							getRelatedQueries(query)
+							getRelatedQueries(query, message)
 							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 						}
 						catch (ex: Exception) { }
@@ -135,6 +136,7 @@ class ChatServicePresenter(
 											aRows.add(arrayListOf(item))
 										}
 									}
+									queryBase.message = jsonObject.optString("message", "") ?: ""
 									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
 								}
 							}

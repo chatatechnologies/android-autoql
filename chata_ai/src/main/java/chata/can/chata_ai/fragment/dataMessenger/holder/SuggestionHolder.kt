@@ -7,7 +7,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
@@ -80,7 +79,13 @@ class SuggestionHolder(
 
 					if (it.query.isEmpty())
 					{
-						tvContent.visibility = View.GONE
+						if (it.message != "Success")
+						{
+							tvContent.visibility = View.VISIBLE
+							tvContent.text = it.message
+						}
+						else
+							tvContent.visibility = View.GONE
 					}
 					else
 					{
@@ -135,9 +140,7 @@ class SuggestionHolder(
 			{
 				R.id.rlDelete ->
 				{
-					//region delete query
 					adapterView?.deleteQuery(adapterPosition)
-					//endregion
 				}
 				else -> {}
 			}
