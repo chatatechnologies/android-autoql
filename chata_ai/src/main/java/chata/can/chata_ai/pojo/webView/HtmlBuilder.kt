@@ -139,26 +139,24 @@ object HtmlBuilder
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
-				if (aColumn.size > 1)
+				val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
+				dataForWebView.dataChartBi = aDataTable.toString()
+				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
-					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
-					dataForWebView.dataChartBi = aDataTable.toString()
-					if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
-					{
-						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
-						dataForWebView.datePivot = pPivot.first
-						dataForWebView.rowsPivot = pPivot.second
-					}
+					val aCheck = (0..2).toMutableList()
+					val tmpDate = if (aDate.isNotEmpty()) aDate else aDateString
+					aCheck.remove(tmpDate[0])
+					aCheck.remove(aNumber[0])
+					val nameHeader = aColumn[aCheck.first()].displayName
+
+					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+					val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY, nameHeader)
+					dataForWebView.datePivot = pPivot.first
+					dataForWebView.rowsPivot = pPivot.second
+					//queryBase.configActions = 2 //IGNORE
+				}
 //					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
 //					{
-//						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-//						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
-//
-//						dataForWebView.datePivot = pPivot.first
-//						dataForWebView.rowsPivot = pPivot.second
-//
-//						//queryBase.configActions = 2 //IGNORE
 //					}
 //					else
 //					{
@@ -167,21 +165,20 @@ object HtmlBuilder
 ////						queryBase.configActions = 3 //IGNORE
 //					}
 
-					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
-					queryBase.isTri = true
-					dataForWebView.isBi = false
+				dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
+				queryBase.isTri = true
+				dataForWebView.isBi = false
 
-					val isDate = aColumn[0].type == TypeDataQuery.STRING
-					val isDateString = aColumn[1].type == TypeDataQuery.DATE_STRING
-					val isDollar = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
-					if (isDate && isDateString && isDollar)
-					{
-						//TODO COMPLETE
+				val isDate = aColumn[0].type == TypeDataQuery.STRING
+				val isDateString = aColumn[1].type == TypeDataQuery.DATE_STRING
+				val isDollar = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
+				if (isDate && isDateString && isDollar)
+				{
+					//TODO COMPLETE
 //						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
 //							aRows, aColumn,queryBase.mIndexColumn,true)
-						queryBase.isTriInBi = true
+					queryBase.isTriInBi = true
 //						queryBase.configActions = 6
-					}
 				}
 
 //				if (queryBase.configActions == 2)

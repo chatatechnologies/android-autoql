@@ -26,16 +26,20 @@ object TableTriBuilder
 	}
 
 	fun buildDataPivot(
-		mDataPivot: LinkedHashMap<String, String>, aCatX: ArrayList<String>, aCatY: ArrayList<String>
+		mDataPivot: LinkedHashMap<String, String>,
+		aCatX: ArrayList<String>,
+		aCatY: ArrayList<String>,
+		nameHeader: String
 	): Pair<String, Int>
 	{
-		val sbHead = StringBuilder("<thead><tr><th></th>")
+		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
 		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
-		val sbBody = StringBuilder("<tbody>")
+		val aRows = ArrayList<String>()
+
 		for (indexX in aCatX.indices)
 		{
 			val categoryX = aCatX[indexX]
@@ -47,7 +51,14 @@ object TableTriBuilder
 					cell = cell.clearDecimals()
 				sbRow.append("<td>$cell</td>")
 			}
-			sbBody.append("<tr>$sbRow</tr>")
+			aRows.add("<tr>$sbRow</tr>")
+		}
+
+		aRows.sort()
+		val sbBody = StringBuilder("<tbody>")
+		for (row in aRows)
+		{
+			sbBody.append("<tr>$row</tr>")
 		}
 		sbBody.append("</tbody>")
 		return Pair("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size)
