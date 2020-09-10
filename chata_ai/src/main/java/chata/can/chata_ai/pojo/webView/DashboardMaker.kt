@@ -728,7 +728,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                 chart = Highcharts.chart('container', {
                     chart: {
                         type: type,
-                        inverted: false
+                        inverted: true
                     },
                     title: subTitle,
                     subTitle: subTitle,
