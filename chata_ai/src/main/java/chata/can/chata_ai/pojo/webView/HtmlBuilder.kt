@@ -139,16 +139,17 @@ object HtmlBuilder
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
-				val isDate0 = aColumn[0].type == TypeDataQuery.DATE
-				val isDate1 = aColumn[1].type == TypeDataQuery.DATE
-
-				val isDollar1 = aColumn[1].type == TypeDataQuery.DOLLAR_AMT
-				val isDollar2 = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
-
 				if (aColumn.size > 1)
 				{
 					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
+					if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
+					{
+						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
+						dataForWebView.datePivot = pPivot.first
+						dataForWebView.rowsPivot = pPivot.second
+					}
 //					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
 //					{
 //						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
