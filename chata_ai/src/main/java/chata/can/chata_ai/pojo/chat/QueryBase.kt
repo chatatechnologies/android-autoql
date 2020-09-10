@@ -207,4 +207,13 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			view?.onBind(this)
 		}
 	}
+
+	fun addIndices(index1: Int, index2: Int)
+	{
+		if (index1 != -1 && index2 != -1)
+		{
+			aIndex.add(index1)
+			aIndex.add(index2)
+		}
+	}
 }

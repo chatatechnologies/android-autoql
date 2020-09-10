@@ -35,20 +35,22 @@ object HtmlBuilder
 
 				posColumnX = aGroupable[0]
 				posColumnY = aNumber[0]
-
-				if (posColumnX != -1 && posColumnY != -1)
-				{
-					queryBase.aIndex.run {
-						add(posColumnX)
-						add(posColumnY)
-					}
-				}
+				queryBase.addIndices(posColumnX, posColumnY)
 
 				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 				if (hasDecimals)
 					queryBase.configActions = 0
 				else
 					queryBase.configActions = 4
+			}
+			SupportCase.CASE_3 ->
+			{
+				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
+				posColumnX = aGroupable[0]
+				posColumnY = aGroupable[1]
+				queryBase.addIndices(posColumnX, posColumnY)
+
+				queryBase.configActions = 5
 			}
 			SupportCase.CASE_5 ->
 			{
@@ -65,13 +67,7 @@ object HtmlBuilder
 				if (aNumber.isNotEmpty())
 					posColumnY = aNumber[0]
 
-				if (posColumnX != -1 && posColumnY != -1)
-				{
-					queryBase.aIndex.run {
-						add(posColumnX)
-						add(posColumnY)
-					}
-				}
+				queryBase.addIndices(posColumnX, posColumnY)
 
 				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 				if (hasDecimals)
