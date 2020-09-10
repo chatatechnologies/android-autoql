@@ -50,6 +50,7 @@ object HtmlBuilder
 				posColumnY = aGroupable[1]
 				queryBase.addIndices(posColumnX, posColumnY)
 
+				isTriConfig = true
 				queryBase.configActions = 5
 			}
 			SupportCase.CASE_5 ->
@@ -78,7 +79,6 @@ object HtmlBuilder
 			else ->
 			{
 				queryBase.supportCase.toString()
-				//isTriConfig = true
 			}
 		}
 		//endregion
@@ -135,6 +135,10 @@ object HtmlBuilder
 
 			if (isTriConfig)
 			{
+				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
+				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
+				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
+
 				val isDate0 = aColumn[0].type == TypeDataQuery.DATE
 				val isDate1 = aColumn[1].type == TypeDataQuery.DATE
 
@@ -145,23 +149,22 @@ object HtmlBuilder
 				{
 					val aDataTable = TableTriBuilder.generateDataTableTri(aRows, aColumn[posColumnY], aCatX, aCatY)
 					dataForWebView.dataChartBi = aDataTable.toString()
-
-					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
-					{
-						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
-
-						dataForWebView.datePivot = pPivot.first
-						dataForWebView.rowsPivot = pPivot.second
-
-						//queryBase.configActions = 2
-					}
-					else
-					{
-						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
-						dataForWebView.rowsPivot = 180
-//						queryBase.configActions = 3
-					}
+//					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
+//					{
+//						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+//						val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY)
+//
+//						dataForWebView.datePivot = pPivot.first
+//						dataForWebView.rowsPivot = pPivot.second
+//
+//						//queryBase.configActions = 2 //IGNORE
+//					}
+//					else
+//					{
+//						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+//						dataForWebView.rowsPivot = 180
+////						queryBase.configActions = 3 //IGNORE
+//					}
 
 					dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
 					queryBase.isTri = true
