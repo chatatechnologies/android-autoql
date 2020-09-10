@@ -733,6 +733,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     title: subTitle,
                     subTitle: subTitle,
                     xAxis: {
+											min: 0,
                         gridLineWidth: 0,
                         categories: categoriesX,
                         labels: {
