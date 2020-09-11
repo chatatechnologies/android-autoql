@@ -61,40 +61,40 @@ fun String.formatWithColumn(
 			return if (isEmpty() || this == "0") ""
 			else
 			{
-//				val aDataDate = this.split("-")
-//				if (aDataDate.size > 1)
+				val aDataDate = this.split("-")
+				if (aDataDate.size > 1)
+				{
+					var date = ""
+					val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
+					try {
+						dateFormat.parse(this)?.let { dDate ->
+							val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
+							date = dateFormat2.format(dDate)
+						}
+						date
+					}
+					catch (ex: Exception) { "" }
+				}
+				else this
+
+//				var date = ""
+//				val aPart = columnQuery.name.split(",")
+//				if (aPart.size > 1)
 //				{
-//					var date = ""
-//					val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
+//					val source = aPart[1]
+//					val index1 = source.indexOf("'")
+//					val index2 = source.lastIndexOf("'")
+//					val sourceDate = source.substring(index1 + 1, index2)
 //					try {
-//						dateFormat.parse(this)?.let {
-//							dDate ->
-//							val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
+//						val dataFormat = SimpleDateFormat(sourceDate, Locale.US)
+//						dataFormat.parse(this)?.let { dDate ->
+//							val dateFormat2 = SimpleDateFormat(sourceDate, Locale.US)
 //							date = dateFormat2.format(dDate)
 //						}
 //					}
 //					catch (ex: Exception) {}
-//					date
 //				}
-//				else ""
-				var date = ""
-				val aPart = columnQuery.name.split(",")
-				if (aPart.size > 1)
-				{
-					val source = aPart[1]
-					val index1 = source.indexOf("'")
-					val index2 = source.lastIndexOf("'")
-					val sourceDate = source.substring(index1 + 1, index2)
-					try {
-						val dataFormat = SimpleDateFormat(sourceDate, Locale.US)
-						dataFormat.parse(this)?.let { dDate ->
-							val dateFormat2 = SimpleDateFormat(sourceDate, Locale.US)
-							date = dateFormat2.format(dDate)
-						}
-					}
-					catch (ex: Exception) {}
-				}
-				date
+//				date
 			}
 		}
 		TypeDataQuery.DATE ->
