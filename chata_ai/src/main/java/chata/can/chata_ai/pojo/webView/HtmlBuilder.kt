@@ -4,11 +4,13 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
-import java.util.*
 import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
+	private fun newListDescending(aList: List<String>)
+	 = aList.toMutableList().apply { sortDescending() }
+
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
@@ -131,7 +133,7 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			dataForWebView.catX = aCatX.toMutableList().apply { sort() }.toString()
+			dataForWebView.catX = newListDescending(aCatX).toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -140,19 +142,10 @@ object HtmlBuilder
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
-				val abc = aCatX.toMutableList().apply { sortDescending() }
-
-				val pajaro = ArrayDeque<String>().apply {
-					aCatX.forEach {
-						push(it)
-					}
-					sorted()
-					sortedDescending()
-				}
 				val aDataTable = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					aCatX.toMutableList().apply { sortDescending() },
+					newListDescending(aCatX),
 					aCatY)
 				dataForWebView.dataChartBi = aDataTable.toString()
 				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
@@ -164,7 +157,11 @@ object HtmlBuilder
 					val nameHeader = aColumn[aCheck.first()].displayName
 
 					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-					val pPivot = TableTriBuilder.buildDataPivot(mDataPivot, aCatX, aCatY, nameHeader)
+					val pPivot = TableTriBuilder.buildDataPivot(
+						mDataPivot,
+						aCatX,
+						aCatY,
+						nameHeader)
 					dataForWebView.datePivot = pPivot.first
 					dataForWebView.rowsPivot = pPivot.second
 					//queryBase.configActions = 2 //IGNORE

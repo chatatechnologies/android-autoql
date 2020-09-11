@@ -27,7 +27,7 @@ object TableTriBuilder
 
 	fun buildDataPivot(
 		mDataPivot: LinkedHashMap<String, String>,
-		aCatX: ArrayList<String>,
+		aCatX: List<String>,
 		aCatY: ArrayList<String>,
 		nameHeader: String
 	): Pair<String, Int>
