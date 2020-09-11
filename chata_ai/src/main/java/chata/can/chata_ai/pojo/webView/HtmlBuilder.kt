@@ -130,7 +130,7 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			dataForWebView.catX = aCatX.toString()
+			dataForWebView.catX = aCatX.toMutableList().apply { sort() }.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
