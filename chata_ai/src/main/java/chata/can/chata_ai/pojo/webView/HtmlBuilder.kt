@@ -145,7 +145,7 @@ object HtmlBuilder
 				val aDataTable = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					newListDescending(aCatX),
+					aCatX,
 					aCatY)
 				dataForWebView.dataChartBi = aDataTable.toString()
 				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
