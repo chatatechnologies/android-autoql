@@ -144,6 +144,7 @@ object HtmlBuilder
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
+				val aMapPure = TableTriBuilder.getMapData(aRows, aCatX, aCatY)
 				val aDataTable = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],

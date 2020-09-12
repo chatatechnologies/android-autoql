@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import android.util.Log
 import chata.can.chata_ai.extension.clearDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
@@ -103,8 +104,30 @@ object TableTriBuilder
 		return aDataTable
 	}
 
-	fun generateMapData()
+	fun getMapData(
+		aRows: ArrayList<ArrayList<String>>,
+		aCatX: List<String>,
+		aCatY: List<String>): LinkedHashMap<String, String>
 	{
+		val mData = LinkedHashMap<String, String>()
+		for (aCell in aRows)
+		{
+			val valX = "\"${aCell[0]}\""
+			val valY = "\"${aCell[1]}\""
 
+			val iX = aCatX.indexOf(valX)
+			val iY = aCatY.indexOf(valY)
+			//pending case with iY when is -1
+			if (iY == -1)
+			{
+				Log.e("INFO", "No found data for Categories Y")
+			}
+
+			if (iX != -1 && iY != -1)
+			{
+				mData["${iX}_$iY"] = aCell[2]
+			}
+		}
+		return mData
 	}
 }
