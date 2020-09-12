@@ -69,19 +69,21 @@ object TableTriBuilder
 		aRows: ArrayList<ArrayList<String>>,
 		columns: ColumnQuery,
 		aCatX: List<String>,
-		aCatY: List<String>) : ArrayList<ArrayList<Any>>
+		aCatY: List<String>): Pair< ArrayList<ArrayList<Any>>, LinkedHashMap<String, String> >
 	{
 		val aDataTable = ArrayList<ArrayList<Any>>()
+		val mData = LinkedHashMap<String, String>()
+
 		for (aCells in aRows)
 		{
 			val valueX = "\"${aCells[0]}\""
 			var valueY = "\"${aCells[1]}\""
 			val value = aCells[2]
 
-			val indexX = aCatX.indexOf(valueX)
-			var indexY = aCatY.indexOf(valueY)
+			val iX = aCatX.indexOf(valueX)
+			var iY = aCatY.indexOf(valueY)
 
-			if (indexY == -1)
+			if (iY == -1)
 			{
 				val cellFirst = aCells[1]
 				valueY = if(cellFirst.isEmpty() || cellFirst == "0" )
@@ -94,40 +96,13 @@ object TableTriBuilder
 					"\"${dateFormatted.replace(".", ",")}\""
 				}
 
-				indexY = aCatY.indexOf(valueY)
+				iY = aCatY.indexOf(valueY)
 			}
 
-//			val aNewRow = arrayListOf(indexY, indexX, value.toDoubleNotNull())
-			val aNewRow = arrayListOf<Any>(indexX, indexY, value.toDoubleNotNull())
+			mData["${iX}_$iY"] = value
+			val aNewRow = arrayListOf<Any>(iX, iY, value.toDoubleNotNull())
 			aDataTable.add(aNewRow)
 		}
-		return aDataTable
-	}
-
-	fun getMapData(
-		aRows: ArrayList<ArrayList<String>>,
-		aCatX: List<String>,
-		aCatY: List<String>): LinkedHashMap<String, String>
-	{
-		val mData = LinkedHashMap<String, String>()
-		for (aCell in aRows)
-		{
-			val valX = "\"${aCell[0]}\""
-			val valY = "\"${aCell[1]}\""
-
-			val iX = aCatX.indexOf(valX)
-			val iY = aCatY.indexOf(valY)
-			//pending case with iY when is -1
-			if (iY == -1)
-			{
-				Log.e("INFO", "No found data for Categories Y")
-			}
-
-			if (iX != -1 && iY != -1)
-			{
-				mData["${iX}_$iY"] = aCell[2]
-			}
-		}
-		return mData
+		return Pair(aDataTable, mData)
 	}
 }

@@ -144,13 +144,16 @@ object HtmlBuilder
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
-				val aMapPure = TableTriBuilder.getMapData(aRows, aCatX, aCatY)
-				val aDataTable = TableTriBuilder.generateDataTableTri(
+				//get aDataTable and aMapPure
+				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
 					aCatX,
 					aCatY)
+				val aDataTable = pair.first
+				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()
+
 				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
 					val aCheck = (0..2).toMutableList()
@@ -179,7 +182,7 @@ object HtmlBuilder
 ////						queryBase.configActions = 3 //IGNORE
 //					}
 
-				dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatX, aCatY).toString()
+				dataForWebView.catYS = LineBuilder.generateDataChartLine(aMapPure, aCatX, aCatY).toString()
 				queryBase.isTri = true
 				dataForWebView.isBi = false
 
