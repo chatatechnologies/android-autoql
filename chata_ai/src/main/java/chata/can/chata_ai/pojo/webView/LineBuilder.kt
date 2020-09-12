@@ -6,12 +6,21 @@ object LineBuilder
 {
 	fun generateDataChartLine(
 		aDataTable: ArrayList<ArrayList<Any>>,
+		aCatX: ArrayList<String>,
 		aCatY: ArrayList<String>): ArrayList<String>
 	{
-		val aChartLine = ArrayList<String>()
-		for ((index, category) in aCatY.withIndex())
+		for((index2, catY) in aCatY.withIndex())
 		{
-			val aDataFilter = aDataTable.filter { it[1] == index }
+			for ((index1, catX) in aCatX.withIndex())
+			{
+				aDataTable[index1]
+			}
+		}
+
+		val aChartLine = ArrayList<String>()
+		for ((index2, category) in aCatY.withIndex())
+		{
+			val aDataFilter = aDataTable.filter { it[1] == index2 }
 			val aData = ArrayList<Double>()
 			for (value in aDataFilter)
 			{

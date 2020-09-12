@@ -102,4 +102,9 @@ object TableTriBuilder
 		}
 		return aDataTable
 	}
+
+	fun generateMapData()
+	{
+
+	}
 }

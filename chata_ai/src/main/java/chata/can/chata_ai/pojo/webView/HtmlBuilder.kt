@@ -134,6 +134,8 @@ object HtmlBuilder
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.catX = newListDescending(aCatX).toString()
+			//TODO remove
+			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -176,7 +178,7 @@ object HtmlBuilder
 ////						queryBase.configActions = 3 //IGNORE
 //					}
 
-				dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatY).toString()
+				dataForWebView.catYS = LineBuilder.generateDataChartLine(aDataTable, aCatX, aCatY).toString()
 				queryBase.isTri = true
 				dataForWebView.isBi = false
 
