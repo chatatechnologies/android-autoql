@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import android.util.Log
 import chata.can.chata_ai.extension.clearDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull

@@ -190,6 +190,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 	{
 		etQuery.run {
+			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
 			background = pDrawable.second
 			val hint = if (PagerData.inputPlaceholder.isNotEmpty())
 			{
