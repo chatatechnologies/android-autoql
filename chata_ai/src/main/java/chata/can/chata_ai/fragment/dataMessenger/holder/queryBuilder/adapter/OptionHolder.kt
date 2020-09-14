@@ -18,17 +18,24 @@ class OptionHolder(view: View): Holder(view)
 
 	override fun onPaint()
 	{
+		rlParent.run {
+			val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			setBackgroundColor(white)
+		}
+		tvQueryRoot.run {
+			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+			setTextColor(gray)
+		}
 
+		ivForwardExplore?.setColorFilter(
+			ivForwardExplore.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary),
+			PorterDuff.Mode.SRC_ATOP)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		if (item is String)
 		{
-			ivForwardExplore?.setColorFilter(
-				ivForwardExplore.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary),
-				PorterDuff.Mode.SRC_ATOP)
-
 			tvQueryRoot?.text = item
 			rlParent?.setOnClickListener {
 				listener?.onItemClick(item)

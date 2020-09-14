@@ -1,12 +1,12 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
 import android.app.Activity
-import android.graphics.Color
+//import android.graphics.Color
 import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
+//import android.text.Spanned
+//import android.text.TextPaint
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
+//import android.text.style.ClickableSpan
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
@@ -17,9 +17,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.pager.PagerActivity
+//import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
+//import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
@@ -29,6 +30,8 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.color.ThemeColor
 
+//import chata.can.chata_ai.pojo.color.ThemeColor
+
 class QueryBuilderHolder(
 	view: View,
 	private val pagerActivity: Activity,
@@ -36,6 +39,7 @@ class QueryBuilderHolder(
 ): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
+	private val tvMsg = view.findViewById<TextView>(R.id.tvMsg) ?: null
 	private var tvLink = view.findViewById<TextView>(R.id.tvLink) ?: null
 
 	private var ivBackExplore = view.findViewById<ImageView>(R.id.ivBackExplore) ?: null
@@ -55,6 +59,9 @@ class QueryBuilderHolder(
 	{
 		llContent?.run {
 			backgroundGrayWhite()
+			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+			tvLink?.setTextColor(gray)
+			tvMsg?.setTextColor(gray)
 			val animation = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animation)
 		}
@@ -65,30 +72,30 @@ class QueryBuilderHolder(
 		//region set content
 		val linkMessage = "Use Explore Queries to further explore the possibilities."
 		val spannable = SpannableString(linkMessage)
-		val clickable = object: ClickableSpan()
-		{
-			override fun onClick(widget: View)
-			{
-				(pagerActivity as? PagerActivity)?.run {
-					selectPage(1)
-				}
-			}
-
-			override fun updateDrawState(textPaint: TextPaint)
-			{
-				textPaint.run {
-					try {
-						tvLink?.context?.let {
-							color = it.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-						}
-					}
-					finally {
-						bgColor = Color.parseColor("#FFFFFF")
-						isUnderlineText = false
-					}
-				}
-			}
-		}
+//		val clickable = object: ClickableSpan()
+//		{
+//			override fun onClick(widget: View)
+//			{
+//				(pagerActivity as? PagerActivity)?.run {
+//					selectPage(1)
+//				}
+//			}
+//
+//			override fun updateDrawState(textPaint: TextPaint)
+//			{
+//				textPaint.run {
+//					try {
+//						tvLink?.context?.let {
+//							color = it.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
+//						}
+//					}
+//					finally {
+//						bgColor = Color.parseColor("#FFFFFF")
+//						isUnderlineText = false
+//					}
+//				}
+//			}
+//		}
 		//TODO UNCOMMENT WHEN TIPS IS READY
 //		spannable.setSpan(clickable, 4, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 		tvLink?.run {

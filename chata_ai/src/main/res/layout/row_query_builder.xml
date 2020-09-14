@@ -25,6 +25,7 @@
 				android:text="@string/you_can_ask_me"/>
 
 			<RelativeLayout
+				android:background="@color/blue"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent">
 
