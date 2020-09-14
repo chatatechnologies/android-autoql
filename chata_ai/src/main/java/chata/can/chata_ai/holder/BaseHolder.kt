@@ -5,7 +5,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite

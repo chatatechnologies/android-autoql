@@ -3,7 +3,6 @@ package chata.can.chata_ai.extension
 import android.animation.ObjectAnimator
 import android.view.View
 import android.widget.EditText
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder

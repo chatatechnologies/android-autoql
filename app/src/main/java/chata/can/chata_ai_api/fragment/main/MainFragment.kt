@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged

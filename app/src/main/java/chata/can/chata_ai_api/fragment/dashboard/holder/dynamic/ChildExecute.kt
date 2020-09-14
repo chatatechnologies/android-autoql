@@ -2,7 +2,6 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai_api.R

@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources

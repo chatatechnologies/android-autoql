@@ -8,7 +8,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract

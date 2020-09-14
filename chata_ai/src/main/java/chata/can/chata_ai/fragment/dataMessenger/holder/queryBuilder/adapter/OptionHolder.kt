@@ -4,7 +4,6 @@ import android.graphics.PorterDuff
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder

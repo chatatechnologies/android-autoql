@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.getParsedColor

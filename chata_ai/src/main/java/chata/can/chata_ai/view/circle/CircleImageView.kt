@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewOutlineProvider
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
 import kotlin.math.min

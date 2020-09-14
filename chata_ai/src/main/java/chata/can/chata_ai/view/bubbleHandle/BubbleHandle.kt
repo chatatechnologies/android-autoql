@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.pager.PagerActivity

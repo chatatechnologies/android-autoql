@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.speech.RecognizerIntent
-import androidx.core.content.ContextCompat
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.color.ThemeColor

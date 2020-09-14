@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
@@ -63,7 +64,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			requestLayout()
 			settings.javaScriptEnabled = true
 
-			if (queryBase.hasDrillDown)
+			if (queryBase.hasDrillDown && SinglentonDrawer.mIsEnableDrillDown)
 			{
 				addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
 			}

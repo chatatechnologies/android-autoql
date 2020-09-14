@@ -3,7 +3,6 @@ package chata.can.chata_ai_api.fragment.dashboard
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.extension.backgroundGrayWhite
