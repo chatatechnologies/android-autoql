@@ -1,6 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
 import android.app.Activity
+import android.graphics.PorterDuff
 //import android.graphics.Color
 import android.text.SpannableString
 //import android.text.Spanned
@@ -59,11 +60,19 @@ class QueryBuilderHolder(
 	{
 		llContent?.run {
 			backgroundGrayWhite()
-			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
-			tvLink?.setTextColor(gray)
-			tvMsg?.setTextColor(gray)
-			val animation = AnimationUtils.loadAnimation(context, R.anim.scale)
-			startAnimation(animation)
+			context.run {
+				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				tvLink?.setTextColor(gray)
+				tvMsg?.setTextColor(gray)
+				tvCurrentExplore?.setTextColor(gray)
+
+				rvExplore?.setBackgroundColor(white)
+				ivBackExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)
+
+				val animation = AnimationUtils.loadAnimation(this, R.anim.scale)
+				startAnimation(animation)
+			}
 		}
 	}
 
