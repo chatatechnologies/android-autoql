@@ -5,12 +5,11 @@ import chata.can.chata_ai.extension.clearDecimals
 object LineBuilder
 {
 	fun generateDataChartLine(
-		aMapData: LinkedHashMap<String, String>,//		aDataTable: ArrayList<ArrayList<Any>>,
+		aMapData: LinkedHashMap<String, String>,//aDataTable: ArrayList<ArrayList<Any>>
 		aCatX: ArrayList<String>,
 		aCatY: ArrayList<String>): ArrayList<String>
 	{
 		val aChartLine = ArrayList<String>()
-
 		for((index2, category) in aCatY.withIndex())
 		{
 			val aEachY = ArrayList<Double>()
@@ -25,20 +24,6 @@ object LineBuilder
 			val item = "{\"data\":$sData,\"name\":$category}"
 			aChartLine.add(item)
 		}
-//		for ((index2, category) in aCatY.withIndex())
-//		{
-//			val aDataFilter = aMapData.filter { it[1] == index2 }
-//			val aData = ArrayList<Double>()
-//			for (value in aDataFilter)
-//			{
-//				(value[2] as? Double)?.let {
-//					aData.add(it)
-//				}
-//			}
-//			val sData = aData.joinTo(StringBuilder("["), postfix = "]", separator = ",") { "$it".clearDecimals() }
-//			val item = "{\"data\":$sData,\"name\":$category}"
-//			aChartLine.add(item)
-//		}
 		return aChartLine
 	}
 }

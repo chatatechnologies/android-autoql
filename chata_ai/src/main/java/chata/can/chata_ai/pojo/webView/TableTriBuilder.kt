@@ -69,7 +69,9 @@ object TableTriBuilder
 		aRows: ArrayList<ArrayList<String>>,
 		columns: ColumnQuery,
 		aCatX: List<String>,
-		aCatY: List<String>): Pair< ArrayList<ArrayList<Any>>, LinkedHashMap<String, String> >
+		aCatY: List<String>,
+		hasNumber: Boolean
+	): Pair< ArrayList<ArrayList<Any>>, LinkedHashMap<String, String> >
 	{
 		val aDataTable = ArrayList<ArrayList<Any>>()
 		val mData = LinkedHashMap<String, String>()
@@ -99,8 +101,9 @@ object TableTriBuilder
 				iY = aCatY.indexOf(valueY)
 			}
 
-			mData["${iX}_$iY"] = value
-			val aNewRow = arrayListOf<Any>(iX, iY, value.toDoubleNotNull())
+			val dNumber = value.toDoubleNotNull()
+			mData["${iX}_$iY"] = if (hasNumber) "$dNumber" else value
+			val aNewRow = arrayListOf<Any>(iX, iY, dNumber)
 			aDataTable.add(aNewRow)
 		}
 		return Pair(aDataTable, mData)

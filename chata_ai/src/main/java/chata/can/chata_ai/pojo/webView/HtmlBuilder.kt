@@ -149,7 +149,8 @@ object HtmlBuilder
 					aRows,
 					aColumn[posColumnY],
 					aCatX,
-					aCatY)
+					aCatY,
+					aNumber.isNotEmpty())
 				val aDataTable = pair.first
 				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()
