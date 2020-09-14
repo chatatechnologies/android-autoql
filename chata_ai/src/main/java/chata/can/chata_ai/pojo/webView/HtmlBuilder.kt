@@ -134,8 +134,6 @@ object HtmlBuilder
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.catX = newListDescending(aCatX).toString()
-			//TODO remove
-//			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)

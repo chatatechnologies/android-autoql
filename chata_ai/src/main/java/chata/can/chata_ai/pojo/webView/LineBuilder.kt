@@ -5,7 +5,7 @@ import chata.can.chata_ai.extension.clearDecimals
 object LineBuilder
 {
 	fun generateDataChartLine(
-		aMapData: LinkedHashMap<String, String>,//aDataTable: ArrayList<ArrayList<Any>>
+		aMapData: LinkedHashMap<String, String>,
 		aCatX: List<String>,
 		aCatY: ArrayList<String>): ArrayList<String>
 	{
