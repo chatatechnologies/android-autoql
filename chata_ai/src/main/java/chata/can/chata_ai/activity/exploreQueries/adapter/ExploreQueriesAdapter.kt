@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.exploreQueries.adapter
+package chata.can.chata_ai.activity.exploreQueries.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

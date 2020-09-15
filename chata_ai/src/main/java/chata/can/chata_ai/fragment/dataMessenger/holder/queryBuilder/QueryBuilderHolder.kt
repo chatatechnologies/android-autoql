@@ -1,6 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.text.SpannableString
@@ -18,6 +19,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity
 import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
@@ -83,8 +85,7 @@ class QueryBuilderHolder(
 			override fun onClick(widget: View)
 			{
 				(pagerActivity as? PagerActivity)?.run {
-					//TODO open fragment with explore queries
-//					selectPage(1)
+					startActivity(Intent(this, ExploreQueriesActivity::class.java))
 				}
 			}
 

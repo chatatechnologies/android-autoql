@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.exploreQueries
+package chata.can.chata_ai.activity.exploreQueries
 
 data class RelatedQuery(
 	val aItems: ArrayList<String>,
