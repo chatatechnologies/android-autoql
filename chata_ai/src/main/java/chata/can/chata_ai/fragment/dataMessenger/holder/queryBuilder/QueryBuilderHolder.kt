@@ -83,7 +83,8 @@ class QueryBuilderHolder(
 			override fun onClick(widget: View)
 			{
 				(pagerActivity as? PagerActivity)?.run {
-					selectPage(1)
+					//TODO open fragment with explore queries
+//					selectPage(1)
 				}
 			}
 

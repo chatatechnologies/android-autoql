@@ -4,15 +4,14 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.R
+import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
-import chata.can.chata_ai.pojo.base.PageSelectedListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -24,9 +23,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var ivLight: ImageView ?= null
 	private var ivCancel: ImageView ?= null
 	private var ivClear: ImageView ?= null
-	private var viewPager: ViewPager ?= null
-	private var slidePagerAdapter: SlidePagerAdapter ?= null
-	private val numPages = 2
 
 	val model = SinglentonDrawer.mModel
 	var dataMessengerTile = "Data Messenger"
@@ -39,7 +35,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		ivCancel = findViewById(R.id.ivCancel)
 		ivLight = findViewById(R.id.ivLight)
 		ivClear = findViewById(R.id.ivClear)
-		viewPager = findViewById(R.id.viewPager)
 
 		ivClear?.setColorFilter(getParsedColor(R.color.white))
 
@@ -47,8 +42,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		initData()
 
 		tvToolbar?.text = dataMessengerTile
-		slidePagerAdapter = SlidePagerAdapter(supportFragmentManager, numPages)
-		viewPager?.adapter = slidePagerAdapter
 
 		initConfig()
 	}
@@ -81,10 +74,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 				}
 				R.id.ivLight ->
 				{
-					viewPager?.run {
-						currentItem = if (currentItem == 0) 1
-						else 0
-					}
+
 				}
 				R.id.ivClear ->
 				{
@@ -103,11 +93,12 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 							model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 							model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 
-							slidePagerAdapter?.getRegisteredFragment(0)?.let { dataMessengerFragment ->
-								if (dataMessengerFragment is DataMessengerFragment) {
-									dataMessengerFragment.notifyAdapter()
-								}
-							}
+							//TODO call method with supportManager
+//							slidePagerAdapter?.getRegisteredFragment(0)?.let { dataMessengerFragment ->
+//								if (dataMessengerFragment is DataMessengerFragment) {
+//									dataMessengerFragment.notifyAdapter()
+//								}
+//							}
 						}
 						.setNegativeButton("Cancel", null).show()
 				}
@@ -116,31 +107,26 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		}
 	}
 
-	fun selectPage(index: Int)
-	{
-		viewPager?.currentItem = index
-	}
-
 	private fun initListener()
 	{
 		ivCancel?.setOnClickListener(this)
 		ivLight?.setOnClickListener(this)
 		ivClear?.setOnClickListener(this)
-
-		viewPager?.addOnPageChangeListener(object: PageSelectedListener
-		{
-			override fun onSelected(position: Int)
-			{
-				val pData = when(position)
-				{
-					0 -> Pair(dataMessengerTile, R.drawable.ic_light)
-					1 -> Pair(exploreQueriesTile, R.drawable.ic_chat_white)
-					else -> Pair(dataMessengerTile, R.drawable.ic_light)
-				}
-				tvToolbar?.text = pData.first
-				ivLight?.setImageResource(pData.second)
-			}
-		})
+		//TODO reusable when explore queries fragment is opened
+//		viewPager?.addOnPageChangeListener(object: PageSelectedListener
+//		{
+//			override fun onSelected(position: Int)
+//			{
+//				val pData = when(position)
+//				{
+//					0 -> Pair(dataMessengerTile, R.drawable.ic_light)
+//					1 -> Pair(exploreQueriesTile, R.drawable.ic_chat_white)
+//					else -> Pair(dataMessengerTile, R.drawable.ic_light)
+//				}
+//				tvToolbar?.text = pData.first
+//				ivLight?.setImageResource(pData.second)
+//			}
+//		})
 	}
 
 	private fun initConfig()
@@ -156,6 +142,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 			}
 		}
 		RequestBuilder.initVolleyRequest(this)
+		addFragment(supportFragmentManager, DataMessengerFragment.newInstance())
 	}
 
 	private fun initData()

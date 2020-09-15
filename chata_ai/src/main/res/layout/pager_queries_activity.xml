@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:orientation="vertical">
 
-		<RelativeLayout
+	<RelativeLayout
 			android:background="@color/chata_drawer_accent_color"
 			android:id="@+id/toolbar"
 			android:minHeight="?attr/actionBarSize"
@@ -50,8 +50,8 @@
 				android:src="@drawable/ic_delete"/>
 		</RelativeLayout>
 
-	<androidx.viewpager.widget.ViewPager
-		android:id="@+id/viewPager"
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"/>
+	<RelativeLayout
+		android:id="@+id/frmContent"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"/>
 </LinearLayout>
