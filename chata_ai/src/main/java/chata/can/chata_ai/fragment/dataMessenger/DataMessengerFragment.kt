@@ -235,7 +235,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "count invoices"
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
-				val queryDemo = "All jobs in bid state"
+				val queryDemo = "Advantage oil"
 //				val queryDemo = "advintage oil"
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
