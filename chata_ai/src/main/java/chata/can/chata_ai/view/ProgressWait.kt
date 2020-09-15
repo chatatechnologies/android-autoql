@@ -1,12 +1,12 @@
 package chata.can.chata_ai.view
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
-
 
 object ProgressWait
 {
@@ -26,6 +26,7 @@ object ProgressWait
 		dialogBuilder.setView(dialogView)
 		dialogBuilder.setCancelable(false)
 		dialog = dialogBuilder.create().apply {
+			window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 			show()
 		}
 		return dialog

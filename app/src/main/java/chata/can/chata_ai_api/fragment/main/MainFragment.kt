@@ -10,6 +10,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
@@ -137,15 +138,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
 
-			//TODO REMOVE
-			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
-			userID = (tvUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
-
-			servicePresenter.createAuthenticate()
+//			//TODO REMOVE
+//			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
+//			userID = (tvUserId?.text ?: "").toString().trim()
+//			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+//			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
+//			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+//			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+//
+//			servicePresenter.createAuthenticate()
 		}
 		else
 		{
@@ -497,6 +498,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						password = (tvPassword?.text ?: "").toString().trim()
 
 						servicePresenter.createAuthenticate()
+						showDialog()
 					}
 				}
 				R.id.btnReloadDrawer ->
@@ -539,6 +541,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun showAlert(message: String, intRes: Int)
 	{
+		hideDialog()
 		animationAlert.setText(message)
 		animationAlert.setResource(intRes)
 		animationAlert.showAlert()
@@ -650,6 +653,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 		//endregion
+	}
+
+	private fun showDialog()
+	{
+		activity?.let { ProgressWait.showProgressDialog(it, "") }
+	}
+
+	private fun hideDialog()
+	{
+		ProgressWait.hideProgressDialog()
 	}
 
 	private fun String.prepareDomain(): String
