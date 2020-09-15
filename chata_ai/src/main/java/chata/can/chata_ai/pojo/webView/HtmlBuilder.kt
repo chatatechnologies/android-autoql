@@ -17,7 +17,7 @@ object HtmlBuilder
 		val aColumn = queryBase.aColumn
 		val dataForWebView = DataForWebView()
 
-		var pData = TableHtmlBuilder.buildTable(aRows, aColumn)
+		val pData = TableHtmlBuilder.buildTable(aRows, aColumn)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
@@ -155,31 +155,30 @@ object HtmlBuilder
 
 				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
-					val aCheck = (0..2).toMutableList()
-					val tmpDate = if (aDate.isNotEmpty()) aDate else aDateString
-					aCheck.remove(tmpDate[0])
-					aCheck.remove(aNumber[0])
-					val nameHeader = aColumn[aCheck.first()].displayName
+					val type = aColumn[aNumber[0]]
+					if (type.type == TypeDataQuery.QUANTITY)
+					{
+						val aCheck = (0..2).toMutableList()
+						val tmpDate = if (aDate.isNotEmpty()) aDate else aDateString
+						aCheck.remove(tmpDate[0])
+						aCheck.remove(aNumber[0])
+						val nameHeader = aColumn[aCheck.first()].displayName
 
-					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-					val pPivot = TableTriBuilder.buildDataPivot(
-						mDataPivot,
-						newListDescending(aCatX),
-						aCatY,
-						nameHeader)
-					dataForWebView.datePivot = pPivot.first
-					dataForWebView.rowsPivot = pPivot.second
-					//queryBase.configActions = 2 //IGNORE
+						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+						val pPivot = TableTriBuilder.buildDataPivot(
+							mDataPivot,
+							newListDescending(aCatX),
+							aCatY,
+							nameHeader)
+						dataForWebView.datePivot = pPivot.first
+						dataForWebView.rowsPivot = pPivot.second
+					}
+					else
+					{
+						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+						dataForWebView.rowsPivot = 180
+					}
 				}
-//					if ((isDate0 || isDate1) && (isDollar1 || isDollar2))
-//					{
-//					}
-//					else
-//					{
-//						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
-//						dataForWebView.rowsPivot = 180
-////						queryBase.configActions = 3 //IGNORE
-//					}
 
 				dataForWebView.catYS = LineBuilder.generateDataChartLine(aMapPure, newListDescending(aCatX), aCatY).toString()
 				queryBase.isTri = true
