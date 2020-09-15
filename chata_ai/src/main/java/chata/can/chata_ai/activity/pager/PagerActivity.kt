@@ -26,8 +26,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var ivClear: ImageView ?= null
 	private var viewPager: ViewPager ?= null
 	private var slidePagerAdapter: SlidePagerAdapter ?= null
-//	private val numPages = 2
-	private val numPages = 1
+	private val numPages = 2
 
 	val model = SinglentonDrawer.mModel
 	var dataMessengerTile = "Data Messenger"
