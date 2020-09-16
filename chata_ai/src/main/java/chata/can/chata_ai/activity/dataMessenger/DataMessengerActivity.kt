@@ -47,7 +47,6 @@ class DataMessengerActivity:
 	BaseActivity(R.layout.activity_data_messenger), ChatContract.View, View.OnClickListener
 {
 	private var tvToolbar: TextView?= null
-	private var ivLight: ImageView ?= null
 	private var ivCancel: ImageView ?= null
 	private var ivClear: ImageView ?= null
 
@@ -95,7 +94,6 @@ class DataMessengerActivity:
 
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
-		ivLight = findViewById(R.id.ivLight)
 		ivClear = findViewById(R.id.ivClear)
 
 		ivClear?.setColorFilter(getParsedColor(R.color.white))
@@ -107,7 +105,6 @@ class DataMessengerActivity:
 		animationAlert.hideAlert()
 
 		ivCancel?.setOnClickListener(this)
-		ivLight?.setOnClickListener(this)
 		ivClear?.setOnClickListener(this)
 
 		etQuery.addTextChangedListener(object: TextChanged
@@ -188,7 +185,31 @@ class DataMessengerActivity:
 		view?.let {
 			when(it.id)
 			{
+				R.id.ivCancel ->
+				{
+					finish()
+				}
+				R.id.ivClear ->
+				{
+					AlertDialog.Builder(this)
+						.setMessage("Clear all queries & responses?")
+						.setPositiveButton("Clear") { _, _ ->
+							model.clear()
+							val introMessageRes =
+								if (PagerData.introMessage.isNotEmpty()) {
+									PagerData.introMessage
+								} else {
+									"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+								}
 
+							val introMessage = String.format(introMessageRes, PagerData.customerName)
+							model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+							model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+							notifyAdapter()
+						}
+						.setNegativeButton("Cancel", null).show()
+				}
+				else -> {}
 			}
 		}
 	}
@@ -483,7 +504,7 @@ class DataMessengerActivity:
 		scrollToPosition()
 	}
 
-	fun notifyAdapter()
+	private fun notifyAdapter()
 	{
 		chatAdapter.notifyDataSetChanged()
 	}

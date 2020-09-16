@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@color/chata_drawer_accent_color"
+	android:id="@+id/toolbar"
+	android:minHeight="?attr/actionBarSize"
+	android:paddingEnd="8dp"
+	android:paddingStart="8dp"
+	android:layout_height="56dp"
+	android:layout_width="match_parent">
+	<ImageView
+		android:contentDescription="@null"
+		android:id="@+id/ivCancel"
+		android:layout_centerVertical="true"
+		android:layout_height="24dp"
+		android:layout_width="24dp"
+		android:src="@drawable/ic_cancel"/>
+	<TextView
+		android:gravity="center"
+		android:id="@+id/tvToolbar"
+		android:layout_centerInParent="true"
+		android:layout_height="wrap_content"
+		android:layout_toEndOf="@id/ivCancel"
+		android:layout_toStartOf="@id/ivClear"
+		android:layout_width="match_parent"
+		android:textColor="@color/chata_drawer_hover_color"
+		android:textSize="18sp"/>
+	<ImageView
+		android:contentDescription="@null"
+		android:id="@+id/ivClear"
+		android:layout_alignParentEnd="true"
+		android:layout_centerVertical="true"
+		android:layout_height="24dp"
+		android:layout_width="24dp"
+		android:src="@drawable/ic_delete"/>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package chata.can.chata_ai.activity.exploreQueries
 
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
@@ -10,9 +11,13 @@ import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.BaseActivity
 
-class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
+class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	ExploreQueriesContract, View.OnClickListener
 {
+	private lateinit var tvToolbar: TextView
+	private lateinit var ivCancel: ImageView
+	private lateinit var ivClear: ImageView
+
 	private lateinit var llQuery: View
 	private lateinit var etQuery: EditText
 	private lateinit var rvRelatedQueries: RecyclerView
@@ -37,6 +42,8 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 	private val gone = View.GONE
 	private var currentPage = 0
 
+	private var exploreQueriesTile = "Explore Queries"
+
 	override fun onCreateView()
 	{
 		initViews()
@@ -46,6 +53,10 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 
 	private fun initViews()
 	{
+		tvToolbar = findViewById(R.id.tvToolbar)
+		ivCancel = findViewById(R.id.ivCancel)
+		ivClear = findViewById(R.id.ivClear)
+
 		etQuery = findViewById(R.id.etQuery)
 		llQuery = findViewById(R.id.llQuery)
 		rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
@@ -65,6 +76,8 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 
 	private fun initListener()
 	{
+		ivCancel.setOnClickListener(this)
+
 		tvPrevious.setOnClickListener(this)
 		tvFirstPage.setOnClickListener(this)
 		tvSecondPage.setOnClickListener(this)
@@ -93,6 +106,8 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 
 	private fun setColors()
 	{
+		ivClear.visibility = View.GONE
+		tvToolbar.text = exploreQueriesTile
 		llQuery.backgroundGrayWhite(64f,1)
 	}
 
@@ -101,6 +116,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 		view?.let {
 			when(it.id)
 			{
+				R.id.ivCancel -> { finish() }
 				R.id.tvPrevious -> {}
 				R.id.tvFirstPage -> {}
 				R.id.tvSecondPage -> {}
@@ -123,6 +139,12 @@ class ExploreQueriesActivity: BaseActivity(R.layout.fragment_explore_queries),
 			adapter.notifyDataSetChanged()
 			configPager(this)
 		}
+	}
+
+	override fun finish()
+	{
+		super.finish()
+		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
 	private fun configPager(relatedQuery: RelatedQuery)

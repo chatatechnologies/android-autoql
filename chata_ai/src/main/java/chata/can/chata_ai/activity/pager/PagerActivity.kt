@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import chata.can.chata_ai.R
-import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData

@@ -19,8 +19,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dataMessenger.DataMessengerActivity
 import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity
-import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
@@ -84,8 +84,9 @@ class QueryBuilderHolder(
 		{
 			override fun onClick(widget: View)
 			{
-				(pagerActivity as? PagerActivity)?.run {
+				(pagerActivity as? DataMessengerActivity)?.run {
 					startActivity(Intent(this, ExploreQueriesActivity::class.java))
+					overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 				}
 			}
 
