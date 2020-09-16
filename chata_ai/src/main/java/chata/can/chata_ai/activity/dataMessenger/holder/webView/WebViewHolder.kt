@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder.webView
+package chata.can.chata_ai.activity.dataMessenger.holder.webView
 
 import android.annotation.SuppressLint
 import android.os.Handler
@@ -16,7 +16,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData

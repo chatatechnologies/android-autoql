@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.adapter
+package chata.can.chata_ai.activity.dataMessenger.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

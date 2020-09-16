@@ -22,9 +22,13 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
 		<activity android:name="chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity">
 
 		</activity>
-	</application>
 
+		<activity android:name="chata.can.chata_ai.activity.dataMessenger.DataMessengerActivity">
+
+		</activity>
+	</application>
 </manifest>

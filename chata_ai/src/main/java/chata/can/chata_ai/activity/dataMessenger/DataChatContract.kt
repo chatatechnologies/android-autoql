@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger
+package chata.can.chata_ai.activity.dataMessenger
 
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1

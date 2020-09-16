@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
+package chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder
 
 object QueryBuilderData
 {

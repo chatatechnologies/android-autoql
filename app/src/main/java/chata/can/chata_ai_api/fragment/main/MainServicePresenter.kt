@@ -1,6 +1,6 @@
 package chata.can.chata_ai_api.fragment.main
 
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
+import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.QueryBuilderData
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication

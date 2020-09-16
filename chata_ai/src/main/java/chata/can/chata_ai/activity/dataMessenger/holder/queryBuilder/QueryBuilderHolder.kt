@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder
+package chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder
 
 import android.app.Activity
 import android.content.Intent
@@ -24,9 +24,9 @@ import chata.can.chata_ai.activity.pager.PagerActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
-import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
+import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
+import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList

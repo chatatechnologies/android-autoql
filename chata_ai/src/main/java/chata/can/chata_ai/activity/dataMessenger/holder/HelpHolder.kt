@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder
+package chata.can.chata_ai.activity.dataMessenger.holder
 
 import android.content.Intent
 import android.net.Uri

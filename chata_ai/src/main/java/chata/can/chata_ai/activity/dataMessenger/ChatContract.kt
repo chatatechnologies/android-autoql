@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger
+package chata.can.chata_ai.activity.dataMessenger
 
 import android.graphics.drawable.GradientDrawable
 import chata.can.chata_ai.pojo.chat.SimpleQuery

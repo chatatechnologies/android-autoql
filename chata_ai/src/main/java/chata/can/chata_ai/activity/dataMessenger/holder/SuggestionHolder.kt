@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder
+package chata.can.chata_ai.activity.dataMessenger.holder
 
 import android.content.Context
 import android.util.TypedValue
@@ -18,8 +18,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(

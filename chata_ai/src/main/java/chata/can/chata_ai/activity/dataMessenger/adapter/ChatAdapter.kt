@@ -1,15 +1,15 @@
-package chata.can.chata_ai.fragment.dataMessenger.adapter
+package chata.can.chata_ai.activity.dataMessenger.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import chata.can.chata_ai.R
-import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewHolder
+import chata.can.chata_ai.activity.dataMessenger.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
-import chata.can.chata_ai.fragment.dataMessenger.holder.*
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderHolder
+import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.activity.dataMessenger.holder.*
+import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.QueryBuilderHolder
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList

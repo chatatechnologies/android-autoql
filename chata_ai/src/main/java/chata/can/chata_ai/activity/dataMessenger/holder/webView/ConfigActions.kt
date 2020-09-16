@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder.webView
+package chata.can.chata_ai.activity.dataMessenger.holder.webView
 
 import chata.can.chata_ai.R
 

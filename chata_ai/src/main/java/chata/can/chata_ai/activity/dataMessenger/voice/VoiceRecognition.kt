@@ -1,4 +1,4 @@
-package chata.can.chata_ai.activity.dataMessenger.dataMessenger.voice
+package chata.can.chata_ai.activity.dataMessenger.voice
 
 import android.os.Bundle
 import android.speech.RecognitionListener

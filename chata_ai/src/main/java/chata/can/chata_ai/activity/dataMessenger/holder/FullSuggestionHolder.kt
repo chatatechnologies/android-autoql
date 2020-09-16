@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder
+package chata.can.chata_ai.activity.dataMessenger.holder
 
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -10,8 +10,8 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView

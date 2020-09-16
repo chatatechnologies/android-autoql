@@ -8,7 +8,6 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.BaseActivity
@@ -142,7 +141,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 			}
 		}
 		RequestBuilder.initVolleyRequest(this)
-		addFragment(supportFragmentManager, DataMessengerFragment.newInstance())
 	}
 
 	private fun initData()

@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter
+package chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter
 
 import android.view.View
 import android.widget.TextView

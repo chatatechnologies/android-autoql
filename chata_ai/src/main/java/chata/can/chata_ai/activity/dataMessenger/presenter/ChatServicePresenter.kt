@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment.dataMessenger.presenter
+package chata.can.chata_ai.activity.dataMessenger.presenter
 
 import android.content.Context
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
