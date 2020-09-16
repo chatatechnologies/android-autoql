@@ -1,7 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import android.webkit.JavascriptInterface
-import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 

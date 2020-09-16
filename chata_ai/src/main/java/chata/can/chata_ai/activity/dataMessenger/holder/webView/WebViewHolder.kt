@@ -15,7 +15,7 @@ import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener

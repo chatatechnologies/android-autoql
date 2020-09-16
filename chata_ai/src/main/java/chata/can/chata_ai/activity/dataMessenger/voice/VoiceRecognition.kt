@@ -1,10 +1,10 @@
-package chata.can.chata_ai.fragment.dataMessenger.voice
+package chata.can.chata_ai.activity.dataMessenger.dataMessenger.voice
 
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.util.Log
-import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 
 class VoiceRecognition(val view: ChatContract.VoiceView): RecognitionListener
 {
