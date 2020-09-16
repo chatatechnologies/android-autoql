@@ -257,7 +257,6 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
 		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 
-		//parentCircle.setBackgroundResource(R.drawable.fake_shadow)
 		parentCircle.background = drawable
 
 		circleImageView = CircleImageView(context)

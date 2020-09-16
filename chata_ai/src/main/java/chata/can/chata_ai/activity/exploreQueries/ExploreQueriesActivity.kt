@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.BaseActivity
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	ExploreQueriesContract, View.OnClickListener
@@ -20,6 +22,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	private lateinit var llQuery: View
 	private lateinit var etQuery: EditText
+	private lateinit var ivSearch: ImageView
 	private lateinit var rvRelatedQueries: RecyclerView
 
 	private lateinit var rvPager: View
@@ -57,8 +60,9 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		ivCancel = findViewById(R.id.ivCancel)
 		ivClear = findViewById(R.id.ivClear)
 
-		etQuery = findViewById(R.id.etQuery)
 		llQuery = findViewById(R.id.llQuery)
+		etQuery = findViewById(R.id.etQuery)
+		ivSearch = findViewById(R.id.ivSearch)
 		rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
 		rvPager = findViewById(R.id.rvPager)
 		tvPrevious = findViewById(R.id.tvPrevious)
@@ -108,7 +112,11 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	{
 		ivClear.visibility = View.GONE
 		tvToolbar.text = exploreQueriesTile
-		llQuery.backgroundGrayWhite(64f,1)
+		etQuery.backgroundGrayWhite(64f,1)
+
+		val color = getParsedColor(R.color.chata_drawer_accent_color)
+		ivSearch.background = DrawableBuilder.setOvalDrawable(color)
+//		llQuery.backgroundGrayWhite(64f,1)
 	}
 
 	override fun onClick(view: View?)
