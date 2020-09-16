@@ -5,12 +5,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.BaseActivity
+import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
@@ -46,6 +48,11 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		initViews()
 		initListener()
 		setColors()
+
+		if (BuildConfig.DEBUG)
+		{
+			etQuery.setText("Sales")
+		}
 	}
 
 	private fun initViews()
@@ -78,13 +85,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvNext.setOnClickListener(this)
 
 		etQuery.setOnEditorActionListener { _, _, _ ->
-			val query = etQuery.text.toString()
-			if (query.isNotEmpty())
-			{
-				etQuery.setText("")
-				hideKeyboard()
-				presenter.validateQuery(query)
-			}
+			setRequestText()
 			true
 		}
 	}
@@ -104,11 +105,8 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		view?.let {
 			when(it.id)
 			{
-				R.id.ivCancel -> { finish() }
-				R.id.ivSearch ->
-				{
-
-				}
+				R.id.ivCancel -> finish()
+				R.id.ivSearch -> setRequestText()
 				R.id.tvPrevious -> {}
 				R.id.tvFirstPage -> {}
 				R.id.tvCenterPage -> {}
@@ -119,7 +117,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		}
 	}
 
-	override fun getRelatedQueries(relatedQuery: RelatedQuery)
+	override fun getRelatedQueries(relatedQuery: ExploreQuery)
 	{
 		relatedQuery.run {
 			rvRelatedQueries.visibility = View.VISIBLE
@@ -136,7 +134,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
-	private fun configPager(relatedQuery: RelatedQuery)
+	private fun configPager(relatedQuery: ExploreQuery)
 	{
 		rvPager.visibility = View.VISIBLE
 		currentPage = relatedQuery.currentPage
@@ -212,5 +210,16 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvFirstPage.visibility = gone
 		tvCenterPage.visibility = gone
 		tvLastPage.visibility = gone
+	}
+
+	private fun setRequestText()
+	{
+		val query = etQuery.text.toString()
+		if (query.isNotEmpty())
+		{
+			etQuery.setText("")
+			hideKeyboard()
+			presenter.validateQuery(query)
+		}
 	}
 }

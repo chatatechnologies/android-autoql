@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.exploreQueries
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
@@ -38,9 +39,6 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 					jsonObject.optJSONObject(dataKey)?.let {
 						joData ->
 						val aItems = ArrayList<String>()
-						var totalItems = 0
-						var currentPage = 0
-						var totalPages = 0
 						//region items
 						joData.optJSONArray("items")?.let {
 							jaItems ->
@@ -55,11 +53,17 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 						//endregion
 						joData.optJSONObject("pagination")?.let {
 							joPagination ->
-							totalItems = joPagination.optInt("total_items")
-							currentPage = joPagination.optInt("current_page")
-							totalPages = joPagination.optInt("total_pages")
+							val currentPage = joPagination.optInt("current_page")
+							val totalPages = joPagination.optInt("total_pages")
+							val totalItems = joPagination.optInt("total_items")
+							val pageSize = joPagination.optInt("page_size")
+							val nextUrl = joPagination.optString("next_url")
+							val previousUrl = joPagination.optString("previous_url")
+
+							val exploreQuery =
+								ExploreQuery(aItems, currentPage, totalPages, totalItems, pageSize, nextUrl, previousUrl)
+							view.getRelatedQueries(exploreQuery)
 						}
-						view.getRelatedQueries(RelatedQuery(aItems, currentPage, totalPages, totalItems))
 					}
 				}
 				else ->
