@@ -29,12 +29,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private lateinit var tvPrevious: TextView
 	private lateinit var tvCenterPage: TextView
 	private lateinit var tvFirstPage: TextView
-	private lateinit var tvSecondPage: TextView
-	private lateinit var tvThirdPage: TextView
-	private lateinit var tvBreakPage1: TextView
-	private lateinit var tvBreakPage2: TextView
-	private lateinit var tvFifthPage: TextView
-	private lateinit var tvPenultimatePage: TextView
 	private lateinit var tvLastPage: TextView
 	private lateinit var tvNext: TextView
 
@@ -68,12 +62,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvPrevious = findViewById(R.id.tvPrevious)
 		tvCenterPage = findViewById(R.id.tvCenterPage)
 		tvFirstPage = findViewById(R.id.tvFirstPage)
-		tvSecondPage = findViewById(R.id.tvSecondPage)
-		tvThirdPage = findViewById(R.id.tvThirdPage)
-		tvBreakPage1 = findViewById(R.id.tvBreakPage1)
-		tvBreakPage2 = findViewById(R.id.tvBreakPage2)
-		tvFifthPage = findViewById(R.id.tvFifthPage)
-		tvPenultimatePage = findViewById(R.id.tvPenultimatePage)
 		tvLastPage = findViewById(R.id.tvLastPage)
 		tvNext = findViewById(R.id.tvNext)
 	}
@@ -81,28 +69,21 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private fun initListener()
 	{
 		ivCancel.setOnClickListener(this)
+		ivSearch.setOnClickListener(this)
 
 		tvPrevious.setOnClickListener(this)
 		tvFirstPage.setOnClickListener(this)
-		tvSecondPage.setOnClickListener(this)
-		tvThirdPage.setOnClickListener(this)
-		tvBreakPage1.setOnClickListener(this)
-		tvBreakPage2.setOnClickListener(this)
-		tvFifthPage.setOnClickListener(this)
 		tvCenterPage.setOnClickListener(this)
-		tvPenultimatePage.setOnClickListener(this)
 		tvLastPage.setOnClickListener(this)
 		tvNext.setOnClickListener(this)
 
 		etQuery.setOnEditorActionListener { _, _, _ ->
-			etQuery.run {
-				val query = text.toString()
-				if (query.isNotEmpty())
-				{
-					setText("")
-					hideKeyboard()
-					presenter.validateQuery(query)
-				}
+			val query = etQuery.text.toString()
+			if (query.isNotEmpty())
+			{
+				etQuery.setText("")
+				hideKeyboard()
+				presenter.validateQuery(query)
 			}
 			true
 		}
@@ -116,7 +97,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 		val color = getParsedColor(R.color.chata_drawer_accent_color)
 		ivSearch.background = DrawableBuilder.setOvalDrawable(color)
-//		llQuery.backgroundGrayWhite(64f,1)
 	}
 
 	override fun onClick(view: View?)
@@ -125,13 +105,14 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			when(it.id)
 			{
 				R.id.ivCancel -> { finish() }
+				R.id.ivSearch ->
+				{
+
+				}
 				R.id.tvPrevious -> {}
 				R.id.tvFirstPage -> {}
-				R.id.tvSecondPage -> {}
-				R.id.tvThirdPage -> {}
 				R.id.tvCenterPage -> {}
 				R.id.tvFirstPage -> {}
-				R.id.tvPenultimatePage -> {}
 				R.id.tvLastPage -> {}
 				R.id.tvNext -> {}
 			}
@@ -167,19 +148,15 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			2 ->
 			{
 				tvFirstPage.visibility = visible
-				tvSecondPage.visibility = visible
 			}
 			3 ->
 			{
 				tvFirstPage.visibility = visible
-				tvSecondPage.visibility = visible
 				tvLastPage.visibility = visible
 			}
 			4 ->
 			{
 				tvFirstPage.visibility = visible
-				tvSecondPage.visibility = visible
-				tvPenultimatePage.visibility = visible
 				tvLastPage.visibility = visible
 			}
 		}
@@ -233,9 +210,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private fun hideItemOnPager()
 	{
 		tvFirstPage.visibility = gone
-		tvSecondPage.visibility = gone
 		tvCenterPage.visibility = gone
-		tvPenultimatePage.visibility = gone
 		tvLastPage.visibility = gone
 	}
 }

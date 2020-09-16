@@ -92,7 +92,6 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 
 	private fun getRelatedQueries(pageSize: Int = 11, page: Int = 1)
 	{
-		//
 		with(DataMessenger)
 		{
 			val header = getAuthorizationJWT()
