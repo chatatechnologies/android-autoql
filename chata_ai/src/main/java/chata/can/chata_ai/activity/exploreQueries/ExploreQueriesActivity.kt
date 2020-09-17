@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.exploreQueries
 
+import android.graphics.Color
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -34,6 +35,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private lateinit var tvFirstPage: TextView
 	private lateinit var tvLastPage: TextView
 	private lateinit var tvNext: TextView
+	private var tvSelected: TextView ?= null
 
 	private val presenter = ExploreQueriesPresenter(this)
 	private val model = BaseModelList<String>()
@@ -110,6 +112,11 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvNext.setTextColor(blue)
 		tvNext.text = "→"
 
+		val black = getParsedColor(R.color.black)
+		tvFirstPage.setTextColor(black)
+		tvCenterPage.setTextColor(black)
+		tvLastPage.setTextColor(black)
+
 		setOval(tvFirstPage)
 	}
 
@@ -171,8 +178,15 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	private fun setOval(tv: TextView)
 	{
+		tvSelected = tv
 		tv.setTextColor(getParsedColor(R.color.white))
 		tv.background = DrawableBuilder.setOvalDrawable(getBlue())
+	}
+
+	private fun removeOval(tv: TextView)
+	{
+		tv.setTextColor(getParsedColor(R.color.black))
+		tv.setBackgroundColor(Color.TRANSPARENT)
 	}
 
 	private fun configPager(exploreQuery: ExploreQuery)
@@ -191,6 +205,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			{
 				1, totalPages ->
 				{
+					tvSelected?.let { removeOval(it) }
 					setOval(
 						if (currentPage == 1) tvFirstPage
 						else tvLastPage
@@ -199,6 +214,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 				}
 				else ->
 				{
+					tvSelected?.let { removeOval(it) }
 					setOval(tvCenterPage)
 					tvCenterPage.text = "$currentPage"
 				}
