@@ -68,61 +68,60 @@
 			android:text="@string/explore_queries_msg_2"/>
 	</LinearLayout>
 
-	<RelativeLayout
-		android:id="@+id/rvPager"
+	<LinearLayout
+		android:id="@+id/llPager"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="8dp"
-		android:layout_marginStart="8dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
-		android:visibility="visible">
+		android:visibility="gone">
 		<TextView
+			android:gravity="center"
 			android:id="@+id/tvPrevious"
-			android:layout_alignParentStart="true"
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_width="0dp"
 			android:textSize="32sp"
 			android:textStyle="bold"
 			android:text="@string/arrow_left"/>
 		<!--region pages-->
 		<TextView
-			android:layout_centerInParent="true"
+			android:gravity="center"
+			android:id="@+id/tvFirstPage"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_width="0dp"
+			android:textSize="20sp"
+			android:textStyle="bold"
+			tools:text="1"/>
+		<TextView
+			android:gravity="center"
 			android:id="@+id/tvCenterPage"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="20dp"
 			android:layout_marginStart="20dp"
-			android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_width="0dp"
 			android:textSize="20sp"
 			android:textStyle="bold"
 			tools:text="..."/>
 		<TextView
-			android:layout_centerInParent="true"
-			android:id="@+id/tvFirstPage"
-			android:layout_height="wrap_content"
-			android:layout_toStartOf="@id/tvCenterPage"
-			android:layout_width="wrap_content"
-			android:textSize="20sp"
-			android:textStyle="bold"
-			tools:text="1"/>
-
-		<TextView
-			android:layout_centerInParent="true"
+			android:gravity="center"
 			android:id="@+id/tvLastPage"
-			android:layout_toEndOf="@id/tvCenterPage"
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_width="0dp"
 			android:textSize="20sp"
 			android:textStyle="bold"
 			tools:text="14"/>
 		<!--endregion pages-->
-		
 		<TextView
+			android:gravity="center"
 			android:id="@+id/tvNext"
-			android:layout_alignParentEnd="true"
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_weight="1"
+			android:layout_width="0dp"
 			android:textSize="32sp"
 			android:textStyle="bold"
 			android:text="@string/arrow_right"/>
-	</RelativeLayout>
+	</LinearLayout>
 </LinearLayout>

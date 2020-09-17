@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
@@ -27,7 +28,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private lateinit var ivSearch: ImageView
 	private lateinit var rvRelatedQueries: RecyclerView
 
-	private lateinit var rvPager: View
+	private lateinit var llPager: View
 	private lateinit var tvPrevious: TextView
 	private lateinit var tvCenterPage: TextView
 	private lateinit var tvFirstPage: TextView
@@ -65,12 +66,16 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		etQuery = findViewById(R.id.etQuery)
 		ivSearch = findViewById(R.id.ivSearch)
 		rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
-		rvPager = findViewById(R.id.rvPager)
+		llPager = findViewById(R.id.llPager)
 		tvPrevious = findViewById(R.id.tvPrevious)
 		tvCenterPage = findViewById(R.id.tvCenterPage)
 		tvFirstPage = findViewById(R.id.tvFirstPage)
 		tvLastPage = findViewById(R.id.tvLastPage)
 		tvNext = findViewById(R.id.tvNext)
+
+		adapter = ExploreQueriesAdapter(model)
+		rvRelatedQueries.layoutManager = LinearLayoutManager(this)
+		rvRelatedQueries.adapter = adapter
 	}
 
 	private fun initListener()
@@ -98,6 +103,9 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 		val color = getParsedColor(R.color.chata_drawer_accent_color)
 		ivSearch.background = DrawableBuilder.setOvalDrawable(color)
+
+		tvPrevious.text = "←"
+		tvNext.text = "→"
 	}
 
 	override fun onClick(view: View?)
@@ -110,7 +118,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 				R.id.tvPrevious -> {}
 				R.id.tvFirstPage -> {}
 				R.id.tvCenterPage -> {}
-				R.id.tvFirstPage -> {}
 				R.id.tvLastPage -> {}
 				R.id.tvNext -> {}
 			}
@@ -136,7 +143,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	private fun configPager(relatedQuery: ExploreQuery)
 	{
-		rvPager.visibility = View.VISIBLE
+		llPager.visibility = View.VISIBLE
 		currentPage = relatedQuery.currentPage
 		hideItemOnPager()
 
