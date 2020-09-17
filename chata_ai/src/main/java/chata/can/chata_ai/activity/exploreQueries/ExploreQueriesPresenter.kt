@@ -51,14 +51,13 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 							}
 						}
 						//endregion
-						joData.optJSONObject("pagination")?.let {
-							joPagination ->
-							val currentPage = joPagination.optInt("current_page")
-							val totalPages = joPagination.optInt("total_pages")
-							val totalItems = joPagination.optInt("total_items")
-							val pageSize = joPagination.optInt("page_size")
-							val nextUrl = joPagination.optString("next_url")
-							val previousUrl = joPagination.optString("previous_url")
+						joData.optJSONObject("pagination")?.run {
+							val currentPage = optInt("current_page")
+							val totalPages = optInt("total_pages")
+							val totalItems = optInt("total_items")
+							val pageSize = optInt("page_size")
+							val nextUrl = if (isNull("next_url")) "" else optString("next_url")
+							val previousUrl = if (isNull("previous_url")) "" else optString("previous_url")
 
 							val exploreQuery =
 								ExploreQuery(aItems, currentPage, totalPages, totalItems, pageSize, nextUrl, previousUrl)

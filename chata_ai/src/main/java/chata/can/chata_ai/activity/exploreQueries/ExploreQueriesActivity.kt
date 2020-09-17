@@ -141,30 +141,55 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
-	private fun configPager(relatedQuery: ExploreQuery)
+	private fun configPager(exploreQuery: ExploreQuery)
 	{
-		llPager.visibility = View.VISIBLE
-		currentPage = relatedQuery.currentPage
-		hideItemOnPager()
+		exploreQuery.run {
+			llPager.visibility = View.VISIBLE
+			this@ExploreQueriesActivity.currentPage = currentPage
 
-		when(relatedQuery.totalPages)
-		{
-			1 -> tvFirstPage.visibility = visible
-			2 ->
+			tvFirstPage.text = "1"
+			if (totalPages > currentPage)
 			{
-				tvFirstPage.visibility = visible
+				tvLastPage.text = "$totalPages"
 			}
-			3 ->
+			when(currentPage)
 			{
-				tvFirstPage.visibility = visible
-				tvLastPage.visibility = visible
-			}
-			4 ->
-			{
-				tvFirstPage.visibility = visible
-				tvLastPage.visibility = visible
+				1, totalPages ->
+				{
+					tvCenterPage.text = "..."
+				}
+				else ->
+				{
+					tvCenterPage.text = "$currentPage"
+				}
 			}
 		}
+
+//		val lastPage = totalPages - 1
+//		if (lastPage != 1)
+//		{
+//			tvCenterPage?.text = "2"
+//		}
+//		tvLastPage?.text = "$totalPages"
+
+//		when(relatedQuery.totalPages)
+//		{
+//			1 -> tvFirstPage.visibility = visible
+//			2 ->
+//			{
+//				tvFirstPage.visibility = visible
+//			}
+//			3 ->
+//			{
+//				tvFirstPage.visibility = visible
+//				tvLastPage.visibility = visible
+//			}
+//			4 ->
+//			{
+//				tvFirstPage.visibility = visible
+//				tvLastPage.visibility = visible
+//			}
+//		}
 
 //		when(currentPage)
 //		{
@@ -202,21 +227,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 //			}
 //		}
 
-//
-//		tvFirstPage?.text = "1"
-//		val lastPage = totalPages - 1
-//		if (lastPage != 1)
-//		{
-//			tvCenterPage?.text = "2"
-//		}
-//		tvLastPage?.text = "$totalPages"
-	}
 
-	private fun hideItemOnPager()
-	{
-		tvFirstPage.visibility = gone
-		tvCenterPage.visibility = gone
-		tvLastPage.visibility = gone
 	}
 
 	private fun setRequestText()
