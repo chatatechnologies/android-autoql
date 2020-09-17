@@ -98,15 +98,20 @@
 				android:textStyle="bold"
 				tools:text="1"/>
 		</RelativeLayout>
-		<TextView
-			android:gravity="center"
-			android:id="@+id/tvCenterPage"
+		<RelativeLayout
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:textSize="20sp"
-			android:textStyle="bold"
-			tools:text="..."/>
+			android:layout_width="0dp">
+			<TextView
+				android:layout_centerInParent="true"
+				android:gravity="center"
+				android:id="@+id/tvCenterPage"
+				android:layout_height="30dp"
+				android:layout_width="30dp"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				tools:text="..."/>
+		</RelativeLayout>
 		<RelativeLayout
 			android:layout_height="wrap_content"
 			android:layout_weight="1"

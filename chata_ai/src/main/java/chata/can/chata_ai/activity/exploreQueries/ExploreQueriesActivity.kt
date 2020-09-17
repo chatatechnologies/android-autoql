@@ -110,10 +110,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvNext.setTextColor(blue)
 		tvNext.text = "→"
 
-		tvFirstPage.setTextColor(getParsedColor(R.color.white))
-		tvFirstPage.background = DrawableBuilder.setOvalDrawable(blue)
-//		tvLastPage.setTextColor(getParsedColor(R.color.white))
-//		tvLastPage.background = DrawableBuilder.setOvalDrawable(blue)
+		setOval(tvFirstPage)
 	}
 
 	override fun onClick(view: View?)
@@ -127,28 +124,28 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 				{
 					if (currentPage > 1)
 					{
-
+						presenter.getRelatedQueries(pageSize, currentPage - 1)
 					}
 				}
 				R.id.tvFirstPage ->
 				{
 					if (currentPage != 1)
 					{
-
+						presenter.getRelatedQueries(pageSize, 1)
 					}
 				}
 				R.id.tvLastPage ->
 				{
 					if (currentPage != numItems)
 					{
-
+						presenter.getRelatedQueries(pageSize, numItems)
 					}
 				}
 				R.id.tvNext ->
 				{
 					if (currentPage < numItems)
 					{
-
+						presenter.getRelatedQueries(pageSize, currentPage + 1)
 					}
 				}
 			}
@@ -172,6 +169,12 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
+	private fun setOval(tv: TextView)
+	{
+		tv.setTextColor(getParsedColor(R.color.white))
+		tv.background = DrawableBuilder.setOvalDrawable(getBlue())
+	}
+
 	private fun configPager(exploreQuery: ExploreQuery)
 	{
 		pageSize = exploreQuery.pageSize
@@ -188,10 +191,15 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			{
 				1, totalPages ->
 				{
+					setOval(
+						if (currentPage == 1) tvFirstPage
+						else tvLastPage
+					)
 					tvCenterPage.text = "..."
 				}
 				else ->
 				{
+					setOval(tvCenterPage)
 					tvCenterPage.text = "$currentPage"
 				}
 			}
