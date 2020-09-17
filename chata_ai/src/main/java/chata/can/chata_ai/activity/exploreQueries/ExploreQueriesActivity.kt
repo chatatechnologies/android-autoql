@@ -40,7 +40,9 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private lateinit var adapter: ExploreQueriesAdapter
 	private val visible = View.VISIBLE
 	private val gone = View.GONE
+	private var numItems = 0
 	private var currentPage = 0
+	private var pageSize = 0
 
 	private var exploreQueriesTile = "Explore Queries"
 
@@ -85,7 +87,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 		tvPrevious.setOnClickListener(this)
 		tvFirstPage.setOnClickListener(this)
-		tvCenterPage.setOnClickListener(this)
 		tvLastPage.setOnClickListener(this)
 		tvNext.setOnClickListener(this)
 
@@ -101,7 +102,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvToolbar.text = exploreQueriesTile
 		etQuery.backgroundGrayWhite(64f,1)
 
-		val blue = getParsedColor(R.color.chata_drawer_accent_color)
+		val blue = getBlue()
 		ivSearch.background = DrawableBuilder.setOvalDrawable(blue)
 
 		tvPrevious.setTextColor(blue)
@@ -111,7 +112,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 		tvFirstPage.setTextColor(getParsedColor(R.color.white))
 		tvFirstPage.background = DrawableBuilder.setOvalDrawable(blue)
-
 //		tvLastPage.setTextColor(getParsedColor(R.color.white))
 //		tvLastPage.background = DrawableBuilder.setOvalDrawable(blue)
 	}
@@ -123,11 +123,34 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			{
 				R.id.ivCancel -> finish()
 				R.id.ivSearch -> setRequestText()
-				R.id.tvPrevious -> {}
-				R.id.tvFirstPage -> {}
-				R.id.tvCenterPage -> {}
-				R.id.tvLastPage -> {}
-				R.id.tvNext -> {}
+				R.id.tvPrevious ->
+				{
+					if (currentPage > 1)
+					{
+
+					}
+				}
+				R.id.tvFirstPage ->
+				{
+					if (currentPage != 1)
+					{
+
+					}
+				}
+				R.id.tvLastPage ->
+				{
+					if (currentPage != numItems)
+					{
+
+					}
+				}
+				R.id.tvNext ->
+				{
+					if (currentPage < numItems)
+					{
+
+					}
+				}
 			}
 		}
 	}
@@ -151,11 +174,12 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	private fun configPager(exploreQuery: ExploreQuery)
 	{
+		pageSize = exploreQuery.pageSize
+		currentPage = exploreQuery.currentPage
 		exploreQuery.run {
 			llPager.visibility = View.VISIBLE
-			this@ExploreQueriesActivity.currentPage = currentPage
-
 			tvFirstPage.text = "1"
+			numItems = totalPages
 			if (totalPages > currentPage)
 			{
 				tvLastPage.text = "$totalPages"
@@ -172,68 +196,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 				}
 			}
 		}
-
-//		val lastPage = totalPages - 1
-//		if (lastPage != 1)
-//		{
-//			tvCenterPage?.text = "2"
-//		}
-//		tvLastPage?.text = "$totalPages"
-
-//		when(relatedQuery.totalPages)
-//		{
-//			1 -> tvFirstPage.visibility = visible
-//			2 ->
-//			{
-//				tvFirstPage.visibility = visible
-//			}
-//			3 ->
-//			{
-//				tvFirstPage.visibility = visible
-//				tvLastPage.visibility = visible
-//			}
-//			4 ->
-//			{
-//				tvFirstPage.visibility = visible
-//				tvLastPage.visibility = visible
-//			}
-//		}
-
-//		when(currentPage)
-//		{
-//			1 ->
-//			{
-//				tvFirstPage?.visibility = visible
-//			}
-//			2 ->
-//			{
-//				tvSecondPage?.visibility = visible
-//			}
-//			3 ->
-//			{
-//				tvCenterPage?.visibility = visible
-//			}
-//			4 ->
-//			{
-//				tvCenterPage?.visibility = visible
-//			}
-//			5 ->
-//			{
-//				tvCenterPage?.visibility = visible
-//			}
-//			6 ->
-//			{
-//				tvCenterPage?.visibility = visible
-//			}
-//			7 ->
-//			{
-//				tvPenultimatePage?.visibility = visible
-//			}
-//			8 ->
-//			{
-//				tvLastPage?.visibility = visible
-//			}
-//		}
 	}
 
 	private fun setRequestText()
