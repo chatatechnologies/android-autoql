@@ -84,15 +84,20 @@
 			android:textStyle="bold"
 			android:text="@string/arrow_left"/>
 		<!--region pages-->
-		<TextView
-			android:gravity="center"
-			android:id="@+id/tvFirstPage"
+		<RelativeLayout
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:textSize="20sp"
-			android:textStyle="bold"
-			tools:text="1"/>
+			android:layout_width="0dp">
+			<TextView
+				android:layout_centerInParent="true"
+				android:gravity="center"
+				android:id="@+id/tvFirstPage"
+				android:layout_height="30dp"
+				android:layout_width="30dp"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				tools:text="1"/>
+		</RelativeLayout>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvCenterPage"
@@ -104,15 +109,19 @@
 			android:textSize="20sp"
 			android:textStyle="bold"
 			tools:text="..."/>
-		<TextView
-			android:gravity="center"
-			android:id="@+id/tvLastPage"
+		<RelativeLayout
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:textSize="20sp"
-			android:textStyle="bold"
-			tools:text="9"/>
+			android:layout_width="0dp">
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvLastPage"
+				android:layout_height="30dp"
+				android:layout_width="30dp"
+				android:textSize="20sp"
+				android:textStyle="bold"
+				tools:text="9"/>
+		</RelativeLayout>
 		<!--endregion pages-->
 		<TextView
 			android:gravity="center"

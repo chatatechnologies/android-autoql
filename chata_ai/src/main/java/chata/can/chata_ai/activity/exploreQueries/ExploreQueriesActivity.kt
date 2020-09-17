@@ -101,11 +101,19 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvToolbar.text = exploreQueriesTile
 		etQuery.backgroundGrayWhite(64f,1)
 
-		val color = getParsedColor(R.color.chata_drawer_accent_color)
-		ivSearch.background = DrawableBuilder.setOvalDrawable(color)
+		val blue = getParsedColor(R.color.chata_drawer_accent_color)
+		ivSearch.background = DrawableBuilder.setOvalDrawable(blue)
 
+		tvPrevious.setTextColor(blue)
 		tvPrevious.text = "←"
+		tvNext.setTextColor(blue)
 		tvNext.text = "→"
+
+		tvFirstPage.setTextColor(getParsedColor(R.color.white))
+		tvFirstPage.background = DrawableBuilder.setOvalDrawable(blue)
+
+//		tvLastPage.setTextColor(getParsedColor(R.color.white))
+//		tvLastPage.background = DrawableBuilder.setOvalDrawable(blue)
 	}
 
 	override fun onClick(view: View?)
@@ -226,8 +234,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 //				tvLastPage?.visibility = visible
 //			}
 //		}
-
-
 	}
 
 	private fun setRequestText()
@@ -240,4 +246,6 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 			presenter.validateQuery(query)
 		}
 	}
+
+	private fun getBlue() = getParsedColor(R.color.chata_drawer_accent_color)
 }
