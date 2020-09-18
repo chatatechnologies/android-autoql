@@ -6,5 +6,6 @@ interface ExploreQueriesContract
 {
 	fun showGif()
 	fun showList()
+	fun clearPage()
 	fun getRelatedQueries(relatedQuery: ExploreQuery)
 }

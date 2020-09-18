@@ -96,6 +96,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 
 	fun getRelatedQueries(pageSize: Int = 11, page: Int = 1)
 	{
+		view.clearPage()
 		view.showGif()
 		with(DataMessenger)
 		{

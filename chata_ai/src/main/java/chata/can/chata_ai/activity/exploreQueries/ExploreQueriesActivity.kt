@@ -190,6 +190,11 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		rvRelatedQueries.visibility = View.VISIBLE
 	}
 
+	override fun clearPage()
+	{
+		tvSelected?.let { removeOval(it) }
+	}
+
 	private fun setOval(tv: TextView)
 	{
 		tvSelected = tv
