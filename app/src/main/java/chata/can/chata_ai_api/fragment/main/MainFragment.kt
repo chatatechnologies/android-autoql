@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import chata.can.chata_ai.dialog.ProgressDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
@@ -658,6 +659,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private fun showDialog()
 	{
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
+//		activity?.let { ProgressDialog(it).show() }
 	}
 
 	private fun hideDialog()
