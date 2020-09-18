@@ -28,6 +28,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	private lateinit var etQuery: EditText
 	private lateinit var ivSearch: ImageView
 	private lateinit var rvRelatedQueries: RecyclerView
+	private lateinit var rlGif: View
 
 	private lateinit var llPager: View
 	private lateinit var tvPrevious: TextView
@@ -70,6 +71,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		etQuery = findViewById(R.id.etQuery)
 		ivSearch = findViewById(R.id.ivSearch)
 		rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
+		rlGif = findViewById(R.id.rlGif)
 		llPager = findViewById(R.id.llPager)
 		tvPrevious = findViewById(R.id.tvPrevious)
 		tvCenterPage = findViewById(R.id.tvCenterPage)
@@ -174,6 +176,18 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	{
 		super.finish()
 		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
+	}
+
+	override fun showGif()
+	{
+		rlGif.visibility = View.VISIBLE
+		rvRelatedQueries.visibility = View.GONE
+	}
+
+	override fun showList()
+	{
+		rlGif.visibility = View.GONE
+		rvRelatedQueries.visibility = View.VISIBLE
 	}
 
 	private fun setOval(tv: TextView)

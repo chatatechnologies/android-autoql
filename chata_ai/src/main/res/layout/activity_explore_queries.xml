@@ -53,19 +53,32 @@
 			android:layout_width="match_parent"
 			android:visibility="gone"/>
 
-		<TextView
-			android:gravity="center"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
+		<RelativeLayout
+			android:id="@+id/rlGif"
+			android:layout_height="match_parent"
 			android:layout_width="match_parent"
-			android:text="@string/explore_queries_msg_1"/>
+			android:visibility="gone">
+			<chata.can.chata_ai.view.gif.GifView
+				android:layout_centerInParent="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>
+		</RelativeLayout>
 
 		<TextView
 			android:gravity="center"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:layout_width="match_parent"
-			android:text="@string/explore_queries_msg_2"/>
+			android:text="@string/explore_queries_msg_1"
+			android:visibility="visible"/>
+
+		<TextView
+			android:gravity="center"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_width="match_parent"
+			android:text="@string/explore_queries_msg_2"
+			android:visibility="visible"/>
 	</LinearLayout>
 
 	<LinearLayout

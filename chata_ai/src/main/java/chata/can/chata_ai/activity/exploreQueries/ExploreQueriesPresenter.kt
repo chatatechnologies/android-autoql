@@ -61,6 +61,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 
 							val exploreQuery =
 								ExploreQuery(aItems, currentPage, totalPages, totalItems, pageSize, nextUrl, previousUrl)
+							view.showList()
 							view.getRelatedQueries(exploreQuery)
 						}
 					}
@@ -95,6 +96,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 
 	fun getRelatedQueries(pageSize: Int = 11, page: Int = 1)
 	{
+		view.showGif()
 		with(DataMessenger)
 		{
 			val header = getAuthorizationJWT()
