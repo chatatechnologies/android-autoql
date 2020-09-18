@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
-import chata.can.chata_ai.dialog.ProgressDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
@@ -22,6 +21,7 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessenger.projectId
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
 
@@ -483,6 +483,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					{
 						DataMessenger.clearData()
 						isAuthenticate = false
+						loginIsComplete = false
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
 
@@ -658,13 +659,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private fun showDialog()
 	{
+		BubbleHandle.isOpenChat = true
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
-//		activity?.let { ProgressDialog(it).show() }
 	}
 
 	private fun hideDialog()
 	{
 		ProgressWait.hideProgressDialog()
+		BubbleHandle.isOpenChat = false
 	}
 
 	private fun String.prepareDomain(): String

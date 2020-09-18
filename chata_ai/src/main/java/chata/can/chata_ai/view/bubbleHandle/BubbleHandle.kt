@@ -22,6 +22,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.currency.Currency
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
@@ -220,7 +221,7 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 		}
 		else
 		{
-			if (!isOpenChat)
+			if (!isOpenChat && loginIsComplete)
 			{
 				isOpenChat = true
 				isVisible = false

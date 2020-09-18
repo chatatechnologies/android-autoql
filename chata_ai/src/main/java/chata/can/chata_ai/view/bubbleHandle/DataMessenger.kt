@@ -16,7 +16,7 @@ object DataMessenger
 	//init
 	var token = ""
 	var JWT = ""
-
+	var loginIsComplete = false
 	var isNecessaryLogin = true
 
 	fun clearData()

@@ -4,6 +4,7 @@ import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.QueryBuilde
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.R
 import org.json.JSONArray
 import org.json.JSONObject
@@ -109,6 +110,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 						changeStateAuthenticate()
 						isEnableLogin(true)
 						showAlert("Login Successful", R.drawable.ic_done)
+						loginIsComplete = true
 					}
 				}
 			}
