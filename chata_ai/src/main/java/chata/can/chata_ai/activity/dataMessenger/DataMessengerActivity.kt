@@ -319,7 +319,8 @@ class DataMessengerActivity:
 //				val queryDemo = "count invoices"
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
-				val queryDemo = "Advantage oil"
+//				val queryDemo = "Advantage oil"
+				val queryDemo = ""
 //				val queryDemo = "advintage oil"
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
@@ -375,6 +376,22 @@ class DataMessengerActivity:
 			setColor(red)
 		}
 		ivMicrophone.background = circleDrawable
+	}
+
+	private val codeExplore = 100
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+	{
+		super.onActivityResult(requestCode, resultCode, data)
+		if (requestCode == codeExplore)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				data?.let {
+					val query = it.getStringExtra("query")
+					etQuery.setText(query)
+				}
+			}
+		}
 	}
 
 	private fun setRequestQuery()

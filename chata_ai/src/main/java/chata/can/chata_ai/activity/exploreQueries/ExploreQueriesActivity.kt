@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.exploreQueries
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import android.widget.EditText
@@ -12,6 +13,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.explore.ExploreQuery
@@ -79,7 +81,20 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		tvLastPage = findViewById(R.id.tvLastPage)
 		tvNext = findViewById(R.id.tvNext)
 
-		adapter = ExploreQueriesAdapter(model)
+		adapter = ExploreQueriesAdapter(model, object : OnItemClickListener
+		{
+			override fun onItemClick(any: Any)
+			{
+				if (any is String)
+				{
+					setResult(RESULT_OK,
+						Intent().apply {
+							putExtra("query", any)
+						})
+					finish()
+				}
+			}
+		})
 		rvRelatedQueries.layoutManager = LinearLayoutManager(this)
 		rvRelatedQueries.adapter = adapter
 	}
@@ -102,7 +117,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	private fun setColors()
 	{
-		ivClear.visibility = View.GONE
+		ivClear.visibility = gone
 		tvToolbar.text = exploreQueriesTile
 		etQuery.backgroundGrayWhite(64f,1)
 
@@ -164,7 +179,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	override fun getRelatedQueries(relatedQuery: ExploreQuery)
 	{
 		relatedQuery.run {
-			rvRelatedQueries.visibility = View.VISIBLE
+			rvRelatedQueries.visibility = visible
 			model.clear()
 			model.addAll(aItems)
 			adapter.notifyDataSetChanged()
@@ -180,14 +195,14 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 
 	override fun showGif()
 	{
-		rlGif.visibility = View.VISIBLE
-		rvRelatedQueries.visibility = View.GONE
+		rlGif.visibility = visible
+		rvRelatedQueries.visibility = gone
 	}
 
 	override fun showList()
 	{
-		rlGif.visibility = View.GONE
-		rvRelatedQueries.visibility = View.VISIBLE
+		rlGif.visibility = gone
+		rvRelatedQueries.visibility = visible
 	}
 
 	override fun clearPage()
@@ -213,7 +228,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		pageSize = exploreQuery.pageSize
 		currentPage = exploreQuery.currentPage
 		exploreQuery.run {
-			llPager.visibility = View.VISIBLE
+			llPager.visibility = visible
 			tvFirstPage.text = "1"
 			numItems = totalPages
 			if (totalPages > currentPage)

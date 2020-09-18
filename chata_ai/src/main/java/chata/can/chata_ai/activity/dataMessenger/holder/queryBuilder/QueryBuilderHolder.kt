@@ -85,7 +85,8 @@ class QueryBuilderHolder(
 			override fun onClick(widget: View)
 			{
 				(pagerActivity as? DataMessengerActivity)?.run {
-					startActivity(Intent(this, ExploreQueriesActivity::class.java))
+					val intent = Intent(this, ExploreQueriesActivity::class.java)
+					startActivityForResult(intent, 100)
 					overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 				}
 			}

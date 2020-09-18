@@ -19,7 +19,12 @@ class QueryHolder(itemView: View): Holder(itemView)
 	{
 		if (item is String)
 		{
-			tvQuery?.text = item
+			tvQuery?.run {
+				text = item
+				setOnClickListener {
+					listener?.onItemClick(item)
+				}
+			}
 		}
 	}
 }
