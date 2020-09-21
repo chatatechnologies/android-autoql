@@ -153,7 +153,6 @@ class QueryBuilderHolder(
 
 	private fun initHeightRoot()
 	{
-
 		rvExplore?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
 		{
 			override fun onGlobalLayout()

@@ -16,7 +16,6 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
@@ -127,8 +126,7 @@ class SuggestionHolder(
 			text = content
 			setOnClickListener {
 				//view.addChatMessage(2, content)
-				val mInfoHolder = hashMapOf<String, Any>("query" to content)
-				QueryRequest.callQuery(content, servicePresenter, "data_messenger", mInfoHolder)
+				servicePresenter.getQuery(content)
 			}
 		}
 	}

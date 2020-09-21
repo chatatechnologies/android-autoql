@@ -33,11 +33,16 @@ class ChatServicePresenter(
 		contract.callSafetyNet(query, this)
 	}
 
-	fun getQuery(query: String)
+	fun getQuery(query: String, source: String, mInfoHolder: HashMap<String, Any>)
 	{
 		isLoading(true)
+		QueryRequest.callQuery(query, this, source, mInfoHolder)
+	}
+
+	fun getQuery(query: String)
+	{
 		val mInfoHolder = hashMapOf<String, Any>("query" to query)
-		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
+		getQuery(query, "data_messenger", mInfoHolder)
 	}
 
 	private fun getRelatedQueries(query: String, message: String)
