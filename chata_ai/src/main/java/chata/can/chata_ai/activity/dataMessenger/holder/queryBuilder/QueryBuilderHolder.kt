@@ -203,7 +203,7 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
-					configViews(true)
+					//configViews(true)
 					if (any is String)
 					{
 						servicePresenter.getQuery(any)
