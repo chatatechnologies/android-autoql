@@ -1,23 +1,23 @@
-package chata.can.chata_ai_api.test;
+package chata.can.chata_ai.view.typing;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
-public class TypeWriter extends AppCompatTextView
+public class TypeAutoComplete extends AppCompatAutoCompleteTextView
 {
 	private CharSequence mText;
 	private int mIndex;
 	private long mDelay = 150;
 
-	public TypeWriter(Context context)
+	public TypeAutoComplete(Context context)
 	{
 		super(context);
 	}
 
-	public TypeWriter(Context context, AttributeSet attrs)
+	public TypeAutoComplete(Context context, AttributeSet attrs)
 	{
 		super(context, attrs);
 	}
@@ -30,7 +30,6 @@ public class TypeWriter extends AppCompatTextView
 		public void run()
 		{
 			setText(mText.subSequence(0, mIndex++));
-
 			if (mIndex <= mText.length())
 			{
 				mHandler.postDelayed(characterAdder, mDelay);
