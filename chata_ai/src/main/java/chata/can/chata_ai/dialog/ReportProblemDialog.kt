@@ -56,7 +56,7 @@ class ReportProblemDialog(
 
 		val title = "Report a Problem"
 		tvTitle.text = title
-		val msg = "Please tell us more about the problem you experiencing:"
+		val msg = "Please tell us more about the problem you are experiencing:"
 		tvMessage.text = msg
 		val ok = "Report"
 		btnReport.text = ok
