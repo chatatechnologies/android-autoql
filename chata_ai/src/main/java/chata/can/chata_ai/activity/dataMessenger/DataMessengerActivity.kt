@@ -41,6 +41,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.view.typing.TypeAutoComplete
 import org.json.JSONObject
 
 class DataMessengerActivity:
@@ -54,7 +55,7 @@ class DataMessengerActivity:
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
 	private lateinit var ivRun: ImageView
-	private lateinit var etQuery: AutoCompleteTextView
+	private lateinit var etQuery: TypeAutoComplete
 	private lateinit var ivMicrophone: ImageView
 
 	private lateinit var speechRecognizer: SpeechRecognizer
@@ -258,6 +259,12 @@ class DataMessengerActivity:
 			View.VISIBLE
 		else
 			View.GONE
+	}
+
+	override fun runTyping(text: String)
+	{
+		etQuery.setCharacterDelay(100)
+		etQuery.animateText(text)
 	}
 
 	override fun showAlert(message: String, intRes: Int)

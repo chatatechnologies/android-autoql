@@ -34,6 +34,10 @@ public class TypeAutoComplete extends AppCompatAutoCompleteTextView
 			{
 				mHandler.postDelayed(characterAdder, mDelay);
 			}
+			else
+			{
+
+			}
 		}
 	};
 
