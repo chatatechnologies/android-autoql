@@ -31,6 +31,10 @@
 
 		</activity>
 
+		<activity android:name="chata.can.chata_ai.activity.notification.NotificationActivity">
+
+		</activity>
+
 		<activity android:name=".test.TestActivity">
 
 		</activity>
