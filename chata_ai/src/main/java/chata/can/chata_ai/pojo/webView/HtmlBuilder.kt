@@ -40,10 +40,10 @@ object HtmlBuilder
 				posColumnY = aNumber[0]
 				queryBase.addIndices(posColumnX, posColumnY)
 
-				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
-				if (hasDecimals)
-					queryBase.configActions = 0
-				else
+//				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
+//				if (hasDecimals)
+//					queryBase.configActions = 0
+//				else
 					queryBase.configActions = 4
 			}
 			SupportCase.CASE_3 ->

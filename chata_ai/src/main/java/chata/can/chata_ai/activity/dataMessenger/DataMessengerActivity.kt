@@ -319,7 +319,7 @@ class DataMessengerActivity:
 //				val queryDemo = "count invoices"
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
-				val queryDemo = "All tickets that ended early"
+				val queryDemo = "Average revenue by area last year"
 //				val queryDemo = "advintage oil"
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
