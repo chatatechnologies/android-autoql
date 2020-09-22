@@ -24,7 +24,8 @@ class NotificationHolder(itemView: View): Holder(itemView)
 			{
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
-				tvDate.text = toDate(notification.createdAt)
+				val date = toDate(notification.createdAt)
+				tvDate.text = parseDate(date)
 			}
 		}
 	}
@@ -37,10 +38,33 @@ class NotificationHolder(itemView: View): Holder(itemView)
 	private fun toDate(iDate: Int): String
 	{
 		return try {
-			val format = SimpleDateFormat("hh:mm a", Locale.US)
+			val format = SimpleDateFormat("dd_hh:mma", Locale.US)
 			val date = Date(iDate * 1000L)
-			return format.format(date)
+			return format.format(date).toLowerCase(Locale.US)
 		}
-		catch (ex: Exception) { ""}
+		catch (ex: Exception) { "" }
+	}
+
+	private fun parseDate(source: String): String
+	{
+		var out = ""
+		val aDate = source.split("_")
+		if (aDate.isNotEmpty())
+		{
+			val format = SimpleDateFormat("dd", Locale.US)
+			val current = Date()
+			val currentDay = format.format(current)
+			val iDay = currentDay.toIntOrNull() ?: 0
+			val iRecordDay = aDate[0].toIntOrNull() ?: 0
+
+			val nameDay = when(iDay - iRecordDay)
+			{
+				0 -> "Today"
+				1 -> "Yesterday"
+				else -> ""
+			}
+			out = "$nameDay ${aDate[1]}"
+		}
+		return out
 	}
 }
