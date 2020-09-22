@@ -5,8 +5,11 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.notification.model.Notification
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +35,15 @@ class NotificationHolder(itemView: View): Holder(itemView)
 
 	override fun onPaint()
 	{
+		rlParent.run {
+			context.run {
+				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				rlParent.background =
+					DrawableBuilder.setGradientDrawable(white,18f,0, gray)
+			}
+		}
+
 		ViewCompat.setElevation(rlParent, 12f)
 	}
 
