@@ -5,6 +5,7 @@
 	package="chata.can.chata_ai_api">
 
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 	<application
 		android:usesCleartextTraffic="true"
@@ -17,10 +18,7 @@
 		tools:ignore="GoogleAppIndexingWarning">
 
 		<activity android:name=".main.PagerActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
+
 		</activity>
 
 		<activity android:name="chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity">
@@ -36,8 +34,13 @@
 		</activity>
 
 		<activity android:name=".test.TestActivity">
-
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
 		</activity>
+
+		<service android:name=".test.DownloadService" />
 
 	</application>
 </manifest>

@@ -9,13 +9,6 @@
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
 		android:layout_marginTop="20dp"
-		android:text="Start animation"/>
+		android:text="Start services"/>
 
-	<chata.can.chata_ai.view.typing.TypeAutoComplete
-		android:layout_above="@id/btn"
-		android:id="@+id/actv"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_centerInParent="true"
-		android:textSize="22sp"/>
 </RelativeLayout>
