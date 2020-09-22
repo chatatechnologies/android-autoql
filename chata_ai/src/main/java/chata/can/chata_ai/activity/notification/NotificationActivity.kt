@@ -39,7 +39,7 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		adapter.notifyDataSetChanged()
 	}
 
-	fun getNotifications()
+	private fun getNotifications()
 	{
 		presenter.getNotifications()
 	}

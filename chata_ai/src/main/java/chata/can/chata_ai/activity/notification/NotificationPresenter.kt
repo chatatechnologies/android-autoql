@@ -29,7 +29,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 			val aNotification = ArrayList<Notification>()
 			jsonObject.optJSONObject("data")?.let {
 				it.optJSONArray("notifications")?.let { jaNotifications ->
-					for (index in 0 until it.length())
+					for (index in 0 until jaNotifications.length())
 					{
 						val json = jaNotifications.optJSONObject(index)
 						val title = json.optString("rule_title")
