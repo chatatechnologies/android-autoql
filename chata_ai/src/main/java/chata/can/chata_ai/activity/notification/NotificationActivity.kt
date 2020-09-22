@@ -30,6 +30,14 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		adapter = NotificationAdapter(model)
 		rvNotification.layoutManager = LinearLayoutManager(this)
 		rvNotification.adapter = adapter
+
+		adapter.setOnBottomReachedListener(object: OnBottomReachedListener
+		{
+			override fun onBottomReachedListener(position: Int)
+			{
+				println("Position in: $position")
+			}
+		})
 	}
 
 	override fun showNotifications(aNotification: ArrayList<Notification>)
