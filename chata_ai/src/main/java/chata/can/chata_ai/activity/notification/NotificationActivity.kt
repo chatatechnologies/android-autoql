@@ -14,6 +14,8 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 	private val model = BaseModelList<Notification>()
 	private lateinit var adapter: NotificationAdapter
 	private lateinit var presenter: NotificationPresenter
+	private var totalPages = 0
+	private var countPages = 1
 
 	override fun onCreateView()
 	{
@@ -35,14 +37,18 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		{
 			override fun onBottomReachedListener(position: Int)
 			{
-				println("Position in: $position")
+				if (countPages < totalPages)
+				{
+					presenter.getNotifications(countPages++ * 10)
+				}
 			}
 		})
 	}
 
-	override fun showNotifications(aNotification: ArrayList<Notification>)
+	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>)
 	{
-		model.clear()
+		this.totalPages = totalPages
+		//model.clear()
 		model.addAll(aNotification)
 		adapter.notifyDataSetChanged()
 	}

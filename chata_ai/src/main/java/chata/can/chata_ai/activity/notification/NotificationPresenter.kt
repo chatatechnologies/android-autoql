@@ -28,6 +28,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 		{
 			val aNotification = ArrayList<Notification>()
 			jsonObject.optJSONObject("data")?.let {
+				val totalPages = it.optInt("total_pages", 0)
 				it.optJSONArray("notifications")?.let { jaNotifications ->
 					for (index in 0 until jaNotifications.length())
 					{
@@ -40,16 +41,14 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 						val notification = Notification(title, message, query, createdAt)
 						aNotification.add(notification)
 					}
-					view.showNotifications(aNotification)
+					view.showNotifications(totalPages, aNotification)
 				}
 			}
 		}
 	}
 
-	fun getNotifications()
+	fun getNotifications(offset: Int = 0, limit: Int = 10)
 	{
-		val offset = 0
-		val limit = 10
 		val url = "$domainUrl/autoql/${api1}rules/notifications?key=${apiKey}&offset=$offset&limit=$limit"
 
 		callStringRequest(
