@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai_api.R
 
 class TestActivity: AppCompatActivity()
@@ -41,10 +42,14 @@ class TestActivity: AppCompatActivity()
 		setContentView(R.layout.activity_test)
 
 		val btn = findViewById<Button>(R.id.btn)
+		RequestBuilder.initVolleyRequest(this)
+
 		btn.setOnClickListener {
-			val intent = Intent(this, DownloadService::class.java)
-			intent.putExtra(DownloadService.FILENAME, "index.html")
-			intent.putExtra(DownloadService.URL, "https://www.vogella.com/index.html")
+//			val intent = Intent(this, DownloadService::class.java)
+//			intent.putExtra(DownloadService.FILENAME, "index.html")
+//			intent.putExtra(DownloadService.URL, "https://www.vogella.com/index.html")
+//			startService(intent)
+			val intent = Intent(this, PollService::class.java)
 			startService(intent)
 		}
 	}

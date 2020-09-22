@@ -40,7 +40,9 @@
 			</intent-filter>
 		</activity>
 
-		<service android:name=".test.DownloadService" />
+		<service android:name=".test.DownloadService"/>
+
+		<service android:name=".test.PollService"/>
 
 	</application>
 </manifest>
