@@ -12,7 +12,7 @@ import java.util.*
 
 class NotificationHolder(itemView: View): Holder(itemView)
 {
-	private val llParent = itemView.findViewById<View>(R.id.llParent)
+	private val rlParent = itemView.findViewById<View>(R.id.rlParent)
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
 	private val tvBody = itemView.findViewById<TextView>(R.id.tvBody)
 	private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
@@ -32,7 +32,7 @@ class NotificationHolder(itemView: View): Holder(itemView)
 
 	override fun onPaint()
 	{
-		ViewCompat.setElevation(llParent, 12f)
+		ViewCompat.setElevation(rlParent, 12f)
 	}
 
 	private fun toDate(iDate: Int): String
