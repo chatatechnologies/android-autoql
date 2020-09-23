@@ -505,8 +505,7 @@ class DataMessengerActivity:
 
 	private fun initList()
 	{
-		chatAdapter = ChatAdapter(model, this, servicePresenter, this)
-
+		chatAdapter = ChatAdapter(model, this, /*servicePresenter,*/ this)
 		val introMessageRes =
 			if (PagerData.introMessage.isNotEmpty())
 			{

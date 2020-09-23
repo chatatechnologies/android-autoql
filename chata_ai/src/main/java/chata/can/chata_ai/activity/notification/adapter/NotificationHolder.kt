@@ -73,7 +73,11 @@ class NotificationHolder(itemView: View): Holder(itemView)
 			{
 				0 -> "Today"
 				1 -> "Yesterday"
-				else -> ""
+				else ->
+				{
+					val format2 = SimpleDateFormat("MMMM dd,yyyy", Locale.US)
+					format2.format(current) + " at"
+				}
 			}
 			out = "$nameDay ${aDate[1]}"
 		}

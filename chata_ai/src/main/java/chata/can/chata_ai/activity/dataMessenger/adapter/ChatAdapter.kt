@@ -21,7 +21,7 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-	private val servicePresenter: ChatServicePresenter,
+//	private val servicePresenter: ChatServicePresenter,
 	private val pagerActivity: Activity
 ): BaseAdapter(model), ChatAdapterContract
 {
