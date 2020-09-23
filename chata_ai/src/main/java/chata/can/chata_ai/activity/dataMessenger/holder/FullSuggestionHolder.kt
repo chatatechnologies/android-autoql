@@ -3,6 +3,7 @@ package chata.can.chata_ai.activity.dataMessenger.holder
 import android.view.View
 import android.view.animation.AnimationUtils
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.BaseHolder
@@ -11,7 +12,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
@@ -19,7 +19,7 @@ import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 class FullSuggestionHolder(
 	itemView: View,
 	private val adapterView: ChatAdapterContract?,
-	private val servicePresenter: ChatServicePresenter
+	private val view: ChatContract.View
 ): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
@@ -78,7 +78,7 @@ class FullSuggestionHolder(
 						val query = stvContent.text
 						if (query.isNotEmpty())
 						{
-							servicePresenter.getQuery(query)
+							view.runTyping(query)
 						}
 					}
 				}

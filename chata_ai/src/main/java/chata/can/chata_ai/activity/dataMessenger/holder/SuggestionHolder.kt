@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources
@@ -18,13 +19,12 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(
 	itemView: View,
 	private val adapterView: ChatAdapterContract?,
-	private val servicePresenter: ChatServicePresenter
+	private val view: ChatContract.View
 ): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
@@ -126,7 +126,7 @@ class SuggestionHolder(
 			text = content
 			setOnClickListener {
 				//view.addChatMessage(2, content)
-				servicePresenter.getQuery(content)
+				view.runTyping(content)
 			}
 		}
 	}

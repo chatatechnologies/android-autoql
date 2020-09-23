@@ -27,7 +27,6 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
-import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -208,7 +207,6 @@ class QueryBuilderHolder(
 					if (any is String)
 					{
 						viewContract.runTyping(any)
-//						servicePresenter.getQuery(any)
 					}
 				}
 			})

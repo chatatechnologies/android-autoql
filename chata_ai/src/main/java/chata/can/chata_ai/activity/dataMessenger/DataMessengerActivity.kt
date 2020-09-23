@@ -402,8 +402,8 @@ class DataMessengerActivity:
 			if (resultCode == RESULT_OK)
 			{
 				data?.let {
-					val query = it.getStringExtra("query")
-					etQuery.setText(query)
+					val query = it.getStringExtra("query") ?: ""
+					runTyping(query)
 				}
 			}
 		}
