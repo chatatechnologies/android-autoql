@@ -142,7 +142,7 @@ class ChatServicePresenter(
 										}
 									}
 									queryBase.message = jsonObject.optString("message", "") ?: ""
-									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+									//view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
 								}
 							}
 						}

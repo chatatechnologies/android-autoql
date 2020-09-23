@@ -66,15 +66,17 @@ open class BaseHolder(
 			{
 				if (item.message.isNotEmpty())
 				{
-					if (item.message == "I want to make sure I understood your query. Did you mean:")
-					{
-						llMainBase?.visibility = View.GONE
-					}
-					else
-					{
-						llMainBase?.visibility = View.VISIBLE
-						tvContent.text = item.message
-					}
+//					if (item.message == "I want to make sure I understood your query. Did you mean:")
+//					{
+//						llMainBase?.visibility = View.GONE
+//					}
+//					else
+//					{
+//						llMainBase?.visibility = View.VISIBLE
+//						tvContent.text = item.message
+//					}
+
+					tvContent.text = item.message
 
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
@@ -86,7 +88,12 @@ open class BaseHolder(
 						{
 							tvContentTop.visibility = View.GONE
 						}
-						rlDelete?.visibility = View.VISIBLE
+
+						rlDelete?.visibility =
+							if (item.message == "I want to make sure I understood your query. Did you mean:")
+								View.GONE
+							else View.VISIBLE
+//						rlDelete?.visibility = View.VISIBLE
 					} ?: run {
 						tvContentTop.visibility = View.GONE
 						rlDelete?.visibility = View.GONE
