@@ -61,11 +61,31 @@ class NotificationHolder(itemView: View): Holder(itemView)
 				1 -> "Yesterday $hour"
 				else ->
 				{
-					val format = SimpleDateFormat("MMMM dd,yyyy", Locale.US)
+					val ordinal = getOrdinalDate(recordDate)
+					val format = SimpleDateFormat("MMMM dd$ordinal, yyyy", Locale.US)
 					format.format(recordDate) + " at $hour"
 				}
 			}
 		}
 		catch (ex: Exception) { "" }
+	}
+
+	fun getOrdinalDate(date: Date): String
+	{
+		val calendar = Calendar.getInstance()
+		calendar.time = date
+		val day = calendar.get(Calendar.DATE)
+		return if(!((day>10) && (day<19)))
+		{
+			when(day % 10)
+			{
+				1 -> "'st'"
+				2 -> "'nd'"
+				3 -> "'rd'"
+				else -> "'th'"
+			}
+		}
+		else
+			"'th'"
 	}
 }
