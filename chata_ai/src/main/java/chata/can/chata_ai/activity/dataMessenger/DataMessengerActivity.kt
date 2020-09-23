@@ -13,7 +13,6 @@ import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -41,7 +40,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.typing.TypeAutoComplete
+import chata.can.chata_ai.view.typing.MigrateAutoComplete
 import org.json.JSONObject
 
 class DataMessengerActivity:
@@ -55,7 +54,7 @@ class DataMessengerActivity:
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
 	private lateinit var ivRun: ImageView
-	private lateinit var etQuery: TypeAutoComplete
+	private lateinit var etQuery: MigrateAutoComplete
 	private lateinit var ivMicrophone: ImageView
 
 	private lateinit var speechRecognizer: SpeechRecognizer
@@ -326,8 +325,8 @@ class DataMessengerActivity:
 //				val queryDemo = "count invoices"
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
-				val queryDemo = "Average revenue by area last year"
-//				val queryDemo = "advintage oil"
+//				val queryDemo = "Average revenue by area last year"
+				val queryDemo = "advintage oil"
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
 			}

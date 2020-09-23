@@ -21,7 +21,11 @@ class MigrateAutoComplete: AppCompatAutoCompleteTextView
 	{
 		override fun run()
 		{
-			mHandler.postDelayed(this, mDelay)
+			setText(mText.subSequence(0, mIndex++))
+			if (mIndex <= mText.length)
+			{
+				mHandler.postDelayed(this, mDelay)
+			}
 		}
 	}
 

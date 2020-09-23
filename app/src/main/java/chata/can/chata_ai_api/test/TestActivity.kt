@@ -35,10 +35,6 @@ class TestActivity: AppCompatActivity()
 		RequestBuilder.initVolleyRequest(this)
 
 		btn.setOnClickListener {
-//			val intent = Intent(this, DownloadService::class.java)
-//			intent.putExtra(DownloadService.FILENAME, "index.html")
-//			intent.putExtra(DownloadService.URL, "https://www.vogella.com/index.html")
-//			startService(intent)
 			val intent = Intent(this, PollService::class.java)
 			PollService.enqueueWork(this, intent)
 		}
