@@ -40,7 +40,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.typing.MigrateAutoComplete
+import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
 
 class DataMessengerActivity:
@@ -54,7 +54,7 @@ class DataMessengerActivity:
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
 	private lateinit var ivRun: ImageView
-	private lateinit var etQuery: MigrateAutoComplete
+	private lateinit var etQuery: TypingAutoComplete
 	private lateinit var ivMicrophone: ImageView
 
 	private lateinit var speechRecognizer: SpeechRecognizer
@@ -260,7 +260,7 @@ class DataMessengerActivity:
 			View.GONE
 	}
 
-	override fun runTyping(text: String, isQuery: Boolean)
+	override fun runTyping(text: String)
 	{
 		etQuery.setCharacterDelay(100)
 		etQuery.animateText(text)

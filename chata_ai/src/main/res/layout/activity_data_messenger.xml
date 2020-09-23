@@ -54,7 +54,7 @@
 			android:layout_marginStart="10dp"
 			android:layout_marginTop="7dp"
 			android:layout_width="match_parent">
-			<chata.can.chata_ai.view.typing.MigrateAutoComplete
+			<chata.can.chata_ai.view.typing.TypingAutoComplete
 				android:hint="@string/ask_me_anything"
 				android:id="@+id/etQuery"
 				android:inputType="text"

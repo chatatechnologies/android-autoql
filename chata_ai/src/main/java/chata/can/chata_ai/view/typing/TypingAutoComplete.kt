@@ -6,7 +6,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 
-class MigrateAutoComplete: AppCompatAutoCompleteTextView
+class TypingAutoComplete: AppCompatAutoCompleteTextView
 {
 	var mText: CharSequence = ""
 	var mIndex = 0
@@ -30,7 +30,9 @@ class MigrateAutoComplete: AppCompatAutoCompleteTextView
 			}
 			else
 			{
-				onFinishAnimateListener?.onFinishAnimate()
+				mHandler.postDelayed({
+					onFinishAnimateListener?.onFinishAnimate()
+				}, mDelay)
 			}
 		}
 	}
