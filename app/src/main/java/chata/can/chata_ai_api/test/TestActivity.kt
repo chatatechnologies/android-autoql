@@ -18,20 +18,10 @@ class TestActivity: AppCompatActivity()
 		override fun onReceive(context: Context?, intent: Intent?)
 		{
 			intent?.extras?.let { bundle ->
-				val string = bundle.getString(DownloadService.FILEPATH)
-				val resultCode = bundle.getInt(DownloadService.RESULT)
-				if (resultCode == RESULT_OK)
-				{
-					Toast.makeText(
-						this@TestActivity, "Download complete. Download URI: $string",
-						Toast.LENGTH_LONG).show()
-				}
-				else
-				{
-					Toast.makeText(this@TestActivity,
-						"Download failed",
-						Toast.LENGTH_LONG).show()
-				}
+				val data = bundle.getString(PollService.DATA)
+				Toast.makeText(
+					this@TestActivity, "Response data: $data",
+					Toast.LENGTH_LONG).show()
 			}
 		}
 	}
@@ -50,14 +40,14 @@ class TestActivity: AppCompatActivity()
 //			intent.putExtra(DownloadService.URL, "https://www.vogella.com/index.html")
 //			startService(intent)
 			val intent = Intent(this, PollService::class.java)
-			startService(intent)
+			PollService.enqueueWork(this, intent)
 		}
 	}
 
 	override fun onResume()
 	{
 		super.onResume()
-		registerReceiver(receiver, IntentFilter(DownloadService.NOTIFICATION))
+		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
 	}
 
 	override fun onPause()
