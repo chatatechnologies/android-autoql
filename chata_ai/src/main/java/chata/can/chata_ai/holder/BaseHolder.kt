@@ -75,7 +75,6 @@ open class BaseHolder(
 //						llMainBase?.visibility = View.VISIBLE
 //						tvContent.text = item.message
 //					}
-
 					tvContent.text = item.message
 
 					item.simpleQuery?.let {
@@ -93,7 +92,6 @@ open class BaseHolder(
 							if (item.message == "I want to make sure I understood your query. Did you mean:")
 								View.GONE
 							else View.VISIBLE
-//						rlDelete?.visibility = View.VISIBLE
 					} ?: run {
 						tvContentTop.visibility = View.GONE
 						rlDelete?.visibility = View.GONE

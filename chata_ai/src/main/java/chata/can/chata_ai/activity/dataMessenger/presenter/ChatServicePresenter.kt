@@ -66,9 +66,13 @@ class ChatServicePresenter(
 					{
 						try {
 							val jsonError = JSONObject(textError)
+							val reference = jsonError.optString(referenceIdKey)
 							val message = jsonError.optString(messageKey)
 							val query = jsonObject.optString("query") ?: ""
-							getRelatedQueries(query, message)
+							if (reference == "1.1.430")
+							{
+								getRelatedQueries(query, message)
+							}
 							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 						}
 						catch (ex: Exception) { }
@@ -142,7 +146,7 @@ class ChatServicePresenter(
 										}
 									}
 									queryBase.message = jsonObject.optString("message", "") ?: ""
-									//view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
 								}
 							}
 						}

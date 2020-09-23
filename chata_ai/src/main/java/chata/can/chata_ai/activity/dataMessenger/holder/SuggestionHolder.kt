@@ -78,12 +78,12 @@ class SuggestionHolder(
 
 					if (it.query.isEmpty())
 					{
-						if (it.message != "Success")
-						{
-							tvContent.visibility = View.VISIBLE
-							tvContent.text = it.message
-						}
-						else
+//						if (it.message != "Success")
+//						{
+//							tvContent.visibility = View.VISIBLE
+//							tvContent.text = it.message
+//						}
+//						else
 							tvContent.visibility = View.GONE
 					}
 					else
