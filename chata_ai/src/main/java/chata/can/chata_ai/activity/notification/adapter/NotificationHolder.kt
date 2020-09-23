@@ -27,8 +27,7 @@ class NotificationHolder(itemView: View): Holder(itemView)
 			{
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
-				val date = toDate(notification.createdAt)
-				tvDate.text = parseDate(date)
+				tvDate.text = toDate(notification.createdAt)
 			}
 		}
 	}
@@ -50,37 +49,23 @@ class NotificationHolder(itemView: View): Holder(itemView)
 	private fun toDate(iDate: Int): String
 	{
 		return try {
-			val format = SimpleDateFormat("dd_hh:mma", Locale.US)
-			val date = Date(iDate * 1000L)
-			return format.format(date).toLowerCase(Locale.US)
-		}
-		catch (ex: Exception) { "" }
-	}
+			val recordDate = Date(iDate * 1000L)
+			val currentDate = Date()
 
-	private fun parseDate(source: String): String
-	{
-		var out = ""
-		val aDate = source.split("_")
-		if (aDate.isNotEmpty())
-		{
-			val format = SimpleDateFormat("dd", Locale.US)
-			val current = Date()
-			val currentDay = format.format(current)
-			val iDay = currentDay.toIntOrNull() ?: 0
-			val iRecordDay = aDate[0].toIntOrNull() ?: 0
+			val formatHour = SimpleDateFormat("hh:mma", Locale.US)
+			val hour = formatHour.format(recordDate).toLowerCase(Locale.US)
 
-			val nameDay = when(iDay - iRecordDay)
+			when((currentDate.time - recordDate.time).toInt() / (1000 * 60 * 60 * 24))
 			{
-				0 -> "Today"
-				1 -> "Yesterday"
+				0 -> "Today $hour"
+				1 -> "Yesterday $hour"
 				else ->
 				{
-					val format2 = SimpleDateFormat("MMMM dd,yyyy", Locale.US)
-					format2.format(current) + " at"
+					val format = SimpleDateFormat("MMMM dd,yyyy", Locale.US)
+					format.format(recordDate) + " at $hour"
 				}
 			}
-			out = "$nameDay ${aDate[1]}"
 		}
-		return out
+		catch (ex: Exception) { "" }
 	}
 }
