@@ -41,7 +41,6 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.typing.MigrateAutoComplete
-import chata.can.chata_ai.view.typing.OnFinishAnimateListener
 import org.json.JSONObject
 
 class DataMessengerActivity:
@@ -261,7 +260,7 @@ class DataMessengerActivity:
 			View.GONE
 	}
 
-	override fun runTyping(text: String)
+	override fun runTyping(text: String, isQuery: Boolean)
 	{
 		etQuery.setCharacterDelay(100)
 		etQuery.animateText(text)
@@ -309,13 +308,16 @@ class DataMessengerActivity:
 				}
 			}
 
-			setFinishAnimationListener(object : OnFinishAnimateListener
-			{
-				override fun onFinishAnimate()
+			setFinishAnimationListener {
+				//TODO join it's possible to setRequestQuery method
+				val query = etQuery.text.toString()
+				if (query.isNotEmpty())
 				{
-
+					hideKeyboard()
+					etQuery.setText("")
+					servicePresenter.getQuery(query)
 				}
-			})
+			}
 
 			setOnEditorActionListener {
 					_, _, _ ->

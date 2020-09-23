@@ -9,13 +9,19 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.nullValue
 
-class NotificationAdapter(private val model: BaseModelList<*>): BaseAdapter(model)
+class NotificationAdapter(
+	private val model: BaseModelList<*>,
+	onBottomReachedListener: () -> Unit): BaseAdapter(model)
 {
 	private var onBottomReachedListener: OnBottomReachedListener ?= null
-
-	fun setOnBottomReachedListener(onBottomReachedListener: OnBottomReachedListener)
-	{
-		this.onBottomReachedListener = onBottomReachedListener
+	init {
+		this.onBottomReachedListener = object: OnBottomReachedListener
+		{
+			override fun onBottomReachedListener(position: Int)
+			{
+				onBottomReachedListener()
+			}
+		}
 	}
 
 	override fun onBindViewHolder(holder: Holder, position: Int)

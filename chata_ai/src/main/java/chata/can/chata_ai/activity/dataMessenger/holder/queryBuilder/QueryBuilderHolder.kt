@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.activity.dataMessenger.DataMessengerActivity
 import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
@@ -35,7 +36,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 class QueryBuilderHolder(
 	view: View,
 	private val pagerActivity: Activity,
-	private val servicePresenter: ChatServicePresenter
+	private val viewContract: ChatContract.View
 ): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
@@ -206,7 +207,8 @@ class QueryBuilderHolder(
 					//configViews(true)
 					if (any is String)
 					{
-						servicePresenter.getQuery(any)
+						viewContract.runTyping(any)
+//						servicePresenter.getQuery(any)
 					}
 				}
 			})

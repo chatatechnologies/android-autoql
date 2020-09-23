@@ -35,9 +35,15 @@ class MigrateAutoComplete: AppCompatAutoCompleteTextView
 		}
 	}
 
-	fun setFinishAnimationListener(onFinishAnimateListener: OnFinishAnimateListener)
+	fun setFinishAnimationListener(onFinishAnimateListener: () -> Unit)
 	{
-		this.onFinishAnimateListener = onFinishAnimateListener
+		this.onFinishAnimateListener = object : OnFinishAnimateListener
+		{
+			override fun onFinishAnimate()
+			{
+				onFinishAnimateListener()
+			}
+		}
 	}
 
 	fun animateText(txt: CharSequence)

@@ -29,20 +29,14 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		rvNotification = findViewById(R.id.rvNotification)
 
 		presenter = NotificationPresenter(this)
-		adapter = NotificationAdapter(model)
+		adapter = NotificationAdapter(model) {
+			if (countPages < totalPages)
+			{
+				presenter.getNotifications(countPages++ * 10)
+			}
+		}
 		rvNotification.layoutManager = LinearLayoutManager(this)
 		rvNotification.adapter = adapter
-
-		adapter.setOnBottomReachedListener(object: OnBottomReachedListener
-		{
-			override fun onBottomReachedListener(position: Int)
-			{
-				if (countPages < totalPages)
-				{
-					presenter.getNotifications(countPages++ * 10)
-				}
-			}
-		})
 	}
 
 	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>)

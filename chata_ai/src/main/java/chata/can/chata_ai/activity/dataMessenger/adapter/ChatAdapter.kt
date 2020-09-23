@@ -37,8 +37,7 @@ class ChatAdapter(
 		model[position]?.let {
 			if (it is ChatData)
 			{
-				it.simpleQuery?.let {
-						simpleQuery ->
+				it.simpleQuery?.let { simpleQuery ->
 					if (simpleQuery is QueryBase)
 					{
 						simpleQuery.checkData(holder)
@@ -82,7 +81,7 @@ class ChatAdapter(
 				QueryBuilderHolder(
 					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
 					pagerActivity,
-					servicePresenter
+					view
 				)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
