@@ -2,6 +2,7 @@ package chata.can.chata_ai.view.typing
 
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView
 
@@ -10,12 +11,13 @@ class MigrateAutoComplete: AppCompatAutoCompleteTextView
 	var mText: CharSequence = ""
 	var mIndex = 0
 	var mDelay = 150L
+	private var onFinishAnimateListener: OnFinishAnimateListener ?= null
 
 	constructor(context: Context): super(context)
 
 	constructor(context: Context, attrs: AttributeSet): super(context, attrs)
 
-	private val mHandler = Handler()
+	private val mHandler = Handler(Looper.getMainLooper())
 
 	private val characterAdder = object: Runnable
 	{
@@ -26,7 +28,16 @@ class MigrateAutoComplete: AppCompatAutoCompleteTextView
 			{
 				mHandler.postDelayed(this, mDelay)
 			}
+			else
+			{
+				onFinishAnimateListener?.onFinishAnimate()
+			}
 		}
+	}
+
+	fun setFinishAnimationListener(onFinishAnimateListener: OnFinishAnimateListener)
+	{
+		this.onFinishAnimateListener = onFinishAnimateListener
 	}
 
 	fun animateText(txt: CharSequence)

@@ -41,6 +41,7 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.typing.MigrateAutoComplete
+import chata.can.chata_ai.view.typing.OnFinishAnimateListener
 import org.json.JSONObject
 
 class DataMessengerActivity:
@@ -298,8 +299,7 @@ class DataMessengerActivity:
 				R.layout.row_spinner)
 			threshold = 1
 			setAdapter(adapterAutoComplete)
-			onItemClickListener = AdapterView.OnItemClickListener {
-					parent, _, position, _ ->
+			onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
 				parent?.let {
 					it.adapter?.let { adapter ->
 						val text = adapter.getItem(position).toString()
@@ -308,6 +308,14 @@ class DataMessengerActivity:
 					}
 				}
 			}
+
+			setFinishAnimationListener(object : OnFinishAnimateListener
+			{
+				override fun onFinishAnimate()
+				{
+
+				}
+			})
 
 			setOnEditorActionListener {
 					_, _, _ ->
@@ -540,7 +548,7 @@ class DataMessengerActivity:
 			chatAdapter.notifyItemRemoved(0)
 		}
 		//endregion
-		Handler().postDelayed({
+		Handler(Looper.getMainLooper()).postDelayed({
 			val position = model.countData() - 1
 			rvChat.scrollToPosition(position)
 		}, 200)

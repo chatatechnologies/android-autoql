@@ -2,6 +2,7 @@ package chata.can.chata_ai.activity.dataMessenger.holder.webView
 
 import android.annotation.SuppressLint
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.webkit.WebView
@@ -344,7 +345,7 @@ class WebViewHolder(
 				changeHeightWebView(pData.second)
 				wbQuery?.run {
 					requestLayout()
-					Handler().postDelayed({
+					Handler(Looper.getMainLooper()).postDelayed({
 						loadUrl("javascript:hideTables(${pData.first});")
 					}, 200)
 				}
