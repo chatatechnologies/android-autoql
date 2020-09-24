@@ -25,6 +25,8 @@ class NotificationHolder(itemView: View): Holder(itemView)
 	private val tvQuery = itemView.findViewById<TextView>(R.id.tvQuery)
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery)
 
+	private val presenter = RuleQueryPresenter()
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
@@ -32,7 +34,10 @@ class NotificationHolder(itemView: View): Holder(itemView)
 			{
 				rlParent?.setOnClickListener {
 					rlBottom.visibility = if (rlBottom.visibility == View.GONE)
+					{
+						presenter.getRuleQuery(notification.id)
 						View.VISIBLE
+					}
 					else
 						View.GONE
 				}
