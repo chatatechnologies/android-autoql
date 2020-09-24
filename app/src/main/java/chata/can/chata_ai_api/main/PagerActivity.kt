@@ -16,7 +16,7 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
 
-class PagerActivity: AppCompatActivity(), PagerContract
+class PagerActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
@@ -52,6 +52,7 @@ class PagerActivity: AppCompatActivity(), PagerContract
 		frmLocal = findViewById(R.id.frmLocal)
 
 		tabLayout.setupWithViewPager(viewPager)
+		setListener()
 		setColors()
 
 		if (isMarshmallow())
@@ -95,7 +96,19 @@ class PagerActivity: AppCompatActivity(), PagerContract
 		}
 	}
 
-	override fun setStatusGUI(isVisible: Boolean)
+	override fun onClick(view: View?)
+	{
+		view?.let {
+			when(it.id)
+			{
+				R.id.rlChat -> {}
+				R.id.rlTips -> {}
+				R.id.rlNotify -> {}
+			}
+		}
+	}
+
+	fun setStatusGUI(isVisible: Boolean)
 	{
 		val iVisible = if (isVisible) View.VISIBLE else View.GONE
 		llMenu.visibility = iVisible
@@ -106,7 +119,6 @@ class PagerActivity: AppCompatActivity(), PagerContract
 	{
 		adapter = SlidePagerAdapter(supportFragmentManager, 1)
 		viewPager.adapter = adapter
-
 		RequestBuilder.initVolleyRequest(this)
 	}
 
@@ -115,6 +127,13 @@ class PagerActivity: AppCompatActivity(), PagerContract
 		ivChat.setColorFilter(getParsedColor(R.color.black))
 		ivTips.setColorFilter(getParsedColor(R.color.white))
 		ivNotify.setColorFilter(getParsedColor(R.color.white))
+	}
+
+	private fun setListener()
+	{
+		rlChat.setOnClickListener(this)
+		rlTips.setOnClickListener(this)
+		rlNotify.setOnClickListener(this)
 	}
 
 	/**

@@ -12,7 +12,6 @@ import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
@@ -166,7 +165,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
 				context ->
-				bubbleHandle = BubbleHandle(context)
+				bubbleHandle = BubbleHandle(context) {
+					(parentActivity as? PagerActivity)?.setStatusGUI(true)
+				}
 				renderPresenter = MainRenderPresenter(context, this@MainFragment, bubbleHandle)
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}

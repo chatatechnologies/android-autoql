@@ -31,7 +31,9 @@ import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 
-class BubbleHandle(private val context: Context)
+class BubbleHandle(
+	private val context: Context,
+	private val methodCanUse: () -> Unit)
 {
 	private lateinit var bubblesManager: BubblesManager
 	private lateinit var bubbleLayout: BubbleLayout
@@ -219,12 +221,12 @@ class BubbleHandle(private val context: Context)
 			{
 				isOpenChat = true
 				isVisible = false
-				val intent = Intent(context, DataMessengerActivity::class.java)
-//				val intent = Intent(context, NotificationActivity::class.java)
-				createIntentData(intent)
-				context.startActivity(intent)
-				(context as? AppCompatActivity)
-					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+				methodCanUse()
+//				val intent = Intent(context, DataMessengerActivity::class.java)
+//				createIntentData(intent)
+//				context.startActivity(intent)
+//				(context as? AppCompatActivity)
+//					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 			}
 		}
 	}
