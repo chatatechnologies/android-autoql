@@ -226,8 +226,8 @@ class BubbleHandle(private val context: Context, authentication: Authentication)
 			{
 				isOpenChat = true
 				isVisible = false
-//				val intent = Intent(context, DataMessengerActivity::class.java)
-				val intent = Intent(context, NotificationActivity::class.java)
+				val intent = Intent(context, DataMessengerActivity::class.java)
+//				val intent = Intent(context, NotificationActivity::class.java)
 				createIntentData(intent)
 				context.startActivity(intent)
 				(context as? AppCompatActivity)
