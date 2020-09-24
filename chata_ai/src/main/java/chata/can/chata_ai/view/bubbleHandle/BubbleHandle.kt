@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dataMessenger.DataMessengerActivity
-import chata.can.chata_ai.activity.notification.NotificationActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
@@ -32,14 +31,8 @@ import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 
-class BubbleHandle(private val context: Context, authentication: Authentication)
+class BubbleHandle(private val context: Context)
 {
-//	init {
-//		DataMessenger.apiKey = authentication.apiKey
-//		DataMessenger.domainUrl = authentication.domainUrl
-//		DataMessenger.token = authentication.token
-//	}
-
 	private lateinit var bubblesManager: BubblesManager
 	private lateinit var bubbleLayout: BubbleLayout
 

@@ -166,8 +166,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
 				context ->
-				val authentication = Authentication("", "", "")
-				bubbleHandle = BubbleHandle(context, authentication)
+				bubbleHandle = BubbleHandle(context)
 				renderPresenter = MainRenderPresenter(context, this@MainFragment, bubbleHandle)
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
