@@ -1,6 +1,7 @@
 package chata.can.chata_ai.activity.notification.adapter
 
 import android.view.View
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
@@ -20,14 +21,27 @@ class NotificationHolder(itemView: View): Holder(itemView)
 	private val tvBody = itemView.findViewById<TextView>(R.id.tvBody)
 	private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
 
+	private val rlBottom = itemView.findViewById<View>(R.id.rlBottom)
+	private val tvQuery = itemView.findViewById<TextView>(R.id.tvQuery)
+	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery)
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
 			if (notification is Notification)
 			{
+				rlParent?.setOnClickListener {
+					rlBottom.visibility = if (rlBottom.visibility == View.GONE)
+						View.VISIBLE
+					else
+						View.GONE
+				}
+
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
 				tvDate.text = toDate(notification.createdAt)
+
+				tvQuery.text = notification.query
 			}
 		}
 	}
@@ -70,7 +84,7 @@ class NotificationHolder(itemView: View): Holder(itemView)
 		catch (ex: Exception) { "" }
 	}
 
-	fun getOrdinalDate(date: Date): String
+	private fun getOrdinalDate(date: Date): String
 	{
 		val calendar = Calendar.getInstance()
 		calendar.time = date
