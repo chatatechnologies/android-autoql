@@ -4,13 +4,15 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 
-class InputOutputFragment: BaseFragment()
+class InputOutputFragment: BaseFragment(), InputOutputContract
 {
 	companion object {
 		const val nameFragment = "QueryInput/QueryOutput"
@@ -22,15 +24,29 @@ class InputOutputFragment: BaseFragment()
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
 
+	private lateinit var presenter: InputOutputPresenter
+
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-
+		activity?.let { presenter = InputOutputPresenter(it, this) }
 	}
 
 	override fun initListener()
 	{
-
+		etQuery.addTextChangedListener(object: TextChanged
+		{
+			override fun onTextChanged(string: String)
+			{
+				if (string.isNotEmpty())
+				{
+					if (SinglentonDrawer.mIsEnableAutocomplete)
+					{
+						presenter.getAutocomplete(string)
+					}
+				}
+			}
+		})
 	}
 
 	override fun initViews(view: View)
@@ -50,6 +66,14 @@ class InputOutputFragment: BaseFragment()
 			val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
 			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 			background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+		}
+	}
+
+	override fun setDataAutocomplete(aData: ArrayList<String>)
+	{
+		if (aData.isNotEmpty())
+		{
+
 		}
 	}
 }
