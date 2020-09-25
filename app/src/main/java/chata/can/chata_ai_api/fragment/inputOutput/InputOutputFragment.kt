@@ -15,6 +15,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai_api.BaseFragment
+import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
 
 class InputOutputFragment: BaseFragment(), InputOutputContract
@@ -38,6 +39,10 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	{
 		super.onRenderViews(view)
 		activity?.let { presenter = InputOutputPresenter(it, this) }
+		if (BuildConfig.DEBUG)
+		{
+			etQuery.setText("Total Revenue 2019")
+		}
 	}
 
 	override fun initListener()
@@ -94,13 +99,13 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 						it.adapter?.let { adapter ->
 							val text = adapter.getItem(position).toString()
 							etQuery.setText(text)
-							//TODO setRequestQuery
+							setRequestQuery()
 						}
 					}
 				}
 
 				setOnEditorActionListener { _, _, _ ->
-					//TODO setRequestQuery
+					setRequestQuery()
 					false
 				}
 			}
@@ -128,5 +133,23 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 					maxHeight.toInt()
 		}
 		adapterAutoComplete.notifyDataSetChanged()
+	}
+
+	private fun setRequestQuery()
+	{
+		val query = etQuery.text.toString()
+		if (query.isNotEmpty())
+		{
+			hideKeyboard()
+			etQuery.setText("")
+			if (SinglentonDrawer.mIsEnableQuery)
+			{
+				presenter.getSafety(query)
+			}
+			else
+			{
+				presenter.getQuery(query)
+			}
+		}
 	}
 }

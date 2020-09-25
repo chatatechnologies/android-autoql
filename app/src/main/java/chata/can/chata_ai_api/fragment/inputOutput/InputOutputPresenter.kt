@@ -2,9 +2,12 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.content.Context
 import chata.can.chata_ai.activity.dataMessenger.DataChatContract
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
+import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -23,6 +26,22 @@ class InputOutputPresenter(
 		}
 	}
 
+	fun getSafety(query: String)
+	{
+		contract.callSafetyNet(query, this)
+	}
+
+	fun getQuery(query: String)
+	{
+		val mInfoHolder = hashMapOf<String, Any>("query" to query)
+		getQuery(query, mInfoHolder)
+	}
+
+	private fun getQuery(query: String, mInfoHolder: HashMap<String, Any>)
+	{
+		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 
@@ -32,37 +51,60 @@ class InputOutputPresenter(
 	{
 		if (jsonObject != null)
 		{
-			if (jsonObject.has("nameService"))
+			when
 			{
-				when(jsonObject.optString("nameService"))
+				jsonObject.has("nameService") ->
 				{
-					"autocomplete" ->
+					when(jsonObject.optString("nameService"))
 					{
-						jsonObject.optJSONObject(dataKey)?.let { json ->
-							if (json.has("matches"))
-							{
-								json.optJSONArray("matches")?.let {
-									val aData = ArrayList<String>()
-									if (it.length() == 0)
-									{
-										aData.add("No matches")
-									}
-									else
-									{
-										for (index in 0 until it.length())
+						"autocomplete" ->
+						{
+							jsonObject.optJSONObject(dataKey)?.let { json ->
+								if (json.has("matches"))
+								{
+									json.optJSONArray("matches")?.let {
+										val aData = ArrayList<String>()
+										if (it.length() == 0)
 										{
-											aData.add(it.optString(index))
+											aData.add("No matches")
 										}
+										else
+										{
+											for (index in 0 until it.length())
+											{
+												aData.add(it.optString(index))
+											}
 
+										}
+										view.setDataAutocomplete(aData)
 									}
-									view.setDataAutocomplete(aData)
 								}
 							}
 						}
+						"validate" ->
+						{
+							jsonObject.optJSONObject(dataKey)?.let {  data ->
+								if (data.has("replacements"))
+								{
+									data.optJSONArray("replacements")?.let {
+										if (it.length() == 0)
+										{
+											val query = data.optString("text") ?: ""
+											getQuery(query)
+										}
+									}
+								}
+							}
+						}
+						else -> {}
 					}
-					else -> {}
+				}
+				jsonObject.has(referenceIdKey) ->
+				{
+					val queryBase = QueryBase(jsonObject)
 				}
 			}
+
 		}
 	}
 }
