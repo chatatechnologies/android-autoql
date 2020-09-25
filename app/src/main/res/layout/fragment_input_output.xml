@@ -33,6 +33,15 @@
 	<RelativeLayout
 		android:layout_height="match_parent"
 		android:layout_width="match_parent">
+		<RelativeLayout
+			android:id="@+id/rvLoad"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent">
+			<chata.can.chata_ai.view.gif.GifView
+				android:layout_centerInParent="true"
+				android:layout_height="160dp"
+				android:layout_width="160dp"/>
+		</RelativeLayout>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvContent"
@@ -40,6 +49,12 @@
 			android:layout_width="match_parent"/>
 		<WebView
 			android:id="@+id/wbOutput"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"/>
+
+		<View
+			android:background="@color/white"
+			android:id="@+id/vBlank"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>

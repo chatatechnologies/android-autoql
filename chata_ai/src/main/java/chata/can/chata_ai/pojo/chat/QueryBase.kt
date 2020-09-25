@@ -136,46 +136,49 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			}
 			//endregion
 
+			var needDoAsync = false
+			when
+			{
+				message == "No Data Found" ->
+				{
+					contentHTML = message
+				}
+				aRows.size == 0 || isSimpleText || displayType == "suggestion" ->
+				{
+					aColumn.firstOrNull()?.let {
+							column ->
+						contentHTML = simpleText.formatWithColumn(column)
+					}
+				}
+				else -> needDoAsync = true
+			}
+
 			DoAsync({
 				isLoadingHTML = true
-				when
+				if (needDoAsync)
 				{
-					message == "No Data Found" ->
-					{
-						contentHTML = message
-					}
-					aRows.size == 0 || isSimpleText || displayType == "suggestion" ->
-					{
-						aColumn.firstOrNull()?.let {
-							column ->
-							contentHTML = simpleText.formatWithColumn(column)
-						}
-					}
-					else ->
-					{
-						//region generate contentHTML
-						val rulesHTML = RulesHtml(aColumn, CountColumn())
-						supportCase = rulesHTML.getSupportCharts()
+					//region generate contentHTML
+					val rulesHTML = RulesHtml(aColumn, CountColumn())
+					supportCase = rulesHTML.getSupportCharts()
 
-						val dataForWebView = HtmlBuilder.build(this)
-						if (displayType != "data")
-						{
-							dataForWebView.type = displayType
-						}
-
-						when(aColumn.size)
-						{
-							2, 3 ->
-							{
-								dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
-								dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
-							}
-							else -> {}
-						}
-						contentHTML = DashboardMaker.getHTML(dataForWebView)
-						rowsTable = dataForWebView.rowsTable
-						rowsPivot = dataForWebView.rowsPivot
+					val dataForWebView = HtmlBuilder.build(this)
+					if (displayType != "data")
+					{
+						dataForWebView.type = displayType
 					}
+
+					when(aColumn.size)
+					{
+						2, 3 ->
+						{
+							dataForWebView.xAxis = aColumn.getOrNull(0)?.displayName ?: ""
+							dataForWebView.yAxis = aColumn.getOrNull(1)?.displayName ?: ""
+						}
+						else -> {}
+					}
+					contentHTML = DashboardMaker.getHTML(dataForWebView)
+					rowsTable = dataForWebView.rowsTable
+					rowsPivot = dataForWebView.rowsPivot
 				}
 			},{
 				viewDrillDown?.loadDrillDown(this)

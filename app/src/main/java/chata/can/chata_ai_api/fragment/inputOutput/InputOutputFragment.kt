@@ -35,8 +35,10 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	private lateinit var llQuery: View
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
+	private lateinit var rvLoad: View
 	private lateinit var tvContent: TextView
 	private lateinit var wbOutput: WebView
+	private lateinit var vBlank: View
 
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 
@@ -46,8 +48,10 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	{
 		super.onRenderViews(view)
 		activity?.let { presenter = InputOutputPresenter(it, this) }
+		initViews()
 		if (BuildConfig.DEBUG)
 		{
+//			etQuery.setText("all sales")
 			etQuery.setText("total revenue by area 2019")
 //			etQuery.setText("Bottom two customers")
 		}
@@ -76,8 +80,10 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			llQuery = findViewById(R.id.llQuery)
 			ivChata = findViewById(R.id.ivChata)
 			etQuery = findViewById(R.id.etQuery)
+			rvLoad = findViewById(R.id.rvLoad)
 			tvContent = findViewById(R.id.tvContent)
 			wbOutput = findViewById(R.id.wbOutput)
+			vBlank = findViewById(R.id.vBlank)
 		}
 	}
 
@@ -152,6 +158,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		{
 			hideKeyboard()
 			etQuery.setText("")
+			showLoading()
 			if (SinglentonDrawer.mIsEnableQuery)
 			{
 				presenter.getSafety(query)
@@ -165,16 +172,14 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	override fun showText(text: String)
 	{
-		wbOutput.visibility = View.GONE
-
+		rvLoad.visibility = View.GONE
+		tvContent.visibility = View.VISIBLE
 		tvContent.text = text
 	}
 
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
-		tvContent.visibility = View.GONE
-
 		wbOutput.run {
 			settings.javaScriptEnabled = true
 			clearCache(true)
@@ -183,9 +188,25 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-
+					rvLoad.visibility = View.GONE
+					wbOutput.visibility = View.VISIBLE
 				}
 			}
 		}
+	}
+
+	private fun showLoading()
+	{
+		rvLoad.visibility = View.VISIBLE
+		tvContent.visibility = View.GONE
+		wbOutput.visibility = View.GONE
+		vBlank.visibility = View.GONE
+	}
+
+	private fun initViews()
+	{
+		rvLoad.visibility = View.GONE
+		tvContent.visibility = View.GONE
+		wbOutput.visibility = View.GONE
 	}
 }

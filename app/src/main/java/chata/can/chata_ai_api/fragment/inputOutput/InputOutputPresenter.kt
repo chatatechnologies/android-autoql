@@ -133,7 +133,7 @@ class InputOutputPresenter(
 				jsonObject.has(referenceIdKey) ->
 				{
 					val queryBase = QueryBase(jsonObject)
-					val typeView = when(queryBase.displayType)
+					when(queryBase.displayType)
 					{
 						"suggestion" ->
 						{
@@ -149,12 +149,11 @@ class InputOutputPresenter(
 							val numRows = queryBase.aRows.size
 							when
 							{
-								numRows == 0 -> view.showText(queryBase.contentHTML)
-								numColumns == 1 && numRows > 1 ->
+								numRows == 0 ->
 								{
-									queryBase.viewDrillDown = view
+									view.showText(queryBase.contentHTML)
 								}
-								numColumns > 1 ->
+								(numColumns == 1 && numRows > 1) || numColumns > 1 ->
 								{
 									queryBase.viewDrillDown = view
 								}
