@@ -13,11 +13,11 @@ import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.putArgs
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
-import chata.can.chata_ai_api.putArgs
 
 class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 {
@@ -186,8 +186,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	companion object {
 		const val nameFragment = "Dashboard"
-		fun newInstance() = DashboardFragment()
-			.putArgs {
+		fun newInstance() = DashboardFragment().putArgs {
 				putInt("LAYOUT", R.layout.fragment_slide_page)
 			}
 	}

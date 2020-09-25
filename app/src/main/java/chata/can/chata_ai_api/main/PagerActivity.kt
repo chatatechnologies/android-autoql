@@ -151,7 +151,7 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
-			adapter.numPages = 2
+			adapter.numPages = 3
 			View.VISIBLE
 		} else {
 			adapter.numPages = 1
