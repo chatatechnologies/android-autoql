@@ -35,6 +35,7 @@
 		android:layout_width="match_parent">
 		<TextView
 			android:gravity="center"
+			android:id="@+id/tvContent"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>

@@ -2,8 +2,10 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.content.Context
 import chata.can.chata_ai.activity.dataMessenger.DataChatContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
@@ -44,7 +46,36 @@ class InputOutputPresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-
+		if (jsonObject != null)
+		{
+			when(jsonObject.optInt("CODE"))
+			{
+				400 ->
+				{
+					val textError = jsonObject.optString("RESPONSE") ?: ""
+					if (textError.isNotEmpty())
+					{
+						try
+						{
+							val jsonError = JSONObject(textError)
+							val reference = jsonError.optString(referenceIdKey)
+							val query = jsonObject.optString("query") ?: ""
+							//TODO MESSAGE TO PAINT
+							val message = if (reference == "1.1.430")
+							{
+								jsonError.optString(messageKey)
+							}
+							else
+							{
+								"suggestion not supported"
+							}
+							println(message)
+						}
+						catch (ex: Exception) {}
+					}
+				}
+			}
+		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -102,6 +133,45 @@ class InputOutputPresenter(
 				jsonObject.has(referenceIdKey) ->
 				{
 					val queryBase = QueryBase(jsonObject)
+					val typeView = when(queryBase.displayType)
+					{
+						"suggestion" ->
+						{
+							if (SinglentonDrawer.mIsEnableSuggestion)
+								//TODO SHOW SUGGESTION VIEW
+								view.showText("${queryBase.displayType} not supported")
+							else
+								view.showText("${queryBase.displayType} not supported")
+						}
+						dataKey ->
+						{
+							val numColumns = queryBase.numColumns
+							val numRows = queryBase.aRows.size
+							when
+							{
+								numRows == 0 -> view.showText(queryBase.contentHTML)
+								numColumns == 1 && numRows > 1 ->
+								{
+									queryBase.viewDrillDown = view
+								}
+								numColumns > 1 ->
+								{
+									queryBase.viewDrillDown = view
+								}
+								numColumns == 1 ->
+								{
+									if(queryBase.hasHash)
+									{
+										//TODO SHOW HELP
+									}
+									else
+										view.showText(queryBase.contentHTML)
+								}
+								else -> view.showText(queryBase.contentHTML)
+							}
+						}
+						else -> view.showText(queryBase.contentHTML)
+					}
 				}
 			}
 

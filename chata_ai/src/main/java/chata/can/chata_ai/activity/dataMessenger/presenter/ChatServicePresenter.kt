@@ -67,11 +67,18 @@ class ChatServicePresenter(
 						try {
 							val jsonError = JSONObject(textError)
 							val reference = jsonError.optString(referenceIdKey)
-							val message = jsonError.optString(messageKey)
+							var message = jsonError.optString(messageKey)
 							val query = jsonObject.optString("query") ?: ""
 							if (reference == "1.1.430")
 							{
-								getRelatedQueries(query, message)
+								if (SinglentonDrawer.mIsEnableSuggestion)
+								{
+									getRelatedQueries(query, message)
+								}
+								else
+								{
+									message = "suggestion not supported"
+								}
 							}
 							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 						}
@@ -200,7 +207,7 @@ class ChatServicePresenter(
 								}
 								numColumns == 1 ->
 								{
-									if( queryBase.hasHash)
+									if(queryBase.hasHash)
 										TypeChatView.HELP_VIEW
 									else
 										TypeChatView.LEFT_VIEW

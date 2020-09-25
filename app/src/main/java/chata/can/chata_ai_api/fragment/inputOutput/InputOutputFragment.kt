@@ -6,11 +6,13 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import android.widget.TextView
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
@@ -30,6 +32,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	private lateinit var llQuery: View
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
+	private lateinit var tvContent: TextView
 
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 
@@ -42,6 +45,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		if (BuildConfig.DEBUG)
 		{
 			etQuery.setText("Total Revenue 2019")
+//			etQuery.setText("Bottom two customers")
 		}
 	}
 
@@ -68,6 +72,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			llQuery = findViewById(R.id.llQuery)
 			ivChata = findViewById(R.id.ivChata)
 			etQuery = findViewById(R.id.etQuery)
+			tvContent = findViewById(R.id.tvContent)
 		}
 	}
 
@@ -151,5 +156,15 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 				presenter.getQuery(query)
 			}
 		}
+	}
+
+	override fun showText(text: String)
+	{
+		tvContent.text = text
+	}
+
+	override fun loadDrillDown(queryBase: QueryBase)
+	{
+		queryBase.toString()
 	}
 }
