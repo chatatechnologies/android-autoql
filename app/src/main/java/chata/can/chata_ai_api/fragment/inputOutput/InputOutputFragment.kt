@@ -26,6 +26,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		}
 	}
 
+	private lateinit var llQuery: View
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
 
@@ -59,6 +60,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	override fun initViews(view: View)
 	{
 		with(view){
+			llQuery = findViewById(R.id.llQuery)
 			ivChata = findViewById(R.id.ivChata)
 			etQuery = findViewById(R.id.etQuery)
 		}
@@ -66,23 +68,26 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	override fun setColors()
 	{
-		etQuery.run {
-			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
-			setHintTextColor(context.getParsedColor(ThemeColor.currentColor.drawerHoverColor))
+		activity?.run {
+			ivChata.setColorFilter(getParsedColor(R.color.blue_chata_circle))
 
-			val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
-			background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+			val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+			llQuery.background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 
-//			val displayMetrics = DisplayMetrics()
-//			ScreenData.defaultDisplay.getMetrics(displayMetrics)
-//			val width = displayMetrics.widthPixels
-//			dropDownWidth = width
-//
-			activity?.let { activity ->
-				adapterAutoComplete = AutoCompleteAdapter(activity, R.layout.row_spinner)
+			adapterAutoComplete = AutoCompleteAdapter(this, R.layout.row_spinner)
+
+			etQuery.run {
 				threshold = 1
 				setAdapter(adapterAutoComplete)
+
+				setTextColor(getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
+				setHintTextColor(getParsedColor(ThemeColor.currentColor.drawerHoverColor))
+
+				val displayMetrics = DisplayMetrics()
+				ScreenData.defaultDisplay.getMetrics(displayMetrics)
+				val width = displayMetrics.widthPixels
+				dropDownWidth = width
 
 				onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
 					parent?.let {
@@ -99,12 +104,12 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 					false
 				}
 			}
-
 		}
 	}
 
 	override fun setDataAutocomplete(aData: ArrayList<String>)
 	{
+		adapterAutoComplete.clear()
 		if (aData.isNotEmpty())
 		{
 			adapterAutoComplete.addAll(aData)

@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
@@ -117,6 +118,16 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun initBubble()
 	{
+		windowManager?.let {
+			ScreenData.windowManager = it
+			ScreenData.defaultDisplay = it.defaultDisplay
+		}
+		resources?.let {
+			it.displayMetrics?.let { itMetrics ->
+				ScreenData.densityByDP = itMetrics.density
+			}
+		}
+
 		adapter = SlidePagerAdapter(supportFragmentManager, 1)
 		viewPager.adapter = adapter
 		RequestBuilder.initVolleyRequest(this)
