@@ -1,8 +1,11 @@
 package chata.can.chata_ai_api.fragment.inputOutput
 
+import android.annotation.SuppressLint
 import android.graphics.Point
 import android.util.DisplayMetrics
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
@@ -33,6 +36,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
 	private lateinit var tvContent: TextView
+	private lateinit var wbOutput: WebView
 
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 
@@ -44,7 +48,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		activity?.let { presenter = InputOutputPresenter(it, this) }
 		if (BuildConfig.DEBUG)
 		{
-			etQuery.setText("Total Revenue 2019")
+			etQuery.setText("total revenue by area 2019")
 //			etQuery.setText("Bottom two customers")
 		}
 	}
@@ -73,6 +77,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			ivChata = findViewById(R.id.ivChata)
 			etQuery = findViewById(R.id.etQuery)
 			tvContent = findViewById(R.id.tvContent)
+			wbOutput = findViewById(R.id.wbOutput)
 		}
 	}
 
@@ -160,11 +165,27 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	override fun showText(text: String)
 	{
+		wbOutput.visibility = View.GONE
+
 		tvContent.text = text
 	}
 
+	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
-		queryBase.toString()
+		tvContent.visibility = View.GONE
+
+		wbOutput.run {
+			settings.javaScriptEnabled = true
+			clearCache(true)
+			loadDataWithBaseURL(null, queryBase.contentHTML,"text/html","UTF-8", null)
+			webViewClient = object: WebViewClient()
+			{
+				override fun onPageFinished(view: WebView?, url: String?)
+				{
+
+				}
+			}
+		}
 	}
 }

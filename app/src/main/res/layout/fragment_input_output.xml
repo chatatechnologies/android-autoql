@@ -38,5 +38,9 @@
 			android:id="@+id/tvContent"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"/>
+		<WebView
+			android:id="@+id/wbOutput"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"/>
 	</RelativeLayout>
 </LinearLayout>
