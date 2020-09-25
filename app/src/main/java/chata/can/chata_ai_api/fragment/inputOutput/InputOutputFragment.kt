@@ -1,9 +1,14 @@
 package chata.can.chata_ai_api.fragment.inputOutput
 
+import android.graphics.Point
+import android.util.DisplayMetrics
 import android.view.View
+import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -23,6 +28,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
+
+	private lateinit var adapterAutoComplete: AutoCompleteAdapter
 
 	private lateinit var presenter: InputOutputPresenter
 
@@ -66,6 +73,33 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
 			val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
 			background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+
+//			val displayMetrics = DisplayMetrics()
+//			ScreenData.defaultDisplay.getMetrics(displayMetrics)
+//			val width = displayMetrics.widthPixels
+//			dropDownWidth = width
+//
+			activity?.let { activity ->
+				adapterAutoComplete = AutoCompleteAdapter(activity, R.layout.row_spinner)
+				threshold = 1
+				setAdapter(adapterAutoComplete)
+
+				onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+					parent?.let {
+						it.adapter?.let { adapter ->
+							val text = adapter.getItem(position).toString()
+							etQuery.setText(text)
+							//TODO setRequestQuery
+						}
+					}
+				}
+
+				setOnEditorActionListener { _, _, _ ->
+					//TODO setRequestQuery
+					false
+				}
+			}
+
 		}
 	}
 
@@ -73,7 +107,21 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	{
 		if (aData.isNotEmpty())
 		{
+			adapterAutoComplete.addAll(aData)
 
+			val size = Point()
+			ScreenData.defaultDisplay.getSize(size)
+			val maxHeight = size.y * 0.35
+
+			val count = adapterAutoComplete.count
+			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
+
+			etQuery.dropDownHeight =
+				if (height < maxHeight)
+					height.toInt()
+				else
+					maxHeight.toInt()
 		}
+		adapterAutoComplete.notifyDataSetChanged()
 	}
 }

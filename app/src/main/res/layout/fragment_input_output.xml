@@ -19,7 +19,11 @@
 			android:hint="@string/type_queries_here"
 			android:id="@+id/etQuery"
 			android:inputType="text"
-			android:layout_height="wrap_content"
+			android:layout_height="40dp"
+			android:layout_marginBottom="7dp"
+			android:layout_marginEnd="10dp"
+			android:layout_marginStart="10dp"
+			android:layout_marginTop="7dp"
 			android:layout_width="match_parent"
 			android:padding="4dp"/>
 	</RelativeLayout>
