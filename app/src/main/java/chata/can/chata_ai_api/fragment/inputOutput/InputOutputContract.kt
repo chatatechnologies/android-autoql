@@ -6,4 +6,5 @@ interface InputOutputContract: DrillDownContract
 {
 	fun setDataAutocomplete(aData: ArrayList<String>)
 	fun showText(text: String)
+	fun showSuggestion(aItems: ArrayList<String>)
 }

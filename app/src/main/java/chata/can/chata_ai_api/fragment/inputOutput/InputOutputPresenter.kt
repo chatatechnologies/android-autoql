@@ -150,8 +150,13 @@ class InputOutputPresenter(
 						{
 							jsonObject.optJSONObject("data")?.let { joData ->
 								joData.optJSONArray("items")?.let { jaItems ->
-									val json = JSONObject().put("query", "")
-
+									val aOptions = ArrayList<String>()
+									for (index in 0 until jaItems.length())
+									{
+										val item = jaItems.opt(index).toString()
+										aOptions.add(item)
+									}
+									view.showSuggestion(aOptions)
 								}
 							}
 						}

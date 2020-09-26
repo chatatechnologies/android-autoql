@@ -53,6 +53,12 @@
 			android:id="@+id/wbOutput"
 			android:layout_height="match_parent"
 			android:layout_width="match_parent"/>
+		<LinearLayout
+			android:id="@+id/llSuggestion"
+			android:layout_height="match_parent"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:padding="5dp"/>
 
 		<View
 			android:background="@color/white"

@@ -1,17 +1,19 @@
 package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Point
 import android.util.DisplayMetrics
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.AdapterView
-import android.widget.AutoCompleteTextView
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
@@ -38,6 +40,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	private lateinit var rvLoad: View
 	private lateinit var tvContent: TextView
 	private lateinit var wbOutput: WebView
+	private lateinit var llSuggestion: LinearLayout
 	private lateinit var vBlank: View
 
 	private lateinit var adapterAutoComplete: AutoCompleteAdapter
@@ -51,9 +54,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		initViews()
 		if (BuildConfig.DEBUG)
 		{
-			etQuery.setText("ada")
 //			etQuery.setText("total revenue by area 2019")
-//			etQuery.setText("Bottom two customers")
+			etQuery.setText("Bottom two customers")
 		}
 	}
 
@@ -83,6 +85,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 			rvLoad = findViewById(R.id.rvLoad)
 			tvContent = findViewById(R.id.tvContent)
 			wbOutput = findViewById(R.id.wbOutput)
+			llSuggestion = findViewById(R.id.llSuggestion)
 			vBlank = findViewById(R.id.vBlank)
 		}
 	}
@@ -177,6 +180,19 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		tvContent.text = text
 	}
 
+	override fun showSuggestion(aItems: ArrayList<String>)
+	{
+		llSuggestion.visibility = View.VISIBLE
+		rvLoad.visibility = View.GONE
+		llSuggestion.removeAllViews()
+		for (index in 0 until aItems.size)
+		{
+			val suggestion = aItems[index]
+			val tv = buildSuggestionView(llSuggestion.context, suggestion)
+			llSuggestion.addView(tv)
+		}
+	}
+
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
@@ -200,6 +216,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		rvLoad.visibility = View.VISIBLE
 		tvContent.visibility = View.GONE
 		wbOutput.visibility = View.GONE
+		llSuggestion.visibility = View.GONE
 		vBlank.visibility = View.GONE
 	}
 
@@ -208,5 +225,20 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		rvLoad.visibility = View.GONE
 		tvContent.visibility = View.GONE
 		wbOutput.visibility = View.GONE
+		llSuggestion.visibility = View.GONE
+	}
+
+	private fun buildSuggestionView(context: Context, content: String) = TextView(context).apply {
+		backgroundGrayWhite()
+		layoutParams = LinearLayout.LayoutParams(-1, -2)
+		margin(5f, 5f, 5f)
+		gravity = Gravity.CENTER_HORIZONTAL
+		setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+		setPadding(15,15,15,15)
+		text = content
+		setOnClickListener {
+			//TODO run query in Input Output query
+			//view.runTyping(content)
+		}
 	}
 }
