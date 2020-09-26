@@ -44,6 +44,13 @@ class InputOutputPresenter(
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 
+	private fun getRelatedQueries(query: String, message: String)
+	{
+		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
+		val mData = hashMapOf<String, Any>("message" to message)
+		QueryRequest.callRelatedQueries(words, this, mData)
+	}
+
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		if (jsonObject != null)
@@ -60,16 +67,28 @@ class InputOutputPresenter(
 							val jsonError = JSONObject(textError)
 							val reference = jsonError.optString(referenceIdKey)
 							val query = jsonObject.optString("query") ?: ""
-							//TODO MESSAGE TO PAINT
-							val message = if (reference == "1.1.430")
+							if (reference == "1.1.430")
 							{
-								jsonError.optString(messageKey)
+								val message = jsonError.optString(messageKey)
+								getRelatedQueries(query, message)
 							}
 							else
 							{
-								"suggestion not supported"
+								view.showText("suggestion not supported")
 							}
-							println(message)
+						}
+						catch (ex: Exception) {}
+					}
+				}
+				else ->
+				{
+					val textError = jsonObject.optString("RESPONSE") ?: ""
+					if (textError.isNotEmpty())
+					{
+						try {
+							val jsonError = JSONObject(textError)
+							val message = jsonError.optString("message")
+							view.showText(message)
 						}
 						catch (ex: Exception) {}
 					}
@@ -124,6 +143,15 @@ class InputOutputPresenter(
 											getQuery(query)
 										}
 									}
+								}
+							}
+						}
+						"callRelatedQueries" ->
+						{
+							jsonObject.optJSONObject("data")?.let { joData ->
+								joData.optJSONArray("items")?.let { jaItems ->
+									val json = JSONObject().put("query", "")
+
 								}
 							}
 						}

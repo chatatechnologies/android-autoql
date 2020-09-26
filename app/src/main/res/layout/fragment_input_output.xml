@@ -46,6 +46,8 @@
 			android:gravity="center"
 			android:id="@+id/tvContent"
 			android:layout_height="match_parent"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
 			android:layout_width="match_parent"/>
 		<WebView
 			android:id="@+id/wbOutput"
