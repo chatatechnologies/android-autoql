@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.inputOutput
 import android.content.Context
 import chata.can.chata_ai.activity.dataMessenger.DataChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
@@ -141,6 +142,11 @@ class InputOutputPresenter(
 										{
 											val query = data.optString("text") ?: ""
 											getQuery(query)
+										}
+										else
+										{
+											val simpleQuery = FullSuggestionQuery(data)
+											view.showFullSuggestion(simpleQuery)
 										}
 									}
 								}

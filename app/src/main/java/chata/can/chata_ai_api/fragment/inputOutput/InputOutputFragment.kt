@@ -11,16 +11,16 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
-import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
+import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
@@ -55,7 +55,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		if (BuildConfig.DEBUG)
 		{
 //			etQuery.setText("total revenue by area 2019")
-			etQuery.setText("Bottom two customers")
+			etQuery.setText("Totel salas")
+//			etQuery.setText("Bottom two customers")
 		}
 	}
 
@@ -193,6 +194,47 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		}
 	}
 
+	override fun showFullSuggestion(fullSuggestion: FullSuggestionQuery)
+	{
+
+	}
+
+	private fun buildFullSuggestionView(context: Context): LinearLayout
+	{
+		return LinearLayout(context).apply {
+			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			margin(top = 28f, start = 12f, end = 12f)
+			paddingAll(5f)
+			orientation = LinearLayout.VERTICAL
+
+			val tvContent = TextView(context).apply {
+				layoutParams = LinearLayout.LayoutParams(-2, -2)
+				paddingAll(5f)
+			}
+			addView(tvContent)
+			val stvContent = SpinnerTextView(context).apply {
+				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				paddingAll(5f)
+			}
+			addView(stvContent)
+			val rlRunQuery = RelativeLayout(context).apply {
+				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				val tvRunQuery = TextView(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(-2, -2)
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					text = getString(R.string.run_query)
+				}
+				addView(tvRunQuery)
+				val ivRunQuery = ImageView(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(dpToPx(20f), dpToPx(20f))
+					setImageResource(R.drawable.ic_play)
+				}
+				addView(ivRunQuery)
+			}
+			addView(rlRunQuery)
+		}
+	}
+
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
@@ -237,8 +279,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		setPadding(15,15,15,15)
 		text = content
 		setOnClickListener {
-			//TODO run query in Input Output query
-			//view.runTyping(content)
+			showLoading()
+			presenter.getQuery(content)
 		}
 	}
 }
