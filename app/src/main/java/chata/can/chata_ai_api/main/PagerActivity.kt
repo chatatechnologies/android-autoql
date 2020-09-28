@@ -6,32 +6,22 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
 
-class PagerActivity: AppCompatActivity(), View.OnClickListener
+class PagerActivity: AppCompatActivity()
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
+	private lateinit var pagerOption: PagerOptions
 	private lateinit var adapter: SlidePagerAdapter
-
-	private lateinit var llMenu: View
-	private lateinit var rlChat: View
-	private lateinit var ivChat: ImageView
-	private lateinit var rlTips: View
-	private lateinit var ivTips: ImageView
-	private lateinit var rlNotify: View
-	private lateinit var ivNotify: ImageView
-
-	private lateinit var frmLocal: View
 
 	private val overlayPermission = 1000
 
@@ -41,21 +31,9 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
-
-		llMenu = findViewById(R.id.llMenu)
-		rlChat = findViewById(R.id.rlChat)
-		ivChat = findViewById(R.id.ivChat)
-		rlTips = findViewById(R.id.rlTips)
-		ivTips = findViewById(R.id.ivTips)
-		rlNotify = findViewById(R.id.rlNotify)
-		ivNotify = findViewById(R.id.ivNotify)
-
-		frmLocal = findViewById(R.id.frmLocal)
+		pagerOption = findViewById(R.id.pagerOption)
 
 		tabLayout.setupWithViewPager(viewPager)
-		setListener()
-		setColors()
-
 		if (isMarshmallow())
 		{
 			if (!canDrawOverlays())
@@ -97,23 +75,9 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 		}
 	}
 
-	override fun onClick(view: View?)
-	{
-		view?.let {
-			when(it.id)
-			{
-				R.id.rlChat -> {}
-				R.id.rlTips -> {}
-				R.id.rlNotify -> {}
-			}
-		}
-	}
-
 	fun setStatusGUI(isVisible: Boolean)
 	{
-		val iVisible = if (isVisible) View.VISIBLE else View.GONE
-		llMenu.visibility = iVisible
-		frmLocal.visibility = iVisible
+		pagerOption.setStatusGUI(isVisible)
 	}
 
 	private fun initBubble()
@@ -133,20 +97,6 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 		RequestBuilder.initVolleyRequest(this)
 	}
 
-	private fun setColors()
-	{
-		ivChat.setColorFilter(getParsedColor(R.color.black))
-		ivTips.setColorFilter(getParsedColor(R.color.white))
-		ivNotify.setColorFilter(getParsedColor(R.color.white))
-	}
-
-	private fun setListener()
-	{
-		rlChat.setOnClickListener(this)
-		rlTips.setOnClickListener(this)
-		rlNotify.setOnClickListener(this)
-	}
-
 	/**
 	 * Build.VERSION_CODES.M is 23
 	 */
@@ -162,8 +112,7 @@ class PagerActivity: AppCompatActivity(), View.OnClickListener
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
-//			adapter.numPages = 3
-			adapter.numPages = 2
+			adapter.numPages = 3
 			View.VISIBLE
 		} else {
 			adapter.numPages = 1

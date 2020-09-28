@@ -17,6 +17,7 @@
 	</androidx.viewpager.widget.ViewPager>
 
 	<chata.can.chata_ai.view.PagerOptions
+		android:id="@+id/pagerOption"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
 </RelativeLayout>

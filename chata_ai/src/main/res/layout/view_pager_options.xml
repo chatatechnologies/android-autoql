@@ -4,61 +4,61 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<LinearLayout
-	android:id="@+id/llMenu"
-	android:layout_centerVertical="true"
-	android:layout_height="wrap_content"
-	android:layout_width="28dp"
-	android:orientation="vertical"
-	android:visibility="gone">
-
-	<RelativeLayout
-		android:background="@color/white"
-		android:id="@+id/rlChat"
+		android:id="@+id/llMenu"
+		android:layout_centerVertical="true"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content">
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivChat"
-			android:layout_width="match_parent"
-			android:layout_height="56dp"
-			android:src="@drawable/ic_chata"
-			android:padding="3dp"/>
-	</RelativeLayout>
+		android:layout_width="28dp"
+		android:orientation="vertical"
+		android:visibility="gone">
 
-	<RelativeLayout
-		android:background="@color/blue_chata_circle"
-		android:id="@+id/rlTips"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content">
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivTips"
-			android:layout_width="match_parent"
-			android:layout_height="56dp"
-			android:src="@drawable/ic_tips"
-			android:padding="3dp"/>
-	</RelativeLayout>
+		<RelativeLayout
+			android:background="@color/white"
+			android:id="@+id/rlChat"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivChat"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
+				android:src="@drawable/ic_chata"
+				android:padding="3dp"/>
+		</RelativeLayout>
 
-	<RelativeLayout
-		android:background="@color/blue_chata_circle"
-		android:id="@+id/rlNotify"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content">
-		<ImageView
-			android:contentDescription="@null"
-			android:id="@+id/ivNotify"
-			android:layout_width="match_parent"
-			android:layout_height="56dp"
-			android:src="@drawable/ic_bell"
-			android:padding="3dp"/>
-	</RelativeLayout>
-</LinearLayout>
+		<RelativeLayout
+			android:background="@color/blue_chata_circle"
+			android:id="@+id/rlTips"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivTips"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
+				android:src="@drawable/ic_tips"
+				android:padding="3dp"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:background="@color/blue_chata_circle"
+			android:id="@+id/rlNotify"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivNotify"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
+				android:src="@drawable/ic_bell"
+				android:padding="3dp"/>
+		</RelativeLayout>
+	</LinearLayout>
 
 	<FrameLayout
 		android:background="@android:color/darker_gray"
 		android:id="@+id/frmLocal"
-		android:layout_toEndOf="@+id/llMenu"
 		android:layout_height="match_parent"
+		android:layout_toEndOf="@+id/llMenu"
 		android:layout_width="match_parent"
 		android:visibility="gone"/>
 </RelativeLayout>
