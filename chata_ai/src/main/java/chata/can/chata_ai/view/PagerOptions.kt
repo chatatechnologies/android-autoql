@@ -28,19 +28,27 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private lateinit var ivNotify: ImageView
 	private lateinit var frmLocal: View
 
+	private var rlSelected: View ?= null
+	private var ivSelected: ImageView ?= null
+
 	fun init()
 	{
 		val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
 
-		llMenu = findViewById(R.id.llMenu)
-		rlChat = findViewById(R.id.rlChat)
-		ivChat = findViewById(R.id.ivChat)
-		rlTips = findViewById(R.id.rlTips)
-		ivTips = findViewById(R.id.ivTips)
-		rlNotify = findViewById(R.id.rlNotify)
-		ivNotify = findViewById(R.id.ivNotify)
-		frmLocal = findViewById(R.id.frmLocal)
+		view.run {
+			llMenu = findViewById(R.id.llMenu)
+			rlChat = findViewById(R.id.rlChat)
+			ivChat = findViewById(R.id.ivChat)
+			rlTips = findViewById(R.id.rlTips)
+			ivTips = findViewById(R.id.ivTips)
+			rlNotify = findViewById(R.id.rlNotify)
+			ivNotify = findViewById(R.id.ivNotify)
+			frmLocal = findViewById(R.id.frmLocal)
+		}
+
+		rlSelected = rlChat
+		ivSelected = ivChat
 		setListener()
 		setColors()
 
@@ -59,9 +67,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		view?.let {
 			when(it.id)
 			{
-				R.id.rlChat -> {}
-				R.id.rlTips -> {}
-				R.id.rlNotify -> {}
+				R.id.rlChat -> changeColor(rlChat, ivChat)
+				R.id.rlTips -> changeColor(rlTips, ivTips)
+				R.id.rlNotify -> changeColor(rlNotify, ivNotify)
 			}
 		}
 	}
@@ -79,6 +87,21 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivChat.setColorFilter(getParsedColor(R.color.black))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
+		}
+	}
+
+	private fun changeColor(rlNew: View, ivNew: ImageView)
+	{
+		context?.run {
+			if (rlSelected != rlNew && ivSelected != ivNew)
+			{
+				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+				ivSelected?.setColorFilter(getParsedColor(R.color.white))
+				rlNew.setBackgroundColor(getParsedColor(R.color.white))
+				ivNew.setColorFilter(getParsedColor(R.color.black))
+				rlSelected = rlNew
+				ivSelected = ivNew
+			}
 		}
 	}
 }
