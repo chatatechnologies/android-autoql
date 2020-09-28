@@ -2,7 +2,6 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Point
 import android.util.DisplayMetrics
 import android.util.TypedValue
@@ -211,20 +210,23 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	{
 		return LinearLayout(context).apply {
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
-//			setBackgroundColor(Color.RED)
 			margin(top = 12f, start = 12f, end = 12f)
 			paddingAll(5f)
 			orientation = LinearLayout.VERTICAL
+			val tvContent = TextView(context).apply {
+				layoutParams = LinearLayout.LayoutParams(-2, -2)
+				margin(5f,5f,5f,5f)
+				text = getString(R.string.msg_full_suggestion)
+			}
 			//region stvContent
 			val stvContent = SpinnerTextView(context).apply {
-				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				layoutParams = LinearLayout.LayoutParams(-1, dpToPx(32f))
 				paddingAll(5f)
 			}
 			stvContent.setText(aSuggestion)
-			addView(stvContent)
 			//endregion
 			val rlRunQuery = RelativeLayout(context).apply {
-				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				layoutParams = LinearLayout.LayoutParams(-1, dpToPx(32f))
 				val tvRunQuery = TextView(context).apply {
 					val params = RelativeLayout.LayoutParams(-2, -2)
 					params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
@@ -243,7 +245,18 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 				}
 				addView(ivRunQuery)
 				backgroundGrayWhite()
+				setOnClickListener {
+					val query = stvContent.text
+					if (query.isNotEmpty())
+					{
+						showLoading()
+						presenter.getQuery(query)
+					}
+				}
 			}
+
+			addView(tvContent)
+			addView(stvContent)
 			addView(rlRunQuery)
 			backgroundGrayWhite()
 		}
