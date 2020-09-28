@@ -4,9 +4,12 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<LinearLayout
+		android:background="@android:color/transparent"
+		android:clickable="true"
+		android:focusable="true"
+		android:gravity="center"
 		android:id="@+id/llMenu"
-		android:layout_centerVertical="true"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
 		android:layout_width="32dp"
 		android:orientation="vertical"
 		android:visibility="gone">
@@ -55,7 +58,9 @@
 	</LinearLayout>
 
 	<FrameLayout
-		android:background="@android:color/darker_gray"
+		android:background="@android:color/white"
+		android:clickable="true"
+		android:focusable="true"
 		android:id="@+id/frmLocal"
 		android:layout_height="match_parent"
 		android:layout_toEndOf="@+id/llMenu"
