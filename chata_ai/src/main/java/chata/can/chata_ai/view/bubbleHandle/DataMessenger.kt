@@ -1,6 +1,7 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import chata.can.chata_ai.pojo.SinglentonDashboard
+import chata.can.chata_ai.pojo.SinglentonDrawer
 
 object DataMessenger
 {
@@ -30,6 +31,7 @@ object DataMessenger
 		token = ""
 		JWT = ""
 
+		SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
 	}
 

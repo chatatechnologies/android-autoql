@@ -56,6 +56,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		initViews()
 		initListener()
 		setColors()
+		checkLastData()
 
 		if (BuildConfig.DEBUG)
 		{
@@ -137,6 +138,25 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		setOval(tvFirstPage)
 	}
 
+	private fun checkLastData()
+	{
+		if (ExploreQueriesData.lastWord.isNotEmpty())
+		{
+			etQuery.setText(ExploreQueriesData.lastWord)
+		}
+
+		ExploreQueriesData.lastExploreQuery?.let {
+			if (it.aItems.isNotEmpty())
+			{
+				rvRelatedQueries.visibility = visible
+				model.clear()
+				model.addAll(it.aItems)
+				adapter.notifyDataSetChanged()
+				configPager(it)
+			}
+		}
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -179,6 +199,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	override fun getRelatedQueries(relatedQuery: ExploreQuery)
 	{
 		relatedQuery.run {
+			ExploreQueriesData.lastExploreQuery = relatedQuery
 			rvRelatedQueries.visibility = visible
 			model.clear()
 			model.addAll(aItems)
@@ -261,7 +282,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 		val query = etQuery.text.toString()
 		if (query.isNotEmpty())
 		{
-			etQuery.setText("")
+			ExploreQueriesData.lastWord = query
 			hideKeyboard()
 			presenter.validateQuery(query)
 		}
