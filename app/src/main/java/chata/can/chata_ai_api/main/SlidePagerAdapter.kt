@@ -19,7 +19,7 @@ class SlidePagerAdapter (fm: FragmentManager, var numPages: Int)
 			0 -> MainFragment.newInstance()
 //			1 -> DashboardFragment.newInstance()
 //			else -> InputOutputFragment.newInstance()
-			1 -> InputOutputFragment.newInstance()
+//			1 -> InputOutputFragment.newInstance()
 			else -> DashboardFragment.newInstance()
 		}
 	}
@@ -31,7 +31,7 @@ class SlidePagerAdapter (fm: FragmentManager, var numPages: Int)
 			0 -> MainFragment.nameFragment
 //			1 -> DashboardFragment.nameFragment
 //			else -> InputOutputFragment.nameFragment
-			1 -> InputOutputFragment.nameFragment
+//			1 -> InputOutputFragment.nameFragment
 			else -> DashboardFragment.nameFragment
 		}
 	}
