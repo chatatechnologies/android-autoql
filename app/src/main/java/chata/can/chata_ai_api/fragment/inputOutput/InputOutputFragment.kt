@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
 import android.util.DisplayMetrics
 import android.util.TypedValue
@@ -21,6 +22,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
+import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
 import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
@@ -196,42 +198,54 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	override fun showFullSuggestion(fullSuggestion: FullSuggestionQuery)
 	{
-
+		llSuggestion.visibility = View.VISIBLE
+		rvLoad.visibility = View.GONE
+		llSuggestion.removeAllViews()
+		llSuggestion.addView(buildFullSuggestionView(llSuggestion.context, fullSuggestion.aSuggestion))
 	}
 
-	private fun buildFullSuggestionView(context: Context): LinearLayout
+	private fun buildFullSuggestionView(
+		context: Context,
+		aSuggestion: ArrayList<Suggestion>
+	): LinearLayout
 	{
 		return LinearLayout(context).apply {
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
-			margin(top = 28f, start = 12f, end = 12f)
+//			setBackgroundColor(Color.RED)
+			margin(top = 12f, start = 12f, end = 12f)
 			paddingAll(5f)
 			orientation = LinearLayout.VERTICAL
-
-			val tvContent = TextView(context).apply {
-				layoutParams = LinearLayout.LayoutParams(-2, -2)
-				paddingAll(5f)
-			}
-			addView(tvContent)
+			//region stvContent
 			val stvContent = SpinnerTextView(context).apply {
 				layoutParams = LinearLayout.LayoutParams(-1, -2)
 				paddingAll(5f)
 			}
+			stvContent.setText(aSuggestion)
 			addView(stvContent)
+			//endregion
 			val rlRunQuery = RelativeLayout(context).apply {
 				layoutParams = LinearLayout.LayoutParams(-1, -2)
 				val tvRunQuery = TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(-2, -2)
+					val params = RelativeLayout.LayoutParams(-2, -2)
+					params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+					layoutParams = params
+					id = R.id.tvRunQuery
 					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
 					text = getString(R.string.run_query)
 				}
 				addView(tvRunQuery)
 				val ivRunQuery = ImageView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(20f), dpToPx(20f))
+					val params = RelativeLayout.LayoutParams(dpToPx(20f), dpToPx(20f))
+					params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
+					params.addRule(RelativeLayout.START_OF, R.id.tvRunQuery)
+					layoutParams = params
 					setImageResource(R.drawable.ic_play)
 				}
 				addView(ivRunQuery)
+				backgroundGrayWhite()
 			}
 			addView(rlRunQuery)
+			backgroundGrayWhite()
 		}
 	}
 
