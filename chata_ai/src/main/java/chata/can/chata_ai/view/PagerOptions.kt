@@ -5,10 +5,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerOptions: RelativeLayout, View.OnClickListener
@@ -20,7 +23,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	constructor(context: Context, attrs: AttributeSet, defStyle: Int)
 		: super(context, attrs, defStyle) { init() }
 
-	private lateinit var llMenu: View
+	private lateinit var llMenu: LinearLayout
 	private lateinit var rlChat: View
 	private lateinit var ivChat: ImageView
 	private lateinit var rlTips: View
@@ -54,6 +57,43 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		setColors()
 
 		addView(view)
+	}
+
+	fun paintViews()
+	{
+		when(BubbleHandle.instance.placement)
+		{
+			ConstantDrawer.RIGHT_PLACEMENT ->
+			{
+				//region llMenu
+				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
+					height = -1
+					width = dpToPx(32f)
+					addRule(ALIGN_PARENT_START, TRUE)
+				}
+				//endregion
+				//region little views
+				(ivChat.layoutParams as? LayoutParams)?.run {
+					height = dpToPx(56f)
+					width = -1
+				}
+				(ivTips.layoutParams as? LayoutParams)?.run {
+					height = dpToPx(56f)
+					width = -1
+				}
+				(ivNotify.layoutParams as? LayoutParams)?.run {
+					height = dpToPx(56f)
+					width = -1
+				}
+				//endregion
+				//region frmLocal
+				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
+					addRule(END_OF, R.id.llMenu)
+				}
+				//endregion
+			}
+			else -> {}
+		}
 	}
 
 	fun setStatusGUI(isVisible: Boolean)
