@@ -35,11 +35,6 @@ class DashboardPresenter(
 						val title = jsonObject.optString("title") ?: ""
 						val key = jsonObject.optString("key") ?: ""
 						val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-						if (isSecondaryQuery)
-						{
-							isSecondaryQuery.toString()
-						}
-
 						//region scope for call related queries
 						val code = jsonObject.optInt("CODE")
 						val referenceId = joCurrent.optString("reference_id") ?: ""
@@ -131,10 +126,6 @@ class DashboardPresenter(
 				{
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-					if (isSecondaryQuery)
-					{
-						isSecondaryQuery.toString()
-					}
 					mModel?.run {
 						val index = indexOfFirst { it.key == key }
 						if (index != -1)
@@ -147,7 +138,17 @@ class DashboardPresenter(
 								if (isSecondaryQuery)
 									dashboard.queryBase2 = queryBase
 								else
+								{
 									dashboard.queryBase = queryBase
+									if (dashboard.secondQuery.isEmpty() && dashboard.splitView)
+									{
+										dashboard.queryBase2 = QueryBase(jsonObject).apply {
+											isDashboard = true
+											this.isSecondaryQuery = true
+											configQueryBase(dashboard, this, true)
+										}
+									}
+								}
 								notifyQueryByIndex(index)
 							}
 						}
@@ -273,6 +274,10 @@ class DashboardPresenter(
 					{
 						queryBase.displayType =
 							if (isSplitView) dashboard.secondDisplayType else dashboard.displayType
+						if (queryBase.displayType.isEmpty())
+						{
+							queryBase.displayType = "bar"
+						}
 						TypeChatView.WEB_VIEW
 					}
 					else -> TypeChatView.LEFT_VIEW
@@ -363,7 +368,7 @@ class DashboardPresenter(
 			QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 		}
 		val secondQuery = dashboard.secondQuery
-		if (secondQuery.isNotEmpty() || dashboard.splitView)
+		if (secondQuery.isNotEmpty())
 		{
 			dashboard.isWaitingData2 = true
 			val mInfoHolder = getDataQuery(dashboard,true)
