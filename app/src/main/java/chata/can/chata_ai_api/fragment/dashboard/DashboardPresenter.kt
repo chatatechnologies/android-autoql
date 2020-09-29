@@ -35,6 +35,10 @@ class DashboardPresenter(
 						val title = jsonObject.optString("title") ?: ""
 						val key = jsonObject.optString("key") ?: ""
 						val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+						if (isSecondaryQuery)
+						{
+							isSecondaryQuery.toString()
+						}
 
 						//region scope for call related queries
 						val code = jsonObject.optInt("CODE")
@@ -127,6 +131,10 @@ class DashboardPresenter(
 				{
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+					if (isSecondaryQuery)
+					{
+						isSecondaryQuery.toString()
+					}
 					mModel?.run {
 						val index = indexOfFirst { it.key == key }
 						if (index != -1)
@@ -320,7 +328,7 @@ class DashboardPresenter(
 
 			if (wantSplitView && splitView)
 			{
-				val secondQuery = secondQuery
+				val secondQuery = if (secondQuery.isEmpty()) query else secondQuery
 				mInfoHolder["isSecondaryQuery"] = true
 				mInfoHolder["primaryQuery"] = query
 				mInfoHolder["query"] = secondQuery
@@ -355,7 +363,7 @@ class DashboardPresenter(
 			QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
 		}
 		val secondQuery = dashboard.secondQuery
-		if (secondQuery.isNotEmpty())
+		if (secondQuery.isNotEmpty() || dashboard.splitView)
 		{
 			dashboard.isWaitingData2 = true
 			val mInfoHolder = getDataQuery(dashboard,true)
