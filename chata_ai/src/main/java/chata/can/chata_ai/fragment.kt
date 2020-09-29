@@ -8,10 +8,13 @@ inline fun Fragment.putArgs(block: Bundle.() -> Unit) = apply {
 	arguments = Bundle().apply(block)
 }
 
-fun addFragment(fragmentManager: FragmentManager, fragment: Fragment)
+fun addFragment(
+	fragmentManager: FragmentManager,
+	fragment: Fragment,
+)
 {
 	fragmentManager.beginTransaction()
-		.replace(R.id.frmContent, fragment)
+		.replace(R.id.frmLocal, fragment)
 		.addToBackStack(null)
 		.commit()
 }

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerOptions: RelativeLayout, View.OnClickListener
 {
@@ -67,15 +68,22 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		view?.let {
 			when(it.id)
 			{
-				R.id.rlChat -> changeColor(rlChat, ivChat)
-				R.id.rlTips -> changeColor(rlTips, ivTips)
-				R.id.rlNotify -> changeColor(rlNotify, ivNotify)
+				R.id.llMenu ->
+				{
+					BubbleHandle.isOpenChat = false
+					BubbleHandle.instance.isVisible = true
+					setStatusGUI(false)
+				}
+				R.id.rlChat -> { changeColor(rlChat, ivChat) }
+				R.id.rlTips -> { changeColor(rlTips, ivTips) }
+				R.id.rlNotify -> { changeColor(rlNotify, ivNotify) }
 			}
 		}
 	}
 
 	private fun setListener()
 	{
+		llMenu.setOnClickListener(this)
 		rlChat.setOnClickListener(this)
 		rlTips.setOnClickListener(this)
 		rlNotify.setOnClickListener(this)
