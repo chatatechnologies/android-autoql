@@ -61,15 +61,18 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 
 	fun paintViews()
 	{
-		when(BubbleHandle.instance.placement)
+		when(val placement = BubbleHandle.instance.placement)
 		{
-			ConstantDrawer.RIGHT_PLACEMENT ->
+			ConstantDrawer.LEFT_PLACEMENT, ConstantDrawer.RIGHT_PLACEMENT ->
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
 					width = dpToPx(32f)
-					addRule(ALIGN_PARENT_START, TRUE)
+					if (placement == ConstantDrawer.LEFT_PLACEMENT)
+						addRule(ALIGN_PARENT_END, TRUE)
+					else
+						addRule(ALIGN_PARENT_START, TRUE)
 				}
 				//endregion
 				//region little views
@@ -88,7 +91,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				//endregion
 				//region frmLocal
 				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
-					addRule(END_OF, R.id.llMenu)
+					if (placement == ConstantDrawer.LEFT_PLACEMENT)
+						addRule(START_OF, R.id.llMenu)
+					else
+						addRule(END_OF, R.id.llMenu)
 				}
 				//endregion
 			}

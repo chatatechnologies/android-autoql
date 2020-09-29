@@ -4,15 +4,14 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<LinearLayout
-		android:layout_alignParentBottom="true"
 		android:background="@android:color/transparent"
 		android:clickable="true"
 		android:focusable="true"
 		android:gravity="center"
 		android:id="@+id/llMenu"
-		android:layout_height="32dp"
-		android:layout_width="match_parent"
-		android:orientation="horizontal"
+		android:layout_height="match_parent"
+		android:layout_width="32dp"
+		android:orientation="vertical"
 		android:visibility="gone">
 
 		<RelativeLayout
@@ -23,8 +22,8 @@
 			<ImageView
 				android:contentDescription="@null"
 				android:id="@+id/ivChat"
-				android:layout_height="match_parent"
-				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
 				android:src="@drawable/ic_chata"
 				android:padding="3dp"/>
 		</RelativeLayout>
@@ -37,8 +36,8 @@
 			<ImageView
 				android:contentDescription="@null"
 				android:id="@+id/ivTips"
-				android:layout_height="match_parent"
-				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
 				android:src="@drawable/ic_tips"
 				android:padding="3dp"/>
 		</RelativeLayout>
@@ -51,8 +50,8 @@
 			<ImageView
 				android:contentDescription="@null"
 				android:id="@+id/ivNotify"
-				android:layout_height="match_parent"
-				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:layout_width="match_parent"
 				android:src="@drawable/ic_bell"
 				android:padding="3dp"/>
 		</RelativeLayout>
@@ -63,7 +62,6 @@
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/frmLocal"
-		android:layout_above="@id/llMenu"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:visibility="gone"/>

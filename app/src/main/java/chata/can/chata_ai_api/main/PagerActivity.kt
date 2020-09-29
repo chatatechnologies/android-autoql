@@ -78,6 +78,7 @@ class PagerActivity: AppCompatActivity()
 	fun setStatusGUI(isVisible: Boolean)
 	{
 		pagerOption.setStatusGUI(isVisible)
+		pagerOption.paintViews()
 	}
 
 	private fun initBubble()
