@@ -96,11 +96,13 @@ class QueryBuilderHolder(
 				textPaint.run {
 					try {
 						tvLink?.context?.let {
-							color = it.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
+							color = it.getParsedColor(R.color.chata_drawer_accent_color)
 						}
 					}
 					finally {
-						bgColor = Color.parseColor("#FFFFFF")
+						tvLink?.context?.let {
+							bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+						}
 						isUnderlineText = false
 					}
 				}

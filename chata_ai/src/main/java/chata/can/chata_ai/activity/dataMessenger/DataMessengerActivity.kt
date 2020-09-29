@@ -53,6 +53,7 @@ class DataMessengerActivity:
 	private lateinit var llParent: View
 	private lateinit var rvChat: RecyclerView
 	private lateinit var gifView: View
+	private lateinit var tvMsg: TextView
 	private lateinit var ivRun: ImageView
 	private lateinit var etQuery: TypingAutoComplete
 	private lateinit var ivMicrophone: ImageView
@@ -88,6 +89,7 @@ class DataMessengerActivity:
 		llParent = findViewById(R.id.llParent)
 		rvChat = findViewById(R.id.rvChat)
 		gifView = findViewById(R.id.gifView)
+		tvMsg = findViewById(R.id.tvMsg)
 		ivRun = findViewById(R.id.ivRun)
 		etQuery = findViewById(R.id.etQuery)
 		ivMicrophone = findViewById(R.id.ivMicrophone)
@@ -139,8 +141,9 @@ class DataMessengerActivity:
 		with(ThemeColor.currentColor)
 		{
 			llParent.setBackgroundColor(getParsedColor(drawerBackgroundColor))
-			etQuery.setHintTextColor(getParsedColor(drawerHoverColor))
-			ivRun.setColorFilter(getParsedColor(R.color.chata_drawer_hover_color_dark))
+			etQuery.setHintTextColor(getParsedColor(drawerColorPrimary))
+			tvMsg.setTextColor(getParsedColor(drawerColorPrimary))
+			ivRun.setColorFilter(getParsedColor(drawerColorPrimary))
 		}
 	}
 
@@ -336,7 +339,7 @@ class DataMessengerActivity:
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
 //				val queryDemo = "Average revenue by area last year"
-				val queryDemo = "ada"
+				val queryDemo = ""
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
 			}

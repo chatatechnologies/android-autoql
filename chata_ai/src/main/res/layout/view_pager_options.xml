@@ -13,7 +13,7 @@
 		android:layout_height="32dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
-		android:visibility="visible">
+		android:visibility="gone">
 
 		<RelativeLayout
 			android:background="@color/white"
@@ -66,5 +66,5 @@
 		android:layout_above="@id/llMenu"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:visibility="visible"/>
+		android:visibility="gone"/>
 </RelativeLayout>
