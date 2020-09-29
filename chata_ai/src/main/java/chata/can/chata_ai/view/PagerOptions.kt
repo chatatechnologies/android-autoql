@@ -70,9 +70,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					height = -1
 					width = dpToPx(32f)
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
+					{
+						removeRule(ALIGN_PARENT_START)
 						addRule(ALIGN_PARENT_END, TRUE)
+					}
 					else
+					{
+						removeRule(ALIGN_PARENT_END)
 						addRule(ALIGN_PARENT_START, TRUE)
+					}
 				}
 				//endregion
 				//region little views
@@ -92,9 +98,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				//region frmLocal
 				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
+					{
+						removeRule(END_OF)
 						addRule(START_OF, R.id.llMenu)
+					}
 					else
+					{
+						removeRule(START_OF)
 						addRule(END_OF, R.id.llMenu)
+					}
 				}
 				//endregion
 			}
