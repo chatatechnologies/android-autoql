@@ -20,6 +20,7 @@ import chata.can.chata_ai.fragment.DataMessengerFragment
 import chata.can.chata_ai.fragment.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerOptions: RelativeLayout, View.OnClickListener
@@ -38,6 +39,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private lateinit var ivTips: ImageView
 	private lateinit var rlNotify: View
 	private lateinit var ivNotify: ImageView
+	private lateinit var tvNotification: TextView
 	private lateinit var rlLocal: View
 	private lateinit var ivClose: ImageView
 	private lateinit var tvTitle: TextView
@@ -100,6 +102,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivTips = findViewById(R.id.ivTips)
 			rlNotify = findViewById(R.id.rlNotify)
 			ivNotify = findViewById(R.id.ivNotify)
+			tvNotification = findViewById(R.id.tvNotification)
 			rlLocal = findViewById(R.id.rlLocal)
 			ivClose = findViewById(R.id.ivClose)
 			tvTitle = findViewById(R.id.tvTitle)
@@ -258,6 +261,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
+			tvNotification.background = DrawableBuilder.setOvalDrawable(
+				getParsedColor(R.color.red_notification))
 		}
 	}
 

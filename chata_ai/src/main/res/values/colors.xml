@@ -31,4 +31,5 @@
 
 	<color name="selected_gray">#d3d3d3</color>
 	<color name="gray_modal">#7F5D5D5D</color>
+	<color name="red_notification">#F22735</color>
 </resources>
