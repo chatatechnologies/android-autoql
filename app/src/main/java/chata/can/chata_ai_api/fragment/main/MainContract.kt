@@ -6,6 +6,7 @@ interface MainContract
 	fun callJWt()
 	fun callRelated()
 	fun callTopics()
+	fun initPollService()
 	fun changeAuthenticate(isAuthenticate: Boolean)
 	fun isEnableLogin(isEnable: Boolean)
 	fun savePersistentData()

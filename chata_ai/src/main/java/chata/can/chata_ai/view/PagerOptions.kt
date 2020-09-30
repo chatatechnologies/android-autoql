@@ -240,6 +240,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		rlLocal.visibility = iVisible
 	}
 
+	fun showNotify(bVisible: Boolean)
+	{
+		tvNotification.visibility = if (bVisible) View.VISIBLE else View.GONE
+	}
+
 	private fun updateTitle(title: String)
 	{
 		tvTitle.text = title

@@ -1,6 +1,9 @@
 package chata.can.chata_ai_api.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +17,7 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.test.PollService
 import com.google.android.material.tabs.TabLayout
 
 class PagerActivity: AppCompatActivity()
@@ -24,6 +28,17 @@ class PagerActivity: AppCompatActivity()
 	private lateinit var adapter: SlidePagerAdapter
 
 	private val overlayPermission = 1000
+
+	private val receiver = object: BroadcastReceiver()
+	{
+		override fun onReceive(context: Context?, intent: Intent?)
+		{
+			intent?.extras?.let {
+				val data = it.getString(PollService.DATA)
+				println(data)
+			}
+		}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -74,6 +89,18 @@ class PagerActivity: AppCompatActivity()
 					.show()
 			}
 		}
+	}
+
+	override fun onResume()
+	{
+		super.onResume()
+		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
+	}
+
+	override fun onPause()
+	{
+		super.onPause()
+		unregisterReceiver(receiver)
 	}
 
 	fun setStatusGUI(isVisible: Boolean)

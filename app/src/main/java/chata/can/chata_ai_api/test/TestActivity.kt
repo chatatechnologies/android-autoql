@@ -29,9 +29,9 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 		}
 	}
 
-	private lateinit var btn1: Button
+//	private lateinit var btn1: Button
 	private lateinit var btn: Button
-	private lateinit var btn2: Button
+//	private lateinit var btn2: Button
 	private lateinit var tvMsg: TextView
 
 	override fun onCreate(savedInstanceState: Bundle?)
@@ -39,19 +39,19 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_test)
 
-		btn1 = findViewById(R.id.btn1)
+//		btn1 = findViewById(R.id.btn1)
 		btn = findViewById(R.id.btn)
-		btn2 = findViewById(R.id.btn2)
+//		btn2 = findViewById(R.id.btn2)
 		tvMsg = findViewById(R.id.tvMsg)
 
 		btn.setOnClickListener(this)
-		btn1.setOnClickListener(this)
-		btn2.setOnClickListener(this)
-//		RequestBuilder.initVolleyRequest(this)
-//		btn.setOnClickListener {
-//			val intent = Intent(this, PollService::class.java)
-//			PollService.enqueueWork(this, intent)
-//		}
+//		btn1.setOnClickListener(this)
+//		btn2.setOnClickListener(this)
+		RequestBuilder.initVolleyRequest(this)
+		btn.setOnClickListener {
+			val intent = Intent(this, PollService::class.java)
+			PollService.enqueueWork(this, intent)
+		}
 	}
 
 	override fun onClick(view: View?)
@@ -81,12 +81,12 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 	override fun onResume()
 	{
 		super.onResume()
-//		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
+		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
 	}
 
 	override fun onPause()
 	{
 		super.onPause()
-//		unregisterReceiver(receiver)
+		unregisterReceiver(receiver)
 	}
 }

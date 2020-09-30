@@ -1,18 +1,18 @@
 package chata.can.chata_ai.request
 
+import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import com.android.volley.Request
 
 object Poll
 {
 	fun callPoll(listener: StatusResponse)
 	{
-		val url = "https://spira-staging.chata.io/autoql/api/v1/" +
-			"rules/notifications/summary/poll?key=" +
-			"AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU" +
-			"&unacknowledged=0"
-		val mAuthorization = hashMapOf("Authorization" to "Bearer eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJSUzI1NiIsICJraWQiOiAiNzUxZmYzY2YxMjA2ZGUwODJhNzM1MjY5OTI2ZDg0NTgzYjcyOTZmNCJ9.eyJpYXQiOiAxNjAwODIyMzI0LCAiZXhwIjogMTYwMDg0MzkyNCwgImlzcyI6ICJkZW1vMy1qd3RhY2NvdW50QHN0YWdpbmctMjQ1NTE0LmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgImF1ZCI6ICJkZW1vMy1zdGFnaW5nLmNoYXRhLmlvIiwgInN1YiI6ICJkZW1vMy1qd3RhY2NvdW50QHN0YWdpbmctMjQ1NTE0LmlhbS5nc2VydmljZWFjY291bnQuY29tIiwgImVtYWlsIjogImRlbW8zLWp3dGFjY291bnRAc3RhZ2luZy0yNDU1MTQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCAicHJvamVjdF9pZCI6ICJzcGlyYS1kZW1vMyIsICJ1c2VyX2lkIjogImNhcmxvc0ByaW5yby5jb20ubXgiLCAiZGlzcGxheV9uYW1lIjogImNhcmxvc0ByaW5yby5jb20ubXgiLCAicmVzb3VyY2VfYWNjZXNzIjogWyIvYXV0b3FsL2FwaS92MS9ydWxlcy8qKiIsICIvYXV0b3FsL2FwaS92MS9xdWVyeSIsICIvYXV0b3FsL2FwaS92MS9ydWxlcyIsICIvYXV0b3FsL2FwaS92MS9xdWVyeS8qKiIsICIvYXV0b3FsL2FwaS92MS9ub3RpZmljYXRpb25zLyoqIl19.J58WTKeMklLYIdaMDn7je2qEZv4foaPsqYf4H2UTDQ3gjv9Op_ul1_YkiBT46QuKRKKTcFklqlweoO47CGSkc7vwyJkwwtkP8KQSZiAyUr078hcTlH9cnKfvWHNfgWizh44gPXS8OqEccA1pNm1_nqpwxYWLLVenONhZTg-kYU0GTW0ijlxhPr5VsMoVHKJOb3LrSk0k60JEFHKC1K_xmlH6RDRfiE5mQKMNbrPAGJchQcpkt0J3l0akH3rsMBU2_LWxUcVMYPt3CBKEX8bszrrvXyzowY2PF7y8Zw1N0zmNspFjrChORmnpKi8Lj5b4N7DrHnGYfu8knPI2zkM1Tw==")
+		val url = "${DataMessenger.domainUrl}/autoql/${api1}rules/notifications/summary/" +
+			"poll?key=${DataMessenger.apiKey}&unacknowledged=0"
+		val mAuthorization = hashMapOf("Authorization" to "Bearer ${DataMessenger.JWT}")
 		callStringRequest(
 			Request.Method.GET,
 			url,

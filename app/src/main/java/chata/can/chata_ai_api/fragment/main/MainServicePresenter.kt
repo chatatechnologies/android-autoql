@@ -70,6 +70,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 					val jwt = jsonObject.optString("RESPONSE") ?: ""
 					DataMessenger.JWT = jwt
 					view.callRelated()
+					view.initPollService()
 				}
 				"callRelatedQuery" ->
 				{
