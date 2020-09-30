@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -70,7 +71,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
-					width = dpToPx(32f)
+					width = dpToPx(36f)
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
@@ -121,7 +122,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(32f)
+					height = dpToPx(36f)
 					width = -1
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
@@ -170,7 +171,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 
 	fun setStatusGUI(isVisible: Boolean)
 	{
-		val iVisible = if (isVisible) View.VISIBLE else View.GONE
+		val iVisible = if (isVisible)
+		{
+			context?.let {
+				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+				startAnimation(animationTop)
+			}
+			View.VISIBLE
+		}
+		else View.GONE
 		llMenu.visibility = iVisible
 		frmLocal.visibility = iVisible
 	}
@@ -208,6 +217,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivChat.setColorFilter(getParsedColor(R.color.black))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
+			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 		}
 	}
 

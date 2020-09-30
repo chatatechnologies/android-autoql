@@ -3,7 +3,6 @@ package chata.can.chata_ai.holder
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
@@ -24,7 +23,7 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
-	val llMainBase = itemView.findViewById<LinearLayout>(R.id.llMainBase) ?: null
+//	val llMainBase = itemView.findViewById<LinearLayout>(R.id.llMainBase) ?: null
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
