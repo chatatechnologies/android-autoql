@@ -57,12 +57,28 @@
 		</RelativeLayout>
 	</LinearLayout>
 
-	<FrameLayout
-		android:background="@android:color/darker_gray"
+	<RelativeLayout
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/frmLocal"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:visibility="gone"/>
+		android:visibility="gone">
+		<RelativeLayout
+			android:background="@color/chata_drawer_accent_color"
+			android:layout_height="?attr/actionBarSize"
+			android:layout_width="match_parent">
+			<ImageView
+				android:layout_centerVertical="true"
+				android:id="@+id/ivClose"
+				android:layout_height="48dp"
+				android:layout_width="48dp"
+				android:src="@drawable/ic_cancel"/>
+		</RelativeLayout>
+		<FrameLayout
+			android:background="@android:color/darker_gray"
+			android:layout_height="match_parent"
+			android:layout_marginTop="?attr/actionBarSize"
+			android:layout_width="match_parent"/>
+	</RelativeLayout>
 </RelativeLayout>

@@ -31,6 +31,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private lateinit var rlNotify: View
 	private lateinit var ivNotify: ImageView
 	private lateinit var frmLocal: View
+	private lateinit var ivClose: ImageView
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
@@ -49,6 +50,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			rlNotify = findViewById(R.id.rlNotify)
 			ivNotify = findViewById(R.id.ivNotify)
 			frmLocal = findViewById(R.id.frmLocal)
+			ivClose = findViewById(R.id.ivClose)
 		}
 
 		rlSelected = rlChat
@@ -178,7 +180,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		view?.let {
 			when(it.id)
 			{
-				R.id.llMenu ->
+				R.id.llMenu, R.id.ivClose ->
 				{
 					BubbleHandle.isOpenChat = false
 					BubbleHandle.instance.isVisible = true
@@ -197,6 +199,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		rlChat.setOnClickListener(this)
 		rlTips.setOnClickListener(this)
 		rlNotify.setOnClickListener(this)
+		ivClose.setOnClickListener(this)
 	}
 
 	private fun setColors()
