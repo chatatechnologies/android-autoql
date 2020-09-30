@@ -69,14 +69,19 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
 					width = dpToPx(32f)
+					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
+						removeRule(ALIGN_PARENT_TOP)
 						removeRule(ALIGN_PARENT_START)
+						removeRule(ALIGN_PARENT_BOTTOM)
 						addRule(ALIGN_PARENT_END, TRUE)
 					}
 					else
 					{
+						removeRule(ALIGN_PARENT_TOP)
 						removeRule(ALIGN_PARENT_END)
+						removeRule(ALIGN_PARENT_BOTTOM)
 						addRule(ALIGN_PARENT_START, TRUE)
 					}
 				}
@@ -99,18 +104,65 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRule(END_OF)
+						removeRules(arrayListOf(ABOVE, BELOW, END_OF))
 						addRule(START_OF, R.id.llMenu)
 					}
 					else
 					{
-						removeRule(START_OF)
+						removeRules(arrayListOf(ABOVE, BELOW, START_OF))
 						addRule(END_OF, R.id.llMenu)
 					}
 				}
 				//endregion
 			}
-			else -> {}
+			ConstantDrawer.BOTTOM_PLACEMENT, ConstantDrawer.TOP_PLACEMENT ->
+			{
+				//region llMenu
+				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
+					height = dpToPx(32f)
+					width = -1
+					llMenu.orientation = LinearLayout.HORIZONTAL
+					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
+					{
+						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
+						addRule(ALIGN_PARENT_TOP, TRUE)
+					}
+					else
+					{
+						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_TOP))
+						addRule(ALIGN_PARENT_BOTTOM, TRUE)
+					}
+				}
+				//endregion
+				//region little views
+				(ivChat.layoutParams as? LayoutParams)?.run {
+					height = -1
+					width = dpToPx(56f)
+				}
+				(ivTips.layoutParams as? LayoutParams)?.run {
+					height = -1
+					width = dpToPx(56f)
+				}
+				(ivNotify.layoutParams as? LayoutParams)?.run {
+					height = -1
+					width = dpToPx(56f)
+				}
+				//endregion
+				//region frmLocal
+				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
+					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
+					{
+						removeRules(arrayListOf(END_OF, START_OF, ABOVE))
+						addRule(BELOW, R.id.llMenu)
+					}
+					else
+					{
+						removeRules(arrayListOf(END_OF, START_OF, BELOW))
+						addRule(ABOVE, R.id.llMenu)
+					}
+				}
+				//endregion
+			}
 		}
 	}
 
@@ -168,6 +220,14 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				rlSelected = rlNew
 				ivSelected = ivNew
 			}
+		}
+	}
+
+	private fun LayoutParams.removeRules(aRules: ArrayList<Int>)
+	{
+		for (rule in aRules)
+		{
+			removeRule(rule)
 		}
 	}
 }
