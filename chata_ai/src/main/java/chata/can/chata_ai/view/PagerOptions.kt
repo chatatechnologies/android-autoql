@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
@@ -33,9 +34,14 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private lateinit var ivNotify: ImageView
 	private lateinit var frmLocal: View
 	private lateinit var ivClose: ImageView
+	private lateinit var tvTitle: TextView
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
+
+	private var dataMessengerTile = "Data Messenger"
+	private val exploreQueriesTile = "Explore Queries"
+	private val notificationsTile = "Notifications"
 
 	fun init()
 	{
@@ -52,10 +58,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivNotify = findViewById(R.id.ivNotify)
 			frmLocal = findViewById(R.id.frmLocal)
 			ivClose = findViewById(R.id.ivClose)
+			tvTitle = findViewById(R.id.tvTitle)
 		}
 
 		rlSelected = rlChat
 		ivSelected = ivChat
+		tvTitle.text = dataMessengerTile
 		setListener()
 		setColors()
 
@@ -184,6 +192,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		frmLocal.visibility = iVisible
 	}
 
+	private fun updateTitle(title: String)
+	{
+		tvTitle.text = title
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -195,9 +208,20 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					BubbleHandle.instance.isVisible = true
 					setStatusGUI(false)
 				}
-				R.id.rlChat -> { changeColor(rlChat, ivChat) }
-				R.id.rlTips -> { changeColor(rlTips, ivTips) }
-				R.id.rlNotify -> { changeColor(rlNotify, ivNotify) }
+				R.id.rlChat -> {
+					updateTitle(dataMessengerTile)
+					changeColor(rlChat, ivChat)
+				}
+				R.id.rlTips ->
+				{
+					updateTitle(exploreQueriesTile)
+					changeColor(rlTips, ivTips)
+				}
+				R.id.rlNotify ->
+				{
+					updateTitle(notificationsTile)
+					changeColor(rlNotify, ivNotify)
+				}
 			}
 		}
 	}

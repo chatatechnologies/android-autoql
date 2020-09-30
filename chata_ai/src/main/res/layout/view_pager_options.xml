@@ -66,7 +66,8 @@
 		android:visibility="gone">
 		<RelativeLayout
 			android:background="@color/blue_chata_circle"
-			android:layout_height="?attr/actionBarSize"
+			android:id="@+id/toolbar"
+			android:layout_height="56dp"
 			android:layout_width="match_parent">
 			<ImageView
 				android:layout_centerVertical="true"
@@ -75,11 +76,19 @@
 				android:layout_width="48dp"
 				android:src="@drawable/ic_cancel"
 				android:padding="5dp"/>
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvTitle"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_width="match_parent"
+				android:textColor="@color/white"
+				android:textSize="18sp"/>
 		</RelativeLayout>
 		<FrameLayout
 			android:background="@color/white"
 			android:layout_height="match_parent"
-			android:layout_marginTop="?attr/actionBarSize"
+			android:layout_below="@id/toolbar"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>
 </RelativeLayout>
