@@ -9,10 +9,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
+import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.fragment.DataMessengerFragment
+import chata.can.chata_ai.fragment.ExploreQueriesFragment
+import chata.can.chata_ai.fragment.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
@@ -32,16 +38,54 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private lateinit var ivTips: ImageView
 	private lateinit var rlNotify: View
 	private lateinit var ivNotify: ImageView
-	private lateinit var frmLocal: View
+	private lateinit var rlLocal: View
 	private lateinit var ivClose: ImageView
 	private lateinit var tvTitle: TextView
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
+	var fragmentManager: FragmentManager ?= null
+	private var fragment: Fragment = DataMessengerFragment.newInstance()
 
-	private var dataMessengerTile = "Data Messenger"
+	private val dataMessengerTile = "Data Messenger"
 	private val exploreQueriesTile = "Explore Queries"
 	private val notificationsTile = "Notifications"
+
+	override fun onClick(view: View?)
+	{
+		view?.let { _view ->
+			when(_view.id)
+			{
+				R.id.llMenu, R.id.ivClose ->
+				{
+					BubbleHandle.isOpenChat = false
+					BubbleHandle.instance.isVisible = true
+					setStatusGUI(false)
+				}
+				R.id.rlChat -> {
+					updateTitle(dataMessengerTile)
+					changeColor(rlChat, ivChat)
+					fragment = DataMessengerFragment.newInstance()
+					fragmentManager?.let { addFragment(it, fragment) }
+				}
+				R.id.rlTips ->
+				{
+					updateTitle(exploreQueriesTile)
+					changeColor(rlTips, ivTips)
+					fragment = ExploreQueriesFragment.newInstance()
+					fragmentManager?.let { addFragment(it, fragment) }
+				}
+				R.id.rlNotify ->
+				{
+					updateTitle(notificationsTile)
+					changeColor(rlNotify, ivNotify)
+					fragment = NotificationFragment.newInstance()
+					fragmentManager?.let { addFragment(it, fragment) }
+				}
+				else -> {}
+			}
+		}
+	}
 
 	fun init()
 	{
@@ -56,7 +100,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 			ivTips = findViewById(R.id.ivTips)
 			rlNotify = findViewById(R.id.rlNotify)
 			ivNotify = findViewById(R.id.ivNotify)
-			frmLocal = findViewById(R.id.frmLocal)
+			rlLocal = findViewById(R.id.rlLocal)
 			ivClose = findViewById(R.id.ivClose)
 			tvTitle = findViewById(R.id.tvTitle)
 		}
@@ -111,8 +155,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					width = -1
 				}
 				//endregion
-				//region frmLocal
-				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
+				//region rlLocal
+				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
 						removeRules(arrayListOf(ABOVE, BELOW, END_OF))
@@ -159,8 +203,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					width = dpToPx(56f)
 				}
 				//endregion
-				//region frmLocal
-				frmLocal.layoutParams = (frmLocal.layoutParams as? LayoutParams)?.apply {
+				//region rlLocal
+				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
 					{
 						removeRules(arrayListOf(END_OF, START_OF, ABOVE))
@@ -181,6 +225,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	{
 		val iVisible = if (isVisible)
 		{
+			fragmentManager?.let { addFragment(it, fragment) }
 			context?.let {
 				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
 				startAnimation(animationTop)
@@ -189,41 +234,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		}
 		else View.GONE
 		llMenu.visibility = iVisible
-		frmLocal.visibility = iVisible
+		rlLocal.visibility = iVisible
 	}
 
 	private fun updateTitle(title: String)
 	{
 		tvTitle.text = title
-	}
-
-	override fun onClick(view: View?)
-	{
-		view?.let {
-			when(it.id)
-			{
-				R.id.llMenu, R.id.ivClose ->
-				{
-					BubbleHandle.isOpenChat = false
-					BubbleHandle.instance.isVisible = true
-					setStatusGUI(false)
-				}
-				R.id.rlChat -> {
-					updateTitle(dataMessengerTile)
-					changeColor(rlChat, ivChat)
-				}
-				R.id.rlTips ->
-				{
-					updateTitle(exploreQueriesTile)
-					changeColor(rlTips, ivTips)
-				}
-				R.id.rlNotify ->
-				{
-					updateTitle(notificationsTile)
-					changeColor(rlNotify, ivNotify)
-				}
-			}
-		}
 	}
 
 	private fun setListener()

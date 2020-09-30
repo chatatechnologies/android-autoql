@@ -10,6 +10,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
+import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.ScreenData
@@ -22,7 +23,6 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
-import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
 

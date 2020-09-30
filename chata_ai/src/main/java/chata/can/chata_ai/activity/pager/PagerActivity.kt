@@ -24,7 +24,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 
 	val model = SinglentonDrawer.mModel
 	var dataMessengerTile = "Data Messenger"
-	val exploreQueriesTile = "Explore Queries"
 
 	override fun onCreateView()
 	{

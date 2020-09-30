@@ -32,6 +32,7 @@ class PagerActivity: AppCompatActivity()
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
 		pagerOption = findViewById(R.id.pagerOption)
+		pagerOption.fragmentManager = supportFragmentManager
 
 		tabLayout.setupWithViewPager(viewPager)
 		if (isMarshmallow())

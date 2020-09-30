@@ -5,6 +5,7 @@ import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
@@ -14,7 +15,6 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
-import chata.can.chata_ai_api.BaseFragment
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter

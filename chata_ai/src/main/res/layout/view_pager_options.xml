@@ -60,7 +60,7 @@
 	<RelativeLayout
 		android:clickable="true"
 		android:focusable="true"
-		android:id="@+id/frmLocal"
+		android:id="@+id/rlLocal"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:visibility="gone">
@@ -87,6 +87,7 @@
 		</RelativeLayout>
 		<FrameLayout
 			android:background="@color/white"
+			android:id="@+id/frmLocal"
 			android:layout_height="match_parent"
 			android:layout_below="@id/toolbar"
 			android:layout_width="match_parent"/>
