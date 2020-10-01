@@ -19,6 +19,7 @@ import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.test.PollService
 import com.google.android.material.tabs.TabLayout
+import org.json.JSONObject
 
 class PagerActivity: AppCompatActivity()
 {
@@ -34,8 +35,15 @@ class PagerActivity: AppCompatActivity()
 		override fun onReceive(context: Context?, intent: Intent?)
 		{
 			intent?.extras?.let {
-				val data = it.getString(PollService.DATA)
-				println(data)
+				it.getString(PollService.DATA)?.let { data ->
+					try {
+						val json = JSONObject(data)
+						json.optJSONObject("data")?.let { joData ->
+							val unacknowledged = joData.optInt("unacknowledged")
+							pagerOption.showNotify(unacknowledged > 0)
+						}
+					} catch (ex: Exception) {}
+				}
 			}
 		}
 	}

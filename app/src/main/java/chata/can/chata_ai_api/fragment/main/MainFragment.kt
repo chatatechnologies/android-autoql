@@ -273,7 +273,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	}
 
 	override fun initListener() {
-
 //		swDemoData?.setOnCheckedChangeListener {
 //			_, isChecked ->
 //			val iVisible = if (!isChecked) View.VISIBLE else View.GONE
@@ -293,7 +292,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //			btnAuthenticate?.visibility = iVisible
 //			bubbleHandle.isNecessaryLogin = !isChecked
 //		}
-
 		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)

@@ -81,6 +81,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				{
 					updateTitle(notificationsTile)
 					changeColor(rlNotify, ivNotify)
+					showNotify(false)
 					fragment = NotificationFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
