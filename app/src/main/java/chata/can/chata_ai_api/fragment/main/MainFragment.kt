@@ -603,10 +603,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun initPollService()
 	{
-		activity?.let {
-			val intent = Intent(it, PollService::class.java)
-			PollService.enqueueWork(it, intent)
-		}
+//		activity?.let {
+//			val intent = Intent(it, PollService::class.java)
+//			PollService.enqueueWork(it, intent)
+//		}
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)

@@ -49,10 +49,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	var fragmentManager: FragmentManager ?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
 
-	private val dataMessengerTile = "Data Messenger"
-	private val exploreQueriesTile = "Explore Queries"
-	private val notificationsTile = "Notifications"
-
 	override fun onClick(view: View?)
 	{
 		view?.let { _view ->
@@ -65,21 +61,21 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					setStatusGUI(false)
 				}
 				R.id.rlChat -> {
-					updateTitle(dataMessengerTile)
+					updateTitle(DataMessengerFragment.nameFragment)
 					changeColor(rlChat, ivChat)
 					fragment = DataMessengerFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
 				R.id.rlTips ->
 				{
-					updateTitle(exploreQueriesTile)
+					updateTitle(ExploreQueriesFragment.nameFragment)
 					changeColor(rlTips, ivTips)
 					fragment = ExploreQueriesFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
 				R.id.rlNotify ->
 				{
-					updateTitle(notificationsTile)
+					updateTitle(NotificationFragment.nameFragment)
 					changeColor(rlNotify, ivNotify)
 					showNotify(false)
 					fragment = NotificationFragment.newInstance()
@@ -111,7 +107,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 
 		rlSelected = rlChat
 		ivSelected = ivChat
-		tvTitle.text = dataMessengerTile
+		tvTitle.text = DataMessengerFragment.nameFragment
 		setListener()
 		setColors()
 
