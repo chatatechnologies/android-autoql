@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Looper
 import android.view.View
@@ -26,6 +27,7 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import chata.can.chata_ai_api.test.PollService
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -140,7 +142,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-			//TODO REMOVE
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
 			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
@@ -607,6 +608,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		servicePresenter.callTopics()
 	}
 
+	//TODO call method
 	override fun initPollService()
 	{
 //		activity?.let {

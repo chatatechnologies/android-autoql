@@ -15,30 +15,26 @@ class PollService: JobIntentService(), StatusResponse
 	companion object {
 		const val DATA = "data"
 		const val NOTIFICATION = "chata.can.chata_ai_api.test.PollService"
+
+		private lateinit var context: Context
+		private lateinit var intent: Intent
+		private val mHandler = Handler(Looper.getMainLooper())
+		private val runnable = object: Runnable
+		{
+			override fun run()
+			{
+				enqueueWork(context, PollService::class.java, 1, intent)
+				mHandler.postDelayed(this, 10000)
+			}
+		}
+
 		fun enqueueWork(context: Context, intent: Intent)
 		{
-			enqueueWork(context, PollService::class.java, 1, intent)
+			this.context = context
+			this.intent = intent
+			mHandler.removeCallbacks(runnable)
+			mHandler.postDelayed(runnable, 10000)
 		}
-	}
-
-	private lateinit var context: Context
-	private lateinit var intent: Intent
-	private val mHandler = Handler(Looper.getMainLooper())
-	private val runnable = object: Runnable
-	{
-		override fun run()
-		{
-			enqueueWork(context, PollService::class.java, 1, intent)
-			mHandler.postDelayed(this, 3000)
-		}
-	}
-
-	fun enqueueWork(context: Context, intent: Intent)
-	{
-		this.context = context
-		this.intent = intent
-		mHandler.removeCallbacks(runnable)
-		mHandler.postDelayed(runnable, 3000)
 	}
 
 	override fun onHandleWork(intent: Intent)
@@ -51,8 +47,7 @@ class PollService: JobIntentService(), StatusResponse
 		jsonObject?.let {
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, it.toString())
-			println("Poll Service: $it")
-			//sendBroadcast(intent)
+			sendBroadcast(intent)
 		}
 	}
 

@@ -23,11 +23,14 @@ import chata.can.chata_ai.fragment.NotificationFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import org.json.JSONArray
+import org.json.JSONObject
 
-class PagerOptions: RelativeLayout, View.OnClickListener
+class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 {
 	constructor(context: Context): super(context) { init() }
 
@@ -71,17 +74,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 					updateTitle(DataMessengerFragment.nameFragment)
 					changeColor(rlChat, ivChat)
 					fragment = DataMessengerFragment.newInstance()
-					fragment.arguments?.let {
-						bubbleData?.let { bubble ->
-							it.putString("CUSTOMER_NAME", bubble.customerName)
-							it.putString("TITLE", bubble.title)
-							it.putString("INTRO_MESSAGE", bubble.introMessage)
-							it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-							it.putInt("MAX_MESSAGES", bubble.maxMessage)
-							it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-							it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-						}
-					}
+					setDataToDataMessenger()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
 				R.id.rlTips ->
@@ -95,12 +88,25 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				{
 					updateTitle(NotificationFragment.nameFragment)
 					changeColor(rlNotify, ivNotify)
-					showNotify(false)
+					showNotification()
 					fragment = NotificationFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
 				else -> {}
 			}
+		}
+	}
+
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		jsonObject?.let {}
+	}
+
+	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	{
+		jsonObject?.let {
+			val message = it.optString("message") ?: ""
+			showNotify(message != "ok")
 		}
 	}
 
@@ -243,19 +249,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		val iVisible = if (isVisible)
 		{
 			if (fragment is DataMessengerFragment)
-			{
-				fragment.arguments?.let {
-					bubbleData?.let { bubble ->
-						it.putString("CUSTOMER_NAME", bubble.customerName)
-						it.putString("TITLE", bubble.title)
-						it.putString("INTRO_MESSAGE", bubble.introMessage)
-						it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-						it.putInt("MAX_MESSAGES", bubble.maxMessage)
-						it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-						it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-					}
-				}
-			}
+				setDataToDataMessenger()
 			fragmentManager?.let { addFragment(it, fragment) }
 			context?.let {
 				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
@@ -272,6 +266,14 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	fun showNotify(bVisible: Boolean)
 	{
 		tvNotification.visibility = if (bVisible) View.VISIBLE else View.GONE
+	}
+
+	private fun showNotification()
+	{
+		if (tvNotification.visibility == View.VISIBLE)
+		{
+			Poll.callShowNotification(this)
+		}
 	}
 
 	private fun updateTitle(title: String)
@@ -328,6 +330,21 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		for (rule in aRules)
 		{
 			removeRule(rule)
+		}
+	}
+
+	private fun setDataToDataMessenger()
+	{
+		fragment.arguments?.let {
+			bubbleData?.let { bubble ->
+				it.putString("CUSTOMER_NAME", bubble.customerName)
+				it.putString("TITLE", bubble.title)
+				it.putString("INTRO_MESSAGE", bubble.introMessage)
+				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+				it.putInt("MAX_MESSAGES", bubble.maxMessage)
+				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+			}
 		}
 	}
 }

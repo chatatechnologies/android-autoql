@@ -50,7 +50,7 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 		RequestBuilder.initVolleyRequest(this)
 		btn.setOnClickListener {
 			val intent = Intent(this, PollService::class.java)
-			PollService().enqueueWork(this, intent)
+			PollService.enqueueWork(this, intent)
 		}
 	}
 
