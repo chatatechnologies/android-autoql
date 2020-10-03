@@ -7,7 +7,7 @@
 	<RelativeLayout
 		android:id="@+id/rvContentTop"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="80dp"
+		android:layout_marginStart="50dp"
 		android:layout_width="match_parent"
 		tools:ignore="UselessParent">
 		<TextView
@@ -24,7 +24,7 @@
 		android:id="@+id/llMainBase"
 		android:layout_below="@id/rvContentTop"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="80dp"
+		android:layout_marginEnd="50dp"
 		android:layout_width="wrap_content"
 		android:orientation="vertical">
 

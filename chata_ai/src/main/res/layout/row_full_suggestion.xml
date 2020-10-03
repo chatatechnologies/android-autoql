@@ -8,7 +8,7 @@
 	<RelativeLayout
 		android:id="@+id/rvContentTop"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="80dp"
+		android:layout_marginStart="50dp"
 		android:layout_width="match_parent"
 		tools:ignore="UselessParent">
 		<TextView

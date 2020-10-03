@@ -7,7 +7,6 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dataMessenger.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.dataMessenger.holder.*
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.QueryBuilderHolder
 import chata.can.chata_ai.holder.BaseHolder
@@ -21,7 +20,6 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-//	private val servicePresenter: ChatServicePresenter,
 	private val pagerActivity: Activity
 ): BaseAdapter(model), ChatAdapterContract
 {

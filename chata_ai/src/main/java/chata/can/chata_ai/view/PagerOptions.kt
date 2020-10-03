@@ -70,16 +70,16 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				R.id.rlChat -> {
 					updateTitle(DataMessengerFragment.nameFragment)
 					changeColor(rlChat, ivChat)
-					fragment = DataMessengerFragment.newInstance().putArgs {
-						bubbleData?.let {
-							putInt("LAYOUT", R.layout.fragment_data_messenger)
-							putString("CUSTOMER_NAME", it.customerName)
-							putString("TITLE", it.title)
-							putString("INTRO_MESSAGE", it.introMessage)
-							putString("INPUT_PLACE_HOLDER", it.inputPlaceholder)
-							putInt("MAX_MESSAGES", it.maxMessage)
-							putBoolean("CLEAR_ON_CLOSE", it.clearOnClose)
-							putBoolean("ENABLE_VOICE_RECORD", it.enableVoiceRecord)
+					fragment = DataMessengerFragment.newInstance()
+					fragment.arguments?.let {
+						bubbleData?.let { bubble ->
+							it.putString("CUSTOMER_NAME", bubble.customerName)
+							it.putString("TITLE", bubble.title)
+							it.putString("INTRO_MESSAGE", bubble.introMessage)
+							it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+							it.putInt("MAX_MESSAGES", bubble.maxMessage)
+							it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+							it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 						}
 					}
 					fragmentManager?.let { addFragment(it, fragment) }
