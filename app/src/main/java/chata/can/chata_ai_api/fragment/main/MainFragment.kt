@@ -455,23 +455,23 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun onResume()
-	{
-		super.onResume()
-		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
-		{
-			bubbleHandle.isVisible = true
-		}
-	}
+//	override fun onResume()
+//	{
+//		super.onResume()
+//		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
+//		{
+//			bubbleHandle.isVisible = true
+//		}
+//	}
 
-	override fun onPause()
-	{
-		super.onPause()
-		if (::bubbleHandle.isInitialized)
-		{
-			bubbleHandle.isVisible = false
-		}
-	}
+//	override fun onPause()
+//	{
+//		super.onPause()
+//		if (::bubbleHandle.isInitialized)
+//		{
+//			bubbleHandle.isVisible = false
+//		}
+//	}
 
 	override fun onClick(view: View?)
 	{
