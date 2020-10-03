@@ -29,6 +29,13 @@ import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.fragment.DataMessengerData.clearOnClose
+import chata.can.chata_ai.fragment.DataMessengerData.customerName
+import chata.can.chata_ai.fragment.DataMessengerData.enableVoiceRecord
+import chata.can.chata_ai.fragment.DataMessengerData.inputPlaceholder
+import chata.can.chata_ai.fragment.DataMessengerData.introMessage
+import chata.can.chata_ai.fragment.DataMessengerData.maxMessages
+import chata.can.chata_ai.fragment.DataMessengerData.title
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
@@ -46,9 +53,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
 	companion object {
 		const val nameFragment = "Data Messenger"
-		fun newInstance() = DataMessengerFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_data_messenger)
-		}
+		fun newInstance() = DataMessengerFragment()
+//		fun newInstance() = DataMessengerFragment().putArgs {
+//			putInt("LAYOUT", R.layout.fragment_data_messenger)
+//		}
 	}
 
 	private lateinit var llParent: View
@@ -75,6 +83,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		activity?.let {
 			presenter = ChatServicePresenter(it, this)
 		}
+		initData()
 		initList()
 		initSpeechInput()
 	}
@@ -288,6 +297,19 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			setResource(intRes)
 			showAlert()
 			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)
+		}
+	}
+
+	private fun initData()
+	{
+		arguments?.let {
+			customerName = it.getString("CUSTOMER_NAME") ?: ""
+			title = it.getString("TITLE") ?: ""
+			introMessage = it.getString("INTRO_MESSAGE") ?: ""
+			inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
+			maxMessages = it.getInt("MAX_MESSAGES")
+			clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
+			enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
 		}
 	}
 

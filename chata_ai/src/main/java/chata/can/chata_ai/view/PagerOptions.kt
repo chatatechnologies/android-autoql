@@ -20,9 +20,11 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.DataMessengerFragment
 import chata.can.chata_ai.fragment.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.NotificationFragment
+import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerOptions: RelativeLayout, View.OnClickListener
@@ -49,7 +51,27 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
 	var fragmentManager: FragmentManager ?= null
-	private var fragment: Fragment = DataMessengerFragment.newInstance()
+	var bubbleData: BubbleData?= null
+	private var fragment: Fragment = DataMessengerFragment.newInstance().putArgs {
+		bubbleData?.let {
+			putInt("LAYOUT", R.layout.fragment_data_messenger)
+			putString("CUSTOMER_NAME", it.customerName)
+			putString("TITLE", it.title)
+			putString("INTRO_MESSAGE", it.introMessage)
+			putString("INPUT_PLACE_HOLDER", it.inputPlaceholder)
+			putInt("MAX_MESSAGES", it.maxMessage)
+			putBoolean("CLEAR_ON_CLOSE", it.clearOnClose)
+			putBoolean("ENABLE_VOICE_RECORD", it.enableVoiceRecord)
+		}
+	}
+
+	var customerName = ""
+	var title = ""
+	var introMessage = ""
+	var inputPlaceholder = "Type your queries here"
+	var maxMessage = 2
+	var clearOnClose = false
+	var enableVoiceRecord = true
 
 	override fun onClick(view: View?)
 	{
@@ -67,7 +89,18 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 				R.id.rlChat -> {
 					updateTitle(DataMessengerFragment.nameFragment)
 					changeColor(rlChat, ivChat)
-					fragment = DataMessengerFragment.newInstance()
+					fragment = DataMessengerFragment.newInstance().putArgs {
+						bubbleData?.let {
+							putInt("LAYOUT", R.layout.fragment_data_messenger)
+							putString("CUSTOMER_NAME", it.customerName)
+							putString("TITLE", it.title)
+							putString("INTRO_MESSAGE", it.introMessage)
+							putString("INPUT_PLACE_HOLDER", it.inputPlaceholder)
+							putInt("MAX_MESSAGES", it.maxMessage)
+							putBoolean("CLEAR_ON_CLOSE", it.clearOnClose)
+							putBoolean("ENABLE_VOICE_RECORD", it.enableVoiceRecord)
+						}
+					}
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
 				R.id.rlTips ->

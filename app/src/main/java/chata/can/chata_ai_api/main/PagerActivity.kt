@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.PagerOptions
@@ -111,8 +112,9 @@ class PagerActivity: AppCompatActivity()
 		unregisterReceiver(receiver)
 	}
 
-	fun setStatusGUI(isVisible: Boolean)
+	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
 	{
+		pagerOption.bubbleData = bubbleData
 		pagerOption.setStatusGUI(isVisible)
 		pagerOption.paintViews()
 	}

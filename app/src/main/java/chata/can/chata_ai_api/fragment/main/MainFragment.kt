@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.os.Looper
 import android.view.View
@@ -11,6 +10,7 @@ import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
+import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.ProgressWait
@@ -26,7 +26,6 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import chata.can.chata_ai_api.test.PollService
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -167,10 +166,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		with(view)
 		{
 			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let {
-				context ->
+			parentActivity?.let { context ->
 				bubbleHandle = BubbleHandle(context) {
-					(parentActivity as? PagerActivity)?.setStatusGUI(true)
+					val bubbleData = BubbleData(
+						bubbleHandle.userDisplayName,
+						bubbleHandle.title,
+						bubbleHandle.introMessage,
+						bubbleHandle.inputPlaceholder,
+						bubbleHandle.maxMessages,
+						bubbleHandle.clearOnClose,
+						bubbleHandle.enableVoiceRecord)
+					(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
 				}
 				renderPresenter = MainRenderPresenter(context, this@MainFragment, bubbleHandle)
 				servicePresenter = MainServicePresenter(this@MainFragment)
