@@ -54,14 +54,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 	var bubbleData: BubbleData?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
 
-	var customerName = ""
-	var title = ""
-	var introMessage = ""
-	var inputPlaceholder = "Type your queries here"
-	var maxMessage = 2
-	var clearOnClose = false
-	var enableVoiceRecord = true
-
 	override fun onClick(view: View?)
 	{
 		view?.let { _view ->
@@ -133,7 +125,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 
 		rlSelected = rlChat
 		ivSelected = ivChat
-		tvTitle.text = DataMessengerFragment.nameFragment
 		setListener()
 		setColors()
 
@@ -275,6 +266,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 		else View.GONE
 		llMenu.visibility = iVisible
 		rlLocal.visibility = iVisible
+		updateTitle(DataMessengerFragment.nameFragment)
 	}
 
 	fun showNotify(bVisible: Boolean)
@@ -284,7 +276,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener
 
 	private fun updateTitle(title: String)
 	{
-		tvTitle.text = title
+		val tmp = if (DataMessengerFragment.nameFragment == title)
+		{
+			val localTitle = bubbleData?.title ?: ""
+			if (localTitle.isNotEmpty())
+				localTitle
+			else context?.getString(R.string.data_messenger) ?: ""
+		}
+		else title
+		tvTitle.text = tmp
 	}
 
 	private fun setListener()

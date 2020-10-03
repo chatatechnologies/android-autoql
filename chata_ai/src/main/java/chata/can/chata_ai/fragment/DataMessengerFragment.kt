@@ -27,15 +27,7 @@ import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.dataMessenger.voice.VoiceRecognition
-import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.fragment.DataMessengerData.clearOnClose
-import chata.can.chata_ai.fragment.DataMessengerData.customerName
-import chata.can.chata_ai.fragment.DataMessengerData.enableVoiceRecord
-import chata.can.chata_ai.fragment.DataMessengerData.inputPlaceholder
-import chata.can.chata_ai.fragment.DataMessengerData.introMessage
-import chata.can.chata_ai.fragment.DataMessengerData.maxMessages
-import chata.can.chata_ai.fragment.DataMessengerData.title
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
@@ -75,6 +67,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private val model = SinglentonDrawer.mModel
 	private lateinit var presenter: ChatServicePresenter
+	private var dataMessengerTile = "Data Messenger"
 
 	override fun onRenderViews(view: View)
 	{
@@ -191,8 +184,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				ivMicrophone.background = circleDrawable
 				etQuery.background = rectangleDrawable
 
-				etQuery.hint = if (PagerData.inputPlaceholder.isNotEmpty())
-					PagerData.inputPlaceholder
+				etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
+					DataMessengerData.inputPlaceholder
 				else
 					getString(R.string.type_queries_here)
 			}
@@ -299,28 +292,43 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		if (DataMessengerData.clearOnClose)
+		{
+			SinglentonDrawer.mModel.clear()
+		}
+	}
+
 	private fun initData()
 	{
 		arguments?.let {
-			customerName = it.getString("CUSTOMER_NAME") ?: ""
-			title = it.getString("TITLE") ?: ""
-			introMessage = it.getString("INTRO_MESSAGE") ?: ""
-			inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
-			maxMessages = it.getInt("MAX_MESSAGES")
-			clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
-			enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
+			DataMessengerData.run {
+				customerName = it.getString("CUSTOMER_NAME") ?: ""
+				title = it.getString("TITLE") ?: ""
+				introMessage = it.getString("INTRO_MESSAGE") ?: ""
+				inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
+				maxMessages = it.getInt("MAX_MESSAGES")
+				clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
+				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
+			}
 		}
+		val title = DataMessengerData.title
+		dataMessengerTile = if (title.isNotEmpty())
+			title
+		else getString(R.string.data_messenger)
 	}
 
 	private fun initList()
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
-			val introMessageRes = if (PagerData.introMessage.isNotEmpty())
-				PagerData.introMessage
+			val introMessageRes = if (DataMessengerData.introMessage.isNotEmpty())
+				DataMessengerData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-			val introMessage = String.format(introMessageRes, PagerData.customerName)
+			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
 			if (SinglentonDrawer.mModel.countData() == 0)
 			{
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
@@ -407,7 +415,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		with(ivMicrophone)
 		{
-			if (PagerData.enableVoiceRecord)
+			if (DataMessengerData.enableVoiceRecord)
 			{
 				setOnClickListener(null)
 				setOnTouchListener { _, event ->
@@ -435,7 +443,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private fun scrollToPosition()
 	{
-		while(model.countData() > PagerData.maxMessages)
+		while(model.countData() > DataMessengerData.maxMessages)
 		{
 			model.removeAt(0)
 			chatAdapter.notifyItemRemoved(0)

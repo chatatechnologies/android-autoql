@@ -510,18 +510,11 @@ class DataMessengerActivity:
 	private fun initList()
 	{
 		chatAdapter = ChatAdapter(model, this, /*servicePresenter,*/ this)
-		val introMessageRes =
-			if (PagerData.introMessage.isNotEmpty())
-			{
-				PagerData.introMessage
-			}
-			else
-			{
-				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-			}
-
+		val introMessageRes = if (PagerData.introMessage.isNotEmpty())
+			PagerData.introMessage
+		else
+			"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 		val introMessage = String.format(introMessageRes, PagerData.customerName)
-
 		if (SinglentonDrawer.mModel.countData() == 0)
 		{
 			model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
