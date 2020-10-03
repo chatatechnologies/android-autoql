@@ -53,10 +53,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
 	companion object {
 		const val nameFragment = "Data Messenger"
-		fun newInstance() = DataMessengerFragment()
-//		fun newInstance() = DataMessengerFragment().putArgs {
-//			putInt("LAYOUT", R.layout.fragment_data_messenger)
-//		}
+		fun newInstance() = DataMessengerFragment().putArgs {
+			putInt("LAYOUT", R.layout.fragment_data_messenger)
+		}
 	}
 
 	private lateinit var llParent: View
