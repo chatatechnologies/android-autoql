@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
+import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai_api.R
@@ -22,7 +23,7 @@ import chata.can.chata_ai_api.test.PollService
 import com.google.android.material.tabs.TabLayout
 import org.json.JSONObject
 
-class PagerActivity: AppCompatActivity()
+class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
@@ -49,10 +50,8 @@ class PagerActivity: AppCompatActivity()
 		}
 	}
 
-	override fun onCreate(savedInstanceState: Bundle?)
+	override fun onCreateView()
 	{
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.pager_activity)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
 		pagerOption = findViewById(R.id.pagerOption)
@@ -115,6 +114,7 @@ class PagerActivity: AppCompatActivity()
 	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
 	{
 		pagerOption.bubbleData = bubbleData
+		hideKeyboard()
 		pagerOption.setStatusGUI(isVisible)
 		pagerOption.paintViews()
 	}

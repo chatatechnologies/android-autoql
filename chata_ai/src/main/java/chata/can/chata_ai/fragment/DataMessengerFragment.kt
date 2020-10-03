@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
@@ -78,6 +79,17 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		initData()
 		initList()
 		initSpeechInput()
+		if (BuildConfig.DEBUG)
+		{
+//				val queryDemo = "count invoices"
+//				val queryDemo = "Total tickets by customer this year"
+//				val queryDemo = "How many job by job area by year"
+//				val queryDemo = "Average revenue by area last year"
+//			val queryDemo = "All customers"
+				val queryDemo = ""
+//				val queryDemo = "total estimates by job type by month last year"
+			etQuery.setText(queryDemo)
+		}
 	}
 
 	override fun initListener()
@@ -290,6 +302,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			showAlert()
 			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)
 		}
+	}
+
+	override fun onPause()
+	{
+		super.onPause()
+		hideKeyboard()
 	}
 
 	override fun onDestroy()
