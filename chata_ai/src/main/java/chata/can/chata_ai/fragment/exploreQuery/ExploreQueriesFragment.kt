@@ -1,16 +1,16 @@
-package chata.can.chata_ai.fragment
+package chata.can.chata_ai.fragment.exploreQuery
 
 import android.view.View
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.putArgs
 
-class NotificationFragment: BaseFragment()
+class ExploreQueriesFragment: BaseFragment()
 {
 	companion object {
-		const val nameFragment = "Notifications"
-		fun newInstance() = NotificationFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_notifications)
+		const val nameFragment = "Explore Queries"
+		fun newInstance() = ExploreQueriesFragment().putArgs {
+			putInt("LAYOUT", R.layout.fragment_explore_queries)
 		}
 	}
 

@@ -1,4 +1,4 @@
-package chata.can.chata_ai.fragment
+package chata.can.chata_ai.fragment.dataMessenger
 
 object DataMessengerData
 {

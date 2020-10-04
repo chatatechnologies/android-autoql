@@ -17,9 +17,9 @@ import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.fragment.DataMessengerFragment
-import chata.can.chata_ai.fragment.ExploreQueriesFragment
-import chata.can.chata_ai.fragment.NotificationFragment
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
+import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
+import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
