@@ -363,6 +363,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
+			chatAdapter.actionExploreQueries = { println("Method external") }
 			val introMessageRes = if (DataMessengerData.introMessage.isNotEmpty())
 				DataMessengerData.introMessage
 			else

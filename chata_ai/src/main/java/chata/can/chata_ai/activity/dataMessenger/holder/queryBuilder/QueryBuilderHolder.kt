@@ -35,7 +35,8 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 class QueryBuilderHolder(
 	view: View,
 	private val pagerActivity: Activity,
-	private val viewContract: ChatContract.View
+	private val viewContract: ChatContract.View,
+	private val actionExploreQueries: () -> Unit
 ): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
@@ -84,11 +85,12 @@ class QueryBuilderHolder(
 		{
 			override fun onClick(widget: View)
 			{
-				(pagerActivity as? DataMessengerActivity)?.run {
-					val intent = Intent(this, ExploreQueriesActivity::class.java)
-					startActivityForResult(intent, 100)
-					overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
-				}
+				actionExploreQueries()
+//				(pagerActivity as? DataMessengerActivity)?.run {
+//					val intent = Intent(this, ExploreQueriesActivity::class.java)
+//					startActivityForResult(intent, 100)
+//					overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+//				}
 			}
 
 			override fun updateDrawState(textPaint: TextPaint)
