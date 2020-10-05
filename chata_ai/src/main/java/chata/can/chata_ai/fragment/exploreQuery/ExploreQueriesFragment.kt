@@ -243,7 +243,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			llPager.visibility = visible
 			tvFirstPage.text = "1"
 			numItems = totalPages
-			if (totalPages > currentPage)
+			if (totalPages >= currentPage)
 			{
 				tvLastPage.text = "$totalPages"
 			}
