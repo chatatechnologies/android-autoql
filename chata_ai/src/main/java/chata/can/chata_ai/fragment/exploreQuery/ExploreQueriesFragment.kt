@@ -18,6 +18,7 @@ import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
@@ -74,6 +75,17 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		tvFirstPage.setOnClickListener(this)
 		tvLastPage.setOnClickListener(this)
 		tvNext.setOnClickListener(this)
+
+		etQuery.addTextChangedListener(object: TextChanged
+		{
+			override fun onTextChanged(string: String)
+			{
+				if (string.isNotEmpty())
+				{
+					presenter.currentQuery = string
+				}
+			}
+		})
 
 		etQuery.setOnEditorActionListener { _, _, _ ->
 			setRequestText()

@@ -14,7 +14,7 @@ import org.json.JSONObject
 
 class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusResponse
 {
-	private var currentQuery = ""
+	var currentQuery = ""
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if(jsonObject != null)
@@ -80,7 +80,6 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 	{
 		with(DataMessenger)
 		{
-			currentQuery = query
 			val header = getAuthorizationJWT()
 			val url = "$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
 
