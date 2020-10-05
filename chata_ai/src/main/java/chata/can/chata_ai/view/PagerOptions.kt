@@ -57,6 +57,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	var fragmentManager: FragmentManager ?= null
 	var bubbleData: BubbleData?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
+	var isVisible = false
 
 	override fun onClick(view: View?)
 	{
@@ -248,6 +249,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 	fun setStatusGUI(isVisible: Boolean)
 	{
+		this.isVisible = isVisible
 		val iVisible = if (isVisible)
 		{
 			if (fragment is DataMessengerFragment)
@@ -265,7 +267,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		updateTitle(DataMessengerFragment.nameFragment)
 	}
 
-	fun setVisibleDelete(bVisible: Boolean)
+	private fun setVisibleDelete(bVisible: Boolean)
 	{
 		ivClear.visibility = if (bVisible) View.VISIBLE else View.GONE
 	}

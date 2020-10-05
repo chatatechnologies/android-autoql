@@ -16,6 +16,7 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.PagerOptions
+import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.test.PollService
 import com.google.android.material.tabs.TabLayout
@@ -107,6 +108,23 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	{
 		super.onPause()
 		unregisterReceiver(receiver)
+	}
+
+	override fun onBackPressed()
+	{
+		if (pagerOption.isVisible)
+		{
+			BubbleHandle.isOpenChat = false
+			BubbleHandle.instance.isVisible = true
+			pagerOption.setStatusGUI(false)
+		}
+		else
+		{
+			if (supportFragmentManager.backStackEntryCount > 0)
+				finishAffinity()
+			else
+				super.onBackPressed()
+		}
 	}
 
 	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
