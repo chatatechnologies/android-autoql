@@ -70,6 +70,8 @@ class DataMessengerActivity:
 
 	private var dataMessengerTile = "Data Messenger"
 
+	var isReleaseAutocomplete = true
+
 	override fun onCreateView()
 	{
 		ContextActivity.context = this
@@ -115,7 +117,7 @@ class DataMessengerActivity:
 			{
 				if (string.isNotEmpty())
 				{
-					if (SinglentonDrawer.mIsEnableAutocomplete)
+					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
 						servicePresenter.getAutocomplete(string)
 					}
@@ -265,6 +267,7 @@ class DataMessengerActivity:
 
 	override fun runTyping(text: String)
 	{
+		isReleaseAutocomplete = false
 		etQuery.setCharacterDelay(100)
 		etQuery.animateText(text)
 	}
@@ -318,6 +321,7 @@ class DataMessengerActivity:
 				{
 					hideKeyboard()
 					etQuery.setText("")
+					isReleaseAutocomplete = true
 					servicePresenter.getQuery(query)
 				}
 			}
@@ -339,7 +343,7 @@ class DataMessengerActivity:
 //				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
 //				val queryDemo = "Average revenue by area last year"
-				val queryDemo = "All customers"
+				val queryDemo = "Number of invoice per customer number ordered"
 //				val queryDemo = ""
 //				val queryDemo = "total estimates by job type by month last year"
 				setText(queryDemo)
