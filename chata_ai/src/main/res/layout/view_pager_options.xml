@@ -80,18 +80,30 @@
 			<ImageView
 				android:layout_centerVertical="true"
 				android:id="@+id/ivClose"
-				android:layout_height="48dp"
-				android:layout_width="48dp"
+				android:layout_height="32dp"
+				android:layout_marginStart="4dp"
+				android:layout_width="32dp"
 				android:src="@drawable/ic_cancel"
 				android:padding="5dp"/>
 			<TextView
 				android:gravity="center"
 				android:id="@+id/tvTitle"
-				android:layout_height="wrap_content"
 				android:layout_centerVertical="true"
+				android:layout_height="wrap_content"
+				android:layout_toEndOf="@id/ivClose"
+				android:layout_toStartOf="@id/ivClear"
 				android:layout_width="match_parent"
 				android:textColor="@color/white"
 				android:textSize="18sp"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivClear"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:layout_height="32dp"
+				android:layout_marginEnd="4dp"
+				android:layout_width="32dp"
+				android:src="@drawable/ic_delete"/>
 		</RelativeLayout>
 		<FrameLayout
 			android:background="@color/white"

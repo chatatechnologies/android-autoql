@@ -28,6 +28,7 @@ import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.dataMessenger.voice.VoiceRecognition
+import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -69,6 +70,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private val model = SinglentonDrawer.mModel
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
+	var isReleaseAutocomplete = true
 
 	override fun onRenderViews(view: View)
 	{
@@ -82,10 +84,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 //				val queryDemo = "count invoices"
-//				val queryDemo = "Total tickets by customer this year"
+				val queryDemo = "Total tickets by customer this year"
 //				val queryDemo = "How many job by job area by year"
 //				val queryDemo = "Average revenue by area last year"
-			val queryDemo = "All customers"
+//			  val queryDemo = "Number of invoice per customer number ordered"
 //				val queryDemo = ""
 //				val queryDemo = "total estimates by job type by month last year"
 			etQuery.setText(queryDemo)
@@ -100,7 +102,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (string.isNotEmpty())
 				{
-					if (SinglentonDrawer.mIsEnableAutocomplete)
+					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
 						presenter.getAutocomplete(string)
 					}
@@ -120,10 +122,28 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		})
 		setTouchListener()
 
-		activity?.let {
-			adapterAutoComplete = AutoCompleteAdapter(it, R.layout.row_spinner)
+		activity?.let { fragmentActivity ->
+			adapterAutoComplete = AutoCompleteAdapter(fragmentActivity, R.layout.row_spinner)
 			etQuery.threshold = 1
 			etQuery.setAdapter(adapterAutoComplete)
+			fragmentActivity.findViewById<ImageView>(R.id.ivClear)?.setOnClickListener {
+				AlertDialog.Builder(fragmentActivity)
+					.setMessage("Clear all queries & responses?")
+					.setPositiveButton("Clear") { _, _ ->
+						model.clear()
+						val introMessageRes =
+							if (PagerData.introMessage.isNotEmpty())
+								PagerData.introMessage
+							else
+								"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+
+						val introMessage = String.format(introMessageRes, PagerData.customerName)
+						model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+						model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+						notifyAdapter()
+					}
+					.setNegativeButton("Cancel", null).show()
+			}
 		}
 		etQuery.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
 			parent?.let {
@@ -235,6 +255,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun runTyping(text: String)
 	{
+		isReleaseAutocomplete = false
 		etQuery.setCharacterDelay(100)
 		etQuery.animateText(text)
 	}

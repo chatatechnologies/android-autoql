@@ -50,6 +50,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private lateinit var rlLocal: View
 	private lateinit var ivClose: ImageView
 	private lateinit var tvTitle: TextView
+	private lateinit var ivClear: ImageView
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
@@ -70,9 +71,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 						SinglentonDrawer.mModel.clear()
 					setStatusGUI(false)
 				}
-				R.id.rlChat -> {
+				R.id.rlChat ->
+				{
 					updateTitle(DataMessengerFragment.nameFragment)
 					changeColor(rlChat, ivChat)
+					setVisibleDelete(true)
 					fragment = DataMessengerFragment.newInstance()
 					setDataToDataMessenger()
 					fragmentManager?.let { addFragment(it, fragment) }
@@ -81,6 +84,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				{
 					updateTitle(ExploreQueriesFragment.nameFragment)
 					changeColor(rlTips, ivTips)
+					setVisibleDelete(false)
 					fragment = ExploreQueriesFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
 				}
@@ -88,6 +92,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				{
 					updateTitle(NotificationFragment.nameFragment)
 					changeColor(rlNotify, ivNotify)
+					setVisibleDelete(false)
 					showNotification()
 					fragment = NotificationFragment.newInstance()
 					fragmentManager?.let { addFragment(it, fragment) }
@@ -127,6 +132,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			rlLocal = findViewById(R.id.rlLocal)
 			ivClose = findViewById(R.id.ivClose)
 			tvTitle = findViewById(R.id.tvTitle)
+			ivClear = findViewById(R.id.ivClear)
 		}
 
 		rlSelected = rlChat
@@ -150,16 +156,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRule(ALIGN_PARENT_TOP)
-						removeRule(ALIGN_PARENT_START)
-						removeRule(ALIGN_PARENT_BOTTOM)
+						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_START, ALIGN_PARENT_BOTTOM))
 						addRule(ALIGN_PARENT_END, TRUE)
 					}
 					else
 					{
-						removeRule(ALIGN_PARENT_TOP)
-						removeRule(ALIGN_PARENT_END)
-						removeRule(ALIGN_PARENT_BOTTOM)
+						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
 						addRule(ALIGN_PARENT_START, TRUE)
 					}
 				}
@@ -263,6 +265,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		updateTitle(DataMessengerFragment.nameFragment)
 	}
 
+	fun setVisibleDelete(bVisible: Boolean)
+	{
+		ivClear.visibility = if (bVisible) View.VISIBLE else View.GONE
+	}
+
 	fun showNotify(bVisible: Boolean)
 	{
 		tvNotification.visibility = if (bVisible) View.VISIBLE else View.GONE
@@ -307,6 +314,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
+			ivClear.setColorFilter(getParsedColor(R.color.white))
 		}
 	}
 

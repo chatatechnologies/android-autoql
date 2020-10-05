@@ -221,12 +221,12 @@ class BubbleHandle(
 			{
 				isOpenChat = true
 				isVisible = false
-//				methodCanUse()
-				val intent = Intent(context, DataMessengerActivity::class.java)
-				createIntentData(intent)
-				context.startActivity(intent)
-				(context as? AppCompatActivity)
-					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
+				methodCanUse()
+//				val intent = Intent(context, DataMessengerActivity::class.java)
+//				createIntentData(intent)
+//				context.startActivity(intent)
+//				(context as? AppCompatActivity)
+//					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 			}
 		}
 	}
