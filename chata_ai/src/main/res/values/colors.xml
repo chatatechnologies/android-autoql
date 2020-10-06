@@ -15,8 +15,8 @@
 	<color name="chata_drawer_background_color">#FFF</color>
 	<color name="chata_drawer_background_color_dark">#636363</color>
 
-	<color name="chata_drawer_border_color">#D3D3D352</color>
-	<color name="chata_drawer_border_color_dark">#D3D3D329</color>
+	<color name="chata_drawer_border_color">#D3D3D3</color>
+	<color name="chata_drawer_border_color_dark">#838383</color>
 
 	<color name="chata_drawer_hover_color">#ECECEC</color>
 	<color name="chata_drawer_hover_color_dark">#5A5A5A</color>

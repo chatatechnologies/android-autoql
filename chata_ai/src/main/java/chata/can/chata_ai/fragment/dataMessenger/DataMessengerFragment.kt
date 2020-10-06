@@ -208,7 +208,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				tvMsg.setTextColor(it.getParsedColor(drawerColorPrimary))
 				ivRun.setColorFilter(it.getParsedColor(drawerColorPrimary))
 
-				etQuery.setHintTextColor(it.getParsedColor(drawerColorPrimary))
+				etQuery.setHintTextColor(it.getParsedColor(drawerBorderColor))
 				etQuery.setTextColor(it.getParsedColor(drawerColorPrimary))
 
 				val blue = it.getParsedColor(drawerAccentColor)
