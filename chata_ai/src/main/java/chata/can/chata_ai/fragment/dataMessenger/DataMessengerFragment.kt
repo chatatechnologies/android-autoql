@@ -264,7 +264,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun runTyping(text: String)
 	{
 		isReleaseAutocomplete = false
-		etQuery.setCharacterDelay(100)
+		etQuery.setCharacterDelay(50)
 		etQuery.animateText(text)
 	}
 

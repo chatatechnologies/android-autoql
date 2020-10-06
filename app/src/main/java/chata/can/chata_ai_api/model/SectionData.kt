@@ -72,7 +72,7 @@ object SectionData
 				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
-				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger XD", idView = R.id.etTitle),
+				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle),
 				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")
 				DemoParameter("This is an array of colors used for the charts.", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
