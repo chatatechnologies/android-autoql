@@ -10,7 +10,7 @@
 		android:gravity="center"
 		android:id="@+id/llMenu"
 		android:layout_height="match_parent"
-		android:layout_width="36dp"
+		android:layout_width="32dp"
 		android:orientation="vertical"
 		android:visibility="gone">
 
@@ -24,8 +24,7 @@
 				android:id="@+id/ivChat"
 				android:layout_height="match_parent"
 				android:layout_width="56dp"
-				android:src="@drawable/ic_chata"
-				android:padding="5dp"/>
+				android:src="@drawable/ic_side_chat"/>
 		</RelativeLayout>
 
 		<RelativeLayout
@@ -38,8 +37,7 @@
 				android:id="@+id/ivTips"
 				android:layout_height="match_parent"
 				android:layout_width="56dp"
-				android:src="@drawable/ic_tips"
-				android:padding="5dp"/>
+				android:src="@drawable/ic_side_explore"/>
 		</RelativeLayout>
 
 		<RelativeLayout
@@ -52,8 +50,7 @@
 				android:id="@+id/ivNotify"
 				android:layout_height="match_parent"
 				android:layout_width="56dp"
-				android:src="@drawable/ic_bell"
-				android:padding="5dp"/>
+				android:src="@drawable/ic_side_notification"/>
 			<TextView
 				android:id="@+id/tvNotification"
 				android:layout_alignParentEnd="true"
@@ -78,6 +75,7 @@
 			android:layout_height="56dp"
 			android:layout_width="match_parent">
 			<ImageView
+				android:contentDescription="@null"
 				android:layout_centerVertical="true"
 				android:id="@+id/ivClose"
 				android:layout_height="32dp"

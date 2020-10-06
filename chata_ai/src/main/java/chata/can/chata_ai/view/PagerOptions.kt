@@ -142,7 +142,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
-					width = dpToPx(36f)
+					width = dpToPx(32f)
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
@@ -189,7 +189,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(36f)
+					height = dpToPx(32f)
 					width = -1
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
@@ -318,7 +318,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun setColors()
 	{
 		context?.run {
-			ivChat.setColorFilter(getParsedColor(R.color.black))
+			ivChat.setColorFilter(getParsedColor(R.color.blue_chata_circle))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
@@ -336,7 +336,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				ivSelected?.setColorFilter(getParsedColor(R.color.white))
 				rlNew.setBackgroundColor(getParsedColor(R.color.white))
-				ivNew.setColorFilter(getParsedColor(R.color.black))
+				ivNew.setColorFilter(getParsedColor(R.color.blue_chata_circle))
 				rlSelected = rlNew
 				ivSelected = ivNew
 			}
