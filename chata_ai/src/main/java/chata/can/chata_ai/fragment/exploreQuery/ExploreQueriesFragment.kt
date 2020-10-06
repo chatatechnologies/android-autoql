@@ -211,6 +211,11 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		if (ExploreQueriesData.lastWord.isNotEmpty())
 		{
 			etQuery.setText(ExploreQueriesData.lastWord)
+			if (ExploreQueriesData.isPendingExecute)
+			{
+				ExploreQueriesData.isPendingExecute = false
+				ivSearch.performClick()
+			}
 		}
 
 		ExploreQueriesData.lastExploreQuery?.let {

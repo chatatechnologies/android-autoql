@@ -101,6 +101,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 									val query = jaQueries.optString(index2) ?: ""
 									aData.add(query)
 								}
+								aData.add("💡See more...")
 								mMainQuery[topic] = aData
 							}
 						}

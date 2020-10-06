@@ -24,6 +24,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
+import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -52,6 +53,7 @@ class QueryBuilderHolder(
 	private var queriesAdapter: QueryAdapter ?= null
 
 	private var heightRoot = 0
+	private var wordExplore = ""
 
 	override fun onPaint()
 	{
@@ -138,7 +140,8 @@ class QueryBuilderHolder(
 					{
 						tvCurrentExplore?.text = any
 						configViews(false)
-						setListQueries(any)
+						wordExplore = any
+						setListQueries()
 					}
 				}
 			})
@@ -201,10 +204,16 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
-					//configViews(true)
 					if (any is String)
 					{
-						viewContract.runTyping(any)
+						if (any == "💡See more...")
+						{
+							ExploreQueriesData.isPendingExecute = true
+							ExploreQueriesData.lastWord = wordExplore
+							DataMessengerFragment.exploreQueriesMethod?.let { it() }
+						}
+						else
+							viewContract.runTyping(any)
 					}
 				}
 			})
@@ -213,7 +222,7 @@ class QueryBuilderHolder(
 		rvQueries?.adapter = queriesAdapter
 	}
 
-	private fun setListQueries(wordExplore: String)
+	private fun setListQueries()
 	{
 		modelQueries?.clear()
 		secondaryData(wordExplore).let {
