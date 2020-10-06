@@ -50,6 +50,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		fun newInstance() = DataMessengerFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_data_messenger)
 		}
+		var exploreQueriesMethod: (() -> Unit)? = null
 	}
 
 	private lateinit var llParent: View
@@ -363,7 +364,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
-			chatAdapter.actionExploreQueries = { println("Method external") }
 			val introMessageRes = if (DataMessengerData.introMessage.isNotEmpty())
 				DataMessengerData.introMessage
 			else

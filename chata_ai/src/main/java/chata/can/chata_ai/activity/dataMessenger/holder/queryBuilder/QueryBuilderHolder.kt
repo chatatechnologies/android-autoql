@@ -1,8 +1,6 @@
 package chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder
 
 import android.app.Activity
-import android.content.Intent
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.text.SpannableString
 import android.text.Spanned
@@ -16,17 +14,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.activity.dataMessenger.DataMessengerActivity
-import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.activity.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -35,8 +33,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 class QueryBuilderHolder(
 	view: View,
 	private val pagerActivity: Activity,
-	private val viewContract: ChatContract.View,
-	private val actionExploreQueries: () -> Unit
+	private val viewContract: ChatContract.View
 ): Holder(view)
 {
 	private var llContent = view.findViewById<LinearLayout>(R.id.llContent) ?: null
@@ -85,12 +82,9 @@ class QueryBuilderHolder(
 		{
 			override fun onClick(widget: View)
 			{
-				actionExploreQueries()
-//				(pagerActivity as? DataMessengerActivity)?.run {
-//					val intent = Intent(this, ExploreQueriesActivity::class.java)
-//					startActivityForResult(intent, 100)
-//					overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
-//				}
+				(pagerActivity as? FragmentActivity)?.run {
+					DataMessengerFragment.exploreQueriesMethod?.let { it() }
+				}
 			}
 
 			override fun updateDrawState(textPaint: TextPaint)

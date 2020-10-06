@@ -20,11 +20,9 @@ import chata.can.chata_ai.pojo.nullValue
 class ChatAdapter(
 	private val model: BaseModelList<*>,
 	private val view: ChatContract.View,
-	private val pagerActivity: Activity,
+	private val pagerActivity: Activity
 ): BaseAdapter(model), ChatAdapterContract
 {
-	lateinit var actionExploreQueries: () -> Unit
-
 	override fun getItemViewType(position: Int): Int
 	{
 		val chat = model[position]
@@ -81,8 +79,7 @@ class ChatAdapter(
 				QueryBuilderHolder(
 					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
 					pagerActivity,
-					view,
-					actionExploreQueries)
+					view)
 			}
 			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 		}
