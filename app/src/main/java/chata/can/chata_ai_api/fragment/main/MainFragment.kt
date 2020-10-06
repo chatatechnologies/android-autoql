@@ -34,6 +34,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		fun newInstance() = MainFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_main)
 		}
+		private var bubbleHandle: BubbleHandle ?= null
 	}
 
 	private lateinit var llContainer: LinearLayout
@@ -78,7 +79,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
-	private lateinit var bubbleHandle: BubbleHandle
 
 	private lateinit var renderPresenter: MainRenderPresenter
 	private lateinit var servicePresenter: MainServicePresenter
@@ -166,18 +166,23 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		{
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let { context ->
+				bubbleHandle?.isVisible = false
 				bubbleHandle = BubbleHandle(context) {
-					val bubbleData = BubbleData(
-						bubbleHandle.userDisplayName,
-						bubbleHandle.title,
-						bubbleHandle.introMessage,
-						bubbleHandle.inputPlaceholder,
-						bubbleHandle.maxMessages,
-						bubbleHandle.clearOnClose,
-						bubbleHandle.enableVoiceRecord)
-					(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
+					bubbleHandle?.let { bubbleHandle ->
+						val bubbleData = BubbleData(
+							bubbleHandle.userDisplayName,
+							bubbleHandle.title,
+							bubbleHandle.introMessage,
+							bubbleHandle.inputPlaceholder,
+							bubbleHandle.maxMessages,
+							bubbleHandle.clearOnClose,
+							bubbleHandle.enableVoiceRecord)
+						(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
+					}
 				}
-				renderPresenter = MainRenderPresenter(context, this@MainFragment, bubbleHandle)
+				bubbleHandle?.let {
+					renderPresenter = MainRenderPresenter(context, this@MainFragment, it)
+				}
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
 			renderPresenter.initViews(llContainer)
@@ -226,7 +231,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								if (pData.second)
 								{
 									child.setBackgroundColor(Color.parseColor(pData.first))
-									bubbleHandle.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
+									bubbleHandle?.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
 							}
 							catch (ex: Exception) {}
@@ -305,7 +310,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		swDrawerHandle?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.isVisible = isChecked
+			bubbleHandle?.isVisible = isChecked
 		}
 
 		etCurrencyCode?.setOnTextChanged {
@@ -313,7 +318,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				try
 				{
-					bubbleHandle.dataFormatting.currencyCode = it
+					bubbleHandle?.dataFormatting?.currencyCode = it
 				}
 				catch (e: Exception) {}
 			}
@@ -322,21 +327,21 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etFormatMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle.dataFormatting.monthYearFormat = it
+				bubbleHandle?.dataFormatting?.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle.dataFormatting.dayMonthYearFormat = it
+				bubbleHandle?.dataFormatting?.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle.dataFormatting.languageCode = it
+				bubbleHandle?.dataFormatting?.languageCode = it
 			}
 		}
 
@@ -345,7 +350,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				it.toIntOrNull()?.let {
 						integer ->
-					bubbleHandle.dataFormatting.currencyDecimals = integer
+					bubbleHandle?.dataFormatting?.currencyDecimals = integer
 				}
 			}
 		}
@@ -355,30 +360,30 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				it.toIntOrNull()?.let {
 						integer ->
-					bubbleHandle.dataFormatting.quantityDecimals = integer
+					bubbleHandle?.dataFormatting?.quantityDecimals = integer
 				}
 			}
 		}
 
 		etCustomerMessage?.setOnTextChanged {
-			bubbleHandle.userDisplayName = it
+			bubbleHandle?.userDisplayName = it
 		}
 
 		etIntroMessage?.setOnTextChanged {
-			bubbleHandle.introMessage = it
+			bubbleHandle?.introMessage = it
 		}
 
 		etQueryPlaceholder?.setOnTextChanged {
-			bubbleHandle.inputPlaceholder = it
+			bubbleHandle?.inputPlaceholder = it
 		}
 
 		swClearMessage?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.clearOnClose = isChecked
+			bubbleHandle?.clearOnClose = isChecked
 		}
 
 		etTitle?.setOnTextChanged {
-			bubbleHandle.title = it
+			bubbleHandle?.title = it
 		}
 
 		etAddColor?.setOnEditorActionListener {
@@ -394,7 +399,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					llColors.addView(newView, llColors.childCount)
 				}
 
-				bubbleHandle.addChartColor(newColor)
+				bubbleHandle?.addChartColor(newColor)
 			}
 
 			textView.text = ""
@@ -408,7 +413,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				if (pData.second)
 				{
 					etLightThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
-					bubbleHandle.setLightThemeColor(it)
+					bubbleHandle?.setLightThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -421,7 +426,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				if (pData.second)
 				{
 					etDarkThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
-					bubbleHandle.setDarkThemeColor(it)
+					bubbleHandle?.setDarkThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -430,33 +435,33 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etMaxNumberMessage?.setOnTextChanged {
 			it.toIntOrNull()?.let {
 				integer ->
-				bubbleHandle.maxMessages = integer
+				bubbleHandle?.maxMessages = integer
 			}
 		}
 
 		swEnableAutocomplete?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.autoQLConfig.enableAutocomplete = isChecked
+			bubbleHandle?.autoQLConfig?.enableAutocomplete = isChecked
 		}
 
 		swEnableQuery?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.autoQLConfig.enableQueryValidation = isChecked
+			bubbleHandle?.autoQLConfig?.enableQueryValidation = isChecked
 		}
 
 		swEnableSuggestion?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.autoQLConfig.enableQuerySuggestions = isChecked
+			bubbleHandle?.autoQLConfig?.enableQuerySuggestions = isChecked
 		}
 
 		swEnableDrillDown?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.autoQLConfig.enableDrilldowns = isChecked
+			bubbleHandle?.autoQLConfig?.enableDrilldowns = isChecked
 		}
 
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle.enableVoiceRecord = isChecked
+			bubbleHandle?.enableVoiceRecord = isChecked
 		}
 	}
 
@@ -494,8 +499,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
 
-						bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
-						bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
+						bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
+						bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
 					}
 					else
 					{
@@ -512,11 +517,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.btnReloadDrawer ->
 				{
-					bubbleHandle.reloadData()
+					bubbleHandle?.reloadData()
 				}
 				R.id.btnOpenDrawer ->
 				{
-					bubbleHandle.openChatActivity()
+					bubbleHandle?.openChatActivity()
 				}
 				R.id.tvLight, R.id.tvDark ->
 				{
@@ -529,9 +534,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						mTheme[it.id]?.let {
 							config ->
 							val theme = if (config) "light" else "dark"
-							bubbleHandle.theme = theme
+							bubbleHandle?.theme = theme
 						}
-					}
+					} else {}
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
@@ -541,9 +546,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						{
 							setColorOption(it.tag as String, it.id)
 						}
-						mPlacement[it.id]?.let { placement -> bubbleHandle.placement = placement }
-					}
+						mPlacement[it.id]?.let { placement -> bubbleHandle?.placement = placement }
+					} else {}
 				}
+				else -> {}
 			}
 		}
 	}
@@ -631,13 +637,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		{
 			if (projectId.contains("spira"))
 			{
-				bubbleHandle.setImageResource(R.drawable.ic_spira_logo)
-				bubbleHandle.setBackgroundColor(R.color.white)
+				bubbleHandle?.setImageResource(R.drawable.ic_spira_logo)
+				bubbleHandle?.setBackgroundColor(R.color.white)
 			}
 			else
 			{
-				bubbleHandle.setImageResource(R.drawable.ic_bubble_chata)
-				bubbleHandle.setBackgroundColor(R.color.blue_chata_circle)
+				bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
+				bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
 			}
 			"Log Out"
 		}
