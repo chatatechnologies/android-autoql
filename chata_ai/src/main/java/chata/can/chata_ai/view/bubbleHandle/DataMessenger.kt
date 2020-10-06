@@ -1,5 +1,6 @@
 package chata.can.chata_ai.view.bubbleHandle
 
+import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesData
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 
@@ -33,6 +34,8 @@ object DataMessenger
 
 		SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
+		ExploreQueriesData.lastWord = ""
+		ExploreQueriesData.lastExploreQuery = null
 	}
 
 	fun isDemo() = !isNecessaryLogin || domainUrl.isEmpty()

@@ -72,23 +72,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 						SinglentonDrawer.mModel.clear()
 					setStatusGUI(false)
 				}
-				R.id.rlChat ->
-				{
-					updateTitle(DataMessengerFragment.nameFragment)
-					changeColor(rlChat, ivChat)
-					setVisibleDelete(true)
-					fragment = DataMessengerFragment.newInstance()
-					setDataToDataMessenger()
-					fragmentManager?.let { addFragment(it, fragment) }
-				}
-				R.id.rlTips ->
-				{
-					updateTitle(ExploreQueriesFragment.nameFragment)
-					changeColor(rlTips, ivTips)
-					setVisibleDelete(false)
-					fragment = ExploreQueriesFragment.newInstance()
-					fragmentManager?.let { addFragment(it, fragment) }
-				}
+				R.id.rlChat -> openChat()
+				R.id.rlTips -> openTips()
 				R.id.rlNotify ->
 				{
 					updateTitle(NotificationFragment.nameFragment)
@@ -141,22 +126,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		setListener()
 		setColors()
 
-		ExploreQueriesFragment.dataMessengerMethod = {
-			updateTitle(DataMessengerFragment.nameFragment)
-			changeColor(rlChat, ivChat)
-			setVisibleDelete(true)
-			fragment = DataMessengerFragment.newInstance()
-			setDataToDataMessenger()
-			fragmentManager?.let { addFragment(it, fragment) }
-		}
+		ExploreQueriesFragment.dataMessengerMethod = { openChat() }
 
-		DataMessengerFragment.exploreQueriesMethod = {
-			updateTitle(ExploreQueriesFragment.nameFragment)
-			changeColor(rlTips, ivTips)
-			setVisibleDelete(false)
-			fragment = ExploreQueriesFragment.newInstance()
-			fragmentManager?.let { addFragment(it, fragment) }
-		}
+		DataMessengerFragment.exploreQueriesMethod = { openTips() }
 
 		addView(view)
 	}
@@ -282,6 +254,25 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		llMenu.visibility = iVisible
 		rlLocal.visibility = iVisible
 		updateTitle(DataMessengerFragment.nameFragment)
+	}
+
+	private fun openChat()
+	{
+		updateTitle(DataMessengerFragment.nameFragment)
+		changeColor(rlChat, ivChat)
+		setVisibleDelete(true)
+		fragment = DataMessengerFragment.newInstance()
+		setDataToDataMessenger()
+		fragmentManager?.let { addFragment(it, fragment) }
+	}
+
+	private fun openTips()
+	{
+		updateTitle(ExploreQueriesFragment.nameFragment)
+		changeColor(rlTips, ivTips)
+		setVisibleDelete(false)
+		fragment = ExploreQueriesFragment.newInstance()
+		fragmentManager?.let { addFragment(it, fragment) }
 	}
 
 	private fun setVisibleDelete(bVisible: Boolean)
