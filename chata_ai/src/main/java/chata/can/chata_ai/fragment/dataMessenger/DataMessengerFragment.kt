@@ -51,6 +51,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			putInt("LAYOUT", R.layout.fragment_data_messenger)
 		}
 		var exploreQueriesMethod: (() -> Unit)? = null
+		var queryToTyping = ""
 	}
 
 	private lateinit var llParent: View
@@ -82,6 +83,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		initData()
 		initList()
 		initSpeechInput()
+		if (queryToTyping.isNotEmpty())
+		{
+			val tmp = queryToTyping
+			queryToTyping = ""
+			runTyping(tmp)
+		}
 		if (BuildConfig.DEBUG)
 		{
 //				val queryDemo = "count invoices"

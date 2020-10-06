@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesContract
 import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesData
@@ -16,6 +15,7 @@ import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesPresenter
 import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.TextChanged
@@ -30,9 +30,8 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		fun newInstance() = ExploreQueriesFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_explore_queries)
 		}
+		var dataMessengerMethod: (() -> Unit)? = null
 	}
-
-	val RESULT_OK = -1
 
 	private lateinit var llQuery: View
 	private lateinit var etQuery: EditText
@@ -60,11 +59,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	{
 		super.onRenderViews(view)
 		checkLastData()
-
-		if (BuildConfig.DEBUG)
-		{
-			etQuery.setText("Sales")
-		}
 	}
 
 	override fun initListener()
@@ -115,11 +109,8 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 				{
 					if (any is String)
 					{
-//						setResult(RESULT_OK,
-//							Intent().apply {
-//								putExtra("query", any)
-//							})
-//						finish()
+						DataMessengerFragment.queryToTyping = any
+						dataMessengerMethod?.let { it() }
 					}
 				}
 			})

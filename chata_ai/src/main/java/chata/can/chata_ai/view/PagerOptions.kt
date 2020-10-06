@@ -141,6 +141,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		setListener()
 		setColors()
 
+		ExploreQueriesFragment.dataMessengerMethod = {
+			updateTitle(DataMessengerFragment.nameFragment)
+			changeColor(rlChat, ivChat)
+			setVisibleDelete(true)
+			fragment = DataMessengerFragment.newInstance()
+			setDataToDataMessenger()
+			fragmentManager?.let { addFragment(it, fragment) }
+		}
+
 		DataMessengerFragment.exploreQueriesMethod = {
 			updateTitle(ExploreQueriesFragment.nameFragment)
 			changeColor(rlTips, ivTips)
