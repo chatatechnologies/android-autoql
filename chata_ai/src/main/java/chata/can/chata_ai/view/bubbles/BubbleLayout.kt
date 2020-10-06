@@ -31,10 +31,10 @@ class BubbleLayout: BubbleBaseLayout
 	private var lastTouchDown = 0L
 	private var animator: MoveAnimator ?= null
 
-	private var centerX = 0
 	private var placementX = 0
-	private var centerY = 0
 	private var placementY = 0
+	private var centerX = 0
+	private var centerY = 0
 	private var height1 = 0
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null

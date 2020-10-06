@@ -166,18 +166,20 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		{
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let { context ->
-				bubbleHandle?.isVisible = false
-				bubbleHandle = BubbleHandle(context) {
-					bubbleHandle?.let { bubbleHandle ->
-						val bubbleData = BubbleData(
-							bubbleHandle.userDisplayName,
-							bubbleHandle.title,
-							bubbleHandle.introMessage,
-							bubbleHandle.inputPlaceholder,
-							bubbleHandle.maxMessages,
-							bubbleHandle.clearOnClose,
-							bubbleHandle.enableVoiceRecord)
-						(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
+				if (bubbleHandle == null)
+				{
+					bubbleHandle = BubbleHandle(context) {
+						bubbleHandle?.let { bubbleHandle ->
+							val bubbleData = BubbleData(
+								bubbleHandle.userDisplayName,
+								bubbleHandle.title,
+								bubbleHandle.introMessage,
+								bubbleHandle.inputPlaceholder,
+								bubbleHandle.maxMessages,
+								bubbleHandle.clearOnClose,
+								bubbleHandle.enableVoiceRecord)
+							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
+						}
 					}
 				}
 				bubbleHandle?.let {
