@@ -189,7 +189,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(56f)
+					height = dpToPx(32f)
 					width = -1
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
@@ -207,15 +207,15 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				//region little views
 				(ivChat.layoutParams as? LayoutParams)?.run {
 					height = -1
-					width = dpToPx(32f)
+					width = dpToPx(56f)
 				}
 				(ivTips.layoutParams as? LayoutParams)?.run {
 					height = -1
-					width = dpToPx(32f)
+					width = dpToPx(56f)
 				}
 				(ivNotify.layoutParams as? LayoutParams)?.run {
 					height = -1
-					width = dpToPx(32f)
+					width = dpToPx(56f)
 				}
 				//endregion
 				//region rlLocal

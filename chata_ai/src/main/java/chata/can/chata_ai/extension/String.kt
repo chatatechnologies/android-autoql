@@ -61,22 +61,26 @@ fun String.formatWithColumn(
 			return if (isEmpty() || this == "0") ""
 			else
 			{
-				val aDataDate = this.split("-")
-				if (aDataDate.size > 1)
+				if (this.contains("w", true))
+					this
+				else
 				{
-					var date = ""
-					val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
-					try {
-						dateFormat.parse(this)?.let { dDate ->
-							val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
-							date = dateFormat2.format(dDate)
+					val aDataDate = this.split("-")
+					if (aDataDate.size > 1)
+					{
+						var date = ""
+						val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
+						try {
+							dateFormat.parse(this)?.let { dDate ->
+								val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
+								date = dateFormat2.format(dDate)
+							}
+							date
 						}
-						date
+						catch (ex: Exception) { "" }
 					}
-					catch (ex: Exception) { "" }
+					else this
 				}
-				else this
-
 //				var date = ""
 //				val aPart = columnQuery.name.split(",")
 //				if (aPart.size > 1)
