@@ -14,14 +14,14 @@
 	<RelativeLayout
 		android:id="@+id/rlParent"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:padding="10dp">
+		android:layout_width="match_parent">
 		<LinearLayout
 			android:id="@+id/ivTop"
 			android:background="@color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:padding="10dp">
 			<TextView
 				android:id="@+id/tvTitle"
 				android:layout_height="wrap_content"

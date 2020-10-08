@@ -7,3 +7,6 @@ class Notification(
 	val query: String,
 	val createdAt: Int
 )
+{
+	var isVisible = false
+}

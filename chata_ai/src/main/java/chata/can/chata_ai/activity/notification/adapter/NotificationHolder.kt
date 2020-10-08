@@ -17,6 +17,7 @@ import java.util.*
 class NotificationHolder(itemView: View): Holder(itemView)
 {
 	private val rlParent = itemView.findViewById<View>(R.id.rlParent)
+	private val ivTop = itemView.findViewById<View>(R.id.ivTop)
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
 	private val tvBody = itemView.findViewById<TextView>(R.id.tvBody)
 	private val tvDate = itemView.findViewById<TextView>(R.id.tvDate)
@@ -32,14 +33,19 @@ class NotificationHolder(itemView: View): Holder(itemView)
 		item?.let { notification ->
 			if (notification is Notification)
 			{
-				rlParent?.setOnClickListener {
+				rlBottom.visibility = if (notification.isVisible) View.VISIBLE else View.GONE
+				ivTop?.setOnClickListener {
 					rlBottom.visibility = if (rlBottom.visibility == View.GONE)
 					{
+						notification.isVisible = true
 						presenter.getRuleQuery(notification.id)
 						View.VISIBLE
 					}
 					else
+					{
+						notification.isVisible = false
 						View.GONE
+					}
 				}
 
 				tvTitle.text = notification.title
