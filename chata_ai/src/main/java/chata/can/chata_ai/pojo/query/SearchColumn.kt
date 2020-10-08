@@ -42,11 +42,14 @@ object SearchColumn
 	fun getTypeIndices(
 		aColumns: ArrayList<ColumnQuery>,
 		type: TypeDataQuery,
-		count: Int): ArrayList<Int>
+		count: Int,
+		ignoreCount: Int = 0): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
 		for (index in aColumns.indices)
 		{
+			if (ignoreCount > index)
+				continue
 			if (aColumns[index].type == type)
 			{
 				aIndices.add(index)

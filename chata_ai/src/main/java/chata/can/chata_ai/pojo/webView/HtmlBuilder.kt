@@ -139,6 +139,7 @@ object HtmlBuilder
 			if (isTriConfig)
 			{
 				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
+				val aString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.STRING, 1, 1)
 				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
 				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
@@ -153,13 +154,19 @@ object HtmlBuilder
 				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()
 
-				if ((aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
+				if ((aString.isNotEmpty() || aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
 					val type = aColumn[aNumber[0]]
-					if (type.type == TypeDataQuery.QUANTITY)
+					if (type.type == TypeDataQuery.QUANTITY || type.type == TypeDataQuery.DOLLAR_AMT)
 					{
 						val aCheck = (0..2).toMutableList()
-						val tmpDate = if (aDate.isNotEmpty()) aDate else aDateString
+						val tmpDate = when
+						{
+							aDate.isNotEmpty() -> aDate
+							aDateString.isNotEmpty() -> aDateString
+							aString.isNotEmpty() -> aString
+							else -> aDate
+						}
 						aCheck.remove(tmpDate[0])
 						aCheck.remove(aNumber[0])
 						val nameHeader = aColumn[aCheck.first()].displayName
@@ -167,6 +174,7 @@ object HtmlBuilder
 						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
 						val pPivot = TableTriBuilder.buildDataPivot(
 							mDataPivot,
+							aColumn[aNumber.first()],
 							newListDescending(aCatX),
 							aCatY,
 							nameHeader)

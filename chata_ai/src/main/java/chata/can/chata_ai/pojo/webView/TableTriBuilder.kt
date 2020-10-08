@@ -4,6 +4,7 @@ import chata.can.chata_ai.extension.clearDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
+import kotlin.math.acos
 
 object TableTriBuilder
 {
@@ -27,6 +28,7 @@ object TableTriBuilder
 
 	fun buildDataPivot(
 		mDataPivot: LinkedHashMap<String, String>,
+		aColumn: ColumnQuery,
 		aCatX: List<String>,
 		aCatY: ArrayList<String>,
 		nameHeader: String
@@ -49,6 +51,7 @@ object TableTriBuilder
 				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
 				if (cell.isNotEmpty())
 					cell = cell.clearDecimals()
+				cell = cell.formatWithColumn(aColumn)
 				sbRow.append("<td>$cell</td>")
 			}
 			aRows.add("<tr>$sbRow</tr>")
