@@ -35,18 +35,13 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		item?.let { notification ->
 			if (notification is Notification)
 			{
-				rlBottom.visibility = if (notification.isVisible) View.VISIBLE else View.GONE
+				setBottomVisibility(notification)
 				ivTop?.setOnClickListener {
-					rlBottom.visibility = if (rlBottom.visibility == View.GONE)
+					notification.isVisible = rlBottom.visibility == View.GONE
+					setBottomVisibility(notification)
+					if (notification.isVisible)
 					{
-						notification.isVisible = true
 						presenter.getRuleQuery(notification.id)
-						View.VISIBLE
-					}
-					else
-					{
-						notification.isVisible = false
-						View.GONE
 					}
 				}
 
@@ -84,6 +79,11 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		rlLoad.visibility = View.GONE
 		tvContent.visibility = View.VISIBLE
 		tvContent.text = text
+	}
+
+	private fun setBottomVisibility(notification: Notification)
+	{
+		rlBottom.visibility = if (notification.isVisible) View.VISIBLE else View.GONE
 	}
 
 	private fun toDate(iDate: Int): String

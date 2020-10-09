@@ -67,6 +67,7 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 
 	fun getRuleQuery(idRule: String)
 	{
+		view.showLoading()
 		val url = "$urlChataIO${api1}rule-notifications/$idRule?key=${DataMessenger.apiKey}"
 		val mAuthorization = Authentication.getAuthorizationJWT()
 		mAuthorization["Integrator-Domain"] = DataMessenger.domainUrl
