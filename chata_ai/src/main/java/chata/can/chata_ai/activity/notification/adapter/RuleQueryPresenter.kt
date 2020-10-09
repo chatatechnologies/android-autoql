@@ -1,18 +1,16 @@
 package chata.can.chata_ai.activity.notification.adapter
 
-import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
-import chata.can.chata_ai.pojo.urlChataIO
 import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class RuleQueryPresenter: StatusResponse
+class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -26,7 +24,43 @@ class RuleQueryPresenter: StatusResponse
 		jsonObject?.let {
 			jsonObject.optJSONObject("query_result")?.let { joQueryResult ->
 				val queryBase = QueryBase(joQueryResult)
-				queryBase.toString()
+				when(queryBase.displayType)
+				{
+					"suggestion" ->
+					{
+						if (SinglentonDrawer.mIsEnableSuggestion)
+							view.showText("${queryBase.displayType} not supported")
+						else
+							view.showText("${queryBase.displayType} not supported")
+					}
+					dataKey ->
+					{
+						val numColumns = queryBase.numColumns
+						val numRows = queryBase.aRows.size
+						when
+						{
+							numRows == 0 ->
+							{
+								view.showText(queryBase.contentHTML)
+							}
+							(numColumns == 1 && numRows > 1) || numColumns > 1 ->
+							{
+								//queryBase.viewDrillDown = view
+							}
+							numColumns == 1 ->
+							{
+								if(queryBase.hasHash)
+								{
+									//TODO SHOW HELP
+								}
+								else
+									view.showText(queryBase.contentHTML)
+							}
+							else -> view.showText(queryBase.contentHTML)
+						}
+					}
+					else -> view.showText(queryBase.contentHTML)
+				}
 			}
 		}
 	}

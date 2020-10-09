@@ -14,7 +14,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationHolder(itemView: View): Holder(itemView)
+class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 {
 	private val rlParent = itemView.findViewById<View>(R.id.rlParent)
 	private val ivTop = itemView.findViewById<View>(R.id.ivTop)
@@ -24,9 +24,10 @@ class NotificationHolder(itemView: View): Holder(itemView)
 
 	private val rlBottom = itemView.findViewById<View>(R.id.rlBottom)
 	private val tvQuery = itemView.findViewById<TextView>(R.id.tvQuery)
+	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery)
 
-	private val presenter = RuleQueryPresenter()
+	private val presenter = RuleQueryPresenter(this)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
@@ -69,6 +70,11 @@ class NotificationHolder(itemView: View): Holder(itemView)
 		}
 
 		ViewCompat.setElevation(rlParent, 12f)
+	}
+
+	override fun showText(text: String)
+	{
+		tvContent.text = text
 	}
 
 	private fun toDate(iDate: Int): String
