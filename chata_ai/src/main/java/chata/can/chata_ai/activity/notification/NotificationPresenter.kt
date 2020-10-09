@@ -33,13 +33,14 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 					for (index in 0 until jaNotifications.length())
 					{
 						val json = jaNotifications.optJSONObject(index)
-						val id = json.optInt("id")
+						val id = json.optString("id")
+						val ruleId = json.optString("rule_id")
 						val title = json.optString("rule_title")
 						val message = json.optString("rule_message")
 						val query = json.optString("rule_query")
 						val createdAt = json.optInt("created_at")
 
-						val notification = Notification(id, title, message, query, createdAt)
+						val notification = Notification(id, ruleId, title, message, query, createdAt)
 						aNotification.add(notification)
 					}
 					view.showNotifications(totalPages, aNotification)

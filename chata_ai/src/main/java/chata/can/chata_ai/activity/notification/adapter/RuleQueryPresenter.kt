@@ -25,12 +25,13 @@ class RuleQueryPresenter: StatusResponse
 	{
 		jsonObject?.let {
 			jsonObject.optJSONObject("query_result")?.let { joQueryResult ->
-				QueryBase(joQueryResult)
+				val queryBase = QueryBase(joQueryResult)
+				queryBase.toString()
 			}
 		}
 	}
 
-	fun getRuleQuery(idRule: Int)
+	fun getRuleQuery(idRule: String)
 	{
 		val url = "$urlChataIO${api1}rule-notifications/$idRule?key=${DataMessenger.apiKey}"
 		val mAuthorization = Authentication.getAuthorizationJWT()
