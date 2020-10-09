@@ -66,14 +66,27 @@
 				android:layout_marginEnd="36dp"
 				android:layout_marginStart="36dp"
 				android:layout_width="match_parent"/>
+			<RelativeLayout
+				android:id="@+id/rlLoad"
+				android:layout_height="200dp"
+				android:layout_width="match_parent">
+				<chata.can.chata_ai.view.gif.GifView
+					android:layout_centerInParent="true"
+					android:layout_height="80dp"
+					android:layout_width="80dp"/>
+			</RelativeLayout>
 			<TextView
+				android:gravity="center"
 				android:id="@+id/tvContent"
 				android:layout_height="200dp"
-				android:layout_width="match_parent"/>
+				android:layout_width="match_parent"
+				android:visibility="gone"
+				android:textSize="22sp"/>
 			<WebView
 				android:id="@+id/wbQuery"
 				android:layout_height="200dp"
-				android:layout_width="match_parent"/>
+				android:layout_width="match_parent"
+				android:visibility="gone"/>
 		</LinearLayout>
 
 	</RelativeLayout>

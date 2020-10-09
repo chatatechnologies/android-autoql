@@ -24,6 +24,7 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 
 	private val rlBottom = itemView.findViewById<View>(R.id.rlBottom)
 	private val tvQuery = itemView.findViewById<TextView>(R.id.tvQuery)
+	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery)
 
@@ -52,8 +53,7 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
 				tvDate.text = toDate(notification.createdAt)
-
-				tvQuery.text = notification.query
+				tvQuery.text = notification.query.capitalize(Locale.US)
 			}
 		}
 	}
@@ -72,8 +72,17 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		ViewCompat.setElevation(rlParent, 12f)
 	}
 
+	override fun showLoading()
+	{
+		rlLoad.visibility = View.VISIBLE
+		tvContent.visibility = View.GONE
+		wbQuery.visibility = View.GONE
+	}
+
 	override fun showText(text: String)
 	{
+		rlLoad.visibility = View.GONE
+		tvContent.visibility = View.VISIBLE
 		tvContent.text = text
 	}
 
