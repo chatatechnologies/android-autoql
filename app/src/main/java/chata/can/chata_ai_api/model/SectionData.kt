@@ -11,8 +11,8 @@ object SectionData
 	init {
 		with(aTheme)
 		{
-			add(Segment(R.id.tvLight,"Light", true))
-			add(Segment(R.id.tvDark,"Dark"))
+			add(Segment(R.id.tvLight,"Light"))
+			add(Segment(R.id.tvDark,"Dark", true))
 		}
 
 		with(aPlacement)

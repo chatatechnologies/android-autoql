@@ -5,20 +5,19 @@ import chata.can.chata_ai.R
 object ThemeColor
 {
 	val lightColor = Color(
-		R.color.chata_drawer_accent_color,
-		R.color.chata_drawer_background_color,
-		R.color.chata_drawer_border_color,
-		R.color.chata_drawer_hover_color,
-		R.color.chata_drawer_color_primary,
-		R.color.chata_drawer_text_color_placeholder
-	)
+		R.color.accent_color_1,
+		R.color.background_color_primary_1,
+		R.color.border_color_1,
+		R.color.hover_color_1,
+		R.color.text_color_primary_1,
+		R.color.text_color_placeholder_1)
 	val darkColor = Color(
-		R.color.chata_drawer_accent_color_dark,
-		R.color.chata_drawer_background_color_dark,
-		R.color.chata_drawer_border_color_dark,
-		R.color.chata_drawer_hover_color_dark,
-		R.color.chata_drawer_color_primary_dark,
-		R.color.chata_drawer_text_color_placeholder_dark)
+		R.color.accent_color_2,
+		R.color.background_color_primary_2,
+		R.color.border_color_2,
+		R.color.hover_color_2,
+		R.color.text_color_primary_2,
+		R.color.text_color_placeholder_2)
 
-	var currentColor: Color = lightColor
+	var currentColor: Color = darkColor
 }
