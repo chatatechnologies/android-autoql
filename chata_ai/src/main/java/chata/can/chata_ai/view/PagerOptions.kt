@@ -23,6 +23,7 @@ import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
@@ -318,9 +319,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun setColors()
 	{
 		context?.run {
-			ivChat.setColorFilter(getParsedColor(R.color.blue_chata_circle))
+			ivChat.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
+			rlChat.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
@@ -335,8 +337,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				ivSelected?.setColorFilter(getParsedColor(R.color.white))
-				rlNew.setBackgroundColor(getParsedColor(R.color.white))
-				ivNew.setColorFilter(getParsedColor(R.color.blue_chata_circle))
+				rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+				ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
 				rlSelected = rlNew
 				ivSelected = ivNew
 			}
