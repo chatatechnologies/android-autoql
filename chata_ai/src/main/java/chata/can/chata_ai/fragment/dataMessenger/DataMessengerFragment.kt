@@ -207,11 +207,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			activity?.let {
 				llParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				tvMsg.setTextColor(it.getParsedColor(drawerColorPrimary))
-				ivRun.setColorFilter(it.getParsedColor(drawerColorPrimary))
+				tvMsg.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				ivRun.setColorFilter(it.getParsedColor(drawerTextColorPrimary))
 
 				etQuery.setHintTextColor(it.getParsedColor(drawerBorderColor))
-				etQuery.setTextColor(it.getParsedColor(drawerColorPrimary))
+				etQuery.setTextColor(it.getParsedColor(drawerTextColorPrimary))
 
 				val blue = it.getParsedColor(drawerAccentColor)
 				val circleDrawable = GradientDrawable().apply {
@@ -220,7 +220,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				}
 
 				val white = it.getParsedColor(drawerBackgroundColor)
-				val gray = it.getParsedColor(drawerColorPrimary)
+				val gray = it.getParsedColor(drawerTextColorPrimary)
 				val rectangleDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 
 				ivMicrophone.background = circleDrawable

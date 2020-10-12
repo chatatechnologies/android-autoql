@@ -23,7 +23,7 @@ fun View.backgroundGrayWhite(iCornerRadius: Float = 18f, iWidthRadius: Int = 1)
 {
 	context.run {
 		val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+		val gray = context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 		background = DrawableBuilder.setGradientDrawable(white,iCornerRadius,iWidthRadius, gray)
 	}
 }

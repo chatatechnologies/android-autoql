@@ -25,7 +25,7 @@ class HelpHolder(itemView: View): Holder(itemView)
 		llContent?.backgroundGrayWhite()
 
 		tvContent?.let {
-			val gray = it.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+			val gray = it.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 			it.setTextColor(gray)
 			tvGreatNewHelp?.setTextColor(gray)
 			llContent2?.backgroundGrayWhite()

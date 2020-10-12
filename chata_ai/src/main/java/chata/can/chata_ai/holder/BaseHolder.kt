@@ -45,7 +45,7 @@ open class BaseHolder(
 			startAnimation(animationTop)
 		}
 
-		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 		tvContent.setTextColor(gray)
 		tvContent.backgroundGrayWhite()
 

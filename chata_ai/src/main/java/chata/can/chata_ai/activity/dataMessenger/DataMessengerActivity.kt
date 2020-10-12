@@ -143,9 +143,9 @@ class DataMessengerActivity:
 		with(ThemeColor.currentColor)
 		{
 			llParent.setBackgroundColor(getParsedColor(drawerBackgroundColor))
-			etQuery.setHintTextColor(getParsedColor(drawerColorPrimary))
-			tvMsg.setTextColor(getParsedColor(drawerColorPrimary))
-			ivRun.setColorFilter(getParsedColor(drawerColorPrimary))
+			etQuery.setHintTextColor(getParsedColor(drawerTextColorPrimary))
+			tvMsg.setTextColor(getParsedColor(drawerTextColorPrimary))
+			ivRun.setColorFilter(getParsedColor(drawerTextColorPrimary))
 		}
 	}
 
@@ -287,7 +287,7 @@ class DataMessengerActivity:
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 	{
 		etQuery.run {
-			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
+			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 			background = pDrawable.second
 			val hint = if (PagerData.inputPlaceholder.isNotEmpty())
 			{

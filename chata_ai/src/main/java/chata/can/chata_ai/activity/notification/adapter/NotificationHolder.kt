@@ -58,7 +58,7 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		rlParent.run {
 			context.run {
 				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				rlParent.background =
 					DrawableBuilder.setGradientDrawable(white,18f,0, gray)
 			}

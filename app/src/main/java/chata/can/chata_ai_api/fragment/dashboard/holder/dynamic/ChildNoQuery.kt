@@ -14,7 +14,7 @@ object ChildNoQuery {
 	{
 		view.findViewById<TextView>(R.id.tvNoQuery)?.let { tvNoQuery ->
 			val drawerColorPrimary = tvNoQuery.context.getParsedColor(
-				ThemeColor.currentColor.drawerColorPrimary)
+				ThemeColor.currentColor.drawerTextColorPrimary)
 			tvNoQuery.setTextColor(drawerColorPrimary)
 
 			dashboard.run {

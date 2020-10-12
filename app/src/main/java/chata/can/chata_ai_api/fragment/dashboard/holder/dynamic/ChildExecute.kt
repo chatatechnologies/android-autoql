@@ -12,7 +12,7 @@ object ChildExecute
 	{
 		view.findViewById<TextView>(R.id.tvExecute)?.let {
 			val drawerColorPrimary = it.context.getParsedColor(
-				ThemeColor.currentColor.drawerColorPrimary)
+				ThemeColor.currentColor.drawerTextColorPrimary)
 			it.setTextColor(drawerColorPrimary)
 		}
 	}

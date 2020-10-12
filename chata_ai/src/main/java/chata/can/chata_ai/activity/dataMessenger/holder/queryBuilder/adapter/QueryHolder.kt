@@ -19,7 +19,7 @@ class QueryHolder(view: View): Holder(view)
 			context.run {
 				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
 				setBackgroundColor(white)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				tvQueryExplore.setTextColor(gray)
 			}
 		}

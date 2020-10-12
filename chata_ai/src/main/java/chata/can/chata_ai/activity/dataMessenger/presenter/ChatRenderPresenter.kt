@@ -25,7 +25,7 @@ class ChatRenderPresenter(private val context: Context, private var contract: Ch
 		}
 
 		val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+		val gray = context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 
 		val queryDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
 		return Pair(circleDrawable, queryDrawable)

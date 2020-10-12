@@ -23,7 +23,7 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 		ll1?.let {
 			it.context.run {
 				drawerBackgroundColor = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				drawerColorPrimary = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				drawerColorPrimary = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 			it.background = DrawableBuilder.setGradientDrawable(
 				drawerBackgroundColor,18f,1, drawerColorPrimary)
 			}

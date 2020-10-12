@@ -40,7 +40,7 @@ class FullSuggestionHolder(
 			startAnimation(animationTop)
 		}
 
-		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
 		rlRunQuery.backgroundGrayWhite()

@@ -319,7 +319,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun setColors()
 	{
 		context?.run {
-			ivChat.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
+			ivChat.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
 			rlChat.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
@@ -338,7 +338,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				ivSelected?.setColorFilter(getParsedColor(R.color.white))
 				rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
-				ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerColorPrimary))
+				ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 				rlSelected = rlNew
 				ivSelected = ivNew
 			}

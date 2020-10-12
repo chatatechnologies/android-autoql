@@ -179,7 +179,7 @@ object DashboardMaker
 				backgroundColor = "#" + Integer.toHexString(
 					it.getParsedColor(drawerBackgroundColor) and 0x00ffffff)
 				textColor = "#" + Integer.toHexString(
-					it.getParsedColor(drawerColorPrimary) and 0x00ffffff)
+					it.getParsedColor(drawerTextColorPrimary) and 0x00ffffff)
 			}
 		}
 		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor

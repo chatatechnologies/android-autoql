@@ -23,7 +23,7 @@ class OptionHolder(view: View): Holder(view)
 				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
 				setBackgroundColor(white)
 
-				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				tvQueryRoot.setTextColor(gray)
 
 				ivForwardExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)

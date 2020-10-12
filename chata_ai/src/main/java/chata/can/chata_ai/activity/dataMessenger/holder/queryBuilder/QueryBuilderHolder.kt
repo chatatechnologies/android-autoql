@@ -61,7 +61,7 @@ class QueryBuilderHolder(
 			backgroundGrayWhite()
 			context.run {
 				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
+				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				tvLink?.setTextColor(gray)
 				tvMsg?.setTextColor(gray)
 				tvCurrentExplore?.setTextColor(gray)

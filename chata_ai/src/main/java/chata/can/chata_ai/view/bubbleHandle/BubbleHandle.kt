@@ -249,7 +249,7 @@ class BubbleHandle(
 		val lp = RelativeLayout.LayoutParams(-2, -2)
 		parentCircle.layoutParams = lp
 //		val color = context.getParsedColor(ThemeColor.currentColor.drawerColorPrimary)
-		val color = context.getParsedColor(ThemeColor.lightColor.drawerColorPrimary)
+		val color = context.getParsedColor(ThemeColor.lightColor.drawerTextColorPrimary)
 		val alphaColor = ColorUtils.setAlphaComponent(color, (0.25f * 255).toInt())
 		val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 

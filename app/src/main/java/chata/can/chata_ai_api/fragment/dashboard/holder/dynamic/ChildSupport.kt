@@ -12,7 +12,7 @@ object ChildSupport {
 	{
 		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
 			val drawerColorPrimary = tvContent.context.getParsedColor(
-				ThemeColor.currentColor.drawerColorPrimary)
+				ThemeColor.currentColor.drawerTextColorPrimary)
 			tvContent.setTextColor(drawerColorPrimary)
 
 			dashboard.run {
