@@ -206,11 +206,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				llParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				tvMsg.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				ivRun.setColorFilter(it.getParsedColor(drawerTextColorPrimary))
+				llParent.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				tvMsg.setTextColor(it.getParsedColor(R.color.we_run))
+				ivRun.setColorFilter(it.getParsedColor(R.color.we_run))
 
-				etQuery.setHintTextColor(it.getParsedColor(drawerBorderColor))
+				etQuery.setHintTextColor(it.getParsedColor(R.color.place_holder))
 				etQuery.setTextColor(it.getParsedColor(drawerTextColorPrimary))
 
 				val blue = it.getParsedColor(drawerAccentColor)

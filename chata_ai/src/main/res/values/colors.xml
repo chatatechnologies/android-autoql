@@ -31,6 +31,9 @@
 	<color name="highlight_color_2">#FFF</color>
 	<color name="danger_color_2">#FF584e</color>
 
+	<color name="place_holder">#999999</color>
+	<color name="we_run">#464A4E</color>
+
 	<color name="chata_drawer_accent_color">#538CA2</color>
 	<color name="chata_drawer_accent_color_dark">#525252</color>
 
