@@ -137,7 +137,7 @@ class BubbleHandle(
 	}
 
 	private var aThemePossible = arrayListOf("light", "dark")
-	var theme: String = "light"
+	var theme: String = "dark"
 		set(value) {
 			if (theme != value && value in aThemePossible)
 			{

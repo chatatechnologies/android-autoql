@@ -20,4 +20,13 @@ object ThemeColor
 		R.color.text_color_placeholder_2)
 
 	var currentColor: Color = darkColor
+	set(value) {
+		field = value
+		for ((_, method) in aMethod)
+		{
+			method()
+		}
+	}
+
+	val aMethod = LinkedHashMap<String, () -> Unit>()
 }

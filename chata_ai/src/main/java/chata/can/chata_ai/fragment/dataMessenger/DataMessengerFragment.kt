@@ -20,9 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.BuildConfig
-import chata.can.chata_ai.R
+import chata.can.chata_ai.*
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapter
@@ -38,7 +36,6 @@ import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
@@ -99,6 +96,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				val queryDemo = ""
 //				val queryDemo = "Average hours utilization by area by resource category last year"
 			etQuery.setText(queryDemo)
+		}
+
+		ThemeColor.aMethod[nameFragment] = {
+			setColors()
 		}
 	}
 
@@ -346,6 +347,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			SinglentonDrawer.mModel.clear()
 		}
+		ThemeColor.aMethod.remove(nameFragment)
 	}
 
 	private fun initData()
