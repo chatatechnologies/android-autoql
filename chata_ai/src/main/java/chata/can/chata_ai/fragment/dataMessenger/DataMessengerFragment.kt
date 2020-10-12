@@ -100,6 +100,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		ThemeColor.aMethod[nameFragment] = {
 			setColors()
+			chatAdapter.notifyDataSetChanged()
 		}
 	}
 
