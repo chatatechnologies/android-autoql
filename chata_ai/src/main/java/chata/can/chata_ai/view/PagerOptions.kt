@@ -328,10 +328,16 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun setColors()
 	{
 		context?.run {
-			ivChat.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			rlChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			rlTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			rlNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			rlSelected?.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
+
+			ivChat.setColorFilter(getParsedColor(R.color.white))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
-			rlChat.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
+			ivSelected?.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
@@ -342,15 +348,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun changeColor(rlNew: View, ivNew: ImageView)
 	{
 		context?.run {
-			if (rlSelected != rlNew && ivSelected != ivNew)
-			{
-				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-				ivSelected?.setColorFilter(getParsedColor(R.color.white))
-				rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
-				ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-				rlSelected = rlNew
-				ivSelected = ivNew
-			}
+			rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			ivSelected?.setColorFilter(getParsedColor(R.color.white))
+			rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
+			ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			rlSelected = rlNew
+			ivSelected = ivNew
 		}
 	}
 

@@ -15,7 +15,6 @@
 		android:visibility="gone">
 
 		<RelativeLayout
-			android:background="@color/white"
 			android:id="@+id/rlChat"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content">
@@ -28,7 +27,6 @@
 		</RelativeLayout>
 
 		<RelativeLayout
-			android:background="@color/blue_chata_circle"
 			android:id="@+id/rlTips"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content">
@@ -41,7 +39,6 @@
 		</RelativeLayout>
 
 		<RelativeLayout
-			android:background="@color/blue_chata_circle"
 			android:id="@+id/rlNotify"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content">
