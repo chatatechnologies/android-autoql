@@ -20,6 +20,21 @@ object DrawableBuilder
 		}
 	}
 
+	fun setGradientDrawable(
+		colorBase: Int,
+		aCornerRadius: FloatArray = floatArrayOf(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f),
+		iWidthRadius: Int = 0,
+		strokeColor: Int = 0): GradientDrawable
+	{
+		return GradientDrawable().apply {
+			shape = GradientDrawable.RECTANGLE
+			setColor(colorBase)
+			cornerRadii = aCornerRadius
+			if (iWidthRadius != 0 && strokeColor != 0)
+				setStroke(iWidthRadius, strokeColor)
+		}
+	}
+
 	fun setOvalDrawable(
 		colorBase: Int,
 		iWidthRadius: Int = 0,

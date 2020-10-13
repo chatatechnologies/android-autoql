@@ -64,7 +64,9 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
 					val blue = getParsedColor(R.color.blue_chata_circle)
-					iView.background = DrawableBuilder.setGradientDrawable(blue, 18f)
+					iView.background = DrawableBuilder.setGradientDrawable(
+						blue,
+						aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))
 					tvTitle.setTextColor(blue)
 				}
 			}
