@@ -82,6 +82,12 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		adapter.notifyDataSetChanged()
 	}
 
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		ThemeColor.aMethod.remove(nameFragment)
+	}
+
 	private fun getNotifications()
 	{
 		rvNotification.visibility = View.GONE
