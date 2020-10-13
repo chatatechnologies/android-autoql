@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.base.TextChanged
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
@@ -33,11 +35,14 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		var dataMessengerMethod: (() -> Unit)? = null
 	}
 
+	private lateinit var llParent: LinearLayout
 	private lateinit var llQuery: View
 	private lateinit var etQuery: EditText
 	private lateinit var ivSearch: ImageView
 	private lateinit var rvRelatedQueries: RecyclerView
 	private lateinit var rlGif: View
+	private lateinit var tvMsg1: TextView
+	private lateinit var tvMsg2: TextView
 	private lateinit var llPager: View
 	private lateinit var tvPrevious: TextView
 	private lateinit var tvCenterPage: TextView
@@ -91,11 +96,14 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	{
 		with(view)
 		{
+			llParent = findViewById(R.id.llParent)
 			llQuery = findViewById(R.id.llQuery)
 			etQuery = findViewById(R.id.etQuery)
 			ivSearch = findViewById(R.id.ivSearch)
 			rvRelatedQueries = findViewById(R.id.rvRelatedQueries)
 			rlGif = findViewById(R.id.rlGif)
+			tvMsg1 = findViewById(R.id.tvMsg1)
+			tvMsg2 = findViewById(R.id.tvMsg2)
 			llPager = findViewById(R.id.llPager)
 			tvPrevious = findViewById(R.id.tvPrevious)
 			tvCenterPage = findViewById(R.id.tvCenterPage)
@@ -121,7 +129,25 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	override fun setColors()
 	{
-		etQuery.backgroundGrayWhite(64f)
+		with(ThemeColor.currentColor)
+		{
+			llParent.setBackgroundColor(getColor(drawerColorSecondary))
+			etQuery.setHintTextColor(getColor(R.color.place_holder))
+
+			val fill = getColor(drawerBackgroundColor)
+			val border = getColor(drawerBorderColor)
+			etQuery.background = DrawableBuilder.setGradientDrawable(fill,64f, 1, border)
+
+			etQuery.setTextColor(getColor(drawerTextColorPrimary))
+
+			tvMsg1.setTextColor(getColor(R.color.text_explore_queries))
+			tvMsg2.setTextColor(getColor(R.color.text_explore_queries))
+
+			val primary = getColor(drawerTextColorPrimary)
+			tvFirstPage.setTextColor(primary)
+			tvCenterPage.setTextColor(primary)
+			tvLastPage.setTextColor(primary)
+		}
 
 		val blue = getBlue()
 		ivSearch.background = DrawableBuilder.setOvalDrawable(blue)
@@ -130,11 +156,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		tvPrevious.text = "←"
 		tvNext.setTextColor(blue)
 		tvNext.text = "→"
-
-		val black = getColor(R.color.black)
-		tvFirstPage.setTextColor(black)
-		tvCenterPage.setTextColor(black)
-		tvLastPage.setTextColor(black)
 
 		setOval(tvFirstPage)
 	}
