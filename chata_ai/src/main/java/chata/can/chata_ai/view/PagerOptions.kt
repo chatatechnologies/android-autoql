@@ -77,8 +77,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				R.id.rlTips -> openTips()
 				R.id.rlNotify ->
 				{
-					updateTitle(NotificationFragment.nameFragment)
 					changeColor(rlNotify, ivNotify)
+					updateTitle()
 					setVisibleDelete(false)
 					showNotification()
 					fragment = NotificationFragment.newInstance()
@@ -258,13 +258,13 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		else View.GONE
 		llMenu.visibility = iVisible
 		rlLocal.visibility = iVisible
-		updateTitle(DataMessengerFragment.nameFragment)
+		updateTitle()
 	}
 
 	private fun openChat()
 	{
-		updateTitle(DataMessengerFragment.nameFragment)
 		changeColor(rlChat, ivChat)
+		updateTitle()
 		setVisibleDelete(true)
 		fragment = DataMessengerFragment.newInstance()
 		setDataToDataMessenger()
@@ -273,8 +273,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 	private fun openTips()
 	{
-		updateTitle(ExploreQueriesFragment.nameFragment)
 		changeColor(rlTips, ivTips)
+		updateTitle()
 		setVisibleDelete(false)
 		fragment = ExploreQueriesFragment.newInstance()
 		fragmentManager?.let { addFragment(it, fragment) }
@@ -303,8 +303,18 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 	}
 
-	private fun updateTitle(title: String)
+	private fun updateTitle()
 	{
+		val title = ivSelected?.let {
+			when(it.id)
+			{
+				R.id.ivChat -> DataMessengerFragment.nameFragment
+				R.id.ivTips -> ExploreQueriesFragment.nameFragment
+				R.id.ivNotify -> NotificationFragment.nameFragment
+				else -> DataMessengerFragment.nameFragment
+			}
+		} ?: run { DataMessengerFragment.nameFragment }
+
 		val tmp = if (DataMessengerFragment.nameFragment == title)
 		{
 			val localTitle = bubbleData?.title ?: ""
