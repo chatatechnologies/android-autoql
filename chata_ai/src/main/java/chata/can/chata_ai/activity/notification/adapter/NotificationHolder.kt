@@ -17,6 +17,7 @@ import java.util.*
 class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 {
 	private val rlParent = itemView.findViewById<View>(R.id.rlParent)
+	private val iView = itemView.findViewById<View>(R.id.iView)
 	private val ivTop = itemView.findViewById<View>(R.id.ivTop)
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
 	private val tvBody = itemView.findViewById<TextView>(R.id.tvBody)
@@ -57,10 +58,15 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 	{
 		rlParent.run {
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-				rlParent.background =
-					DrawableBuilder.setGradientDrawable(white,18f,0, gray)
+				with(ThemeColor.currentColor) {
+					val white = getParsedColor(drawerBackgroundColor)
+					val gray = getParsedColor(drawerTextColorPrimary)
+					rlParent.background =
+						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
+					val blue = getParsedColor(R.color.blue_chata_circle)
+					iView.background = DrawableBuilder.setGradientDrawable(blue, 18f)
+					tvTitle.setTextColor(blue)
+				}
 			}
 		}
 

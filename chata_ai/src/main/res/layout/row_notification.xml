@@ -15,9 +15,13 @@
 		android:id="@+id/rlParent"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent">
+		<View
+			android:id="@+id/iView"
+			android:layout_height="match_parent"
+			android:layout_width="8dp"/>
 		<LinearLayout
+			android:layout_toEndOf="@id/iView"
 			android:id="@+id/ivTop"
-			android:background="@color/white"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
@@ -40,9 +44,10 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:layout_below="@id/ivTop"
 			android:id="@+id/rlBottom"
+			android:layout_below="@id/ivTop"
 			android:layout_height="wrap_content"
+			android:layout_toEndOf="@id/iView"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
 			android:visibility="visible"

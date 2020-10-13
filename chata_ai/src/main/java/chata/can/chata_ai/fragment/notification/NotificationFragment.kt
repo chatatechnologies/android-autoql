@@ -62,13 +62,16 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				tvLoading.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
+				rvNotification.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				tvLoading.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				tvLoading.setTextColor(it.getParsedColor(drawerTextColorPrimary))
 			}
 		}
 	}
 
 	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>)
 	{
+		rvNotification.visibility = View.VISIBLE
 		this.totalPages = totalPages
 		model.addAll(aNotification)
 		tvLoading.visibility = View.GONE
@@ -77,6 +80,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 
 	private fun getNotifications()
 	{
+		rvNotification.visibility = View.GONE
 		presenter.getNotifications()
 	}
 }
