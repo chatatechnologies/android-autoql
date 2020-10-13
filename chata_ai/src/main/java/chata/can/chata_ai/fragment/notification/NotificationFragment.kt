@@ -36,6 +36,10 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	{
 		super.onRenderViews(view)
 		getNotifications()
+		ThemeColor.aMethod[nameFragment] = {
+			setColors()
+			adapter.notifyDataSetChanged()
+		}
 	}
 
 	override fun initListener() {}

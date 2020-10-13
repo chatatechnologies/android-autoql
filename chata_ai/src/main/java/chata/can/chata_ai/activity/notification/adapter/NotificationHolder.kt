@@ -61,6 +61,10 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 				with(ThemeColor.currentColor) {
 					val white = getParsedColor(drawerBackgroundColor)
 					val gray = getParsedColor(drawerTextColorPrimary)
+					tvBody.setTextColor(gray)
+					tvDate.setTextColor(gray)
+					tvQuery.setTextColor(gray)
+					tvContent.setTextColor(gray)
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
 					val blue = getParsedColor(R.color.blue_chata_circle)

@@ -18,7 +18,7 @@
 		<View
 			android:id="@+id/iView"
 			android:layout_height="match_parent"
-			android:layout_width="8dp"/>
+			android:layout_width="4dp"/>
 		<LinearLayout
 			android:layout_toEndOf="@id/iView"
 			android:id="@+id/ivTop"
@@ -54,7 +54,7 @@
 			tools:ignore="WebViewLayout">
 			<View
 				android:background="@color/selected_gray"
-				android:layout_height="0.5dp"
+				android:layout_height="0.1dp"
 				android:layout_marginBottom="8dp"
 				android:layout_marginTop="8dp"
 				android:layout_width="match_parent"/>
@@ -67,9 +67,9 @@
 				android:textStyle="bold"/>
 			<View
 				android:background="@color/selected_gray"
-				android:layout_height="0.5dp"
-				android:layout_marginEnd="36dp"
-				android:layout_marginStart="36dp"
+				android:layout_height="0.1dp"
+				android:layout_marginEnd="24dp"
+				android:layout_marginStart="24dp"
 				android:layout_marginTop="4dp"
 				android:layout_width="match_parent"/>
 			<RelativeLayout
