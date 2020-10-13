@@ -131,6 +131,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 		DataMessengerFragment.exploreQueriesMethod = { openTips() }
 
+		ThemeColor.aMethod["PagerOptions"] = {
+			setColors()
+		}
+
 		addView(view)
 	}
 
@@ -284,6 +288,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	fun showNotify(bVisible: Boolean)
 	{
 		tvNotification.visibility = if (bVisible) View.VISIBLE else View.GONE
+	}
+
+	fun onDestroy()
+	{
+		ThemeColor.aMethod.remove("PagerOptions")
 	}
 
 	private fun showNotification()

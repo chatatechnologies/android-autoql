@@ -127,6 +127,12 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 	}
 
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		pagerOption.onDestroy()
+	}
+
 	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
 	{
 		pagerOption.bubbleData = bubbleData

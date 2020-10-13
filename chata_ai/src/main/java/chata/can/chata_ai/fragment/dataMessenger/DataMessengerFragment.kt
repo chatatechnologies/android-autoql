@@ -213,7 +213,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				etQuery.setHintTextColor(it.getParsedColor(R.color.place_holder))
 				etQuery.setTextColor(it.getParsedColor(drawerTextColorPrimary))
 
-				val blue = it.getParsedColor(drawerAccentColor)
+				val blue = it.getParsedColor(R.color.blue_chata_circle)
 				val circleDrawable = GradientDrawable().apply {
 					shape = GradientDrawable.OVAL
 					setColor(blue)
