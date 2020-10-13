@@ -120,7 +120,7 @@ class ExploreQueriesActivity: BaseActivity(R.layout.activity_explore_queries),
 	{
 		ivClear.visibility = gone
 		tvToolbar.text = exploreQueriesTile
-		etQuery.backgroundGrayWhite(64f,1)
+		etQuery.backgroundGrayWhite(64f)
 
 		val blue = getBlue()
 		ivSearch.background = DrawableBuilder.setOvalDrawable(blue)

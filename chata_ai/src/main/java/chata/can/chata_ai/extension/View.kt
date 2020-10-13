@@ -19,12 +19,11 @@ fun EditText.setOnTextChanged(listener: (String) -> Unit)
 	)
 }
 
-fun View.backgroundGrayWhite(iCornerRadius: Float = 18f, iWidthRadius: Int = 1)
+fun View.backgroundGrayWhite(iCornerRadius: Float = 18f)
 {
 	context.run {
 		val white = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-		val gray = context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-		background = DrawableBuilder.setGradientDrawable(white,iCornerRadius,iWidthRadius, gray)
+		background = DrawableBuilder.setGradientDrawable(white,iCornerRadius)
 	}
 }
 

@@ -322,7 +322,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			ivChat.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
-			rlChat.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+			rlChat.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
 			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
@@ -337,7 +337,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				ivSelected?.setColorFilter(getParsedColor(R.color.white))
-				rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+				rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
 				ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 				rlSelected = rlNew
 				ivSelected = ivNew

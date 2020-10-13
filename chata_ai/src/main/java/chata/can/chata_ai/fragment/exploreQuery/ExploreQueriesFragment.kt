@@ -121,7 +121,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	override fun setColors()
 	{
-		etQuery.backgroundGrayWhite(64f,1)
+		etQuery.backgroundGrayWhite(64f)
 
 		val blue = getBlue()
 		ivSearch.background = DrawableBuilder.setOvalDrawable(blue)
