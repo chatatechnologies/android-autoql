@@ -15,7 +15,7 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-
+			view.showText("Unable to find data.", 16f)
 		}
 	}
 
@@ -29,9 +29,9 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 					"suggestion" ->
 					{
 						if (SinglentonDrawer.mIsEnableSuggestion)
-							view.showText("${queryBase.displayType} not supported")
+							view.showText("${queryBase.displayType} not supported", 16f)
 						else
-							view.showText("${queryBase.displayType} not supported")
+							view.showText("${queryBase.displayType} not supported", 16f)
 					}
 					dataKey ->
 					{
@@ -41,7 +41,7 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 						{
 							numRows == 0 ->
 							{
-								view.showText(queryBase.contentHTML)
+								view.showText(queryBase.contentHTML, 22f)
 							}
 							(numColumns == 1 && numRows > 1) || numColumns > 1 ->
 							{
@@ -54,12 +54,12 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 									//TODO SHOW HELP
 								}
 								else
-									view.showText(queryBase.contentHTML)
+									view.showText(queryBase.contentHTML, 22f)
 							}
-							else -> view.showText(queryBase.contentHTML)
+							else -> view.showText(queryBase.contentHTML, 22f)
 						}
 					}
-					else -> view.showText(queryBase.contentHTML)
+					else -> view.showText(queryBase.contentHTML, 22f)
 				}
 			}
 		}

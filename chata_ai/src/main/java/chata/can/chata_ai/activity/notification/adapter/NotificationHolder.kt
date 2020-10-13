@@ -1,5 +1,6 @@
 package chata.can.chata_ai.activity.notification.adapter
 
+import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
 import android.widget.TextView
@@ -86,10 +87,11 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		wbQuery.visibility = View.GONE
 	}
 
-	override fun showText(text: String)
+	override fun showText(text: String, textSize: Float)
 	{
 		rlLoad.visibility = View.GONE
 		tvContent.visibility = View.VISIBLE
+		tvContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
 		tvContent.text = text
 	}
 
