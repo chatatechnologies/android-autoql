@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
+import android.graphics.Typeface
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -33,10 +34,11 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 			ll1.context?.let {
 				val backgroundColor = it.getParsedColor(drawerBackgroundColor)
 				ll1.background =  DrawableBuilder.setGradientDrawable(backgroundColor, 18f)
+				tvExecute.setTextColor(it.getParsedColor(drawerTextColorPrimary))
 			}
 		}
-//		tvExecute.setTextColor(drawerColorPrimary)
-//		tvExecute2.setTextColor(drawerColorPrimary)
+
+		tvExecute.setTypeface(tvExecute.typeface, Typeface.ITALIC)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

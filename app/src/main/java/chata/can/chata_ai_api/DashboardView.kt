@@ -47,7 +47,7 @@ object DashboardView
 				}
 				val view = View(context).apply {
 					layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
-					setBackgroundColor(getParsedColor(R.color.selected_gray))
+					setBackgroundColor(getParsedColor(R.color.short_line_dashboard))
 					margin(bottom = 5f, top = 5f)
 				}
 				addView(tvTitle)
@@ -222,7 +222,7 @@ object DashboardView
 
 					val iView = View(context).apply {
 						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-						setBackgroundColor(getParsedColor(R.color.under_line_dashboard))
+						setBackgroundColor(getParsedColor(R.color.separator_dashboard))
 						margin(bottom = 2f, top = 2f)
 						id = R.id.iView
 					}
