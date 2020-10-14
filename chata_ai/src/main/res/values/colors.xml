@@ -37,6 +37,7 @@
 
 	<color name="short_line_dashboard">#484C52</color>
 	<color name="separator_dashboard">#66696E</color>
+	<color name="border_widget_dashboard">#D9D9D9</color>
 
 	<color name="chata_drawer_accent_color">#538CA2</color>
 	<color name="chata_drawer_accent_color_dark">#525252</color>

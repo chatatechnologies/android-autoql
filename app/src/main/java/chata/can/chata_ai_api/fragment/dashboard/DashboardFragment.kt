@@ -6,7 +6,6 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
@@ -56,18 +55,17 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
+				val backgroundColor = it.getParsedColor(R.color.white)
+				val border = it.getParsedColor(R.color.border_widget_dashboard)
 				rvDashboard.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				btnExecute.background = DrawableBuilder.setGradientDrawable(
+					backgroundColor,18f, 3, border)
+				btnDashboard.background = DrawableBuilder.setGradientDrawable(
+					backgroundColor,18f, 3, border)
+				spDashboard.setPopupBackgroundDrawable(
+					DrawableBuilder.setGradientDrawable(
+						backgroundColor,18f, 3, border))
 			}
-		}
-
-		btnExecute.backgroundGrayWhite()
-		btnDashboard.backgroundGrayWhite()
-
-		spDashboard.context.run {
-			val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-			spDashboard.setPopupBackgroundDrawable(
-				DrawableBuilder.setGradientDrawable(white,18f,2, gray))
 		}
 	}
 
