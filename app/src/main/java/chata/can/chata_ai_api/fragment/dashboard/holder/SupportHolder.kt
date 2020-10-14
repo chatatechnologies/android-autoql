@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
@@ -13,7 +14,7 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 	override fun onPaint()
 	{
 		super.onPaint()
-		tvContent.setTextColor(drawerColorPrimary)
+		tvContent.setTextColor(ThemeColor.currentColor.drawerTextColorPrimary)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

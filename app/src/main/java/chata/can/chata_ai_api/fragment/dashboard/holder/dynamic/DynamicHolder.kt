@@ -2,10 +2,13 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
 import android.widget.LinearLayout
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.DashboardView.getChildContent
 import chata.can.chata_ai_api.DashboardView.getChildLoading
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
@@ -23,8 +26,20 @@ class DynamicHolder(
 	private val tData1 = Triple(R.id.rlWebView, R.id.webView, R.id.rlLoad)
 	private val tData2 = Triple(R.id.rvSplitView, R.id.webView2, R.id.rlLoad2)
 
+	private val ll1 = itemView.findViewById<View>(R.id.ll1)
 	private val lls1 = itemView.findViewById<LinearLayout>(R.id.lls1)
 	private val lls2 = itemView.findViewById<LinearLayout>(R.id.lls2)
+
+	override fun onPaint()
+	{
+		with(ThemeColor.currentColor)
+		{
+			ll1?.context?.let {
+				val backgroundColor = it.getParsedColor(drawerBackgroundColor)
+				ll1.background =  DrawableBuilder.setGradientDrawable(backgroundColor, 18f)
+			}
+		}
+	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{

@@ -6,6 +6,7 @@ import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
@@ -16,7 +17,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 	override fun onPaint()
 	{
 		super.onPaint()
-		tvContent.setTextColor(drawerColorPrimary)
+		tvContent.setTextColor(ThemeColor.currentColor.drawerTextColorPrimary)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

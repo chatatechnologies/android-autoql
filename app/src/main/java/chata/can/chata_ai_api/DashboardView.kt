@@ -40,7 +40,7 @@ object DashboardView
 			context.run {
 				val tvTitle = TextView(this).apply {
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-					setTextColor(getParsedColor(R.color.blue))
+					setTextColor(getParsedColor(R.color.chata_drawer_accent_color))
 					setTypeface(typeface, Typeface.BOLD)
 					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 					id = R.id.tvTitle
@@ -222,7 +222,7 @@ object DashboardView
 
 					val iView = View(context).apply {
 						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
-						setBackgroundColor(getParsedColor(R.color.selected_gray))
+						setBackgroundColor(getParsedColor(R.color.under_line_dashboard))
 						margin(bottom = 2f, top = 2f)
 						id = R.id.iView
 					}
@@ -238,6 +238,7 @@ object DashboardView
 				}
 				addView(ll1)
 			}
+
 		}
 	}
 	//endregion

@@ -21,6 +21,26 @@ import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
 
 class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 {
+	companion object {
+		const val nameFragment = "Dashboard"
+		fun newInstance() = DashboardFragment().putArgs {
+			putInt("LAYOUT", R.layout.fragment_slide_page)
+		}
+	}
+
+	private lateinit var swLoad: SwitchCompat
+	private lateinit var btnExecute: TextView
+	private lateinit var btnDashboard: TextView
+	private lateinit var spDashboard: Spinner
+	private lateinit var rvDashboard: RecyclerView
+	private lateinit var tvEmptyDashboard: TextView
+	private lateinit var gridAdapter: GridAdapter
+	private var presenter = DashboardPresenter(this)
+	private val mModel = BaseModelList<Dashboard>()
+	private var isQueryClean = true
+	private var isAutomatic = false
+	private var isLoaded = false
+
 	override fun initViews(view: View)
 	{
 		swLoad = view.findViewById(R.id.swLoad)
@@ -33,6 +53,13 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun setColors()
 	{
+		with(ThemeColor.currentColor)
+		{
+			activity?.let {
+				rvDashboard.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+			}
+		}
+
 		btnExecute.backgroundGrayWhite()
 		btnDashboard.backgroundGrayWhite()
 
@@ -183,24 +210,4 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		presenter.updateModel()
 		presenter.getDashboardQueries()
 	}
-
-	companion object {
-		const val nameFragment = "Dashboard"
-		fun newInstance() = DashboardFragment().putArgs {
-				putInt("LAYOUT", R.layout.fragment_slide_page)
-			}
-	}
-
-	private lateinit var swLoad: SwitchCompat
-	private lateinit var btnExecute: TextView
-	private lateinit var btnDashboard: TextView
-	private lateinit var spDashboard: Spinner
-	private lateinit var rvDashboard: RecyclerView
-	private lateinit var tvEmptyDashboard: TextView
-	private lateinit var gridAdapter: GridAdapter
-	private var presenter = DashboardPresenter(this)
-	private val mModel = BaseModelList<Dashboard>()
-	private var isQueryClean = true
-	private var isAutomatic = false
-	private var isLoaded = false
 }
