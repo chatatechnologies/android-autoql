@@ -9,32 +9,33 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai_api.R
 
-class DashboardSpinnerAdapter(context: Context, aData: List<String>)
+class DashboardSpinnerAdapter(
+	context: Context,
+	aData: List<String>)
 	: ArrayAdapter<String>(context, 0, aData)
 {
+	private val baseColor = R.color.white
+	private val selectedColor = R.color.background_dashboard_select
 	var positionSelect = 0
 
-	private val pBackgroundColors = Pair(R.color.selected_gray, ThemeColor.currentColor.drawerBackgroundColor)
-	private val pLineColors = Pair(R.color.white, R.color.selected_gray)
-
-	private fun backgroundByPosition(position: Int, pColors: Pair<Int, Int>): GradientDrawable
+	private fun backgroundByPosition(position: Int): GradientDrawable
 	{
 		return GradientDrawable().apply {
 			shape = GradientDrawable.RECTANGLE
 			setColor(
 				context.getParsedColor(
 					if (position == positionSelect)
-						pColors.first
+						selectedColor
 					else
-					{
-						if (position == positionSelect - 1)
-							R.color.white
-						else
-							pColors.second
-					}
+						baseColor
+//					{
+//						if (position == positionSelect - 1)
+//							R.color.white
+//						else
+//							pColors.second
+//					}
 				)
 			)
 		}
@@ -54,12 +55,11 @@ class DashboardSpinnerAdapter(context: Context, aData: List<String>)
 		val view = convertView ?: LayoutInflater.from(context).inflate(
 			R.layout.row_spinner_dashboard, nullParent)
 		val tv = view.findViewById<TextView>(R.id.tvDashboard)
-		val iView = view.findViewById<View>(R.id.iView)
 
 		tv.text = getItem(position) ?: ""
-		tv.background = backgroundByPosition(position, pBackgroundColors)
-
-		iView.background = backgroundByPosition(position, pLineColors)
+		val textColor = tv.context.getParsedColor(R.color.text_dashboard_spinner)
+		tv.setTextColor(textColor)
+		tv.background = backgroundByPosition(position)
 		return view
 	}
 }

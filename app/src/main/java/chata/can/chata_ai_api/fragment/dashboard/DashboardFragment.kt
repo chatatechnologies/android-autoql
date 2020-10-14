@@ -139,6 +139,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			rvDashboard.adapter = gridAdapter
 
 			val aData = SinglentonDashboard.getDashboardNames()
+
 			val adapter = DashboardSpinnerAdapter(it, aData)
 			spDashboard.adapter = adapter
 
