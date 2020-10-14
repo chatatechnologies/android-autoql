@@ -73,16 +73,28 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 						SinglentonDrawer.mModel.clear()
 					setStatusGUI(false)
 				}
-				R.id.rlChat -> openChat()
-				R.id.rlTips -> openTips()
-				R.id.rlNotify ->
+				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
-					changeColor(rlNotify, ivNotify)
-					updateTitle()
-					setVisibleDelete(false)
-					showNotification()
-					fragment = NotificationFragment.newInstance()
-					fragmentManager?.let { addFragment(it, fragment) }
+					rlSelected?.let {
+						if (it.id != _view.id)
+						{
+							when(_view.id)
+							{
+								R.id.rlChat -> openChat()
+								R.id.rlTips -> openTips()
+								R.id.rlNotify ->
+								{
+									changeColor(rlNotify, ivNotify)
+									updateTitle()
+									setVisibleDelete(false)
+									showNotification()
+									fragment = NotificationFragment.newInstance()
+									fragmentManager?.let { fragmentManager -> addFragment(fragmentManager, fragment) }
+								}
+								else -> {}
+							}
+						}
+					}
 				}
 				else -> {}
 			}
