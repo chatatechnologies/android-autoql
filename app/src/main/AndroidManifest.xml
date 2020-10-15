@@ -17,7 +17,9 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
 
-		<activity android:name=".main.PagerActivity">
+		<activity
+			android:name=".main.PagerActivity"
+			android:configChanges="orientation|screenSize">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />

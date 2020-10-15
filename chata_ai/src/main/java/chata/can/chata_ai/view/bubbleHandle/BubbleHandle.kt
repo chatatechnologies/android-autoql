@@ -66,7 +66,7 @@ class BubbleHandle(
 		}
 	}
 
-	var isNecessaryLogin = true
+	private var isNecessaryLogin = true
 		set(value) {
 			DataMessenger.isNecessaryLogin = value
 			field = value
