@@ -101,12 +101,20 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onResume()
 	{
 		super.onResume()
+		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
+		{
+			BubbleHandle.instance.isVisible = true
+		}
 		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
 	}
 
 	override fun onPause()
 	{
 		super.onPause()
+		if (!pagerOption.isVisible)
+		{
+			BubbleHandle.instance.isVisible = false
+		}
 		unregisterReceiver(receiver)
 	}
 

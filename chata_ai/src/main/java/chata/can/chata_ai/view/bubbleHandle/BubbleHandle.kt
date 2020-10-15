@@ -41,6 +41,10 @@ class BubbleHandle(
 
 	companion object {
 		lateinit var instance: BubbleHandle
+		fun isInitialize(): Boolean
+		{
+			return this::instance.isInitialized
+		}
 
 		const val THEME_LIGHT = true
 		const val THEME_DARK = false
