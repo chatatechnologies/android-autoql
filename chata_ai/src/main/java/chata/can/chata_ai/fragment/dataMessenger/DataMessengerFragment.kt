@@ -140,17 +140,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				AlertDialog.Builder(fragmentActivity)
 					.setMessage("Clear all queries & responses?")
 					.setPositiveButton("Clear") { _, _ ->
-						model.clear()
-						val introMessageRes =
-							if (PagerData.introMessage.isNotEmpty())
-								PagerData.introMessage
-							else
-								"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-
-						val introMessage = String.format(introMessageRes, PagerData.customerName)
-						model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-						model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-						notifyAdapter()
+						clearQueriesAndResponses()
 					}
 					.setNegativeButton("Cancel", null).show()
 			}
@@ -184,6 +174,21 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		ScreenData.defaultDisplay.getRealMetrics(displayMetrics)
 		val width = displayMetrics.widthPixels
 		etQuery.dropDownWidth = width
+	}
+
+	fun clearQueriesAndResponses()
+	{
+		model.clear()
+		val introMessageRes =
+			if (PagerData.introMessage.isNotEmpty())
+				PagerData.introMessage
+			else
+				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+
+		val introMessage = String.format(introMessageRes, PagerData.customerName)
+		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+		model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+		notifyAdapter()
 	}
 
 	override fun initViews(view: View)

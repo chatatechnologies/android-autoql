@@ -519,7 +519,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.btnReloadDrawer ->
 				{
-					bubbleHandle?.reloadData()
+//					bubbleHandle?.reloadData()
+					activity?.run {
+						if (this is PagerActivity)
+						{
+							clearDataMessenger()
+						}
+					}
 				}
 				R.id.btnOpenDrawer ->
 				{

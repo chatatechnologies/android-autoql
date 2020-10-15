@@ -11,10 +11,11 @@ inline fun Fragment.putArgs(block: Bundle.() -> Unit) = apply {
 fun addFragment(
 	fragmentManager: FragmentManager,
 	fragment: Fragment,
+	nameFragment: String ?= ""
 )
 {
 	fragmentManager.beginTransaction()
-		.replace(R.id.frmLocal, fragment)
+		.replace(R.id.frmLocal, fragment, nameFragment)
 		.addToBackStack(null)
 		.commit()
 }

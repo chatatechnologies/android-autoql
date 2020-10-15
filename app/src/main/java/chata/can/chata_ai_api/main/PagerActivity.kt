@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
@@ -147,6 +148,16 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		hideKeyboard()
 		pagerOption.setStatusGUI(isVisible)
 		pagerOption.paintViews()
+	}
+
+	fun clearDataMessenger()
+	{
+		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+			if (it is DataMessengerFragment)
+			{
+				it.clearQueriesAndResponses()
+			}
+		}
 	}
 
 	private fun initBubble()

@@ -258,9 +258,13 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		this.isVisible = isVisible
 		val iVisible = if (isVisible)
 		{
+			var nameFragment = ""
 			if (fragment is DataMessengerFragment)
+			{
+				nameFragment = DataMessengerFragment.nameFragment
 				setDataToDataMessenger()
-			fragmentManager?.let { addFragment(it, fragment) }
+			}
+			fragmentManager?.let { addFragment(it, fragment, nameFragment) }
 			context?.let {
 				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
 				startAnimation(animationTop)
@@ -280,7 +284,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		setVisibleDelete(true)
 		fragment = DataMessengerFragment.newInstance()
 		setDataToDataMessenger()
-		fragmentManager?.let { addFragment(it, fragment) }
+		fragmentManager?.let { addFragment(it, fragment, DataMessengerFragment.nameFragment) }
 	}
 
 	private fun openTips()
