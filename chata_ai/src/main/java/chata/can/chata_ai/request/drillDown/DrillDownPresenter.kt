@@ -14,7 +14,7 @@ import org.json.JSONObject
 
 class DrillDownPresenter(
 	private val queryBase: QueryBase,
-	private val view: ChatContract.View?): StatusResponse
+	private val chatView: ChatContract.View?): StatusResponse
 {
 	fun postDrillDown(valueInRow: String = "")
 	{
@@ -116,8 +116,10 @@ class DrillDownPresenter(
 				}
 				else -> TypeChatView.LEFT_VIEW
 			}
-			view?.isLoading(false)
-			view?.addNewChat(typeView, queryBase)
+			chatView?.run {
+//				isLoading(false)
+				addNewChat(typeView, queryBase)
+			}
 		}
 	}
 }

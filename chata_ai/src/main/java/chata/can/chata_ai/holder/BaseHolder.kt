@@ -24,7 +24,6 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
-//	val llMainBase = itemView.findViewById<LinearLayout>(R.id.llMainBase) ?: null
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null

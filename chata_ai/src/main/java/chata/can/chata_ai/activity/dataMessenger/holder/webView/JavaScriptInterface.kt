@@ -8,9 +8,9 @@ import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 class JavaScriptInterface(
 	private val queryBase: QueryBase,
-	private val view: ChatContract.View?)
+	private val chatView: ChatContract.View?)
 {
-	private val presenter = DrillDownPresenter(queryBase, view)
+	private val presenter = DrillDownPresenter(queryBase, chatView)
 
 	@JavascriptInterface
 	fun boundMethod(content: String)
@@ -71,7 +71,7 @@ class JavaScriptInterface(
 
 			if (newContent.isNotEmpty())
 			{
-				view?.isLoading(true)
+				chatView?.isLoading(true)
 //				presenter.postDrillDown(newContent)
 			}
 		}
