@@ -17,6 +17,7 @@
 			android:layout_width="match_parent"/>
 
 		<chata.can.chata_ai.view.gif.GifView
+			android:background="@android:color/transparent"
 			android:id="@+id/gifView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
