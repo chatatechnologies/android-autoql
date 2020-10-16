@@ -42,11 +42,7 @@ object ChildWebView {
 			clearHistory()
 			requestLayout()
 			settings.javaScriptEnabled = true
-
-			if (queryBase.hasDrillDown && SinglentonDrawer.mIsEnableDrillDown)
-			{
-				addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
-			}
+			addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
 			loadDataWithBaseURL(
 				null,
 				queryBase.contentHTML,

@@ -2,6 +2,7 @@ package chata.can.chata_ai.activity.dataMessenger.holder.webView
 
 import android.webkit.JavascriptInterface
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
@@ -14,62 +15,65 @@ class JavaScriptInterface(
 	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
-		val sizeColumn = queryBase.aColumn.size
-		var newContent = content
-		when(sizeColumn)
+		if (SinglentonDrawer.mIsEnableDrillDown)
 		{
-			2 ->
+			val sizeColumn = queryBase.aColumn.size
+			var newContent = content
+			when(sizeColumn)
 			{
-				if (content.contains("_"))
+				2 ->
 				{
-					val aPositions = content.split("_")
-					if (aPositions.size > 1)
+					if (content.contains("_"))
 					{
-						aPositions[0].toIntOrNull()?.let {
-							val aRows = queryBase.aRows
-							newContent = aRows[it][0]
-						}
-					}
-				}
-				else
-				{
-					val index = queryBase.aXAxis.indexOf(newContent)
-					if (index != -1)
-					{
-						newContent = queryBase.aXDrillDown[index]
-					}
-				}
-			}
-			3 ->
-			{
-				if (content.contains("_"))
-				{
-					val aPositions = content.split("_")
-					if (aPositions.size > 1)
-					{
-						aPositions[0].toIntOrNull()?.let {
-							itPosition ->
-							val buildContent = StringBuilder("")
-							val aRows = queryBase.aRows[itPosition]
-
-							for (index in queryBase.aColumn.indices)
-							{
-								val column = queryBase.aColumn[index]
-								if (column.isGroupable)
-								{
-									buildContent.append("${aRows[index]}_")
-								}
+						val aPositions = content.split("_")
+						if (aPositions.size > 1)
+						{
+							aPositions[0].toIntOrNull()?.let {
+								val aRows = queryBase.aRows
+								newContent = aRows[it][0]
 							}
-							newContent = buildContent.toString().removeSuffix("_")
+						}
+					}
+					else
+					{
+						val index = queryBase.aXAxis.indexOf(newContent)
+						if (index != -1)
+						{
+							newContent = queryBase.aXDrillDown[index]
+						}
+					}
+				}
+				3 ->
+				{
+					if (content.contains("_"))
+					{
+						val aPositions = content.split("_")
+						if (aPositions.size > 1)
+						{
+							aPositions[0].toIntOrNull()?.let {
+									itPosition ->
+								val buildContent = StringBuilder("")
+								val aRows = queryBase.aRows[itPosition]
+
+								for (index in queryBase.aColumn.indices)
+								{
+									val column = queryBase.aColumn[index]
+									if (column.isGroupable)
+									{
+										buildContent.append("${aRows[index]}_")
+									}
+								}
+								newContent = buildContent.toString().removeSuffix("_")
+							}
 						}
 					}
 				}
 			}
-		}
 
-		if (newContent.isNotEmpty())
-		{
-			presenter.postDrillDown(newContent)
+			if (newContent.isNotEmpty())
+			{
+				presenter.postDrillDown(newContent)
+			}
 		}
 	}
 }

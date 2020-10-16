@@ -38,9 +38,9 @@ object ChildContent {
 	private fun setDataContent(tvContent: TextView, queryBase: QueryBase)
 	{
 		tvContent.text = queryBase.contentHTML
-		if (SinglentonDrawer.mIsEnableDrillDown)
-		{
-			tvContent.setOnClickListener {
+		tvContent.setOnClickListener {
+			if (SinglentonDrawer.mIsEnableDrillDown)
+			{
 				DrillDownDialog(tvContent.context, queryBase).show()
 			}
 		}

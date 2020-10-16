@@ -35,10 +35,10 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						}
 					}
 					it.text = contentHTML
-					if (SinglentonDrawer.mIsEnableDrillDown)
-					{
-						item.queryBase?.let { simpleQuery ->
-							it.setOnClickListener { view ->
+					item.queryBase?.let { simpleQuery ->
+						it.setOnClickListener { view ->
+							if (SinglentonDrawer.mIsEnableDrillDown)
+							{
 								DrillDownDialog(view.context, simpleQuery).show()
 							}
 						}
