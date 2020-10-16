@@ -117,7 +117,7 @@ class DrillDownPresenter(
 				else -> TypeChatView.LEFT_VIEW
 			}
 			chatView?.run {
-//				isLoading(false)
+				isLoading(false)
 				addNewChat(typeView, queryBase)
 			}
 		}

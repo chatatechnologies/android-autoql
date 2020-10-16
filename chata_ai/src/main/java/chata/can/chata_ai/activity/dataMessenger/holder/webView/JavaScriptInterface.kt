@@ -1,5 +1,7 @@
 package chata.can.chata_ai.activity.dataMessenger.holder.webView
 
+import android.app.Activity
+import android.content.Context
 import android.webkit.JavascriptInterface
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -7,6 +9,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 class JavaScriptInterface(
+	private val context: Context,
 	private val queryBase: QueryBase,
 	private val chatView: ChatContract.View?)
 {
@@ -71,8 +74,10 @@ class JavaScriptInterface(
 
 			if (newContent.isNotEmpty())
 			{
-				chatView?.isLoading(true)
-//				presenter.postDrillDown(newContent)
+				(context as? Activity)?.runOnUiThread {
+					chatView?.isLoading(true)
+				}
+				presenter.postDrillDown(newContent)
 			}
 		}
 	}

@@ -373,7 +373,8 @@ class WebViewHolder(
 			queryBase?.let {
 				if (it.hasDrillDown)
 				{
-					addJavascriptInterface(JavaScriptInterface(it, chatView), "Android")
+					addJavascriptInterface(
+						JavaScriptInterface(webView.context, it, chatView), "Android")
 				}
 			}
 			loadDataWithBaseURL(
