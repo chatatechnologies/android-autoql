@@ -193,17 +193,6 @@ class BubbleHandle(
 		}
 	}
 
-	fun reloadData()
-	{
-		SinglentonDrawer.mModel.clear()
-		/*isVisible = true
-		placement = ConstantDrawer.RIGHT_PLACEMENT
-		title = "Data Messenger"
-		userDisplayName = "there"
-		introMessage = "Hi %s! Let\'s dive into your data. What can I help you discover today?"
-		inputPlaceholder = "Type your queries here"*/
-	}
-
 	/**
 	 * open chat
 	 */

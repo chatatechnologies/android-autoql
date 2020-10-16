@@ -519,7 +519,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.btnReloadDrawer ->
 				{
-//					bubbleHandle?.reloadData()
 					activity?.run {
 						if (this is PagerActivity)
 						{

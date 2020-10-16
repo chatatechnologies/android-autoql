@@ -116,6 +116,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					{
 						presenter.getAutocomplete(string)
 					}
+					else
+					{
+						adapterAutoComplete.clear()
+						adapterAutoComplete.notifyDataSetChanged()
+					}
 					with(ivMicrophone)
 					{
 						setImageResource(R.drawable.ic_send)
