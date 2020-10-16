@@ -11,6 +11,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -153,7 +154,10 @@ open class BaseHolder(
 					simpleQuery.contentHTML.isNotEmpty() ->
 					{
 						tvContent.setOnClickListener {
-							DrillDownPresenter(simpleQuery, chatView).postDrillDown()
+							if (SinglentonDrawer.mIsEnableDrillDown)
+							{
+								DrillDownPresenter(simpleQuery, chatView).postDrillDown()
+							}
 						}
 						simpleQuery.isLoadingHTML = false
 						simpleQuery.contentHTML
