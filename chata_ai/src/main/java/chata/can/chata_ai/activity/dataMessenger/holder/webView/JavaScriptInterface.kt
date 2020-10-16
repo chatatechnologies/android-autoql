@@ -8,7 +8,7 @@ import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 class JavaScriptInterface(
 	private val queryBase: QueryBase,
-	view: ChatContract.View?)
+	private val view: ChatContract.View?)
 {
 	private val presenter = DrillDownPresenter(queryBase, view)
 
@@ -50,8 +50,7 @@ class JavaScriptInterface(
 						val aPositions = content.split("_")
 						if (aPositions.size > 1)
 						{
-							aPositions[0].toIntOrNull()?.let {
-									itPosition ->
+							aPositions[0].toIntOrNull()?.let { itPosition ->
 								val buildContent = StringBuilder("")
 								val aRows = queryBase.aRows[itPosition]
 
@@ -72,7 +71,8 @@ class JavaScriptInterface(
 
 			if (newContent.isNotEmpty())
 			{
-				presenter.postDrillDown(newContent)
+				view?.isLoading(true)
+//				presenter.postDrillDown(newContent)
 			}
 		}
 	}

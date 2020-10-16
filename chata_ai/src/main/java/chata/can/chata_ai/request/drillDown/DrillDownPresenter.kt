@@ -116,6 +116,7 @@ class DrillDownPresenter(
 				}
 				else -> TypeChatView.LEFT_VIEW
 			}
+			view?.isLoading(false)
 			view?.addNewChat(typeView, queryBase)
 		}
 	}

@@ -156,6 +156,7 @@ open class BaseHolder(
 						tvContent.setOnClickListener {
 							if (SinglentonDrawer.mIsEnableDrillDown)
 							{
+								chatView?.isLoading(true)
 								DrillDownPresenter(simpleQuery, chatView).postDrillDown()
 							}
 						}
