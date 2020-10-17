@@ -217,6 +217,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			activity?.let {
 				llParent.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				rvChat.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
 				tvMsg.setTextColor(it.getParsedColor(R.color.we_run))
 				ivRun.setColorFilter(it.getParsedColor(R.color.we_run))
 

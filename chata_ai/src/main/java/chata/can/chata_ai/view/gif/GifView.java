@@ -5,7 +5,6 @@ import java.io.InputStream;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Movie;
 import android.util.AttributeSet;
 import android.view.View;
@@ -45,7 +44,7 @@ public class GifView extends View
 		gifMovie = Movie.decodeStream(gifInputStream);
 		movieWidth = gifMovie.width();
 		movieHeight = gifMovie.height();
-		setBackgroundColor(Color.GREEN);
+//		setBackgroundColor(Color.GREEN);
 	}
 
 	@Override
@@ -63,10 +62,11 @@ public class GifView extends View
 			mMovieStart = now;
 		}
 
-		if (gifMovie != null) {
-
+		if (gifMovie != null)
+		{
 			int dur = gifMovie.duration();
-			if (dur == 0) {
+			if (dur == 0)
+			{
 				dur = 1000;
 			}
 			int relTime = (int)((now - mMovieStart) % dur);

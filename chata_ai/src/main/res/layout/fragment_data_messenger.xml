@@ -16,15 +16,8 @@
 			android:layout_weight="1"
 			android:layout_width="match_parent"/>
 
-		<chata.can.chata_ai.view.gif.GifView
-			android:background="@android:color/transparent"
-			android:id="@+id/gifView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:visibility="gone"/>
-
 		<RelativeLayout
-			android:layout_height="wrap_content"
+			android:layout_height="36dp"
 			android:layout_width="match_parent">
 			<TextView
 				android:id="@+id/tvMsg"
@@ -43,6 +36,14 @@
 				android:layout_height="12dp"
 				android:layout_width="12dp"
 				android:src="@drawable/ic_chata"/>
+
+			<chata.can.chata_ai.view.gif.GifView
+				android:layout_centerVertical="true"
+				android:id="@+id/gifView"
+				android:layout_height="wrap_content"
+				android:layout_toStartOf="@id/ivRun"
+				android:layout_width="wrap_content"
+				android:visibility="gone"/>
 		</RelativeLayout>
 
 		<RelativeLayout
