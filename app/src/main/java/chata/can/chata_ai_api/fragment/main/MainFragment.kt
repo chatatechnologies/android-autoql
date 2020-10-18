@@ -138,7 +138,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etCustomerMessage?.setText(customerMessage)
 			val title = nameFragment
 			etTitle?.setText(title)
-			val maxMessage = 10
+			val maxMessage = 4
 			etMaxNumberMessage?.setText("$maxMessage")
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()

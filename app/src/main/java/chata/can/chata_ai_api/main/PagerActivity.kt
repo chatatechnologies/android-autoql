@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
@@ -148,6 +149,27 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		hideKeyboard()
 		pagerOption.setStatusGUI(isVisible)
 		pagerOption.paintViews()
+	}
+
+	fun updateData()
+	{
+		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+			if (it is DataMessengerFragment)
+			{
+				pagerOption.bubbleData?.let { bubble ->
+					val argument = Bundle().apply {
+						putString("CUSTOMER_NAME", bubble.customerName)
+						putString("TITLE", bubble.title)
+						putString("INTRO_MESSAGE", bubble.introMessage)
+						putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+						putInt("MAX_MESSAGES", bubble.maxMessage)
+						putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+						putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+					}
+					it.updateData(argument)
+				}
+			}
+		}
 	}
 
 	fun clearDataMessenger()

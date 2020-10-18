@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
@@ -179,6 +180,21 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		ScreenData.defaultDisplay.getRealMetrics(displayMetrics)
 		val width = displayMetrics.widthPixels
 		etQuery.dropDownWidth = width
+	}
+
+	fun updateData(arguments: Bundle)
+	{
+		arguments.let {
+			DataMessengerData.run {
+				customerName = it.getString("CUSTOMER_NAME") ?: ""
+				title = it.getString("TITLE") ?: ""
+				introMessage = it.getString("INTRO_MESSAGE") ?: ""
+				inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
+				maxMessages = it.getInt("MAX_MESSAGES")
+				clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
+				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
+			}
+		}
 	}
 
 	fun clearQueriesAndResponses()

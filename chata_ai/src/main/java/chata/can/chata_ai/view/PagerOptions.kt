@@ -1,6 +1,7 @@
 package chata.can.chata_ai.view
 
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -269,12 +270,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
 				startAnimation(animationTop)
 			}
+			updateTitle()
 			View.VISIBLE
 		}
 		else View.GONE
 		llMenu.visibility = iVisible
 		rlLocal.visibility = iVisible
-		updateTitle()
 	}
 
 	private fun openChat()
@@ -393,16 +394,28 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 	private fun setDataToDataMessenger()
 	{
-		fragment.arguments?.let {
-			bubbleData?.let { bubble ->
-				it.putString("CUSTOMER_NAME", bubble.customerName)
-				it.putString("TITLE", bubble.title)
-				it.putString("INTRO_MESSAGE", bubble.introMessage)
-				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-				it.putInt("MAX_MESSAGES", bubble.maxMessage)
-				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+		bubbleData?.let { bubble ->
+			val argument = Bundle().apply {
+				putString("CUSTOMER_NAME", bubble.customerName)
+				putString("TITLE", bubble.title)
+				putString("INTRO_MESSAGE", bubble.introMessage)
+				putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+				putInt("MAX_MESSAGES", bubble.maxMessage)
+				putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+				putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 			}
+			(fragment as? DataMessengerFragment)?.updateData(argument)
 		}
+//		fragment.arguments?.let {
+//			bubbleData?.let { bubble ->
+//				it.putString("CUSTOMER_NAME", bubble.customerName)
+//				it.putString("TITLE", bubble.title)
+//				it.putString("INTRO_MESSAGE", bubble.introMessage)
+//				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+//				it.putInt("MAX_MESSAGES", bubble.maxMessage)
+//				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+//				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+//			}
+//		}
 	}
 }
