@@ -2,6 +2,8 @@ package chata.can.chata_ai.pojo.dataFormatting
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.currency.Currency
+import java.time.Month
+import java.time.format.TextStyle
 import java.util.*
 
 data class DataFormatting(
@@ -27,6 +29,13 @@ data class DataFormatting(
 		{
 			if (ValidateLocale.isValid(Locale(aData[0], aData[1])))
 			{
+				val locale = Locale(aData[0], aData[1])
+				SinglentonDrawer.aMonths.clear()
+				for (i in 1 .. 12)
+				{
+					val month = ValidateLocale.getMonth(i, locale)
+					SinglentonDrawer.aMonths.add(month)
+				}
 				SinglentonDrawer.languageCode = value
 				field = value
 			}

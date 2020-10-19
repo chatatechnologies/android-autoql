@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.dataFormatting
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 object ValidateLocale {
@@ -10,5 +11,14 @@ object ValidateLocale {
 		} catch (ex: MissingResourceException) {
 			false
 		}
+	}
+
+	fun getMonth(iMonth: Int, locale: Locale): String
+	{
+		val formatter = SimpleDateFormat("MMMM", locale)
+		val calendar = GregorianCalendar()
+		calendar.set(Calendar.DAY_OF_MONTH, 1)
+		calendar.set(Calendar.MONTH, iMonth - 1)
+		return formatter.format(calendar.time)
 	}
 }

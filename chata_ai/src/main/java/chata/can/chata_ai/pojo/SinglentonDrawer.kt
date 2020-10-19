@@ -2,6 +2,8 @@ package chata.can.chata_ai.pojo
 
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Class with data for config queries and Drawer
@@ -17,6 +19,7 @@ object SinglentonDrawer
 	var quantityDecimals = 1
 	var monthYearFormat = "MMM YYYY"
 	var dayMonthYearFormat = "MMM DD, YYYY"
+	var localeLanguage: Locale ?= null
 	var aMonths = arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 	//endregion
 
