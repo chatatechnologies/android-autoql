@@ -37,7 +37,7 @@ object DashboardMaker
 		"""
 	}
 
-	fun getHTMLCharts(isTri: Boolean): String
+	private fun getHTMLCharts(isTri: Boolean): String
 	{
 		return if (isTri) """<script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -47,7 +47,7 @@ object DashboardMaker
 			"""<script src="https://code.highcharts.com/highcharts.js"></script>"""
 	}
 
-	fun getHTMLStyle(): String
+	private fun getHTMLStyle(): String
 	{
 		val chataDrawerWebViewBackground = ""
 		val chataDrawerWebViewText = ""
@@ -183,7 +183,6 @@ object DashboardMaker
 			}
 		}
 		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
-
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
