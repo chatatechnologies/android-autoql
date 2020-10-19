@@ -17,6 +17,7 @@ object SinglentonDrawer
 	var quantityDecimals = 1
 	var monthYearFormat = "MMM YYYY"
 	var dayMonthYearFormat = "MMM DD, YYYY"
+	var aMonths = arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 	//endregion
 
 	//region colors

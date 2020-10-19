@@ -12,7 +12,6 @@ import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
-import chata.can.chata_ai.pojo.dataFormatting.CurrencySymbol
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
@@ -344,7 +343,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etLanguageCode?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				CurrencySymbol.init()
 				bubbleHandle?.dataFormatting?.languageCode = it
 			}
 		}

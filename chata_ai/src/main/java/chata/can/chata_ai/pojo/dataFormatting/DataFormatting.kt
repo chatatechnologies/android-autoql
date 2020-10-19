@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.dataFormatting
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.currency.Currency
+import java.util.*
 
 data class DataFormatting(
 	private var _currencyCode: String = "USD",
@@ -21,8 +22,15 @@ data class DataFormatting(
 
 	var languageCode: String = _languageCode
 	set(value) {
-		SinglentonDrawer.languageCode = value
-		field = value
+		val aData = value.split("-")
+		if (aData.size > 1)
+		{
+			if (ValidateLocale.isValid(Locale(aData[0], aData[1])))
+			{
+				SinglentonDrawer.languageCode = value
+				field = value
+			}
+		}
 	}
 
 	var currencyDecimals: Int = _currencyDecimals
