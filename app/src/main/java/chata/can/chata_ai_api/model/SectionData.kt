@@ -61,7 +61,7 @@ object SectionData
 				//Darken Background Behind Data Messenger   TypeParameter.TOGGLE
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT, options = aPlacement),
-				//Default Tab   (Must click 'Reload Data Messenger' to apply this) data-messengerexplore-queries
+				//Default Tab   (Must click 'Reload Data Messenger' to apply this) data-messenger|explore-queries
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US", idView = R.id.etLanguageCode),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY", idView = R.id.etFormatMonthYear),

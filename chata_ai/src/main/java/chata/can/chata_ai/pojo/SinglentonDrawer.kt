@@ -12,7 +12,7 @@ object SinglentonDrawer
 
 	//region DataFormatting External
 	var currencyCode = "$"
-	var languageCode = "en-U"
+	var languageCode = "en-US"
 	var currencyDecimals = 2
 	var quantityDecimals = 1
 	var monthYearFormat = "MMM YYYY"
