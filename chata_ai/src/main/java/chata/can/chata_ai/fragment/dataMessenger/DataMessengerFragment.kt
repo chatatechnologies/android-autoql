@@ -194,6 +194,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
 				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
 			}
+			val title = DataMessengerData.title
+			dataMessengerTile = if (title.isNotEmpty())
+				title
+			else getString(R.string.data_messenger)
+
+			etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
+				DataMessengerData.inputPlaceholder
+			else
+				getString(R.string.type_queries_here)
 		}
 	}
 
@@ -252,11 +261,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 				ivMicrophone.background = circleDrawable
 				etQuery.background = rectangleDrawable
-
-				etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
-					DataMessengerData.inputPlaceholder
-				else
-					getString(R.string.type_queries_here)
 			}
 		}
 	}
