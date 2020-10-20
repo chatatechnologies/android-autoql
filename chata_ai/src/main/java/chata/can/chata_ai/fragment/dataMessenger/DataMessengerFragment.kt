@@ -93,7 +93,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "How many job by job area by year"
 //				val queryDemo = "Average revenue by area last year"
 //			  val queryDemo = "Number of invoice per customer number ordered"
-				val queryDemo = ""
+				val queryDemo = "Number of tickets by ticket type last year"
 //				val queryDemo = "Average hours utilization by area by resource category last year"
 			etQuery.setText(queryDemo)
 		}

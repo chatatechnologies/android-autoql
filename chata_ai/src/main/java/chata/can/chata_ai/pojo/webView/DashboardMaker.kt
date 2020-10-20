@@ -216,8 +216,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 <body>
 <style type="text/css">
     body, table, th{
-        background: #ffffff!important;
-        color: #5D5D5D!important;
+        background: $backgroundColor!important;
+        color: $textColor!important;
     }
     table {
         padding-top: 0px!important;
