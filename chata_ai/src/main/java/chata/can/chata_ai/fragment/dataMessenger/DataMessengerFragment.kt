@@ -398,6 +398,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		dataMessengerTile = if (title.isNotEmpty())
 			title
 		else getString(R.string.data_messenger)
+
+		etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
+			DataMessengerData.inputPlaceholder
+		else
+			getString(R.string.type_queries_here)
 	}
 
 	private fun initList()
