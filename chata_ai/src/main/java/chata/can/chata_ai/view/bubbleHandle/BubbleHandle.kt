@@ -1,7 +1,6 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
-import android.content.Intent
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog

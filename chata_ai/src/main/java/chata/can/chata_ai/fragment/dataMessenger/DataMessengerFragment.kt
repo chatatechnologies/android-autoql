@@ -27,7 +27,6 @@ import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.activity.dataMessenger.voice.VoiceRecognition
-import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -210,8 +209,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		model.clear()
 		val introMessageRes =
-			if (PagerData.introMessage.isNotEmpty())
-				PagerData.introMessage
+			if (DataMessengerData.introMessage.isNotEmpty())
+				DataMessengerData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
