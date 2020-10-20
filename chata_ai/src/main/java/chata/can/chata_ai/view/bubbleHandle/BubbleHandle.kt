@@ -222,20 +222,6 @@ class BubbleHandle(
 		}
 	}
 
-	private fun createIntentData(intent: Intent)
-	{
-		with(intent)
-		{
-			putExtra("CUSTOMER_NAME", userDisplayName)
-			putExtra("TITLE", title)
-			putExtra("INTRO_MESSAGE", introMessage)
-			putExtra("INPUT_PLACE_HOLDER", inputPlaceholder)
-			putExtra("MAX_MESSAGES", maxMessages)
-			putExtra("CLEAR_ON_CLOSE", clearOnClose)
-			putExtra("ENABLE_VOICE_RECORD", enableVoiceRecord)
-		}
-	}
-
 	private fun initChildView(): RelativeLayout
 	{
 		parentCircle = RelativeLayout(context)

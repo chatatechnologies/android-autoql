@@ -151,8 +151,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		pagerOption.paintViews()
 	}
 
-	fun updateData()
+	fun clearDataMessenger(bubbleData: BubbleData ?= null)
 	{
+		pagerOption.bubbleData = bubbleData
 		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
 			if (it is DataMessengerFragment)
 			{
@@ -168,15 +169,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 					}
 					it.updateData(argument)
 				}
-			}
-		}
-	}
-
-	fun clearDataMessenger()
-	{
-		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-			if (it is DataMessengerFragment)
-			{
 				it.clearQueriesAndResponses()
 			}
 		}

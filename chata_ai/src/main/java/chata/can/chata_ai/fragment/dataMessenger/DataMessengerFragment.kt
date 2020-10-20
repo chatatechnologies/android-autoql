@@ -94,7 +94,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "How many job by job area by year"
 //				val queryDemo = "Average revenue by area last year"
 //			  val queryDemo = "Number of invoice per customer number ordered"
-				val queryDemo = "total revenue by month last year"
+				val queryDemo = ""
 //				val queryDemo = "Average hours utilization by area by resource category last year"
 			etQuery.setText(queryDemo)
 		}
@@ -215,7 +215,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
-		val introMessage = String.format(introMessageRes, PagerData.customerName)
+		val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 		model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		notifyAdapter()

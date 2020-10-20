@@ -133,14 +133,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvPassword?.setText(password)
 			tvPassword?.setSelection(password.length)
 
-//			val customerMessage = "Carlos"
-			val customerMessage = ""
+			val customerMessage = "Carlos"
+//			val customerMessage = ""
 			etCustomerMessage?.setText(customerMessage)
 			val title = nameFragment
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-			val language = "en-US"
+			val language = "en-IN"
 			etLanguageCode?.setText(language)
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
@@ -524,7 +524,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					activity?.run {
 						if (this is PagerActivity)
 						{
-							clearDataMessenger()
+							bubbleHandle?.let { bubbleHandle ->
+								val bubbleData = BubbleData(
+									bubbleHandle.userDisplayName,
+									bubbleHandle.title,
+									bubbleHandle.introMessage,
+									bubbleHandle.inputPlaceholder,
+									bubbleHandle.maxMessages,
+									bubbleHandle.clearOnClose,
+									bubbleHandle.enableVoiceRecord)
+								clearDataMessenger(bubbleData)
+							}
 						}
 					}
 				}

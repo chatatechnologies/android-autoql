@@ -2,8 +2,6 @@ package chata.can.chata_ai.pojo.dataFormatting
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.currency.Currency
-import java.time.Month
-import java.time.format.TextStyle
 import java.util.*
 
 data class DataFormatting(
