@@ -104,6 +104,19 @@ class ChatServicePresenter(
 					}
 					//endregion
 				}
+				502 ->
+				{
+					val query = jsonObject.optString("query") ?: ""
+					val response = jsonObject.optString("RESPONSE")
+					if (response.isNotEmpty())
+					{
+						val joResponse = JSONObject(response)
+						val message = joResponse.optString(messageKey)
+						val referenceId = joResponse.optString("reference_id")
+						val messageComplete = "$message\n\nError ID: $referenceId"
+						view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+					}
+				}
 			}
 		}
 	}
