@@ -265,7 +265,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         display: none;
     }
     .highcharts-background{
-        fill: #ffffff!important;
+        fill: $backgroundColor!important;
     }
     .splitView{
         position: relative;
