@@ -231,8 +231,16 @@ object HtmlBuilder
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
 //					DatePivot.buildDateString(aRows, aColumn)
 //				else DatePivot.buildBi(aRows, aColumn)
-
 //				queryBase.configActions = 1
+
+				if (aColumn[0].type ==  TypeDataQuery.DATE_STRING)
+				{
+					DatePivot.buildDateString(aRows, aColumn).run {
+						dataForWebView.datePivot = first
+						dataForWebView.rowsPivot = second
+					}
+					queryBase.configActions = 1
+				}
 
 				dataForWebView.catYS = aCatYS.toString()
 				dataForWebView.dataChartBi = Table.generateDataTable(
