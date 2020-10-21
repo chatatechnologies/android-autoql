@@ -104,6 +104,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 
 		SinglentonDrawer.aLocaleMethods[nameFragment] = {
+			model.restartData()
+			chatAdapter.notifyDataSetChanged()
+		}
+
+		SinglentonDrawer.aCurrencyMethods[nameFragment] = {
+			model.restartData()
 			chatAdapter.notifyDataSetChanged()
 		}
 	}
@@ -380,9 +386,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		super.onDestroy()
 		if (DataMessengerData.clearOnClose)
 		{
-			SinglentonDrawer.mModel.clear()
+			model.clear()
 		}
 		ThemeColor.aColorMethods.remove(nameFragment)
+		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
+		SinglentonDrawer.aCurrencyMethods.remove(nameFragment)
 	}
 
 	private fun initData()
@@ -418,7 +426,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
-			if (SinglentonDrawer.mModel.countData() == 0)
+			if (model.countData() == 0)
 			{
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))

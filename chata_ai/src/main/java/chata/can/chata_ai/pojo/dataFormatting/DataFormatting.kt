@@ -16,6 +16,7 @@ data class DataFormatting(
 	var currencyCode: String = _currencyCode
 	set(value) {
 		Currency.mCurrency[value]?.let {
+			SinglentonDrawer.currencyCode = it
 			field = it
 		} ?: throw Exception("Currency code is incorrect!")
 	}

@@ -1,19 +1,26 @@
 package chata.can.chata_ai.pojo
 
-import chata.can.chata_ai.model.BaseModelList
-import chata.can.chata_ai.pojo.chat.ChatData
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Class with data for config queries and Drawer
  */
 object SinglentonDrawer
 {
-	val mModel = BaseModelList<ChatData>()
+	val mModel = DataMessengerModel()
 
 	//region DataFormatting External
 	var currencyCode = "$"
+	set(value) {
+		field = value
+		for ((_, method) in aCurrencyMethods)
+		{
+			method()
+		}
+	}
+	val aCurrencyMethods = LinkedHashMap<String, () -> Unit>()
+
 	var languageCode = "en-US"
 	var currencyDecimals = 2
 	var quantityDecimals = 1
