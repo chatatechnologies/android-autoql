@@ -3,6 +3,7 @@ package chata.can.chata_ai.extension
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.pojo.dataFormatting.ValidateLocale
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -68,16 +69,20 @@ fun String.formatWithColumn(
 					val aDataDate = this.split("-")
 					if (aDataDate.size > 1)
 					{
-						var date = ""
-						val dateFormat = SimpleDateFormat("yyyy-MM", Locale.US)
-						try {
-							dateFormat.parse(this)?.let { dDate ->
-								val dateFormat2 = SimpleDateFormat("MMM yyyy", Locale.US)
-								date = dateFormat2.format(dDate)
+						SinglentonDrawer.localLocale?.let { locale ->
+							var date = ""
+							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
+							try {
+								dateFormat.parse(this)?.let { dDate ->
+//									val dateFormat2 = SimpleDateFormat("MMM yyyy", locale)
+									val dateFormat2 = SimpleDateFormat("yyyy", locale)
+									date = dateFormat2.format(dDate)
+								}
+								//date
+								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
 							}
-							date
-						}
-						catch (ex: Exception) { "" }
+							catch (ex: Exception) { "" }
+						} ?: run { "" }
 					}
 					else this
 				}

@@ -27,15 +27,17 @@ data class DataFormatting(
 		{
 			if (ValidateLocale.isValid(Locale(aData[0], aData[1])))
 			{
-				val locale = Locale(aData[0], aData[1])
+				SinglentonDrawer.localLocale = Locale(aData[0], aData[1])
 				SinglentonDrawer.aMonths.clear()
 				SinglentonDrawer.aMonthShorts.clear()
-				for (i in 1 .. 12)
-				{
-					val month = ValidateLocale.getMonth(i, locale, "MMMM")
-					val monthShort = ValidateLocale.getMonth(i, locale, "MMM")
-					SinglentonDrawer.aMonths.add(month)
-					SinglentonDrawer.aMonthShorts.add(monthShort)
+				SinglentonDrawer.localLocale?.let { locale ->
+					for (i in 1 .. 12)
+					{
+						val month = ValidateLocale.getMonth(i, locale, "MMMM")
+						val monthShort = ValidateLocale.getMonth(i, locale, "MMM")
+						SinglentonDrawer.aMonths.add(month)
+						SinglentonDrawer.aMonthShorts.add(monthShort)
+					}
 				}
 				SinglentonDrawer.languageCode = value
 				field = value
