@@ -98,8 +98,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			etQuery.setText(queryDemo)
 		}
 
-		ThemeColor.aMethod[nameFragment] = {
+		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
+			chatAdapter.notifyDataSetChanged()
+		}
+
+		SinglentonDrawer.aLocaleMethods[nameFragment] = {
 			chatAdapter.notifyDataSetChanged()
 		}
 	}
@@ -378,7 +382,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			SinglentonDrawer.mModel.clear()
 		}
-		ThemeColor.aMethod.remove(nameFragment)
+		ThemeColor.aColorMethods.remove(nameFragment)
 	}
 
 	private fun initData()

@@ -144,7 +144,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 		DataMessengerFragment.exploreQueriesMethod = { openTips() }
 
-		ThemeColor.aMethod["PagerOptions"] = {
+		ThemeColor.aColorMethods["PagerOptions"] = {
 			setColors()
 		}
 
@@ -328,7 +328,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 	fun onDestroy()
 	{
-		ThemeColor.aMethod.remove("PagerOptions")
+		ThemeColor.aColorMethods.remove("PagerOptions")
 	}
 
 	private fun showNotification()

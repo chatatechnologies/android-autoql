@@ -30,11 +30,11 @@ object ThemeColor
 	var currentColor: Color = darkColor
 	set(value) {
 		field = value
-		for ((_, method) in aMethod)
+		for ((_, method) in aColorMethods)
 		{
 			method()
 		}
 	}
 
-	val aMethod = LinkedHashMap<String, () -> Unit>()
+	val aColorMethods = LinkedHashMap<String, () -> Unit>()
 }

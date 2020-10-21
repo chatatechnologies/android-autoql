@@ -36,7 +36,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	{
 		super.onRenderViews(view)
 		getNotifications()
-		ThemeColor.aMethod[nameFragment] = {
+		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 			adapter.notifyDataSetChanged()
 		}
@@ -85,7 +85,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		ThemeColor.aMethod.remove(nameFragment)
+		ThemeColor.aColorMethods.remove(nameFragment)
 	}
 
 	private fun getNotifications()

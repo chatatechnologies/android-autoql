@@ -63,7 +63,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	{
 		super.onRenderViews(view)
 		checkLastData()
-		ThemeColor.aMethod[nameFragment] = {
+		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 		}
 	}
@@ -232,7 +232,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		ThemeColor.aMethod.remove(nameFragment)
+		ThemeColor.aColorMethods.remove(nameFragment)
 	}
 
 	private fun checkLastData()

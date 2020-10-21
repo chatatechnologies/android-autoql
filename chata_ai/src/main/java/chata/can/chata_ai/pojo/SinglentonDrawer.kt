@@ -19,7 +19,17 @@ object SinglentonDrawer
 	var quantityDecimals = 1
 	var monthYearFormat = "MMM YYYY"
 	var dayMonthYearFormat = "MMM DD, YYYY"
+
 	var localLocale: Locale ?= Locale("en", "US")
+	set(value) {
+		field = value
+		for ((_, method) in aLocaleMethods)
+		{
+			method()
+		}
+	}
+	val aLocaleMethods = LinkedHashMap<String, () -> Unit>()
+
 	var aMonths = arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 	var aMonthShorts = arrayListOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec")
 	//endregion
