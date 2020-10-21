@@ -140,8 +140,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-//			val language = "es-MX"
-			val language = "en-US"
+			val language = "es-MX"
+//			val language = "en-US"
 			etLanguageCode?.setText(language)
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()

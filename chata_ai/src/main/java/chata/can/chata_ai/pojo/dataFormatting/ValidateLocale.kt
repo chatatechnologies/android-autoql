@@ -19,6 +19,9 @@ object ValidateLocale {
 		val calendar = GregorianCalendar()
 		calendar.set(Calendar.DAY_OF_MONTH, 1)
 		calendar.set(Calendar.MONTH, iMonth - 1)
-		return formatter.format(calendar.time)
+		val month = formatter.format(calendar.time)
+		return if (month[0].isLowerCase())
+			month.capitalize(locale)
+		else month
 	}
 }
