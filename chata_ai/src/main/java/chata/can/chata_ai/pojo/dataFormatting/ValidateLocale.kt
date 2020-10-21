@@ -13,9 +13,9 @@ object ValidateLocale {
 		}
 	}
 
-	fun getMonth(iMonth: Int, locale: Locale): String
+	fun getMonth(iMonth: Int, locale: Locale, pattern: String = "MMMM"): String
 	{
-		val formatter = SimpleDateFormat("MMMM", locale)
+		val formatter = SimpleDateFormat(pattern, locale)
 		val calendar = GregorianCalendar()
 		calendar.set(Calendar.DAY_OF_MONTH, 1)
 		calendar.set(Calendar.MONTH, iMonth - 1)
