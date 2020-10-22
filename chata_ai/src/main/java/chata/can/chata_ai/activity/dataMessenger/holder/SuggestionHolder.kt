@@ -19,6 +19,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.fragment.dataMessenger.SuggestionPresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SuggestionHolder(
@@ -29,6 +30,7 @@ class SuggestionHolder(
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
+	private val presenter = SuggestionPresenter()
 
 	override fun onPaint()
 	{
@@ -109,12 +111,21 @@ class SuggestionHolder(
 							llSuggestion.addView(tv)
 						}
 					}
+					llSuggestion.addView(buildSuggestionView(
+						llSuggestion.context,
+						"None of there",
+						true,
+						it.queryId))
 				}
 			}
 		}
 	}
 
-	private fun buildSuggestionView(context: Context, content: String): TextView
+	private fun buildSuggestionView(
+		context: Context,
+		content: String,
+		isSuggestion: Boolean = false,
+		queryId: String = ""): TextView
 	{
 		return TextView(context).apply {
 			backgroundGrayWhite()
@@ -124,9 +135,19 @@ class SuggestionHolder(
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 			setPadding(15,15,15,15)
 			text = content
-			setOnClickListener {
-				//view.addChatMessage(2, content)
-				view.runTyping(content)
+			if (isSuggestion)
+			{
+				setOnClickListener {
+//					println("Here is None of these")
+					presenter.setSuggestion(queryId)
+				}
+			}
+			else
+			{
+				setOnClickListener {
+					//view.addChatMessage(2, content)
+					view.runTyping(content)
+				}
 			}
 		}
 	}

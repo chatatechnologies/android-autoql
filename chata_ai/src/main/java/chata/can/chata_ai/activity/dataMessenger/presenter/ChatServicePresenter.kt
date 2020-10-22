@@ -45,7 +45,7 @@ class ChatServicePresenter(
 		getQuery(query, mInfoHolder)
 	}
 
-	private fun getRelatedQueries(query: String, message: String)
+	private fun getRelatedQueries(query: String, message: String, queryId: String)
 	{
 		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 		val mData = hashMapOf<String, Any>("message" to message)
@@ -73,7 +73,15 @@ class ChatServicePresenter(
 							{
 								if (SinglentonDrawer.mIsEnableSuggestion)
 								{
-									getRelatedQueries(query, message)
+									val response = jsonObject.optString("RESPONSE", "")
+									var queryId = ""
+									try {
+										val joResponse = JSONObject(response)
+										joResponse.optJSONObject("data")?.let { joData ->
+											queryId = joData.optString("query_id")
+										}
+									} catch (ex: Exception) {}
+									getRelatedQueries(query, message, queryId)
 								}
 								else
 								{
