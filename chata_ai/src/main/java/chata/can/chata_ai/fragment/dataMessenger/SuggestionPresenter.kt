@@ -22,6 +22,7 @@ class SuggestionPresenter: StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
+			//manipule response for show item with Feedback
 			it.toString()
 		}
 		jsonArray?.let {

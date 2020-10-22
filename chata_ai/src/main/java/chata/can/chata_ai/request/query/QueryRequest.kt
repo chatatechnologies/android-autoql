@@ -65,10 +65,11 @@ object QueryRequest
 	  listener: StatusResponse,
 		mData: HashMap<String, Any>)
 	{
+		val queryId = mData["query_id"] ?: ""
 		with(DataMessenger)
 		{
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
-				"&search=$words&scope=narrow"
+				"&search=$words&scope=narrow&query_id=$queryId"
 			mData["nameService"] = "callRelatedQueries"
 
 			callStringRequest(
