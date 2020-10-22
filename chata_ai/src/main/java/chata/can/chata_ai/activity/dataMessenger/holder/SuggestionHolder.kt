@@ -138,7 +138,6 @@ class SuggestionHolder(
 			if (isSuggestion)
 			{
 				setOnClickListener {
-//					println("Here is None of these")
 					presenter.setSuggestion(queryId)
 				}
 			}
