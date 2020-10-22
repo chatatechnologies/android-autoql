@@ -1,6 +1,8 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
+import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
@@ -10,7 +12,7 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class SuggestionPresenter: StatusResponse
+class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -22,8 +24,7 @@ class SuggestionPresenter: StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
-			//manipule response for show item with Feedback
-			it.toString()
+			view.addChatMessage(TypeChatView.LEFT_VIEW, "HI!", "")
 		}
 		jsonArray?.let {
 			it.toString()

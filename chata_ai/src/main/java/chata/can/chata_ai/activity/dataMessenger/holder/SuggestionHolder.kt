@@ -30,7 +30,7 @@ class SuggestionHolder(
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val llSuggestion = itemView.findViewById<LinearLayout>(R.id.llSuggestion)
-	private val presenter = SuggestionPresenter()
+	private val presenter = SuggestionPresenter(view)
 
 	override fun onPaint()
 	{
