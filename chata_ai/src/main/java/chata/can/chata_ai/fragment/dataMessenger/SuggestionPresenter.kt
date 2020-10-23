@@ -24,16 +24,12 @@ class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
-			view.addChatMessage(TypeChatView.LEFT_VIEW, "HI!", "")
-		}
-		jsonArray?.let {
-			it.toString()
+			view.addSimpleText("Thank you for your feedback")
 		}
 	}
 
 	fun setSuggestion(idQuery: String)
 	{
-		//https://accounting-demo-staging.chata.io/autoql/api/v1/query/q_rHIptjtIT3GebVuANcPJDg/suggestions?key=AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o
 		with(DataMessenger) {
 			val url = "$domainUrl/autoql/${api1}query/$idQuery/suggestions?key=$apiKey"
 			val header = Authentication.getAuthorizationJWT()

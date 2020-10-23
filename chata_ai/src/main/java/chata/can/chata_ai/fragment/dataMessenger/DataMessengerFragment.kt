@@ -277,6 +277,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
+	override fun addSimpleText(message: String)
+	{
+		model.add(ChatData(TypeChatView.LEFT_VIEW, message))
+		chatAdapter.notifyItemChanged(model.countData() - 1)
+		scrollToPosition()
+	}
+
 	override fun addChatMessage(typeView: Int, message: String, query: String)
 	{
 		val json = JSONObject().apply {
