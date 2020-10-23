@@ -49,6 +49,7 @@ class ChatServicePresenter(
 	{
 		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 		val mData = hashMapOf<String, Any>(
+			"query" to query,
 			"message" to message,
 			"query_id" to queryId)
 		QueryRequest.callRelatedQueries(words, this, mData)
@@ -56,7 +57,7 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		isLoading(false)
+
 		if (jsonObject != null)
 		{
 			when(jsonObject.optInt("CODE"))
@@ -88,9 +89,9 @@ class ChatServicePresenter(
 								else
 								{
 									message = "suggestion not supported"
+									view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 								}
 							}
-							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 						}
 						catch (ex: Exception) { }
 					}
@@ -126,6 +127,7 @@ class ChatServicePresenter(
 						val messageComplete = "$message\n\nError ID: $referenceId"
 						view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
 					}
+					isLoading(false)
 				}
 			}
 		}
@@ -178,7 +180,12 @@ class ChatServicePresenter(
 										}
 									}
 									queryBase.message = jsonObject.optString("message", "") ?: ""
-									view?.addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+									val query = jsonObject.optString("query", "")
+									isLoading(false)
+									view?.run {
+										addChatMessage(TypeChatView.LEFT_VIEW, queryBase.message, query)
+										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+									}
 								}
 							}
 						}
