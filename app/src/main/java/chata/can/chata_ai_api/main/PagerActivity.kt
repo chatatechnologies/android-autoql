@@ -135,7 +135,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			if (supportFragmentManager.backStackEntryCount > 0)
 				finishAffinity()
 			else
-				super.onBackPressed()
+			//minimize App
+				moveTaskToBack(true)
 		}
 	}
 

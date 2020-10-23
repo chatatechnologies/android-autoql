@@ -149,8 +149,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
 			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
-			showDialog()
+//			servicePresenter.createAuthenticate()
+//			showDialog()
 		}
 		else
 		{
