@@ -104,18 +104,22 @@ class SuggestionHolder(
 					for (index in 0 until rows.size)
 					{
 						val singleRow = rows[index]
-						singleRow.firstOrNull()?.let {
-							suggestion ->
-							//add new view for suggestion
-							val tv = buildSuggestionView(llSuggestion.context, suggestion)
-							llSuggestion.addView(tv)
+						singleRow.firstOrNull()?.let { suggestion ->
+							if (index == rows.size - 1)
+							{
+								llSuggestion.addView(buildSuggestionView(
+									llSuggestion.context,
+									"None of these",
+									true,
+									it.queryId))
+							}
+							else
+							{
+								val tv = buildSuggestionView(llSuggestion.context, suggestion)
+								llSuggestion.addView(tv)
+							}
 						}
 					}
-					llSuggestion.addView(buildSuggestionView(
-						llSuggestion.context,
-						"None of there",
-						true,
-						it.queryId))
 				}
 			}
 		}
