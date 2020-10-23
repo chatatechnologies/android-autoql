@@ -91,8 +91,7 @@ class SuggestionHolder(
 					else
 					{
 						tvContent.visibility = View.VISIBLE
-						tvContent.context?.let {
-								context ->
+						tvContent.context?.let { context ->
 							val introMessageRes = context.getStringResources(R.string.msg_suggestion)
 							val message = String.format(introMessageRes, it.message)
 							tvContent.text = message
@@ -132,7 +131,11 @@ class SuggestionHolder(
 		queryId: String = ""): TextView
 	{
 		return TextView(context).apply {
-			backgroundGrayWhite()
+			//backgroundGrayWhite()
+			val colorBase = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			val borderColor = context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
+			background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 1, borderColor)
+
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
@@ -148,10 +151,10 @@ class SuggestionHolder(
 			else
 			{
 				setOnClickListener {
-					//view.addChatMessage(2, content)
 					view.runTyping(content)
 				}
 			}
+			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 		}
 	}
 

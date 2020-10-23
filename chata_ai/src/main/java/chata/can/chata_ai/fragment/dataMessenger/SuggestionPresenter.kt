@@ -16,9 +16,7 @@ class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		jsonObject?.let {
-			it.toString()
-		}
+		jsonObject?.toString()
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
