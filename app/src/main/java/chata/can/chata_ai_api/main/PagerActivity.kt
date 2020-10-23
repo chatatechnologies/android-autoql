@@ -115,7 +115,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onPause()
 	{
 		super.onPause()
-		if (!pagerOption.isVisible)
+		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
 		{
 			BubbleHandle.instance.isVisible = false
 		}
