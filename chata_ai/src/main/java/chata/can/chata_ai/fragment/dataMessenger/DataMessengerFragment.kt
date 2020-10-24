@@ -550,6 +550,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private fun scrollToPosition()
 	{
+		//while(model.getParseCount() > DataMessengerData.maxMessages)
 		while(model.countData() > DataMessengerData.maxMessages)
 		{
 			model.removeAt(0)

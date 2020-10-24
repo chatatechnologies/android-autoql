@@ -6,20 +6,18 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 
 class DataMessengerModel: BaseModelList<ChatData>()
 {
-	override fun countData(): Int
+	fun getParseCount(): Int
 	{
-		var countSize = 0
+		var count = 0
 		for (data in getData())
 		{
 			data.simpleQuery?.let {
-//				countSize += 2
+				count += 2
 			} ?: run {
-//				countSize++
+				count++
 			}
-
-			countSize++
 		}
-		return countSize
+		return count
 	}
 
 	fun restartData()
