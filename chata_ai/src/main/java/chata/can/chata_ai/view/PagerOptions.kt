@@ -1,11 +1,13 @@
 package chata.can.chata_ai.view
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -73,6 +75,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					if (PagerData.clearOnClose)
 						SinglentonDrawer.mModel.clear()
 					setStatusGUI(false)
+
+					context?.getSystemService(Activity.INPUT_METHOD_SERVICE)?.let {
+						(it as? InputMethodManager)?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+					}
 				}
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
