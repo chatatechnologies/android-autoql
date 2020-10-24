@@ -4,6 +4,7 @@ import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDateMonthYear
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
@@ -159,9 +160,9 @@ object DatePivot
 			headTable.append("</tr></thead>")
 			//endregion
 			var numRows = 1
-			val aMonths = DateFormatSymbols(Locale.US).months
 			//region body table
 			val bodyTable = StringBuilder("<tbody>")
+			val aMonths = SinglentonDrawer.aMonths
 			for (index in aMonths.indices)
 			{
 				val month = aMonths[index]

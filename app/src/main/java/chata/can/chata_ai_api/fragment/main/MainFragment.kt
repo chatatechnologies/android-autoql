@@ -133,15 +133,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			tvPassword?.setText(password)
 			tvPassword?.setSelection(password.length)
 
-//			val customerMessage = "Carlos"
-			val customerMessage = ""
+			val customerMessage = "Carlos"
 			etCustomerMessage?.setText(customerMessage)
 			val title = nameFragment
 			etTitle?.setText(title)
-			val maxMessage = 4
+			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-//			val currentCode = "EUR"
-//			etCurrencyCode?.setText(currentCode)
+			etLanguageCode?.setText("es-MX")
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
 			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
