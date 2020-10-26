@@ -233,7 +233,7 @@ object HtmlBuilder
 //				else DatePivot.buildBi(aRows, aColumn)
 //				queryBase.configActions = 1
 
-				if (aColumn[0].type ==  TypeDataQuery.DATE_STRING)
+				if (aColumn[0].type == TypeDataQuery.DATE_STRING)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
 						dataForWebView.datePivot = first

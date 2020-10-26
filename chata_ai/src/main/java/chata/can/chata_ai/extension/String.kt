@@ -74,12 +74,13 @@ fun String.formatWithColumn(
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
 								dateFormat.parse(this)?.let { dDate ->
+									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
 //									val dateFormat2 = SimpleDateFormat("MMM yyyy", locale)
-									val dateFormat2 = SimpleDateFormat("yyyy", locale)
-									date = dateFormat2.format(dDate)
+//									val dateFormat2 = SimpleDateFormat("yyyy", locale)
+//									date = dateFormat2.format(dDate)
+									dateFormat2.format(dDate)
 								}
-								//date
-								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
+//								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
 							}
 							catch (ex: Exception) { "" }
 						} ?: run { "" }

@@ -5,7 +5,6 @@ import chata.can.chata_ai.extension.formatDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDateMonthYear
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -54,7 +53,7 @@ object DatePivot
 				}
 			}
 			//region clear data for dates
-			val aMonths = DateFormatSymbols(Locale.US).months
+			val aMonths = SinglentonDrawer.aMonths//val aMonths = DateFormatSymbols(Locale.US).months
 			with(aYears)
 			{
 				val aYearDistinct = distinct()
@@ -162,7 +161,7 @@ object DatePivot
 			var numRows = 1
 			//region body table
 			val bodyTable = StringBuilder("<tbody>")
-			val aMonths = SinglentonDrawer.aMonths
+			val aMonths = SinglentonDrawer.aMonths//val aMonths = DateFormatSymbols(Locale.US).months
 			for (index in aMonths.indices)
 			{
 				val month = aMonths[index]
