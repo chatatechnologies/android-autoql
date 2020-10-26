@@ -75,7 +75,6 @@ fun String.formatWithColumn(
 							try {
 								dateFormat.parse(this)?.let { dDate ->
 									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
-//									val dateFormat2 = SimpleDateFormat("MMM yyyy", locale)
 //									val dateFormat2 = SimpleDateFormat("yyyy", locale)
 //									date = dateFormat2.format(dDate)
 									dateFormat2.format(dDate)

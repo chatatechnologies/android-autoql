@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager
 import android.widget.*
+import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter
 
@@ -25,7 +27,8 @@ class SpinnerTextView: RelativeLayout
 		}
 
 		tvContent = TextView(context).apply {
-			setBackgroundColor(Color.WHITE)
+			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			setBackgroundColor(backgroundColor)
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)

@@ -48,7 +48,8 @@
 			<RelativeLayout
 				android:id="@+id/rlRunQuery"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent">
+				android:layout_width="match_parent"
+				android:padding="4dp">
 				<TextView
 					android:id="@+id/tvRunQuery"
 					android:layout_centerInParent="true"
@@ -58,8 +59,9 @@
 					android:textSize="14sp"/>
 				<ImageView
 					android:contentDescription="@null"
-					android:layout_toStartOf="@id/tvRunQuery"
+					android:id="@+id/ivRunQuery"
 					android:layout_centerVertical="true"
+					android:layout_toStartOf="@id/tvRunQuery"
 					android:layout_height="20dp"
 					android:layout_width="20dp"
 					android:src="@drawable/ic_play"/>

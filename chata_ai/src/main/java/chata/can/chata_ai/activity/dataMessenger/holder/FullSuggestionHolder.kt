@@ -2,6 +2,8 @@ package chata.can.chata_ai.activity.dataMessenger.holder
 
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
@@ -25,6 +27,8 @@ class FullSuggestionHolder(
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
 	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
+	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
+	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
 
 	override fun onPaint()
 	{
@@ -42,9 +46,12 @@ class FullSuggestionHolder(
 
 		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 		tvContent.setTextColor(textColor)
+		tvRunQuery.setTextColor(textColor)
+		ivRunQuery.setColorFilter(textColor)
 		llContent.backgroundGrayWhite()
-		rlRunQuery.backgroundGrayWhite()
-
+		val colorBase = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+		val borderColor = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
+		rlRunQuery.background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 3, borderColor)
 		rlDelete?.let {
 			it.backgroundGrayWhite()
 			it.setOnClickListener(this)
