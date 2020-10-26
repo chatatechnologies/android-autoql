@@ -96,7 +96,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 //				val queryDemo = "Average sales per month last year"
 //				val queryDemo = "all oslsekfjalwef"
-				val queryDemo = "all jobs in bid state"
+				val queryDemo = "Top 5 customers by sales this year"
 			etQuery.setText(queryDemo)
 		}
 
@@ -557,7 +557,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		Handler(Looper.getMainLooper()).postDelayed({
 			val position = model.countData() - 1
-			rvChat.scrollToPosition(position)
+			rvChat.smoothScrollToPosition(position)
+//			rvChat.scrollToPosition(position)
 		}, 200)
 	}
 }
