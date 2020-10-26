@@ -57,7 +57,6 @@ class ChatServicePresenter(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-
 		if (jsonObject != null)
 		{
 			when(jsonObject.optInt("CODE"))
@@ -124,7 +123,11 @@ class ChatServicePresenter(
 						val joResponse = JSONObject(response)
 						val message = joResponse.optString(messageKey)
 						val referenceId = joResponse.optString("reference_id")
-						val messageComplete = "$message\n\nError ID: $referenceId"
+						val messageComplete = if (message.isEmpty()) {
+							"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+						}
+						else
+							"$message\n\nError ID: $referenceId"
 						view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
 					}
 					isLoading(false)
