@@ -77,6 +77,11 @@ class WebViewHolder(
 			startAnimation(animationTop)
 		}
 
+		rlLoad?.run {
+			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			setBackgroundColor(backgroundColor)
+		}
+
 		llCharts?.backgroundGrayWhite()
 		rlDelete?.backgroundGrayWhite()
 
