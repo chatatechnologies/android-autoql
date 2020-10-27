@@ -213,7 +213,12 @@ class QueryBuilderHolder(
 							DataMessengerFragment.exploreQueriesMethod?.let { it() }
 						}
 						else
+						{
+							modelQueries?.indexOfFirst { any == it }?.let {
+								queriesAdapter?.checkBefore(it)
+							}
 							viewContract.runTyping(any)
+						}
 					}
 				}
 			})

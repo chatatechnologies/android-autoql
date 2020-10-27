@@ -14,9 +14,23 @@ class QueryAdapter(
 	listener: OnItemClickListener? = null
 ): BaseAdapter(model, listener)
 {
+	private var currentview = -1
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
 		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent))
+	}
+
+	fun checkBefore(position: Int)
+	{
+		if (position != currentview)
+		{
+			if (currentview != -1)
+			{
+				notifyItemChanged(currentview)
+			}
+			currentview = position
+		}
 	}
 }

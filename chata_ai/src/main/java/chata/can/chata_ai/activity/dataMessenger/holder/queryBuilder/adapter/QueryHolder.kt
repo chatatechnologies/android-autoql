@@ -12,6 +12,7 @@ class QueryHolder(view: View): Holder(view)
 {
 	private var rlParent = view.findViewById<View>(R.id.rlParent)
 	private var tvQueryExplore = view.findViewById<TextView>(R.id.tvQueryExplore)
+	private var isSelected = false
 
 	override fun onPaint()
 	{
@@ -27,10 +28,21 @@ class QueryHolder(view: View): Holder(view)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
+		if (isSelected)
+		{
+			rlParent.setBackgroundColor(
+				rlParent.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+		}
+
 		if (item is String)
 		{
 			tvQueryExplore?.text = item
 			rlParent?.setOnClickListener {
+				if (!isSelected)
+				{
+					isSelected = true
+					rlParent.setBackgroundColor(rlParent.context.getParsedColor(R.color.blue_chata_circle))
+				}
 				listener?.onItemClick(item)
 			}
 		}
