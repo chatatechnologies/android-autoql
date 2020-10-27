@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.notification
 
+import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,11 +76,20 @@ class NotificationFragment: BaseFragment(), NotificationContract
 
 	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>)
 	{
-		rvNotification.visibility = View.VISIBLE
-		this.totalPages = totalPages
-		model.addAll(aNotification)
-		tvLoading.visibility = View.GONE
-		adapter.notifyDataSetChanged()
+		if (totalPages == 0)
+		{
+			val msgEmpty = getString(R.string.empty_notification)
+			tvLoading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+			tvLoading.text = msgEmpty
+		}
+		else
+		{
+			rvNotification.visibility = View.VISIBLE
+			this.totalPages = totalPages
+			model.addAll(aNotification)
+			tvLoading.visibility = View.GONE
+			adapter.notifyDataSetChanged()
+		}
 	}
 
 	override fun onDestroy()

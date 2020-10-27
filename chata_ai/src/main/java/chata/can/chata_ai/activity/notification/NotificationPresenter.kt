@@ -16,10 +16,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		if (jsonObject != null)
-		{
-
-		}
+		jsonObject?.toString()
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
