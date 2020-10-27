@@ -1,5 +1,7 @@
 package chata.can.chata_ai.fragment.notification
 
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
@@ -51,7 +53,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 			tvLoading = view.findViewById(R.id.tvLoading)
 			rvNotification = view.findViewById(R.id.rvNotification)
 			presenter = NotificationPresenter(this)
-			adapter = NotificationAdapter(model) {
+			adapter = NotificationAdapter(model, this) {
 				if (countPages < totalPages)
 				{
 					presenter.getNotifications(countPages++ * 10)
@@ -102,5 +104,12 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	{
 		rvNotification.visibility = View.GONE
 		presenter.getNotifications()
+	}
+
+	override fun showItem(position: Int)
+	{
+		Handler(Looper.getMainLooper()).postDelayed({
+			rvNotification.smoothScrollToPosition(position)
+		}, 200)
 	}
 }

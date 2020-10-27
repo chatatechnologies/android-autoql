@@ -29,7 +29,7 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		rvNotification = findViewById(R.id.rvNotification)
 
 		presenter = NotificationPresenter(this)
-		adapter = NotificationAdapter(model) {
+		adapter = NotificationAdapter(model, this) {
 			if (countPages < totalPages)
 			{
 				presenter.getNotifications(countPages++ * 10)
@@ -45,6 +45,10 @@ class NotificationActivity: BaseActivity(R.layout.activity_notification), Notifi
 		//model.clear()
 		model.addAll(aNotification)
 		adapter.notifyDataSetChanged()
+	}
+
+	override fun showItem(position: Int) {
+
 	}
 
 	private fun getNotifications()

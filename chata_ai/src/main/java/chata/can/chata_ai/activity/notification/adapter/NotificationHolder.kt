@@ -15,7 +15,10 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
+class NotificationHolder(
+	itemView: View,
+	private val view: chata.can.chata_ai.activity.notification.NotificationContract
+): Holder(itemView), NotificationContract
 {
 	private val rlParent = itemView.findViewById<View>(R.id.rlParent)
 	private val iView = itemView.findViewById<View>(R.id.iView)
@@ -93,6 +96,7 @@ class NotificationHolder(itemView: View): Holder(itemView), NotificationContract
 		tvContent.visibility = View.VISIBLE
 		tvContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
 		tvContent.text = text
+		view.showItem(adapterPosition)
 	}
 
 	private fun setBottomVisibility(notification: Notification)
