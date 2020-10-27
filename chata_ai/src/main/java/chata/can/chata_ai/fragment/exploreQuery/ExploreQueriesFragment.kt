@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesContract
-import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesData
-import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesPresenter
-import chata.can.chata_ai.activity.exploreQueries.adapter.ExploreQueriesAdapter
+import chata.can.chata_ai.fragment.exploreQuery.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener

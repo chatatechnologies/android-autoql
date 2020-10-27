@@ -1,7 +1,7 @@
 package chata.can.chata_ai.pojo.chat
 
 import chata.can.chata_ai.DoAsync
-import chata.can.chata_ai.activity.dataMessenger.presenter.PresenterContract
+import chata.can.chata_ai.fragment.dataMessenger.presenter.PresenterContract
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder

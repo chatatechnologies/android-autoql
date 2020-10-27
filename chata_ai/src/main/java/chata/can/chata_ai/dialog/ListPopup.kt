@@ -3,8 +3,8 @@ package chata.can.chata_ai.dialog
 import android.view.View
 import android.widget.PopupMenu
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.activity.dataMessenger.holder.webView.WebViewPresenter
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 
 object ListPopup
 {

@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.activity.dataMessenger.holder.webView.WebViewPresenter
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 

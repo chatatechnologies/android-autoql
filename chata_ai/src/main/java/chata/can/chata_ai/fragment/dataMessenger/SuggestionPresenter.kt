@@ -1,8 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
-import chata.can.chata_ai.activity.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.api1
-import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON

@@ -26,14 +26,6 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name="chata.can.chata_ai.activity.exploreQueries.ExploreQueriesActivity">
-
-		</activity>
-
-		<activity android:name="chata.can.chata_ai.activity.notification.NotificationActivity">
-
-		</activity>
-
 		<activity android:name=".test.TestActivity">
 <!--			<intent-filter>-->
 <!--				<action android:name="android.intent.action.MAIN" />-->

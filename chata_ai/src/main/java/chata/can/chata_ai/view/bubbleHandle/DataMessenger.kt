@@ -1,6 +1,6 @@
 package chata.can.chata_ai.view.bubbleHandle
 
-import chata.can.chata_ai.activity.exploreQueries.ExploreQueriesData
+import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 

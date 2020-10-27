@@ -22,11 +22,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.*
-import chata.can.chata_ai.activity.dataMessenger.ChatContract
-import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
-import chata.can.chata_ai.activity.dataMessenger.adapter.ChatAdapter
-import chata.can.chata_ai.activity.dataMessenger.presenter.ChatServicePresenter
-import chata.can.chata_ai.activity.dataMessenger.voice.VoiceRecognition
+import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
+import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
+import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
+import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer

@@ -11,7 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.activity.dataMessenger.adapter.AutoCompleteAdapter
+import chata.can.chata_ai.fragment.dataMessenger.adapter.AutoCompleteAdapter
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
