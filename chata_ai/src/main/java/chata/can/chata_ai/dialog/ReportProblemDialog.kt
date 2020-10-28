@@ -19,19 +19,25 @@ class ReportProblemDialog(
 	private val chatView: ChatContract.View?
 ): BaseDialog(context, R.layout.dialog_report_dialog, false), View.OnClickListener
 {
+	private lateinit var llParent: View
 	private lateinit var tvTitle: TextView
 	private lateinit var ivCancel: ImageView
 	private lateinit var tvMessage: TextView
 	private lateinit var etMessage: EditText
+	private lateinit var iView1: View
+	private lateinit var iView2: View
 	private lateinit var btnReport: Button
 	private lateinit var btnCancel: Button
 
 	override fun setViews()
 	{
+		llParent = findViewById(R.id.llParent)
 		tvTitle = findViewById(R.id.tvTitle)
 		ivCancel = findViewById(R.id.ivCancel)
 		tvMessage = findViewById(R.id.tvMessage)
 		etMessage = findViewById(R.id.etMessage)
+		iView1 = findViewById(R.id.iView1)
+		iView2 = findViewById(R.id.iView2)
 		btnReport = findViewById(R.id.btnReport)
 		btnCancel = findViewById(R.id.btnCancel)
 	}
@@ -39,19 +45,22 @@ class ReportProblemDialog(
 	override fun setColors()
 	{
 		context.run {
-			tvTitle.setTextColor(getParsedColor(R.color.black))
-			tvMessage.setTextColor(getParsedColor(R.color.black))
-			etMessage.setTextColor(getParsedColor(R.color.black))
-			btnReport.setTextColor(getParsedColor(R.color.white))
-			btnCancel.setTextColor(getParsedColor(R.color.black))
-
+			llParent.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+			tvTitle.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			tvMessage.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 			etMessage.background = getBackgroundColor(
-				getParsedColor(R.color.white), getParsedColor(R.color.selected_gray))
-			btnCancel.background = getBackgroundColor(
-				getParsedColor(R.color.white), getParsedColor(R.color.selected_gray))
-			val accent = ThemeColor.currentColor.drawerAccentColor
+				getParsedColor(ThemeColor.currentColor.drawerBackgroundColor),
+				getParsedColor(ThemeColor.currentColor.drawerBorderColor))
+			etMessage.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			iView1.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBorderColor))
+			iView2.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBorderColor))
 			btnReport.background = getBackgroundColor(
-				getParsedColor(accent), getParsedColor(accent))
+				getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
+			btnReport.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			btnCancel.background = getBackgroundColor(
+				getParsedColor(ThemeColor.currentColor.drawerBackgroundColor),
+				getParsedColor(ThemeColor.currentColor.drawerBorderColor))
+			btnCancel.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 		}
 
 		val title = "Report a Problem"
@@ -87,5 +96,5 @@ class ReportProblemDialog(
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
-		DrawableBuilder.setGradientDrawable(color, 12f, 1, borderColor)
+		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
 }

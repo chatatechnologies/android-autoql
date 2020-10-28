@@ -5,6 +5,7 @@
 	android:layout_width="match_parent">
 
 	<LinearLayout
+		android:id="@+id/llParent"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical">
@@ -32,7 +33,7 @@
 		</RelativeLayout>
 		<!--endregion-->
 		<View
-			android:background="@color/selected_gray"
+			android:id="@+id/iView1"
 			android:layout_width="match_parent"
 			android:layout_height="1dp"/>
 		<!--region body-->
@@ -55,11 +56,12 @@
 				android:layout_marginTop="8dp"
 				android:maxLines="4"
 				android:minLines="2"
+				android:padding="4dp"
 				android:scrollbars="vertical"/>
 		</LinearLayout>
 		<!--endregion-->
 		<View
-			android:background="@color/selected_gray"
+			android:id="@+id/iView2"
 			android:layout_width="match_parent"
 			android:layout_height="1dp"/>
 		<!--region foot-->
