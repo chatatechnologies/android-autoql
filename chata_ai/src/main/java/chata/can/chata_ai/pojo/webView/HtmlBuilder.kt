@@ -175,8 +175,8 @@ object HtmlBuilder
 						val pPivot = TableTriBuilder.buildDataPivot(
 							mDataPivot,
 							aColumn[aNumber.first()],
-							newListDescending(aCatX),
-							aCatY,
+							aCatX.sorted(),//newListDescending(aCatX),
+							aCatY.sorted(),
 							nameHeader)
 						dataForWebView.datePivot = pPivot.first
 						dataForWebView.rowsPivot = pPivot.second

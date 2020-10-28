@@ -30,7 +30,7 @@ object TableTriBuilder
 		mDataPivot: LinkedHashMap<String, String>,
 		aColumn: ColumnQuery,
 		aCatX: List<String>,
-		aCatY: ArrayList<String>,
+		aCatY: List<String>,
 		nameHeader: String
 	): Pair<String, Int>
 	{
