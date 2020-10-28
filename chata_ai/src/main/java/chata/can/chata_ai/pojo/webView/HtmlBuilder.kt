@@ -147,8 +147,8 @@ object HtmlBuilder
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					newListDescending(aCatX),
-					aCatY,
+					aCatX.sorted(),//newListDescending(aCatX),
+					aCatY.sorted(),
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
 				val aMapPure = pair.second
@@ -176,7 +176,7 @@ object HtmlBuilder
 							mDataPivot,
 							aColumn[aNumber.first()],
 							aCatX.sorted(),//newListDescending(aCatX),
-							aCatY.sorted(),
+							aCatY.sorted(),//aCatY,
 							nameHeader)
 						dataForWebView.datePivot = pPivot.first
 						dataForWebView.rowsPivot = pPivot.second
