@@ -131,7 +131,6 @@ class SuggestionHolder(
 		queryId: String = ""): TextView
 	{
 		return TextView(context).apply {
-			//backgroundGrayWhite()
 			val colorBase = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
 			val borderColor = context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
 			background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 1, borderColor)

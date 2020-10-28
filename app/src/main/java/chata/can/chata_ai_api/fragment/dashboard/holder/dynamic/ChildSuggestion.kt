@@ -13,6 +13,7 @@ import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 
@@ -58,12 +59,16 @@ object ChildSuggestion {
 		presenter: DashboardPresenter): TextView
 	{
 		return TextView(context).apply {
-			backgroundGrayWhite()
+			val colorBase = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+			val borderColor = context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
+			background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 1, borderColor)
+
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 			setPadding(15,15,15,15)
+			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
 			text = content
 			setOnClickListener {
 				val index = SinglentonDashboard.indexDashboard(dashboard)
