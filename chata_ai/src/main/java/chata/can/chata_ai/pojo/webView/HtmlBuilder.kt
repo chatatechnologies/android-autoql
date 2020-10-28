@@ -159,7 +159,7 @@ object HtmlBuilder
 					val type = aColumn[aNumber[0]]
 					if (type.type == TypeDataQuery.QUANTITY || type.type == TypeDataQuery.DOLLAR_AMT)
 					{
-						val aCheck = (0..2).toMutableList()
+//						val aCheck = (0..2).toMutableList()
 						val tmpDate = when
 						{
 							aDate.isNotEmpty() -> aDate
@@ -167,9 +167,9 @@ object HtmlBuilder
 							aString.isNotEmpty() -> aString
 							else -> aDate
 						}
-						aCheck.remove(tmpDate[0])
-						aCheck.remove(aNumber[0])
-						val nameHeader = aColumn[aCheck.first()].displayName
+//						aCheck.remove(tmpDate[0])
+//						aCheck.remove(aNumber[0])
+						val nameHeader = aColumn[tmpDate[0]].displayName
 
 						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
 						val pPivot = TableTriBuilder.buildDataPivot(

@@ -4,7 +4,6 @@ import chata.can.chata_ai.extension.clearDecimals
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
-import kotlin.math.acos
 
 object TableTriBuilder
 {
