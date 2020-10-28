@@ -72,13 +72,14 @@ class JavaScriptInterface(
 				}
 			}
 
-			if (newContent.isNotEmpty())
+			if (newContent.isEmpty())
 			{
-				(context as? Activity)?.runOnUiThread {
-					chatView?.isLoading(true)
-				}
-				presenter.postDrillDown(newContent)
+				newContent = "null"
 			}
+			(context as? Activity)?.runOnUiThread {
+				chatView?.isLoading(true)
+			}
+			presenter.postDrillDown(newContent)
 		}
 	}
 }
