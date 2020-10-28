@@ -31,6 +31,7 @@ class WebViewHolder(
 	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
+	private val rvContentTop = itemView.findViewById<View>(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
@@ -105,7 +106,6 @@ class WebViewHolder(
 				1 -> ConfigActions.biConfig
 				2 ->
 				{
-
 					ConfigActions.triReduceConfig
 				}
 				3 -> ConfigActions.triConfig
@@ -392,8 +392,10 @@ class WebViewHolder(
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					rlLoad?.visibility = View.GONE
 					visibility = View.VISIBLE
+					Handler(Looper.getMainLooper()).postDelayed({
+						rlLoad?.visibility = View.GONE
+					}, 200)
 				}
 			}
 
