@@ -1,5 +1,10 @@
 package chata.can.chata_ai.holder
 
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -170,7 +175,46 @@ open class BaseHolder(
 				if (simpleQuery.message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
-					simpleQuery.message
+					with(simpleQuery)
+					{
+						if (message.contains("<report>"))
+						{
+							message = message.replace("<report>", "report")
+							val spannable = SpannableString(message)
+							val clickable = object: ClickableSpan()
+							{
+								override fun onClick(widget: View)
+								{
+									//open report problem modal
+									widget.toString()
+								}
+
+								override fun updateDrawState(textPaint: TextPaint)
+								{
+									textPaint.run {
+										try {
+											tvContent.context?.let {
+												color = it.getParsedColor(R.color.chata_drawer_accent_color)
+											}
+										} finally {
+											tvContent.context?.let {
+												bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+											}
+										}
+										isUnderlineText = false
+									}
+								}
+							}
+							val index = message.indexOf("report")
+							spannable.setSpan(clickable, index, index + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+							tvContent.movementMethod = LinkMovementMethod.getInstance()
+							spannable
+						}
+						else
+						{
+							simpleQuery.message
+						}
+					}
 				}
 				else
 				{
