@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.ReportProblemDialog
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
@@ -185,8 +186,7 @@ open class BaseHolder(
 							{
 								override fun onClick(widget: View)
 								{
-									//open report problem modal
-									widget.toString()
+									ReportProblemDialog(tvContent.context, queryId, chatView).show()
 								}
 
 								override fun updateDrawState(textPaint: TextPaint)
