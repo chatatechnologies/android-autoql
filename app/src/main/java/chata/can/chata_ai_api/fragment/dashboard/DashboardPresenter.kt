@@ -38,11 +38,16 @@ class DashboardPresenter(
 						//region scope for call related queries
 						val code = jsonObject.optInt("CODE")
 						val referenceId = joCurrent.optString("reference_id") ?: ""
+						var queryId = ""
+						joCurrent.optJSONObject("data")?.let { joData ->
+							queryId = joData.optString("query_id")
+						}
 						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431"
 						if (code == 400 && isSuggestion)
 						{
 							val mData = hashMapOf<String, Any>(
 								"query" to query,
+								"query_id" to queryId,
 								"title" to title,
 								"key" to key,
 								"isSecondaryQuery" to isSecondaryQuery)

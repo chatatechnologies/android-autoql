@@ -76,7 +76,7 @@ class DynamicHolder(
 								vSuggestion = getChildSuggestion(lls1.context)
 								addView(lls1, vSuggestion)
 							}
-							ChildSuggestion.onBind(vSuggestion, dashboard, presenter)
+							ChildSuggestion.onBind(vSuggestion, dashboard, presenter, true)
 						}
 						else -> { }
 					}
@@ -133,7 +133,7 @@ class DynamicHolder(
 								vSuggestion2 = getChildSuggestion(lls2.context)
 								addView(lls2, vSuggestion2)
 							}
-							ChildSuggestion.onBind(vSuggestion2, dashboard, presenter)
+							ChildSuggestion.onBind(vSuggestion2, dashboard, presenter, false)
 						}
 						else -> {}
 					}
