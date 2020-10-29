@@ -20,23 +20,17 @@ import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 object ChildSuggestion {
 	fun onBind(view: View, dashboard: Dashboard, presenter: DashboardPresenter, isPrimary: Boolean)
 	{
-		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
-			val drawerColorPrimary = tvContent.context.getParsedColor(
-				ThemeColor.currentColor.drawerTextColorPrimary)
-			tvContent.setTextColor(drawerColorPrimary)
-
-			dashboard.run {
-				if (isPrimary)
-				{
-					queryBase?.let { queryBase ->
-						setSuggestion(view, tvContent, dashboard, queryBase, presenter, isPrimary)
-					}
+		dashboard.run {
+			if (isPrimary)
+			{
+				queryBase?.let { queryBase ->
+					setSuggestion(view, dashboard, queryBase, presenter, isPrimary)
 				}
-				else
-				{
-					queryBase2?.let { queryBase ->
-						setSuggestion(view, tvContent, dashboard, queryBase, presenter, isPrimary)
-					}
+			}
+			else
+			{
+				queryBase2?.let { queryBase ->
+					setSuggestion(view, dashboard, queryBase, presenter, isPrimary)
 				}
 			}
 		}
@@ -44,20 +38,24 @@ object ChildSuggestion {
 
 	private fun setSuggestion(
 		view: View,
-		tvContent: TextView,
 		dashboard: Dashboard,
 		queryBase: QueryBase,
 		presenter: DashboardPresenter,
 		isPrimary: Boolean)
 	{
-		val introMessageRes = tvContent.context.getStringResources(R.string.msg_suggestion)
-		val message = String.format(introMessageRes, queryBase.message)
-		tvContent.text = message
+		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
+			val drawerColorPrimary = tvContent.context.getParsedColor(
+				ThemeColor.currentColor.drawerTextColorPrimary)
+			tvContent.setTextColor(drawerColorPrimary)
+
+			val introMessageRes = tvContent.context.getStringResources(R.string.msg_suggestion)
+			val message = String.format(introMessageRes, queryBase.message)
+			tvContent.text = message
+		}
 
 		val rows = queryBase.aRows
 		view.findViewById<LinearLayout>(R.id.llSuggestion)?.let { llSuggestion ->
 			llSuggestion.removeAllViews()
-
 			for (index in 0 until rows.size)
 			{
 				val singleRow = rows[index]
@@ -111,7 +109,6 @@ object ChildSuggestion {
 							else
 							{
 								secondQuery = content
-								title = content
 								isWaitingData2 = true
 								queryBase2 = null
 							}
