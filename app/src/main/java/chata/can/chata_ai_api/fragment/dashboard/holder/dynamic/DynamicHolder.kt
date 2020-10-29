@@ -125,6 +125,16 @@ class DynamicHolder(
 						{
 							toString()
 						}
+						TypeChatView.SUGGESTION_VIEW ->
+						{
+							var vSuggestion2 = lls2.searchView(R.id.llMainSuggestion)
+							if (vSuggestion2 == null)
+							{
+								vSuggestion2 = getChildSuggestion(lls2.context)
+								addView(lls2, vSuggestion2)
+							}
+							ChildSuggestion.onBind(vSuggestion2, dashboard, presenter)
+						}
 						else -> {}
 					}
 				} ?: run {
