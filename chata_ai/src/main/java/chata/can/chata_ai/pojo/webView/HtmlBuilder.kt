@@ -133,7 +133,7 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			dataForWebView.catX = newListDescending(aCatX).toString()
+			dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -147,7 +147,7 @@ object HtmlBuilder
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					aCatX,//newListDescending(aCatX),
+					aCatX,
 					aCatY,
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
@@ -176,7 +176,7 @@ object HtmlBuilder
 							mDataPivot,
 							aColumn[aNumber.first()],
 							aCatX,//newListDescending(aCatX),
-							aCatY,//aCatY,
+							aCatY,
 							nameHeader)
 						dataForWebView.datePivot = pPivot.first
 						dataForWebView.rowsPivot = pPivot.second
@@ -188,7 +188,7 @@ object HtmlBuilder
 					}
 				}
 
-				dataForWebView.catYS = LineBuilder.generateDataChartLine(aMapPure, newListDescending(aCatX), aCatY).toString()
+				dataForWebView.catYS = LineBuilder.generateDataChartLine(aMapPure, aCatX, aCatY).toString()
 				queryBase.isTri = true
 				dataForWebView.isBi = false
 
