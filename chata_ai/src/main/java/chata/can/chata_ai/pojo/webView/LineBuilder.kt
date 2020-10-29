@@ -7,7 +7,7 @@ object LineBuilder
 	fun generateDataChartLine(
 		aMapData: LinkedHashMap<String, String>,
 		aCatX: List<String>,
-		aCatY: ArrayList<String>): ArrayList<String>
+		aCatY: List<String>): ArrayList<String>
 	{
 		val aChartLine = ArrayList<String>()
 		for((index2, category) in aCatY.withIndex())
