@@ -20,5 +20,6 @@
 	<string name="the_data_is_incomplete">The data is incomplete</string>
 	<string name="other">Other…</string>
 	<string name="loading">Loading…</string>
-	<string name="empty_notification">You don\'t have any notifications yet.</string>
+	<string name="empty_notification">No notifications yet.</string>
+	<string name="stay_tuned">Stay tuned!</string>
 </resources>

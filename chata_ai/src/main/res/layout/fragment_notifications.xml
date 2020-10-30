@@ -3,13 +3,38 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
-	<TextView
-		android:gravity="center"
-		android:id="@+id/tvLoading"
+	<LinearLayout
+		android:id="@+id/llParent"
+		android:gravity="center_horizontal"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
-		android:text="@string/loading"
-		android:textSize="14sp"/>
+		android:paddingTop="260dp"
+		android:orientation="vertical">
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/iv1"
+			android:layout_height="180dp"
+			android:layout_width="180dp"
+			android:src="@drawable/ic_notification"
+			android:visibility="gone"/>
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvLoading"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="@string/loading"
+			android:textSize="14sp"/>
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvMsg1"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:layout_width="match_parent"
+			android:text="@string/stay_tuned"
+			android:textSize="14sp"
+			android:visibility="gone"/>
+	</LinearLayout>
+
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvNotification"
 		android:layout_height="match_parent"
