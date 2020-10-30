@@ -31,7 +31,6 @@ class WebViewHolder(
 	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
-	private val rvContentTop = itemView.findViewById<View>(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null

@@ -49,8 +49,8 @@ object HtmlBuilder
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
-				posColumnX = aGroupable[0]
-				posColumnY = aGroupable[1]
+				posColumnX = aGroupable[1]//0
+				posColumnY = aGroupable[0]//1
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				isTriConfig = true

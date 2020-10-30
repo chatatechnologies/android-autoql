@@ -34,18 +34,18 @@ object TableTriBuilder
 	): Pair<String, Int>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
+		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
 		val aRows = ArrayList<String>()
 
-		for (indexY in aCatY.indices)
+		for (indexX in aCatX.indices)
 		{
-			val categoryY = aCatY[indexY]
-			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
-			for (indexX in aCatX.indices)
+			val categoryX = aCatX[indexX]
+			val sbRow = StringBuilder("<td>${categoryX.replace("\"", "")}</td>")
+			for (indexY in aCatY.indices)
 			{
 				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
 				if (cell.isNotEmpty())
@@ -78,8 +78,8 @@ object TableTriBuilder
 
 		for (aCells in aRows)
 		{
-			val valueX = "\"${aCells[0]}\""
-			var valueY = "\"${aCells[1]}\""
+			val valueX = "\"${aCells[1]}\""
+			var valueY = "\"${aCells[0]}\""
 			val value = aCells[2]
 
 			val iX = aCatX.indexOf(valueX)
