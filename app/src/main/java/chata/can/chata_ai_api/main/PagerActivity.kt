@@ -170,9 +170,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 						putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
 						putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 					}
-					//it.updateData(argument)
+					it.updateData(argument)
 				}
-				//it.clearQueriesAndResponses()
+				it.clearQueriesAndResponses()
 			}
 		}
 	}
