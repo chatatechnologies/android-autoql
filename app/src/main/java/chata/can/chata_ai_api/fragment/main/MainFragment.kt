@@ -652,16 +652,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		val text = if (isAuthenticate)
 		{
-			if (projectId.contains("spira"))
-			{
-				bubbleHandle?.setImageResource(R.drawable.ic_spira_logo)
-				bubbleHandle?.setBackgroundColor(R.color.white)
-			}
-			else
-			{
-				bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
-				bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
-			}
+//			if (projectId.contains("spira"))
+//			{
+//				bubbleHandle?.setImageResource(R.drawable.ic_spira_logo)
+//				bubbleHandle?.setBackgroundColor(R.color.white)
+//			}
+//			else
+//			{
+//				bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
+//				bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
+//			}
 			"Log Out"
 		}
 		else
