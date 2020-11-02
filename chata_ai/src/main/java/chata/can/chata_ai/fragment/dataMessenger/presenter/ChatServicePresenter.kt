@@ -59,42 +59,51 @@ class ChatServicePresenter(
 	{
 		if (jsonObject != null)
 		{
-			when(jsonObject.optInt("CODE"))
+			when(jsonObject.optString("nameService"))
 			{
-				400 ->
+				"autocomplete" ->
 				{
-					val textError = jsonObject.optString("RESPONSE") ?: ""
-					if (textError.isNotEmpty())
+					val aData = arrayListOf("No matches")
+					view?.setDataAutocomplete(aData)
+				}
+				else ->
+				{
+					when(jsonObject.optInt("CODE"))
 					{
-						try {
-							val jsonError = JSONObject(textError)
-							val reference = jsonError.optString(referenceIdKey)
-							var message = jsonError.optString(messageKey)
-							val query = jsonObject.optString("query") ?: ""
-							if (reference == "1.1.430")
+						400 ->
+						{
+							val textError = jsonObject.optString("RESPONSE") ?: ""
+							if (textError.isNotEmpty())
 							{
-								if (SinglentonDrawer.mIsEnableSuggestion)
-								{
-									val response = jsonObject.optString("RESPONSE", "")
-									var queryId = ""
-									try {
-										val joResponse = JSONObject(response)
-										joResponse.optJSONObject("data")?.let { joData ->
-											queryId = joData.optString("query_id")
+								try {
+									val jsonError = JSONObject(textError)
+									val reference = jsonError.optString(referenceIdKey)
+									var message = jsonError.optString(messageKey)
+									val query = jsonObject.optString("query") ?: ""
+									if (reference == "1.1.430")
+									{
+										if (SinglentonDrawer.mIsEnableSuggestion)
+										{
+											val response = jsonObject.optString("RESPONSE", "")
+											var queryId = ""
+											try {
+												val joResponse = JSONObject(response)
+												joResponse.optJSONObject("data")?.let { joData ->
+													queryId = joData.optString("query_id")
+												}
+											} catch (ex: Exception) {}
+											getRelatedQueries(query, message, queryId)
 										}
-									} catch (ex: Exception) {}
-									getRelatedQueries(query, message, queryId)
+										else
+										{
+											message = "suggestion not supported"
+											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+										}
+									}
 								}
-								else
-								{
-									message = "suggestion not supported"
-									view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
-								}
+								catch (ex: Exception) { }
 							}
 						}
-						catch (ex: Exception) { }
-					}
-				}
 //				500 ->
 //				{
 //					val query = jsonObject.optString("query") ?: ""
@@ -114,23 +123,25 @@ class ChatServicePresenter(
 //					}
 //					//endregion
 //				}
-				in 500 .. 502 ->
-				{
-					val query = jsonObject.optString("query") ?: ""
-					val response = jsonObject.optString("RESPONSE")
-					if (response.isNotEmpty())
-					{
-						val joResponse = JSONObject(response)
-						val message = joResponse.optString(messageKey)
-						val referenceId = joResponse.optString("reference_id")
-						val messageComplete = if (message.isEmpty()) {
-							"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+						in 500 .. 502 ->
+						{
+							val query = jsonObject.optString("query") ?: ""
+							val response = jsonObject.optString("RESPONSE")
+							if (response.isNotEmpty())
+							{
+								val joResponse = JSONObject(response)
+								val message = joResponse.optString(messageKey)
+								val referenceId = joResponse.optString("reference_id")
+								val messageComplete = if (message.isEmpty()) {
+									"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+								}
+								else
+									"$message\n\nError ID: $referenceId"
+								view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+							}
+							isLoading(false)
 						}
-						else
-							"$message\n\nError ID: $referenceId"
-						view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
 					}
-					isLoading(false)
 				}
 			}
 		}
@@ -294,7 +305,6 @@ class ChatServicePresenter(
 					{
 						aData.add(it.optString(index))
 					}
-
 				}
 				view?.setDataAutocomplete(aData)
 			}

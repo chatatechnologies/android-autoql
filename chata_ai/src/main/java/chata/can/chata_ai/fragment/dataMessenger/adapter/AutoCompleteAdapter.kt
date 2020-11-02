@@ -36,7 +36,10 @@ class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>
 		notifyDataSetChanged()
 	}
 
-	override fun clear() = aData.clear()
+	override fun clear()
+	{
+		aData.clear()
+	}
 
 	override fun getCount() = aData.size
 
