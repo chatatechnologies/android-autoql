@@ -40,29 +40,37 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 						joData ->
 						val aItems = ArrayList<String>()
 						//region items
-						joData.optJSONArray("items")?.let {
-							jaItems ->
-							for(index in 0 until jaItems.length())
+						joData.optJSONArray("items")?.let { jaItems ->
+							if (jaItems.length() == 0)
 							{
-								jaItems.optString(index)?.let {
-									joItem ->
-									aItems.add(joItem)
+								view.showMessage()
+							}
+							else
+							{
+								for(index in 0 until jaItems.length())
+								{
+									jaItems.optString(index)?.let { joItem ->
+										aItems.add(joItem)
+									}
 								}
 							}
 						}
 						//endregion
-						joData.optJSONObject("pagination")?.run {
-							val currentPage = optInt("current_page")
-							val totalPages = optInt("total_pages")
-							val totalItems = optInt("total_items")
-							val pageSize = optInt("page_size")
-							val nextUrl = if (isNull("next_url")) "" else optString("next_url")
-							val previousUrl = if (isNull("previous_url")) "" else optString("previous_url")
+						if (aItems.size > 0)
+						{
+							joData.optJSONObject("pagination")?.run {
+								val currentPage = optInt("current_page")
+								val totalPages = optInt("total_pages")
+								val totalItems = optInt("total_items")
+								val pageSize = optInt("page_size")
+								val nextUrl = if (isNull("next_url")) "" else optString("next_url")
+								val previousUrl = if (isNull("previous_url")) "" else optString("previous_url")
 
-							val exploreQuery =
-								ExploreQuery(aItems, currentPage, totalPages, totalItems, pageSize, nextUrl, previousUrl)
-							view.showList()
-							view.getRelatedQueries(exploreQuery)
+								val exploreQuery =
+									ExploreQuery(aItems, currentPage, totalPages, totalItems, pageSize, nextUrl, previousUrl)
+								view.showList()
+								view.getRelatedQueries(exploreQuery)
+							}
 						}
 					}
 				}
@@ -74,7 +82,12 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?) {}
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+		jsonObject?.let {
+
+		}
+	}
 
 	fun validateQuery(query: String)
 	{

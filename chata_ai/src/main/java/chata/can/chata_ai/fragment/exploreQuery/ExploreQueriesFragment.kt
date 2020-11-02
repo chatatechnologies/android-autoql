@@ -176,6 +176,14 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 	}
 
+	override fun showMessage()
+	{
+		hideGif()
+		tvMsg1.setText(R.string.empty_data_explore_queries)
+		tvMsg1.visibility = View.VISIBLE
+		tvMsg2.visibility = View.GONE
+	}
+
 	override fun showGif()
 	{
 		rlGif.visibility = visible
@@ -184,7 +192,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	override fun showList()
 	{
-		rlGif.visibility = gone
+		hideGif()
 		rvRelatedQueries.visibility = visible
 	}
 
@@ -230,6 +238,11 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	{
 		super.onDestroy()
 		ThemeColor.aColorMethods.remove(nameFragment)
+	}
+
+	private fun hideGif()
+	{
+		rlGif.visibility = gone
 	}
 
 	private fun checkLastData()

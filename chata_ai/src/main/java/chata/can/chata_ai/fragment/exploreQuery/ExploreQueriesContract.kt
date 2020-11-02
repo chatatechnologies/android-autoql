@@ -4,6 +4,7 @@ import chata.can.chata_ai.pojo.explore.ExploreQuery
 
 interface ExploreQueriesContract
 {
+	fun showMessage()
 	fun showGif()
 	fun showList()
 	fun clearPage()
