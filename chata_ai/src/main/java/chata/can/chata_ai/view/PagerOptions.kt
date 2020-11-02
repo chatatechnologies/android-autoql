@@ -291,10 +291,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				}
 				fragmentManager?.let { addFragment(it, fragment, nameFragment) }
 			}
-			context?.let {
-				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-				startAnimation(animationTop)
-			}
+//			context?.let {
+//				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+//				startAnimation(animationTop)
+//			}
 			updateTitle()
 			View.VISIBLE
 		}
