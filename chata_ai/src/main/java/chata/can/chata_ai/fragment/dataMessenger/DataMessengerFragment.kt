@@ -96,6 +96,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "Average sales per month last year"
 //				val queryDemo = "all oslsekfjalwef"
 				val queryDemo = "max 1000 area by utilization"
+//				val queryDemo = ""
 			etQuery.setText(queryDemo)
 		}
 
@@ -214,6 +215,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				getString(R.string.type_queries_here)
 		}
+		if (model.countData() == 0)
+		{
+			clearQueriesAndResponses()
+		}
 	}
 
 	fun clearQueriesAndResponses()
@@ -252,7 +257,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			activity?.let {
 				llParent.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
-				rvChat.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+//				rvChat.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				rvChat.setBackgroundColor(it.getParsedColor(R.color.blue_chata_circle))
 				tvMsg.setTextColor(it.getParsedColor(R.color.we_run))
 				ivRun.setColorFilter(it.getParsedColor(R.color.we_run))
 
@@ -444,7 +450,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				model[0]?.message = introMessage
 			}
 
-			rvChat.layoutManager = LinearLayoutManager(it)
+			val llm = LinearLayoutManager(it)
+			llm.orientation = LinearLayoutManager.VERTICAL
+			rvChat.layoutManager = llm
 			rvChat.adapter = chatAdapter
 			scrollToPosition()
 		}

@@ -30,5 +30,9 @@ open class BaseAdapter(
 		return BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue))
 	}
 
-	override fun getItemCount() = model.countData()
+	override fun getItemCount(): Int
+	{
+		println("Cantidad ${model.countData()}")
+		return model.countData()
+	}
 }
