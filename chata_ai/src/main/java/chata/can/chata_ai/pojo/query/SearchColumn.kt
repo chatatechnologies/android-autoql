@@ -66,7 +66,7 @@ object SearchColumn
 		var isDecimal = true
 		for (row in aRows)
 		{
-			if (indexCheck < aRows.size)
+			if (indexCheck < row.size)
 			{
 				row[indexCheck].let { string ->
 					string.toDoubleOrNull()?.let {
