@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import com.android.volley.Request
+import java.net.URLEncoder
 
 object QueryRequest
 {
@@ -16,9 +17,8 @@ object QueryRequest
 		infoHolder: HashMap<String, Any> ?= null)
 	{
 		var header: HashMap<String, String> ?= null
-
 		val mParams = hashMapOf<String, Any>(
-			"text" to query,
+			"text" to URLEncoder.encode(query, "UTF-8"),
 			//"debug" to true,
 			"test" to true)
 

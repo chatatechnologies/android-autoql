@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.pojo.urlBase
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import com.android.volley.Request
+import java.net.URLEncoder
 
 class DataChatContract
 {
@@ -43,10 +44,11 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
+		val queryEncode = URLEncoder.encode(query, "UTF-8")
 		val url = if (DataMessenger.isDemo())
 		{
 			nameService = "safetynet"
-			"$urlBase${api1}safetynet?q=$query&projectId=1&user_id=demo&customer_id=demo"
+			"$urlBase${api1}safetynet?q=$queryEncode&projectId=1&user_id=demo&customer_id=demo"
 		}
 		else
 		{
@@ -54,7 +56,7 @@ class DataChatContract
 			{
 				header = getAuthorizationJWT()
 				nameService = "validate"
-				"$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
+				"$domainUrl/autoql/${api1}query/validate?text=$queryEncode&key=$apiKey"
 			}
 		}
 
