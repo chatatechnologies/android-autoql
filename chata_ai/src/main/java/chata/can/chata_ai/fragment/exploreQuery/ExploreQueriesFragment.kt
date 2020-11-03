@@ -67,7 +67,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 		}
-
 		if (BuildConfig.DEBUG)
 		{
 			etQuery.setText("tickets")
@@ -281,17 +280,15 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	private fun setOval(tv: TextView, count: Int = 1)
 	{
 		tvSelected = tv
-		tv.setTextColor(getColor(R.color.white))
 		val gb = DrawableBuilder.setOvalDrawable(getBlue())
 		val height = tv.dpToPx(30f)
-		val width = tv.dpToPx(20f + (count.length() * 10))
+		val width = tv.dpToPx(25f + (count.length() * 5))
 		gb.setSize(width, height)
 		tv.background = gb
 	}
 
 	private fun removeOval(tv: TextView)
 	{
-		tv.setTextColor(getColor(R.color.black))
 		tv.setBackgroundColor(Color.TRANSPARENT)
 	}
 
