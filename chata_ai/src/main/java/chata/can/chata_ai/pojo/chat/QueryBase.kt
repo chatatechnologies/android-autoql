@@ -162,7 +162,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			if (needDoAsync)
 			{
 				//region generate contentHTML
-				val rulesHTML = RulesHtml(aColumn, CountColumn())
+				val rulesHTML = RulesHtml(aColumn, CountColumn(), aRows.size)
 				supportCase = rulesHTML.getSupportCharts()
 
 				val dataForWebView = HtmlBuilder.build(this)

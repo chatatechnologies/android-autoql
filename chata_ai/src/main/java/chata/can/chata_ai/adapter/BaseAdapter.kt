@@ -32,7 +32,6 @@ open class BaseAdapter(
 
 	override fun getItemCount(): Int
 	{
-		println("Cantidad ${model.countData()}")
 		return model.countData()
 	}
 }

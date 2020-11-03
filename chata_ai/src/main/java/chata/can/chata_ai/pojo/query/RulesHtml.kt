@@ -5,7 +5,8 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 class RulesHtml(
 	private val aColumns: ArrayList<ColumnQuery>,
-	private val countColumn: CountColumn)
+	private val countColumn: CountColumn,
+	private val numRows: Int)
 {
 	fun getSupportCharts(): SupportCase
 	{
@@ -22,8 +23,10 @@ class RulesHtml(
 					//case 1; bar, line, column, pie; 1 series
 					if (countGroupable == 1 && numberColumns() == 1)
 					{
-//						case = SupportCase.CASE_1
-						case = SupportCase.NO_CASE
+						case = if (numRows == 1)
+							SupportCase.NO_CASE
+						else
+							SupportCase.CASE_1
 					}
 				}
 				columnSize > 2 ->
