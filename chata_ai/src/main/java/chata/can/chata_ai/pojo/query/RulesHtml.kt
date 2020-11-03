@@ -22,7 +22,8 @@ class RulesHtml(
 					//case 1; bar, line, column, pie; 1 series
 					if (countGroupable == 1 && numberColumns() == 1)
 					{
-						case = SupportCase.CASE_1
+//						case = SupportCase.CASE_1
+						case = SupportCase.NO_CASE
 					}
 				}
 				columnSize > 2 ->
