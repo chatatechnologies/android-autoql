@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.exploreQuery.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
@@ -20,6 +22,8 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
+import kotlin.math.abs
+import kotlin.math.log10
 
 class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnClickListener
 {
@@ -62,6 +66,11 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		checkLastData()
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
+		}
+
+		if (BuildConfig.DEBUG)
+		{
+			etQuery.setText("tickets")
 		}
 	}
 
@@ -269,11 +278,15 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 	}
 
-	private fun setOval(tv: TextView)
+	private fun setOval(tv: TextView, count: Int = 1)
 	{
 		tvSelected = tv
 		tv.setTextColor(getColor(R.color.white))
-		tv.background = DrawableBuilder.setOvalDrawable(getBlue())
+		val gb = DrawableBuilder.setOvalDrawable(getBlue())
+		val height = tv.dpToPx(30f)
+		val width = tv.dpToPx(20f + (count.length() * 10))
+		gb.setSize(width, height)
+		tv.background = gb
 	}
 
 	private fun removeOval(tv: TextView)
@@ -301,14 +314,15 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 					tvSelected?.let { removeOval(it) }
 					setOval(
 						if (currentPage == 1) tvFirstPage
-						else tvLastPage
+						else tvLastPage,
+						currentPage
 					)
 					tvCenterPage.text = "..."
 				}
 				else ->
 				{
 					tvSelected?.let { removeOval(it) }
-					setOval(tvCenterPage)
+					setOval(tvCenterPage, currentPage)
 					tvCenterPage.text = "$currentPage"
 				}
 			}
@@ -332,4 +346,9 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	}
 
 	private fun getBlue() = getColor(R.color.chata_drawer_accent_color)
+
+	private fun Int.length() = when(this) {
+		0 -> 1
+		else -> log10(abs(toDouble())).toInt() + 1
+	}
 }
