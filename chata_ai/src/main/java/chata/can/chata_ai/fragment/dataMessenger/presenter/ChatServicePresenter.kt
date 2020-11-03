@@ -131,6 +131,10 @@ class ChatServicePresenter(
 							{
 								val joResponse = JSONObject(response)
 								val message = joResponse.optString(messageKey)
+								var queryId = ""
+								joResponse.optJSONObject("data")?.let { joData ->
+									queryId = joData.optString("query_id")
+								}
 								val referenceId = joResponse.optString("reference_id")
 								val messageComplete = if (message.isEmpty())
 								{
@@ -138,7 +142,15 @@ class ChatServicePresenter(
 								}
 								else
 									"$message\n\nError ID: $referenceId"
-								view?.addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+								val json = JSONObject().apply {
+									val joData = JSONObject().apply {
+										put("query_id", queryId)
+									}
+									put("data", joData)
+									put("message", messageComplete)
+								}
+								val queryBase = QueryBase(json)
+								view?.addNewChat(TypeChatView.LEFT_VIEW, queryBase)
 							}
 							isLoading(false)
 						}

@@ -80,8 +80,7 @@ open class BaseHolder(
 //						llMainBase?.visibility = View.VISIBLE
 //						tvContent.text = item.message
 //					}
-					tvContent.text = reportLink(item.message)
-
+					tvContent.text = item.message
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
 						{
