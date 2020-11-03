@@ -80,7 +80,7 @@ open class BaseHolder(
 //						llMainBase?.visibility = View.VISIBLE
 //						tvContent.text = item.message
 //					}
-					tvContent.text = item.message
+					tvContent.text = reportLink(item.message)
 
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
@@ -176,45 +176,7 @@ open class BaseHolder(
 				if (simpleQuery.message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
-					with(simpleQuery)
-					{
-						if (message.contains("<report>"))
-						{
-							message = message.replace("<report>", "report")
-							val spannable = SpannableString(message)
-							val clickable = object: ClickableSpan()
-							{
-								override fun onClick(widget: View)
-								{
-									ReportProblemDialog(tvContent.context, queryId, chatView).show()
-								}
-
-								override fun updateDrawState(textPaint: TextPaint)
-								{
-									textPaint.run {
-										try {
-											tvContent.context?.let {
-												color = it.getParsedColor(R.color.chata_drawer_accent_color)
-											}
-										} finally {
-											tvContent.context?.let {
-												bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-											}
-										}
-										isUnderlineText = false
-									}
-								}
-							}
-							val index = message.indexOf("report")
-							spannable.setSpan(clickable, index, index + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-							tvContent.movementMethod = LinkMovementMethod.getInstance()
-							spannable
-						}
-						else
-						{
-							simpleQuery.message
-						}
-					}
+					reportLink(simpleQuery.message, simpleQuery.queryId)
 				}
 				else
 				{
@@ -225,5 +187,48 @@ open class BaseHolder(
 		}
 
 		tvContent.text = message
+	}
+
+	private fun reportLink(message: String, queryId: String = ""): CharSequence
+	{
+		return if (message.contains("<report>"))
+		{
+			val message1 = message.replace("<report>", "report")
+			val spannable = SpannableString(message1)
+			if (queryId.isNotEmpty())
+			{
+				val clickable = object: ClickableSpan()
+				{
+					override fun onClick(widget: View)
+					{
+						ReportProblemDialog(tvContent.context, queryId, chatView).show()
+					}
+
+					override fun updateDrawState(textPaint: TextPaint)
+					{
+						textPaint.run {
+							try {
+								tvContent.context?.let {
+									color = it.getParsedColor(R.color.chata_drawer_accent_color)
+								}
+							} finally {
+								tvContent.context?.let {
+									bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+								}
+							}
+							isUnderlineText = false
+						}
+					}
+				}
+				val index = message1.indexOf("report")
+				spannable.setSpan(clickable, index, index + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+				tvContent.movementMethod = LinkMovementMethod.getInstance()
+				spannable
+			}
+			else
+				message
+		}
+		else
+			message
 	}
 }
