@@ -8,9 +8,6 @@ import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
-	private fun newListDescending(aList: List<String>)
-	 = aList.toMutableList().apply { sortDescending() }
-
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
@@ -233,7 +230,9 @@ object HtmlBuilder
 //				else DatePivot.buildBi(aRows, aColumn)
 //				queryBase.configActions = 1
 
-				if (aColumn[0].type == TypeDataQuery.DATE_STRING)
+				val type = aColumn[0].type
+				val type1 = aColumn[1].type
+				if (type == TypeDataQuery.DATE_STRING && type1 != TypeDataQuery.DOLLAR_AMT)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
 						dataForWebView.datePivot = first
