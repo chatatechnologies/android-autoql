@@ -2,6 +2,8 @@ package chata.can.chata_ai.dialog.twiceDrill
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
@@ -25,6 +27,7 @@ class TwiceDrillDialog(
 	private lateinit var rlParent: View
 	private lateinit var ivCancel: ImageView
 	private lateinit var tvTitle: TextView
+	private lateinit var vBorder: View
 	private lateinit var ivLoad1: View
 	private lateinit var ivLoad2: View
 	private lateinit var wbDrillDown1 : WebView
@@ -43,6 +46,7 @@ class TwiceDrillDialog(
 		rlParent = findViewById(R.id.rlParent)
 		ivCancel = findViewById(R.id.ivCancel)
 		tvTitle = findViewById(R.id.tvTitle)
+		vBorder = findViewById(R.id.vBorder)
 		ivLoad1 = findViewById(R.id.ivLoad1)
 		ivLoad2 = findViewById(R.id.ivLoad2)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
@@ -52,10 +56,11 @@ class TwiceDrillDialog(
 	override fun setColors()
 	{
 		ThemeColor.currentColor.run {
-			tvTitle.context?.let {
-				tvTitle.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				rlParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-			}
+			tvTitle.setTextColor(context.getParsedColor(drawerTextColorPrimary))
+			rlParent.setBackgroundColor(context.getParsedColor(drawerBackgroundColor))
+			vBorder.setBackgroundColor(context.getParsedColor(drawerBorderColor))
+			ivLoad1.setBackgroundColor(context.getParsedColor(drawerBackgroundColor))
+			ivLoad2.setBackgroundColor(context.getParsedColor(drawerBackgroundColor))
 		}
 	}
 
@@ -79,8 +84,10 @@ class TwiceDrillDialog(
 				{
 					override fun onPageFinished(view: WebView?, url: String?)
 					{
-						ivLoad2.visibility = View.GONE
 						wbDrillDown2.visibility = View.VISIBLE
+						Handler(Looper.getMainLooper()).postDelayed({
+							ivLoad2.visibility = View.GONE
+						}, 200)
 					}
 				}
 			}
@@ -146,8 +153,11 @@ class TwiceDrillDialog(
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					ivLoad1.visibility = View.GONE
 					wbDrillDown1.visibility = View.VISIBLE
+					Handler(Looper.getMainLooper()).postDelayed({
+						ivLoad1.visibility = View.GONE
+					}, 200)
+
 				}
 			}
 		}

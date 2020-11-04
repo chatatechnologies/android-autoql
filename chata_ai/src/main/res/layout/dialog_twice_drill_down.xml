@@ -34,8 +34,14 @@
 			android:textSize="16sp"/>
 	</RelativeLayout>
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<View
 		android:layout_below="@id/rlTitle"
+		android:id="@+id/vBorder"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_below="@id/vBorder"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent">
 
