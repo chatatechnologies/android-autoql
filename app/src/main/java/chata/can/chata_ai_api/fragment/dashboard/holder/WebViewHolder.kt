@@ -1,14 +1,18 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
@@ -29,6 +33,10 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 				iView.layoutParams = layout
 			}
 		}
+		rlLoad.setBackgroundColor(
+			rlLoad.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+		webView?.visibility = View.GONE
+		rlLoad?.visibility = View.VISIBLE
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -39,7 +47,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			item.queryBase?.run {
 				if (!isLoadingHTML)
 				{
-					setDataWebView(rlLoad, webView, this, rlWebView)
+					setDataWebView(this)
 				}
 			}
 			item.queryBase2?.run {
@@ -48,14 +56,13 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		}
 		if (item is QueryBase)
 		{
-			setDataWebView(rlLoad, webView, item, rlWebView)
+			setDataWebView(item)
 		}
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
-	private fun setDataWebView(rlLoad: View?, webView: WebView?, queryBase: QueryBase, rlWebView: RelativeLayout)
+	private fun setDataWebView(queryBase: QueryBase)
 	{
-		rlLoad?.visibility = View.VISIBLE
 		changeHeightParent(rlWebView, queryBase.rowsTable)
 		webView?.run {
 			clearCache(true)
@@ -73,7 +80,10 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					rlLoad?.visibility = View.GONE
+					webView.visibility = View.VISIBLE
+					Handler(Looper.getMainLooper()).postDelayed({
+						rlLoad?.visibility = View.GONE
+					}, 200)
 				}
 			}
 			setOnTouchListener { view, _ ->

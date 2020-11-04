@@ -157,7 +157,6 @@ class TwiceDrillDialog(
 					Handler(Looper.getMainLooper()).postDelayed({
 						ivLoad1.visibility = View.GONE
 					}, 200)
-
 				}
 			}
 		}
