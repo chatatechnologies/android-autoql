@@ -13,6 +13,7 @@ import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
 
 class TwiceDrillDialog(
 	context: Context,
@@ -21,6 +22,7 @@ class TwiceDrillDialog(
 	private var value2: String = ""
 ): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
 {
+	private lateinit var rlParent: View
 	private lateinit var ivCancel: ImageView
 	private lateinit var tvTitle: TextView
 	private lateinit var ivLoad1: View
@@ -38,6 +40,7 @@ class TwiceDrillDialog(
 
 	override fun setViews()
 	{
+		rlParent = findViewById(R.id.rlParent)
 		ivCancel = findViewById(R.id.ivCancel)
 		tvTitle = findViewById(R.id.tvTitle)
 		ivLoad1 = findViewById(R.id.ivLoad1)
@@ -48,7 +51,12 @@ class TwiceDrillDialog(
 
 	override fun setColors()
 	{
-
+		ThemeColor.currentColor.run {
+			tvTitle.context?.let {
+				tvTitle.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				rlParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
+			}
+		}
 	}
 
 	@SuppressLint("SetJavaScriptEnabled")

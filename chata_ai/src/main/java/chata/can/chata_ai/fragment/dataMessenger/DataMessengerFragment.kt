@@ -94,11 +94,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			  val queryDemo = "Number of invoice per customer number ordered"
 
 //				val queryDemo = "Average sales per month last year"
-//				val queryDemo = "max 1000 area by utilization"
+				val queryDemo = "max 1000 area by utilization"
 //				val queryDemo = "Last estimates over 10000"
-
-				val queryDemo = "Total revenue for bill & sons and advantage oil by month in 2017 and 2018"
-//				val queryDemo = "Total cost by job this year"
 			etQuery.setText(queryDemo)
 		}
 

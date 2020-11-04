@@ -56,7 +56,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		if (BuildConfig.DEBUG)
 		{
 //			etQuery.setText("total revenue by area 2019")
-			etQuery.setText("Total expenses by account by customer last year")
+			etQuery.setText("Total revenue by ticket type last year")
 //			etQuery.setText("Bottom two customers")
 		}
 	}
