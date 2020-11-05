@@ -93,6 +93,7 @@ class ChatServicePresenter(
 												}
 											} catch (ex: Exception) {}
 											getRelatedQueries(query, message, queryId)
+											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 										}
 										else
 										{
@@ -104,25 +105,6 @@ class ChatServicePresenter(
 								catch (ex: Exception) { }
 							}
 						}
-//				500 ->
-//				{
-//					val query = jsonObject.optString("query") ?: ""
-//					val response = jsonObject.optString("RESPONSE")
-//					if (response.isNotEmpty())
-//					{
-//						try {
-//							val joResponse = JSONObject(response)
-//							val message = joResponse.optString(messageKey)
-//							view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
-//						} catch (ex: Exception) {}
-//					}
-//					//region REMOVE BY TESTING
-//					else
-//					{
-//						view?.addChatMessage(TypeChatView.LEFT_VIEW, "Data not found", "Error")
-//					}
-//					//endregion
-//				}
 						in 500 .. 502 ->
 						{
 							val query = jsonObject.optString("query") ?: ""
@@ -210,7 +192,6 @@ class ChatServicePresenter(
 									val query = jsonObject.optString("query", "")
 									isLoading(false)
 									view?.run {
-										addChatMessage(TypeChatView.LEFT_VIEW, queryBase.message, query)
 										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
 									}
 								}
