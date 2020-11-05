@@ -93,8 +93,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "Average revenue by area last year"
 //			  val queryDemo = "Number of invoice per customer number ordered"
 
-//				val queryDemo = "Average sales per month last year"
-				val queryDemo = "Total revenue by area last year"
+				val queryDemo = ""
+//				val queryDemo = "Show me expenses last year over 10000"
 //				val queryDemo = "Last estimates over 10000"
 			etQuery.setText(queryDemo)
 		}
@@ -125,7 +125,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				{
 					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
-						adapterAutoComplete.clear()
 						presenter.getAutocomplete(string)
 					}
 					else
@@ -345,7 +344,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				else
 					maxHeight.toInt()
 		}
-		//adapterAutoComplete.notifyDataSetChanged()
+		adapterAutoComplete.notifyDataSetChanged()
 	}
 
 	override fun setRecorder()
