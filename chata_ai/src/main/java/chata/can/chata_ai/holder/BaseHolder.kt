@@ -33,8 +33,8 @@ open class BaseHolder(
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
-	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
-	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
+	protected val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
+	protected val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 	protected var queryBase: QueryBase ?= null
 
 	override fun onPaint()
@@ -92,10 +92,12 @@ open class BaseHolder(
 							tvContentTop.visibility = View.GONE
 						}
 
-						rlDelete?.visibility =
+						rlDelete?.visibility = View.VISIBLE
+						ivReport?.visibility =
 							if (item.message == "I want to make sure I understood your query. Did you mean:")
 								View.GONE
 							else View.VISIBLE
+
 					} ?: run {
 						tvContentTop.visibility = View.GONE
 						rlDelete?.visibility = View.GONE

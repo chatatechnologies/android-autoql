@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
@@ -50,10 +51,9 @@ class SuggestionHolder(
 		tvContent.setTextColor(textColor)
 		llContent.backgroundGrayWhite()
 
-		rlDelete?.let {
-			it.backgroundGrayWhite()
-			it.setOnClickListener(this)
-		}
+		rlDelete?.backgroundGrayWhite()
+		ivDelete?.setOnClickListener(this)
+		ivReport?.setOnClickListener(this)
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
@@ -76,8 +76,8 @@ class SuggestionHolder(
 
 				if (it is QueryBase)
 				{
+					queryBase = it
 					tvContentTop.text  = it.query
-
 					if (it.query.isEmpty())
 					{
 //						if (it.message != "Success")
@@ -162,7 +162,11 @@ class SuggestionHolder(
 		v?.let {
 			when(it.id)
 			{
-				R.id.rlDelete ->
+				R.id.ivReport ->
+				{
+					ListPopup.showListPopup(it, queryBase?.queryId ?: "", view)
+				}
+				R.id.ivDelete ->
 				{
 					adapterView?.deleteQuery(adapterPosition)
 				}
