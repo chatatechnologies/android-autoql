@@ -34,13 +34,16 @@ object TableTriBuilder
 	): Pair<String, Int>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
-			"<th>${it.replace("\"", "")}</th>"
-		})
+		sbHead.append("<th>$nameHeader</th>")
+		sbHead.append("<th></th>")
 		sbHead.append("</tr></thead>")
+//		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
+//		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+//			"<th>${it.replace("\"", "")}</th>"
+//		})
+//		sbHead.append("</tr></thead>")
 
 		val aRows = ArrayList<String>()
-
 		for (indexX in aCatX.indices)
 		{
 			val categoryX = aCatX[indexX]
