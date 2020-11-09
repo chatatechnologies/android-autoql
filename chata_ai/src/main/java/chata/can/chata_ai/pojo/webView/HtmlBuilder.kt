@@ -153,45 +153,53 @@ object HtmlBuilder
 
 				if ((aString.isNotEmpty() || aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
-					val mRepeat = HashMap<String, Int>()
-					for (row in aRows)
-					{
-						val row1 = row[0]
-						mRepeat[row1]?.let {
-							mRepeat[row1] = it + 1
-						} ?: run {
-							mRepeat[row1] = 1
-						}
-					}
-					val hasRepeat = mRepeat.filter { it.value > 1 }.isNotEmpty()
-
 					val type = aColumn[aNumber[0]]
+					val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
+
 					if (type.type == TypeDataQuery.QUANTITY || type.type == TypeDataQuery.DOLLAR_AMT)
 					{
+						val mRepeat = HashMap<String, Int>()
+						for (row in aRows)
+						{
+							val row1 = row[0]
+							mRepeat[row1]?.let {
+								mRepeat[row1] = it + 1
+							} ?: run {
+								mRepeat[row1] = 1
+							}
+						}
+
+						val hasRepeat = mRepeat.filter { it.value > 1 }.isNotEmpty()
+						if (hasRepeat)
+						{
 //						val aCheck = (0..2).toMutableList()
-						///
-//						val tmpDate = when
-//						{
-//							aDate.isNotEmpty() -> aDate
-//							aDateString.isNotEmpty() -> aDateString
-//							aString.isNotEmpty() -> aString
-//							else -> aDate
-//						}
-						///
+							val tmpDate = when
+							{
+								aDate.isNotEmpty() -> aDate
+								aDateString.isNotEmpty() -> aDateString
+								aString.isNotEmpty() -> aString
+								else -> aDate
+							}
 //						aCheck.remove(tmpDate[0])
 //						aCheck.remove(aNumber[0])
-///						val nameHeader = aColumn[tmpDate[0]].displayName
-						val nameHeader = aColumn[0].displayName
+							val nameHeader = aColumn[tmpDate[0]].displayName
 
-						val mDataPivot = TableTriBuilder.getMapDataTable(aDataTable)
-						val pPivot = TableTriBuilder.buildDataPivot(
-							mDataPivot,
-							aColumn[aNumber.first()],
-							aCatX,//newListDescending(aCatX),
-							aCatY,
-							nameHeader)
-						dataForWebView.datePivot = pPivot.first
-						dataForWebView.rowsPivot = pPivot.second
+							val pPivot = TableTriBuilder.buildDataPivot(
+								mDataPivot,
+								aColumn[aNumber.first()],
+								aCatX,//newListDescending(aCatX),
+								aCatY,
+								nameHeader)
+							dataForWebView.datePivot = pPivot.first
+							dataForWebView.rowsPivot = pPivot.second
+						}
+						else
+						{
+							val nameHeader = aColumn[0].displayName
+							val pPivot = TableTriBuilder.lineDataPivot(mDataPivot, aCatY, nameHeader)
+							dataForWebView.datePivot = pPivot.first
+							dataForWebView.rowsPivot = pPivot.second
+						}
 					}
 					else
 					{

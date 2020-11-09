@@ -25,6 +25,27 @@ object TableTriBuilder
 		return mData
 	}
 
+	fun lineDataPivot(
+		mDataPivot: LinkedHashMap<String, String>,
+		aCatX: List<String>,
+		nameHeader: String
+	): Pair<String, Int>
+	{
+		val sbHead = StringBuilder(
+			"<thead><tr><th>$nameHeader</th><th>$nameHeader</th></tr></thead>")
+
+		val sbBody = StringBuilder("<tbody>")
+		for (index1 in aCatX.indices)
+		{
+			val cell1 = aCatX[index1]
+			val value = mDataPivot["0_${index1}"]
+			val row = "<td>${cell1.replace("\"", "")}</td><td>$value</td>"
+			sbBody.append("<tr>$row</tr>")
+		}
+		sbBody.append("</tbody>")
+		return Pair("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatX.size)
+	}
+
 	fun buildDataPivot(
 		mDataPivot: LinkedHashMap<String, String>,
 		aColumn: ColumnQuery,
@@ -34,14 +55,10 @@ object TableTriBuilder
 	): Pair<String, Int>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append("<th>$nameHeader</th>")
-		sbHead.append("<th></th>")
+		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+			"<th>${it.replace("\"", "")}</th>"
+		})
 		sbHead.append("</tr></thead>")
-//		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-//		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
-//			"<th>${it.replace("\"", "")}</th>"
-//		})
-//		sbHead.append("</tr></thead>")
 
 		val aRows = ArrayList<String>()
 		for (indexX in aCatX.indices)
