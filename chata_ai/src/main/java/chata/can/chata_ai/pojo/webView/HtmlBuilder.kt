@@ -153,6 +153,18 @@ object HtmlBuilder
 
 				if ((aString.isNotEmpty() || aDate.isNotEmpty() || aDateString.isNotEmpty()) && aNumber.isNotEmpty())
 				{
+					val mRepeat = HashMap<String, Int>()
+					for (row in aRows)
+					{
+						val row1 = row[0]
+						mRepeat[row1]?.let {
+							mRepeat[row1] = it + 1
+						} ?: run {
+							mRepeat[row1] = 1
+						}
+					}
+					val hasRepeat = mRepeat.filter { it.value > 1 }.isNotEmpty()
+
 					val type = aColumn[aNumber[0]]
 					if (type.type == TypeDataQuery.QUANTITY || type.type == TypeDataQuery.DOLLAR_AMT)
 					{
