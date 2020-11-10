@@ -33,7 +33,7 @@ object TableTriBuilder
 	): Pair<String, Int>
 	{
 		val sbHead = StringBuilder(
-			"<thead><tr><th>$nameHeader</th><th>$nameHeader</th></tr></thead>")
+			"<thead><tr><th>$nameHeader</th><th></th></tr></thead>")
 
 		val sbBody = StringBuilder("<tbody>")
 		for (index1 in aCatX.indices)

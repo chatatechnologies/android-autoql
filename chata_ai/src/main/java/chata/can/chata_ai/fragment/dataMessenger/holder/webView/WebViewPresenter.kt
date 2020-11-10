@@ -42,7 +42,7 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 	{
 		if (jsonObject != null)
 		{
-			println(jsonObject)
+
 		}
 	}
 
@@ -56,7 +56,6 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 				if (message == "Success")
 				{
 					chatView?.showAlert("Thank you for your feedback.", R.drawable.ic_done)
-					println(message)
 				}
 			}
 		}
