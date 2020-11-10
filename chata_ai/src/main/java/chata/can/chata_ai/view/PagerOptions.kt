@@ -71,7 +71,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				R.id.llMenu, R.id.ivClose ->
 				{
 					BubbleHandle.isOpenChat = false
-					BubbleHandle.instance.isVisible = true
+					BubbleHandle.instance?.isVisible = true
 					if (PagerData.clearOnClose)
 						SinglentonDrawer.mModel.clear()
 					setStatusGUI(false)
@@ -159,7 +159,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 
 	fun paintViews()
 	{
-		when(val placement = BubbleHandle.instance.placement)
+		when(val placement = BubbleHandle.instance?.placement)
 		{
 			ConstantDrawer.LEFT_PLACEMENT, ConstantDrawer.RIGHT_PLACEMENT ->
 			{

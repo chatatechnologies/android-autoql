@@ -39,10 +39,10 @@ class BubbleHandle(
 	private lateinit var circleImageView: CircleImageView
 
 	companion object {
-		lateinit var instance: BubbleHandle
+		var instance: BubbleHandle ?= null
 		fun isInitialize(): Boolean
 		{
-			return this::instance.isInitialized
+			return instance != null
 		}
 
 		const val THEME_LIGHT = true

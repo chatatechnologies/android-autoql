@@ -53,7 +53,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		BubbleHandle.instance.isVisible = true
+		BubbleHandle.instance?.isVisible = true
 		if (PagerData.clearOnClose)
 		{
 			SinglentonDrawer.mModel.clear()

@@ -107,7 +107,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		super.onResume()
 		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
 		{
-			BubbleHandle.instance.isVisible = true
+			BubbleHandle.instance?.isVisible = true
 		}
 		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
 	}
@@ -117,7 +117,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		super.onPause()
 		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
 		{
-			BubbleHandle.instance.isVisible = false
+			BubbleHandle.instance?.isVisible = false
 		}
 		unregisterReceiver(receiver)
 	}
@@ -127,7 +127,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		if (pagerOption.isVisible)
 		{
 			BubbleHandle.isOpenChat = false
-			BubbleHandle.instance.isVisible = true
+			BubbleHandle.instance?.isVisible = true
 			pagerOption.setStatusGUI(false)
 		}
 		else
@@ -143,6 +143,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onDestroy()
 	{
 		super.onDestroy()
+		BubbleHandle.instance = null
 		pagerOption.onDestroy()
 	}
 
