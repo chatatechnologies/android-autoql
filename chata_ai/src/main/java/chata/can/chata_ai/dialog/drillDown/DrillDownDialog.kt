@@ -12,6 +12,7 @@ import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.gif.GifView
 
 class DrillDownDialog(
@@ -20,6 +21,7 @@ class DrillDownDialog(
 	: BaseDialog(context, R.layout.dialog_drill_down),
 	DrillDownContract
 {
+	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
 	private lateinit var ivCancel: ImageView
 	private lateinit var ivLoad: GifView
@@ -35,6 +37,7 @@ class DrillDownDialog(
 
 	override fun setViews()
 	{
+		rlParent = findViewById(R.id.rlParent)
 		tvTitle = findViewById(R.id.tvTitle)
 		ivCancel = findViewById(R.id.ivCancel)
 		ivLoad = findViewById(R.id.ivLoad)
@@ -43,7 +46,13 @@ class DrillDownDialog(
 
 	override fun setColors()
 	{
-
+		ThemeColor.currentColor.run {
+			context.let {
+				tvTitle.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				rlParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
+				ivCancel.setColorFilter(it.getParsedColor(R.color.chata_drawer_background_color_dark))
+			}
+		}
 	}
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -74,8 +83,7 @@ class DrillDownDialog(
 	private fun setData()
 	{
 		tvTitle.text = queryBase.query
-		ivCancel.setColorFilter(
-			context.getParsedColor(R.color.chata_drawer_background_color_dark))
+
 		ivCancel.setOnClickListener {
 			dismiss()
 		}

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -17,7 +18,9 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 	override fun onPaint()
 	{
 		super.onPaint()
-		tvContent.setTextColor(ThemeColor.currentColor.drawerTextColorPrimary)
+		tvContent.context?.let {
+			tvContent.setTextColor(it.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+		}
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
