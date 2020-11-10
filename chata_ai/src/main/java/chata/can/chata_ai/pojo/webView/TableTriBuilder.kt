@@ -27,6 +27,7 @@ object TableTriBuilder
 
 	fun lineDataPivot(
 		mDataPivot: LinkedHashMap<String, String>,
+		aColumn: ColumnQuery,
 		aCatX: List<String>,
 		nameHeader: String
 	): Pair<String, Int>
@@ -38,7 +39,11 @@ object TableTriBuilder
 		for (index1 in aCatX.indices)
 		{
 			val cell1 = aCatX[index1]
-			val value = mDataPivot["0_${index1}"]
+			var value = mDataPivot["0_${index1}"] ?: ""
+			if (value.isNotEmpty())
+				value = value.clearDecimals()
+			value = value.formatWithColumn(aColumn)
+
 			val row = "<td>${cell1.replace("\"", "")}</td><td>$value</td>"
 			sbBody.append("<tr>$row</tr>")
 		}

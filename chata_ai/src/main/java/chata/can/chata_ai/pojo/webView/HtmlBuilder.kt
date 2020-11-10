@@ -196,7 +196,8 @@ object HtmlBuilder
 						else
 						{
 							val nameHeader = aColumn[0].displayName
-							val pPivot = TableTriBuilder.lineDataPivot(mDataPivot, aCatY, nameHeader)
+							val pPivot = TableTriBuilder.lineDataPivot(
+								mDataPivot, aColumn[aNumber.first()],aCatY, nameHeader)
 							dataForWebView.datePivot = pPivot.first
 							dataForWebView.rowsPivot = pPivot.second
 						}
