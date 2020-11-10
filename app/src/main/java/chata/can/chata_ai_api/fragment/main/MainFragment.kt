@@ -485,6 +485,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //		}
 //	}
 
+	override fun onDestroy()
+	{
+		bubbleHandle = null
+		super.onDestroy()
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let {
