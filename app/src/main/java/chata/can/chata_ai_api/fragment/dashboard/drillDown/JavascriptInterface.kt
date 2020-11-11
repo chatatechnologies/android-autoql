@@ -19,7 +19,8 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 				{
 					"bar", "column", "line", "pie" ->
 					{
-						val indexX = aXAxis.indexOf(content)
+//						val indexX = aXAxis.indexOf(content)
+						val indexX = aXDrillDown.indexOf(content)
 						if (indexX != -1)
 						{
 							val value = aXDrillDown[indexX]

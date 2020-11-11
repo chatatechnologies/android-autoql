@@ -7,7 +7,6 @@ import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
