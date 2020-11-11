@@ -69,7 +69,8 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 		if (BuildConfig.DEBUG)
 		{
-			etQuery.setText("tickets")
+			val query = "tickets"
+			etQuery.setText(query)
 		}
 	}
 
@@ -190,6 +191,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		tvMsg1.setText(R.string.empty_data_explore_queries)
 		tvMsg1.visibility = View.VISIBLE
 		tvMsg2.visibility = View.GONE
+		llPager.visibility = gone
 	}
 
 	override fun showGif()
