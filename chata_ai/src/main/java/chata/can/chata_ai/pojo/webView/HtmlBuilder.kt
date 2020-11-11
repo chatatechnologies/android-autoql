@@ -36,7 +36,6 @@ object HtmlBuilder
 				posColumnX = aGroupable[0]
 				posColumnY = aNumber[0]
 				queryBase.addIndices(posColumnX, posColumnY)
-
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
@@ -92,7 +91,7 @@ object HtmlBuilder
 			//region xAxis
 			queryBase.aXAxis = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
-					true, hasQuotes = false, allowRepeat = !isTriConfig))
+					false, hasQuotes = false, allowRepeat = !isTriConfig))
 			//endregion
 			val aCatY = if (aColumn.size > posColumnY)
 			{
@@ -144,7 +143,7 @@ object HtmlBuilder
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					aCatX,
+					queryBase.aXAxis.map { "\"$it\"" },
 					aCatY,
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
