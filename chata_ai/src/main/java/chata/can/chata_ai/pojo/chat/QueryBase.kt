@@ -178,7 +178,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						dataForWebView.xAxis = aColumn.getOrNull(
 							if (aColumn.size == 2) 0 else 1)?.displayName ?: ""
 						dataForWebView.yAxis = aColumn.getOrNull(
-							if (aColumn.size == 2) 1 else 2)?.displayName ?: ""
+//							if (aColumn.size == 2) 1 else 2)?.displayName ?: ""
+							if (aColumn.size == 2) 1 else 0)?.displayName ?: ""
 					}
 					else -> {}
 				}
