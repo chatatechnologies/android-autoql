@@ -50,7 +50,9 @@ class DisplaySQLDialog(
 			{
 				val word = query.substring(iHead + 1, index)
 				val extra = if (word in aKeywords) "\n" else ""
-				sb.append("$word$extra")
+				sb.append(
+					if (extra.isEmpty()) "\t$word"
+					else "$extra$word$extra")
 				index
 			}
 			else
