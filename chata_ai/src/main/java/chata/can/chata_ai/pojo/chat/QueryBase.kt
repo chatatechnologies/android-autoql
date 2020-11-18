@@ -23,7 +23,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
 
-	private var sql: String = ""
+	var sql: String = ""
 	var queryId = ""
 	var displayType = ""
 	private var interpretation = ""
@@ -76,7 +76,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 	init {
 		joData?.let {
-			sql = joData.optString("sql") ?: ""
+			sql = joData.optJSONArray("sql")?.let { data -> data[0].toString() } ?: ""
 			queryId = joData.optString("query_id") ?: ""
 			displayType = joData.optString("display_type") ?: ""
 			interpretation = joData.optString("interpretation") ?: ""

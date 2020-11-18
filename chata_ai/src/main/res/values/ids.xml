@@ -57,4 +57,5 @@
 	<item name="iIncorrect" type="id"/>
 	<item name="iIncomplete" type="id"/>
 	<item name="iOther" type="id"/>
+	<item name="iGenerateSQL" type="id"/>
 </resources>

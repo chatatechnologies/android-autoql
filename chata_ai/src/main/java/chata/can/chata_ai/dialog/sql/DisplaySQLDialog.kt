@@ -7,7 +7,7 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 
-abstract class DisplaySQLDialog(
+class DisplaySQLDialog(
 	context: Context,
 	private val query: String
 ): BaseDialog(context, R.layout.dialog_display_sql)
@@ -21,6 +21,7 @@ abstract class DisplaySQLDialog(
 	{
 		super.onCreateView()
 		tvTitle.text = "Generated SQL"
+		etQuery.text = query
 	}
 
 	override fun setColors()

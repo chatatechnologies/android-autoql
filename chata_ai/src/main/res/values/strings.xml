@@ -20,6 +20,7 @@
 	<string name="the_data_is_incorrect">The data is incorrect</string>
 	<string name="the_data_is_incomplete">The data is incomplete</string>
 	<string name="other">Other…</string>
+	<string name="generated_sql">View generated SQL</string>
 	<string name="loading">Loading…</string>
 	<string name="empty_notification">No notifications yet.</string>
 	<string name="stay_tuned">Stay tuned!</string>
