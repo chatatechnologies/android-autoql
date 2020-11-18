@@ -20,8 +20,8 @@ class DisplaySQLDialog(
 	override fun onCreateView()
 	{
 		super.onCreateView()
-		tvTitle.text = "Generated SQL"
-		etQuery.text = query
+		tvTitle.setText(R.string.generated_sql)
+		etQuery.text = formatterSQL(query)
 	}
 
 	override fun setColors()
@@ -35,5 +35,30 @@ class DisplaySQLDialog(
 		tvTitle = findViewById(R.id.tvTitle)
 		ivCancel = findViewById(R.id.ivCancel)
 		etQuery = findViewById(R.id.etQuery)
+	}
+
+	private val aKeywords = arrayListOf("select", "from", "where")
+	private fun formatterSQL(query: String): String
+	{
+		var iHead = -1
+		val sb = StringBuilder("")
+		while (iHead < query.length)
+		{
+			//search white
+			val index = query.indexOf(" ", iHead + 1)
+			iHead = if (index != -1)
+			{
+				val word = query.substring(iHead + 1, index)
+				val extra = if (word in aKeywords) "\n" else ""
+				sb.append("$word$extra")
+				index
+			}
+			else
+			{
+				sb.append(query.substring(iHead, query.length))
+				query.length
+			}
+		}
+		return sb.toString()
 	}
 }

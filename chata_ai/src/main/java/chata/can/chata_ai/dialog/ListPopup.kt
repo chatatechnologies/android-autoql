@@ -13,7 +13,7 @@ object ListPopup
 	{
 		PopupMenu(view.context, view).run {
 			menu?.run {
-				add(1, R.id.iGenerateSQL, 1, R.string.generated_sql)
+				add(1, R.id.iGenerateSQL, 1, R.string.view_generated_sql)
 			}
 			setOnMenuItemClickListener { item ->
 				when(item.itemId)
