@@ -38,6 +38,8 @@ open class BaseHolder(
 	protected val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 	protected var queryBase: QueryBase ?= null
 
+	private val blueAccent = R.color.blue_chata_circle
+
 	override fun onPaint()
 	{
 		tvContentTop.run {
@@ -50,6 +52,12 @@ open class BaseHolder(
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
+
+			context?.run {
+				ivReport?.setColorFilter(getParsedColor(blueAccent))
+				ivDelete?.setColorFilter(getParsedColor(blueAccent))
+				ivPoints?.setColorFilter(getParsedColor(blueAccent))
+			}
 		}
 
 		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
@@ -134,6 +142,10 @@ open class BaseHolder(
 				R.id.ivDelete ->
 				{
 					view?.deleteQuery(adapterPosition)
+				}
+				R.id.ivPoints ->
+				{
+					ListPopup.showListPopup(it, queryBase?.queryId ?: "", chatView)
 				}
 				else -> {}
 			}

@@ -52,4 +52,9 @@
 	<item name="swEnableSpeechText" type="id"/>
 
 	<item name="etCustomerMessage" type="id"/>
+
+	<!-- region menu Inflater -->
+	<item name="iIncorrect" type="id"/>
+	<item name="iIncomplete" type="id"/>
+	<item name="iOther" type="id"/>
 </resources>
