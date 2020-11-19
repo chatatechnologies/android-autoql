@@ -188,18 +188,7 @@ class WebViewHolder(
 				}
 				R.id.ivDelete ->
 				{
-					//region delete query
 					adapterView?.deleteQuery(adapterPosition)
-					//endregion
-					//region copy to clipboard
-//					if (it.context != null)
-//					{
-//						val clipboard =
-//							it.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//						val clip = ClipData.newPlainText("", queryBase?.sql ?: "")
-//						clipboard.setPrimaryClip(clip)
-//					}
-					//endregion
 				}
 				R.id.ivReport ->
 				{

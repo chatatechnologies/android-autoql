@@ -16,6 +16,8 @@ class PollService: JobIntentService(), StatusResponse
 		const val DATA = "data"
 		const val NOTIFICATION = "chata.can.chata_ai_api.test.PollService"
 
+		var isPending = true
+
 		private lateinit var context: Context
 		private lateinit var intent: Intent
 		private val mHandler = Handler(Looper.getMainLooper())
@@ -23,8 +25,13 @@ class PollService: JobIntentService(), StatusResponse
 		{
 			override fun run()
 			{
-				enqueueWork(context, PollService::class.java, 1, intent)
-				mHandler.postDelayed(this, 10000)
+				if (isPending)
+				{
+					isPending = false
+					enqueueWork(context, PollService::class.java, 1, intent)
+//				mHandler.postDelayed(this, 10000)
+					mHandler.postDelayed(this, 5000)
+				}
 			}
 		}
 
@@ -33,7 +40,8 @@ class PollService: JobIntentService(), StatusResponse
 			this.context = context
 			this.intent = intent
 			mHandler.removeCallbacks(runnable)
-			mHandler.postDelayed(runnable, 10000)
+//			mHandler.postDelayed(runnable, 10000)
+			mHandler.postDelayed(runnable, 5000)
 		}
 	}
 

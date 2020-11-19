@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Looper
 import android.view.View
@@ -26,6 +27,7 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import chata.can.chata_ai_api.test.PollService
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -638,10 +640,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	//TODO call method
 	override fun initPollService()
 	{
-//		activity?.let {
-//			val intent = Intent(it, PollService::class.java)
-//			PollService.enqueueWork(it, intent)
-//		}
+		activity?.let {
+			val intent = Intent(it, PollService::class.java)
+			PollService.enqueueWork(it, intent)
+		}
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)
