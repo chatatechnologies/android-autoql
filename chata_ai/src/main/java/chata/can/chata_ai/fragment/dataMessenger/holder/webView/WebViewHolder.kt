@@ -56,11 +56,14 @@ class WebViewHolder(
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
+	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
 	//private var lastId = "#idTableBasic"
 	private var lastId = "#idTableDataPivot"
+
+	private val blueAccent = R.color.blue_chata_circle
 
 	//region paint views
 	override fun onPaint()
@@ -75,6 +78,12 @@ class WebViewHolder(
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
+
+			context.run {
+				ivReport?.setColorFilter(getParsedColor(blueAccent))
+				ivDelete?.setColorFilter(getParsedColor(blueAccent))
+				ivPoints?.setColorFilter(getParsedColor(blueAccent))
+			}
 		}
 
 		rlLoad?.run {
@@ -87,6 +96,7 @@ class WebViewHolder(
 
 		ivDelete?.setOnClickListener(this)
 		ivReport?.setOnClickListener(this)
+		ivPoints?.setOnClickListener(this)
 
 		rvParent?.let {
 			parent ->
@@ -194,6 +204,10 @@ class WebViewHolder(
 				R.id.ivReport ->
 				{
 					ListPopup.showListPopup(it, queryBase?.queryId ?: "", chatView)
+				}
+				R.id.ivPoints ->
+				{
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "")
 				}
 				else -> {}
 			}

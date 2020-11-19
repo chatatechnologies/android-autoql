@@ -35,7 +35,7 @@ open class BaseHolder(
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
 	protected val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 	protected val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
-	protected val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
+	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 	protected var queryBase: QueryBase ?= null
 
 	private val blueAccent = R.color.blue_chata_circle

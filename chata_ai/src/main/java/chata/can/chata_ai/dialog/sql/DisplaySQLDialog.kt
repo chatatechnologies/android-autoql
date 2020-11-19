@@ -11,7 +11,6 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
