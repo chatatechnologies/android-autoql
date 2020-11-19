@@ -29,8 +29,14 @@
 			android:src="@drawable/ic_cancel"/>
 	</RelativeLayout>
 
-	<RelativeLayout
+	<View
 		android:layout_below="@id/rlTitle"
+		android:id="@+id/vBorder"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<RelativeLayout
+		android:layout_below="@id/vBorder"
 		android:layout_margin="5dp"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
@@ -38,7 +44,8 @@
 		<TextView
 			android:id="@+id/etQuery"
 			android:layout_height="match_parent"
-			android:layout_width="match_parent"/>
+			android:layout_width="match_parent"
+			android:padding="8dp"/>
 	</RelativeLayout>
 
 </RelativeLayout>
