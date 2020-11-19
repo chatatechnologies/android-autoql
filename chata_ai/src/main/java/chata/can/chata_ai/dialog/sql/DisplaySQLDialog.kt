@@ -3,6 +3,8 @@ package chata.can.chata_ai.dialog.sql
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,11 +14,11 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.animationAlert.AnimationAlert
 
 class DisplaySQLDialog(
 	context: Context,
-	private val query: String,
-	private val chatView: ChatContract.View?
+	private val query: String
 ): BaseDialog(context, R.layout.dialog_display_sql), View.OnClickListener
 {
 	private lateinit var rlParent: View
@@ -25,6 +27,7 @@ class DisplaySQLDialog(
 	private lateinit var vBorder: View
 	private lateinit var etQuery: TextView
 	private lateinit var ivCopy: ImageView
+	private lateinit var animationAlert: AnimationAlert
 
 	override fun onCreateView()
 	{
@@ -66,6 +69,7 @@ class DisplaySQLDialog(
 		vBorder = findViewById(R.id.vBorder)
 		etQuery = findViewById(R.id.etQuery)
 		ivCopy = findViewById(R.id.ivCopy)
+		animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 	}
 
 	override fun onClick(view: View?)
@@ -79,9 +83,7 @@ class DisplaySQLDialog(
 					val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 					val clip = ClipData.newPlainText("", query)
 					clipboard.setPrimaryClip(clip)
-					chatView?.showAlert(
-						"Successfully copied generated query to clipboard!",
-						R.drawable.ic_done)
+					showAlert()
 				}
 				else -> {}
 			}
@@ -95,6 +97,16 @@ class DisplaySQLDialog(
 
 		ivCancel.setOnClickListener(this)
 		ivCopy.setOnClickListener(this)
+	}
+
+	private fun showAlert()
+	{
+		animationAlert.run {
+			setText("Successfully copied generated query to clipboard!")
+			setResource(R.drawable.ic_done)
+			showAlert()
+			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)
+		}
 	}
 
 	private val aKeywords = arrayListOf("select", "from", "where")

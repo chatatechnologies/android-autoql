@@ -11,8 +11,7 @@ object ListPopup
 {
 	fun showPointsPopup(
 		view: View,
-		query: String,
-		chatView: ChatContract.View?)
+		query: String)
 	{
 		PopupMenu(view.context, view).run {
 			menu?.run {
@@ -23,7 +22,7 @@ object ListPopup
 				{
 					R.id.iGenerateSQL ->
 					{
-						DisplaySQLDialog(view.context, query, chatView).show()
+						DisplaySQLDialog(view.context, query).show()
 					}
 					else -> {}
 				}
