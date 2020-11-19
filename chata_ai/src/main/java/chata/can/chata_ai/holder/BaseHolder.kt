@@ -145,7 +145,7 @@ open class BaseHolder(
 				}
 				R.id.ivPoints ->
 				{
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "")
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", chatView)
 				}
 				else -> {}
 			}

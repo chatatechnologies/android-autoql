@@ -1,5 +1,7 @@
 package chata.can.chata_ai.dialog.sql
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
@@ -7,12 +9,14 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class DisplaySQLDialog(
 	context: Context,
-	private val query: String
+	private val query: String,
+	private val chatView: ChatContract.View?
 ): BaseDialog(context, R.layout.dialog_display_sql), View.OnClickListener
 {
 	private lateinit var rlParent: View
@@ -20,6 +24,7 @@ class DisplaySQLDialog(
 	private lateinit var ivCancel: ImageView
 	private lateinit var vBorder: View
 	private lateinit var etQuery: TextView
+	private lateinit var ivCopy: ImageView
 
 	override fun onCreateView()
 	{
@@ -34,7 +39,7 @@ class DisplaySQLDialog(
 		ThemeColor.currentColor.run {
 			context.run {
 				ivCancel.setColorFilter(getParsedColor(R.color.chata_drawer_background_color_dark))
-				rlParent.setBackgroundColor(getParsedColor(drawerColorSecondary))
+				rlParent.setBackgroundColor(getParsedColor(drawerBackgroundColor))
 				tvTitle.setTextColor(getParsedColor(drawerTextColorPrimary))
 				vBorder.setBackgroundColor(getParsedColor(drawerBorderColor))
 				etQuery.setTextColor(getParsedColor(drawerTextColorPrimary))
@@ -42,7 +47,13 @@ class DisplaySQLDialog(
 					getParsedColor(drawerColorSecondary),
 					1f,
 					1,
-					getParsedColor(drawerTextColorPrimary))
+					getParsedColor(drawerBorderColor))
+				ivCopy.setColorFilter(getParsedColor(drawerTextColorPrimary))
+				ivCopy.background = DrawableBuilder.setGradientDrawable(
+					getParsedColor(drawerBackgroundColor),
+					1f,
+					1,
+					getParsedColor(drawerBorderColor))
 			}
 		}
 	}
@@ -54,6 +65,7 @@ class DisplaySQLDialog(
 		ivCancel = findViewById(R.id.ivCancel)
 		vBorder = findViewById(R.id.vBorder)
 		etQuery = findViewById(R.id.etQuery)
+		ivCopy = findViewById(R.id.ivCopy)
 	}
 
 	override fun onClick(view: View?)
@@ -62,6 +74,15 @@ class DisplaySQLDialog(
 			when(it.id)
 			{
 				R.id.ivCancel -> dismiss()
+				R.id.ivCopy ->
+				{
+					val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+					val clip = ClipData.newPlainText("", query)
+					clipboard.setPrimaryClip(clip)
+					chatView?.showAlert(
+						"Successfully copied generated query to clipboard!",
+						R.drawable.ic_done)
+				}
 				else -> {}
 			}
 		}
@@ -73,6 +94,7 @@ class DisplaySQLDialog(
 		etQuery.text = formatterSQL(query)
 
 		ivCancel.setOnClickListener(this)
+		ivCopy.setOnClickListener(this)
 	}
 
 	private val aKeywords = arrayListOf("select", "from", "where")

@@ -9,7 +9,10 @@ import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 
 object ListPopup
 {
-	fun showPointsPopup(view: View, query: String)
+	fun showPointsPopup(
+		view: View,
+		query: String,
+		chatView: ChatContract.View?)
 	{
 		PopupMenu(view.context, view).run {
 			menu?.run {
@@ -20,7 +23,7 @@ object ListPopup
 				{
 					R.id.iGenerateSQL ->
 					{
-						DisplaySQLDialog(view.context, query).show()
+						DisplaySQLDialog(view.context, query, chatView).show()
 					}
 					else -> {}
 				}
