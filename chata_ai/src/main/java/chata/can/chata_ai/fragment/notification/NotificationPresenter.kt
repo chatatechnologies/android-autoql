@@ -25,31 +25,50 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 		{
 			val aNotification = ArrayList<Notification>()
 			jsonObject.optJSONObject("data")?.let {
-				val totalPages = it.optInt("total_pages", 0)
-				it.optJSONArray("notifications")?.let { jaNotifications ->
-					for (index in 0 until jaNotifications.length())
+				var totalItems = 0
+				it.optJSONObject("pagination")?.let { joPagination ->
+					totalItems = joPagination.optInt("total_items")
+				}
+				it.optJSONArray("items")?.let { joItems ->
+					for (index in 0 until joItems.length())
 					{
-						val json = jaNotifications.optJSONObject(index)
+						val json = joItems.optJSONObject(index)
 						val id = json.optString("id")
-						val ruleId = json.optString("rule_id")
-						val title = json.optString("rule_title")
-						val message = json.optString("rule_message")
-						val query = json.optString("rule_query")
+						val dataAlertId = json.optString("data_alert_id")
+						val title = json.optString("title")
+						val message = json.optString("message")
+						val dataReturnQuery = json.optString("data_return_query")
 						val createdAt = json.optInt("created_at")
 
-						val notification = Notification(id, ruleId, title, message, query, createdAt)
+						val notification = Notification(id, dataAlertId, title, message, dataReturnQuery, createdAt)
 						aNotification.add(notification)
 					}
-					view.showNotifications(totalPages, aNotification)
 				}
+				view.showNotifications(totalItems, aNotification)
+//				val totalPages = it.optInt("total_pages", 0)
+//				it.optJSONArray("notifications")?.let { jaNotifications ->
+//					for (index in 0 until jaNotifications.length())
+//					{
+//						val json = jaNotifications.optJSONObject(index)
+//						val id = json.optString("id")//
+//						val ruleId = json.optString("rule_id")//
+//						val title = json.optString("rule_title")//
+//						val message = json.optString("rule_message")//
+//						val query = json.optString("rule_query")//
+//						val createdAt = json.optInt("created_at")
+//
+//						val notification = Notification(id, ruleId, title, message, query, createdAt)
+//						aNotification.add(notification)
+//					}
+//					view.showNotifications(totalItems, aNotification)
+//				}
 			}
 		}
 	}
 
 	fun getNotifications(offset: Int = 0, limit: Int = 10)
 	{
-		val url = "$domainUrl/autoql/${api1}rules/notifications?key=${apiKey}&offset=$offset&limit=$limit"
-
+		val url = "$domainUrl/autoql/${api1}data-alerts/notifications?key=${apiKey}&offset=$offset&limit=$limit"
 		callStringRequest(
 			Request.Method.GET,
 			url,

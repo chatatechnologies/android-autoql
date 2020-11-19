@@ -11,7 +11,7 @@ object Poll
 {
 	fun callPoll(listener: StatusResponse)
 	{
-		val url = "${DataMessenger.domainUrl}/autoql/${api1}rules/notifications/summary/" +
+		val url = "${DataMessenger.domainUrl}/autoql/${api1}data-alerts/notifications/summary/" +
 			"poll?key=${DataMessenger.apiKey}&unacknowledged=0"
 		val mAuthorization = hashMapOf("Authorization" to "Bearer ${DataMessenger.JWT}")
 		callStringRequest(
@@ -23,7 +23,7 @@ object Poll
 
 	fun callShowNotification(listener: StatusResponse)
 	{
-		val url = "${DataMessenger.domainUrl}/autoql/${api1}rules/notifications?key=${DataMessenger.apiKey}"
+		val url = "${DataMessenger.domainUrl}/autoql/${api1}data-alerts/notifications?key=${DataMessenger.apiKey}"
 		val mAuthorization = hashMapOf("Authorization" to "Bearer ${DataMessenger.JWT}")
 		val mParams = hashMapOf<String, Any>(
 			"notification_id" to "null",
