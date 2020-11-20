@@ -17,6 +17,7 @@ class PollService: JobIntentService(), StatusResponse
 		const val NOTIFICATION = "chata.can.chata_ai_api.test.PollService"
 
 		var isPending = true
+		var countFails = 0
 
 		private lateinit var context: Context
 		private lateinit var intent: Intent
@@ -29,9 +30,9 @@ class PollService: JobIntentService(), StatusResponse
 				{
 					isPending = false
 					enqueueWork(context, PollService::class.java, 1, intent)
-//					mHandler.postDelayed(this, 5000)
-				mHandler.postDelayed(this, 10000)
 				}
+//				mHandler.postDelayed(this, 2000)
+				mHandler.postDelayed(this, 10000)
 			}
 		}
 
@@ -40,7 +41,7 @@ class PollService: JobIntentService(), StatusResponse
 			this.context = context
 			this.intent = intent
 			mHandler.removeCallbacks(runnable)
-//			mHandler.postDelayed(runnable, 5000)
+//			mHandler.postDelayed(runnable, 2000)
 			mHandler.postDelayed(runnable, 10000)
 		}
 	}
@@ -53,6 +54,8 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
+			isPending = true
+			countFails = 0
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, it.toString())
 			sendBroadcast(intent)
@@ -62,7 +65,11 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-			println("Poll Service: $it")
+			isPending = true
+			if (++countFails == 5)
+			{
+				mHandler.removeCallbacks(runnable)
+			}
 		}
 	}
 }
