@@ -206,9 +206,20 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				getString(R.string.type_queries_here)
 		}
-		if (model.countData() == 0)
+		if (model.countData() == 2)
 		{
 			clearQueriesAndResponses()
+		}
+		else
+		{
+			val introMessageRes =
+				if (DataMessengerData.introMessage.isNotEmpty())
+					DataMessengerData.introMessage
+				else
+					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+			model[0]?.message = introMessage
+			chatAdapter.notifyItemChanged(0)
 		}
 	}
 
