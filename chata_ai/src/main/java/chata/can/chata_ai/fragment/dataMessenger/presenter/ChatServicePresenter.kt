@@ -70,7 +70,7 @@ class ChatServicePresenter(
 				{
 					when(jsonObject.optInt("CODE"))
 					{
-						400 ->
+						in 400 .. 499 ->
 						{
 							val textError = jsonObject.optString("RESPONSE") ?: ""
 							if (textError.isNotEmpty())
@@ -93,12 +93,24 @@ class ChatServicePresenter(
 												}
 											} catch (ex: Exception) {}
 											getRelatedQueries(query, message, queryId)
-											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 										}
 										else
 										{
 											message = "suggestion not supported"
-											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+										}
+										view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
+									}
+									else
+									{
+										val messageComplete = if (message.isEmpty())
+										{
+											"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+										}
+										else
+											"$message\n\nError ID: $reference"
+										view?.run {
+											addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+											isLoading(false)
 										}
 									}
 								}
