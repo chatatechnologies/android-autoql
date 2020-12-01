@@ -97,6 +97,7 @@ class ChatServicePresenter(
 										else
 										{
 											message = "suggestion not supported"
+											view?.isLoading(false)
 										}
 										view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 									}

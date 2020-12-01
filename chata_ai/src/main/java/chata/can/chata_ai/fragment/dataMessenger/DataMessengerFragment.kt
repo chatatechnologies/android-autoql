@@ -93,7 +93,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "Average revenue by area last year"
 //			  val queryDemo = "Number of invoice per customer number ordered"
 
-				val queryDemo = "Monthly expenses by vendor last year"
+				val queryDemo = ""
 //				val queryDemo = "Show me expenses last year over 10000"
 //				val queryDemo = "Last estimates over 10000"
 			etQuery.setText(queryDemo)
@@ -303,9 +303,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun isLoading(isVisible: Boolean)
 	{
 		gifView.visibility = if (isVisible)
+		{
+			etQuery.isEnabled = false
 			View.VISIBLE
+		}
 		else
+		{
+			etQuery.isEnabled = true
 			View.GONE
+		}
 	}
 
 	override fun runTyping(text: String)
