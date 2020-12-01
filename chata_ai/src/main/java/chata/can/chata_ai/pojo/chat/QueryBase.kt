@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
+import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
@@ -19,7 +20,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
 	var isDashboard = false
-	//private val referenceId = json.optString(referenceIdKey) ?: ""
+	val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
 
