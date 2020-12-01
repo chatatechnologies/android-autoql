@@ -75,9 +75,9 @@
 				android:contentDescription="@null"
 				android:layout_centerVertical="true"
 				android:id="@+id/ivClose"
-				android:layout_height="32dp"
-				android:layout_marginStart="4dp"
-				android:layout_width="32dp"
+				android:layout_height="36dp"
+				android:layout_marginStart="6dp"
+				android:layout_width="36dp"
 				android:src="@drawable/ic_cancel"
 				android:padding="5dp"/>
 			<TextView
@@ -95,9 +95,9 @@
 				android:id="@+id/ivClear"
 				android:layout_alignParentEnd="true"
 				android:layout_centerVertical="true"
-				android:layout_height="32dp"
-				android:layout_marginEnd="4dp"
-				android:layout_width="32dp"
+				android:layout_height="36dp"
+				android:layout_marginEnd="6dp"
+				android:layout_width="36dp"
 				android:src="@drawable/ic_delete"/>
 		</RelativeLayout>
 		<FrameLayout
