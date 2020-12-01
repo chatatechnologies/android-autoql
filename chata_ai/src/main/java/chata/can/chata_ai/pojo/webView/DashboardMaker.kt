@@ -6,9 +6,6 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.getFooterScript
 import chata.can.chata_ai.model.validateArray
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
-import chata.can.chata_ai.pojo.SinglentonDrawer.darkThemeColor
-import chata.can.chata_ai.pojo.SinglentonDrawer.lightThemeColor
-import chata.can.chata_ai.pojo.SinglentonDrawer.themeColor
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.color.ThemeColor

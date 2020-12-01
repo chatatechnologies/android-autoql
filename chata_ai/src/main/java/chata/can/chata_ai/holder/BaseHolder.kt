@@ -90,6 +90,9 @@ open class BaseHolder(
 //						llMainBase?.visibility = View.VISIBLE
 //						tvContent.text = item.message
 //					}
+					ivReport?.visibility = View.GONE
+					ivPoints?.visibility = View.GONE
+
 					tvContent.text = item.message
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
@@ -103,10 +106,10 @@ open class BaseHolder(
 						}
 
 						rlDelete?.visibility = View.VISIBLE
-						ivReport?.visibility =
-							if (item.message == "I want to make sure I understood your query. Did you mean:")
-								View.GONE
-							else View.VISIBLE
+//						ivReport?.visibility =
+//							if (item.message == "I want to make sure I understood your query. Did you mean:")
+//								View.GONE
+//							else View.VISIBLE
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
