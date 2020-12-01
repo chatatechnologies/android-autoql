@@ -182,7 +182,8 @@ object DashboardMaker
 					it.getParsedColor(drawerTextColorPrimary) and 0x00ffffff)
 			}
 		}
-		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
+//		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
+		val color1 = aChartColors[0]
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
