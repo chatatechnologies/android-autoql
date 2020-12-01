@@ -43,7 +43,7 @@ class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>
 
 	override fun getCount() = aData.size
 
-	override fun getItem(position: Int): String?
+	override fun getItem(position: Int): String
 	{
 		return if (position < 0 || position > aData.size)
 			""

@@ -93,7 +93,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //				val queryDemo = "Average revenue by area last year"
 //			  val queryDemo = "Number of invoice per customer number ordered"
 
-				val queryDemo = "Total revenue by month in 2019"
+				val queryDemo = ""
 //				val queryDemo = "Show me expenses last year over 10000"
 //				val queryDemo = "Last estimates over 10000"
 			etQuery.setText(queryDemo)
@@ -123,14 +123,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (string.isNotEmpty())
 				{
+					adapterAutoComplete.clear()
+					adapterAutoComplete.notifyDataSetChanged()
 					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
 						presenter.getAutocomplete(string)
-					}
-					else
-					{
-						adapterAutoComplete.clear()
-						adapterAutoComplete.notifyDataSetChanged()
 					}
 					with(ivMicrophone)
 					{
@@ -161,14 +158,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					.setNegativeButton("Cancel", null).show()
 			}
 		}
-		etQuery.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-			parent?.let {
-				it.adapter?.let { adapter ->
-					val text = adapter.getItem(position).toString()
-					etQuery.setText(text)
-					setRequestQuery()
-				}
-			}
+		etQuery.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+			val text = aTmp[position]
+			etQuery.setText(text)
+			setRequestQuery()
 		}
 
 		etQuery.setFinishAnimationListener {
@@ -324,11 +317,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>) {}
 
+	private val aTmp = arrayListOf<String>()
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
 		adapterAutoComplete.clear()
 		if (aMatches.isNotEmpty())
 		{
+			aTmp.addAll(aMatches)
 			adapterAutoComplete.addAll(aMatches)
 
 			val size = Point()
