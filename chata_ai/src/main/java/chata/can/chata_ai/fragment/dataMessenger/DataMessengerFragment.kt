@@ -404,18 +404,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		hideKeyboard()
 	}
 
-	override fun onDestroy()
-	{
-		super.onDestroy()
-		if (DataMessengerData.clearOnClose)
-		{
-			model.clear()
-		}
-		ThemeColor.aColorMethods.remove(nameFragment)
-		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
-		SinglentonDrawer.aCurrencyMethods.remove(nameFragment)
-	}
-
 	private fun initData()
 	{
 		arguments?.let {
