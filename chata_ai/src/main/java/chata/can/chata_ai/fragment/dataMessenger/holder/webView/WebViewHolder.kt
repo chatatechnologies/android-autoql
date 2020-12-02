@@ -137,6 +137,15 @@ class WebViewHolder(
 					arrayListOf()
 				}
 			}
+			queryBase?.let {
+				if (R.id.ivPie in aConfigs)
+				{
+					if (it.aRows.size > 6)
+					{
+						aConfigs.remove(R.id.ivPie)
+					}
+				}
+			}
 			//region find the first item
 			aConfigs.firstOrNull()?.let {
 				firstConfig ->
