@@ -87,7 +87,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-				val queryDemo = "Number of jobs by customer in open state"
+				val queryDemo = "Total revenue this year"
+//				val queryDemo = "Number of jobs by customer in open state"
 //				val queryDemo = "Number of jobs by job type this year"
 			etQuery.setText(queryDemo)
 		}
@@ -396,6 +397,14 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		super.onPause()
 		hideKeyboard()
+	}
+
+	override fun onDestroy()
+	{
+		super.onDestroy()
+		ThemeColor.aColorMethods.remove(nameFragment)
+		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
+		SinglentonDrawer.aCurrencyMethods.remove(nameFragment)
 	}
 
 	private fun initData()

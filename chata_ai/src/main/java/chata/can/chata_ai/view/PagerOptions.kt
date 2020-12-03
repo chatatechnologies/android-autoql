@@ -74,12 +74,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					BubbleHandle.instance?.isVisible = true
 					if (bubbleData?.clearOnClose == true)
 					{
-						//allow 2 first
-							val model = SinglentonDrawer.mModel
-							while (model.countData() > 2)
-							{
-								model.removeAt(model.countData() - 1)
-							}
+						val model = SinglentonDrawer.mModel
+						while (model.countData() > 2)
+						{
+							model.removeAt(model.countData() - 1)
+						}
 					}
 					setStatusGUI(false)
 

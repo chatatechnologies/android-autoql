@@ -204,6 +204,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	fun resetData()
 	{
 		contentHTML = ""
+		viewPresenter = null
 		buildContent()
 	}
 

@@ -56,7 +56,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		BubbleHandle.instance?.isVisible = true
 		if (PagerData.clearOnClose)
 		{
-			SinglentonDrawer.mModel.clear()
+			model.clear()
 		}
 	}
 
