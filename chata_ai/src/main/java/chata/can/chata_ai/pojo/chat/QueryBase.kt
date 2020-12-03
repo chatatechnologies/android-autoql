@@ -41,6 +41,20 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 		return aColumn.size
 	}
 
+	val isGroupable: Boolean
+	get() {
+		var value = false
+		for (column in aColumn)
+		{
+			if (column.isGroupable)
+			{
+				value = true
+				break
+			}
+		}
+		return value
+	}
+
 	val hasHash: Boolean
 	get() = simpleText.contains("#")
 
@@ -184,6 +198,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					}
 					else -> {}
 				}
+				dataForWebView.isColumn = isGroupable
 				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot

@@ -179,19 +179,21 @@ object DashboardMaker
 					it.getParsedColor(drawerTextColorPrimary) and 0x00ffffff)
 			}
 		}
-//		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
 		val color1 = aChartColors[0]
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
 
-		val typeChart = when(dataForWebView.type)
-		{
-			"table" -> dataForWebView.datePivot.tableOrPivot()
-			"pivot_table" -> "#idTableDataPivot"
-			"" -> dataForWebView.datePivot.tableOrPivot()
-			else -> dataForWebView.type
-		}
+		val typeChart =
+			if (dataForWebView.isColumn) if (isBi) "column" else "stacked_column"
+			else
+				when(dataForWebView.type)
+				{
+					"table" -> dataForWebView.datePivot.tableOrPivot()
+					"pivot_table" -> "#idTableDataPivot"
+					"" -> dataForWebView.datePivot.tableOrPivot()
+					else -> dataForWebView.type
+				}
 
 		return with(dataForWebView) {
 			"""<!DOCTYPE html>

@@ -19,10 +19,5 @@ class DataForWebView(
 	var type = "table"
 	var xAxis = ""
 	var yAxis = ""
-
-	//new config html
-	var indexGroupable1 = -1
-	var indexGroupable2 = -1
-	var indexNumber = -1
-	//
+	var isColumn = false
 }

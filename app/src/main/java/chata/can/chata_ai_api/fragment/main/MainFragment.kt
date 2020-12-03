@@ -150,7 +150,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
 
 			servicePresenter.createAuthenticate()
-//			showDialog()
+			showDialog()
 		}
 		else
 		{

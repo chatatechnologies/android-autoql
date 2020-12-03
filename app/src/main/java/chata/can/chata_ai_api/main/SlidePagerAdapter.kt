@@ -2,13 +2,14 @@ package chata.can.chata_ai_api.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
+//import androidx.fragment.app.FragmentStatePagerAdapter
 import chata.can.chata_ai_api.fragment.main.MainFragment
 import chata.can.chata_ai_api.fragment.dashboard.DashboardFragment
 import chata.can.chata_ai_api.fragment.inputOutput.InputOutputFragment
 
 class SlidePagerAdapter(fm: FragmentManager, var numPages: Int)
-	: FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
+	: FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT)
 {
 	override fun getCount() = numPages
 
