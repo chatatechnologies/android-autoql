@@ -95,6 +95,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
+			model.restartData()
 			chatAdapter.notifyDataSetChanged()
 		}
 
