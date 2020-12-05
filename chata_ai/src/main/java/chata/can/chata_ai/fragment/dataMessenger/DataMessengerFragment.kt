@@ -87,7 +87,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-				val queryDemo = "Total revenue by month in 2019"
+				val queryDemo = ""
+//				val queryDemo = "All tickets"
 //				val queryDemo = "Number of jobs by customer in open state"
 //				val queryDemo = "Number of jobs by job type this year"
 			etQuery.setText(queryDemo)
@@ -335,6 +336,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		adapterAutoComplete.clear()
 		if (aMatches.isNotEmpty())
 		{
+			aTmp.clear()
 			aTmp.addAll(aMatches)
 			adapterAutoComplete.addAll(aMatches)
 
