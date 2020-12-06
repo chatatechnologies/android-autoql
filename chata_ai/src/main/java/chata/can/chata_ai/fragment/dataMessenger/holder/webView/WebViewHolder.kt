@@ -24,6 +24,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import java.util.*
 
 class WebViewHolder(
 	itemView: View,
@@ -61,6 +62,7 @@ class WebViewHolder(
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
 	private var lastId = "#idTableDataPivot"
+	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
 
@@ -137,6 +139,11 @@ class WebViewHolder(
 				}
 			}
 			queryBase?.let {
+				if (it.isGroupable && R.id.ivColumn in aConfigs)
+				{
+					Collections.swap(aConfigs, 0, 1)
+					lastId = "#container"
+				}
 				if (R.id.ivPie in aConfigs)
 				{
 					if (it.aRows.size > 6)
@@ -166,8 +173,7 @@ class WebViewHolder(
 			for (index in 1 until aDefaultActions.size)
 			{
 				aDefaultActions[index]?.let {
-					val idView = it.id
-					it.visibility = if (idView in tmpConfigs)
+					it.visibility = if (it.id in tmpConfigs)
 					{
 						it.setOnClickListener(this)
 						visible
@@ -186,7 +192,7 @@ class WebViewHolder(
 
 	private fun configOptions(sizeConfig: Int)
 	{
-		if (sizeConfig > 4)
+		if (sizeConfig > 5)
 		{
 			ivDelete?.visibility = invisible
 			ivReport?.visibility = invisible
@@ -274,7 +280,6 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-				val factorHeight = 180
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
@@ -398,7 +403,10 @@ class WebViewHolder(
 			clearCache(true)
 			clearHistory()
 			requestLayout()
-
+			if (lastId == "#container")
+			{
+				changeHeightWebView(factorHeight)
+			}
 			settings.javaScriptEnabled = true
 			queryBase?.let {
 				if (it.hasDrillDown)
