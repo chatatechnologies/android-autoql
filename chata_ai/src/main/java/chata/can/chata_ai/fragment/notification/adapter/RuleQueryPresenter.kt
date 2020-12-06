@@ -1,5 +1,7 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
+import chata.can.chata_ai.R
+import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -15,7 +17,8 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-			view.showText("Unable to find data.", 16f)
+//			view.showText("Unable to find data.", 16f)
+			showInternalServiceError()
 		}
 	}
 
@@ -59,9 +62,17 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 							else -> view.showText(queryBase.contentHTML, 22f)
 						}
 					}
+					"" -> showInternalServiceError()
 					else -> view.showText(queryBase.contentHTML, 22f)
 				}
 			}
+		}
+	}
+
+	private fun showInternalServiceError()
+	{
+		ContextActivity.context?.let {
+			view.showText(it.getString(R.string.internal_service_error), 16f)
 		}
 	}
 
