@@ -12,6 +12,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
@@ -65,6 +66,7 @@ class WebViewHolder(
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
+	private var isReduceOptions = false
 
 	private val blueAccent = R.color.blue_chata_circle
 
@@ -192,15 +194,17 @@ class WebViewHolder(
 
 	private fun configOptions(sizeConfig: Int)
 	{
-		if (sizeConfig > 5)
+		isReduceOptions = if (sizeConfig > 5)
 		{
 			ivDelete?.visibility = invisible
 			ivReport?.visibility = invisible
+			true
 		}
 		else
 		{
-		ivDelete?.setOnClickListener(this)
-		ivReport?.setOnClickListener(this)
+			ivDelete?.setOnClickListener(this)
+			ivReport?.setOnClickListener(this)
+			false
 		}
 	}
 	//endregion
@@ -225,7 +229,15 @@ class WebViewHolder(
 				}
 				R.id.ivPoints ->
 				{
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "")
+					val dataPopup = DataPopup(
+						it,
+						chatView,
+						adapterView,
+						adapterPosition,
+						queryBase?.queryId ?: "",
+						queryBase?.sql ?: "",
+						isReduceOptions)
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup)
 				}
 				else -> {}
 			}
