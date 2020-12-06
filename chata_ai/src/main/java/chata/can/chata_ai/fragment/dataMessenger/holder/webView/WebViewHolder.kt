@@ -60,8 +60,9 @@ class WebViewHolder(
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
-	//private var lastId = "#idTableBasic"
 	private var lastId = "#idTableDataPivot"
+	private val visible = View.VISIBLE
+	private val invisible = View.GONE
 
 	private val blueAccent = R.color.blue_chata_circle
 
@@ -94,8 +95,6 @@ class WebViewHolder(
 		llCharts?.backgroundGrayWhite()
 		rlDelete?.backgroundGrayWhite()
 
-		ivDelete?.setOnClickListener(this)
-		ivReport?.setOnClickListener(this)
 		ivPoints?.setOnClickListener(this)
 
 		rvParent?.let {
@@ -171,16 +170,31 @@ class WebViewHolder(
 					it.visibility = if (idView in tmpConfigs)
 					{
 						it.setOnClickListener(this)
-						View.VISIBLE
+						visible
 					}
 					else
 					{
 						it.setOnClickListener(null)
-						View.GONE
+						invisible
 					}
 				}
 			}
+			configOptions(aConfigs.size)
 			ivActionHide?.setOnClickListener(this)
+		}
+	}
+
+	private fun configOptions(sizeConfig: Int)
+	{
+		if (sizeConfig > 4)
+		{
+			ivDelete?.visibility = invisible
+			ivReport?.visibility = invisible
+		}
+		else
+		{
+		ivDelete?.setOnClickListener(this)
+		ivReport?.setOnClickListener(this)
 		}
 	}
 	//endregion
@@ -234,12 +248,12 @@ class WebViewHolder(
 	{
 		if (simpleQuery.query.isNotEmpty())
 		{
-			tvContentTop.visibility = View.VISIBLE
+			tvContentTop.visibility = visible
 			tvContentTop.text = simpleQuery.query
 		}
 		else
 		{
-			tvContentTop.visibility = View.GONE
+			tvContentTop.visibility = invisible
 		}
 
 		queryBase = simpleQuery
@@ -247,7 +261,7 @@ class WebViewHolder(
 
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
-			rlLoad?.visibility = View.VISIBLE
+			rlLoad?.visibility = visible
 			wbQuery?.let {
 				wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
@@ -366,9 +380,9 @@ class WebViewHolder(
 					}, 200)
 				}
 
-				ivActionHide?.visibility = View.VISIBLE
+				ivActionHide?.visibility = visible
 				ivActionHide = iv
-				ivActionHide?.visibility = View.GONE
+				ivActionHide?.visibility = invisible
 			}
 		}
 	}
@@ -380,7 +394,7 @@ class WebViewHolder(
 		{
 			changeHeightWebView(numRows)
 
-			rlLoad?.visibility = View.VISIBLE
+			rlLoad?.visibility = visible
 			clearCache(true)
 			clearHistory()
 			requestLayout()
@@ -403,9 +417,9 @@ class WebViewHolder(
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					visibility = View.VISIBLE
+					visibility = visible
 					Handler(Looper.getMainLooper()).postDelayed({
-						rlLoad?.visibility = View.GONE
+						rlLoad?.visibility = invisible
 					}, 200)
 				}
 			}
