@@ -32,4 +32,9 @@ class CountColumn
 		val isPercent = countDollarAMT == 0 && countQuantity == 0 && countPercent > 0
 		return isDollar ||isQuality || isPercent
 	}
+
+	fun repeatNumber3(): Boolean
+	{
+		return countDollarAMT > 2 || countQuantity > 2 || countPercent > 2
+	}
 }

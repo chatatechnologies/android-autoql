@@ -40,8 +40,17 @@ class RulesHtml(
 					else
 					{
 						//Case 5; bar, line, column, pie
-						if (countString > 0 && numberColumns() > 0 && isUseOnlyNumber())
-							case = SupportCase.CASE_5
+						if (countString > 0 && numberColumns() > 0)
+						{
+							if (isUseOnlyNumber())
+							{
+								case = SupportCase.CASE_5
+							}
+							else if (repeatNumber3())
+							{
+								case = SupportCase.CASE_6
+							}
+						}
 					}
 				}
 			}

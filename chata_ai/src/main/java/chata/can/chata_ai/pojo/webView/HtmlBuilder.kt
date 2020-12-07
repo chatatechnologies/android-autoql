@@ -75,6 +75,10 @@ object HtmlBuilder
 				else
 					queryBase.configActions = 4
 			}
+			SupportCase.CASE_6 ->
+			{
+
+			}
 			else ->
 			{
 				queryBase.supportCase.toString()
