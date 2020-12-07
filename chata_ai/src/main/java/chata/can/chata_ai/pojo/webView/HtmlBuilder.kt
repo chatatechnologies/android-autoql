@@ -77,7 +77,7 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_6 ->
 			{
-
+				queryBase.configActions = 4
 			}
 			else ->
 			{

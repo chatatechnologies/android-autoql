@@ -148,7 +148,7 @@ class WebViewHolder(
 				}
 				if (R.id.ivPie in aConfigs)
 				{
-					if (it.aRows.size > 6)
+					if (it.hasDrillDown && it.aRows.size > 6)
 					{
 						aConfigs.remove(R.id.ivPie)
 					}
