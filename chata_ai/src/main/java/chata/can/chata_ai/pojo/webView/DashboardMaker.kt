@@ -846,8 +846,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                          style: styleTooltip,
                          formatter: function () {
                              var position = categoriesY.indexOf(this.series.name);
-                             console.log(position);
-                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[position]);
+                             drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
                            return "";
                          }
                        },

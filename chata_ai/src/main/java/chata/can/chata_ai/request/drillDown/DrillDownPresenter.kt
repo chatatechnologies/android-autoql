@@ -46,7 +46,7 @@ class DrillDownPresenter(
 				val aColumns = arrayListOf<HashMap<String, String>>()
 				var iterator = 0
 
-				for (index in queryBase.aColumn.indices)
+				for (index in queryBase.aIndex)
 				{
 					val column = queryBase.aColumn[index]
 					if (column.isGroupable)
@@ -54,6 +54,14 @@ class DrillDownPresenter(
 						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
 					}
 				}
+//				for (index in queryBase.aColumn.indices)
+//				{
+//					val column = queryBase.aColumn[index]
+//					if (column.isGroupable)
+//					{
+//						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
+//					}
+//				}
 				mParams["translation"] = "include"
 				mParams["test"] = true
 				mParams["columns"] = aColumns
