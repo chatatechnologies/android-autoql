@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -122,9 +123,12 @@ object HtmlBuilder
 			}
 			val aCatYS = if (aColumn.size > posColumnY)
 			{
-				buildCategoryByPosition(
+				//calculate max and min for bi dimensional
+				val tmp = buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !isTriConfig))
+				val aInt = tmp.toListInt()
+				tmp
 			}
 			else ArrayList()
 

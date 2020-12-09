@@ -20,4 +20,6 @@ class DataForWebView(
 	var xAxis = ""
 	var yAxis = ""
 	var isColumn = false
+	var min = 0
+	var max = 0
 }
