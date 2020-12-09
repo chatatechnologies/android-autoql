@@ -652,8 +652,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                         type: type,
                         inverted: inverted
                     },
-                    
                     xAxis: {
+											min: -10000,
+											max: 50000,
                          gridLineWidth: 0,
                          categories: newCategory,
                          labels: {
