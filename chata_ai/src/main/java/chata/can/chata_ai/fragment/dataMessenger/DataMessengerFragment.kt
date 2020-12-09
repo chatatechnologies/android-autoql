@@ -87,7 +87,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "All ticket"
+			val queryDemo = ""
 //			val queryDemo = "total hours utilization for equipment by month in 2017 for rig type"
 			etQuery.setText(queryDemo)
 		}
@@ -216,6 +216,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			model[0]?.message = introMessage
 			chatAdapter.notifyItemChanged(0)
 		}
+		setTouchListener()
 	}
 
 	fun clearQueriesAndResponses()
@@ -531,6 +532,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			if (DataMessengerData.enableVoiceRecord)
 			{
+				setImageResource(R.drawable.ic_microphone)
 				setOnClickListener(null)
 				setOnTouchListener { _, event ->
 					when(event.action)
