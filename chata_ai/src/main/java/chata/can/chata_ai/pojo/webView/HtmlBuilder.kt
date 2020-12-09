@@ -128,6 +128,8 @@ object HtmlBuilder
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !isTriConfig))
 				val aInt = tmp.toListInt()
+				dataForWebView.min = (aInt.minOrNull() ?: 0) - 100
+				dataForWebView.max = (aInt.maxOrNull() ?: 0) + 100
 				tmp
 			}
 			else ArrayList()

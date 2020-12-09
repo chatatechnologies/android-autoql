@@ -653,8 +653,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                         inverted: inverted
                     },
                     xAxis: {
-											min: -10000,
-											max: 50000,
+											
                          gridLineWidth: 0,
                          categories: newCategory,
                          labels: {
@@ -673,6 +672,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                          }
                        },
 										yAxis: {
+										min: ${dataForWebView.min},
+											max: ${dataForWebView.max},
                         title: {
                             text: yAxis,
                             style: {
