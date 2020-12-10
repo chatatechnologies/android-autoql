@@ -45,7 +45,7 @@ object SectionData
 		"Customize Widgets" to
 			arrayListOf(
 				DemoParameter("Reload Drawer", TypeParameter.BUTTON, idView = R.id.btnReloadDrawer),
-				DemoParameter("Open Drawer", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer)
+				DemoParameter("Open Data Messenger", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer)
 			),
 		"AutoQl Api Configuration Options" to
 			arrayListOf(
@@ -69,7 +69,7 @@ object SectionData
 				DemoParameter("Number of Decimals for Currency Values", TypeParameter.INPUT, "2", idView = R.id.etDecimalsCurrency, typeInput = TypeInput.INTEGER),
 				DemoParameter("Number of Decimals for Quantity Values", TypeParameter.INPUT, "1", idView = R.id.etDecimalsQuantity, typeInput = TypeInput.INTEGER),
 				DemoParameter("User Display Name", TypeParameter.INPUT, idView = R.id.etCustomerMessage),
-				DemoParameter("Intro Message", TypeParameter.INPUT, idView = R.id.etIntroMessage),
+				DemoParameter("Intro Message ", TypeParameter.INPUT, idView = R.id.etIntroMessage),
 				DemoParameter("Query Input PlaceHolder", TypeParameter.INPUT, idView = R.id.etQueryPlaceholder),
 				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, idView = R.id.swClearMessage),
 				DemoParameter("Title", TypeParameter.INPUT, "Data Messenger", idView = R.id.etTitle),
@@ -80,9 +80,9 @@ object SectionData
 				//DemoParameter("Dashboard Title Color", TypeParameter.INPUT, idView = 0, hint = "#48698E"),
 				//DemoParameter("Dashboard Background Color", TypeParameter.INPUT, idView = 0, hint = "#FAFAFA"),
 
-				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#28A8E0", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
-				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#525252", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
-				DemoParameter("Maximum Number of Message", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),//rgb(38, 167, 223)
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),//rgb(38, 167, 223)
+				DemoParameter("Maximum Number of Messages", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
 			)
 		//"Chat Colors"

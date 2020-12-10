@@ -35,6 +35,10 @@ class NotificationHolder(
 
 	private val presenter = RuleQueryPresenter(this)
 
+	private var white = 0
+	private var gray = 0
+	private var blue = 0
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
@@ -48,6 +52,16 @@ class NotificationHolder(
 					{
 						presenter.getRuleQuery(notification.id)
 					}
+				}
+				if (notification.state == "DISMISSED")
+				{
+					tvTitle.setTextColor(gray)
+					iView.visibility = View.INVISIBLE
+				}
+				else
+				{
+					tvTitle.setTextColor(blue)
+					iView.visibility = View.VISIBLE
 				}
 
 				tvTitle.text = notification.title
@@ -63,19 +77,18 @@ class NotificationHolder(
 		rlParent.run {
 			context.run {
 				with(ThemeColor.currentColor) {
-					val white = getParsedColor(drawerBackgroundColor)
-					val gray = getParsedColor(drawerTextColorPrimary)
+					white = getParsedColor(drawerBackgroundColor)
+					gray = getParsedColor(drawerTextColorPrimary)
+					blue = getParsedColor(R.color.blue_chata_circle)
 					tvBody.setTextColor(gray)
 					tvDate.setTextColor(gray)
 					tvQuery.setTextColor(gray)
 					tvContent.setTextColor(gray)
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
-					val blue = getParsedColor(R.color.blue_chata_circle)
 					iView.background = DrawableBuilder.setGradientDrawable(
 						blue,
 						aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))
-					tvTitle.setTextColor(blue)
 				}
 			}
 		}

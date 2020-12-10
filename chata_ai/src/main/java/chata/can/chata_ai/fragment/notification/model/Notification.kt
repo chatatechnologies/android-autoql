@@ -6,7 +6,8 @@ class Notification(
 	val title: String,
 	val message: String,
 	val query: String,
-	val createdAt: Int
+	val createdAt: Int,
+	val state: String
 )
 {
 	var isVisible = false
