@@ -23,11 +23,11 @@ object SectionData
 			add(Segment(R.id.tvRight,"Right", true))
 		}
 
-		aColors.add(Color("0","#26A7E9"))
-		aColors.add(Color("1","#A5CD39"))
-		aColors.add(Color("2", "#DD6A6A"))
-		aColors.add(Color("3", "#FFA700"))
-		aColors.add(Color("4", "#00C1B2"))
+		aColors.add(Color("0","#355C7D"))
+		aColors.add(Color("1","#6C5B7B"))
+		aColors.add(Color("2", "#C06C84"))
+		aColors.add(Color("3", "#F67280"))
+		aColors.add(Color("4", "#F8B195"))
 	}
 
 	val mData = linkedMapOf(
