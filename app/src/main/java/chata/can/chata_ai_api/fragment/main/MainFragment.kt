@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.main
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Looper
 import android.view.View
 import android.widget.*
@@ -117,11 +118,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		if (BuildConfig.DEBUG)
 //		if (true)
 		{
-			//\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000c
 			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
+			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
 //			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
 			tvApiKey?.setText(apiKey)
 			val domainUrl = "https://spira-staging.chata.io"
@@ -277,7 +277,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						}
 						else
 						{
-							tv.setBackgroundColor(Color.WHITE)
+							tv.background = GradientDrawable().apply {
+								shape = GradientDrawable.RECTANGLE
+								setColor(Color.WHITE)
+								setStroke(1, Color.GRAY)
+							}
 							tv.setTextColor(Color.BLACK)
 						}
 					}
@@ -763,7 +767,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					else
 					{
-						tv.setBackgroundColor(Color.WHITE)
+						tv.background = GradientDrawable().apply {
+							shape = GradientDrawable.RECTANGLE
+							setColor(Color.WHITE)
+							setStroke(1, Color.GRAY)
+						}
 						tv.setTextColor(Color.BLACK)
 					}
 				}
