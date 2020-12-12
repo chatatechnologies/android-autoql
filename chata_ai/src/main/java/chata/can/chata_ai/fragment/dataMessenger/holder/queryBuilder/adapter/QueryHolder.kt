@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter
 
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,7 +25,11 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 				setBackgroundColor(white)
 				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				tvQueryExplore.setTextColor(gray)
-				ivPlay.visibility = if (isLast) View.GONE else View.VISIBLE
+				if (isLast)
+				{
+					ivPlay.visibility = View.INVISIBLE
+				}
+				ivPlay.setColorFilter(Color.WHITE)
 			}
 		}
 	}
@@ -35,6 +40,14 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 		{
 			rlParent.setBackgroundColor(
 				rlParent.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+			ivPlay.visibility = View.VISIBLE
+		}
+		else
+		{
+			if (!isLast)
+			{
+				ivPlay.visibility = View.INVISIBLE
+			}
 		}
 
 		if (item is String)
@@ -45,6 +58,7 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 				{
 					isSelected = true
 					rlParent.setBackgroundColor(rlParent.context.getParsedColor(R.color.blue_chata_circle))
+					ivPlay.visibility = View.VISIBLE
 				}
 				listener?.onItemClick(item)
 			}
