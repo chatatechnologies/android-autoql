@@ -254,8 +254,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
 		}
-
-
 	}
 
 	override fun setColors()
@@ -268,8 +266,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
-					llContainer.findViewById<TextView>(key)?.let {
-							tv ->
+					llContainer.findViewById<TextView>(key)?.let { tv ->
 						if (isEnabled)
 						{
 							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))

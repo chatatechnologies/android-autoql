@@ -107,7 +107,13 @@ object CustomViews
 		{
 			with(subView)
 			{
-				layoutParams = LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
+				layoutParams =
+					if (sizeOptions > 2)
+						LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
+					else
+						LinearLayout.LayoutParams(-1, -2).apply {
+							setGravity(Gravity.CENTER)
+						}
 				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 				orientation = LinearLayout.HORIZONTAL
 
@@ -117,12 +123,21 @@ object CustomViews
 					val tv = TextView(context)
 					tv.id = option.idView
 					tv.setOnClickListener(onClickListener)
-					tv.layoutParams = LinearLayout.LayoutParams(0, 90).apply {
-						weight = 1f
-					}
+					tv.layoutParams =
+						if (sizeOptions > 2)
+							LinearLayout.LayoutParams(0, 90).apply {
+								weight = 1f
+							}
+						else
+							LinearLayout.LayoutParams(-2, 90)
 					tv.gravity = Gravity.CENTER
 					tv.text = option.text
 					tv.tag = demoParam.label
+
+					if (sizeOptions < 3)
+					{
+						tv.setPadding(32,0,32,0)
+					}
 
 					mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
 						val newSparse = SparseBooleanArray()
