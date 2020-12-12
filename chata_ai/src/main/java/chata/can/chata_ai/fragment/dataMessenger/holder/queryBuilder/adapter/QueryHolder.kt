@@ -1,6 +1,7 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
@@ -8,10 +9,11 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 
-class QueryHolder(view: View): Holder(view)
+class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 {
 	private var rlParent = view.findViewById<View>(R.id.rlParent)
 	private var tvQueryExplore = view.findViewById<TextView>(R.id.tvQueryExplore)
+	private var ivPlay = view.findViewById<ImageView>(R.id.ivPlay)
 	private var isSelected = false
 
 	override fun onPaint()
@@ -22,6 +24,7 @@ class QueryHolder(view: View): Holder(view)
 				setBackgroundColor(white)
 				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
 				tvQueryExplore.setTextColor(gray)
+				ivPlay.visibility = if (isLast) View.GONE else View.VISIBLE
 			}
 		}
 	}

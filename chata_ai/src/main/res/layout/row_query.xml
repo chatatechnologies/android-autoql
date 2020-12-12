@@ -12,10 +12,22 @@
 		android:paddingTop="4dp"
 		tools:ignore="UselessParent">
 		<TextView
+			android:layout_toStartOf="@id/ivPlay"
 			android:id="@+id/tvQueryExplore"
 			android:layout_height="wrap_content"
 			android:layout_centerHorizontal="true"
+			android:layout_centerVertical="true"
 			android:layout_width="match_parent"
 			android:textSize="16sp"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivPlay"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_height="20dp"
+			android:layout_marginEnd="4dp"
+			android:layout_marginStart="4dp"
+			android:layout_width="20dp"
+			android:src="@drawable/ic_play"/>
 	</RelativeLayout>
 </RelativeLayout>
