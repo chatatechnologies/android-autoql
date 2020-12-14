@@ -88,7 +88,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 //			val queryDemo = ""
-			val queryDemo = "total hours utilization for equipment by month in 2017 for rig type"
+			val queryDemo = "all tickets in 2019"
 			etQuery.setText(queryDemo)
 		}
 

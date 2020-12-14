@@ -2,6 +2,7 @@ package chata.can.chata_ai.view
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -16,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
@@ -302,6 +302,16 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				startAnimation(animationTop)
 			}
 			updateTitle()
+			context.run {
+				bubbleData?.let {
+					llMenu.setBackgroundColor(
+						if (it.isDarkenBackgroundBehind)
+							getParsedColor(R.color.darken_background_behind)
+						else
+							getParsedColor(Color.TRANSPARENT)
+					)
+				}
+			}
 			View.VISIBLE
 		}
 		else View.GONE
@@ -395,8 +405,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
 			ivSelected?.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-
-			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
 			ivClear.setColorFilter(getParsedColor(R.color.white))

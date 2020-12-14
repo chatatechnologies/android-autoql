@@ -455,14 +455,14 @@ class WebViewHolder(
 	private fun changeHeightWebView(numRows: Int)
 	{
 		rvParent?.let {
-			var customHeight = rvParent.dpToPx(30f * numRows) + 60
+			var customHeight = it.dpToPx(30f * numRows) + 60
 			if (customHeight > 900)
 			{
 				customHeight = 900
 			}
 
 			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-			it.margin(12f, 24f, 12f, 1f)
+			it.margin(12f, 32f, 12f, 1f)
 		}
 	}
 }

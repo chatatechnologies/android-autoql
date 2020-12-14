@@ -79,6 +79,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableQuery: SwitchCompat ?= null
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
+	private var swBackgroundBehind: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
@@ -179,6 +180,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								bubbleHandle.inputPlaceholder,
 								bubbleHandle.maxMessages,
 								bubbleHandle.clearOnClose,
+								bubbleHandle.isDarkenBackgroundBehind,
 								bubbleHandle.enableVoiceRecord)
 							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
 						}
@@ -252,6 +254,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableQuery = findViewById(R.id.swEnableQuery)
 			swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
 			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
+			swBackgroundBehind = findViewById(R.id.swBackgroundBehind)
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
 		}
 	}
@@ -464,6 +467,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			bubbleHandle?.autoQLConfig?.enableDrilldowns = isChecked
 		}
 
+		swBackgroundBehind?.setOnCheckedChangeListener {
+			_, isChecked ->
+			bubbleHandle?.isDarkenBackgroundBehind = isChecked
+		}
+
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
 			bubbleHandle?.enableVoiceRecord = isChecked
@@ -539,6 +547,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 									bubbleHandle.inputPlaceholder,
 									bubbleHandle.maxMessages,
 									bubbleHandle.clearOnClose,
+									bubbleHandle.isDarkenBackgroundBehind,
 									bubbleHandle.enableVoiceRecord)
 								clearDataMessenger(bubbleData)
 							}
