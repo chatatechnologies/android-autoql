@@ -308,7 +308,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 						if (it.isDarkenBackgroundBehind)
 							getParsedColor(R.color.darken_background_behind)
 						else
-							getParsedColor(Color.TRANSPARENT)
+							getParsedColor(R.color.transparent)
 					)
 				}
 			}
