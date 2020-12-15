@@ -272,31 +272,42 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		val iVisible = if (isVisible)
 		{
 			var nameFragment = ""
-
-			fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-				if (it is DataMessengerFragment)
+			bubbleData?.let { bubble ->
+				if (bubble.isDataMessenger)
 				{
-					bubbleData?.let { bubble ->
-						val argument = Bundle().apply {
-							putString("CUSTOMER_NAME", bubble.customerName)
-							putString("TITLE", bubble.title)
-							putString("INTRO_MESSAGE", bubble.introMessage)
-							putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-							putInt("MAX_MESSAGES", bubble.maxMessage)
-							putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-							putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+					//region DataMessengerFragment
+					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+						if (it is DataMessengerFragment)
+						{
+							bubbleData?.let { bubble ->
+								val argument = Bundle().apply {
+									putString("CUSTOMER_NAME", bubble.customerName)
+									putString("TITLE", bubble.title)
+									putString("INTRO_MESSAGE", bubble.introMessage)
+									putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+									putInt("MAX_MESSAGES", bubble.maxMessage)
+									putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+									putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+								}
+								it.updateData(argument)
+							}
 						}
-						it.updateData(argument)
+					} ?: run {
+						if (fragment is DataMessengerFragment)
+						{
+							nameFragment = DataMessengerFragment.nameFragment
+							setDataToDataMessenger()
+						}
+						fragmentManager?.let { addFragment(it, fragment, nameFragment) }
 					}
+					//endregion
 				}
-			} ?: run {
-				if (fragment is DataMessengerFragment)
+				else
 				{
-					nameFragment = DataMessengerFragment.nameFragment
-					setDataToDataMessenger()
+					openTips()
 				}
-				fragmentManager?.let { addFragment(it, fragment, nameFragment) }
 			}
+
 			context?.let {
 				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
 				startAnimation(animationTop)
