@@ -1,5 +1,6 @@
 package chata.can.chata_ai.extension
 
+import android.graphics.Color
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
@@ -205,4 +206,15 @@ fun String.isColor(): Pair<String, Boolean>
 	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
 	return Pair(newColor, colorPattern.matcher(newColor).matches())
+}
+
+/***
+ background and textColor in pair
+***/
+fun String.getContrast(): Pair<Int, Int>
+{
+	val color = Color.parseColor(this)
+	val contrast =
+		(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
+	return Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
 }
