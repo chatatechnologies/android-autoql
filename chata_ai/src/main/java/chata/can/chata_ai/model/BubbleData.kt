@@ -8,4 +8,5 @@ class BubbleData(
 	val maxMessage: Int,
 	val clearOnClose: Boolean,
 	var isDarkenBackgroundBehind: Boolean,
-	var enableVoiceRecord: Boolean)
+	var enableVoiceRecord: Boolean,
+	val isDataMessenger: Boolean)

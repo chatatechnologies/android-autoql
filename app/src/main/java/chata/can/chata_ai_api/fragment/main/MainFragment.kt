@@ -99,6 +99,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
 	private var isAuthenticate = false
+	private var isDataMessenger = true
 
 	override fun onRenderViews(view: View)
 	{
@@ -181,7 +182,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								bubbleHandle.maxMessages,
 								bubbleHandle.clearOnClose,
 								bubbleHandle.isDarkenBackgroundBehind,
-								bubbleHandle.enableVoiceRecord)
+								bubbleHandle.enableVoiceRecord,
+								isDataMessenger)
 							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
 						}
 					}
@@ -548,7 +550,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 									bubbleHandle.maxMessages,
 									bubbleHandle.clearOnClose,
 									bubbleHandle.isDarkenBackgroundBehind,
-									bubbleHandle.enableVoiceRecord)
+									bubbleHandle.enableVoiceRecord,
+									isDataMessenger)
 								clearDataMessenger(bubbleData)
 							}
 						}
@@ -588,7 +591,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					if (it is TextView)
 					{
-
+						if (it.tag is String)
+						{
+							setColorOption(it.tag as String, it.id)
+						}
+						isDataMessenger = it.id == R.id.tvDataMessenger
 					} else {}
 				}
 				else -> {}
