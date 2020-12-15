@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import chata.can.chata_ai.extension.getContrast
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
@@ -226,14 +227,15 @@ object CustomViews
 					val valueColor = color.value
 					try
 					{
-						setBackgroundColor(Color.parseColor(valueColor))
+						val pColor = valueColor.getContrast()
+						setBackgroundColor(pColor.first)
+						setTextColor(pColor.second)
 					}
 					finally
 					{
 						layoutParams = LinearLayout.LayoutParams(-1, 120)
 						(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 						gravity = Gravity.CENTER
-						setTextColor(Color.WHITE)
 						addColor(valueColor)
 						setText(valueColor)
 						tag = indexColor
@@ -254,14 +256,15 @@ object CustomViews
 				val valueColor = demoParam.value
 				try
 				{
-					setBackgroundColor(Color.parseColor(valueColor))
+					val pColor = valueColor.getContrast()
+					setBackgroundColor(pColor.first)
+					setTextColor(pColor.second)
 				}
 				finally
 				{
 					layoutParams = LinearLayout.LayoutParams(-1, 120)
 					(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 					gravity = Gravity.CENTER
-					setTextColor(Color.WHITE)
 					id = demoParam.idView
 
 					filters = aFilters

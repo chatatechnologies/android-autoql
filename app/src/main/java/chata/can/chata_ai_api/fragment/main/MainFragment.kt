@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.extension.getContrast
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.setOnTextChanged
@@ -72,6 +73,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var etTitle: EditText ?= null
 	private var llColors: LinearLayout ?= null
 	private var etAddColor: EditText ?= null
+	private var etDashboardColor: EditText ?= null
 	private var etLightThemeColor: EditText ?= null
 	private var etDarkThemeColor: EditText ?= null
 	private var etMaxNumberMessage: EditText ?= null
@@ -238,7 +240,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								val pData = subColor.isColor()
 								if (pData.second)
 								{
-									child.setBackgroundColor(Color.parseColor(pData.first))
+									pData.first.getContrast().run {
+										child.setBackgroundColor(first)
+										child.setTextColor(second)
+									}
 									bubbleHandle?.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
 							}
@@ -249,6 +254,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			//endregion
 			etAddColor = findViewById(R.id.etAddColor)
+			etDashboardColor = findViewById(R.id.etDashboardColor)
 			etLightThemeColor = findViewById(R.id.etLightThemeColor)
 			etDarkThemeColor = findViewById(R.id.etDarkThemeColor)
 			etMaxNumberMessage = findViewById(R.id.etMaxNumberMessage)
@@ -416,13 +422,31 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			false
 		}
 
+		etDashboardColor?.setOnTextChanged {
+			try {
+				val pData = it.isColor()
+				if (pData.second)
+				{
+					pData.first.getContrast().run {
+						etDashboardColor?.setBackgroundColor(first)
+						etDashboardColor?.setTextColor(second)
+					}
+					bubbleHandle?.setDashboardColor(it)
+				}
+			}
+			catch (ex: Exception) {}
+		}
+
 		etLightThemeColor?.setOnTextChanged {
 			try
 			{
 				val pData = it.isColor()
 				if (pData.second)
 				{
-					etLightThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
+					pData.first.getContrast().run {
+						etLightThemeColor?.setBackgroundColor(first)
+						etLightThemeColor?.setTextColor(second)
+					}
 					bubbleHandle?.setLightThemeColor(it)
 				}
 			}
@@ -435,7 +459,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				val pData = it.isColor()
 				if (pData.second)
 				{
-					etDarkThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
+					pData.first.getContrast().run {
+						etDarkThemeColor?.setBackgroundColor(first)
+						etDarkThemeColor?.setTextColor(second)
+					}
 					bubbleHandle?.setDarkThemeColor(it)
 				}
 			}
