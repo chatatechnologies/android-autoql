@@ -6,6 +6,7 @@ object SectionData
 {
 	private val aTheme = ArrayList<Segment>()
 	private val aPlacement = ArrayList<Segment>()
+	private val aTabs = ArrayList<Segment>()
 	private val aColors = ArrayList<Color>()
 
 	init {
@@ -13,6 +14,12 @@ object SectionData
 		{
 			add(Segment(R.id.tvLight,"Light"))
 			add(Segment(R.id.tvDark,"Dark", true))
+		}
+
+		with(aTabs)
+		{
+			add(Segment(R.id.tvDataMessenger, "data-messenger", true))
+			add(Segment(R.id.tvExploreQueries, "explore-queries"))
 		}
 
 		with(aPlacement)
@@ -62,7 +69,7 @@ object SectionData
 				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "true", idView = R.id.swBackgroundBehind),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT, options = aPlacement),
-				//Default Tab   (Must click 'Reload Data Messenger' to apply this) data-messenger|explore-queries
+				DemoParameter("Default Tab", TypeParameter.SEGMENT, options = aTabs),
 				DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("Language code", TypeParameter.INPUT, "en-US", idView = R.id.etLanguageCode),
 				DemoParameter("Format for Month, Year", TypeParameter.INPUT, "MMM YYYY", idView = R.id.etFormatMonthYear),

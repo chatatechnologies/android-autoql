@@ -29,6 +29,9 @@
 	<item name="tvBottom" type="id"/>
 	<item name="tvLeft" type="id"/>
 	<item name="tvRight" type="id"/>
+	
+	<item name="tvDataMessenger" type="id"/>
+	<item name="tvExploreQueries" type="id"/>
 
 	<item name="etCurrencyCode" type="id"/>
 	<item name="etLanguageCode" type="id"/>

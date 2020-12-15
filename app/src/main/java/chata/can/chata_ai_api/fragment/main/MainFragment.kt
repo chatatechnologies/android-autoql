@@ -584,6 +584,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						mPlacement[it.id]?.let { placement -> bubbleHandle?.placement = placement }
 					} else {}
 				}
+				R.id.tvDataMessenger, R.id.tvExploreQueries ->
+				{
+					if (it is TextView)
+					{
+
+					} else {}
+				}
 				else -> {}
 			}
 		}
