@@ -84,12 +84,10 @@ object SectionData
 				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")
 				DemoParameter("This is an array of colors used for the charts.", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
 				DemoParameter("", TypeParameter.INPUT, idView = R.id.etAddColor, hint = "New Color"),
-
 				//DemoParameter("Dashboard Title Color", TypeParameter.INPUT, idView = 0, hint = "#48698E"),
-				//DemoParameter("Dashboard Background Color", TypeParameter.INPUT, idView = 0, hint = "#FAFAFA"),
-
-				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),//rgb(38, 167, 223)
-				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),//rgb(38, 167, 223)
+				DemoParameter("Dashboard Background Color", TypeParameter.COLOR, "#FAFAFA", idView = R.id.etDashboardColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Maximum Number of Messages", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
 			)

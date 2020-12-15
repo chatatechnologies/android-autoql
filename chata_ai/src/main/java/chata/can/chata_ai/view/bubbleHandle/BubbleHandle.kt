@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.autoQL.AutoQLConfig
@@ -123,24 +124,37 @@ class BubbleHandle(
 		"MMM YYYY",
 		"MMM DD, YYYY")
 
+	fun setDashboardColor(dashboardColor: String): Boolean
+	{
+		dashboardColor.isColor().run {
+			if (second)
+			{
+				SinglentonDashboard.dashboardColor = first
+			}
+			return second
+		}
+	}
+
 	fun setLightThemeColor(lightThemeColor: String): Boolean
 	{
-		val pData = lightThemeColor.isColor()
-		if (pData.second)
-		{
-			SinglentonDrawer.lightThemeColor = pData.first
+		lightThemeColor.isColor().run {
+			if (second)
+			{
+				SinglentonDrawer.lightThemeColor = first
+			}
+			return second
 		}
-		return pData.second
 	}
 
 	fun setDarkThemeColor(darkThemeColor: String): Boolean
 	{
-		val pData = darkThemeColor.isColor()
-		if (pData.second)
-		{
-			SinglentonDrawer.darkThemeColor = pData.first
+		darkThemeColor.isColor().run {
+			if (second)
+			{
+				SinglentonDrawer.darkThemeColor = first
+			}
+			return second
 		}
-		return pData.second
 	}
 
 	private var aThemePossible = arrayListOf("light", "dark")
@@ -169,12 +183,13 @@ class BubbleHandle(
 
 	fun addChartColor(valueColor: String): Boolean
 	{
-		val pData = valueColor.isColor()
-		if (pData.second)
-		{
-			aChartColors.add(pData.first)
+		valueColor.isColor().run {
+			if (second)
+			{
+				aChartColors.add(first)
+			}
+			return second
 		}
-		return pData.second
 	}
 
 	private fun initBubbleLayout()

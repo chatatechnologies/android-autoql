@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
+import android.graphics.Color
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
@@ -27,6 +28,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 	}
 
+	private lateinit var llOption: View
 	private lateinit var swLoad: SwitchCompat
 	private lateinit var btnExecute: TextView
 	private lateinit var btnDashboard: TextView
@@ -42,12 +44,15 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun initViews(view: View)
 	{
-		swLoad = view.findViewById(R.id.swLoad)
-		btnExecute = view.findViewById(R.id.btnExecute)
-		btnDashboard = view.findViewById(R.id.btnDashboard)
-		spDashboard = view.findViewById(R.id.spDashboard)
-		rvDashboard = view.findViewById(R.id.rvDashboard)
-		tvEmptyDashboard = view.findViewById(R.id.tvEmptyDashboard)
+		view.run {
+			llOption = findViewById(R.id.llOption)
+			swLoad = findViewById(R.id.swLoad)
+			btnExecute = findViewById(R.id.btnExecute)
+			btnDashboard = findViewById(R.id.btnDashboard)
+			spDashboard = findViewById(R.id.spDashboard)
+			rvDashboard = findViewById(R.id.rvDashboard)
+			tvEmptyDashboard = findViewById(R.id.tvEmptyDashboard)
+		}
 	}
 
 	override fun setColors()
@@ -86,6 +91,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun onResume()
 	{
 		super.onResume()
+		llOption.setBackgroundColor(Color.parseColor(SinglentonDashboard.dashboardColor))
 		if (SinglentonDashboard.isEmpty())
 		{
 			isQueryClean = true

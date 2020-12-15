@@ -7,39 +7,45 @@
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="vertical">
-		<androidx.appcompat.widget.SwitchCompat
-			android:visibility="gone"
-			android:gravity="center"
-			android:id="@+id/swLoad"
+		<LinearLayout
+			android:id="@+id/llOption"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="20dp"
-			android:layout_marginRight="20dp"
 			android:layout_width="match_parent"
-			android:text="@string/run_dashboard_automatically"/>
-		<RelativeLayout
-			android:layout_height="40dp"
-			android:layout_margin="8dp"
-			android:layout_width="match_parent">
-			<Spinner
-				android:background="@null"
-				android:id="@+id/spDashboard"
-				android:layout_height="match_parent"
-				android:layout_width="match_parent"/>
+			android:orientation="vertical">
+			<androidx.appcompat.widget.SwitchCompat
+				android:visibility="gone"
+				android:gravity="center"
+				android:id="@+id/swLoad"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:layout_marginRight="20dp"
+				android:layout_width="match_parent"
+				android:text="@string/run_dashboard_automatically"/>
+			<RelativeLayout
+				android:layout_height="40dp"
+				android:layout_margin="8dp"
+				android:layout_width="match_parent">
+				<Spinner
+					android:background="@null"
+					android:id="@+id/spDashboard"
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"/>
+				<TextView
+					android:gravity="center"
+					android:id="@+id/btnDashboard"
+					android:layout_height="match_parent"
+					android:layout_width="match_parent"/>
+			</RelativeLayout>
 			<TextView
 				android:gravity="center"
-				android:id="@+id/btnDashboard"
-				android:layout_height="match_parent"
-				android:layout_width="match_parent"/>
-		</RelativeLayout>
-		<TextView
-			android:gravity="center"
-			android:id="@+id/btnExecute"
-			android:layout_height="40dp"
-			android:layout_marginBottom="8dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginRight="8dp"
-			android:layout_width="match_parent"
-			android:text="@string/execute_dashboard"/>
+				android:id="@+id/btnExecute"
+				android:layout_height="40dp"
+				android:layout_marginBottom="8dp"
+				android:layout_marginLeft="8dp"
+				android:layout_marginRight="8dp"
+				android:layout_width="match_parent"
+				android:text="@string/execute_dashboard"/>
+		</LinearLayout>
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/rvDashboard"
 			android:layout_height="match_parent"

@@ -2,7 +2,6 @@ package chata.can.chata_ai.view
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -275,7 +274,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			bubbleData?.let { bubble ->
 				if (bubble.isDataMessenger)
 				{
-					//region DataMessengerFragment
 					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
 						if (it is DataMessengerFragment)
 						{
@@ -300,7 +298,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 						}
 						fragmentManager?.let { addFragment(it, fragment, nameFragment) }
 					}
-					//endregion
 				}
 				else
 				{
