@@ -283,22 +283,45 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
-					llContainer.findViewById<View>(key)?.let { tv ->
-						if (isEnabled)
+					llContainer.findViewById<TextView>(key)?.let { tv ->
+						var parent: LinearLayout ?= null
+						//region set background for view parent
+						tv.parent?.let {
+							(it as? LinearLayout)?.let { tmpParent ->
+								if (tmpParent.tag == "child")
+								{
+									parent = tmpParent
+								}
+							}
+						}
+						//endregion
+						val background = if (isEnabled)
 						{
-							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
-							//TODO SET TEXT
-							//tv.setTextColor(Color.WHITE)
+							tv.setTextColor(Color.WHITE)
+							GradientDrawable().apply {
+								shape = GradientDrawable.RECTANGLE
+								setColor(activity.getParsedColor(R.color.colorButton))
+							}
 						}
 						else
 						{
-							tv.background = GradientDrawable().apply {
+							tv.setTextColor(Color.BLACK)
+							GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
 								setColor(Color.WHITE)
 								setStroke(1, Color.GRAY)
 							}
-							//TODO SET TEXT
-							//tv.setTextColor(Color.BLACK)
+						}
+
+						parent?.let {
+							it.getChildAt(0)?.let { iv ->
+								(iv as? ImageView)?.let {
+									iv.setColorFilter(if (isEnabled) Color.WHITE else Color.BLACK)
+								}
+							}
+							it.background = background
+						} ?: run {
+							tv.background = background
 						}
 					}
 				}
@@ -823,16 +846,14 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 				}
 
-				//TODO SET TEXT
-				llContainer.findViewById<View>(key)?.let {
+				llContainer.findViewById<TextView>(key)?.let {
 					tv ->
 					if (isEnabled)
 					{
 						parentActivity?.let { activity ->
 							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
 						}
-						//TODO SET TEXT
-						//tv.setTextColor(Color.WHITE)
+						tv.setTextColor(Color.WHITE)
 					}
 					else
 					{
@@ -841,8 +862,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 							setColor(Color.WHITE)
 							setStroke(1, Color.GRAY)
 						}
-						//TODO SET TEXT
-						//tv.setTextColor(Color.BLACK)
+						tv.setTextColor(Color.BLACK)
 					}
 				}
 			}

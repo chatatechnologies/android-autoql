@@ -144,6 +144,7 @@ object CustomViews
 									setImageResource(option.idResource)
 								}
 							)
+							tag = "child"
 						}
 						val tv = TextView(context).apply {
 							/*** MATCH_PARENT (-1) WRAP_CONTENT (-2) ***/
@@ -166,31 +167,6 @@ object CustomViews
 						addView(tv)
 					}
 					addView(llOption)
-//					val tv = TextView(context)
-//					tv.id = option.idView
-//					tv.setOnClickListener(onClickListener)
-//					tv.layoutParams =
-//						if (sizeOptions > 2)
-//							LinearLayout.LayoutParams(0, 90).apply {
-//								weight = 1f
-//							}
-//						else
-//							LinearLayout.LayoutParams(-2, 90)
-//					tv.gravity = Gravity.CENTER
-//					tv.text = "@ ${option.text}"
-//					tv.tag = demoParam.label
-//
-//					if (sizeOptions < 3)
-//					{
-//						tv.setPadding(32,0,32,0)
-//					}
-//
-//					mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
-//						val newSparse = SparseBooleanArray()
-//						newSparse.put(tv.id, option.isActive)
-//						mViews.put(demoParam.label, newSparse)
-//					}
-//					this.addView(tv)
 				}
 			}
 		}
