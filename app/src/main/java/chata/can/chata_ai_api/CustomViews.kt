@@ -81,23 +81,22 @@ object CustomViews
 			}
 		}
 
-
-	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
-		context.run {
-			TextView(context).apply {
-				setBackgroundColor(getParsedColor(R.color.colorButton))
-				layoutParams = LinearLayout.LayoutParams(-1, 90)
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-				gravity = Gravity.CENTER
-				setTextColor(getParsedColor(R.color.textButton))
-				id = demoParam.idView
-				if (id != 0)
-				{
-					setOnClickListener(onClickListener)
-				}
-				text = demoParam.label
-			}
-		}
+//	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
+//		context.run {
+//			TextView(context).apply {
+//				setBackgroundColor(getParsedColor(R.color.colorButton))
+//				layoutParams = LinearLayout.LayoutParams(-1, 90)
+//				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+//				gravity = Gravity.CENTER
+//				setTextColor(getParsedColor(R.color.textButton))
+//				id = demoParam.idView
+//				if (id != 0)
+//				{
+//					setOnClickListener(onClickListener)
+//				}
+//				text = demoParam.label
+//			}
+//		}
 
 	fun getSegment(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener)
 		: LinearLayout
@@ -121,31 +120,62 @@ object CustomViews
 				for (iterator in 0 until sizeOptions)
 				{
 					val option = demoParam.options[iterator]
-					val tv = TextView(context)
-					tv.id = option.idView
-					tv.setOnClickListener(onClickListener)
-					tv.layoutParams =
-						if (sizeOptions > 2)
-							LinearLayout.LayoutParams(0, 90).apply {
-								weight = 1f
+					val llOption = LinearLayout(context).apply {
+						layoutParams =
+							if (sizeOptions > 2)
+							{
+								LinearLayout.LayoutParams(0, 90).apply {
+									setGravity(Gravity.CENTER)
+									weight = 1f
+								}
 							}
-						else
-							LinearLayout.LayoutParams(-2, 90)
-					tv.gravity = Gravity.CENTER
-					tv.text = option.text
-					tv.tag = demoParam.label
+							else
+							{
+								LinearLayout.LayoutParams(-2, 90).apply {
+									setGravity(Gravity.CENTER)
+								}
+							}
 
-					if (sizeOptions < 3)
-					{
-						tv.setPadding(32,0,32,0)
-					}
+						val tv = TextView(context).apply {
+							gravity = Gravity.CENTER
+							id = option.idView
+							setOnClickListener(onClickListener)
+							text = option.text
+							tag = demoParam.label
+						}
 
-					mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
-						val newSparse = SparseBooleanArray()
-						newSparse.put(tv.id, option.isActive)
-						mViews.put(demoParam.label, newSparse)
+						if (sizeOptions < 3)
+						{
+							tv.setPadding(32,0,32,0)
+						}
+						addView(tv)
 					}
-					this.addView(tv)
+					addView(llOption)
+//					val tv = TextView(context)
+//					tv.id = option.idView
+//					tv.setOnClickListener(onClickListener)
+//					tv.layoutParams =
+//						if (sizeOptions > 2)
+//							LinearLayout.LayoutParams(0, 90).apply {
+//								weight = 1f
+//							}
+//						else
+//							LinearLayout.LayoutParams(-2, 90)
+//					tv.gravity = Gravity.CENTER
+//					tv.text = "@ ${option.text}"
+//					tv.tag = demoParam.label
+//
+//					if (sizeOptions < 3)
+//					{
+//						tv.setPadding(32,0,32,0)
+//					}
+//
+//					mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
+//						val newSparse = SparseBooleanArray()
+//						newSparse.put(tv.id, option.isActive)
+//						mViews.put(demoParam.label, newSparse)
+//					}
+//					this.addView(tv)
 				}
 			}
 		}

@@ -19,8 +19,8 @@ object SectionData
 
 		with(aCustom)
 		{
-			add(Segment(R.id.btnReloadDrawer, "Reload Data Messenger"))
-			add(Segment(R.id.btnOpenDrawer, "Open Data Messenger", true))
+			add(Segment(R.id.btnReloadDrawer, "Reload Data Messenger", idResource = R.drawable.ic_reload))
+			add(Segment(R.id.btnOpenDrawer, "Open Data Messenger", true, R.drawable.ic_menu_fold))
 		}
 
 		with(aTheme)

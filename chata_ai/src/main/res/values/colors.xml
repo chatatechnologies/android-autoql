@@ -3,7 +3,6 @@
 	<color name="white">@android:color/white</color>
 	<color name="black">@android:color/black</color>
 	<color name="transparent">@android:color/transparent</color>
-	<color name="blue">@android:color/holo_blue_light</color>
 
 <!--	<color name="primary_text_color">#5D5D5D</color>-->
 <!--	<color name="secondary_text_color">#999999</color>-->

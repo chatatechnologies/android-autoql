@@ -826,7 +826,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					if (isEnabled)
 					{
 						parentActivity?.let { activity ->
-							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
+							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
 						}
 						tv.setTextColor(Color.WHITE)
 					}
