@@ -283,11 +283,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
-					llContainer.findViewById<TextView>(key)?.let { tv ->
+					llContainer.findViewById<View>(key)?.let { tv ->
 						if (isEnabled)
 						{
 							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
-							tv.setTextColor(Color.WHITE)
+							//TODO SET TEXT
+							//tv.setTextColor(Color.WHITE)
 						}
 						else
 						{
@@ -296,7 +297,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								setColor(Color.WHITE)
 								setStroke(1, Color.GRAY)
 							}
-							tv.setTextColor(Color.BLACK)
+							//TODO SET TEXT
+							//tv.setTextColor(Color.BLACK)
 						}
 					}
 				}
@@ -821,14 +823,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 				}
 
-				llContainer.findViewById<TextView>(key)?.let {
+				//TODO SET TEXT
+				llContainer.findViewById<View>(key)?.let {
 					tv ->
 					if (isEnabled)
 					{
 						parentActivity?.let { activity ->
 							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
 						}
-						tv.setTextColor(Color.WHITE)
+						//TODO SET TEXT
+						//tv.setTextColor(Color.WHITE)
 					}
 					else
 					{
@@ -837,7 +841,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 							setColor(Color.WHITE)
 							setStroke(1, Color.GRAY)
 						}
-						tv.setTextColor(Color.BLACK)
+						//TODO SET TEXT
+						//tv.setTextColor(Color.BLACK)
 					}
 				}
 			}

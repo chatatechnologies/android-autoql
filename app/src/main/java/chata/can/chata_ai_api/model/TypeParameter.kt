@@ -4,7 +4,7 @@ enum class TypeParameter
 {
 	TOGGLE,
 	INPUT,
-//	BUTTON,
+	BUTTON,
 	SEGMENT,
 	COLOR
 }

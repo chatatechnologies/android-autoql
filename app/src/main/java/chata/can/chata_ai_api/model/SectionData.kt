@@ -4,7 +4,6 @@ import chata.can.chata_ai_api.R
 
 object SectionData
 {
-	private val aAuth = ArrayList<Segment>()
 	private val aCustom = ArrayList<Segment>()
 	private val aTheme = ArrayList<Segment>()
 	private val aPlacement = ArrayList<Segment>()
@@ -12,11 +11,6 @@ object SectionData
 	private val aColors = ArrayList<Color>()
 
 	init {
-		with(aAuth)
-		{
-			add(Segment(R.id.btnAuthenticate, "Authenticate", true))
-		}
-
 		with(aCustom)
 		{
 			add(Segment(R.id.btnReloadDrawer, "Reload Data Messenger", idResource = R.drawable.ic_reload))
@@ -60,7 +54,7 @@ object SectionData
 				DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
 				DemoParameter("* Username", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
 				DemoParameter("* Password", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, typeInput = TypeInput.PASSWORD),
-				DemoParameter("", TypeParameter.SEGMENT, options = aAuth)
+				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
 			),
 		"Customize Widgets" to
 			arrayListOf(

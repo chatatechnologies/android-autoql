@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
@@ -81,22 +82,22 @@ object CustomViews
 			}
 		}
 
-//	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
-//		context.run {
-//			TextView(context).apply {
-//				setBackgroundColor(getParsedColor(R.color.colorButton))
-//				layoutParams = LinearLayout.LayoutParams(-1, 90)
-//				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
-//				gravity = Gravity.CENTER
-//				setTextColor(getParsedColor(R.color.textButton))
-//				id = demoParam.idView
-//				if (id != 0)
-//				{
-//					setOnClickListener(onClickListener)
-//				}
-//				text = demoParam.label
-//			}
-//		}
+	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
+		context.run {
+			TextView(context).apply {
+				setBackgroundColor(getParsedColor(R.color.colorButton))
+				layoutParams = LinearLayout.LayoutParams(-1, 90)
+				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				gravity = Gravity.CENTER
+				setTextColor(getParsedColor(R.color.textButton))
+				id = demoParam.idView
+				if (id != 0)
+				{
+					setOnClickListener(onClickListener)
+				}
+				text = demoParam.label
+			}
+		}
 
 	fun getSegment(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener)
 		: LinearLayout
@@ -124,29 +125,43 @@ object CustomViews
 						layoutParams =
 							if (sizeOptions > 2)
 							{
-								LinearLayout.LayoutParams(0, 90).apply {
+								LinearLayout.LayoutParams(-1, 99).apply {
 									setGravity(Gravity.CENTER)
 									weight = 1f
 								}
 							}
 							else
 							{
-								LinearLayout.LayoutParams(-2, 90).apply {
+								LinearLayout.LayoutParams(-2, 99).apply {
 									setGravity(Gravity.CENTER)
 								}
 							}
-
+						if (option.idResource != 0)
+						{
+							addView(
+								ImageView(context).apply {
+									layoutParams = LinearLayout.LayoutParams(56, 56)
+									setImageResource(option.idResource)
+								}
+							)
+						}
 						val tv = TextView(context).apply {
+							/*** MATCH_PARENT (-1) WRAP_CONTENT (-2) ***/
+							layoutParams = LinearLayout.LayoutParams(if (sizeOptions > 2) -1 else -2, -1)
 							gravity = Gravity.CENTER
 							id = option.idView
 							setOnClickListener(onClickListener)
 							text = option.text
 							tag = demoParam.label
 						}
-
 						if (sizeOptions < 3)
 						{
 							tv.setPadding(32,0,32,0)
+						}
+						mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
+							val newSparse = SparseBooleanArray()
+							newSparse.put(tv.id, option.isActive)
+							mViews.put(demoParam.label, newSparse)
 						}
 						addView(tv)
 					}
