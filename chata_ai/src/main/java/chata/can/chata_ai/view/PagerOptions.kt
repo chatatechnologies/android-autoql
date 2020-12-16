@@ -313,16 +313,24 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			context.run {
 				bubbleData?.let {
 					llMenu.setBackgroundColor(
-						if (it.isDarkenBackgroundBehind)
-							getParsedColor(R.color.darken_background_behind)
-						else
-							getParsedColor(R.color.transparent)
+						getParsedColor(
+							if (it.isDarkenBackgroundBehind)
+								R.color.darken_background_behind
+							else
+								R.color.transparent
+						)
 					)
 				}
 			}
 			View.VISIBLE
 		}
 		else View.GONE
+
+		bubbleData?.let {
+			rlTips.visibility = if (it.visibleExploreQueries) View.VISIBLE else View.GONE
+			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
+		}
+
 		llMenu.visibility = iVisible
 		rlLocal.visibility = iVisible
 	}

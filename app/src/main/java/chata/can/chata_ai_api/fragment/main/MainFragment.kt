@@ -82,6 +82,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
 	private var swBackgroundBehind: SwitchCompat ?= null
+	private var swTabExploreQueries: SwitchCompat ?= null
+	private var swTabNotification: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
@@ -184,6 +186,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								bubbleHandle.maxMessages,
 								bubbleHandle.clearOnClose,
 								bubbleHandle.isDarkenBackgroundBehind,
+								bubbleHandle.visibleExploreQueries,
+								bubbleHandle.visibleNotification,
 								bubbleHandle.enableVoiceRecord,
 								isDataMessenger)
 							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
@@ -263,6 +267,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
 			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
 			swBackgroundBehind = findViewById(R.id.swBackgroundBehind)
+			swTabExploreQueries = findViewById(R.id.swTabExploreQueries)
+			swTabNotification = findViewById(R.id.swTabNotification)
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
 		}
 	}
@@ -501,6 +507,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			bubbleHandle?.isDarkenBackgroundBehind = isChecked
 		}
 
+		swTabExploreQueries?.setOnCheckedChangeListener {
+			_, isChecked ->
+			bubbleHandle?.visibleExploreQueries = isChecked
+		}
+
+		swTabNotification?.setOnCheckedChangeListener {
+			_, isChecked ->
+			bubbleHandle?.visibleNotification = isChecked
+		}
+
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
 			bubbleHandle?.enableVoiceRecord = isChecked
@@ -577,6 +593,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 									bubbleHandle.maxMessages,
 									bubbleHandle.clearOnClose,
 									bubbleHandle.isDarkenBackgroundBehind,
+									bubbleHandle.visibleExploreQueries,
+									bubbleHandle.visibleNotification,
 									bubbleHandle.enableVoiceRecord,
 									isDataMessenger)
 								clearDataMessenger(bubbleData)

@@ -54,6 +54,8 @@
 	<item name="swEnableQuery" type="id"/>
 	<item name="swEnableSuggestion" type="id"/>
 	<item name="swEnableDrillDown" type="id"/>
+	<item name="swTabExploreQueries" type="id"/>
+	<item name="swTabNotification" type="id"/>
 	<item name="swEnableSpeechText" type="id"/>
 
 	<item name="etCustomerMessage" type="id"/>

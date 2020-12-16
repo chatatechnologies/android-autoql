@@ -106,6 +106,8 @@ class BubbleHandle(
 
 	var clearOnClose = false
 	var isDarkenBackgroundBehind = true
+	var visibleExploreQueries = true
+	var visibleNotification = true
 	var enableVoiceRecord = true
 
 	var autoQLConfig = AutoQLConfig(
