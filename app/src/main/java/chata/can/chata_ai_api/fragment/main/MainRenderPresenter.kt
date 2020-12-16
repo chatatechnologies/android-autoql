@@ -39,7 +39,7 @@ class MainRenderPresenter(
 
 			for (demoParam in demoParams)
 			{
-				if (demoParam.type != TypeParameter.BUTTON && demoParam.label.isNotEmpty())
+				if (/*demoParam.type != TypeParameter.BUTTON &&*/ demoParam.label.isNotEmpty())
 				{
 					//region label
 					with(TextView(context))
@@ -83,10 +83,10 @@ class MainRenderPresenter(
 					{
 						CustomViews.getEditText(context, demoParam)
 					}
-					TypeParameter.BUTTON ->
-					{
-						CustomViews.getButton(context, demoParam, onClickListener)
-					}
+//					TypeParameter.BUTTON ->
+//					{
+//						CustomViews.getButton(context, demoParam, onClickListener)
+//					}
 					TypeParameter.SEGMENT ->
 					{
 						CustomViews.getSegment(context, demoParam, onClickListener)

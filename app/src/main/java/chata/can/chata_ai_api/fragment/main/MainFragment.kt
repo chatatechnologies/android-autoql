@@ -286,7 +286,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					llContainer.findViewById<TextView>(key)?.let { tv ->
 						if (isEnabled)
 						{
-							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
+							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
 							tv.setTextColor(Color.WHITE)
 						}
 						else

@@ -4,12 +4,25 @@ import chata.can.chata_ai_api.R
 
 object SectionData
 {
+	private val aAuth = ArrayList<Segment>()
+	private val aCustom = ArrayList<Segment>()
 	private val aTheme = ArrayList<Segment>()
 	private val aPlacement = ArrayList<Segment>()
 	private val aTabs = ArrayList<Segment>()
 	private val aColors = ArrayList<Color>()
 
 	init {
+		with(aAuth)
+		{
+			add(Segment(R.id.btnAuthenticate, "Authenticate", true))
+		}
+
+		with(aCustom)
+		{
+			add(Segment(R.id.btnReloadDrawer, "Reload Data Messenger"))
+			add(Segment(R.id.btnOpenDrawer, "Open Data Messenger", true))
+		}
+
 		with(aTheme)
 		{
 			add(Segment(R.id.tvLight,"Light"))
@@ -47,12 +60,11 @@ object SectionData
 				DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
 				DemoParameter("* Username", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
 				DemoParameter("* Password", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, typeInput = TypeInput.PASSWORD),
-				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
+				DemoParameter("", TypeParameter.SEGMENT, options = aAuth)
 			),
 		"Customize Widgets" to
 			arrayListOf(
-				DemoParameter("Reload Drawer", TypeParameter.BUTTON, idView = R.id.btnReloadDrawer),
-				DemoParameter("Open Data Messenger", TypeParameter.BUTTON, idView = R.id.btnOpenDrawer)
+				DemoParameter("", TypeParameter.SEGMENT, options = aCustom),
 			),
 		"AutoQl Api Configuration Options" to
 			arrayListOf(
