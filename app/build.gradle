@@ -35,8 +35,8 @@ android {
     productFlavors {
         chata {
             applicationId "autoql.chata.ai"
-            versionCode 45
-            versionName "1.0.46"
+            versionCode 46
+            versionName "1.0.47"
         }
     }
 }
@@ -46,6 +46,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation project(':chata_ai')
     implementation 'com.google.android.material:material:1.2.1'
+    implementation project(':chata_ai')
 }

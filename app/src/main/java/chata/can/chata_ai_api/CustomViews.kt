@@ -15,10 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
-import chata.can.chata_ai.extension.getContrast
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.layoutParams
-import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
@@ -29,7 +26,7 @@ object CustomViews
 	val mViews = linkedMapOf<String, SparseBooleanArray>()
 
 	fun getSwitch(context: Context, value: String, idView: Int) = SwitchCompat(context).apply {
-		layoutParams = LinearLayout.LayoutParams(-2, -2)
+		layoutParams = getLinearLayoutParams(-2, -2)
 		gravity = Gravity.CENTER_HORIZONTAL
 		isChecked = value == "true"
 		id = idView
@@ -44,8 +41,8 @@ object CustomViews
 					cornerRadius = 15f
 					setStroke(3, getParsedColor(R.color.borderEditText))
 				}
-				layoutParams = LinearLayout.LayoutParams(-1, -2)
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				layoutParams = getLinearLayoutParams(-1, -2)
+				margin(20.5f, 10.5f, 20.5f, 10.5f)
 				gravity = Gravity.CENTER_HORIZONTAL
 				id = demoParam.idView
 				if (demoParam.value.isNotEmpty() &&
@@ -88,8 +85,8 @@ object CustomViews
 		context.run {
 			TextView(context).apply {
 				setBackgroundColor(getParsedColor(R.color.colorButton))
-				layoutParams = LinearLayout.LayoutParams(-1, 90)
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				layoutParams = getLinearLayoutParams(-1, 90)
+				margin(20.5f, 10.5f, 20.5f, 10.5f)
 				gravity = Gravity.CENTER
 				setTextColor(getParsedColor(R.color.textButton))
 				id = demoParam.idView
@@ -110,16 +107,16 @@ object CustomViews
 		{
 			with(subView)
 			{
-				layoutParams =
+				layoutParams = getLinearLayoutParams(-1, -2).apply {
 					if (sizeOptions > 2)
-						LinearLayout.LayoutParams(-1, -2, sizeOptions.toFloat())
+						weight = sizeOptions.toFloat()
 					else
-						LinearLayout.LayoutParams(-1, -2).apply {
-							setGravity(Gravity.CENTER)
-						}
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+						setGravity(Gravity.CENTER)
+				}
 				orientation = LinearLayout.HORIZONTAL
-
+				//TODO define margin or weight
+				//margin(18f,9f,18f,9f)
+				//(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
 				for (iterator in 0 until sizeOptions)
 				{
 					val option = demoParam.options[iterator]
@@ -127,14 +124,14 @@ object CustomViews
 						layoutParams =
 							if (sizeOptions > 2)
 							{
-								LinearLayout.LayoutParams(-1, 99).apply {
+								getLinearLayoutParams(-1, 99).apply {
 									setGravity(Gravity.CENTER)
 									weight = 1f
 								}
 							}
 							else
 							{
-								LinearLayout.LayoutParams(-2, 99).apply {
+								getLinearLayoutParams(-2, 99).apply {
 									setGravity(Gravity.CENTER)
 								}
 							}
@@ -142,15 +139,15 @@ object CustomViews
 						{
 							addView(
 								ImageView(context).apply {
-									layoutParams = LinearLayout.LayoutParams(56, 56)
-									(layoutParams as ViewGroup.MarginLayoutParams).setMargins(16, 0, 8, 0)
+									layoutParams = getLinearLayoutParams(56, 56)
+									margin(28f,0f,16f,0f)
 									setImageResource(option.idResource)
 								}
 							)
 							tag = "child"
 						}
 						val tv = TextView(context).apply {
-							layoutParams = LinearLayout.LayoutParams(0, -1).apply {
+							layoutParams = getLinearLayoutParams(0, -1).apply {
 								weight = 1f
 							}
 							gravity = Gravity.CENTER
@@ -167,10 +164,7 @@ object CustomViews
 							}
 							else
 							{
-								tv.layoutParams<ViewGroup.MarginLayoutParams> {
-									leftMargin = 8
-									rightMargin = 16
-								}
+								tv.margin(8f, end = 16f)
 							}
 						}
 						mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
@@ -195,8 +189,8 @@ object CustomViews
 		}
 		finally
 		{
-			layoutParams = LinearLayout.LayoutParams(-1, 120)
-			(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+			layoutParams = getLinearLayoutParams(-1, 120)
+			margin(20.5f, 10.5f, 20.5f, 10.5f)
 			gravity = Gravity.CENTER
 			setTextColor(Color.WHITE)
 			setText(valueColor)
@@ -252,7 +246,7 @@ object CustomViews
 		if (demoParam.colors.size > 0)
 		{
 			val subView = LinearLayout(context)
-			subView.layoutParams = LinearLayout.LayoutParams(-1, -2)
+			subView.layoutParams = getLinearLayoutParams(-1, -2)
 			subView.orientation = LinearLayout.VERTICAL
 
 			for (indexColor in demoParam.colors.indices)
@@ -268,8 +262,8 @@ object CustomViews
 					}
 					finally
 					{
-						layoutParams = LinearLayout.LayoutParams(-1, 120)
-						(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+						layoutParams = getLinearLayoutParams(-1, 120)
+						margin(20.5f, 10.5f, 20.5f, 10.5f)
 						gravity = Gravity.CENTER
 						addColor(valueColor)
 						setText(valueColor)
@@ -297,8 +291,8 @@ object CustomViews
 				}
 				finally
 				{
-					layoutParams = LinearLayout.LayoutParams(-1, 120)
-					(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+					layoutParams = getLinearLayoutParams(-1, 120)
+					margin(20.5f, 10.5f, 20.5f, 10.5f)
 					gravity = Gravity.CENTER
 					id = demoParam.idView
 
