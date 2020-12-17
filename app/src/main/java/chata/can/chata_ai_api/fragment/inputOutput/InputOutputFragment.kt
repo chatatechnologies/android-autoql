@@ -48,6 +48,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	private lateinit var presenter: InputOutputPresenter
 
+	@SuppressLint("SetTextI18n")
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)

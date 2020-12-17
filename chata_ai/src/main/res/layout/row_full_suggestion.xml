@@ -45,27 +45,27 @@
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				android:padding="5dp"/>
-			<RelativeLayout
+			<LinearLayout
+				android:gravity="center"
 				android:id="@+id/rlRunQuery"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:padding="4dp">
+				android:orientation="horizontal"
+				android:padding="4dp"
+				tools:ignore="UseCompoundDrawables">
+				<ImageView
+					android:contentDescription="@null"
+					android:id="@+id/ivRunQuery"
+					android:layout_height="20dp"
+					android:layout_width="20dp"
+					android:src="@drawable/ic_play"/>
 				<TextView
 					android:id="@+id/tvRunQuery"
-					android:layout_centerInParent="true"
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content"
 					android:text="@string/run_query"
 					android:textSize="14sp"/>
-				<ImageView
-					android:contentDescription="@null"
-					android:id="@+id/ivRunQuery"
-					android:layout_centerVertical="true"
-					android:layout_toStartOf="@id/tvRunQuery"
-					android:layout_height="20dp"
-					android:layout_width="20dp"
-					android:src="@drawable/ic_play"/>
-			</RelativeLayout>
+			</LinearLayout>
 		</LinearLayout>
 
 		<RelativeLayout

@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.test
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -54,6 +55,7 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 		}
 	}
 
+	@SuppressLint("SetTextI18n")
 	override fun onClick(view: View?)
 	{
 		view?.let {

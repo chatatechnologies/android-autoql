@@ -12,3 +12,10 @@ class Color(
 	val highlightColor: Int,
 	val dangerColor: Int
 )
+{
+
+
+	init {
+
+	}
+}
