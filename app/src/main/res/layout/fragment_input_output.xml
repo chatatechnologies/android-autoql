@@ -12,6 +12,7 @@
 		android:layout_width="match_parent"
 		android:padding="4dp">
 		<ImageView
+			android:contentDescription="@null"
 			android:id="@+id/ivChata"
 			android:layout_centerVertical="true"
 			android:layout_height="32dp"
