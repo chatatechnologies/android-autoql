@@ -114,17 +114,15 @@ object CustomViews
 						setGravity(Gravity.CENTER)
 				}
 				orientation = LinearLayout.HORIZONTAL
-				//TODO define margin or weight
-				//margin(18f,9f,18f,9f)
-				//(layoutParams as ViewGroup.MarginLayoutParams).setMargins(56, 28, 56, 28)
+				margin(20.5f, 10.5f, 20.5f, 10.5f)
 				for (iterator in 0 until sizeOptions)
 				{
 					val option = demoParam.options[iterator]
 					val llOption = LinearLayout(context).apply {
 						layoutParams =
-							if (sizeOptions > 2)
+							if (sizeOptions > 2 || option.idResource != 0)
 							{
-								getLinearLayoutParams(-1, 99).apply {
+								getLinearLayoutParams(0, 99).apply {
 									setGravity(Gravity.CENTER)
 									weight = 1f
 								}
@@ -147,9 +145,8 @@ object CustomViews
 							tag = "child"
 						}
 						val tv = TextView(context).apply {
-							layoutParams = getLinearLayoutParams(0, -1).apply {
-								weight = 1f
-							}
+							layoutParams = getLinearLayoutParams(
+								if (option.idResource != 0) -2 else -1, -1)
 							gravity = Gravity.CENTER
 							id = option.idView
 							setOnClickListener(onClickListener)
