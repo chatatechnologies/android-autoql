@@ -329,26 +329,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun initListener() {
-//		swDemoData?.setOnCheckedChangeListener {
-//			_, isChecked ->
-//			val iVisible = if (!isChecked) View.VISIBLE else View.GONE
-//
-//			hProjectId?.visibility = iVisible
-//			tvProjectId?.visibility = iVisible
-//			hUserId?.visibility = iVisible
-//			tvUserId?.visibility = iVisible
-//			hApiKey?.visibility = iVisible
-//			tvApiKey?.visibility = iVisible
-//			hDomainUrl?.visibility = iVisible
-//			tvDomainUrl?.visibility = iVisible
-//			hUsername?.visibility = iVisible
-//			tvUsername?.visibility = iVisible
-//			hPassword?.visibility = iVisible
-//			tvPassword?.visibility = iVisible
-//			btnAuthenticate?.visibility = iVisible
-//			bubbleHandle.isNecessaryLogin = !isChecked
-//		}
+	override fun initListener()
+	{
 		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)
@@ -687,35 +669,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-//	override fun showError(errorCode: String, errorService: String)
-//	{
-//		parentActivity?.let {
-//			val messageData =
-//"""
-//Project Id:
-//->$projectId<-
-//User Id:
-//->$userID<-
-//apiKey:
-//->$apiKey<-
-//domainUrl:
-//->$domainUrl<-
-//username:
-//->$username<-
-//password:
-//->$password<-
-//"""
-//			val alert = AlertDialog.Builder(it)
-//				.setCancelable(false)
-////				.setMessage("Error: code $errorCode on service \"$errorService\"")
-//				.setMessage(messageData)
-//				.setNeutralButton("Error", null)
-//				.show()
-//
-//			alert.findViewById<TextView>(android.R.id.message)?.typeface = Typeface.MONOSPACE
-//		}
-//	}
-
 	override fun callJWt()
 	{
 		servicePresenter.createJWT()
@@ -754,16 +707,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		val text = if (isAuthenticate)
 		{
-//			if (projectId.contains("spira"))
-//			{
-//				bubbleHandle?.setImageResource(R.drawable.ic_spira_logo)
-//				bubbleHandle?.setBackgroundColor(R.color.white)
-//			}
-//			else
-//			{
-//				bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
-//				bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
-//			}
 			"Log Out"
 		}
 		else

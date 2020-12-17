@@ -17,6 +17,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.getContrast
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.layoutParams
+import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
@@ -141,14 +143,16 @@ object CustomViews
 							addView(
 								ImageView(context).apply {
 									layoutParams = LinearLayout.LayoutParams(56, 56)
+									(layoutParams as ViewGroup.MarginLayoutParams).setMargins(16, 0, 8, 0)
 									setImageResource(option.idResource)
 								}
 							)
 							tag = "child"
 						}
 						val tv = TextView(context).apply {
-							/*** MATCH_PARENT (-1) WRAP_CONTENT (-2) ***/
-							layoutParams = LinearLayout.LayoutParams(if (sizeOptions > 2) -1 else -2, -1)
+							layoutParams = LinearLayout.LayoutParams(0, -1).apply {
+								weight = 1f
+							}
 							gravity = Gravity.CENTER
 							id = option.idView
 							setOnClickListener(onClickListener)
@@ -157,7 +161,17 @@ object CustomViews
 						}
 						if (sizeOptions < 3)
 						{
-							tv.setPadding(32,0,32,0)
+							if (option.idResource == 0)
+							{
+								tv.setPadding(32,0,32,0)
+							}
+							else
+							{
+								tv.layoutParams<ViewGroup.MarginLayoutParams> {
+									leftMargin = 8
+									rightMargin = 16
+								}
+							}
 						}
 						mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
 							val newSparse = SparseBooleanArray()
