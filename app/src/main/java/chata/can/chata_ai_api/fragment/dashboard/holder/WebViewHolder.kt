@@ -9,7 +9,6 @@ import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -33,8 +32,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 				iView.layoutParams = layout
 			}
 		}
-		rlLoad.setBackgroundColor(
-			rlLoad.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 		webView?.visibility = View.GONE
 		rlLoad?.visibility = View.VISIBLE
 	}

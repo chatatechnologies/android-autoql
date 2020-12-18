@@ -21,10 +21,8 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 	{
 		rlParent.run {
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				setBackgroundColor(white)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-				tvQueryExplore.setTextColor(gray)
+				setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+				tvQueryExplore.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 				if (isLast)
 				{
 					ivPlay.visibility = View.INVISIBLE
@@ -39,7 +37,7 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 		if (isSelected)
 		{
 			rlParent.setBackgroundColor(
-				rlParent.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+				ThemeColor.currentColor.pDrawerBackgroundColor)
 			ivPlay.visibility = View.VISIBLE
 		}
 		else

@@ -57,12 +57,12 @@ class TwiceDrillDialog(
 	{
 		ThemeColor.currentColor.run {
 			context.let {
-				tvTitle.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				rlParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				ivCancel.setColorFilter(it.getParsedColor(drawerTextColorPrimary))
-				vBorder.setBackgroundColor(it.getParsedColor(drawerBorderColor))
-				ivLoad1.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				ivLoad2.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
+				tvTitle.setTextColor(pDrawerTextColorPrimary)
+				rlParent.setBackgroundColor(pDrawerBackgroundColor)
+				ivCancel.setColorFilter(pDrawerTextColorPrimary)
+				vBorder.setBackgroundColor(pDrawerBorderColor)
+				ivLoad1.setBackgroundColor(pDrawerBackgroundColor)
+				ivLoad2.setBackgroundColor(pDrawerBackgroundColor)
 			}
 		}
 	}

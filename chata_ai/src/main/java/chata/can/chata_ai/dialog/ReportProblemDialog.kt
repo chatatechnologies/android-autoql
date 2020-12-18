@@ -45,22 +45,20 @@ class ReportProblemDialog(
 	override fun setColors()
 	{
 		context.run {
-			llParent.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
-			tvTitle.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-			tvMessage.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-			etMessage.background = getBackgroundColor(
-				getParsedColor(ThemeColor.currentColor.drawerBackgroundColor),
-				getParsedColor(ThemeColor.currentColor.drawerBorderColor))
-			etMessage.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-			iView1.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBorderColor))
-			iView2.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerBorderColor))
-			btnReport.background = getBackgroundColor(
-				getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
-			btnReport.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-			btnCancel.background = getBackgroundColor(
-				getParsedColor(ThemeColor.currentColor.drawerBackgroundColor),
-				getParsedColor(ThemeColor.currentColor.drawerBorderColor))
-			btnCancel.setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			ThemeColor.currentColor.run {
+				llParent.setBackgroundColor(pDrawerBackgroundColor)
+				tvTitle.setTextColor(pDrawerTextColorPrimary)
+				tvMessage.setTextColor(pDrawerTextColorPrimary)
+				etMessage.background = getBackgroundColor(pDrawerBackgroundColor, pDrawerBorderColor)
+				etMessage.setTextColor(pDrawerTextColorPrimary)
+				iView1.setBackgroundColor(pDrawerBorderColor)
+				iView2.setBackgroundColor(pDrawerBorderColor)
+				btnReport.background = getBackgroundColor(
+					getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
+				btnReport.setTextColor(pDrawerTextColorPrimary)
+				btnCancel.background = getBackgroundColor(pDrawerBackgroundColor, pDrawerBorderColor)
+				btnCancel.setTextColor(pDrawerTextColorPrimary)
+			}
 		}
 
 		val title = "Report a Problem"

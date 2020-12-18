@@ -36,21 +36,20 @@ class FullSuggestionHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(ThemeColor.currentColor.pDrawerAccentColor,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 		}
 
-		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+		val textColor = ThemeColor.currentColor.pDrawerTextColorPrimary
 		tvContent.setTextColor(textColor)
 		tvRunQuery.setTextColor(textColor)
 		ivRunQuery.setColorFilter(textColor)
 		llContent.backgroundGrayWhite()
-		val colorBase = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-		val borderColor = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
+		val colorBase = ThemeColor.currentColor.pDrawerBackgroundColor
+		val borderColor = ThemeColor.currentColor.pDrawerBorderColor
 		rlRunQuery.background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 3, borderColor)
 		rlDelete?.let {
 			it.backgroundGrayWhite()

@@ -254,13 +254,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				llParent.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
-				rvChat.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				llParent.setBackgroundColor(pDrawerColorSecondary)
+				rvChat.setBackgroundColor(pDrawerColorSecondary)
 				tvMsg.setTextColor(it.getParsedColor(R.color.we_run))
 				ivRun.setColorFilter(it.getParsedColor(R.color.we_run))
 
 				etQuery.setHintTextColor(it.getParsedColor(R.color.place_holder))
-				etQuery.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				etQuery.setTextColor(pDrawerTextColorPrimary)
 
 				val blue = it.getParsedColor(R.color.blue_chata_circle)
 				val circleDrawable = GradientDrawable().apply {
@@ -268,9 +268,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					setColor(blue)
 				}
 
-				val white = it.getParsedColor(drawerBackgroundColor)
-				val gray = it.getParsedColor(drawerTextColorPrimary)
-				val rectangleDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+				val rectangleDrawable = DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					64f,
+					1,
+					pDrawerTextColorPrimary)
 
 				ivMicrophone.background = circleDrawable
 				etQuery.background = rectangleDrawable
@@ -376,7 +378,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setStopRecorder()
 	{
 		activity?.let {
-			val red = it.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
+			val red = it.getParsedColor(ThemeColor.currentColor.pDrawerAccentColor)
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
 				setColor(red)

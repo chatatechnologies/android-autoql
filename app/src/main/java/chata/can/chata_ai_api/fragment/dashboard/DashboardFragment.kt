@@ -62,7 +62,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			activity?.let {
 				val backgroundColor = it.getParsedColor(R.color.white)
 				val border = it.getParsedColor(R.color.border_widget_dashboard)
-				rvDashboard.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				rvDashboard.setBackgroundColor(pDrawerColorSecondary)
 				btnExecute.background = DrawableBuilder.setGradientDrawable(
 					backgroundColor,18f, 3, border)
 				btnDashboard.background = DrawableBuilder.setGradientDrawable(

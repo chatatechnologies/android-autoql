@@ -98,9 +98,11 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		activity?.run {
 			ivChata.setColorFilter(getParsedColor(R.color.blue_chata_circle))
 
-			val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-			llQuery.background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+			llQuery.background = DrawableBuilder.setGradientDrawable(
+				ThemeColor.currentColor.pDrawerBackgroundColor,
+				64f,
+				1,
+				ThemeColor.currentColor.pDrawerTextColorPrimary)
 
 			adapterAutoComplete = AutoCompleteAdapter(this, R.layout.row_spinner)
 
@@ -108,8 +110,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 				threshold = 1
 				setAdapter(adapterAutoComplete)
 
-				setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-				setHintTextColor(getParsedColor(ThemeColor.currentColor.drawerHoverColor))
+				setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+				setHintTextColor(ThemeColor.currentColor.pDrawerHoverColor)
 
 				val displayMetrics = DisplayMetrics()
 				ScreenData.defaultDisplay.getMetrics(displayMetrics)

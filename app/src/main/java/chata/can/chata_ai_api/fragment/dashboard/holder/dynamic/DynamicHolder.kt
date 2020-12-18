@@ -35,8 +35,7 @@ class DynamicHolder(
 		with(ThemeColor.currentColor)
 		{
 			ll1?.context?.let {
-				val backgroundColor = it.getParsedColor(drawerBackgroundColor)
-				ll1.background =  DrawableBuilder.setGradientDrawable(backgroundColor, 18f)
+				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
 			}
 		}
 	}

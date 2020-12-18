@@ -48,8 +48,8 @@ class DrillDownDialog(
 	{
 		ThemeColor.currentColor.run {
 			context.let {
-				tvTitle.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				rlParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
+				tvTitle.setTextColor(pDrawerTextColorPrimary)
+				rlParent.setBackgroundColor(pDrawerBackgroundColor)
 				ivCancel.setColorFilter(it.getParsedColor(R.color.chata_drawer_background_color_dark))
 			}
 		}

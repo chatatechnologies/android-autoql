@@ -41,21 +41,21 @@ class DisplaySQLDialog(
 		ThemeColor.currentColor.run {
 			context.run {
 				ivCancel.setColorFilter(getParsedColor(R.color.chata_drawer_background_color_dark))
-				rlParent.setBackgroundColor(getParsedColor(drawerBackgroundColor))
-				tvTitle.setTextColor(getParsedColor(drawerTextColorPrimary))
-				vBorder.setBackgroundColor(getParsedColor(drawerBorderColor))
-				etQuery.setTextColor(getParsedColor(drawerTextColorPrimary))
+				rlParent.setBackgroundColor(pDrawerBackgroundColor)
+				tvTitle.setTextColor(pDrawerTextColorPrimary)
+				vBorder.setBackgroundColor(pDrawerBorderColor)
+				etQuery.setTextColor(pDrawerTextColorPrimary)
 				etQuery.background = DrawableBuilder.setGradientDrawable(
-					getParsedColor(drawerColorSecondary),
+					pDrawerColorSecondary,
 					1f,
 					1,
-					getParsedColor(drawerBorderColor))
-				ivCopy.setColorFilter(getParsedColor(drawerTextColorPrimary))
+					pDrawerBorderColor)
+				ivCopy.setColorFilter(pDrawerTextColorPrimary)
 				ivCopy.background = DrawableBuilder.setGradientDrawable(
-					getParsedColor(drawerBackgroundColor),
+					pDrawerBackgroundColor,
 					1f,
 					1,
-					getParsedColor(drawerBorderColor))
+					pDrawerBorderColor)
 			}
 		}
 	}

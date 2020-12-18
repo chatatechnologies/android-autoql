@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.color
 
-import chata.can.chata_ai.ChataApp
+import android.content.Context
+import chata.can.chata_ai.extension.getParsedColor
 
 class Color(
 	val drawerAccentColor: Int,
@@ -23,13 +24,16 @@ class Color(
 	var pDrawerTextColorPrimary = 0
 	var pDangerColor = 0
 
-	init {
-//		pDrawerAccentColor = getParsedColor(drawerAccentColor)
-//		pDrawerBackgroundColor = getParsedColor(drawerBackgroundColor)
-//		pDrawerColorSecondary = getParsedColor(drawerColorSecondary)
-//		pDrawerBorderColor = getParsedColor(drawerBorderColor)
-//		pDrawerHoverColor = getParsedColor(drawerHoverColor)
-//		pDrawerTextColorPrimary = getParsedColor(drawerTextColorPrimary)
-//		pDangerColor = getParsedColor(dangerColor)
+	fun initConfig(context: Context)
+	{
+		context.run {
+			pDrawerAccentColor = getParsedColor(drawerAccentColor)
+			pDrawerBackgroundColor = getParsedColor(drawerBackgroundColor)
+			pDrawerColorSecondary = getParsedColor(drawerColorSecondary)
+			pDrawerBorderColor = getParsedColor(drawerBorderColor)
+			pDrawerHoverColor = getParsedColor(drawerHoverColor)
+			pDrawerTextColorPrimary = getParsedColor(drawerTextColorPrimary)
+			pDangerColor = getParsedColor(dangerColor)
+		}
 	}
 }

@@ -20,10 +20,9 @@ class OptionHolder(view: View): Holder(view)
 	{
 		rlParent.run {
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				setBackgroundColor(white)
+				setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+				val gray = ThemeColor.currentColor.pDrawerTextColorPrimary
 				tvQueryRoot.setTextColor(gray)
 
 				ivForwardExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)

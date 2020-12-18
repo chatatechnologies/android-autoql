@@ -11,9 +11,7 @@ object ChildSupport {
 	fun onBind(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
 		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
-			val drawerColorPrimary = tvContent.context.getParsedColor(
-				ThemeColor.currentColor.drawerTextColorPrimary)
-			tvContent.setTextColor(drawerColorPrimary)
+			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 
 			dashboard.run {
 				if (isPrimary)

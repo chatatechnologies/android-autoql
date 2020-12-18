@@ -77,8 +77,8 @@ class WebViewHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(
+				ThemeColor.currentColor.pDrawerAccentColor,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
@@ -92,8 +92,7 @@ class WebViewHolder(
 		}
 
 		rlLoad?.run {
-			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			setBackgroundColor(backgroundColor)
+			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 		}
 
 		llCharts?.backgroundGrayWhite()

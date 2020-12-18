@@ -17,6 +17,7 @@ import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
@@ -55,6 +56,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onCreateView()
 	{
 		ContextActivity.context = this
+		ThemeColor.parseColor(this)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
 		pagerOption = findViewById(R.id.pagerOption)

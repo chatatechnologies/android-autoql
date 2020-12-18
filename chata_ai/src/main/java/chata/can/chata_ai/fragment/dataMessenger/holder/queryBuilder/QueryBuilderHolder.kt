@@ -60,13 +60,12 @@ class QueryBuilderHolder(
 		llContent?.run {
 			backgroundGrayWhite()
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+				val gray = ThemeColor.currentColor.pDrawerTextColorPrimary
 				tvLink?.setTextColor(gray)
 				tvMsg?.setTextColor(gray)
 				tvCurrentExplore?.setTextColor(gray)
 
-				rvExplore?.setBackgroundColor(white)
+				rvExplore?.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 				ivBackExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)
 
 				val animation = AnimationUtils.loadAnimation(this, R.anim.scale)
@@ -99,7 +98,7 @@ class QueryBuilderHolder(
 					}
 					finally {
 						tvLink?.context?.let {
-							bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+							bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
 						}
 						isUnderlineText = false
 					}
