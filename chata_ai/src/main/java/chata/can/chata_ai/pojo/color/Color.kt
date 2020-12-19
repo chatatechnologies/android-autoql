@@ -4,16 +4,16 @@ import android.content.Context
 import chata.can.chata_ai.extension.getParsedColor
 
 class Color(
-	val drawerAccentColor: Int,
+	private val drawerAccentColor: Int,
 	val drawerBackgroundColor: Int,
 	val drawerColorSecondary: Int,
 	val backgroundColorTertiary: Int,
 	val drawerBorderColor: Int,
-	val drawerHoverColor: Int,
+	private val drawerHoverColor: Int,
 	val drawerTextColorPrimary: Int,
 	val drawerTextColorPlaceholder: Int,
 	val highlightColor: Int,
-	val dangerColor: Int
+	private val dangerColor: Int
 )
 {
 	var pDrawerAccentColor = 0

@@ -53,10 +53,15 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 	}
 
+	override fun onCreate(savedInstanceState: Bundle?)
+	{
+		ThemeColor.parseColor(this)
+		super.onCreate(savedInstanceState)
+	}
+
 	override fun onCreateView()
 	{
 		ContextActivity.context = this
-		ThemeColor.parseColor(this)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
 		pagerOption = findViewById(R.id.pagerOption)

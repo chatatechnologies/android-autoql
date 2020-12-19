@@ -12,7 +12,6 @@ abstract class BaseActivity(private val intRes: Int): AppCompatActivity()
 		super.onCreate(savedInstanceState)
 		setContentView(intRes)
 		onCreateView()
-		baseContext
 	}
 
 	abstract fun onCreateView()

@@ -277,26 +277,28 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
 						if (it is DataMessengerFragment)
 						{
-							bubbleData?.let { bubble ->
-								val argument = Bundle().apply {
-									putString("CUSTOMER_NAME", bubble.customerName)
-									putString("TITLE", bubble.title)
-									putString("INTRO_MESSAGE", bubble.introMessage)
-									putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-									putInt("MAX_MESSAGES", bubble.maxMessage)
-									putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-									putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+							if (rlSelected?.id == R.id.rlChat)
+							{
+								bubbleData?.let { bubble ->
+									val argument = Bundle().apply {
+										putString("CUSTOMER_NAME", bubble.customerName)
+										putString("TITLE", bubble.title)
+										putString("INTRO_MESSAGE", bubble.introMessage)
+										putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+										putInt("MAX_MESSAGES", bubble.maxMessage)
+										putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+										putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+									}
+									it.updateData(argument)
 								}
-								it.updateData(argument)
+							}
+							else
+							{
+								openChat()
 							}
 						}
 					} ?: run {
-						if (fragment is DataMessengerFragment)
-						{
-							nameFragment = DataMessengerFragment.nameFragment
-							setDataToDataMessenger()
-						}
-						fragmentManager?.let { addFragment(it, fragment, nameFragment) }
+						openChat()
 					}
 				}
 				else
