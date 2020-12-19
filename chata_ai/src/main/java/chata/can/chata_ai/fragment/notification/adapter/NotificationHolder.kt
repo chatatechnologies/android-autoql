@@ -77,8 +77,8 @@ class NotificationHolder(
 		rlParent.run {
 			context.run {
 				with(ThemeColor.currentColor) {
-					white = getParsedColor(drawerBackgroundColor)
-					gray = getParsedColor(drawerTextColorPrimary)
+					white = pDrawerBackgroundColor
+					gray = pDrawerTextColorPrimary
 					blue = getParsedColor(R.color.blue_chata_circle)
 					tvBody.setTextColor(gray)
 					tvDate.setTextColor(gray)

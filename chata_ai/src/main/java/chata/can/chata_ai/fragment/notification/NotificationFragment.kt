@@ -77,10 +77,10 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				llParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				rvNotification.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
-				tvLoading.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				tvMsg1.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				llParent.setBackgroundColor(pDrawerBackgroundColor)
+				rvNotification.setBackgroundColor(pDrawerColorSecondary)
+				tvLoading.setTextColor(pDrawerTextColorPrimary)
+				tvMsg1.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 	}

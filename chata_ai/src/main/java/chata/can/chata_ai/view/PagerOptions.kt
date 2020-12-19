@@ -415,12 +415,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			rlChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 			rlTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 			rlNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlSelected?.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
+			rlSelected?.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
 
 			ivChat.setColorFilter(getParsedColor(R.color.white))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
-			ivSelected?.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			ivSelected?.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
 			ivClear.setColorFilter(getParsedColor(R.color.white))
@@ -432,8 +432,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		context?.run {
 			rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 			ivSelected?.setColorFilter(getParsedColor(R.color.white))
-			rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
-			ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			rlNew.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
+			ivNew.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			rlSelected = rlNew
 			ivSelected = ivNew
 		}

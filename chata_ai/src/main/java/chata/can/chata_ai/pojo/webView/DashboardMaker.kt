@@ -173,9 +173,9 @@ object DashboardMaker
 		{
 			ContextActivity.context?.let {
 				backgroundColor = "#" + Integer.toHexString(
-					it.getParsedColor(drawerBackgroundColor) and 0x00ffffff)
+					pDrawerBackgroundColor and 0x00ffffff)
 				textColor = "#" + Integer.toHexString(
-					it.getParsedColor(drawerTextColorPrimary) and 0x00ffffff)
+					pDrawerTextColorPrimary and 0x00ffffff)
 			}
 		}
 		val color1 = aChartColors[0]

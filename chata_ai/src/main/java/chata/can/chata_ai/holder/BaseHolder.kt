@@ -46,8 +46,8 @@ open class BaseHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(
+				ThemeColor.currentColor.pDrawerAccentColor,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
@@ -60,8 +60,7 @@ open class BaseHolder(
 			}
 		}
 
-		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-		tvContent.setTextColor(gray)
+		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		tvContent.backgroundGrayWhite()
 
 		rlDelete?.backgroundGrayWhite()
@@ -231,7 +230,7 @@ open class BaseHolder(
 								}
 							} finally {
 								tvContent.context?.let {
-									bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+									bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
 								}
 							}
 							isUnderlineText = false

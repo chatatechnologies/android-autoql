@@ -27,8 +27,7 @@ class SpinnerTextView: RelativeLayout
 		}
 
 		tvContent = TextView(context).apply {
-			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			setBackgroundColor(backgroundColor)
+			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)

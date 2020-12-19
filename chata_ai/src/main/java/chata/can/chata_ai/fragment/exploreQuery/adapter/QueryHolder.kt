@@ -14,10 +14,7 @@ class QueryHolder(itemView: View): Holder(itemView)
 
 	override fun onPaint()
 	{
-		tvQuery?.let {
-			val primary = ThemeColor.currentColor.drawerTextColorPrimary
-			it.setTextColor(it.context.getParsedColor(primary))
-		}
+		tvQuery?.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 
 	}
 

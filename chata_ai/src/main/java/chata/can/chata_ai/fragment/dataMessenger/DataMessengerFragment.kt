@@ -378,10 +378,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setStopRecorder()
 	{
 		activity?.let {
-			val red = it.getParsedColor(ThemeColor.currentColor.pDrawerAccentColor)
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
-				setColor(red)
+				setColor(ThemeColor.currentColor.pDrawerAccentColor)
 			}
 			ivMicrophone.background = circleDrawable
 		}

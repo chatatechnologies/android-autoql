@@ -22,9 +22,9 @@ class TermAdapter(context: Context, private val aData: List<String>)
 
 	init {
 		with(ThemeColor.currentColor) {
-			_background = context.getParsedColor(drawerBackgroundColor)
-			_textColor = context.getParsedColor(drawerTextColorPrimary)
-			_dangerColor = context.getParsedColor(dangerColor)
+			_background = pDrawerBackgroundColor
+			_textColor = pDrawerTextColorPrimary
+			_dangerColor = pDangerColor
 		}
 	}
 
