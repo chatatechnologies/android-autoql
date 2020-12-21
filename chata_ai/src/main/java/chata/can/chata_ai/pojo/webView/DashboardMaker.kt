@@ -1,8 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.getFooterScript
 import chata.can.chata_ai.model.validateArray
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
@@ -171,12 +169,10 @@ object DashboardMaker
 
 		with(ThemeColor.currentColor)
 		{
-			ContextActivity.context?.let {
-				backgroundColor = "#" + Integer.toHexString(
-					pDrawerBackgroundColor and 0x00ffffff)
-				textColor = "#" + Integer.toHexString(
-					pDrawerTextColorPrimary and 0x00ffffff)
-			}
+			backgroundColor = "#" + Integer.toHexString(
+				pDrawerBackgroundColor and 0x00ffffff)
+			textColor = "#" + Integer.toHexString(
+				pDrawerTextColorPrimary and 0x00ffffff)
 		}
 		val color1 = aChartColors[0]
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {

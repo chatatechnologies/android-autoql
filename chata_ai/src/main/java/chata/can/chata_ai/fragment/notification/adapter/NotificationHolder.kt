@@ -103,12 +103,14 @@ class NotificationHolder(
 		wbQuery.visibility = View.GONE
 	}
 
-	override fun showText(text: String, textSize: Float)
+	override fun showText(text: String, textSize: Float, intRes: Int)
 	{
 		rlLoad.visibility = View.GONE
-		tvContent.visibility = View.VISIBLE
-		tvContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-		tvContent.text = text
+		tvContent.run {
+			visibility = View.VISIBLE
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+			tvContent.text = if (intRes != 0) context.getString(intRes) else text
+		}
 		view.showItem(adapterPosition)
 	}
 

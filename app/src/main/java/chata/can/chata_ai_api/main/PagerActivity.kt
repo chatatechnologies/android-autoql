@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
@@ -61,7 +60,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 
 	override fun onCreateView()
 	{
-		ContextActivity.context = this
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
 		pagerOption = findViewById(R.id.pagerOption)

@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
 import chata.can.chata_ai.R
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -71,9 +70,7 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 
 	private fun showInternalServiceError()
 	{
-		ContextActivity.context?.let {
-			view.showText(it.getString(R.string.internal_service_error), 16f)
-		}
+		view.showText(textSize = 16f, intRes = R.string.internal_service_error)
 	}
 
 	fun getRuleQuery(idRule: String)

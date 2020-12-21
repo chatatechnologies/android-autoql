@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import chata.can.chata_ai.R
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -27,7 +26,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 
 	override fun onCreateView()
 	{
-		ContextActivity.context = this
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
 		ivLight = findViewById(R.id.ivLight)
