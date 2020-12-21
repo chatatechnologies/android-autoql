@@ -59,8 +59,8 @@ object ListPopup
 		val presenter = WebViewPresenter(chatView)
 		PopupMenu(view.context, view).run {
 			menu?.run {
-				add(1, R.id.iIncorrect, 1, R.string.the_data_is_incomplete)
-				add(2, R.id.iIncorrect, 2, R.string.the_data_is_incomplete)
+				add(1, R.id.iIncorrect, 1, R.string.the_data_is_incorrect)
+				add(2, R.id.iIncomplete, 2, R.string.the_data_is_incomplete)
 				add(3, R.id.iOther, 3, R.string.other)
 			}
 			setOnMenuItemClickListener { item ->

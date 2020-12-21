@@ -59,6 +59,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout
+		android:background="@color/transparent"
 		android:id="@+id/rlAlert"
 		android:layout_centerHorizontal="true"
 		android:layout_height="60dp"

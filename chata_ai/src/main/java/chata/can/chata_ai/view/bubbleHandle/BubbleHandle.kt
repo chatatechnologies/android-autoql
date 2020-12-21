@@ -6,7 +6,6 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
@@ -233,11 +232,6 @@ class BubbleHandle(
 				isOpenChat = true
 				isVisible = false
 				methodCanUse()
-//				val intent = Intent(context, DataMessengerActivity::class.java)
-//				createIntentData(intent)
-//				context.startActivity(intent)
-//				(context as? AppCompatActivity)
-//					?.overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_down)
 			}
 		}
 	}

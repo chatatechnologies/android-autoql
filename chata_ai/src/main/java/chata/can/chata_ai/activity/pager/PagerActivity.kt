@@ -107,21 +107,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		ivCancel?.setOnClickListener(this)
 		ivLight?.setOnClickListener(this)
 		ivClear?.setOnClickListener(this)
-		//TODO reusable when explore queries fragment is opened
-//		viewPager?.addOnPageChangeListener(object: PageSelectedListener
-//		{
-//			override fun onSelected(position: Int)
-//			{
-//				val pData = when(position)
-//				{
-//					0 -> Pair(dataMessengerTile, R.drawable.ic_light)
-//					1 -> Pair(exploreQueriesTile, R.drawable.ic_chat_white)
-//					else -> Pair(dataMessengerTile, R.drawable.ic_light)
-//				}
-//				tvToolbar?.text = pData.first
-//				ivLight?.setImageResource(pData.second)
-//			}
-//		})
 	}
 
 	private fun initConfig()
