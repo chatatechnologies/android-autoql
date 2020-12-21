@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.*
@@ -16,6 +17,7 @@ import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
@@ -29,7 +31,6 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import chata.can.chata_ai_api.test.PollService
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -531,24 +532,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-//	override fun onResume()
-//	{
-//		super.onResume()
-//		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
-//		{
-//			bubbleHandle.isVisible = true
-//		}
-//	}
-
-//	override fun onPause()
-//	{
-//		super.onPause()
-//		if (::bubbleHandle.isInitialized)
-//		{
-//			bubbleHandle.isVisible = false
-//		}
-//	}
-
 	override fun onDestroy()
 	{
 		bubbleHandle = null
@@ -685,13 +668,21 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		servicePresenter.callTopics()
 	}
 
-	//TODO call method
+	private val mHandler = Handler(Looper.getMainLooper())
+	private val runnable = object: Runnable {
+		override fun run()
+		{
+			activity?.let {
+				val intent = Intent(it, PollService::class.java)
+				PollService.enqueueWork(it, intent)
+			}
+			mHandler.postDelayed(this, 2000)
+		}
+	}
+
 	override fun initPollService()
 	{
-		activity?.let {
-			val intent = Intent(it, PollService::class.java)
-			PollService.enqueueWork(it, intent)
-		}
+		mHandler.postDelayed(runnable, 2000)
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)

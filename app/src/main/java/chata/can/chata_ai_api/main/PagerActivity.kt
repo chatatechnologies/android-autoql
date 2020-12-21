@@ -19,10 +19,10 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.R
-import chata.can.chata_ai_api.test.PollService
 import com.google.android.material.tabs.TabLayout
 import org.json.JSONObject
 
