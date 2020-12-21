@@ -61,14 +61,4 @@ class TestActivity: AppCompatActivity(), View.OnClickListener
 			}
 		}
 	}
-
-	override fun onResume()
-	{
-		super.onResume()
-	}
-
-	override fun onPause()
-	{
-		super.onPause()
-	}
 }

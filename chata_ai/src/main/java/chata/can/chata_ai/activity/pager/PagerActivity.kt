@@ -22,7 +22,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var ivClear: ImageView ?= null
 
 	val model = SinglentonDrawer.mModel
-	var dataMessengerTile = "Data Messenger"
+	private var dataMessengerTile = "Data Messenger"
 
 	override fun onCreateView()
 	{

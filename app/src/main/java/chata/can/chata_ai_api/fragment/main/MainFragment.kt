@@ -599,40 +599,29 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.tvLight, R.id.tvDark ->
 				{
-					if (it is TextView)
-					{
-						if (it.tag is String)
-						{
-							setColorOption(it.tag as String, it.id)
-						}
-						mTheme[it.id]?.let {
-							config ->
-							val theme = if (config) "light" else "dark"
-							bubbleHandle?.theme = theme
-						}
-					} else {}
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
+					}
+					mTheme[it.id]?.let { config ->
+						val theme = if (config) "light" else "dark"
+						bubbleHandle?.theme = theme
+					}
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
-					if (it is TextView)
-					{
-						if (it.tag is String)
-						{
-							setColorOption(it.tag as String, it.id)
-						}
-						mPlacement[it.id]?.let { placement -> bubbleHandle?.placement = placement }
-					} else {}
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
+					}
+					mPlacement[it.id]?.let { placement ->
+						bubbleHandle?.placement = placement
+					}
 				}
 				R.id.tvDataMessenger, R.id.tvExploreQueries ->
 				{
-					if (it is TextView)
-					{
-						if (it.tag is String)
-						{
-							setColorOption(it.tag as String, it.id)
-						}
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
 						isDataMessenger = it.id == R.id.tvDataMessenger
-					} else {}
+					}
 				}
 				else -> {}
 			}
@@ -647,7 +636,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		animationAlert.showAlert()
 
 		Looper.getMainLooper()?.let {
-			android.os.Handler(it).postDelayed({
+			Handler(it).postDelayed({
 				animationAlert.hideAlert()
 			}, 1500)
 		}

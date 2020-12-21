@@ -14,7 +14,8 @@
 	<RelativeLayout
 		android:id="@+id/rlParent"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent">
+		android:layout_width="match_parent"
+		tools:ignore="UselessParent">
 		<View
 			android:id="@+id/iView"
 			android:layout_height="match_parent"

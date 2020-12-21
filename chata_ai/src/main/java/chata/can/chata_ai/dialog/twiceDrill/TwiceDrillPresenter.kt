@@ -19,10 +19,10 @@ class TwiceDrillPresenter(
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		if (jsonObject != null)
-		{
-
-		}
+//		if (jsonObject != null)
+//		{
+//
+//		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)

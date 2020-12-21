@@ -34,7 +34,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 					{
 						val json = joItems.optJSONObject(index)
 						val id = json.optString("id")
-						val dataAlertId = json.optString("data_alert_id")
+//						val dataAlertId = json.optString("data_alert_id")
 						val title = json.optString("title")
 						val message = json.optString("message")
 						val dataReturnQuery = json.optString("data_return_query")
@@ -42,7 +42,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 						val state = json.optString("state")
 
 						val notification = Notification(
-							id, dataAlertId, title, message, dataReturnQuery, createdAt, state)
+							id, title, message, dataReturnQuery, createdAt, state)
 						aNotification.add(notification)
 					}
 				}

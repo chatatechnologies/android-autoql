@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener

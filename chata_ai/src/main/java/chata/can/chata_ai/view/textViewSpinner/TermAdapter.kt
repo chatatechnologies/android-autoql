@@ -1,7 +1,6 @@
 package chata.can.chata_ai.view.textViewSpinner
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class TermAdapter(context: Context, private val aData: List<String>)

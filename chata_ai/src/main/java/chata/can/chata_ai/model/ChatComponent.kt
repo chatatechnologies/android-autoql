@@ -91,16 +91,16 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 						val drills = ArrayList<String>()
 
 						//region existsDatePivot
-						if (existsDatePivot)
-						{
-
-						}
+//						if (existsDatePivot)
+//						{
+//
+//						}
 						//endregion
 
-						if (supportTri)
-						{
-
-						}
+//						if (supportTri)
+//						{
+//
+//						}
 						tableBasicStr = tableString(
 							pRowFinal.first,
 							columnsF,

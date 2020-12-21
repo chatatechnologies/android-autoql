@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.SinglentonDashboard

@@ -101,8 +101,7 @@ object HtmlBuilder
 		//endregion
 
 		//TODO CHECK SUPPORT CASES
-		with(Categories)
-		{
+		Categories.run {
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !isTriConfig))

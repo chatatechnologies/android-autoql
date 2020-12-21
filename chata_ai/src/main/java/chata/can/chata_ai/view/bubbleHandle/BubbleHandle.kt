@@ -196,8 +196,7 @@ class BubbleHandle(
 	private fun initBubbleLayout()
 	{
 		bubbleLayout = BubbleLayout(context)
-		with(bubbleLayout)
-		{
+		bubbleLayout.run {
 			clipChildren = false
 			clipToPadding = false
 
@@ -314,9 +313,8 @@ class BubbleHandle(
 			}
 		}
 	}
-
-	fun onDestroy()
-	{
-		bubblesManager.recycle()
-	}
+//	fun onDestroy()
+//	{
+//		bubblesManager.recycle()
+//	}
 }

@@ -9,7 +9,8 @@
 		android:id="@+id/llParent"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		tools:ignore="UselessParent">
 		<!--region header-->
 		<RelativeLayout
 			android:id="@+id/rlTitle"

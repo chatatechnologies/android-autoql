@@ -147,10 +147,10 @@ object DashboardMaker
 		var dataChartLine = row.map {
 			validateArray(it,1).toString().toDouble()
 		}
-		if (type.size == 3)
-		{
-
-		}
+//		if (type.size == 3)
+//		{
+//
+//		}
 	}
 	//endregion
 

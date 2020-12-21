@@ -106,8 +106,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 							}
 						}
 					}
-					with(view)
-					{
+					view.run {
 						changeAuthenticate(true)
 						changeStateAuthenticate()
 						isEnableLogin(true)

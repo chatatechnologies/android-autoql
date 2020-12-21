@@ -76,7 +76,7 @@ class NotificationHolder(
 	{
 		rlParent.run {
 			context.run {
-				with(ThemeColor.currentColor) {
+				ThemeColor.currentColor.run {
 					white = pDrawerBackgroundColor
 					gray = pDrawerTextColorPrimary
 					blue = getParsedColor(R.color.blue_chata_circle)

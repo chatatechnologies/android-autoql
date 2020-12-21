@@ -13,12 +13,9 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.putArgs
-import com.google.android.material.internal.ViewUtils
-import com.google.android.material.internal.ViewUtils.dpToPx
 
 class NotificationFragment: BaseFragment(), NotificationContract
 {

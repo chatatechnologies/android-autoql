@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager
 import android.widget.*
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter

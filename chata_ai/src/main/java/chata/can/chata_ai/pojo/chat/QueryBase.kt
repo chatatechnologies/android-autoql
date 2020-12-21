@@ -7,7 +7,6 @@ import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.model.ChatComponentType
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.query.CountColumn

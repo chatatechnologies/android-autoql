@@ -4,7 +4,6 @@ import android.graphics.Color
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import chata.can.chata_ai.pojo.dataFormatting.ValidateLocale
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern

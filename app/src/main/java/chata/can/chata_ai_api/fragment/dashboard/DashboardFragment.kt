@@ -57,8 +57,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun setColors()
 	{
-		with(ThemeColor.currentColor)
-		{
+		ThemeColor.currentColor.run {
 			activity?.let {
 				val backgroundColor = it.getParsedColor(R.color.white)
 				val border = it.getParsedColor(R.color.border_widget_dashboard)
