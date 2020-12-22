@@ -175,10 +175,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				if (bubbleHandle == null)
 				{
 					bubbleHandle = BubbleHandle(context, Authentication(
-						"",
-						"https://spira-staging.chata.io",
-						""),
-						"spira-demo3"
+						"API_KEY",
+						"DOMAIN_URL",
+						"TOKEN"),
+						"PROJECT_ID"
 					) {
 						bubbleHandle?.let { bubbleHandle ->
 							val bubbleData = BubbleData(
