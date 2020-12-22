@@ -30,6 +30,8 @@ import java.io.InputStreamReader
 
 class BubbleHandle(
 	private val context: Context,
+	authentication: Authentication,
+	private val projectId: String,
 	private val methodCanUse: () -> Unit)
 {
 	private lateinit var bubblesManager: BubblesManager
@@ -53,6 +55,12 @@ class BubbleHandle(
 
 	init {
 		instance = this
+		authentication.run {
+			DataMessenger.projectId = projectId
+			DataMessenger.apiKey = apiKey
+			DataMessenger.domainUrl = domainUrl
+			DataMessenger.token = token
+		}
 		getCurrency()
 		BubblesManager.Builder(context)
 			.setInitializationCallback { initBubbleLayout() }
@@ -275,8 +283,7 @@ class BubbleHandle(
 
 	private fun getCurrency()
 	{
-		context.assets?.let {
-				itAssets ->
+		context.assets?.let { itAssets ->
 			try {
 				val inputStream: InputStream = itAssets.open("currency_symbols.json")
 				val inputStreamReader = InputStreamReader(inputStream)

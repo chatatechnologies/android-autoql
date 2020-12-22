@@ -20,6 +20,7 @@ import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
+import chata.can.chata_ai.view.bubbleHandle.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
@@ -126,10 +127,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //		if (true)
 		{
 			val projectId = "spira-demo3"
-//			val projectId = "accounting-demo"
 			tvProjectId?.setText(projectId)
 			val domainUrl = "https://spira-staging.chata.io"
-//			val domainUrl = "https://accounting-demo-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
 			tvUserId?.setText(userId)
@@ -149,7 +148,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etLanguageCode?.setText(languageCode)
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+			apiKey = (tvApiKey?.text ?: "").toString().trim()
 			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
 			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
 			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
@@ -175,7 +174,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			parentActivity?.let { context ->
 				if (bubbleHandle == null)
 				{
-					bubbleHandle = BubbleHandle(context) {
+					bubbleHandle = BubbleHandle(context, Authentication(
+						"",
+						"https://spira-staging.chata.io",
+						""),
+						"spira-demo3"
+					) {
 						bubbleHandle?.let { bubbleHandle ->
 							val bubbleData = BubbleData(
 								bubbleHandle.userDisplayName,
