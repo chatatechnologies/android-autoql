@@ -142,7 +142,7 @@ class WebViewHolder(
 			queryBase?.let {
 				if (it.isGroupable && R.id.ivColumn in aConfigs)
 				{
-					Collections.swap(aConfigs, 0, 1)
+					Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
 					lastId = "#container"
 				}
 				if (R.id.ivPie in aConfigs)
@@ -172,7 +172,7 @@ class WebViewHolder(
 			//endregion
 
 			val tmpConfigs = aConfigs.subList(1, aConfigs.size)
-			for (index in 1 until aDefaultActions.size)
+			for (index in 0 until aDefaultActions.size)
 			{
 				aDefaultActions[index]?.let {
 					it.visibility = if (it.id in tmpConfigs)

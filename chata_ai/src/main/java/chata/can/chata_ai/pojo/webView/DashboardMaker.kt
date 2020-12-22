@@ -164,8 +164,8 @@ object DashboardMaker
 	fun getHTML(dataForWebView: DataForWebView): String
 	{
 		val isBi = dataForWebView.isBi
-		var backgroundColor = "#FFFFFF"
-		var textColor = "#000000"
+		var backgroundColor: String
+		var textColor: String
 
 		with(ThemeColor.currentColor)
 		{

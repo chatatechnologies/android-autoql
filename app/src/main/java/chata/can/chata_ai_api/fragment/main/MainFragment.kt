@@ -137,13 +137,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etLanguageCode?.setText(languageCode)
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
-//			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-//			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-//			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-//			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
-//
-//			servicePresenter.createAuthenticate()
-//			showDialog()
+			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
+			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+
+			servicePresenter.createAuthenticate()
+			showDialog()
 		}
 		else
 		{

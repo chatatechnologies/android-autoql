@@ -276,8 +276,10 @@ object HtmlBuilder
 //				queryBase.configActions = 1
 
 				val type = aColumn[0].type
-				val type1 = aColumn[1].type
-				if (type == TypeDataQuery.DATE_STRING && type1 != TypeDataQuery.DOLLAR_AMT)
+//				val type1 = aColumn[1].type
+				if (type == TypeDataQuery.DATE_STRING
+					//&& type1 != TypeDataQuery.DOLLAR_AMT
+				)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
 						dataForWebView.datePivot = first
