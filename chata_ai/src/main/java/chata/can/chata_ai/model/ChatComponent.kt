@@ -18,7 +18,7 @@ class ChatComponent(jsonObject: JSONObject, type: String = "", split: Boolean = 
 					val jaColumns = optJSONArray("columns") ?: JSONArray()
 					val finalType = if (type.isEmpty()) optString("display_type") else type
 
-					var displayType = enumValueOfOrNull<ChatComponentType>(finalType) ?: run {
+					var displayType = enumValueOfOrNull(finalType) ?: run {
 						when(finalType)
 						{
 							"data" -> ChatComponentType.WEB_VIEW

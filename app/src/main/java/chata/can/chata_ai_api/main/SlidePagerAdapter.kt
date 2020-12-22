@@ -23,7 +23,7 @@ class SlidePagerAdapter(fm: FragmentManager, var numPages: Int)
 		}
 	}
 
-	override fun getPageTitle(position: Int): CharSequence?
+	override fun getPageTitle(position: Int): CharSequence
 	{
 		return when(position)
 		{

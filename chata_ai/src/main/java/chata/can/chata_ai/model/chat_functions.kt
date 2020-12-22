@@ -22,7 +22,7 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 		val typeLocal = column.optString("type")
 		val isVisible = column.optBoolean("is_visible", true)
 
-		val typeColumn = enumValueOfOrNull<TypeDataQuery>(
+		val typeColumn = enumValueOfOrNull(
 			typeLocal
 		) ?: run { TypeDataQuery.UNKNOWN }
 

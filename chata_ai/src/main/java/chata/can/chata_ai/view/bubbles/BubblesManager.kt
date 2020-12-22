@@ -11,7 +11,7 @@ open class BubblesManager(context: Context)
 	companion object {
 //		private var INSTANCE: BubblesManager ?= null
 
-		fun getInstance(context: Context): BubblesManager?
+		fun getInstance(context: Context): BubblesManager
 		{
 //			if (INSTANCE == null)
 //			{

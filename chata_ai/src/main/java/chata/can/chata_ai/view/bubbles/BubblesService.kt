@@ -14,7 +14,7 @@ class BubblesService: Service()
 	private val bubbles = ArrayList<BubbleLayout>()
 	private var windowManager: WindowManager ?= null
 
-	override fun onBind(intent: Intent?): IBinder? = binder
+	override fun onBind(intent: Intent?): IBinder = binder
 
 	override fun onUnbind(intent: Intent?): Boolean
 	{

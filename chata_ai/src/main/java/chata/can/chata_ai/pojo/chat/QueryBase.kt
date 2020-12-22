@@ -140,7 +140,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						val displayName = joColumn.optString("display_name", "")
 						val isVisible = joColumn.optBoolean("is_visible", true)
 
-						val typeColumn = enumValueOfOrNull<TypeDataQuery>(
+						val typeColumn = enumValueOfOrNull(
 							type
 						) ?: run { TypeDataQuery.UNKNOWN }
 
