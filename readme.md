@@ -1,4 +1,4 @@
-[a relative link](readme_local.md)
+<!-- [a relative link](readme_local.md)-->
 
 # Data Messenger
 > Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
@@ -12,9 +12,13 @@
 
 ![alt text](Documentation/example_query.png "Data Messenger")
 
-## Setting Up Data Messenger
+## Requirements
+minimun Sdk Version 17 or later.
 
-### Controlled Component
+### Setting Up Data Messenger
+The following sections in this document contain detailed information about how to customize the properties of the widget.
+
+<!-- ### Controlled Component
 > This widget is a controlled component in terms of its visibility. The Integrator is in full control of the visual state of Data Messenger within their application, making it easy to trigger the slide-in or slide-out functionality programmatically.
 
 >> Note: The data messenger component can only be used in SDK version 17 or higher. This is shown below.
@@ -71,7 +75,7 @@
 >
 > Then we click on `Sync now` to synchronize the library with the project.
 
-![alt text](Documentation/9_implement_library.png "data module")
+![alt text](Documentation/9_implement_library.png "data module")-->
 
 ### Add source code in project
 
