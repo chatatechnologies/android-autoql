@@ -19,6 +19,9 @@ object DataMessenger
 	var token = ""
 	var JWT = ""
 	var loginIsComplete = false
+	get() {
+		return if (!field) projectId != "" && domainUrl != "" && token != "" && apiKey != "" else field
+	}
 	var isNecessaryLogin = true
 
 	fun clearData()

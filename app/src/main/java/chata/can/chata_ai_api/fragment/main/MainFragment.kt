@@ -110,24 +110,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-//		activity?.let {
-//			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
-//			with(sharePreferences)
-//			{
-//				val projectId = getString("PROJECT_ID", "") ?: ""
-//				val apiKey = getString("API_KEY", "") ?: ""
-//				val domainUrl = getString("DOMAIN_URL", "") ?: ""
-//				tvProjectId?.setText(projectId)
-//				tvApiKey?.setText(apiKey)
-//				tvDomainUrl?.setText(domainUrl)
-//			}
-//		}
-
 		if (BuildConfig.DEBUG)
 //		if (true)
 		{
 			val projectId = "spira-demo3"
 			tvProjectId?.setText(projectId)
+			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
+			tvApiKey?.setText(apiKey)
 			val domainUrl = "https://spira-staging.chata.io"
 			tvDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
@@ -148,13 +137,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etLanguageCode?.setText(languageCode)
 			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
 			userID = (tvUserId?.text ?: "").toString().trim()
-			apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
-
-			servicePresenter.createAuthenticate()
-			showDialog()
+//			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
+//			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
+//			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
+//			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+//
+//			servicePresenter.createAuthenticate()
+//			showDialog()
 		}
 		else
 		{
@@ -175,10 +164,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				if (bubbleHandle == null)
 				{
 					bubbleHandle = BubbleHandle(context, Authentication(
-						"API_KEY",
-						"DOMAIN_URL",
-						"TOKEN"),
-						"PROJECT_ID"
+						"AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo",//"API_KEY",
+						"https://spira-staging.chata.io",
+						"fab46349-4b1b-4fe8-a38a-7df78b2b5a80"),
+						"spira-demo3"
 					) {
 						bubbleHandle?.let { bubbleHandle ->
 							val bubbleData = BubbleData(
