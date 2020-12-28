@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
@@ -55,28 +56,16 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_5 ->
 			{
-				//get second string column
 				val aUncountable = SearchColumn.getUncountableIndices(queryBase.aColumn)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn)
-//				val aString = SearchColumn.getTypeIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
-//				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-//				if (aString.isNotEmpty())
-//				{
-//					posColumnX = if (aString.size == 2)
-//						aString[1]
-//					else
-//						aString[0]
-//				}
-//				if (aNumber.isNotEmpty())
-//					posColumnY = aNumber[0]
-//
-//				queryBase.addIndices(posColumnX, posColumnY)
-//
+				posColumnX = aUncountable.nextSeries()
+				if (aNumber.isNotEmpty())
+					posColumnY = aNumber[0]
+				queryBase.addIndices(posColumnX, posColumnY)
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
 //				else
-
 					queryBase.configActions = 4
 			}
 			SupportCase.CASE_6 ->
