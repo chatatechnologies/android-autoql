@@ -87,8 +87,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-//			val queryDemo = ""
-			val queryDemo = "Total purchase orders by month for Home Depot"
+//			val queryDemo = "All invoices last year"
+			val queryDemo = ""
 			etQuery.setText(queryDemo)
 		}
 
@@ -276,6 +276,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 				ivMicrophone.background = circleDrawable
 				etQuery.background = rectangleDrawable
+
+				etQuery.setDropDownBackgroundDrawable(DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					64f,
+					1,
+					pDrawerTextColorPrimary))
 			}
 		}
 	}

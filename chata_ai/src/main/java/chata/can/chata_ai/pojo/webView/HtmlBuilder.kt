@@ -61,7 +61,7 @@ object HtmlBuilder
 				if (aString.isNotEmpty())
 				{
 					posColumnX = if (aString.size == 2)
-						aString[1]
+						3//aString[1]
 					else
 						aString[0]
 				}

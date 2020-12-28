@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.nullValue
 
 class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>(context, resource)
@@ -17,8 +18,10 @@ class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
 	{
 		val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.row_spinner, nullValue)
-		val tv = view.findViewById<TextView>(android.R.id.text1)
-		tv.text = getItem(position)
+		view.findViewById<TextView>(android.R.id.text1).run {
+			text = getItem(position)
+			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+		}
 		return view
 	}
 
