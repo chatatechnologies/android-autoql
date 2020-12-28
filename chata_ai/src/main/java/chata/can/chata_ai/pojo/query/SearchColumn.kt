@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.query
 
 import chata.can.chata_ai.extension.isNumber
+import chata.can.chata_ai.extension.isUnCountable
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
@@ -11,7 +12,6 @@ object SearchColumn
 		count: Int): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
-
 		for (index in aColumns.indices)
 		{
 			if (aColumns[index].isGroupable)
@@ -23,9 +23,22 @@ object SearchColumn
 		return aIndices
 	}
 
+	fun getUncountableIndices(aColumns: ArrayList<ColumnQuery>): ArrayList<Int>
+	{
+		val aIndices = ArrayList<Int>()
+		for (index in aColumns.indices)
+		{
+			if (aColumns[index].type.isUnCountable())
+			{
+				aIndices.add(index)
+			}
+		}
+		return aIndices
+	}
+
 	fun getNumberIndices(
 		aColumns: ArrayList<ColumnQuery>,
-		count: Int): ArrayList<Int>
+		count: Int = 0): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
 		for (index in aColumns.indices)
@@ -33,7 +46,7 @@ object SearchColumn
 			if (aColumns[index].type.isNumber())
 			{
 				aIndices.add(index)
-				if (count == aIndices.size) break
+				if (count != 0 && count == aIndices.size) break
 			}
 		}
 		return aIndices
