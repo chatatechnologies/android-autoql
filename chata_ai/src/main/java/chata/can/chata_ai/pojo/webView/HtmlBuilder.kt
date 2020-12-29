@@ -65,15 +65,8 @@ object HtmlBuilder
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				//Value uniques for posColumnX on aRow
-				val aItemsX = ArrayList<String>()
-				for (row in aRows)
-				{
-					val item = row[posColumnX].formatWithColumn(aColumn[posColumnX])
-					if (item !in aItemsX)
-					aItemsX.add(item)
-				}
 				//add array with values for posColumnX with aNumbers
-
+				Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
@@ -295,13 +288,6 @@ object HtmlBuilder
 				dataForWebView.catYS = aCatYS.toString()
 				dataForWebView.dataChartBi = Table.generateDataTable(
 					aRows, aColumn, queryBase.aIndex,true)
-
-//				queryBase.configActions = when(aColumn.size)
-//				{
-//					2 -> 4
-//					3 -> 5
-//					else -> 0
-//				}
 			}
 		}
 
