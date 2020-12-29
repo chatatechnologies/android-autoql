@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -62,6 +63,17 @@ object HtmlBuilder
 				if (aNumber.isNotEmpty())
 					posColumnY = aNumber[0]
 				queryBase.addIndices(posColumnX, posColumnY)
+
+				//Value uniques for posColumnX on aRow
+				val aItemsX = ArrayList<String>()
+				for (row in aRows)
+				{
+					val item = row[posColumnX].formatWithColumn(aColumn[posColumnX])
+					if (item !in aItemsX)
+					aItemsX.add(item)
+				}
+				//add array with values for posColumnX with aNumbers
+
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
