@@ -646,6 +646,8 @@ function biType(type,inverted) {
             type: type,
             inverted: inverted
         },
+        title: subTitle,
+        subTitle: subTitle,
         xAxis: {
             gridLineWidth: 0,
             categories: newCategory,
@@ -664,15 +666,29 @@ function biType(type,inverted) {
             }
         },
         yAxis: {
+            gridLineWidth: 0,
             min: 0,
             max: 2300,
             title: {
                 text: yAxis,
                 style: {
-                    color: colorAxis
+                    color: colorAxis,
+                    fontSize:'16px'
                 }
             }
         },
+        colorAxis: {
+            reversed: false,
+            min: 0,
+            minColor: '#FFFFFF',
+            maxColor: '#26a7df'
+        },
+        showInLegend: true,
+        legend: false,
+        dataLabels: {
+            enabled: false
+        },
+        colors: colors,
         series: dataChartBi,
         tooltip: {
             backgroundColor: colorGhost,
