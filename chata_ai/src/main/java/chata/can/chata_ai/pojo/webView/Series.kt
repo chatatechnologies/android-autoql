@@ -25,7 +25,7 @@ object Series
 		val sb =  StringBuilder("[")
 		for (header in mData.keys)
 		{
-			sb.append("\n{name: \"${header}\", ")
+			sb.append("\n{\nname: \"${header}\", ")
 			val sData = mData[header]?.joinToString(",", "[", "]")
 			sb.append("\ndata: $sData")
 			sb.append("},")

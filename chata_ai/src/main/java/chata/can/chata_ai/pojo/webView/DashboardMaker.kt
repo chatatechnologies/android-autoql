@@ -634,63 +634,56 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                 
         }
     }
-    function biType(type,inverted){
-				var newCategory = categoriesX;
-        if (categoriesX.length == 1 && newCategory[0] === "") {
-            var newCategory = categoriesY;
-        }
-        finalSize(inverted);
-        chart.destroy()
-                chart = Highcharts.chart('container', defaultChart);
-        chart.update({
-                    chart: {
-                        type: type,
-                        inverted: inverted
-                    },
-                    xAxis: {
-											
-                         gridLineWidth: 0,
-                         categories: newCategory,
-                         labels: {
-										        rotation: -60,
-										        style: {
-										            color: colorAxis,
-										             fontSize:'16px'
-										        },
-										        formatter: function(){
-										         return formatterLabel(this.value);
-										        }
-										       },
-                         
-                         title: {
-                           text: xAxis
-                         }
-                       },
-										yAxis: {
-										min: ${dataForWebView.min},
-											max: ${dataForWebView.max},
-                        title: {
-                            text: yAxis,
-                            style: {
-                                color: colorAxis
-                            }
-                        }
-                    },
-                    series: [{
-                            colorByPoint: false,
-                            name: newCategory,
-                            data: dataChartBi
-                        }],
-                    tooltip: {
-                        backgroundColor: colorGhost,
-                        style: styleTooltip,
-                        formatter: function () {
-                            drillDown(drillX[this.point.x])
-                            return "";
-                        }
-                    }
-                });
+function biType(type,inverted) {
+    var newCategory = categoriesX;
+    if (categoriesX.length == 1 && newCategory[0] === "") {
+        var newCategory = categoriesY;
     }
+    finalSize(inverted);
+    chart.destroy();
+    chart = Highcharts.chart('container', {
+        chart: {
+            type: type,
+            inverted: inverted
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            categories: newCategory,
+            labels: {
+                rotation: -60,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                },
+                formatter: function() {
+                    return formatterLabel(this.value);
+                }
+            },
+            title: {
+                text: xAxis
+            }
+        },
+        yAxis: {
+            min: 0,
+            max: 2300,
+            title: {
+                text: yAxis,
+                style: {
+                    color: colorAxis
+                }
+            }
+        },
+        series: dataChartBi,
+        tooltip: {
+            backgroundColor: colorGhost,
+            style: styleTooltip,
+            formatter: function () {
+                drillDown(drillX[this.point.x])
+                return "";
+            }
+        }
+    });
+}
     function biType3(type,inverted){
         finalSize(inverted);
         typeFinal = type.replace("contrast_", "");
