@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -64,9 +63,13 @@ object HtmlBuilder
 					posColumnY = aNumber[0]
 				queryBase.addIndices(posColumnX, posColumnY)
 
-				//Value uniques for posColumnX on aRow
-				//add array with values for posColumnX with aNumbers
-				Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
+				dataForWebView.catX = Categories.buildCategoryByPosition(
+					Category(
+						aRows, aColumn[posColumnX], posColumnX,
+						true, hasQuotes = true, allowRepeat = false
+					)
+				).toString()
+				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
@@ -148,7 +151,7 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			dataForWebView.catX = aCatX.toString()
+			if (dataForWebView.catX.isEmpty()) dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -286,8 +289,11 @@ object HtmlBuilder
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
-				dataForWebView.dataChartBi = Table.generateDataTable(
-					aRows, aColumn, queryBase.aIndex,true)
+				if (dataForWebView.dataChartBi.isEmpty())
+				{
+					dataForWebView.dataChartBi = Table.generateDataTable(
+						aRows, aColumn, queryBase.aIndex,true)
+				}
 			}
 		}
 

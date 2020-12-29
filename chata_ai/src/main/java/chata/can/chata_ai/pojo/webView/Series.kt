@@ -9,7 +9,7 @@ object Series
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>,
 		position: Int,
-		aNumber: ArrayList<Int>)
+		aNumber: ArrayList<Int>): String
 	{
 		val mData = linkedMapOf<String, ArrayList<String>>()
 		for (row in aRows)
@@ -18,7 +18,6 @@ object Series
 			val aChildNumber = ArrayList<String>()
 			for (iNumber in aNumber)
 			{
-//				aChildNumber.add(row[iNumber].formatWithColumn(aColumn[iNumber]))
 				aChildNumber.add(row[iNumber])
 			}
 			mData[header] = aChildNumber
@@ -31,6 +30,6 @@ object Series
 			sb.append("\ndata: $sData")
 			sb.append("},")
 		}
-		"${sb.removeSuffix(",")}\n]"
+		return "${sb.removeSuffix(",")}\n]"
 	}
 }
