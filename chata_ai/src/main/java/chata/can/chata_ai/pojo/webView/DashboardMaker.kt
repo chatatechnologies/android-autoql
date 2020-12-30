@@ -641,64 +641,114 @@ function biType(type,inverted) {
     }
     finalSize(inverted);
     chart.destroy();
-    chart = Highcharts.chart('container', {
-        chart: {
-            type: type,
-            inverted: inverted
-        },
-        title: subTitle,
-        subTitle: subTitle,
-        xAxis: {
-            gridLineWidth: 0,
-            categories: newCategory,
-            labels: {
-                rotation: -60,
-                style: {
-                    color: colorAxis,
-                    fontSize:'16px'
+    if (dataChartBi[0] instanceof Object) {
+        chart = Highcharts.chart('container', {
+            chart: {
+                type: type,
+                inverted: inverted
+            },
+            title: subTitle,
+            subTitle: subTitle,
+            xAxis: {
+                gridLineWidth: 0,
+                categories: newCategory,
+                labels: {
+                    rotation: -60,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
+                    },
+                    formatter: function() {
+                        return formatterLabel(this.value);
+                    }
                 },
-                formatter: function() {
-                    return formatterLabel(this.value);
+                title: {
+                    text: xAxis
                 }
             },
-            title: {
-                text: xAxis
-            }
-        },
-        yAxis: {
-            gridLineWidth: 0,
-            min: ${dataForWebView.min},
-            max: ${dataForWebView.max},
-            title: {
-                text: yAxis,
-                style: {
-                    color: colorAxis,
-                    fontSize:'16px'
+            yAxis: {
+                gridLineWidth: 0,
+                min: ${dataForWebView.min},
+                max: ${dataForWebView.max},
+                title: {
+                    text: yAxis,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
+                    }
+                }
+            },
+            colorAxis: {
+                reversed: false,
+                min: 0,
+                minColor: '#FFFFFF',
+                maxColor: '#26a7df'
+            },
+            showInLegend: true,
+            legend: false,
+            dataLabels: {
+                enabled: false
+            },
+            colors: colors,
+            series: dataChartBi,
+            tooltip: {
+                backgroundColor: colorGhost,
+                style: styleTooltip,
+                formatter: function () {
+                    drillDown(drillX[this.point.x])
+                    return "";
                 }
             }
-        },
-        colorAxis: {
-            reversed: false,
-            min: 0,
-            minColor: '#FFFFFF',
-            maxColor: '#26a7df'
-        },
-        showInLegend: true,
-        legend: false,
-        dataLabels: {
-            enabled: false
-        },
-        colors: colors,
-        series: dataChartBi,
-        tooltip: {
-            backgroundColor: colorGhost,
-            style: styleTooltip,
-            formatter: function () {
-                drillDown(drillX[this.point.x])
-                return "";
+        });
+    } else {
+        chart = Highcharts.chart('container', defaultChart);
+        chart.update({
+            chart: {
+                type: type,
+                inverted: inverted
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                categories: newCategory,
+                labels: {
+                    rotation: -60,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
+                    },
+                    formatter: function(){
+                        return formatterLabel(this.value);
+                    }
+                },
+                title: {
+                    text: xAxis
+                }
+            },
+            yAxis: {
+                min: ${dataForWebView.min},
+                max: ${dataForWebView.max},
+                title: {
+                    text: yAxis,
+                    style: {
+                        color: colorAxis
+                    }
+                }
+            },
+            series: [{
+                colorByPoint: false,
+                name: newCategory,
+                data: dataChartBi
+            }],
+            tooltip: {
+                backgroundColor: colorGhost,
+                style: styleTooltip,
+                formatter: function () {
+                    drillDown(drillX[this.point.x])
+                    return "";
+                }
             }
-        }
-    });
+        });
+    }
 }
     function biType3(type,inverted){
         finalSize(inverted);
