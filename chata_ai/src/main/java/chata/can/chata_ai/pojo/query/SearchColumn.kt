@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.query
 
 import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.isUnCountable
+import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
@@ -52,7 +53,7 @@ object SearchColumn
 		return aIndices
 	}
 
-	fun getTypeIndices(
+	fun getCountIndices(
 		aColumns: ArrayList<ColumnQuery>,
 		type: TypeDataQuery,
 		count: Int,
@@ -70,6 +71,24 @@ object SearchColumn
 			}
 		}
 		return aIndices
+	}
+
+	fun getMinMaxColumns(
+		aRows: ArrayList<ArrayList<String>>,
+		aIndices: ArrayList<Int>
+	): Pair<Int, Int>
+	{
+		val aInt = ArrayList<Double>()
+		for (row in aRows)
+		{
+			for (index in aIndices)
+			{
+				aInt.add(row[index].toDoubleNotNull())
+			}
+		}
+		val max = (aInt.maxOrNull() ?: 0.0) + 100.0
+		val min = (aInt.minOrNull() ?: 0.0) - 100.0
+		return Pair(max.toInt() + 1, min.toInt() - 1)
 	}
 
 	fun hasDecimals(

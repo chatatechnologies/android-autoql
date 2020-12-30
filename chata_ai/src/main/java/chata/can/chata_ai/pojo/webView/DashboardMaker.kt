@@ -667,8 +667,8 @@ function biType(type,inverted) {
         },
         yAxis: {
             gridLineWidth: 0,
-            min: 0,
-            max: 2300,
+            min: ${dataForWebView.min},
+            max: ${dataForWebView.max},
             title: {
                 text: yAxis,
                 style: {

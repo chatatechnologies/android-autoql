@@ -70,6 +70,9 @@ object HtmlBuilder
 					)
 				).toString()
 				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
+				val pMM = SearchColumn.getMinMaxColumns(aRows, aNumber)
+				dataForWebView.max = pMM.first
+				dataForWebView.min = pMM.second
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
@@ -78,7 +81,7 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_6 ->
 			{
-				val aString = SearchColumn.getTypeIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
+				val aString = SearchColumn.getCountIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
 				if (aString.isNotEmpty())
 				{
@@ -127,8 +130,11 @@ object HtmlBuilder
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !isTriConfig))
 				val aInt = tmp.toListInt()
-				dataForWebView.min = (aInt.minOrNull() ?: 0) - 100
-				dataForWebView.max = (aInt.maxOrNull() ?: 0) + 100
+				if (dataForWebView.max != -1 && dataForWebView.min != -1)
+				{
+					dataForWebView.min = (aInt.minOrNull() ?: 0) - 100
+					dataForWebView.max = (aInt.maxOrNull() ?: 0) + 100
+				}
 				tmp
 			}
 			else ArrayList()
@@ -157,9 +163,9 @@ object HtmlBuilder
 			if (isTriConfig)
 			{
 				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
-				val aString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.STRING, 1, 1)
-				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
-				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
+				val aString = SearchColumn.getCountIndices(aColumn, TypeDataQuery.STRING, 1, 1)
+				val aDate = SearchColumn.getCountIndices(aColumn, TypeDataQuery.DATE, 1)
+				val aDateString = SearchColumn.getCountIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
 
 				//get aDataTable and aMapPure
 				val pair = TableTriBuilder.generateDataTableTri(
