@@ -635,6 +635,51 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         }
     }
 function biType(type,inverted) {
+    //region NEW
+    var chartBiSeries = {
+        chart: {
+            type: type,
+            inverted: inverted
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            categories: newCategory,
+            labels: {
+                rotation: -60,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                },
+                formatter: function() {
+                    return formatterLabel(this.value);
+                }
+            },
+            title: {
+                text: xAxis
+            }
+        },
+        yAxis: {
+            gridLineWidth: 0,
+            min: 425,
+            max: 2300,
+            title: {
+                text: yAxis,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                }
+            }
+        },
+        tooltip: {
+            backgroundColor: colorGhost,
+            style: styleTooltip,
+            formatter: function () {
+                drillDown(drillX[this.point.x])
+                return "";
+            }
+        }
+    };
+    //endregion
     var newCategory = categoriesX;
     if (categoriesX.length == 1 && newCategory[0] === "") {
         var newCategory = categoriesY;
@@ -642,6 +687,13 @@ function biType(type,inverted) {
     finalSize(inverted);
     chart.destroy();
     if (dataChartBi[0] instanceof Object) {
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataChartBi
+
         chart = Highcharts.chart('container', {
             chart: {
                 type: type,
@@ -668,8 +720,8 @@ function biType(type,inverted) {
             },
             yAxis: {
                 gridLineWidth: 0,
-                min: ${dataForWebView.min},
-                max: ${dataForWebView.max},
+                min: 425,
+                max: 2300,
                 title: {
                     text: yAxis,
                     style: {
@@ -725,8 +777,8 @@ function biType(type,inverted) {
                 }
             },
             yAxis: {
-                min: ${dataForWebView.min},
-                max: ${dataForWebView.max},
+                min: 0,//${dataForWebView.min},
+                max: 0,//${dataForWebView.max},
                 title: {
                     text: yAxis,
                     style: {
