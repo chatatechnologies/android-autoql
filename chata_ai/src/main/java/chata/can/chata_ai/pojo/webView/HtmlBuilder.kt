@@ -130,7 +130,7 @@ object HtmlBuilder
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !isTriConfig))
 				val aInt = tmp.toListInt()
-				if (dataForWebView.max != -1 && dataForWebView.min != -1)
+				if (dataForWebView.max == -1 && dataForWebView.min == -1)
 				{
 					dataForWebView.min = (aInt.minOrNull() ?: 0) - 100
 					dataForWebView.max = (aInt.maxOrNull() ?: 0) + 100
@@ -157,7 +157,7 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			if (dataForWebView.catX.isEmpty()) dataForWebView.catX = aCatX.toString()
+			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -295,7 +295,7 @@ object HtmlBuilder
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
-				if (dataForWebView.dataChartBi.isEmpty())
+				if (dataForWebView.dataChartBi == "[]")
 				{
 					dataForWebView.dataChartBi = Table.generateDataTable(
 						aRows, aColumn, queryBase.aIndex,true)
