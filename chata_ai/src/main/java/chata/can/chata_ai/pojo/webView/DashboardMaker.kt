@@ -201,8 +201,8 @@ object DashboardMaker
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.js\"></script>\n" +
-"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
-"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
+				"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
+				"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -635,7 +635,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         }
     }
 function biType(type,inverted) {
-    //region NEW
+    var newCategory = categoriesX;
     var chartBiSeries = {
         chart: {
             type: type,
@@ -660,8 +660,8 @@ function biType(type,inverted) {
         },
         yAxis: {
             gridLineWidth: 0,
-            min: 425,
-            max: 2300,
+            min: ${dataForWebView.min},
+            max: ${dataForWebView.max},
             title: {
                 text: yAxis,
                 style: {
@@ -679,14 +679,20 @@ function biType(type,inverted) {
             }
         }
     };
-    //endregion
-    var newCategory = categoriesX;
     if (categoriesX.length == 1 && newCategory[0] === "") {
         var newCategory = categoriesY;
     }
     finalSize(inverted);
     chart.destroy();
-    if (dataChartBi[0] instanceof Object) {
+    if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+    } else {
         chartBiSeries.title = subTitle
         chartBiSeries.subTitle = subTitle
         chartBiSeries.showInLegend = true
@@ -694,112 +700,7 @@ function biType(type,inverted) {
         chartBiSeries.colors = colors
         chartBiSeries.series = dataChartBi
 
-        chart = Highcharts.chart('container', {
-            chart: {
-                type: type,
-                inverted: inverted
-            },
-            title: subTitle,
-            subTitle: subTitle,
-            xAxis: {
-                gridLineWidth: 0,
-                categories: newCategory,
-                labels: {
-                    rotation: -60,
-                    style: {
-                        color: colorAxis,
-                        fontSize:'16px'
-                    },
-                    formatter: function() {
-                        return formatterLabel(this.value);
-                    }
-                },
-                title: {
-                    text: xAxis
-                }
-            },
-            yAxis: {
-                gridLineWidth: 0,
-                min: 425,
-                max: 2300,
-                title: {
-                    text: yAxis,
-                    style: {
-                        color: colorAxis,
-                        fontSize:'16px'
-                    }
-                }
-            },
-            colorAxis: {
-                reversed: false,
-                min: 0,
-                minColor: '#FFFFFF',
-                maxColor: '#26a7df'
-            },
-            showInLegend: true,
-            legend: false,
-            dataLabels: {
-                enabled: false
-            },
-            colors: colors,
-            series: dataChartBi,
-            tooltip: {
-                backgroundColor: colorGhost,
-                style: styleTooltip,
-                formatter: function () {
-                    drillDown(drillX[this.point.x])
-                    return "";
-                }
-            }
-        });
-    } else {
-        chart = Highcharts.chart('container', defaultChart);
-        chart.update({
-            chart: {
-                type: type,
-                inverted: inverted
-            },
-            xAxis: {
-                gridLineWidth: 0,
-                categories: newCategory,
-                labels: {
-                    rotation: -60,
-                    style: {
-                        color: colorAxis,
-                        fontSize:'16px'
-                    },
-                    formatter: function(){
-                        return formatterLabel(this.value);
-                    }
-                },
-                title: {
-                    text: xAxis
-                }
-            },
-            yAxis: {
-                min: 0,//${dataForWebView.min},
-                max: 0,//${dataForWebView.max},
-                title: {
-                    text: yAxis,
-                    style: {
-                        color: colorAxis
-                    }
-                }
-            },
-            series: [{
-                colorByPoint: false,
-                name: newCategory,
-                data: dataChartBi
-            }],
-            tooltip: {
-                backgroundColor: colorGhost,
-                style: styleTooltip,
-                formatter: function () {
-                    drillDown(drillX[this.point.x])
-                    return "";
-                }
-            }
-        });
+        chart = Highcharts.chart('container', chartBiSeries);
     }
 }
     function biType3(type,inverted){
