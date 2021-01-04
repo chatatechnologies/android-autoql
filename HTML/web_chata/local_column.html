@@ -19,6 +19,17 @@
 </head>
 <body>
   <script>
+    function digitsCount(n) {
+      var count = 0;
+      if ( n >= 1) ++count;
+
+      while (n/ 10 >= 1) {
+        n /= 10;
+        ++count;
+      }
+      return count;
+    }
+
     var data = [
       {name: "may. 2019", value: 100500.00},
       {name: "ago. 2019", value: 122868.00},
@@ -26,9 +37,16 @@
       {name: "oct. 2019", value: 104254.00},
       {name: "nov. 2019", value: 106630.75},
     ];
+    var maxValue = 106630.75;//put here max value
+    var minValue = 57326.75;//put here min value
 
     //The left margin makes the left border visible
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {
+      top: 20,
+      right: 20,
+      bottom: 30,
+      left: (digitsCount(maxValue) - 1) * 10
+    },
       width = 960 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
