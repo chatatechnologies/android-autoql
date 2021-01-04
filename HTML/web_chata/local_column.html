@@ -47,8 +47,8 @@
       bottom: 30,
       left: (digitsCount(maxValue) - 1) * 10
     },
-      width = 960 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
     //var color = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
     var color = ["#26a7df"];//Main color for bars
@@ -79,7 +79,10 @@
       .attr("x", function(d) { return x(d.name); })
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); });
+      .attr("height", function(d) { return height - y(d.value); })
+      .on('click', function(_, item) {
+        console.log(item.value)
+      });
 
     //the order bar
     svg.append("g")
