@@ -55,6 +55,17 @@
 
     var scaleColor = d3.scaleOrdinal().range(color);
 
+    //region locale settings
+    var locale = d3.formatLocale({
+      "decimal": ",",//"."
+      "thousands": " ",//,
+      "grouping": [3],
+      "currency": ["€", ""]//["$", ""]
+    });
+    var fformat = locale.format("$,");
+    console.log(fformat(123456.25));
+    //endregion
+
     var x = d3.scaleBand()
         .range([0, width])
         .padding(0.1);
@@ -95,11 +106,14 @@
 
     //the axis bar
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .call(
+        d3.axisLeft(y)
+        .tickFormat(x => `${fformat(x)}`));
 
     // Add X axis label:
     svg.append("text")
       .attr("text-anchor", "end")
+      .style("font-size", 16)
       .attr("x", (width / 2) + margin.top)//for center
       .attr("y", height + margin.bottom - 10)//for set on bottom with -10
       .text("Month");
@@ -107,10 +121,13 @@
     // Y axis label:
     svg.append("text")
       .attr("text-anchor", "end")
+      .style("font-size", 16)
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left + 20)
       .attr("x", margin.top + (-height / 2))//center Y axis title
-      .text("Total Order Amount")
+      .text("Total Order Amount");
+
+    
 </script>
 </body>
 </html>
