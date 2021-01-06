@@ -3,12 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-
-</style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!--<script src="d3.v6.min.js"></script>-->
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="d3.v6.min.js"></script>
+<!--<script src="https://d3js.org/d3.v6.min.js"></script>-->
 
 <title></title>
 <style>
@@ -19,6 +16,9 @@
 </style>
 </head>
 <body>
+  <div id="option">
+    <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+  </div>
   <script>
     function digitsCount(n) {
       var count = 0;
@@ -31,12 +31,21 @@
       return count;
     }
 
+    //NO IMPORTANT FOR SCRIPT FINAL
+    var isFirst = true;
     var data = [
       {name: "may. 2019", value: 100500.00},
       {name: "ago. 2019", value: 122868.00},
       {name: "sep. 2019", value: 57326.75},
       {name: "oct. 2019", value: 104254.00},
       {name: "nov. 2019", value: 106630.75},
+    ];
+    var data1 = [
+      {name: "ene. 2019", value: 100500.00},
+      {name: "feb. 2019", value: 122868.00},
+      {name: "mar. 2019", value: 57326.75},
+      {name: "abr. 2019", value: 104254.00},
+      {name: "dic. 2019", value: 106630.75},
     ];
     var maxValue = 106630.75;//put here max value
     var minValue = 57326.75;//put here min value
@@ -78,11 +87,22 @@
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(data.map(function(d) { return d.name; }));
-    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+    function updateData() {
+      var dataRoot;
+      if (isFirst) {
+        dataRoot = data;
+        isFirst = false;
+      } else {
+        dataRoot = data1;
+        isFirst = true;
+      }
+      console.log("Data root flag: " + isFirst);
 
-    svg.selectAll()
-      .data(data)
+      x.domain(dataRoot.map(function(d) { return d.name; }));
+      y.domain([0, d3.max(dataRoot, function(d) { return d.value; })]);
+
+      svg.selectAll()
+      .data(dataRoot)
       .enter().append("rect")
       .style("fill", function(d) {
         return scaleColor(d.value);
@@ -108,9 +128,9 @@
         //endregion
       .selectAll("text")
       //rotate text
-      .attr("transform", "translate(-10,10)rotate(-45)")
+      .attr("transform", "translate(10,10)rotate(-45)")
       //Set color each item on X axis
-      .attr('fill', '#707070')
+      .attr('fill', '#909090')
       .style("text-anchor", "end");
 
     //the Y DATA for axis bar
@@ -130,7 +150,7 @@
       //Remove line on domain for Y axis
       .call(g => g.select(".domain").remove())
       .selectAll("text")
-      .attr('fill', '#707070');
+      .attr('fill', '#909090');
 
     //Add X axis label:
     svg.append("text")
@@ -138,7 +158,7 @@
       .style("font-size", 16)
       .attr("x", (width / 2) + margin.top)//for center
       .attr("y", height + margin.bottom - 10)//for set on bottom with -10
-      .attr('fill', '#707070')
+      .attr('fill', '#808080')
       .text("Month");
 
     //Y axis label:
@@ -148,8 +168,10 @@
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left + 20)
       .attr("x", margin.top + (-height / 2))//center Y axis title
-      .attr('fill', '#707070')
+      .attr('fill', '#808080')
       .text("Total Order Amount");
+    }
+    //updateData();
 </script>
 </body>
 </html>
