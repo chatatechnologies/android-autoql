@@ -44,11 +44,11 @@
     var margin = {
       top: 20,
       right: 20,
-      bottom: 30,
-      left: (digitsCount(maxValue) - 1) * 10
+      bottom: 72 + 10,//factor count letter by 7
+      left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
     },
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 550 - margin.top - margin.bottom;
 
     //var color = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
     var color = ["#26a7df"];//Main color for bars
@@ -81,17 +81,36 @@
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
       .on('click', function(_, item) {
-        console.log(item.value)
+        console.log("Name: " + item.name + ", Value: " + item.value)
       });
 
     //the order bar
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      //rotate text
+      .attr("transform", "translate(-10,10)rotate(-45)")
+      .style("text-anchor", "end")
 
     //the axis bar
     svg.append("g")
       .call(d3.axisLeft(y));
+
+    // Add X axis label:
+    svg.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", (width / 2) + margin.top)//for center
+      .attr("y", height + margin.bottom - 10)//for set on bottom with -10
+      .text("Month");
+
+    // Y axis label:
+    svg.append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 20)
+      .attr("x", margin.top + (-height / 2))//center Y axis title
+      .text("Total Order Amount")
 </script>
 </body>
 </html>
