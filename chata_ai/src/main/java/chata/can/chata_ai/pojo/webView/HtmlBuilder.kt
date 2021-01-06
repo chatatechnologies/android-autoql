@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.isDate
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -10,6 +11,28 @@ import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
+	private fun hasDateIndex(queryBase: QueryBase, posColumnX: Int): Int
+	{
+		var newIndex = posColumnX
+		if (!queryBase.aColumn[posColumnX].type.isDate())
+		{
+			val iDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
+			if (iDate != -1)
+			{
+				newIndex = iDate
+			}
+			else
+			{
+				val iDateString = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
+				if (iDateString != -1)
+				{
+					newIndex = iDateString
+				}
+			}
+		}
+		return newIndex
+	}
+
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
@@ -49,6 +72,7 @@ object HtmlBuilder
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
 				posColumnX = aGroupable[1]//0
 				posColumnY = aGroupable[0]//1
+				posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				isTriConfig = true
@@ -61,6 +85,7 @@ object HtmlBuilder
 				posColumnX = aUncountable.nextSeries()
 				if (aNumber.isNotEmpty())
 					posColumnY = aNumber[0]
+				posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				dataForWebView.catX = Categories.buildCategoryByPosition(
@@ -93,6 +118,7 @@ object HtmlBuilder
 				if (aNumber.isNotEmpty())
 					posColumnY = aNumber[0]
 
+				posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 				queryBase.configActions = 4
 			}

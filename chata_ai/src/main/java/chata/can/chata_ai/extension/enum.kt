@@ -14,3 +14,5 @@ fun TypeDataQuery.isUnCountable() =
 fun TypeDataQuery.isNumber() =
 	this == TypeDataQuery.DOLLAR_AMT || this == TypeDataQuery.QUANTITY
 		|| this == TypeDataQuery.PERCENT || this == TypeDataQuery.NUMBER
+
+fun TypeDataQuery.isDate() = this == TypeDataQuery.DATE_STRING || this == TypeDataQuery.DATE

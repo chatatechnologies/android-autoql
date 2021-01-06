@@ -24,6 +24,23 @@ object SearchColumn
 		return aIndices
 	}
 
+	//search type column in specific
+	fun getTypeColumn(
+		aColumns: ArrayList<ColumnQuery>,
+		type: TypeDataQuery
+	): Int
+	{
+		var position = -1
+		for (index in aColumns.indices)
+		{
+			if (aColumns[index].type == type)
+			{
+				position = index
+			}
+		}
+		return position
+	}
+
 	fun getUncountableIndices(aColumns: ArrayList<ColumnQuery>): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
