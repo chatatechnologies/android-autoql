@@ -57,13 +57,12 @@
 
     //region locale settings
     var locale = d3.formatLocale({
-      "decimal": ",",//"."
-      "thousands": " ",//,
+      "decimal": ",",//","
+      "thousands": ",",//" ",
       "grouping": [3],
-      "currency": ["€", ""]//["$", ""]
+      "currency": ["$", ""]//["€", ""] first if prefix, second is suffix
     });
     var fformat = locale.format("$,");
-    console.log(fformat(123456.25));
     //endregion
 
     var x = d3.scaleBand()
@@ -95,22 +94,22 @@
         console.log("Name: " + item.name + ", Value: " + item.value)
       });
 
-    //the order bar
+    //the X DATA for axis bar
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
       .selectAll("text")
       //rotate text
       .attr("transform", "translate(-10,10)rotate(-45)")
-      .style("text-anchor", "end")
+      .style("text-anchor", "end");
 
-    //the axis bar
+    //the Y DATA for axis bar
     svg.append("g")
-      .call(
-        d3.axisLeft(y)
-        .tickFormat(x => `${fformat(x)}`));
+      .call(d3.axisLeft(y).tickFormat(x => `${fformat(x)}`))
+      //Remove line on domain for Y axis
+      .call(g => g.select(".domain").remove());
 
-    // Add X axis label:
+    //Add X axis label:
     svg.append("text")
       .attr("text-anchor", "end")
       .style("font-size", 16)
@@ -118,7 +117,7 @@
       .attr("y", height + margin.bottom - 10)//for set on bottom with -10
       .text("Month");
 
-    // Y axis label:
+    //Y axis label:
     svg.append("text")
       .attr("text-anchor", "end")
       .style("font-size", 16)
@@ -127,7 +126,13 @@
       .attr("x", margin.top + (-height / 2))//center Y axis title
       .text("Total Order Amount");
 
-    
+    //Set lines
+    svg.append("line")
+      .style("stroke", "gray")
+      .attr("x1", 0)
+      .attr("y1", height - 30)
+      .attr("x2", width)
+      .attr("y2", height - 30);
 </script>
 </body>
 </html>
