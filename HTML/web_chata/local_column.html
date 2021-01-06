@@ -7,7 +7,8 @@
 
 </style>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="d3.v6.min.js"></script>
+<!--<script src="d3.v6.min.js"></script>-->
+<script src="https://d3js.org/d3.v6.min.js"></script>
 
 <title></title>
 <style>
@@ -98,16 +99,33 @@
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
+      //Remove line on domain for X axis
+      .call(g => g.select(".domain").remove())
       .selectAll("text")
       //rotate text
       .attr("transform", "translate(-10,10)rotate(-45)")
+      //Set color each item on X axis
+      .attr('fill', '#707070')
       .style("text-anchor", "end");
 
     //the Y DATA for axis bar
     svg.append("g")
-      .call(d3.axisLeft(y).tickFormat(x => `${fformat(x)}`))
+      //Format numbers on axis
+      .call(
+        d3.axisLeft(y)
+        //remove short line for Y axis
+        .tickSize(0)
+        //format data for each number on Y axis
+        .tickFormat(x => `${fformat(x)}`))
+      //region set lines by each value for y axis
+      .call(g => g.selectAll(".tick line").clone()
+        .attr("stroke-opacity", 0.1)
+        .attr("x2", width))
+      //endregion
       //Remove line on domain for Y axis
-      .call(g => g.select(".domain").remove());
+      .call(g => g.select(".domain").remove())
+      .selectAll("text")
+      .attr('fill', '#707070');
 
     //Add X axis label:
     svg.append("text")
@@ -115,6 +133,7 @@
       .style("font-size", 16)
       .attr("x", (width / 2) + margin.top)//for center
       .attr("y", height + margin.bottom - 10)//for set on bottom with -10
+      .attr('fill', '#707070')
       .text("Month");
 
     //Y axis label:
@@ -124,15 +143,8 @@
       .attr("transform", "rotate(-90)")
       .attr("y", -margin.left + 20)
       .attr("x", margin.top + (-height / 2))//center Y axis title
+      .attr('fill', '#707070')
       .text("Total Order Amount");
-
-    //Set lines
-    svg.append("line")
-      .style("stroke", "gray")
-      .attr("x1", 0)
-      .attr("y1", height - 30)
-      .attr("x2", width)
-      .attr("y2", height - 30);
 </script>
 </body>
 </html>
