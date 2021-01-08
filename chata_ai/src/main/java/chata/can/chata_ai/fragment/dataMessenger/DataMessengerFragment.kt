@@ -87,7 +87,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "??"
+			val queryDemo = "Estimate void & west end auto mall"
 			etQuery.setText(queryDemo)
 		}
 

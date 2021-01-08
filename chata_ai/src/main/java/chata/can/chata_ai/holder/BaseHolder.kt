@@ -190,14 +190,18 @@ open class BaseHolder(
 			}
 			simpleQuery.aRows.size == 0 ->
 			{
-				if (simpleQuery.message.isNotEmpty())
+				val message = simpleQuery.message
+				if (message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
-					//region hide when is message error
-					ivReport?.visibility = View.GONE
-					ivPoints?.visibility = View.GONE
-					//endregion
-					reportLink(simpleQuery.message, simpleQuery.queryId)
+					if (message.contains("report"))
+						reportLink(simpleQuery.message, simpleQuery.queryId)
+					else
+					{
+						ivReport?.visibility = View.GONE
+						ivPoints?.visibility = View.GONE
+						message
+					}
 				}
 				else
 				{
