@@ -193,6 +193,10 @@ open class BaseHolder(
 				if (simpleQuery.message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
+					//region hide when is message error
+					ivReport?.visibility = View.GONE
+					ivPoints?.visibility = View.GONE
+					//endregion
 					reportLink(simpleQuery.message, simpleQuery.queryId)
 				}
 				else

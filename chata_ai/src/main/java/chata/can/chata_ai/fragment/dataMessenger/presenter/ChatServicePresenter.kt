@@ -132,12 +132,13 @@ class ChatServicePresenter(
 									queryId = joData.optString("query_id")
 								}
 								val referenceId = joResponse.optString("reference_id")
-								val messageComplete = if (message.isEmpty())
+								val messageComplete = "Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+								/*val messageComplete = if (message.isEmpty())
 								{
 									"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
 								}
 								else
-									"$message\n\nError ID: $referenceId"
+									"$message\n\nError ID: $referenceId"*/
 								val json = JSONObject().apply {
 									val joData = JSONObject().apply {
 										put("query_id", queryId)
