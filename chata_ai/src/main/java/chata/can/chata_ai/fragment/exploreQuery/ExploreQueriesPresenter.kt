@@ -11,6 +11,7 @@ import chata.can.chata_ai.request.authentication.Authentication.getAuthorization
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
+import java.net.URLEncoder
 
 class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusResponse
 {
@@ -113,8 +114,9 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		with(DataMessenger)
 		{
 			val header = getAuthorizationJWT()
+			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
-				"&search=$currentQuery&page_size=$pageSize&page=$page"
+				"&search=$currentQueryEncode&page_size=$pageSize&page=$page"
 			callStringRequest(
 				Request.Method.GET,
 				url,

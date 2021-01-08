@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import com.android.volley.Request
+import java.net.URLEncoder
 
 object QueryRequest
 {
@@ -67,8 +68,9 @@ object QueryRequest
 		val queryId = mData["query_id"] ?: ""
 		with(DataMessenger)
 		{
+			val wordsEncode = URLEncoder.encode(words, "UTF-8")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
-				"&search=$words&scope=narrow&query_id=$queryId"
+				"&search=$wordsEncode&scope=narrow&query_id=$queryId"
 			mData["nameService"] = "callRelatedQueries"
 
 			callStringRequest(
