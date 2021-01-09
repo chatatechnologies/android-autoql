@@ -87,7 +87,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "Estimate void & west end auto mall"
+			val queryDemo = ""
 			etQuery.setText(queryDemo)
 		}
 
@@ -162,6 +162,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (query.isNotEmpty())
 			{
 				hideKeyboard()
+				isReleaseAutocomplete = true
 				etQuery.setText("")
 				presenter.getQuery(query)
 			}
