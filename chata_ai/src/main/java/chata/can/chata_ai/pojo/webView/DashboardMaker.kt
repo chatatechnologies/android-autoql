@@ -201,8 +201,9 @@ object DashboardMaker
 <script src="https://unpkg.com/sticky-table-headers"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.js\"></script>\n" +
-				"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
-				"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
+"<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
+"<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
+<script src="https://code.highcharts.com/modules/broken-axis.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -808,71 +809,71 @@ function biType(type,inverted) {
         finalSize(invert);
         var rotation = invert ? 10 : 40
         chart.destroy();
-                chart = Highcharts.chart('container', {
-                    chart: {
-                        type: 'column',
-                        inverted: invert
+        chart = Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                inverted: invert
+            },
+            title: subTitle,
+            subTitle: subTitle,
+            yAxis: {
+                title: {
+                    text: yAxis
+                },
+                labels: {
+                    style: {
+                        color: colorAxis,
+                    }
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                tickInterval: 1,
+                breaks: [{
+                    from: 0,
+                    to: 10,
+                    breakSize: 1
+                }],
+                categories: categoriesX,
+                labels: {
+                    rotation: -60,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
                     },
-                    title: subTitle,
-                    subTitle: subTitle,
-                    yAxis: {
-                        title: {
-                            text: yAxis
-                        },
-                        labels: {
-                           style: {
-                               color: colorAxis,
-                           }
-                         },
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    xAxis: {
-											tickInterval: 1,
-											breaks: [{
-						            from: 0,
-						            to: 10,
-						            breakSize: 1
-						          }],
-                      categories: categoriesX,
-                      labels: {
-									      rotation: -60,
-									      style: {
-									        color: colorAxis,
-									         fontSize:'16px'
-									      },
-									      formatter: function(){
-									        return formatterLabel(this.value);
-									      }
-									      },
-                        title: {
-                            text: xAxis
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false,
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    },
-                    tooltip: {
-                         backgroundColor: colorGhost,
-                         style: styleTooltip,
-                         formatter: function () {
-                             var position = categoriesY.indexOf(this.series.name);
-                             drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
-                           return "";
-                         }
-                       },
-                    colors: colors,
-                    plotOptions: {
-                        column: {
-                            stacking: 'normal'
-                        }
-                    },
-                    series: dataChartLine
-                });
+                    formatter: function(){
+                        return formatterLabel(this.value);
+                    }
+                },
+                title: {
+                    text: xAxis
+                }
+            },
+            dataLabels: {
+                enabled: false,
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            tooltip: {
+                backgroundColor: colorGhost,
+                style: styleTooltip,
+                formatter: function () {
+                    var position = categoriesY.indexOf(this.series.name);
+                    drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
+                    return "";
+                }
+            },
+            colors: colors,
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            series: dataChartLine
+        });
     }
 function stackedArea(){
     

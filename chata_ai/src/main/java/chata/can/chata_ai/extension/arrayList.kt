@@ -21,3 +21,13 @@ fun ArrayList<Int>.nextSeries(): Int
 		else -> this[0]
 	}
 }
+
+fun ArrayList<Double>.hasOnlyZero(): Boolean
+{
+	var isOnlyZero = true
+	for (item in this)
+	{
+		if (item != 0.0) isOnlyZero = false
+	}
+	return isOnlyZero
+}

@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.clearDecimals
+import chata.can.chata_ai.extension.hasOnlyZero
 
 object LineBuilder
 {
@@ -19,6 +20,7 @@ object LineBuilder
 					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
 				} ?: run { aEachY.add(0.0) }
 			}
+			aEachY.hasOnlyZero()
 			val sData = aEachY.joinTo(StringBuilder("["), postfix = "]", separator = ",") {
 				"$it".clearDecimals() }
 			val item = "{\"data\":$sData,\"name\":$category}"
