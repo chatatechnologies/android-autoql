@@ -829,17 +829,23 @@ function biType(type,inverted) {
                         enabled: false
                     },
                     xAxis: {
-                        categories: categoriesX,
-                        labels: {
-									        rotation: -60,
-									        style: {
-									            color: colorAxis,
-									             fontSize:'16px'
-									        },
-									        formatter: function(){
-									         return formatterLabel(this.value);
-									        }
-									       },
+											tickInterval: 1,
+											breaks: [{
+						            from: 0,
+						            to: 10,
+						            breakSize: 1
+						          }],
+                      categories: categoriesX,
+                      labels: {
+									      rotation: -60,
+									      style: {
+									        color: colorAxis,
+									         fontSize:'16px'
+									      },
+									      formatter: function(){
+									        return formatterLabel(this.value);
+									      }
+									      },
                         title: {
                             text: xAxis
                         }
