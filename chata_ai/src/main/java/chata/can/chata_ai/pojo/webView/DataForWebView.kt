@@ -22,4 +22,7 @@ class DataForWebView(
 	var isColumn = false
 	var min = -1
 	var max = -1
+
+	var stackedFrom = 0
+	var stackedTo = 0
 }

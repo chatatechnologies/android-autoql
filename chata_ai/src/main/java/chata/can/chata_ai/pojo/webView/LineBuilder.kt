@@ -1,7 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.clearDecimals
-import chata.can.chata_ai.extension.hasOnlyZero
 
 object LineBuilder
 {

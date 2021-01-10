@@ -237,15 +237,31 @@ object HtmlBuilder
 //						aCheck.remove(aNumber[0])
 							val nameHeader = aColumn[tmpDate[0]].displayName
 
-							val pPivot = TableTriBuilder.buildDataPivot(
+							val tPivot = TableTriBuilder.buildDataPivot(
 								mDataPivot,
 								aColumn[aNumber.first()],
 								aCatX,//newListDescending(aCatX),
 								aCatY,
 								nameHeader)
-							dataForWebView.datePivot = pPivot.first
-							dataForWebView.rowsPivot = pPivot.second
-
+							dataForWebView.datePivot = tPivot.first
+							dataForWebView.rowsPivot = tPivot.second
+							tPivot.run {
+								if (third.isNotEmpty())
+								{
+									var last = 0
+									for (index in third.indices)
+									{
+										if (index + 1 <= third.size)
+										{
+											if (third[index] + 1 != third[index + 1])
+												break
+											last = index + 1
+										}
+									}
+									dataForWebView.stackedFrom = third[0] - 1
+									dataForWebView.stackedTo = last + 1
+								}
+							}
 						}
 						else
 						{

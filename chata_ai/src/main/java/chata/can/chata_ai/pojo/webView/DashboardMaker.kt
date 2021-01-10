@@ -832,8 +832,8 @@ function biType(type,inverted) {
             xAxis: {
                 tickInterval: 1,
                 breaks: [{
-                    from: 0,
-                    to: 10,
+                    from: ${stackedFrom},
+                    to: ${stackedTo},
                     breakSize: 1
                 }],
                 categories: categoriesX,
