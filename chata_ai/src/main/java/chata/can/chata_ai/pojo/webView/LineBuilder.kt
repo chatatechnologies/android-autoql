@@ -20,7 +20,6 @@ object LineBuilder
 					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
 				} ?: run { aEachY.add(0.0) }
 			}
-			aEachY.hasOnlyZero()
 			val sData = aEachY.joinTo(StringBuilder("["), postfix = "]", separator = ",") {
 				"$it".clearDecimals() }
 			val item = "{\"data\":$sData,\"name\":$category}"

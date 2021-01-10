@@ -245,6 +245,7 @@ object HtmlBuilder
 								nameHeader)
 							dataForWebView.datePivot = pPivot.first
 							dataForWebView.rowsPivot = pPivot.second
+
 						}
 						else
 						{
