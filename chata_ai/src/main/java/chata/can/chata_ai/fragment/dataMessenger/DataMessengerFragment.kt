@@ -87,7 +87,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "Total cost by customer by month"
+			val queryDemo = "all sales"
 			etQuery.setText(queryDemo)
 		}
 

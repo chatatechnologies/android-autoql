@@ -19,6 +19,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
@@ -171,7 +172,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
-					width = dpToPx(32f)
+					//width = dpToPx(32f)
+					width = dpToPx(48f)
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
@@ -190,14 +192,17 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivChat.paddingAll(left = 6f, right = 6f)
 				(ivTips.layoutParams as? LayoutParams)?.run {
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivTips.paddingAll(left = 6f, right = 6f)
 				(ivNotify.layoutParams as? LayoutParams)?.run {
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivNotify.paddingAll(left = 6f, right = 6f)
 				//endregion
 				//region rlLocal
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
@@ -218,7 +223,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(32f)
+					height = dpToPx(48f)
 					width = -1
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
@@ -238,14 +243,17 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivChat.paddingAll(top = 6f, bottom = 6f)
 				(ivTips.layoutParams as? LayoutParams)?.run {
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivTips.paddingAll(top = 6f, bottom = 6f)
 				(ivNotify.layoutParams as? LayoutParams)?.run {
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivNotify.paddingAll(top = 6f, bottom = 6f)
 				//endregion
 				//region rlLocal
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {

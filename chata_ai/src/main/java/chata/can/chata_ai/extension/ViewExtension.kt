@@ -26,6 +26,16 @@ fun View.paddingAll(padding: Float)
 	setPadding(dpVal, dpVal, dpVal, dpVal)
 }
 
+fun View.paddingAll(
+	left: Float? = null, top: Float? = null, right: Float? = null, bottom: Float? = null)
+{
+	setPadding(
+		left?.let { dpToPx(it) } ?: 0,
+		top?.let { dpToPx(it) } ?: 0,
+		right?.let { dpToPx(it) } ?: 0,
+		bottom?.let { dpToPx(it) } ?: 0)
+}
+
 inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(block: T.() -> Unit)
 {
 	if (layoutParams is T) block(layoutParams as T)
