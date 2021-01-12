@@ -6,6 +6,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import kotlin.math.max
+import kotlin.math.min
 
 class SplitView: LinearLayout, View.OnTouchListener
 {
@@ -84,12 +86,62 @@ class SplitView: LinearLayout, View.OnTouchListener
 		mHandle?.setOnTouchListener(this)
 	}
 
+	fun getHandle(): View?
+	{
+		return mHandle
+	}
+
 	fun getPrimaryContentSize(): Int
 	{
 		return mPrimaryContent?.run {
 			if (orientation == VERTICAL) measuredHeight
 			else measuredHeight
 		} ?: run {0}
+	}
+
+	fun setPrimaryContentSize(newSize: Int): Boolean
+	{
+		return if (orientation == VERTICAL)
+			setPrimaryContentHeight(newSize)
+		else setPrimaryContentWidth(newSize)
+	}
+
+	private fun setPrimaryContentHeight(newHeight: Int): Boolean
+	{
+		var newHeight1 = max(0, newHeight)
+		newHeight1 = min(newHeight1, measuredHeight - (mHandle?.measuredHeight?: 0))
+		val params = mPrimaryContent?.layoutParams as? LayoutParams
+		if ((mSecondaryContent?.measuredHeight ?: 0) < 1 && newHeight1 > (params?.height ?:0))
+		{
+			return false
+		}
+		if (newHeight1 >= 0)
+		{
+			params?.height = newHeight1
+			params?.weight = 0f
+		}
+		unMinimizeSecondaryContent()
+		mPrimaryContent?.layoutParams = params
+		return true
+	}
+
+	private fun setPrimaryContentWidth(newWidth: Int): Boolean
+	{
+		var newWidth1 = max(0, newWidth)
+		newWidth1 = min(newWidth1, measuredWidth - (mHandle?.measuredWidth ?: 0))
+		val params = mPrimaryContent?.layoutParams as? LayoutParams
+		if ((mSecondaryContent?.measuredWidth ?: 0 ) < 1 && newWidth1 > (params?.width ?: 0))
+		{
+			return false
+		}
+		if (newWidth1 >= 0)
+		{
+			params?.width = newWidth1
+			params?.weight = 0f
+		}
+		unMinimizeSecondaryContent()
+		mPrimaryContent?.layoutParams = params
+		return true
 	}
 
 	override fun onTouch(view: View, motionEvent: MotionEvent): Boolean
@@ -123,14 +175,16 @@ class SplitView: LinearLayout, View.OnTouchListener
 				)
 				{
 					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-					{
 						setPrimaryContentSize(mLastPrimaryContentSize)
-					}
 					else
-					{
 						maximizeSecondaryContent()
-					}
 				}
+			}
+			MotionEvent.ACTION_MOVE ->
+			{
+				if (orientation == VERTICAL)
+					setPrimaryContentHeight(motionEvent.rawY - mPointerOffset)
+				else setPrimaryContentWidth(motionEvent.rawX - mPointerOffset)
 			}
 		}
 		return true
@@ -154,9 +208,19 @@ class SplitView: LinearLayout, View.OnTouchListener
 		)
 	}
 
-	fun maximizePrimaryContent() = maximizeContentPane(mPrimaryContent, mSecondaryContent)
+	fun maximizePrimaryContent()
+	{
+		arrayListOf(mPrimaryContent, mSecondaryContent).whenAllNotNull {
+			maximizeContentPane(it[0], it[1])
+		}
+	}
 
-	fun maximizeSecondaryContent() = maximizeContentPane(mPrimaryContent, mSecondaryContent)
+	fun maximizeSecondaryContent()
+	{
+		arrayListOf(mPrimaryContent, mSecondaryContent).whenAllNotNull {
+			maximizeContentPane(it[0], it[1])
+		}
+	}
 
 	fun maximizeContentPane(toMaximize: View, toUnMaximize: View)
 	{
@@ -173,5 +237,12 @@ class SplitView: LinearLayout, View.OnTouchListener
 		}
 		toUnMaximize.layoutParams = params
 		toMaximize.layoutParams = secondParams
+	}
+
+	fun unMinimizeSecondaryContent()
+	{
+		val secondaryParams = mSecondaryContent?.layoutParams as? LayoutParams
+		secondaryParams?.weight = 1f
+		mSecondaryContent?.layoutParams = secondaryParams
 	}
 }
