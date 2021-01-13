@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx.bangapp.viewresize.SplitView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:splitview="http://schemas.android.com/apk/res-auto"
+	xmlns:tool="http://schemas.android.com/tools"
+	android:id="@+id/split_view"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/app_screen_bg"
+	android:orientation="vertical"
+	splitview:handle="@+id/handle"
+	splitview:primaryContent="@+id/primary"
+	splitview:secondaryContent="@+id/secondary"
+	tool:context=".MainActivity">
+
+	<LinearLayout
+		android:id="@+id/primary"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			android:gravity="center"
+			android:text="First Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
+
+	</LinearLayout>
+
+	<ImageView
+		android:id="@+id/handle"
+		android:layout_width="fill_parent"
+		android:layout_height="10dip"
+		android:background="@color/colorAccent"
+		android:elevation="5dp"/>
+
+	<mx.bangapp.viewresize.SplitView
+		android:id="@+id/secondary"
+		android:layout_width="fill_parent"
+		android:layout_height="0dip"
+		android:layout_weight="1"
+		android:orientation="horizontal"
+		splitview:handle="@+id/inner_handle"
+		splitview:primaryContent="@+id/inner_primary"
+		splitview:secondaryContent="@+id/inner_secondary">
+
+		<TextView
+			android:id="@+id/inner_primary"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="Second Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
+
+		<ImageView
+			android:id="@+id/inner_handle"
+			android:layout_width="10dip"
+			android:layout_height="fill_parent"
+			android:background="@color/img_drag"
+			android:elevation="5dp"/>
+
+		<TextView
+			android:id="@+id/inner_secondary"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="Third Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
+
+	</mx.bangapp.viewresize.SplitView>
+
+</mx.bangapp.viewresize.SplitView>

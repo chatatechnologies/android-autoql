@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import kotlin.math.max
 import kotlin.math.min
 
-class SplitView: LinearLayout, View.OnTouchListener
+class SplitView1: LinearLayout, View.OnTouchListener
 {
 	private var mHandleId = 0
 	private var mHandle: View ?= null
@@ -35,7 +35,7 @@ class SplitView: LinearLayout, View.OnTouchListener
 
 	constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 	{
-		val viewAttrs = context.obtainStyledAttributes(R.styleable.SplitView)
+		val viewAttrs = context.obtainStyledAttributes(attrs, R.styleable.SplitView)
 		var e: RuntimeException ?= null
 
 		mHandleId = viewAttrs.getResourceId(R.styleable.SplitView_handle, 0)
@@ -183,8 +183,8 @@ class SplitView: LinearLayout, View.OnTouchListener
 			MotionEvent.ACTION_MOVE ->
 			{
 				if (orientation == VERTICAL)
-					setPrimaryContentHeight(motionEvent.rawY - mPointerOffset)
-				else setPrimaryContentWidth(motionEvent.rawX - mPointerOffset)
+					setPrimaryContentHeight((motionEvent.rawY - mPointerOffset).toInt())
+				else setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
 			}
 		}
 		return true
