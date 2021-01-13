@@ -13,7 +13,7 @@ import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.view.gif.GifView
+import chata.can.chata_ai.view.gif.KGifView
 
 class DrillDownDialog(
 	context: Context,
@@ -24,7 +24,7 @@ class DrillDownDialog(
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
 	private lateinit var ivCancel: ImageView
-	private lateinit var ivLoad: GifView
+	private lateinit var ivLoad: KGifView
 	private lateinit var wbDrillDown: WebView
 
 	private val presenter = DrillDownPresenter(queryBase, this)

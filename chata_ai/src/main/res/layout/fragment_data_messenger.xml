@@ -37,7 +37,7 @@
 				android:layout_width="12dp"
 				android:src="@drawable/ic_chata"/>
 
-			<chata.can.chata_ai.view.gif.GifView
+			<chata.can.chata_ai.view.gif.KGifView
 				android:layout_centerVertical="true"
 				android:id="@+id/gifView"
 				android:layout_height="wrap_content"

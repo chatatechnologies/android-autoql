@@ -12,7 +12,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.view.gif.GifView
+import chata.can.chata_ai.view.gif.KGifView
 
 object DashboardView
 {
@@ -104,7 +104,7 @@ object DashboardView
 			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
 			id = R.id.rlLoad
 
-			val gifView = GifView(context).apply {
+			val gifView = KGifView(context).apply {
 				val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
 				layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
 				layoutParams = layoutParams1
@@ -264,7 +264,7 @@ object DashboardView
 				layoutParams = layoutParams()
 				id = pData.second
 
-				val gifView = GifView(context).apply {
+				val gifView = KGifView(context).apply {
 					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
 					layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
 					layoutParams = layoutParams1
