@@ -1,46 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<chata.can.chata_ai.view.resize.SplitView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:background="@android:color/transparent"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	xmlns:splitview="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/split_view"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@color/darken_background_behind"
+	android:orientation="vertical"
+	splitview:handle="@+id/handle"
+	splitview:primaryContent="@+id/primary"
+	splitview:secondaryContent="@+id/secondary">
 
 	<LinearLayout
-		android:id="@+id/llMenu"
-		android:layout_centerVertical="true"
+		android:id="@+id/primary"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_width="56dp"
 		android:orientation="vertical">
 
-		<Button
-			android:id="@+id/btn1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAllCaps="false"
-			tools:text="Chat"/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			android:gravity="center"
+			android:text="First Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
 
-		<Button
-			android:id="@+id/btn"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAllCaps="false"
-			tools:text="Tips"/>
-
-		<Button
-			android:id="@+id/btn2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAllCaps="false"
-			tools:text="Noti"/>
 	</LinearLayout>
 
-	<TextView
-		android:textColor="@color/white"
-		android:gravity="center"
-		android:id="@+id/tvMsg"
-		android:layout_toEndOf="@+id/llMenu"
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"/>
+	<ImageView
+		android:id="@+id/handle"
+		android:layout_width="fill_parent"
+		android:layout_height="10dip"
+		android:background="@color/colorAccent"
+		android:elevation="5dp"/>
 
-</RelativeLayout>
+	<chata.can.chata_ai.view.resize.SplitView
+		android:id="@+id/secondary"
+		android:layout_width="fill_parent"
+		android:layout_height="0dip"
+		android:layout_weight="1"
+		android:orientation="horizontal"
+		splitview:handle="@+id/inner_handle"
+		splitview:primaryContent="@+id/inner_primary"
+		splitview:secondaryContent="@+id/inner_secondary">
+
+		<TextView
+			android:id="@+id/inner_primary"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="Second Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
+
+		<ImageView
+			android:id="@+id/inner_handle"
+			android:layout_width="10dip"
+			android:layout_height="fill_parent"
+			android:background="@color/colorAccent"
+			android:elevation="5dp"/>
+
+		<TextView
+			android:id="@+id/inner_secondary"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:text="Third Window"
+			android:textColor="@color/white"
+			android:textSize="20sp"/>
+
+	</chata.can.chata_ai.view.resize.SplitView>
+
+</chata.can.chata_ai.view.resize.SplitView>

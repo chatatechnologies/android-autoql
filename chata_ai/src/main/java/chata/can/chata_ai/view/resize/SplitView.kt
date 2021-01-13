@@ -1,4 +1,4 @@
-package mx.bangapp.viewresize
+package chata.can.chata_ai.view.resize
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,9 +7,11 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
-import mx.bangapp.viewresize.SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP
-import mx.bangapp.viewresize.SplitViewConst.SINGLE_TAP_MAX_TIME
-import mx.bangapp.viewresize.SplitViewConst.TAP_DRIFT_TOLERANCE
+import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.whenAllNotNull
+import chata.can.chata_ai.view.resize.SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP
+import chata.can.chata_ai.view.resize.SplitViewConst.SINGLE_TAP_MAX_TIME
+import chata.can.chata_ai.view.resize.SplitViewConst.TAP_DRIFT_TOLERANCE
 import kotlin.math.max
 import kotlin.math.min
 

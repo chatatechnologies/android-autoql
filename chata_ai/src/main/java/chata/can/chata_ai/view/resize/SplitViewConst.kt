@@ -1,4 +1,4 @@
-package mx.bangapp.viewresize
+package chata.can.chata_ai.view.resize
 
 object SplitViewConst
 {
