@@ -1,15 +1,19 @@
 package mx.bangapp.viewresize
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import mx.bangapp.viewresize.SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP
+import mx.bangapp.viewresize.SplitViewConst.SINGLE_TAP_MAX_TIME
+import mx.bangapp.viewresize.SplitViewConst.TAP_DRIFT_TOLERANCE
 import kotlin.math.max
 import kotlin.math.min
 
-class SplitView1: LinearLayout, View.OnTouchListener
+class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, attrs), View.OnTouchListener
 {
 	private var mHandleId = 0
 	private var mHandle: View ?= null
@@ -29,39 +33,31 @@ class SplitView1: LinearLayout, View.OnTouchListener
 
 	private var mPointerOffset = 0f
 
-	private val MAXIMIZED_VIEW_TOLERANCE_DIP = 30
-	private val TAP_DRIFT_TOLERANCE = 3
-	private val SINGLE_TAP_MAX_TIME = 175
-
-	constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-	{
+	init {
 		val viewAttrs = context.obtainStyledAttributes(attrs, R.styleable.SplitView)
 		var e: RuntimeException ?= null
-
 		mHandleId = viewAttrs.getResourceId(R.styleable.SplitView_handle, 0)
 		if (mHandleId == 0) {
 			e = IllegalArgumentException(viewAttrs.positionDescription +
 				": The required attribute handle must refer to a valid child view")
 		}
-
 		mPrimaryContentId = viewAttrs.getResourceId(R.styleable.SplitView_primaryContent, 0)
 		if (mPrimaryContentId == 0) {
 			e = IllegalArgumentException(viewAttrs.positionDescription +
 				": The required attribute primaryContent must refer to a valid child view")
 		}
-
 		mSecondaryContentId = viewAttrs.getResourceId(R.styleable.SplitView_secondaryContent, 0)
 		if (mSecondaryContentId == 0) {
 			e = IllegalArgumentException(viewAttrs.positionDescription +
 				": The required attribute secondaryContent must refer to a valid child view")
 		}
-
 		viewAttrs.recycle()
 		e?.let {
 			throw e
 		}
 	}
 
+	@SuppressLint("ClickableViewAccessibility")
 	override fun onFinishInflate()
 	{
 		super.onFinishInflate()
@@ -86,20 +82,20 @@ class SplitView1: LinearLayout, View.OnTouchListener
 		mHandle?.setOnTouchListener(this)
 	}
 
-	fun getHandle(): View?
-	{
-		return mHandle
-	}
+//	fun getHandle(): View?
+//	{
+//		return mHandle
+//	}
 
-	fun getPrimaryContentSize(): Int
+	private fun getPrimaryContentSize(): Int
 	{
 		return mPrimaryContent?.run {
 			if (orientation == VERTICAL) measuredHeight
-			else measuredHeight
+			else measuredWidth
 		} ?: run {0}
 	}
 
-	fun setPrimaryContentSize(newSize: Int): Boolean
+	private fun setPrimaryContentSize(newSize: Int): Boolean
 	{
 		return if (orientation == VERTICAL)
 			setPrimaryContentHeight(newSize)
@@ -169,8 +165,8 @@ class SplitView1: LinearLayout, View.OnTouchListener
 				if (
 					mDragStartX < (motionEvent.x + TAP_DRIFT_TOLERANCE) &&
 					mDragStartX > (motionEvent.x - TAP_DRIFT_TOLERANCE) &&
-					mDragStartX < (motionEvent.y + TAP_DRIFT_TOLERANCE) &&
-					mDragStartX > (motionEvent.y - TAP_DRIFT_TOLERANCE) &&
+					mDragStartY < (motionEvent.y + TAP_DRIFT_TOLERANCE) &&
+					mDragStartY > (motionEvent.y - TAP_DRIFT_TOLERANCE) &&
 					((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_MAX_TIME)
 				)
 				{
@@ -208,21 +204,21 @@ class SplitView1: LinearLayout, View.OnTouchListener
 		)
 	}
 
-	fun maximizePrimaryContent()
+//	fun maximizePrimaryContent()
+//	{
+//		arrayListOf(mPrimaryContent, mSecondaryContent).whenAllNotNull {
+//			maximizeContentPane(it[0], it[1])
+//		}
+//	}
+
+	private fun maximizeSecondaryContent()
 	{
-		arrayListOf(mPrimaryContent, mSecondaryContent).whenAllNotNull {
+		arrayListOf(mSecondaryContent, mPrimaryContent).whenAllNotNull {
 			maximizeContentPane(it[0], it[1])
 		}
 	}
 
-	fun maximizeSecondaryContent()
-	{
-		arrayListOf(mPrimaryContent, mSecondaryContent).whenAllNotNull {
-			maximizeContentPane(it[0], it[1])
-		}
-	}
-
-	fun maximizeContentPane(toMaximize: View, toUnMaximize: View)
+	private fun maximizeContentPane(toMaximize: View, toUnMaximize: View)
 	{
 		mLastPrimaryContentSize = getPrimaryContentSize()
 		val params = toUnMaximize.layoutParams as LayoutParams
@@ -239,7 +235,7 @@ class SplitView1: LinearLayout, View.OnTouchListener
 		toMaximize.layoutParams = secondParams
 	}
 
-	fun unMinimizeSecondaryContent()
+	private fun unMinimizeSecondaryContent()
 	{
 		val secondaryParams = mSecondaryContent?.layoutParams as? LayoutParams
 		secondaryParams?.weight = 1f
