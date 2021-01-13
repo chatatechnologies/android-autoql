@@ -46,7 +46,7 @@
 
 		<TextView
 			android:id="@+id/inner_primary"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:gravity="center"
@@ -61,15 +61,12 @@
 			android:background="@color/colorAccent"
 			android:elevation="5dp"/>
 
-		<TextView
+		<FrameLayout
 			android:id="@+id/inner_secondary"
-			android:layout_width="wrap_content"
+			android:background="@color/white"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:gravity="center"
-			android:text="Third Window"
-			android:textColor="@color/white"
-			android:textSize="20sp"/>
+			android:layout_width="0dp"/>
 
 	</chata.can.chata_ai.view.resize.SplitView>
 

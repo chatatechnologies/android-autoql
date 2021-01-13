@@ -19,3 +19,15 @@ fun addFragment(
 		.addToBackStack(null)
 		.commit()
 }
+
+fun addFragment(
+	idFragment: Int,
+	fragmentManager: FragmentManager,
+	fragment: Fragment
+)
+{
+	fragmentManager.beginTransaction()
+		.replace(idFragment, fragment, "nameFragment")
+		.addToBackStack(null)
+		.commit()
+}
