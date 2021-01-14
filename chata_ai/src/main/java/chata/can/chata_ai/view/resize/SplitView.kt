@@ -182,8 +182,9 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 		{
 			return false
 		}
-		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary))
+		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary) && newWidth1 < limitSecondary)
 		{
+			println("Width 1: $newWidth1; limitSecond: $limitSecondary")
 			params?.width = newWidth1
 			params?.weight = 0f
 		}

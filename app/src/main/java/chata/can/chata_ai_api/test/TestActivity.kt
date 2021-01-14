@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.test
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,14 @@ class TestActivity: AppCompatActivity()
 
 		splitView = findViewById<SplitView>(R.id.splitView).apply {
 			limitPrimary = 48f
+
+			windowManager?.let {
+				val displayMetrics = DisplayMetrics()
+				val defaultDisplay = it.defaultDisplay
+				defaultDisplay.getRealMetrics(displayMetrics)
+				val widthScreen = displayMetrics.widthPixels
+				limitSecondary = widthScreen * 0.3f
+			}
 		}
 
 //		ivChat = findViewById(R.id.ivChat)
