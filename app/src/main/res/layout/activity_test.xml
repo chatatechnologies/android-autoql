@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<chata.can.chata_ai.view.resize.SplitView
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:splitview="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/splitView"
 	android:layout_height="match_parent"
-	android:layout_width="match_parent">
+	android:layout_width="match_parent"
+	android:orientation="horizontal"
+	splitview:handle="@id/handle"
+	splitview:primaryContent="@id/llMenu"
+	splitview:secondaryContent="@id/rlLocal">
 	<LinearLayout
 		android:background="@android:color/transparent"
 		android:clickable="true"
@@ -59,12 +65,18 @@
 		</RelativeLayout>
 	</LinearLayout>
 
+	<View
+		android:background="@color/chata_drawer_accent_color"
+		android:id="@+id/handle"
+		android:layout_height="match_parent"
+		android:layout_width="10dp"/>
+
 	<RelativeLayout
-		android:layout_toEndOf="@id/llMenu"
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/rlLocal"
 		android:layout_height="match_parent"
+		android:layout_toEndOf="@id/llMenu"
 		android:layout_width="match_parent"
 		android:visibility="visible">
 		<RelativeLayout
@@ -102,81 +114,10 @@
 				android:src="@drawable/ic_delete"/>
 		</RelativeLayout>
 		<FrameLayout
-			android:background="@color/white"
+			android:background="@color/darken_background_behind"
 			android:id="@+id/frmLocal"
 			android:layout_height="match_parent"
 			android:layout_below="@id/toolbar"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>
-</RelativeLayout>
-<!--<chata.can.chata_ai.view.resize.SplitView-->
-<!--	xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--	xmlns:splitview="http://schemas.android.com/apk/res-auto"-->
-<!--	android:layout_width="fill_parent"-->
-<!--	android:layout_height="fill_parent"-->
-<!--	android:background="@color/darken_background_behind"-->
-<!--	android:orientation="vertical"-->
-<!--	splitview:handle="@+id/handle"-->
-<!--	splitview:primaryContent="@+id/primary"-->
-<!--	splitview:secondaryContent="@+id/secondary">-->
-
-<!--	<LinearLayout-->
-<!--		android:id="@+id/primary"-->
-<!--		android:layout_width="match_parent"-->
-<!--		android:layout_height="wrap_content"-->
-<!--		android:orientation="vertical">-->
-
-<!--		<TextView-->
-<!--			android:layout_width="match_parent"-->
-<!--			android:layout_height="200dp"-->
-<!--			android:gravity="center"-->
-<!--			android:text="First Window"-->
-<!--			android:textColor="@color/white"-->
-<!--			android:textSize="20sp"/>-->
-
-<!--	</LinearLayout>-->
-
-<!--	<View-->
-<!--		android:id="@+id/handle"-->
-<!--		android:layout_width="fill_parent"-->
-<!--		android:layout_height="10dip"-->
-<!--		android:background="@color/colorAccent"-->
-<!--		android:elevation="5dp"/>-->
-
-<!--	<chata.can.chata_ai.view.resize.SplitView-->
-<!--		android:id="@+id/secondary"-->
-<!--		android:layout_width="fill_parent"-->
-<!--		android:layout_height="0dip"-->
-<!--		android:layout_weight="1"-->
-<!--		android:orientation="horizontal"-->
-<!--		splitview:handle="@+id/inner_handle"-->
-<!--		splitview:primaryContent="@+id/inner_primary"-->
-<!--		splitview:secondaryContent="@+id/frmLocal">-->
-
-<!--		<TextView-->
-<!--			android:id="@+id/inner_primary"-->
-<!--			android:layout_width="0dp"-->
-<!--			android:layout_height="match_parent"-->
-<!--			android:layout_weight="1"-->
-<!--			android:gravity="center"-->
-<!--			android:text="Second Window"-->
-<!--			android:textColor="@color/white"-->
-<!--			android:textSize="20sp"/>-->
-
-<!--		<View-->
-<!--			android:id="@+id/inner_handle"-->
-<!--			android:layout_width="10dip"-->
-<!--			android:layout_height="fill_parent"-->
-<!--			android:background="@color/colorAccent"-->
-<!--			android:elevation="5dp"/>-->
-
-<!--		<FrameLayout-->
-<!--			android:id="@+id/frmLocal"-->
-<!--			android:background="@color/white"-->
-<!--			android:layout_height="match_parent"-->
-<!--			android:layout_weight="1"-->
-<!--			android:layout_width="0dp"/>-->
-
-<!--	</chata.can.chata_ai.view.resize.SplitView>-->
-
-<!--</chata.can.chata_ai.view.resize.SplitView>-->
+</chata.can.chata_ai.view.resize.SplitView>

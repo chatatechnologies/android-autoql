@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.whenAllNotNull
 import chata.can.chata_ai.view.resize.SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP
 import chata.can.chata_ai.view.resize.SplitViewConst.SINGLE_TAP_MAX_TIME
@@ -17,6 +18,9 @@ import kotlin.math.min
 
 class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, attrs), View.OnTouchListener
 {
+	var limitPrimary = 0f
+	var limitSecondary = 0f
+
 	private var mHandleId = 0
 	private var mHandle: View ?= null
 
@@ -84,6 +88,52 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 		mHandle?.setOnTouchListener(this)
 	}
 
+	override fun onTouch(view: View, motionEvent: MotionEvent): Boolean
+	{
+		if (view != mHandle) {
+			return false
+		}
+		when(motionEvent.action)
+		{
+			MotionEvent.ACTION_DOWN ->
+			{
+				mDragging = true
+				mDraggingStarted = SystemClock.elapsedRealtime()
+				mDragStartX = motionEvent.x
+				mDragStartY = motionEvent.y
+				mPointerOffset = if (orientation == VERTICAL) {
+					motionEvent.rawY - getPrimaryContentSize()
+				} else {
+					motionEvent.rawX - getPrimaryContentSize()
+				}
+			}
+			MotionEvent.ACTION_UP ->
+			{
+				mDragging = false
+				if (
+					mDragStartX < (motionEvent.x + TAP_DRIFT_TOLERANCE) &&
+					mDragStartX > (motionEvent.x - TAP_DRIFT_TOLERANCE) &&
+					mDragStartY < (motionEvent.y + TAP_DRIFT_TOLERANCE) &&
+					mDragStartY > (motionEvent.y - TAP_DRIFT_TOLERANCE) &&
+					((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_MAX_TIME)
+				)
+				{
+					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
+						setPrimaryContentSize(mLastPrimaryContentSize)
+					else
+						maximizeSecondaryContent()
+				}
+			}
+			MotionEvent.ACTION_MOVE ->
+			{
+				if (orientation == VERTICAL)
+					setPrimaryContentHeight((motionEvent.rawY - mPointerOffset).toInt())
+				else setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
+			}
+		}
+		return true
+	}
+
 //	fun getHandle(): View?
 //	{
 //		return mHandle
@@ -132,59 +182,13 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 		{
 			return false
 		}
-		if (newWidth1 >= 0)
+		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary))
 		{
 			params?.width = newWidth1
 			params?.weight = 0f
 		}
 		unMinimizeSecondaryContent()
 		mPrimaryContent?.layoutParams = params
-		return true
-	}
-
-	override fun onTouch(view: View, motionEvent: MotionEvent): Boolean
-	{
-		if (view != mHandle) {
-			return false
-		}
-		when(motionEvent.action)
-		{
-			MotionEvent.ACTION_DOWN ->
-			{
-				mDragging = true
-				mDraggingStarted = SystemClock.elapsedRealtime()
-				mDragStartX = motionEvent.x
-				mDragStartY = motionEvent.y
-				mPointerOffset = if (orientation == VERTICAL) {
-					motionEvent.rawY - getPrimaryContentSize()
-				} else {
-					motionEvent.rawX - getPrimaryContentSize()
-				}
-			}
-			MotionEvent.ACTION_UP ->
-			{
-				mDragging = false
-				if (
-					mDragStartX < (motionEvent.x + TAP_DRIFT_TOLERANCE) &&
-					mDragStartX > (motionEvent.x - TAP_DRIFT_TOLERANCE) &&
-					mDragStartY < (motionEvent.y + TAP_DRIFT_TOLERANCE) &&
-					mDragStartY > (motionEvent.y - TAP_DRIFT_TOLERANCE) &&
-					((SystemClock.elapsedRealtime() - mDraggingStarted) < SINGLE_TAP_MAX_TIME)
-				)
-				{
-					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-						setPrimaryContentSize(mLastPrimaryContentSize)
-					else
-						maximizeSecondaryContent()
-				}
-			}
-			MotionEvent.ACTION_MOVE ->
-			{
-				if (orientation == VERTICAL)
-					setPrimaryContentHeight((motionEvent.rawY - mPointerOffset).toInt())
-				else setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
-			}
-		}
 		return true
 	}
 
