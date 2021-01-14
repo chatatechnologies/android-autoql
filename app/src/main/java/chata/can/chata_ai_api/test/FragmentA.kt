@@ -8,7 +8,6 @@ import chata.can.chata_ai_api.R
 class FragmentA: BaseFragment()
 {
 	companion object {
-		const val nameFragment = "FragmentA"
 		fun newInstance() = FragmentA().putArgs {
 			putInt("LAYOUT", R.layout.fragment_fragment_a)
 		}

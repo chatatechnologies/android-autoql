@@ -1,73 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chata.can.chata_ai.view.resize.SplitView
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:splitview="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/split_view"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:background="@color/darken_background_behind"
-	android:orientation="vertical"
-	splitview:handle="@+id/handle"
-	splitview:primaryContent="@+id/primary"
-	splitview:secondaryContent="@+id/secondary">
-
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
 	<LinearLayout
-		android:id="@+id/primary"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
+		android:background="@android:color/transparent"
+		android:clickable="true"
+		android:focusable="true"
+		android:gravity="center"
+		android:id="@+id/llMenu"
+		android:layout_height="match_parent"
+		android:layout_width="48dp"
+		android:orientation="vertical"
+		android:visibility="visible">
 
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="200dp"
-			android:gravity="center"
-			android:text="First Window"
-			android:textColor="@color/white"
-			android:textSize="20sp"/>
+		<RelativeLayout
+			android:id="@+id/rlChat"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivChat"
+				android:layout_height="match_parent"
+				android:layout_width="56dp"
+				android:src="@drawable/ic_side_chat"/>
+		</RelativeLayout>
 
+		<RelativeLayout
+			android:id="@+id/rlTips"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivTips"
+				android:layout_height="match_parent"
+				android:layout_width="56dp"
+				android:src="@drawable/ic_side_explore"/>
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/rlNotify"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content">
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivNotify"
+				android:layout_height="match_parent"
+				android:layout_width="56dp"
+				android:src="@drawable/ic_side_notification"/>
+			<TextView
+				android:id="@+id/tvNotification"
+				android:layout_alignParentEnd="true"
+				android:layout_height="10dp"
+				android:layout_marginEnd="8dp"
+				android:layout_marginTop="12dp"
+				android:layout_width="10dp"
+				android:visibility="visible"/>
+		</RelativeLayout>
 	</LinearLayout>
 
-	<ImageView
-		android:id="@+id/handle"
-		android:layout_width="fill_parent"
-		android:layout_height="10dip"
-		android:background="@color/colorAccent"
-		android:elevation="5dp"/>
-
-	<chata.can.chata_ai.view.resize.SplitView
-		android:id="@+id/secondary"
-		android:layout_width="fill_parent"
-		android:layout_height="0dip"
-		android:layout_weight="1"
-		android:orientation="horizontal"
-		splitview:handle="@+id/inner_handle"
-		splitview:primaryContent="@+id/inner_primary"
-		splitview:secondaryContent="@+id/inner_secondary">
-
-		<TextView
-			android:id="@+id/inner_primary"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:gravity="center"
-			android:text="Second Window"
-			android:textColor="@color/white"
-			android:textSize="20sp"/>
-
-		<ImageView
-			android:id="@+id/inner_handle"
-			android:layout_width="10dip"
-			android:layout_height="fill_parent"
-			android:background="@color/colorAccent"
-			android:elevation="5dp"/>
-
+	<RelativeLayout
+		android:layout_toEndOf="@id/llMenu"
+		android:clickable="true"
+		android:focusable="true"
+		android:id="@+id/rlLocal"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:visibility="visible">
+		<RelativeLayout
+			android:background="@color/blue_chata_circle"
+			android:id="@+id/toolbar"
+			android:layout_height="56dp"
+			android:layout_width="match_parent">
+			<ImageView
+				android:contentDescription="@null"
+				android:layout_centerVertical="true"
+				android:id="@+id/ivClose"
+				android:layout_height="36dp"
+				android:layout_marginStart="6dp"
+				android:layout_width="36dp"
+				android:src="@drawable/ic_cancel"
+				android:padding="5dp"/>
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvTitle"
+				android:layout_centerVertical="true"
+				android:layout_height="wrap_content"
+				android:layout_toEndOf="@id/ivClose"
+				android:layout_toStartOf="@id/ivClear"
+				android:layout_width="match_parent"
+				android:textColor="@color/white"
+				android:textSize="18sp"/>
+			<ImageView
+				android:contentDescription="@null"
+				android:id="@+id/ivClear"
+				android:layout_alignParentEnd="true"
+				android:layout_centerVertical="true"
+				android:layout_height="36dp"
+				android:layout_marginEnd="6dp"
+				android:layout_width="36dp"
+				android:src="@drawable/ic_delete"/>
+		</RelativeLayout>
 		<FrameLayout
-			android:id="@+id/inner_secondary"
 			android:background="@color/white"
+			android:id="@+id/frmLocal"
 			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:layout_width="0dp"/>
+			android:layout_below="@id/toolbar"
+			android:layout_width="match_parent"/>
+	</RelativeLayout>
+</RelativeLayout>
+<!--<chata.can.chata_ai.view.resize.SplitView-->
+<!--	xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--	xmlns:splitview="http://schemas.android.com/apk/res-auto"-->
+<!--	android:layout_width="fill_parent"-->
+<!--	android:layout_height="fill_parent"-->
+<!--	android:background="@color/darken_background_behind"-->
+<!--	android:orientation="vertical"-->
+<!--	splitview:handle="@+id/handle"-->
+<!--	splitview:primaryContent="@+id/primary"-->
+<!--	splitview:secondaryContent="@+id/secondary">-->
 
-	</chata.can.chata_ai.view.resize.SplitView>
+<!--	<LinearLayout-->
+<!--		android:id="@+id/primary"-->
+<!--		android:layout_width="match_parent"-->
+<!--		android:layout_height="wrap_content"-->
+<!--		android:orientation="vertical">-->
 
-</chata.can.chata_ai.view.resize.SplitView>
+<!--		<TextView-->
+<!--			android:layout_width="match_parent"-->
+<!--			android:layout_height="200dp"-->
+<!--			android:gravity="center"-->
+<!--			android:text="First Window"-->
+<!--			android:textColor="@color/white"-->
+<!--			android:textSize="20sp"/>-->
+
+<!--	</LinearLayout>-->
+
+<!--	<View-->
+<!--		android:id="@+id/handle"-->
+<!--		android:layout_width="fill_parent"-->
+<!--		android:layout_height="10dip"-->
+<!--		android:background="@color/colorAccent"-->
+<!--		android:elevation="5dp"/>-->
+
+<!--	<chata.can.chata_ai.view.resize.SplitView-->
+<!--		android:id="@+id/secondary"-->
+<!--		android:layout_width="fill_parent"-->
+<!--		android:layout_height="0dip"-->
+<!--		android:layout_weight="1"-->
+<!--		android:orientation="horizontal"-->
+<!--		splitview:handle="@+id/inner_handle"-->
+<!--		splitview:primaryContent="@+id/inner_primary"-->
+<!--		splitview:secondaryContent="@+id/frmLocal">-->
+
+<!--		<TextView-->
+<!--			android:id="@+id/inner_primary"-->
+<!--			android:layout_width="0dp"-->
+<!--			android:layout_height="match_parent"-->
+<!--			android:layout_weight="1"-->
+<!--			android:gravity="center"-->
+<!--			android:text="Second Window"-->
+<!--			android:textColor="@color/white"-->
+<!--			android:textSize="20sp"/>-->
+
+<!--		<View-->
+<!--			android:id="@+id/inner_handle"-->
+<!--			android:layout_width="10dip"-->
+<!--			android:layout_height="fill_parent"-->
+<!--			android:background="@color/colorAccent"-->
+<!--			android:elevation="5dp"/>-->
+
+<!--		<FrameLayout-->
+<!--			android:id="@+id/frmLocal"-->
+<!--			android:background="@color/white"-->
+<!--			android:layout_height="match_parent"-->
+<!--			android:layout_weight="1"-->
+<!--			android:layout_width="0dp"/>-->
+
+<!--	</chata.can.chata_ai.view.resize.SplitView>-->
+
+<!--</chata.can.chata_ai.view.resize.SplitView>-->
