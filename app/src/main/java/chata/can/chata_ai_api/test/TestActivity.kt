@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
@@ -58,5 +59,7 @@ class TestActivity: AppCompatActivity()
 			height = dpToPx(56f)
 			width = -1
 		}
+
+		addFragment(supportFragmentManager, FragmentA.newInstance())
 	}
 }

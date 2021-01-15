@@ -31,6 +31,7 @@ import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.view.resize.SplitView
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -43,7 +44,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	constructor(context: Context, attrs: AttributeSet, defStyle: Int)
 		: super(context, attrs, defStyle) { init() }
 
+	private lateinit var splitView: SplitView
 	private lateinit var llMenu: LinearLayout
+	private lateinit var handle: View
 	private lateinit var rlChat: View
 	private lateinit var ivChat: ImageView
 	private lateinit var rlTips: View
@@ -133,7 +136,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
 
 		view.run {
+			splitView = findViewById(R.id.splitView)
 			llMenu = findViewById(R.id.llMenu)
+			handle = findViewById(R.id.handle)
 			rlChat = findViewById(R.id.rlChat)
 			ivChat = findViewById(R.id.ivChat)
 			rlTips = findViewById(R.id.rlTips)
@@ -161,6 +166,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 
 		addView(view)
+
+		splitView.limitPrimary = 48f
+		splitView.limitSecondary = 480f
 	}
 
 	fun paintViews()
@@ -342,6 +350,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 
 		llMenu.visibility = iVisible
+		handle.visibility = iVisible
 		rlLocal.visibility = iVisible
 	}
 
