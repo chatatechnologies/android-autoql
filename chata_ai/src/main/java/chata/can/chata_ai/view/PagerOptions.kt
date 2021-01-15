@@ -31,7 +31,14 @@ import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.resize.SplitView
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf1
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf2
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf3
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf4
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent1
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent2
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent3
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent4
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -44,9 +51,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	constructor(context: Context, attrs: AttributeSet, defStyle: Int)
 		: super(context, attrs, defStyle) { init() }
 
-	private lateinit var splitView: SplitView
 	private lateinit var llMenu: LinearLayout
-	private lateinit var handle: View
+	private lateinit var vHandle: View
 	private lateinit var rlChat: View
 	private lateinit var ivChat: ImageView
 	private lateinit var rlTips: View
@@ -136,10 +142,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
 
 		view.run {
-			splitView = findViewById(R.id.splitView)
 			llMenu = findViewById(R.id.llMenu)
-			handle = findViewById(R.id.handle)
 			rlChat = findViewById(R.id.rlChat)
+			vHandle = findViewById(R.id.vHandle)
 			ivChat = findViewById(R.id.ivChat)
 			rlTips = findViewById(R.id.rlTips)
 			ivTips = findViewById(R.id.ivTips)
@@ -166,9 +171,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 
 		addView(view)
-
-		splitView.limitPrimary = 48f
-		splitView.limitSecondary = 480f
 	}
 
 	fun paintViews()
@@ -180,18 +182,36 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
-					//width = dpToPx(32f)
 					width = dpToPx(48f)
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_START, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent1)
 						addRule(ALIGN_PARENT_END, TRUE)
 					}
 					else
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent2)
 						addRule(ALIGN_PARENT_START, TRUE)
+					}
+				}
+				//endregion
+				//region vHandle
+				vHandle.layoutParams = (vHandle.layoutParams as? LayoutParams)?.apply {
+					height = -1
+					width = dpToPx(12f)
+					if (placement == ConstantDrawer.LEFT_PLACEMENT)
+					{
+						if (placement == ConstantDrawer.LEFT_PLACEMENT)
+						{
+							removeRules(alignOf1)
+							addRule(START_OF, R.id.llMenu)
+						}
+						else
+						{
+							removeRules(alignOf2)
+							addRule(END_OF, R.id.llMenu)
+						}
 					}
 				}
 				//endregion
@@ -216,12 +236,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRules(arrayListOf(ABOVE, BELOW, END_OF))
+						removeRules(alignOf1)
 						addRule(START_OF, R.id.llMenu)
 					}
 					else
 					{
-						removeRules(arrayListOf(ABOVE, BELOW, START_OF))
+						removeRules(alignOf2)
 						addRule(END_OF, R.id.llMenu)
 					}
 				}
@@ -236,13 +256,29 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent3)
 						addRule(ALIGN_PARENT_TOP, TRUE)
 					}
 					else
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_TOP))
+						removeRules(alignParent4)
 						addRule(ALIGN_PARENT_BOTTOM, TRUE)
+					}
+				}
+				//endregion
+				//region vHandle
+				vHandle.layoutParams = (vHandle.layoutParams as? LayoutParams)?.apply {
+					height = dpToPx(12f)
+					width = -1
+					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
+					{
+						removeRules(alignOf3)
+						addRule(BELOW, R.id.llMenu)
+					}
+					else
+					{
+						removeRules(alignOf4)
+						addRule(ABOVE, R.id.llMenu)
 					}
 				}
 				//endregion
@@ -267,12 +303,12 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
 					{
-						removeRules(arrayListOf(END_OF, START_OF, ABOVE))
+						removeRules(alignOf3)
 						addRule(BELOW, R.id.llMenu)
 					}
 					else
 					{
-						removeRules(arrayListOf(END_OF, START_OF, BELOW))
+						removeRules(alignOf4)
 						addRule(ABOVE, R.id.llMenu)
 					}
 				}
@@ -350,7 +386,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 
 		llMenu.visibility = iVisible
-		handle.visibility = iVisible
+		vHandle.visibility = iVisible
 		rlLocal.visibility = iVisible
 	}
 
