@@ -3,7 +3,6 @@ package chata.can.chata_ai_api.test
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.SystemClock
-import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
@@ -12,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.whenAllNotNull
 import chata.can.chata_ai.view.resize.SplitViewConst
 import chata.can.chata_ai_api.R
 import kotlin.math.max
@@ -31,15 +31,13 @@ class TestActivity
 	private lateinit var ivNotify: ImageView
 
 	//region variable
-	private var mLastPrimaryContentSize = 0
-
 	private var mDraggingStarted = 0L
 	private var mDragStartX = 0f
 	private var mDragStartY = 0f
 	private var mPointerOffset = 0f
 
-	var limitPrimary = 48f
-	var limitSecondary = 432f
+	private var limitPrimary = 48f
+	private var limitSecondary = 432f
 	//endregion
 
 
@@ -82,42 +80,61 @@ class TestActivity
 	}
 
 	@SuppressLint("ClickableViewAccessibility")
-	override fun onTouch(view: View?, motionEvent: MotionEvent?): Boolean
+	override fun onTouch(view: View?, motionEvent: MotionEvent): Boolean
 	{
 		view?.let {
 			if (it != vHandle) return false
 		}
-
-		motionEvent?.run {
-			when(action)
+		when(motionEvent.action)
+		{
+			MotionEvent.ACTION_DOWN ->
 			{
-				MotionEvent.ACTION_DOWN ->
+				mDraggingStarted = SystemClock.elapsedRealtime()
+				mDragStartX = motionEvent.x
+				mDragStartY = motionEvent.y
+				mPointerOffset = motionEvent.rawX - getPrimaryContentSize()
+			}
+			MotionEvent.ACTION_UP ->
+			{
+				if (
+					mDragStartX < (motionEvent.x + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
+					mDragStartX > (motionEvent.x - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
+					mDragStartY < (motionEvent.y + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
+					mDragStartY > (motionEvent.y - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
+					((SystemClock.elapsedRealtime() - mDraggingStarted) < SplitViewConst.SINGLE_TAP_MAX_TIME)
+				)
 				{
-					mDraggingStarted = SystemClock.elapsedRealtime()
-					mDragStartX = x
-					mDragStartY = y
-					mPointerOffset = rawX - getPrimaryContentSize()
+					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
+						setPrimaryContentSize(getPrimaryContentSize())
+					else
+						maximizeSecondaryContent()
 				}
-				MotionEvent.ACTION_UP ->
-				{
-					if (
-						mDragStartX < (x + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-						mDragStartX > (x - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-						mDragStartY < (y + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-						mDragStartY > (y - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-						((SystemClock.elapsedRealtime() - mDraggingStarted) < SplitViewConst.SINGLE_TAP_MAX_TIME)
-					)
-					{
-						if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-						{
-							setPrimaryContentSize(mLastPrimaryContentSize)
-						}
-					}
-				}
+			}
+			MotionEvent.ACTION_MOVE ->
+			{
+				setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
 			}
 		}
 
 		return true
+	}
+
+	private fun maximizeSecondaryContent()
+	{
+		arrayListOf(rlLocal, llMenu).whenAllNotNull {
+			maximizeContentPane(it[0], it[1])
+		}
+	}
+
+	private fun maximizeContentPane(toMaximize: View, toUnMaximize: View)
+	{
+		val params = toUnMaximize.layoutParams as RelativeLayout.LayoutParams
+		val secondParams = toMaximize.layoutParams as RelativeLayout.LayoutParams
+
+		params.width = 1
+
+		toUnMaximize.layoutParams = params
+		toMaximize.layoutParams = secondParams
 	}
 
 	private fun getPrimaryContentSize() = llMenu.measuredWidth

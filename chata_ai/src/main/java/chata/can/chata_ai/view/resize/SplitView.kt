@@ -16,7 +16,9 @@ import chata.can.chata_ai.view.resize.SplitViewConst.TAP_DRIFT_TOLERANCE
 import kotlin.math.max
 import kotlin.math.min
 
-class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, attrs), View.OnTouchListener
+class SplitView(
+	context: Context,
+	attrs: AttributeSet): LinearLayout(context, attrs), View.OnTouchListener
 {
 	var limitPrimary = 0f
 	var limitSecondary = 0f
