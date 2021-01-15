@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
@@ -39,7 +40,6 @@ class TestActivity
 	private var limitPrimary = 48f
 	private var limitSecondary = 432f
 	//endregion
-
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -77,6 +77,8 @@ class TestActivity
 			width = -1
 		}
 		//endregion
+
+		addFragment(supportFragmentManager, FragmentA.newInstance())
 	}
 
 	@SuppressLint("ClickableViewAccessibility")

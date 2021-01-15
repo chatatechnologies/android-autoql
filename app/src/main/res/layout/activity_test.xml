@@ -60,20 +60,13 @@
 				android:visibility="visible"/>
 		</RelativeLayout>
 	</LinearLayout>
-
-	<View
-		android:background="@color/colorAccent"
-		android:id="@+id/vHandle"
-		android:layout_height="match_parent"
-		android:layout_toEndOf="@id/llMenu"
-		android:layout_width="12dp"/>
-
+	<!--		android:layout_toEndOf="@id/vHandle"-->
 	<RelativeLayout
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/rlLocal"
 		android:layout_height="match_parent"
-		android:layout_toEndOf="@id/vHandle"
+		android:layout_toEndOf="@id/llMenu"
 		android:layout_width="match_parent"
 		android:visibility="visible">
 		<RelativeLayout
@@ -117,4 +110,13 @@
 			android:layout_below="@id/toolbar"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>
+
+	<!--	Color Final-->
+	<!--	android:background="@color/transparent"-->
+	<View
+		android:background="@color/colorAccent"
+		android:id="@+id/vHandle"
+		android:layout_height="match_parent"
+		android:layout_toEndOf="@id/llMenu"
+		android:layout_width="12dp"/>
 </RelativeLayout>

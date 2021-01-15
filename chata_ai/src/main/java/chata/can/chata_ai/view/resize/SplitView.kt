@@ -121,7 +121,7 @@ class SplitView(
 				)
 				{
 					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-						setPrimaryContentSize(mLastPrimaryContentSize)//
+						setPrimaryContentSize(mLastPrimaryContentSize)
 					else
 						maximizeSecondaryContent()
 				}

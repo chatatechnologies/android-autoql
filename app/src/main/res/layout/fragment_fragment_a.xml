@@ -14,14 +14,14 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:layout_width="0dp"
-			android:text="Second Window"
+			android:text="Second Window Window"
 			android:textSize="16sp"/>
 		<TextView
 			android:gravity="center"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:layout_width="0dp"
-			android:text="Second Window"
+			android:text="Second Window Window"
 			android:textSize="16sp"/>
 	</LinearLayout>
 
@@ -35,14 +35,14 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:layout_width="0dp"
-			android:text="Second Window"
+			android:text="Second Window Window"
 			android:textSize="16sp"/>
 		<TextView
 			android:gravity="center"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:layout_width="0dp"
-			android:text="Second Window"
+			android:text="Second Window Window"
 			android:textSize="16sp"/>
 	</LinearLayout>
 </LinearLayout>
