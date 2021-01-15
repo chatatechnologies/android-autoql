@@ -119,7 +119,7 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 				)
 				{
 					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-						setPrimaryContentSize(mLastPrimaryContentSize)
+						setPrimaryContentSize(mLastPrimaryContentSize)//
 					else
 						maximizeSecondaryContent()
 				}
@@ -182,7 +182,7 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 		{
 			return false
 		}
-		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary) && newWidth1 < limitSecondary)
+			if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary) && newWidth1 < limitSecondary)
 		{
 			val leftMargin = newWidth1 - (mPrimaryContent?.measuredWidth ?: 0)
 //			params?.width = newWidth1

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<chata.can.chata_ai.view.resize.SplitView
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:splitview="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/splitView"
+	android:background="@color/selected_gray"
+	android:id="@+id/rlMain"
 	android:layout_height="match_parent"
-	android:layout_width="match_parent"
-	android:orientation="horizontal"
-	splitview:handle="@id/handle"
-	splitview:primaryContent="@id/llMenu"
-	splitview:secondaryContent="@id/rlLocal">
+	android:layout_width="match_parent">
 	<LinearLayout
 		android:background="@android:color/transparent"
 		android:clickable="true"
@@ -66,17 +62,18 @@
 	</LinearLayout>
 
 	<View
-		android:background="@color/chata_drawer_accent_color"
-		android:id="@+id/handle"
+		android:background="@color/colorAccent"
+		android:id="@+id/vHandle"
 		android:layout_height="match_parent"
-		android:layout_width="16dp"/>
+		android:layout_toEndOf="@id/llMenu"
+		android:layout_width="12dp"/>
 
 	<RelativeLayout
 		android:clickable="true"
 		android:focusable="true"
 		android:id="@+id/rlLocal"
 		android:layout_height="match_parent"
-		android:layout_toEndOf="@id/llMenu"
+		android:layout_toEndOf="@id/vHandle"
 		android:layout_width="match_parent"
 		android:visibility="visible">
 		<RelativeLayout
@@ -114,10 +111,10 @@
 				android:src="@drawable/ic_delete"/>
 		</RelativeLayout>
 		<FrameLayout
-			android:background="@color/darken_background_behind"
+			android:background="@color/white"
 			android:id="@+id/frmLocal"
 			android:layout_height="match_parent"
 			android:layout_below="@id/toolbar"
 			android:layout_width="match_parent"/>
 	</RelativeLayout>
-</chata.can.chata_ai.view.resize.SplitView>
+</RelativeLayout>

@@ -157,7 +157,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		pagerOption.bubbleData = bubbleData
 		hideKeyboard()
 		pagerOption.setStatusGUI(isVisible)
-		//pagerOption.paintViews()
+		pagerOption.paintViews()
 	}
 
 	fun clearDataMessenger(bubbleData: BubbleData ?= null)
