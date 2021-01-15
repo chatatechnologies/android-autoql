@@ -184,8 +184,9 @@ class SplitView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 		}
 		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary) && newWidth1 < limitSecondary)
 		{
-			println("Width 1: $newWidth1; limitSecond: $limitSecondary")
-			params?.width = newWidth1
+			val leftMargin = newWidth1 - (mPrimaryContent?.measuredWidth ?: 0)
+//			params?.width = newWidth1
+			params?.leftMargin = if (leftMargin < 6) 0 else leftMargin
 			params?.weight = 0f
 		}
 		unMinimizeSecondaryContent()

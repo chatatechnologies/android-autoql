@@ -32,31 +32,31 @@ class TestActivity: AppCompatActivity()
 				val defaultDisplay = it.defaultDisplay
 				defaultDisplay.getRealMetrics(displayMetrics)
 				val widthScreen = displayMetrics.widthPixels
-				limitSecondary = widthScreen * 0.3f
+				limitSecondary = widthScreen * 0.4f
 			}
 		}
 
-//		ivChat = findViewById(R.id.ivChat)
-//		ivTips = findViewById(R.id.ivTips)
-//		ivNotify = findViewById(R.id.ivNotify)
-//
-//		ivChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-//		ivChat.paddingAll(left = 6f, right = 6f)
-//		(ivChat.layoutParams as? RelativeLayout.LayoutParams)?.run {
-//			height = dpToPx(56f)
-//			width = -1
-//		}
-//		ivTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-//		ivTips.paddingAll(left = 6f, right = 6f)
-//		(ivTips.layoutParams as? RelativeLayout.LayoutParams)?.run {
-//			height = dpToPx(56f)
-//			width = -1
-//		}
-//		ivNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-//		ivNotify.paddingAll(left = 6f, right = 6f)
-//		(ivNotify.layoutParams as? RelativeLayout.LayoutParams)?.run {
-//			height = dpToPx(56f)
-//			width = -1
-//		}
+		ivChat = findViewById(R.id.ivChat)
+		ivTips = findViewById(R.id.ivTips)
+		ivNotify = findViewById(R.id.ivNotify)
+
+		ivChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+		ivChat.paddingAll(left = 6f, right = 6f)
+		(ivChat.layoutParams as? RelativeLayout.LayoutParams)?.run {
+			height = dpToPx(56f)
+			width = -1
+		}
+		ivTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+		ivTips.paddingAll(left = 6f, right = 6f)
+		(ivTips.layoutParams as? RelativeLayout.LayoutParams)?.run {
+			height = dpToPx(56f)
+			width = -1
+		}
+		ivNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+		ivNotify.paddingAll(left = 6f, right = 6f)
+		(ivNotify.layoutParams as? RelativeLayout.LayoutParams)?.run {
+			height = dpToPx(56f)
+			width = -1
+		}
 	}
 }

@@ -69,7 +69,7 @@
 		android:background="@color/chata_drawer_accent_color"
 		android:id="@+id/handle"
 		android:layout_height="match_parent"
-		android:layout_width="10dp"/>
+		android:layout_width="16dp"/>
 
 	<RelativeLayout
 		android:clickable="true"
