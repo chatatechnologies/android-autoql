@@ -36,6 +36,11 @@ class SuggestionHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
+			context?.run {
+				ivReport?.setColorFilter(getParsedColor(blueAccent))
+				ivDelete?.setColorFilter(getParsedColor(blueAccent))
+			}
+
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 

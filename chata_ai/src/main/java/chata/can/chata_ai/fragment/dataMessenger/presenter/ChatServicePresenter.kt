@@ -100,16 +100,12 @@ class ChatServicePresenter(
 							}
 							else
 							{
-//								val messageComplete = if (message.isEmpty())
-//								{
-//									"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
-//								}
-//								else
-//									"$message\n\nError ID: $reference"
-//								view?.run {
-//									addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
-//									isLoading(false)
-//								}
+//								if (message.contains("report"))
+								val messageComplete = "$message\n\nError ID: $reference"
+								view?.run {
+									addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+									isLoading(false)
+								}
 							}
 						} catch (ex: Exception) {}
 					}

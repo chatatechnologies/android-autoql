@@ -38,7 +38,7 @@ open class BaseHolder(
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 	protected var queryBase: QueryBase ?= null
 
-	private val blueAccent = R.color.blue_chata_circle
+	val blueAccent = R.color.blue_chata_circle
 
 	override fun onPaint()
 	{
@@ -105,10 +105,10 @@ open class BaseHolder(
 						}
 
 						rlDelete?.visibility = View.VISIBLE
-//						ivReport?.visibility =
-//							if (item.message == "I want to make sure I understood your query. Did you mean:")
-//								View.GONE
-//							else View.VISIBLE
+						ivReport?.visibility =
+							if (item.message == "I want to make sure I understood your query. Did you mean:")
+								View.GONE
+							else View.VISIBLE
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
