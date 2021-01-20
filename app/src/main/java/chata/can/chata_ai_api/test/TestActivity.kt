@@ -117,7 +117,6 @@ class TestActivity
 				setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
 			}
 		}
-
 		return true
 	}
 
