@@ -8,7 +8,7 @@ object TestingHTML
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <!--<script src="d3.v6.min.js"></script>-->
 <script src="https://d3js.org/d3.v6.min.js"></script>
@@ -18,6 +18,10 @@ object TestingHTML
   /*border for svg*/
   svg {
     border: 1px solid #aaa;
+    width: 100%;
+    position: relative;
+    height: 90%;
+    z-index: 0;
   }
 </style>
 </head>
