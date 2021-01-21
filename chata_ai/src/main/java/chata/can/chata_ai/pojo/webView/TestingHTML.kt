@@ -18,10 +18,10 @@ object TestingHTML
   /*border for svg*/
   svg {
     border: 1px solid #aaa;
-    width: 100%;
+    /*width: 100%;
     position: relative;
-    height: 90%;
-    z-index: 0;
+    height: 100%;
+    z-index: 0;*/
   }
 </style>
 </head>
@@ -51,11 +51,11 @@ object TestingHTML
       {name: "nov. 2019", value: 106630.75},
     ];
     var data1 = [
-      {name: "ene. 2019", value: 100500.00},
-      {name: "feb. 2019", value: 122868.00},
-      {name: "mar. 2019", value: 57326.75},
-      {name: "abr. 2019", value: 104254.00},
-      {name: "dic. 2019", value: 106630.75},
+      {name: "ene. 2019", value: 106630.75},
+      {name: "feb. 2019", value: 100500.00},
+      {name: "mar. 2019", value: 122868.00},
+      {name: "abr. 2019", value: 57326.75},
+      {name: "dic. 2019", value: 104254.00},
     ];
     var maxValue = 106630.75;//put here max value
     var minValue = 57326.75;//put here min value
@@ -100,7 +100,6 @@ object TestingHTML
         dataRoot = data1;
         isFirst = true;
       }
-      console.log("Data root flag: " + isFirst);
 
       d3.select("svg").remove();
       var svg = d3.select("body").append("svg")
@@ -182,7 +181,7 @@ object TestingHTML
       .attr('fill', '#808080')
       .text("Total Order Amount");
     }
-    //updateData();
+    updateData();
 </script>
 </body>
 </html>"""
