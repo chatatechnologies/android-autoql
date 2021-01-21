@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="@color/selected_gray"
+	android:background="@color/transparent"
 	android:id="@+id/rlMain"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
@@ -112,9 +112,9 @@
 	</RelativeLayout>
 
 	<!--	Color Final-->
-	<!--	android:background="@color/transparent"-->
+	<!--	android:background="@color/danger_color_2"-->
 	<View
-		android:background="@color/danger_color_2"
+		android:background="@color/transparent"
 		android:id="@+id/vHandle"
 		android:layout_height="match_parent"
 		android:layout_toEndOf="@id/llMenu"

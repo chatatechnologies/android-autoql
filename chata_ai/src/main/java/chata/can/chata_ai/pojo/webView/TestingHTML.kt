@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+package chata.can.chata_ai.pojo.webView
+
+object TestingHTML
+{
+	fun getHtmlTest(): String
+	{
+		return """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -70,9 +76,9 @@
       "decimal": ",",//","
       "thousands": ",",//" ",
       "grouping": [3],
-      "currency": ["$", ""]//["€", ""] first if prefix, second is suffix
+      "currency": ["${'$'}", ""]//["€", ""] first if prefix, second is suffix
     });
-    var fformat = locale.format("$,");
+    var fformat = locale.format("${'$'},");
     //endregion
 
     var x = d3.scaleBand()
@@ -142,7 +148,7 @@
         //remove short line for Y axis
         .tickSize(0)
         //format data for each number on Y axis
-        .tickFormat(x => `${fformat(x)}`))
+        .tickFormat(x => `${'$'}{fformat(x)}`))
       //region set lines by each value for y axis
       .call(g => g.selectAll(".tick line").clone()
         .attr("stroke-opacity", 0.1)
@@ -175,4 +181,6 @@
     //updateData();
 </script>
 </body>
-</html>
+</html>"""
+	}
+}
