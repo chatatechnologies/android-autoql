@@ -21,21 +21,6 @@
       {name: "nov. 2019", value: 106630.75},
     ];
 
-    var data1 = [
-      {salesperson: "Bob", sales: 33},
-      {salesperson: "Robin", sales: 12},
-      {salesperson: "Anne", sales: 41},
-      {salesperson: "Mark", sales: 16},
-      {salesperson: "Eve", sales: 38},
-      {salesperson: "Karen", sales: 21},
-      {salesperson: "Kirsty", sales: 25},
-      {salesperson: "Chris", sales: 30},
-      {salesperson: "Lisa", sales: 47},
-      {salesperson: "Tom", sales: 5},
-      {salesperson: "Stacy", sales: 20},
-      {salesperson: "Charles", sales: 13},
-      {salesperson: "Mary", sales: 29},
-    ];
     var width = 960,
       height = 500,
       radius = Math.min(width, height) / 2;
@@ -78,7 +63,6 @@
       .attr("dy", ".35em")
       .attr("transform", function(d) {
         return 'translate(' + arc.centroid(d) + '), rotate('+ angle(d) +')';
-        //return 'translate(' + labelArc.centroid(d) + '), rotate('+ angle(d) +')';
       })
       .style("text-anchor", "middle")
       .text(function(d) {
