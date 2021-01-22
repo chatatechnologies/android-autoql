@@ -34,9 +34,9 @@
       //endregion
 
       //margin and size for svg
-      var margin = {top: 20, right: 20, bottom: 40, left: 60},
-          width = 980 - margin.left - margin.right,
-          height = 520 - margin.top - margin.bottom;
+      var margin = {top: 20, right: 20, bottom: 60, left: 90},
+          width = 1000 - margin.left - margin.right,
+          height = 550 - margin.top - margin.bottom;
 
       var color = ['#26a7df'];
       var scaleColor = d3.scaleOrdinal().range(color);
@@ -72,12 +72,16 @@
 
         svg.append('g')
         .attr('transform', 'translate(0,' + height + ')')
-        .call(g => g.select('.domain').remove())
         .call(
           d3.axisBottom(y)
           .tickSize(0)
           //format data for each number on Y axis
           .tickFormat(x => `${fformat(x)}`))
+        .call(
+          g => g.selectAll('.tick line')
+          .clone()
+          .attr('stroke-opacity', 0.1)
+          .attr('y2', -height))
         //Remove line on domain for X axis
         .call(g => g.select('.domain').remove())
         .selectAll('text')
@@ -96,6 +100,25 @@
           //rotate text
           .attr('transform', 'translate(-10,-20)rotate(-45)')
           .attr('fill', '#909090');
+
+        //Add X axis label:
+        svg.append('text')
+          .attr('text-anchor', 'end')
+          .style('font-size', 16)
+          .attr('x', (width / 2) + margin.top)//for center
+          .attr('y', height + margin.bottom - 10)//for set on bottom with -10
+          .attr('fill', '#808080')
+          .text('Total Order Amount');
+
+        //Y axis label:
+        svg.append('text')
+          .attr('text-anchor', 'end')
+          .style('font-size', 16)
+          .attr('transform', 'rotate(-90)')
+          .attr('y', -margin.left + 20)
+          .attr('x', margin.top + (-height / 2))//center Y axis title
+          .attr('fill', '#808080')
+          .text('Month');
     </script>
 </body>
 </html>

@@ -49,7 +49,9 @@ function setColumn() {
       //format data for each number on Y axis
       .tickFormat(x => `${fformat(x)}`))
     //region set lines by each value for y axis
-    .call(g => g.selectAll('.tick line').clone()
+    .call(
+      g => g.selectAll('.tick line')
+      .clone()
       .attr('stroke-opacity', 0.1)
       .attr('x2', width))
     //endregion
