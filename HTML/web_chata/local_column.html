@@ -7,6 +7,7 @@
 <script type="text/javascript" src="js/variable.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
 <script type="text/javascript" src="js/bar.js"></script>
+<script type="text/javascript" src="js/column.js"></script>
 <script type="text/javascript" src="js/pie.js"></script>
 <script src="d3.v6.min.js"></script>
 <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
@@ -99,7 +100,7 @@
         switch(typeChart) {
           case TypeEnum.COLUMN:
             console.log("BAR");
-            setBar();
+            setColumn();
             break;
           case TypeEnum.PIE:
             console.log("PIE");
