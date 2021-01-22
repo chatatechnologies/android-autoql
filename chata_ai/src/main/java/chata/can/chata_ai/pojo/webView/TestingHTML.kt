@@ -10,8 +10,8 @@ object TestingHTML
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<!--<script src="d3.v6.min.js"></script>-->
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="d3.v6.min.js"></script>
+<!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
 
 <title></title>
 <style>
@@ -35,8 +35,17 @@ object TestingHTML
 </head>
 <body>
   <div>
-    <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button>
+    <!-- <button class="button" onclick="updateData(TypeEnum.TABLE)">TABLE</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.PIVOT)">PIVOT</button> -->
+    <button class="button" onclick="updateData(TypeEnum.COLUMN)">COLUMN</button>
+    <!-- <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.LINE)">LINE</button> -->
     <button class="button" onclick="updateData(TypeEnum.PIE)">PIE</button>
+    <!-- <button class="button" onclick="updateData(TypeEnum.HEATMAP)">HEATMAP</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.BUBBLE)">BUBBLE</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_BAR)">STACKED BAR</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_COLUMN)">STACKED COLUMN</button> -->
+    <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_AREA)">STACKED AREA</button> -->
   </div>
   <script>
     function digitsCount(n) {
@@ -50,7 +59,19 @@ object TestingHTML
       return count;
     }
 
-    const TypeEnum = Object.freeze({"BAR":1, "PIE":2, "UNKNOW":3});
+    const TypeEnum = Object.freeze({
+      "TABLE": 1,
+      "PIVOT": 2,
+      "COLUMN": 3,
+      "BAR": 4,
+      "LINE": 5,
+      "PIE": 6,
+      "HEATMAP": 7,
+      "BUBBLE": 8,
+      "STACKED_BAR": 9,
+      "STACKED_COLUMN": 10,
+      "STACKED_AREA": 11,
+      "UNKNOW": 0});
     var typeChart;
 
     //NO IMPORTANT FOR SCRIPT FINAL
@@ -60,13 +81,6 @@ object TestingHTML
       {name: "sep. 2019", value: 57326.75},
       {name: "oct. 2019", value: 104254.00},
       {name: "nov. 2019", value: 106630.75},
-    ];
-    var data1 = [
-      {name: "ene. 2019", value: 106630.75},
-      {name: "feb. 2019", value: 100500.00},
-      {name: "mar. 2019", value: 122868.00},
-      {name: "abr. 2019", value: 57326.75},
-      {name: "dic. 2019", value: 104254.00},
     ];
     var maxValue = 106630.75;//put here max value
     var minValue = 57326.75;//put here min value
@@ -115,7 +129,7 @@ object TestingHTML
 
         clearSvg();
         switch(typeChart) {
-          case TypeEnum.BAR:
+          case TypeEnum.COLUMN:
             console.log("BAR");
             setBar();
             break;
@@ -258,7 +272,7 @@ object TestingHTML
         });
     }
     
-    updateData(TypeEnum.BAR);
+    updateData(TypeEnum.COLUMN);
 </script>
 </body>
 </html>"""
