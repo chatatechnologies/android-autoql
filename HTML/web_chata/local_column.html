@@ -35,9 +35,9 @@
       return count;
     }
 
-    //region pie
+    const TypeEnum = Object.freeze({"BAR":1, "PIE":2, "UNKNOW":3});
     
-    //endregion
+    var typeChart = TypeEnum.BAR;
 
     //NO IMPORTANT FOR SCRIPT FINAL
     var isFirst = true;
@@ -98,6 +98,16 @@
 
     function updateData() {
       clearSvg();
+      switch(typeChart) {
+        case TypeEnum.BAR:
+          console.log("BAR");
+          break;
+        case TypeEnum.PIE:
+          console.log("PIE");
+          break;
+        default:
+          console.log("default");
+      }
       if (isFirst) {
         isFirst = false;
         setBar();
