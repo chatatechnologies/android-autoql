@@ -10,6 +10,7 @@ object TestingHTML
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!--<script src="d3.v6.min.js"></script>-->
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <title></title>
@@ -22,11 +23,20 @@ object TestingHTML
     height: 100%;
     z-index: 0;*/
   }
+  .button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
 </style>
 </head>
 <body>
-  <div id="option">
-    <input name="updateButton" type="button" value="Update" onclick="updateData()" />
+  <div>
+    <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button>
+    <button class="button" onclick="updateData(TypeEnum.PIE)">PIE</button>
   </div>
   <script>
     function digitsCount(n) {
@@ -40,12 +50,10 @@ object TestingHTML
       return count;
     }
 
-    //region pie
-    
-    //endregion
+    const TypeEnum = Object.freeze({"BAR":1, "PIE":2, "UNKNOW":3});
+    var typeChart;
 
     //NO IMPORTANT FOR SCRIPT FINAL
-    var isFirst = true;
     var data = [
       {name: "may. 2019", value: 100500.00},
       {name: "ago. 2019", value: 122868.00},
@@ -80,12 +88,12 @@ object TestingHTML
     var scaleColorPie = d3.scaleOrdinal().range(colorPie);
     var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
-    //region locale settings
     function angle(d) {
       var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
       return a > 90 ? a - 180 : a;
     }
 
+    //region locale settings
     var locale = d3.formatLocale({
       "decimal": ",",//","
       "thousands": ",",//" ",
@@ -101,14 +109,23 @@ object TestingHTML
     var y = d3.scaleLinear()
       .range([height, 0]);
 
-    function updateData() {
-      clearSvg();
-      if (isFirst) {
-        isFirst = false;
-        setBar();
-      } else {
-        isFirst = true;
-        setPie();
+    function updateData(tmpChart) {
+      if (typeChart != tmpChart) {
+        typeChart = tmpChart;
+
+        clearSvg();
+        switch(typeChart) {
+          case TypeEnum.BAR:
+            console.log("BAR");
+            setBar();
+            break;
+          case TypeEnum.PIE:
+            console.log("PIE");
+            setPie();
+            break;
+          default:
+            console.log("default");
+        }
       }
     }
 
@@ -241,7 +258,7 @@ object TestingHTML
         });
     }
     
-    updateData();
+    updateData(TypeEnum.BAR);
 </script>
 </body>
 </html>"""
