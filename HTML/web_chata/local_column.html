@@ -37,7 +37,7 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.TABLE)">TABLE</button> -->
     <!-- <button class="button" onclick="updateData(TypeEnum.PIVOT)">PIVOT</button> -->
     <button class="button" onclick="updateData(TypeEnum.COLUMN)">COLUMN</button>
-    <!-- <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button> -->
+    <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button>
     <!-- <button class="button" onclick="updateData(TypeEnum.LINE)">LINE</button> -->
     <button class="button" onclick="updateData(TypeEnum.PIE)">PIE</button>
     <!-- <button class="button" onclick="updateData(TypeEnum.HEATMAP)">HEATMAP</button> -->
@@ -99,8 +99,12 @@
         clearSvg();
         switch(typeChart) {
           case TypeEnum.COLUMN:
-            console.log("BAR");
+            console.log("COLUMN");
             setColumn();
+            break;
+          case TypeEnum.BAR:
+            console.log("BAR");
+            setBar();
             break;
           case TypeEnum.PIE:
             console.log("PIE");
