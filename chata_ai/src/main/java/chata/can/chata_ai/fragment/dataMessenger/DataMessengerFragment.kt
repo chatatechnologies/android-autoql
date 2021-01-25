@@ -234,7 +234,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 		model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-		notifyAdapter()
+		chatAdapter.notifyDataSetChanged()
 	}
 
 	override fun initViews(view: View)
@@ -560,11 +560,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				setOnClickListener { setRequestQuery() }
 			}
 		}
-	}
-
-	private fun notifyAdapter()
-	{
-		chatAdapter.notifyDataSetChanged()
 	}
 
 	private fun scrollToPosition()
