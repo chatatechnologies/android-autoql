@@ -35,7 +35,7 @@ object DataMessenger
 		token = ""
 		JWT = ""
 
-		SinglentonDrawer.mModel.clear()
+		//SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
 		ExploreQueriesData.lastWord = ""
 		ExploreQueriesData.lastExploreQuery = null
