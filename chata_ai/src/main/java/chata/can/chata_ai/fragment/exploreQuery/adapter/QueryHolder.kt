@@ -14,7 +14,7 @@ class QueryHolder(itemView: View): Holder(itemView)
 	override fun onPaint()
 	{
 		tvQuery?.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
-
+		//tvQuery?.isSelected = true
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

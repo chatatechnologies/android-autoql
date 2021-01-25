@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.notification.model.Notification
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.text.SimpleDateFormat
@@ -79,7 +79,7 @@ class NotificationHolder(
 				ThemeColor.currentColor.run {
 					white = pDrawerBackgroundColor
 					gray = pDrawerTextColorPrimary
-					blue = getParsedColor(R.color.blue_chata_circle)
+					blue = SinglentonDrawer.currentAccent
 					tvBody.setTextColor(gray)
 					tvDate.setTextColor(gray)
 					tvQuery.setTextColor(gray)
