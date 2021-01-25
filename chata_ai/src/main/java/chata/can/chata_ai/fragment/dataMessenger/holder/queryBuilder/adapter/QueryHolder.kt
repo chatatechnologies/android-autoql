@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
@@ -55,7 +55,8 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 				if (!isSelected)
 				{
 					isSelected = true
-					rlParent.setBackgroundColor(rlParent.context.getParsedColor(R.color.blue_chata_circle))
+					val accentColor = SinglentonDrawer.currentAccent
+					rlParent.setBackgroundColor(accentColor)
 					ivPlay.visibility = View.VISIBLE
 				}
 				listener?.onItemClick(item)

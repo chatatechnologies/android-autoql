@@ -46,7 +46,7 @@ object SinglentonDrawer
 	var themeColor = "dark"
 	var lightThemeColor = "#26A7DF"
 	var pLightThemeColor = Color.parseColor(lightThemeColor)
-	var darkThemeColor = "#525252"
+	var darkThemeColor = "#26A7DF"
 	var pDarkThemeColor = Color.parseColor(darkThemeColor)
 	val currentAccent: Int
 		get() {

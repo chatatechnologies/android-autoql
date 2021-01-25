@@ -396,6 +396,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 										putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
 										putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 									}
+									setColors()
 									it.updateData(argument)
 								}
 							}

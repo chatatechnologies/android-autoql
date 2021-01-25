@@ -21,6 +21,7 @@ import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -68,7 +69,7 @@ class WebViewHolder(
 	private val invisible = View.GONE
 	private var isReduceOptions = false
 
-	private val blueAccent = R.color.blue_chata_circle
+	private var accentColor = 0
 
 	//region paint views
 	override fun onPaint()
@@ -84,11 +85,10 @@ class WebViewHolder(
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 
-			context.run {
-				ivReport?.setColorFilter(getParsedColor(blueAccent))
-				ivDelete?.setColorFilter(getParsedColor(blueAccent))
-				ivPoints?.setColorFilter(getParsedColor(blueAccent))
-			}
+			accentColor = SinglentonDrawer.currentAccent
+			ivReport?.setColorFilter(accentColor)
+			ivDelete?.setColorFilter(accentColor)
+			ivPoints?.setColorFilter(accentColor)
 		}
 
 		rlLoad?.run {
@@ -178,6 +178,7 @@ class WebViewHolder(
 					it.visibility = if (it.id in tmpConfigs)
 					{
 						it.setOnClickListener(this)
+						it.setColorFilter(accentColor)
 						visible
 					}
 					else
@@ -397,7 +398,10 @@ class WebViewHolder(
 					}, 200)
 				}
 
-				ivActionHide?.visibility = visible
+				ivActionHide?.run {
+					visibility = visible
+					setColorFilter(accentColor)
+				}
 				ivActionHide = iv
 				ivActionHide?.visibility = invisible
 			}

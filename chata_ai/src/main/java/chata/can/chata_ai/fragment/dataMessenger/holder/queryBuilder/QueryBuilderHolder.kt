@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
@@ -29,6 +28,7 @@ import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class QueryBuilderHolder(
@@ -93,7 +93,7 @@ class QueryBuilderHolder(
 				textPaint.run {
 					try {
 						tvLink?.context?.let {
-							color = it.getParsedColor(R.color.chata_drawer_accent_color)
+							color = SinglentonDrawer.currentAccent
 						}
 					}
 					finally {

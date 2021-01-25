@@ -17,6 +17,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
@@ -344,7 +345,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		return activity?.getParsedColor(intRes) ?: 0
 	}
 
-	private fun getBlue() = getColor(R.color.chata_drawer_accent_color)
+	private fun getBlue() = SinglentonDrawer.currentAccent
 
 	private fun Int.length() = when(this) {
 		0 -> 1
