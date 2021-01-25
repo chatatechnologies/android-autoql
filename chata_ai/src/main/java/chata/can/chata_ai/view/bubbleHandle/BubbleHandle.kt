@@ -1,6 +1,7 @@
 package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
+import android.graphics.Color
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
@@ -150,6 +151,7 @@ class BubbleHandle(
 			if (second)
 			{
 				SinglentonDrawer.lightThemeColor = first
+				SinglentonDrawer.pLightThemeColor = Color.parseColor(first)
 			}
 			return second
 		}
@@ -161,6 +163,7 @@ class BubbleHandle(
 			if (second)
 			{
 				SinglentonDrawer.darkThemeColor = first
+				SinglentonDrawer.pDarkThemeColor = Color.parseColor(first)
 			}
 			return second
 		}

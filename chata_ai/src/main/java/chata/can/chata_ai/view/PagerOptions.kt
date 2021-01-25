@@ -68,6 +68,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	private lateinit var ivNotify: ImageView
 	private lateinit var tvNotification: TextView
 	private lateinit var rlLocal: View
+	private lateinit var toolbar: View
 	private lateinit var ivClose: ImageView
 	private lateinit var tvTitle: TextView
 	private lateinit var ivClear: ImageView
@@ -205,6 +206,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 			ivNotify = findViewById(R.id.ivNotify)
 			tvNotification = findViewById(R.id.tvNotification)
 			rlLocal = findViewById(R.id.rlLocal)
+			toolbar = findViewById(R.id.toolbar)
 			ivClose = findViewById(R.id.ivClose)
 			tvTitle = findViewById(R.id.tvTitle)
 			ivClear = findViewById(R.id.ivClear)
@@ -445,6 +447,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 
 	private fun openChat()
 	{
+		setColors()
 		changeColor(rlChat, ivChat)
 		updateTitle()
 		setVisibleDelete(true)
@@ -521,9 +524,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	private fun setColors()
 	{
 		context?.run {
-			rlChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			val accentColor = SinglentonDrawer.currentAccent
+			toolbar.setBackgroundColor(accentColor)
+			rlChat.setBackgroundColor(accentColor)
+			rlTips.setBackgroundColor(accentColor)
+			rlNotify.setBackgroundColor(accentColor)
 			rlSelected?.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
 
 			ivChat.setColorFilter(getParsedColor(R.color.white))
@@ -539,7 +544,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	private fun changeColor(rlNew: View, ivNew: ImageView)
 	{
 		context?.run {
-			rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			val accentColor = SinglentonDrawer.currentAccent
+			rlSelected?.setBackgroundColor(accentColor)
 			ivSelected?.setColorFilter(getParsedColor(R.color.white))
 			rlNew.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
 			ivNew.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
