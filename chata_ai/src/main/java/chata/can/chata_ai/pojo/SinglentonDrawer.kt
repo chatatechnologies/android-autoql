@@ -44,15 +44,31 @@ object SinglentonDrawer
 
 	//region colors
 	var themeColor = "dark"
+	val aThemeMethods = LinkedHashMap<String, () -> Unit>()
+
 	var lightThemeColor = "#26A7DF"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
 	var pLightThemeColor = Color.parseColor(lightThemeColor)
+
 	var darkThemeColor = "#26A7DF"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
 	var pDarkThemeColor = Color.parseColor(darkThemeColor)
+
 	val currentAccent: Int
-		get() {
-		return if (themeColor == "dark") pDarkThemeColor
+		get() = if (themeColor == "dark") pDarkThemeColor
 			else pLightThemeColor
-	}
 	val aChartColors = ArrayList<String>()
 	//endregion
 

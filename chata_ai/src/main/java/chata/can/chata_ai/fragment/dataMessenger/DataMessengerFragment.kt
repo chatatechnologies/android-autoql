@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -90,8 +91,14 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "all sales"
 //			val queryDemo = "total hours utilization for equipment by month in 2017 for water trailer"
 //			val queryDemo = "Total revenue by ticket type for Q1 2019"
-			val queryDemo = "Total revenue by month in 2019"
+//			val queryDemo = "Total revenue by month in 2019"
+			val queryDemo = ""
 			etQuery.setText(queryDemo)
+		}
+
+		SinglentonDrawer.aThemeMethods[nameFragment] = {
+			model.restartData()
+			chatAdapter.notifyDataSetChanged()
 		}
 
 		ThemeColor.aColorMethods[nameFragment] = {
@@ -220,6 +227,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			chatAdapter.notifyItemChanged(0)
 		}
 		setTouchListener()
+		setColors()
 	}
 
 	fun clearQueriesAndResponses()
@@ -265,10 +273,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				etQuery.setHintTextColor(it.getParsedColor(R.color.place_holder))
 				etQuery.setTextColor(pDrawerTextColorPrimary)
 
-				val blue = it.getParsedColor(R.color.blue_chata_circle)
 				val circleDrawable = GradientDrawable().apply {
 					shape = GradientDrawable.OVAL
-					setColor(blue)
+					setColor(SinglentonDrawer.currentAccent)
 				}
 
 				val rectangleDrawable = DrawableBuilder.setGradientDrawable(
