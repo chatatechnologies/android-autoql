@@ -28,6 +28,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var queryId = ""
 	var displayType = ""
 	private var interpretation = ""
+	var limitRowNum = 0
 
 	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
@@ -95,6 +96,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			queryId = joData.optString("query_id") ?: ""
 			displayType = joData.optString("display_type") ?: ""
 			interpretation = joData.optString("interpretation") ?: ""
+			limitRowNum = joData.optInt("limit_row_num")
 
 			//region rows
 			it.optJSONArray("rows")?.let {

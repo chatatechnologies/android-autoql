@@ -29,4 +29,6 @@
 	<string name="generated_sql">Generated SQL</string>
 
 	<string name="internal_service_error">Internal Service Error: Our system is experiencing an unexpected error. We\'re aware of this issue and are working to fix it as soon as possible.</string>
+	
+	<string name="limit_row_num">The display limit for your data has been reached. Try querying a smaller time-frame to ensure all your data is displayed.</string>
 </resources>

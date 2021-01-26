@@ -9,6 +9,7 @@ object TableHtmlBuilder
 	fun buildTable(
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>,
+		limitRow: Int,
 		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
 		aColumn.find { it.isVisible }?.let {
@@ -37,6 +38,9 @@ object TableHtmlBuilder
 			val bodyTable = StringBuilder("<tbody>")
 			for (aRow in aRows)
 			{
+				if (numRows >= limitRow)
+					break
+
 				val sRow = StringBuilder("")
 				for ((index, cell) in aRow.withIndex())
 				{

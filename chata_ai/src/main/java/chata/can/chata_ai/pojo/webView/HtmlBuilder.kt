@@ -37,9 +37,10 @@ object HtmlBuilder
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
+		val limitRow = queryBase.limitRowNum
 		val dataForWebView = DataForWebView()
 
-		val pData = TableHtmlBuilder.buildTable(aRows, aColumn)
+		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 

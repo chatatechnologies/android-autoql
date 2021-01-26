@@ -39,6 +39,7 @@ class WebViewHolder(
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
+	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
 	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
 	private val ivTable = itemView.findViewById<ImageView>(R.id.ivTable) ?: null
@@ -286,6 +287,8 @@ class WebViewHolder(
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
+		ivAlert?.visibility = if (simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+			View.VISIBLE else View.GONE
 	}
 
 	private fun callAction(iv: ImageView?)

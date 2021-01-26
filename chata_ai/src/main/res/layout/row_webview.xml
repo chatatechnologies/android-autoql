@@ -175,5 +175,14 @@
 				android:padding="8dp"/>
 		</RelativeLayout>
 
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivAlert"
+			android:layout_height="24dp"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentEnd="true"
+			android:layout_width="24dp"
+			android:src="@drawable/ic_alert"
+			android:visibility="gone"/>
 	</RelativeLayout>
 </RelativeLayout>

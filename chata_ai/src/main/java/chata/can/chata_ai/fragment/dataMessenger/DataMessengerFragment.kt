@@ -3,7 +3,6 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
@@ -92,7 +91,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "total hours utilization for equipment by month in 2017 for water trailer"
 //			val queryDemo = "Total revenue by ticket type for Q1 2019"
 //			val queryDemo = "Total revenue by month in 2019"
-			val queryDemo = ""
+			val queryDemo = "all ticket"
 			etQuery.setText(queryDemo)
 		}
 
