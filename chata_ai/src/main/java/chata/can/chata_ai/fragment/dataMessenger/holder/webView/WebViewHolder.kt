@@ -79,7 +79,7 @@ class WebViewHolder(
 			setTextColor(textColor)
 
 			val queryDrawable = DrawableBuilder.setGradientDrawable(
-				ThemeColor.currentColor.pDrawerAccentColor,18f)
+				SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)

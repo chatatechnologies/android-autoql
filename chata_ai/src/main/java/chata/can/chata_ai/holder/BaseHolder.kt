@@ -38,7 +38,7 @@ open class BaseHolder(
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 	protected var queryBase: QueryBase ?= null
 
-	val blueAccent = R.color.blue_chata_circle
+	var accentColor = 0
 
 	override fun onPaint()
 	{
@@ -47,16 +47,17 @@ open class BaseHolder(
 			setTextColor(textColor)
 
 			val queryDrawable = DrawableBuilder.setGradientDrawable(
-				ThemeColor.currentColor.pDrawerAccentColor,18f)
+				SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 
+			accentColor = SinglentonDrawer.currentAccent
 			context?.run {
-				ivReport?.setColorFilter(getParsedColor(blueAccent))
-				ivDelete?.setColorFilter(getParsedColor(blueAccent))
-				ivPoints?.setColorFilter(getParsedColor(blueAccent))
+				ivReport?.setColorFilter(accentColor)
+				ivDelete?.setColorFilter(accentColor)
+				ivPoints?.setColorFilter(accentColor)
 			}
 		}
 
