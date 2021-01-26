@@ -421,6 +421,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun onDestroy()
 	{
 		super.onDestroy()
+		SinglentonDrawer.aThemeMethods.remove(nameFragment)
 		ThemeColor.aColorMethods.remove(nameFragment)
 		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
 		SinglentonDrawer.aCurrencyMethods.remove(nameFragment)

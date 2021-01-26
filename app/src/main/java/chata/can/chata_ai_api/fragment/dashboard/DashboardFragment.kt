@@ -10,6 +10,7 @@ import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -52,6 +53,11 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			spDashboard = findViewById(R.id.spDashboard)
 			rvDashboard = findViewById(R.id.rvDashboard)
 			tvEmptyDashboard = findViewById(R.id.tvEmptyDashboard)
+		}
+
+		SinglentonDrawer.aThemeMethods[nameFragment] = {
+			setColors()
+			gridAdapter.notifyDataSetChanged()
 		}
 	}
 

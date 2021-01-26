@@ -12,6 +12,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.view.gif.KGifView
 
 object DashboardView
@@ -40,7 +41,7 @@ object DashboardView
 			context.run {
 				val tvTitle = TextView(this).apply {
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-					setTextColor(getParsedColor(R.color.chata_drawer_accent_color))
+					setTextColor(SinglentonDrawer.currentAccent)
 					setTypeface(typeface, Typeface.BOLD)
 					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 					id = R.id.tvTitle
