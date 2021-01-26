@@ -17,6 +17,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -408,6 +409,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			setResource(intRes)
 			showAlert()
 			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)
+		}
+	}
+
+	override fun showToast()
+	{
+		activity?.let {
+			Toast.makeText(it, R.string.limit_row_num, Toast.LENGTH_LONG).show()
 		}
 	}
 

@@ -10,6 +10,7 @@ import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.listPopup.DataPopup
@@ -287,8 +288,15 @@ class WebViewHolder(
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
-		ivAlert?.visibility = if (simpleQuery.limitRowNum <= simpleQuery.aRows.size)
-			View.VISIBLE else View.GONE
+		ivAlert?.let { ivAlert ->
+			ivAlert.visibility = if (simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+			{
+				ivAlert.setOnClickListener {
+					chatView?.showToast()
+				}
+				View.VISIBLE
+			} else View.GONE
+		}
 	}
 
 	private fun callAction(iv: ImageView?)
