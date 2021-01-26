@@ -113,7 +113,8 @@ open class BaseHolder(
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
-						rlDelete?.visibility = View.GONE
+						rlDelete?.visibility = if (item.message == "Thank you for your feedback")
+							View.VISIBLE else View.GONE
 					}
 				}
 				else
