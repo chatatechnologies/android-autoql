@@ -49,7 +49,7 @@ class FragmentA: BaseFragment()
 					lastPosition = right
 				} else
 				{
-					if (lastPosition < right + 60)
+					if (lastPosition <= right + 60)
 					{
 						adapter.notifyDataSetChanged()
 					}

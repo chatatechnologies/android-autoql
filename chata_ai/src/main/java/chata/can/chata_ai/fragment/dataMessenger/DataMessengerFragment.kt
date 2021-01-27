@@ -482,6 +482,21 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			llm.orientation = LinearLayoutManager.VERTICAL
 			rvChat.layoutManager = llm
 			rvChat.adapter = chatAdapter
+//			rvChat.addOnLayoutChangeListener {
+//				_, _, _, right, _, _, _, _, _ ->
+//				println("right: $right")
+//				if (lastRight == 0)
+//				{
+//					lastRight = right
+//				} else
+//				{
+//					if (lastRight <= right)
+//					{
+//						println("right (enter!): $right")
+//						chatAdapter.notifyDataSetChanged()
+//					}
+//				}
+//			}
 			scrollToPosition()
 		}
 	}

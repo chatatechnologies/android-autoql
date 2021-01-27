@@ -524,7 +524,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		rlTips.setOnClickListener(this)
 		rlNotify.setOnClickListener(this)
 		ivClose.setOnClickListener(this)
-		vHandle.setOnTouchListener(this)
+		//vHandle.setOnTouchListener(this)
 	}
 
 	private fun setColors()
