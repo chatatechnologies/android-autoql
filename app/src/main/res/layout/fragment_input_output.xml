@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/llParent"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
@@ -9,6 +10,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginEnd="4dp"
 		android:layout_marginStart="4dp"
+		android:layout_marginTop="12dp"
 		android:layout_width="match_parent"
 		android:padding="4dp">
 		<ImageView
@@ -21,15 +23,24 @@
 			android:src="@drawable/ic_chata"/>
 		<AutoCompleteTextView
 			android:background="@null"
-			android:layout_toEndOf="@id/ivChata"
-			android:layout_centerVertical="true"
 			android:hint="@string/type_queries_here"
 			android:id="@+id/etQuery"
 			android:inputType="text"
+			android:layout_centerVertical="true"
+			android:layout_toEndOf="@id/ivChata"
+			android:layout_toStartOf="@id/ivSend"
 			android:layout_height="40dp"
 			android:layout_width="match_parent"
 			android:paddingEnd="12dp"
 			android:paddingStart="12dp"/>
+		<ImageView
+			android:contentDescription="@null"
+			android:id="@+id/ivSend"
+			android:layout_height="32dp"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_width="32dp"
+			android:src="@drawable/ic_send"/>
 	</RelativeLayout>
 	<RelativeLayout
 		android:layout_height="match_parent"
@@ -53,6 +64,7 @@
 		<WebView
 			android:id="@+id/wbOutput"
 			android:layout_height="match_parent"
+			android:layout_margin="8dp"
 			android:layout_width="match_parent"/>
 		<LinearLayout
 			android:id="@+id/llSuggestion"
