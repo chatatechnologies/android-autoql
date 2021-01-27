@@ -8,6 +8,7 @@
 <script type="text/javascript" src="js/functions.js"></script>
 <script type="text/javascript" src="js/bar.js"></script>
 <script type="text/javascript" src="js/column.js"></script>
+<script type="text/javascript" src="js/line.js"></script>
 <script type="text/javascript" src="js/pie.js"></script>
 <script src="d3.v6.min.js"></script>
 <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
@@ -38,7 +39,7 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.PIVOT)">PIVOT</button> -->
     <button class="button" onclick="updateData(TypeEnum.COLUMN)">COLUMN</button>
     <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button>
-    <!-- <button class="button" onclick="updateData(TypeEnum.LINE)">LINE</button> -->
+    <button class="button" onclick="updateData(TypeEnum.LINE)">LINE</button>
     <button class="button" onclick="updateData(TypeEnum.PIE)">PIE</button>
     <!-- <button class="button" onclick="updateData(TypeEnum.HEATMAP)">HEATMAP</button> -->
     <!-- <button class="button" onclick="updateData(TypeEnum.BUBBLE)">BUBBLE</button> -->
@@ -105,6 +106,10 @@
           case TypeEnum.BAR:
             console.log("BAR");
             setBar();
+            break;
+          case TypeEnum.LINE:
+            console.log("LINE");
+            setLine();
             break;
           case TypeEnum.PIE:
             console.log("PIE");

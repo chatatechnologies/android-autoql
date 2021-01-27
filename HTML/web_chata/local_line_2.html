@@ -4,23 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="d3.v6.min.js"></script>
-<style type="text/css">
-  /* 13. Basic Styling with CSS */
-  
-  /* Style the lines by removing the fill and applying a stroke */
-  .line {
-      fill: none;
-      stroke: #f8b195;
-      stroke-width: 3;
-  }
-  
-  /* Style the dots by assigning a fill and stroke */
-  .dot {
-      fill: #355c7d;
-      stroke: #fff;
-  }
-  
-</style>
 <title></title>
 </head>
 <body>
@@ -33,13 +16,6 @@
     {name: "oct. 2019", value: 104254.00},
     {name: "nov. 2019", value: 106630.75},
   ];
-
-// Create 2 datasets
-var data1 = [
-   {ser2: 4, word: "ST"},
-   {ser2: 16, word: "ND"},
-   {ser2: 8, word: "RD"}
-];
 
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 30, left: 50},
@@ -83,8 +59,8 @@ svg.selectAll()
     .y(function(d) { return yScale(d.value); })
     //.curve(d3.curveMonotoneX)
   )
-  .attr("stroke", "red")
-  .attr("stroke-width", 2.5)
+  .attr("stroke", "#26a7df")
+  .attr("stroke-width", 1.5)
   .attr("fill", "none")
   
 </script>
