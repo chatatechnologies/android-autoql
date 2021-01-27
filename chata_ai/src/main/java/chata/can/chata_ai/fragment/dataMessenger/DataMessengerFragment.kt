@@ -335,7 +335,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		else
 		{
 			etQuery.isEnabled = true
-			View.GONE
+			View.INVISIBLE
 		}
 	}
 
