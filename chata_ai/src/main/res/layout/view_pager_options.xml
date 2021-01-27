@@ -5,6 +5,12 @@
 	android:id="@+id/rlMain"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
+	<View
+		android:id="@+id/mainBack"
+		android:background="@color/red_notification"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:visibility="gone"/>
 	<LinearLayout
 		android:background="@android:color/transparent"
 		android:clickable="true"

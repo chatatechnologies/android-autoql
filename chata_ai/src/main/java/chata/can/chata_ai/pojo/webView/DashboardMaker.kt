@@ -126,7 +126,7 @@ object DashboardMaker
 		return ""
 	}
 
-	fun getChartFooter(
+	private fun getChartFooter(
 		row: ArrayList<ArrayList<String>>,
 		aColumnQuery: List<ColumnQuery>,
 		type: List<TypeDataQuery>,

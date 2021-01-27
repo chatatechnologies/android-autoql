@@ -57,6 +57,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	constructor(context: Context, attrs: AttributeSet, defStyle: Int)
 		: super(context, attrs, defStyle) { init() }
 
+	private lateinit var mainBack: View
+
 	private lateinit var rlMain: View
 	private lateinit var llMenu: LinearLayout
 	private lateinit var vHandle: View
@@ -195,6 +197,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
 
 		view.run {
+			mainBack = findViewById(R.id.mainBack)
+
 			rlMain = findViewById(R.id.rlMain)
 			llMenu = findViewById(R.id.llMenu)
 			rlChat = findViewById(R.id.rlChat)
@@ -422,7 +426,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 			updateTitle()
 			context.run {
 				bubbleData?.let {
-					llMenu.setBackgroundColor(
+					mainBack.setBackgroundColor(
 						getParsedColor(
 							if (it.isDarkenBackgroundBehind)
 								R.color.darken_background_behind
@@ -441,6 +445,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
 		}
 
+		mainBack.visibility = iVisible
 		llMenu.visibility = iVisible
 		vHandle.visibility = iVisible
 		rlLocal.visibility = iVisible
@@ -519,7 +524,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		rlTips.setOnClickListener(this)
 		rlNotify.setOnClickListener(this)
 		ivClose.setOnClickListener(this)
-//		vHandle.setOnTouchListener(this)
+		vHandle.setOnTouchListener(this)
 	}
 
 	private fun setColors()

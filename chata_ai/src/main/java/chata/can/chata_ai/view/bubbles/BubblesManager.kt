@@ -54,10 +54,10 @@ open class BubblesManager(context: Context)
 			Context.BIND_AUTO_CREATE)
 	}
 
-	fun recycle()
-	{
-		context?.unbindService(bubbleServiceConnection)
-	}
+//	fun recycle()
+//	{
+//		context?.unbindService(bubbleServiceConnection)
+//	}
 
 	fun addBubble(bubble: BubbleLayout, x: Int, y: Int)
 	{
