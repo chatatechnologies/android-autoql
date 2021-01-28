@@ -25,7 +25,7 @@ function setBar() {
 		.attr('y', function(d) { return xScaleBand(d.name); })
 		.attr('height', xScaleBand.bandwidth())
 		.on('click', function(d) {
-			console.log('Values:' + d.value);
+			drillDown(d.value);
 		});
 
 	svg.append('g')

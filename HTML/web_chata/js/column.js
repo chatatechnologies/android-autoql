@@ -18,8 +18,8 @@ function setColumn() {
     .attr('width', x.bandwidth())
     .attr('y', function(d) { return y(d.value); })
     .attr('height', function(d) { return height - y(d.value); })
-    .on('click', function(_, item) {
-      console.log('Name: ' + item.name + ', Value: ' + item.value)
+    .on('click', function(_, d) {
+      drillDown(d.value);
     });
 
   //the X DATA for axis bar
