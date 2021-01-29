@@ -1,3 +1,10 @@
+package chata.can.chata_ai.pojo.html
+
+object Variable
+{
+	fun getVariables(): String
+	{
+		return """
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
@@ -39,3 +46,6 @@ var margin = {
 width = 960 - margin.left - margin.right,
 height = 550 - margin.top - margin.bottom,
 radius = Math.min(width, height) / 2;
+"""
+	}
+}

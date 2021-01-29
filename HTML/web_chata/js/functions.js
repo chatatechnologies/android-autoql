@@ -14,6 +14,11 @@ function angle(d) {
 	return a > 90 ? a - 180 : a;
 }
 
+function clearSvg() {
+	//remove svg
+	d3.select('svg').remove();
+}
+
 function drillDown(content) {
 	try {
 		//console.log("Contenido: " + content);
