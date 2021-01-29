@@ -9,7 +9,7 @@
 <script type="text/javascript" src="js/bar.js"></script>
 <script type="text/javascript" src="js/column.js"></script>
 <script type="text/javascript" src="js/line.js"></script>
-<script type="text/javascript" src="js/pie.js"></script>
+<script type="text/javascript" src="js/donut.js"></script>
 <script src="d3.v6.min.js"></script>
 <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
 
@@ -74,7 +74,6 @@
     var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
     var colorBi = ['#26a7df'];//Main color for bars
 
-    var scaleColorPie = d3.scaleOrdinal().range(colorPie);
     var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
     //region locale settings
@@ -113,7 +112,7 @@
             break;
           case TypeEnum.PIE:
             console.log("PIE");
-            setPie();
+            setDonut();
             break;
           default:
             console.log("default");

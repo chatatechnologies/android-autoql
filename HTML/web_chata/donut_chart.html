@@ -8,19 +8,12 @@
 </head>
 <body>
   <script>
-		var data1 = [
-      {name: 'cats', count: 3, percentage: 2, color: '#000000'},
-      {name: 'dogs', count: 10, percentage: 8, color: '#f8b70a'},
-      {name: 'horses', count: 17, percentage: 15, color: '#6149c6'},
-      {name: 'goats', count: 47, percentage: 41, color: '#9f8170'},
-      {name: 'cows', count: 35, percentage: 31, color: '#8ABD4A'},
-    ];
     var data = [
-      {name: "may. 2019", value: 100500.00, color: '#000000'},
-      {name: "ago. 2019", value: 122868.00, color: '#f8b70a'},
-      {name: "sep. 2019", value: 57326.75, color: '#6149c6'},
-      {name: "oct. 2019", value: 104254.00, color: '#9f8170'},
-      {name: "nov. 2019", value: 106630.75, color: '#8ABD4A'},
+      {name: "may. 2019", value: 100500.00},
+      {name: "ago. 2019", value: 122868.00},
+      {name: "sep. 2019", value: 57326.75},
+      {name: "oct. 2019", value: 104254.00},
+      {name: "nov. 2019", value: 106630.75},
     ];
 
 		var width = 540,
@@ -34,8 +27,8 @@
 		var pie = d3.pie()
 	    .sort(null)
 	    .value(function(d) {
-					//return d.count;
-					return d.value;
+				//return d.count;
+				return d.value;
 	    });
 
 		var svg = d3.select('body').append('svg')
@@ -47,11 +40,14 @@
 		var g = svg.selectAll('.arc')
       .data(pie(data))
 			.enter().append('g');
+
+		var colorPie = ['#6c5b7b', '#355c7d', '#c06c84', '#f67280', '#f8b195'];
+		var scaleColorPie = d3.scaleOrdinal().domain(data).range(colorPie);
 			
 		g.append('path')
     	.attr('d', arc)
       .style('fill', function(d,i) {
-      	return d.data.color;
+      	return scaleColorPie(d.value);
 			});
 			
 		g.append('text')
