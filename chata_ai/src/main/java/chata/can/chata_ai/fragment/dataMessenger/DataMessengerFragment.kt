@@ -91,10 +91,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "all sales"
 //			val queryDemo = "total hours utilization for equipment by month in 2017 for water trailer"
 //			val queryDemo = "Total revenue by ticket type for Q1 2019"
-//			val queryDemo = "Total revenue by month in 2019"
+			val queryDemo = "Total revenue by month in 2019"
 //			val queryDemo = "Total tickets by month"
 //			val queryDemo = "all ticket"
-			val queryDemo = "Total revenue this year"
+//			val queryDemo = "Total revenue this year"
 			etQuery.setText(queryDemo)
 		}
 

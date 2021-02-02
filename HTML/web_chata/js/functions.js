@@ -19,6 +19,34 @@ function clearSvg() {
 	d3.select('svg').remove();
 }
 
+function updateData(tmpChart) {
+	if (typeChart != tmpChart) {
+	  typeChart = tmpChart;
+
+	  clearSvg();
+	  switch(typeChart) {
+		case TypeEnum.COLUMN:
+		  console.log("COLUMN");
+		  setColumn();
+		  break;
+		case TypeEnum.BAR:
+		  console.log("BAR");
+		  setBar();
+		  break;
+		case TypeEnum.LINE:
+		  console.log("LINE");
+		  setLine();
+		  break;
+		case TypeEnum.PIE:
+		  console.log("PIE");
+		  setDonut();
+		  break;
+		default:
+		  console.log("default");
+	  }
+	}
+  }
+
 function drillDown(content) {
 	try {
 		//console.log("Contenido: " + content);
