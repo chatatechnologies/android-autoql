@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://d3js.org/d3.v6.js"></script>
+  <script src="https://d3js.org/d3.v4.js"></script>
   <title></title>
 </head>
 <body>
@@ -19,19 +19,28 @@
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  var data = [
-    {group: 'banana', Nitrogen: 12, normal: 1, stress: 13},
-    {group: 'poacee', Nitrogen: 6, normal: 6, stress: 33},
-    {group: 'sorgho', Nitrogen: 11, normal: 28, stress: 12},
-    {group: 'triticum', Nitrogen: 19, normal: 6, stress: 1},
+  var data1 = [
+    {group: 'banana', Nitrogen: '12', normal: '1', stress: '13'},
+    {group: 'poacee', Nitrogen: '6', normal: '6', stress: '33'},
+    {group: 'sorgho', Nitrogen: '11', normal: '28', stress: '12'},
+    {group: 'triticum', Nitrogen: '19', normal: '6', stress: '1'},
   ];
+
+  var subgroups = [];
+  data1.map(function(a) {
+    var keys1 = Object.keys(a);
+    keys1.map(function(b) {
+      if (b != "group" && subgroups.indexOf(b) === -1) {
+        subgroups.push(b);
+      }
+    });
+  });
+  console.log(subgroups);
 
   d3.csv('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_stacked.csv', function(data) {
     // List of subgroups = header of the csv files = soil condition here
     var subgroups = data.columns.slice(1);
-
     console.log(subgroups);
-    return;
     // List of groups = species here = value of the first column called group -> I show them on the X axis
     var groups = d3.map(data, function(d){return(d.group)}).keys();
     // Add X axis
