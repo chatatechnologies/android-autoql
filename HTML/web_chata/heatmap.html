@@ -44,23 +44,20 @@
   var myColor = d3.scaleLinear()
     .range(["white", '#26a7df'])
     .domain([1,100]);
-    d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv",
-      function(data) {
-        svg.selectAll()
-          .data(data1, function(d) {return d.group+':'+d.variable;})
-          .enter()
-          .append('rect')
-          .attr('x', function(d) { return x(d.group) })
-          .attr('y', function(d) { return y(d.variable) })
-          .attr('width', x.bandwidth() )
-          .attr('height', y.bandwidth() )
-          .style('fill', function(d) { return myColor(d.value)} )
-          .on('click', function(d) {
-            console.log(
-              "group: " + d.group + ", " +
-              "variable: " + d.variable + ", " +
-              "Value: " + d.value);
-          });
+  svg.selectAll()
+    .data(data1, function(d) {return d.group+':'+d.variable;})
+    .enter()
+    .append('rect')
+    .attr('x', function(d) { return x(d.group) })
+    .attr('y', function(d) { return y(d.variable) })
+    .attr('width', x.bandwidth() )
+    .attr('height', y.bandwidth() )
+    .style('fill', function(d) { return myColor(d.value)} )
+    .on('click', function(d) {
+      console.log(
+        "group: " + d.group + ", " +
+        "variable: " + d.variable + ", " +
+        "Value: " + d.value);
     });
   </script>
 </body>
