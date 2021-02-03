@@ -34,7 +34,19 @@ function setLine()
         .y(function(d) { return yScale(d.value); })
         //.curve(d3.curveMonotoneX)
       )
-      .attr("stroke", "#26a7df")
+      .attr("stroke", colorBi)
       .attr("stroke-width", 1.5)
-      .attr("fill", "none")
+      .attr("fill", "none");
+
+    svg.selectAll()
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) { return xScaleBand(d.name) })
+      .attr("cy", function(d) { return yScale(d.value) })
+      .attr("r", 4)
+      .attr("fill", colorBi)
+      .on('click', function(d) {
+        drillDown(d.value);
+      });
 }

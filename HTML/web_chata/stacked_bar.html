@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3.v6.js"></script>
   <title></title>
 </head>
 <body>
@@ -20,10 +20,10 @@
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   var data = [
-    {group: 'banana', Nitrogen: '12', normal: '1', stress: '13'},
-    {group: 'poacee', Nitrogen: '6', normal: '6', stress: '33'},
-    {group: 'sorgho', Nitrogen: '11', normal: '28', stress: '12'},
-    {group: 'triticum', Nitrogen: '19', normal: '6', stress: '1'},
+    {group: 'banana', Nitrogen: 12, normal: 1, stress: 13},
+    {group: 'poacee', Nitrogen: 6, normal: 6, stress: 33},
+    {group: 'sorgho', Nitrogen: 11, normal: 28, stress: 12},
+    {group: 'triticum', Nitrogen: 19, normal: 6, stress: 1},
   ];
 
   //region rewrite
@@ -37,7 +37,13 @@
     });
   });
   //endregion
-  var groups = d3.map(data, function(d){return(d.group)}).keys();
+  var groups = [];
+  data.map(function(item) {
+    var vGroup = item.group;
+    if (groups.indexOf(vGroup) === -1) {
+      groups.push(vGroup);
+    }
+  });
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)

@@ -26,19 +26,15 @@ function updateData(tmpChart) {
 	  clearSvg();
 	  switch(typeChart) {
 		case TypeEnum.COLUMN:
-		  console.log("COLUMN");
 		  setColumn();
 		  break;
 		case TypeEnum.BAR:
-		  console.log("BAR");
 		  setBar();
 		  break;
 		case TypeEnum.LINE:
-		  console.log("LINE");
 		  setLine();
 		  break;
 		case TypeEnum.PIE:
-		  console.log("PIE");
 		  setDonut();
 		  break;
 		default:
@@ -49,9 +45,9 @@ function updateData(tmpChart) {
 
 function drillDown(content) {
 	try {
-		//console.log("Contenido: " + content);
-		Android.drillDown(content);
+		console.log("Good content: " + content);
+		// Android.drillDown(content);
 	} catch(err) {
-		console.log("Contenido: " + content);
+		console.log("Wrong content: " + content);
 	};
 }
