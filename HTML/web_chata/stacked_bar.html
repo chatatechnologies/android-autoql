@@ -9,8 +9,8 @@
 <body>
   <script>
     var margin = {top: 10, right: 30, bottom: 20, left: 50},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 640 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
   var svg = d3.select('body')
     .append('svg')
@@ -81,7 +81,13 @@
       .attr("x", function(d) { return x(d.data.group); })
       .attr("y", function(d) { return y(d[1]); })
       .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-      .attr("width",x.bandwidth());
+      .attr("width",x.bandwidth())
+      .on('click', function(_, d) {
+            console.log(
+              "group: " + d.group + ", " +
+              "variable: " + d.variable + ", " +
+              "Value: " + d.value);
+          });
   </script>
 </body>
 </html>
