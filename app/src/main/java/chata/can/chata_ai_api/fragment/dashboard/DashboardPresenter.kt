@@ -42,7 +42,7 @@ class DashboardPresenter(
 						joCurrent.optJSONObject("data")?.let { joData ->
 							queryId = joData.optString("query_id")
 						}
-						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431"
+						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431" || referenceId == "1.1.420"
 						if (code == 400 && isSuggestion)
 						{
 							val mData = hashMapOf<String, Any>(

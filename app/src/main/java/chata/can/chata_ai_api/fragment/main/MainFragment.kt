@@ -169,6 +169,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						"fab46349-4b1b-4fe8-a38a-7df78b2b5a80"),
 						"spira-demo3"
 					) {
+						hideKeyboard()
 						bubbleHandle?.let { bubbleHandle ->
 							val bubbleData = BubbleData(
 								bubbleHandle.userDisplayName,
@@ -182,7 +183,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								bubbleHandle.visibleNotification,
 								bubbleHandle.enableVoiceRecord,
 								isDataMessenger)
-							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
+							(parentActivity as? PagerActivity)?.let {
+								it.findViewById<TextView>(R.id.etUsername)?.clearFocus()
+								it.findViewById<TextView>(R.id.etPassword)?.clearFocus()
+								it.setStatusGUI(true, bubbleData)
+							}
 						}
 					}
 				}

@@ -107,10 +107,9 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 						}
 					}
 					setStatusGUI(false)
-
-					context?.getSystemService(Activity.INPUT_METHOD_SERVICE)?.let {
-						(it as? InputMethodManager)?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-					}
+//					context?.getSystemService(Activity.INPUT_METHOD_SERVICE)?.let {
+//						(it as? InputMethodManager)?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+//					}
 				}
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
