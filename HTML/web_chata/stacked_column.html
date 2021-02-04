@@ -31,7 +31,7 @@
   data.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
-      if (b1 != "group" && subgroups.indexOf(b1) === -1) {
+      if (b1 != 'group' && subgroups.indexOf(b1) === -1) {
         subgroups.push(b1);
       }
     });
@@ -57,7 +57,7 @@
   var y = d3.scaleLinear()
     .domain([0, 60])
     .range([ height, 0 ]);
-  svg.append("g")
+  svg.append('g')
     .call(d3.axisLeft(y));
 
   // color palette = one color per subgroup
@@ -68,24 +68,24 @@
   var stackedData = d3.stack().keys(subgroups)(data);
 
   // Show the bars
-  svg.append("g")
-    .selectAll("g")
+  svg.append('g')
+    .selectAll('g')
     // Enter in the stack data = loop key per key = group per group
     .data(stackedData)
-    .enter().append("g")
-    .attr("fill", function(d) { return color(d.key); })
-    .selectAll("rect")
+    .enter().append('g')
+    .attr('fill', function(d) { return color(d.key); })
+    .selectAll('rect')
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
-    .enter().append("rect")
-      .attr("x", function(d) { return x(d.data.group); })
-      .attr("y", function(d) { return y(d[1]); })
-      .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-      .attr("width",x.bandwidth())
+    .enter().append('rect')
+      .attr('x', function(d) { return x(d.data.group); })
+      .attr('height', function(d) { return y(d[0]) - y(d[1]); })
+      .attr('y', function(d) { return y(d[1]); })
+      .attr('width', x.bandwidth())
       .on('click', function(_, d) {
         var subgroupName = d3.select(this.parentNode).datum().key;
         var subgroupValue = d.data[subgroupName];
-        console.log("group: " + subgroupName + ', value: ' + subgroupValue);
+        console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
       });
   </script>
 </body>

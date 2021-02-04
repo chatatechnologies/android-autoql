@@ -1,17 +1,17 @@
 function setBar() {
-	var xScaleBand = d3.scaleBand()
-		.range([height, 0])
-		.padding(0.1);
-	var y = d3.scaleLinear()
-		.range([0, width]);
-	
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
 		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-	xScaleBand.domain(data.map(function(d) { return d.name; }));
+	var x = d3.scaleBand()
+		.range([height, 0])
+		.padding(0.1);
+	var y = d3.scaleLinear()
+		.range([0, width]);
+
+	x.domain(data.map(function(d) { return d.name; }));
 	y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
 	svg.selectAll()
@@ -20,10 +20,10 @@ function setBar() {
 		.style('fill', function(d) {
 			return scaleColorBi(d.value);
 		})
-		.attr('x', function(d) { return xScaleBand(d.value); })
+		.attr('x', function(d) { return x(d.value); })
 		.attr('width', function(d) { return y(d.value); })
-		.attr('y', function(d) { return xScaleBand(d.name); })
-		.attr('height', xScaleBand.bandwidth())
+		.attr('y', function(d) { return x(d.name); })
+		.attr('height', x.bandwidth())
 		.on('click', function(d) {
 			drillDown(d.value);
 		});
@@ -47,7 +47,7 @@ function setBar() {
 
 	svg.append('g')
 		.call(
-			d3.axisLeft(xScaleBand))
+			d3.axisLeft(x))
 		//region set opacity for each tick item
 		.call(g => g.selectAll('.tick line')
 		.attr('opacity', 0.2))
