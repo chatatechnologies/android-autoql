@@ -63,7 +63,7 @@
   // color palette = one color per subgroup
   var color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#e41a1c','#377eb8','#4daf4a']);
+    .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
 
   var stackedData = d3.stack().keys(subgroups)(data);
 
@@ -83,11 +83,10 @@
       .attr("height", function(d) { return y(d[0]) - y(d[1]); })
       .attr("width",x.bandwidth())
       .on('click', function(_, d) {
-            console.log(
-              "group: " + d.group + ", " +
-              "variable: " + d.variable + ", " +
-              "Value: " + d.value);
-          });
+        var subgroupName = d3.select(this.parentNode).datum().key;
+        var subgroupValue = d.data[subgroupName];
+        console.log("group: " + subgroupName + ', value: ' + subgroupValue);
+      });
   </script>
 </body>
 </html>

@@ -86,7 +86,11 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-
+			when(jsonObject.optString("nameService"))
+			{
+				"validate" -> getRelatedQueries()
+				else -> {}
+			}
 		}
 	}
 

@@ -5,6 +5,12 @@ function setColumn() {
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+    var x = d3.scaleBand()
+      .range([0, width])
+      .padding(0.1);
+    var y = d3.scaleLinear()
+      .range([height, 0]);
+
     x.domain(data.map(function(d) { return d.name; }));
     y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
