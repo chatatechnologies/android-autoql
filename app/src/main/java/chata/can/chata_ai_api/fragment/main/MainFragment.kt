@@ -110,8 +110,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (BuildConfig.DEBUG)
-//		if (true)
+//		if (BuildConfig.DEBUG)
+		if (true)
 		{
 			val projectId = "spira-demo3"
 			tvProjectId?.setText(projectId)
@@ -142,8 +142,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
 			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
-			showDialog()
+//			servicePresenter.createAuthenticate()
+//			showDialog()
 		}
 		else
 		{

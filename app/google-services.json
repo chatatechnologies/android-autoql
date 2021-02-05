@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "250568886175",
+    "firebase_url": "https://chata-15166.firebaseio.com",
+    "project_id": "chata-15166",
+    "storage_bucket": "chata-15166.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250568886175:android:806f91aecee0bd44e01faa",
+        "android_client_info": {
+          "package_name": "autoql.chata.ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250568886175-k1abenhdf50vhrbk0hkd7htjsnopouun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGAnECnvb7WQF_dRQ0Glq4Wwz1I27KqKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250568886175-k1abenhdf50vhrbk0hkd7htjsnopouun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "250568886175-pg3jm308ljpg6tjt288pi4m0c128kr8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ai.chata"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250568886175:android:e03c2f4d7246b554",
+        "android_client_info": {
+          "package_name": "chata.can.chata_ai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250568886175-k1abenhdf50vhrbk0hkd7htjsnopouun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGAnECnvb7WQF_dRQ0Glq4Wwz1I27KqKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "250568886175-k1abenhdf50vhrbk0hkd7htjsnopouun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "250568886175-pg3jm308ljpg6tjt288pi4m0c128kr8e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ai.chata"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
