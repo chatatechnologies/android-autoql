@@ -68,7 +68,7 @@ object QueryRequest
 		val queryId = mData["query_id"] ?: ""
 		with(DataMessenger)
 		{
-			val wordsEncode = URLEncoder.encode(words, "UTF-8")
+			val wordsEncode = URLEncoder.encode(words, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
 				"&search=$wordsEncode&scope=narrow&query_id=$queryId"
 			mData["nameService"] = "callRelatedQueries"

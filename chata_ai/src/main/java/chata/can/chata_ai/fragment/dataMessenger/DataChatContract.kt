@@ -44,7 +44,7 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
-		val queryEncode = URLEncoder.encode(query, "UTF-8")
+		val queryEncode = URLEncoder.encode(query, "UTF-8").replace("+", " ")
 		val url = if (DataMessenger.isDemo())
 		{
 			nameService = "safetynet"

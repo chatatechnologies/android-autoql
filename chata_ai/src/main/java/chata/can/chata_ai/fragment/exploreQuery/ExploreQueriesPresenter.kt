@@ -118,7 +118,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		with(DataMessenger)
 		{
 			val header = getAuthorizationJWT()
-			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8")
+			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
 				"&search=$currentQueryEncode&page_size=$pageSize&page=$page"
 			callStringRequest(
