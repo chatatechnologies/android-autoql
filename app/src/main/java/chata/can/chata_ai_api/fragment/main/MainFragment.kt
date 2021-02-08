@@ -32,6 +32,7 @@ import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -169,6 +170,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						"fab46349-4b1b-4fe8-a38a-7df78b2b5a80"),
 						"spira-demo3"
 					) {
+						//region catch data
+						FirebaseCrashlytics.getInstance().run {
+							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
+							setCustomKey("domain_ulr", loginIsComplete)
+							setCustomKey("api_key", apiKey)
+							setCustomKey("project_id", projectId)
+							setCustomKey("user_id", userID)
+						}
+						//endregion
 						hideKeyboard()
 						bubbleHandle?.let { bubbleHandle ->
 							val bubbleData = BubbleData(
