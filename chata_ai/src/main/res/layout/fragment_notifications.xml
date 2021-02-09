@@ -21,9 +21,19 @@
 			android:gravity="center"
 			android:id="@+id/tvLoading"
 			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:layout_marginStart="16dp"
 			android:layout_width="match_parent"
 			android:text="@string/loading"
 			android:textSize="14sp"/>
+		<Button
+			android:id="@+id/btnTry"
+			android:layout_width="wrap_content"
+			android:layout_marginTop="16dp"
+			android:layout_height="wrap_content"
+			android:text="@string/try_again"
+			android:textAllCaps="false"
+			android:visibility="gone"/>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvMsg1"

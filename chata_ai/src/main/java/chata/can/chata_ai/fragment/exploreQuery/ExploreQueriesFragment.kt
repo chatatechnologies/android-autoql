@@ -23,6 +23,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import kotlin.math.abs
 import kotlin.math.log10
 
@@ -331,12 +332,15 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	private fun setRequestText()
 	{
-		val query = etQuery.text.toString()
-		if (query.isNotEmpty())
+		if (!DataMessenger.notLoginData())
 		{
-			ExploreQueriesData.lastWord = query
-			hideKeyboard()
-			presenter.validateQuery(query)
+			val query = etQuery.text.toString()
+			if (query.isNotEmpty())
+			{
+				ExploreQueriesData.lastWord = query
+				hideKeyboard()
+				presenter.validateQuery(query)
+			}
 		}
 	}
 

@@ -30,6 +30,7 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger.token
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -111,8 +112,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (BuildConfig.DEBUG)
-//		if (true)
+//		if (BuildConfig.DEBUG)
+		if (false)
 		{
 			val projectId = "spira-demo3"
 			tvProjectId?.setText(projectId)
@@ -165,10 +166,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				if (bubbleHandle == null)
 				{
 					bubbleHandle = BubbleHandle(context, Authentication(
-						"AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo",//"API_KEY",
-						"https://spira-staging.chata.io",
-						"fab46349-4b1b-4fe8-a38a-7df78b2b5a80"),
-						"spira-demo3"
+						token,//"API_KEY",
+						apiKey,
+						domainUrl),
+						projectId
 					) {
 						//region catch data
 						FirebaseCrashlytics.getInstance().run {

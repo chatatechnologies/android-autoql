@@ -227,23 +227,26 @@ class BubbleHandle(
 	 */
 	fun openChatActivity()
 	{
-		if (isNecessaryLogin && DataMessenger.token.isEmpty() && DataMessenger.JWT.isEmpty())
-		{
-			AlertDialog.Builder(context)
-				.setCancelable(false)
-				.setMessage("Enter your authentication data.")
-				.setNeutralButton("Ok", null)
-				.show()
-		}
-		else
-		{
-			if (!isOpenChat && loginIsComplete)
-			{
-				isOpenChat = true
-				isVisible = false
-				methodCanUse()
-			}
-		}
+//		if (isNecessaryLogin && DataMessenger.token.isEmpty() && DataMessenger.JWT.isEmpty())
+//		{
+//			AlertDialog.Builder(context)
+//				.setCancelable(false)
+//				.setMessage("Enter your authentication data.")
+//				.setNeutralButton("Ok", null)
+//				.show()
+//		}
+//		else
+//		{
+//			if (!isOpenChat && loginIsComplete)
+//			{
+//				isOpenChat = true
+//				isVisible = false
+//				methodCanUse()
+//			}
+//		}
+		isOpenChat = true
+		isVisible = false
+		methodCanUse()
 	}
 
 	private fun initChildView(): RelativeLayout
