@@ -305,7 +305,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun addSimpleText(message: String)
 	{
-		model.add(ChatData(TypeChatView.LEFT_VIEW, message))
+		val chatData = ChatData(TypeChatView.LEFT_VIEW, message)
+		setSession(chatData)
+		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
 	}
@@ -318,6 +320,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val simpleQuery = SimpleQuery(json)
 		simpleQuery.typeView = typeView
 		val chatData = ChatData(typeView, message, simpleQuery)
+		setSession(chatData)
 		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
@@ -326,6 +329,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 	{
 		val chatData = ChatData(typeView, "", queryBase)
+		setSession(chatData)
 		model.add(chatData)
 		chatAdapter.notifyItemChanged(model.countData() - 1)
 		scrollToPosition()
@@ -623,5 +627,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			rvChat.smoothScrollToPosition(position)
 //			rvChat.scrollToPosition(position)
 		}, 200)
+	}
+
+	private fun setSession(chatData: ChatData)
+	{
+		chatData.simpleQuery?.isSession = !DataMessenger.notLoginData()
 	}
 }
