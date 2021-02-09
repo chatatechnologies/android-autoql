@@ -37,6 +37,7 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
+import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
 
@@ -93,7 +94,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "Total revenue by ticket type for Q1 2019"
 //			val queryDemo = "revenue"
 //			val queryDemo = "Total tickets by month"
-			val queryDemo = "all ticket"
+			val queryDemo = ""
+//			val queryDemo = "all ticket"
 //			val queryDemo = "Total revenue this year"
 			etQuery.setText(queryDemo)
 		}
@@ -128,11 +130,14 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (string.isNotEmpty())
 				{
-					adapterAutoComplete.clear()
-					adapterAutoComplete.notifyDataSetChanged()
-					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
+					if (!DataMessenger.notLoginData())
 					{
-						presenter.getAutocomplete(string)
+						adapterAutoComplete.clear()
+						adapterAutoComplete.notifyDataSetChanged()
+						if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
+						{
+							presenter.getAutocomplete(string)
+						}
 					}
 					with(ivMicrophone)
 					{
@@ -472,7 +477,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (model.countData() == 0)
 			{
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				if (!DataMessenger.notLoginData())
+				{
+					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				}
 			}
 			else
 			{
@@ -509,10 +517,18 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			hideKeyboard()
 			etQuery.setText("")
-			if (SinglentonDrawer.mIsEnableQuery)
-				presenter.getSafety(query)
+
+			if (DataMessenger.notLoginData())
+			{
+				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.internal_service_error), query)
+			}
 			else
-				presenter.getQuery(query)
+			{
+				if (SinglentonDrawer.mIsEnableQuery)
+					presenter.getSafety(query)
+				else
+					presenter.getQuery(query)
+			}
 		}
 	}
 

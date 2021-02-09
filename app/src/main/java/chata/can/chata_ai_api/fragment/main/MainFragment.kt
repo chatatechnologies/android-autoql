@@ -173,7 +173,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						//region catch data
 						FirebaseCrashlytics.getInstance().run {
 							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
-							setCustomKey("domain_ulr", loginIsComplete)
+							setCustomKey("domain_ulr", domainUrl)
 							setCustomKey("api_key", apiKey)
 							setCustomKey("project_id", projectId)
 							setCustomKey("user_id", userID)

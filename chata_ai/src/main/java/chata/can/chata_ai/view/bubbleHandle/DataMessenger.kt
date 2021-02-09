@@ -46,4 +46,6 @@ object DataMessenger
 	}
 
 	fun isDemo() = !isNecessaryLogin || domainUrl.isEmpty()
+
+	fun notLoginData() = projectId != "" && apiKey != "" && domainUrl != ""
 }
