@@ -160,8 +160,8 @@ object HtmlBuilder
 				if (dataForWebView.max == -1 && dataForWebView.min == -1)
 				{
 					val tmpMin = (aInt.minOrNull() ?: 0)
-					dataForWebView.min = if (tmpMin < 0) tmpMin - 100 else 0
-					dataForWebView.max = (aInt.maxOrNull() ?: 0) + 100
+					dataForWebView.min = if (tmpMin < 0) tmpMin else 0
+					dataForWebView.max = (aInt.maxOrNull() ?: 0)
 				}
 				tmp
 			}

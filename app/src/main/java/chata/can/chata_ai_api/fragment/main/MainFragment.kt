@@ -10,10 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.extension.getContrast
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.isColor
-import chata.can.chata_ai.extension.setOnTextChanged
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.putArgs
@@ -47,18 +44,20 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private lateinit var llContainer: LinearLayout
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
-	private var tvProjectId: EditText?= null
+	private var etProjectId: EditText?= null
 	private var hUserId: TextView ?= null
-	private var tvUserId: EditText ?= null
+	private var etUserId: EditText ?= null
 	private var hApiKey: TextView ?= null
-	private var tvApiKey: EditText ?= null
+	private var etApiKey: EditText ?= null
 	private var hDomainUrl: TextView ?= null
-	private var tvDomainUrl: EditText ?= null
+	private var etDomainUrl: EditText ?= null
 	private var hUsername: TextView ?= null
-	private var tvUsername: EditText ?= null
+	private var etUsername: EditText ?= null
 	private var hPassword: TextView ?= null
-	private var tvPassword: EditText ?= null
+	private var etPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
+
+	private var aClearFocus = ArrayList<EditText>()
 
 	private var btnReloadDrawer: TextView ?= null
 	private var btnOpenDrawer: TextView ?= null
@@ -115,18 +114,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 //		if (true)
 		{
 			val projectId = "spira-demo3"
-			tvProjectId?.setText(projectId)
+			etProjectId?.setText(projectId)
 			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-			tvApiKey?.setText(apiKey)
+			etApiKey?.setText(apiKey)
 			val domainUrl = "https://spira-staging.chata.io"
-			tvDomainUrl?.setText(domainUrl)
+			etDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
-			tvUserId?.setText(userId)
+			etUserId?.setText(userId)
 			val username = "admin"
-			tvUsername?.setText(username)
+			etUsername?.setText(username)
 			val password = "admin123"
-			tvPassword?.setText(password)
-			tvPassword?.setSelection(password.length)
+			etPassword?.setText(password)
+			etPassword?.setSelection(password.length)
 
 			val customerMessage = "Carlos"
 			etCustomerMessage?.setText(customerMessage)
@@ -136,12 +135,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText("$maxMessage")
 			val languageCode = "es-MX"
 			etLanguageCode?.setText(languageCode)
-			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
-			userID = (tvUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+			DataMessenger.projectId = (etProjectId?.text ?: "").toString().trim()
+			userID = (etUserId?.text ?: "").toString().trim()
+			DataMessenger.apiKey = (etApiKey?.text ?: "").toString().trim()
+			DataMessenger.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+			DataMessenger.username = (etUsername?.text ?: "").toString().trim()
+			DataMessenger.password = (etPassword?.text ?: "").toString().trim()
 
 //			servicePresenter.createAuthenticate()
 //			showDialog()
@@ -194,8 +193,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								bubbleHandle.enableVoiceRecord,
 								isDataMessenger)
 							(parentActivity as? PagerActivity)?.let {
-								it.findViewById<TextView>(R.id.etUsername)?.clearFocus()
-								it.findViewById<TextView>(R.id.etPassword)?.clearFocus()
+								for (clearView in aClearFocus)
+								{
+									clearView.clearFocus()
+								}
 								it.setStatusGUI(true, bubbleData)
 							}
 						}
@@ -211,17 +212,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
-			tvProjectId = findViewById(R.id.etProjectId)
+			etProjectId = findViewById(R.id.etProjectId)
 			hUserId = findViewById(R.id.hUserId)
-			tvUserId = findViewById(R.id.etUserId)
+			etUserId = findViewById(R.id.etUserId)
 			hApiKey = findViewById(R.id.hApiKey)
-			tvApiKey = findViewById(R.id.etApiKey)
+			etApiKey = findViewById(R.id.etApiKey)
 			hDomainUrl = findViewById(R.id.hDomainUrl)
-			tvDomainUrl = findViewById(R.id.etDomainUrl)
+			etDomainUrl = findViewById(R.id.etDomainUrl)
 			hUsername = findViewById(R.id.hUsername)
-			tvUsername = findViewById(R.id.etUsername)
+			etUsername = findViewById(R.id.etUsername)
 			hPassword = findViewById(R.id.hPassword)
-			tvPassword = findViewById(R.id.etPassword)
+			etPassword = findViewById(R.id.etPassword)
 			btnAuthenticate = findViewById(R.id.btnAuthenticate)
 			btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
 			btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
@@ -277,6 +278,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swTabExploreQueries = findViewById(R.id.swTabExploreQueries)
 			swTabNotification = findViewById(R.id.swTabNotification)
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
+
+			arrayListOf(etProjectId, etUserId, etApiKey, etDomainUrl, etUsername, etPassword).whenAllNotNull {
+				aClearFocus.addAll(it)
+			}
 		}
 	}
 
@@ -563,12 +568,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					else
 					{
-						projectId = (tvProjectId?.text ?: "").toString().trim()
-						userID = (tvUserId?.text ?: "").toString().trim()
-						apiKey = (tvApiKey?.text ?: "").toString().trim()
-						domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-						username = (tvUsername?.text ?: "").toString().trim()
-						password = (tvPassword?.text ?: "").toString().trim()
+						projectId = (etProjectId?.text ?: "").toString().trim()
+						userID = (etUserId?.text ?: "").toString().trim()
+						apiKey = (etApiKey?.text ?: "").toString().trim()
+						domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+						username = (etUsername?.text ?: "").toString().trim()
+						password = (etPassword?.text ?: "").toString().trim()
 
 						servicePresenter.createAuthenticate()
 						showDialog()
