@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.model.BaseModelList

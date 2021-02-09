@@ -20,7 +20,6 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.currency.Currency
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai.view.bubbles.BubbleLayout
 import chata.can.chata_ai.view.bubbles.BubblesManager
 import chata.can.chata_ai.view.circle.CircleImageView
@@ -73,12 +72,6 @@ class BubbleHandle(
 			bubblesManager.initialize()
 		}
 	}
-
-	private var isNecessaryLogin = true
-		set(value) {
-			DataMessenger.isNecessaryLogin = value
-			field = value
-		}
 
 	//region properties like docs react data messenger
 	var isVisible: Boolean = true

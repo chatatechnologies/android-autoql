@@ -29,7 +29,6 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessenger.projectId
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
 import chata.can.chata_ai.view.bubbleHandle.DataMessenger.token
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
@@ -112,8 +111,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-//		if (BuildConfig.DEBUG)
-		if (false)
+		if (BuildConfig.DEBUG)
+//		if (true)
 		{
 			val projectId = "spira-demo3"
 			tvProjectId?.setText(projectId)
@@ -556,7 +555,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					{
 						DataMessenger.clearData()
 						isAuthenticate = false
-						loginIsComplete = false
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
 

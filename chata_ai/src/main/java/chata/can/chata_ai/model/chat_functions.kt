@@ -15,7 +15,7 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 		val column = jaColumns.getJSONObject(index)
 		//is login
 		val name =
-			if (!DataMessenger.isDemo()) column.optString("display_name")
+			if (!DataMessenger.notLoginData()) column.optString("display_name")
 			else column.optString("name")
 		val isGroupable = column.optBoolean("groupable", false)
 		val originalName = column.optString("name", "")

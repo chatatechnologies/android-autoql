@@ -71,6 +71,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
 	var isReleaseAutocomplete = true
+	var statusLogin = false
 
 	override fun onRenderViews(view: View)
 	{
@@ -130,7 +131,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (string.isNotEmpty())
 				{
-					if (!DataMessenger.notLoginData())
+					if (statusLogin)
 					{
 						adapterAutoComplete.clear()
 						adapterAutoComplete.notifyDataSetChanged()
@@ -218,20 +219,27 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				getString(R.string.type_queries_here)
 		}
-		if (model.countData() == 2)
+		if (statusLogin != !DataMessenger.notLoginData())
 		{
 			clearQueriesAndResponses()
 		}
 		else
 		{
-			val introMessageRes =
-				if (DataMessengerData.introMessage.isNotEmpty())
-					DataMessengerData.introMessage
-				else
-					"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
-			model[0]?.message = introMessage
-			chatAdapter.notifyItemChanged(0)
+			if (model.countData() == 2)
+			{
+				clearQueriesAndResponses()
+			}
+			else
+			{
+				val introMessageRes =
+					if (DataMessengerData.introMessage.isNotEmpty())
+						DataMessengerData.introMessage
+					else
+						"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+				model[0]?.message = introMessage
+				chatAdapter.notifyItemChanged(0)
+			}
 		}
 		setTouchListener()
 		setColors()
@@ -239,6 +247,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	fun clearQueriesAndResponses()
 	{
+		statusLogin = !DataMessenger.notLoginData()
 		model.clear()
 		val introMessageRes =
 			if (DataMessengerData.introMessage.isNotEmpty())
@@ -248,7 +257,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-		model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+		if (statusLogin)
+		{
+			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+		}
 		chatAdapter.notifyDataSetChanged()
 	}
 
@@ -477,18 +489,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				DataMessengerData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+
+			statusLogin = !DataMessenger.notLoginData()
+			model.clear()
+
 			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
-			if (model.countData() == 0)
+			model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+			if (statusLogin)
 			{
-				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-				if (!DataMessenger.notLoginData())
-				{
-					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-				}
-			}
-			else
-			{
-				model[0]?.message = introMessage
+				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 			}
 
 			val llm = LinearLayoutManager(it)
@@ -631,6 +640,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private fun setSession(chatData: ChatData)
 	{
-		chatData.simpleQuery?.isSession = !DataMessenger.notLoginData()
+		chatData.simpleQuery?.isSession = statusLogin
 	}
 }

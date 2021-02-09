@@ -18,11 +18,6 @@ object DataMessenger
 	//init
 	var token = ""
 	var JWT = ""
-	var loginIsComplete = false
-	get() {
-		return if (!field) projectId != "" && domainUrl != "" && token != "" && apiKey != "" else field
-	}
-	var isNecessaryLogin = true
 
 	fun clearData()
 	{
@@ -45,7 +40,5 @@ object DataMessenger
 		ExploreQueriesData.lastExploreQuery = null
 	}
 
-	fun isDemo() = !isNecessaryLogin || domainUrl.isEmpty()
-
-	fun notLoginData() = projectId == "" && apiKey == "" && domainUrl == ""
+	fun notLoginData() = projectId == "" || apiKey == "" || domainUrl == "" || JWT == ""
 }

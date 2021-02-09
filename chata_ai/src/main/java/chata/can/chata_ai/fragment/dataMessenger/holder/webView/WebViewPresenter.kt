@@ -17,7 +17,7 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 {
 	fun putReport(idQuery: String, message: String)
 	{
-		if (!DataMessenger.isDemo())
+		if (!DataMessenger.notLoginData())
 		{
 			val url = "${DataMessenger.domainUrl}/autoql/${api1}query/$idQuery?key=${DataMessenger.apiKey}"
 			val header= getAuthorizationJWT()

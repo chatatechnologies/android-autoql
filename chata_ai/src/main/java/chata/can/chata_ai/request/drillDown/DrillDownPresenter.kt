@@ -21,7 +21,7 @@ class DrillDownPresenter(
 		var header: HashMap<String, String> ?= null
 		val mParams = hashMapOf<String, Any>()
 
-		val url = if (DataMessenger.isDemo())
+		val url = if (DataMessenger.notLoginData())
 		{
 			val column = queryBase.aColumn[0]
 			val nameColumn = column.name
