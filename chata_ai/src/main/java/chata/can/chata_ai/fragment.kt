@@ -17,5 +17,5 @@ fun addFragment(
 	fragmentManager.beginTransaction()
 		.replace(R.id.frmLocal, fragment, nameFragment)
 		.addToBackStack(null)
-		.commit()
+		.commitAllowingStateLoss()
 }

@@ -4,15 +4,18 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.text.*
 import android.util.SparseBooleanArray
 import android.view.Gravity
 import android.view.View
+import android.view.autofill.AutofillValue
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai_api.model.DemoParameter
@@ -30,6 +33,7 @@ object CustomViews
 		isChecked = value == "true"
 		id = idView
 	}
+
 
 	fun getEditText(context: Context, demoParam: DemoParameter) =
 		context.run {
@@ -69,7 +73,9 @@ object CustomViews
 					}
 					TypeInput.PASSWORD ->
 					{
-						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+						@RequiresApi(Build.VERSION_CODES.O)
+						importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD).or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
 					}
 					else ->
 					{
