@@ -415,10 +415,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 				}
 			}
 
-//			context?.let {
-//				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-//				startAnimation(animationTop)
-//			}
+			context?.let {
+				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+				startAnimation(animationTop)
+			}
 			updateTitle()
 			context.run {
 				bubbleData?.let {

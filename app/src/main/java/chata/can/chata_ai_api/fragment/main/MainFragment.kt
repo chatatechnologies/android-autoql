@@ -565,6 +565,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 						bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
 						bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
+						for(child in aClearFocus)
+							child.setText("")
 					}
 					else
 					{
