@@ -1,6 +1,5 @@
 package chata.can.chata_ai.view
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.SystemClock
@@ -416,10 +415,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 				}
 			}
 
-			context?.let {
-				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-				startAnimation(animationTop)
-			}
+//			context?.let {
+//				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+//				startAnimation(animationTop)
+//			}
 			updateTitle()
 			context.run {
 				bubbleData?.let {
