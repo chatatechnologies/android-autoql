@@ -1,6 +1,6 @@
 package chata.can.chata_ai.request.authentication
 
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -9,7 +9,7 @@ import com.android.volley.Request
 
 object Authentication
 {
-	fun getAuthorizationJWT() = hashMapOf("Authorization" to "Bearer ${DataMessenger.JWT}")
+	fun getAuthorizationJWT() = hashMapOf("Authorization" to "Bearer ${DataMessengerRoot.JWT}")
 
 	/**
 	 * @param username for login (admin)
@@ -56,7 +56,7 @@ object Authentication
 
 	fun callRelatedQuery(listener: StatusResponse)
 	{
-		val url = "${DataMessenger.domainUrl}/autoql/${api1}query/related-queries?key=${DataMessenger.apiKey}&search=test"
+		val url = "${DataMessengerRoot.domainUrl}/autoql/${api1}query/related-queries?key=${DataMessengerRoot.apiKey}&search=test"
 		val mAuthorization = getAuthorizationJWT()
 
 		callStringRequest(
@@ -71,9 +71,9 @@ object Authentication
 	fun callTopics(listener: StatusResponse)
 	{
 		val url = "${urlChataIO}${api1}topics?" +
-			"key=${DataMessenger.apiKey}&project_id=${DataMessenger.projectId}"
+			"key=${DataMessengerRoot.apiKey}&project_id=${DataMessengerRoot.projectId}"
 		val mAuthorization = getAuthorizationJWT()
-		mAuthorization["Integrator-Domain"] = DataMessenger.domainUrl
+		mAuthorization["Integrator-Domain"] = DataMessengerRoot.domainUrl
 
 		callStringRequest(
 			Request.Method.GET,

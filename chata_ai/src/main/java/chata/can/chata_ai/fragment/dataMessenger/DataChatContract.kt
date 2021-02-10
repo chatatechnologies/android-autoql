@@ -1,6 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -16,14 +16,14 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
-		val url = if (DataMessenger.notLoginData())
+		val url = if (DataMessengerRoot.notLoginData())
 		{
 			nameService = "demoAutocomplete"
 			"$urlBase${api1}autocomplete?q=$content&projectid=1&user_id=demo&customer_id=demo"
 		}
 		else
 		{
-			with(DataMessenger)
+			with(DataMessengerRoot)
 			{
 				header = getAuthorizationJWT()
 				nameService = "autocomplete"
@@ -45,14 +45,14 @@ class DataChatContract
 		var header: HashMap<String, String> ?= null
 		val nameService: String
 		val queryEncode = URLEncoder.encode(query, "UTF-8").replace("+", " ")
-		val url = if (DataMessenger.notLoginData())
+		val url = if (DataMessengerRoot.notLoginData())
 		{
 			nameService = "safetynet"
 			"$urlBase${api1}safetynet?q=$queryEncode&projectId=1&user_id=demo&customer_id=demo"
 		}
 		else
 		{
-			with(DataMessenger)
+			with(DataMessengerRoot)
 			{
 				header = getAuthorizationJWT()
 				nameService = "validate"

@@ -4,3 +4,6 @@ class Authentication(
 	var token: String = "",
   var apiKey: String = "",
 	var domainUrl: String = "")
+{
+	fun isEmpty() = token == "" || apiKey == "" || domainUrl == ""
+}

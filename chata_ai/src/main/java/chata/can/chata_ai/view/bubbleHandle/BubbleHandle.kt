@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.Color
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
+import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
@@ -30,9 +30,9 @@ import java.io.InputStreamReader
 
 class BubbleHandle(
 	private val context: Context,
-	authentication: Authentication,
-	private val projectId: String,
-	private val methodCanUse: () -> Unit)
+	dataMessenger: DataMessenger,
+	private val methodCanUse: () -> Unit
+)
 {
 	private lateinit var bubblesManager: BubblesManager
 	private lateinit var bubbleLayout: BubbleLayout
@@ -55,12 +55,7 @@ class BubbleHandle(
 
 	init {
 		instance = this
-		authentication.run {
-			DataMessenger.projectId = projectId
-			DataMessenger.apiKey = apiKey
-			DataMessenger.domainUrl = domainUrl
-			DataMessenger.token = token
-		}
+		DataMessengerRoot.dataMessenger = dataMessenger
 		getCurrency()
 		BubblesManager.Builder(context)
 			.setInitializationCallback { initBubbleLayout() }

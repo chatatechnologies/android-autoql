@@ -1,6 +1,6 @@
 package chata.can.chata_ai.fragment.exploreQuery
 
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.explore.ExploreQuery
@@ -96,7 +96,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 
 	fun validateQuery(query: String)
 	{
-		with(DataMessenger)
+		with(DataMessengerRoot)
 		{
 			val header = getAuthorizationJWT()
 			val url = "$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
@@ -115,7 +115,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 	{
 		view.clearPage()
 		view.showGif()
-		with(DataMessenger)
+		with(DataMessengerRoot)
 		{
 			val header = getAuthorizationJWT()
 			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8").replace("+", " ")

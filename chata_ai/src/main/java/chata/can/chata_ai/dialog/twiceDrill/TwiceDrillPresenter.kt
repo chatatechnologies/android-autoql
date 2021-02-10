@@ -7,7 +7,7 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -38,7 +38,7 @@ class TwiceDrillPresenter(
 	fun getQueryDrillDown(value1: String, value2: String = "")
 	{
 		val queryId = queryBase.queryId
-		with(DataMessenger)
+		with(DataMessengerRoot)
 		{
 			val header = Authentication.getAuthorizationJWT()
 

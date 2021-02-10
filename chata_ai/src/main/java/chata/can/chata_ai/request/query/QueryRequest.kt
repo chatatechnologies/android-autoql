@@ -4,7 +4,7 @@ import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import com.android.volley.Request
 import java.net.URLEncoder
 
@@ -22,7 +22,7 @@ object QueryRequest
 			//"debug" to true,
 			"test" to true)
 
-		val url = if (DataMessenger.notLoginData())
+		val url = if (DataMessengerRoot.notLoginData())
 		{
 			mParams["source"] = "data_messenger"
 			mParams["user_id"] = "demo"
@@ -31,7 +31,7 @@ object QueryRequest
 		}
 		else
 		{
-			with(DataMessenger)
+			with(DataMessengerRoot)
 			{
 				header = getAuthorizationJWT()
 				mParams["source"] = "$source.user"
@@ -66,7 +66,7 @@ object QueryRequest
 		mData: HashMap<String, Any>)
 	{
 		val queryId = mData["query_id"] ?: ""
-		with(DataMessenger)
+		with(DataMessengerRoot)
 		{
 			val wordsEncode = URLEncoder.encode(words, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +

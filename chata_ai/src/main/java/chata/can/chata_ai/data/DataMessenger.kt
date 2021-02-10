@@ -12,7 +12,6 @@ class DataMessenger(
 	var placement: Int = ConstantDrawer.RIGHT_PLACEMENT
 )
 {
-	var methodCanUse: () -> Unit = {}
 	var enableExploreQueriesTab = true
 	var title = "Data Messenger"
 	var userDisplayName = "there"
@@ -20,8 +19,6 @@ class DataMessenger(
 	var queryQuickStartTopics = ArrayList<String>()
 	var inputPlaceholder = "Type your queries here"
 	var maskClosable = true
-	var onMaskClick: () -> Unit = {}
-	var onVisibleChange: () -> Unit = {}
 	var maxMessages = 0
 	var clearOnClose = false
 	var enableVoiceRecord = true

@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
@@ -18,15 +19,15 @@ import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.password
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.projectId
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.password
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.token
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.token
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -135,12 +136,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText("$maxMessage")
 			val languageCode = "es-MX"
 			etLanguageCode?.setText(languageCode)
-			DataMessenger.projectId = (etProjectId?.text ?: "").toString().trim()
+			DataMessengerRoot.projectId = (etProjectId?.text ?: "").toString().trim()
 			userID = (etUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (etApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (etUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (etPassword?.text ?: "").toString().trim()
+			DataMessengerRoot.apiKey = (etApiKey?.text ?: "").toString().trim()
+			DataMessengerRoot.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+			DataMessengerRoot.username = (etUsername?.text ?: "").toString().trim()
+			DataMessengerRoot.password = (etPassword?.text ?: "").toString().trim()
 
 			servicePresenter.createAuthenticate()
 			showDialog()
@@ -163,12 +164,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			parentActivity?.let { context ->
 				if (bubbleHandle == null)
 				{
-					bubbleHandle = BubbleHandle(context, Authentication(
-						token,//"API_KEY",
-						apiKey,
-						domainUrl),
-						projectId
-					) {
+					val dataMessenger = DataMessenger("#data-messenger",
+						authentication = Authentication(
+							token,
+							apiKey,
+							domainUrl
+						),
+						ConstantDrawer.RIGHT_PLACEMENT
+					)
+					bubbleHandle = BubbleHandle(context, dataMessenger) {
 						//region catch data
 						FirebaseCrashlytics.getInstance().run {
 							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
@@ -558,7 +562,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					isEnableLogin(false)
 					if (isAuthenticate)
 					{
-						DataMessenger.clearData()
+						DataMessengerRoot.clearData()
 						isAuthenticate = false
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)

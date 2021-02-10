@@ -18,7 +18,7 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 
 class NotificationFragment: BaseFragment(), NotificationContract
 {
@@ -44,7 +44,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (!DataMessenger.notLoginData())
+		if (!DataMessengerRoot.notLoginData())
 		{
 			btnTry.visibility = View.GONE
 			getNotifications()

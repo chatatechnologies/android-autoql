@@ -6,8 +6,8 @@ import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject

@@ -37,7 +37,7 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
 
@@ -218,7 +218,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				getString(R.string.type_queries_here)
 		}
-		if (statusLogin != !DataMessenger.notLoginData())
+		if (statusLogin != !DataMessengerRoot.notLoginData())
 		{
 			clearQueriesAndResponses()
 		}
@@ -246,7 +246,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	fun clearQueriesAndResponses()
 	{
-		statusLogin = !DataMessenger.notLoginData()
+		statusLogin = !DataMessengerRoot.notLoginData()
 		model.clear()
 		val introMessageRes =
 			if (DataMessengerData.introMessage.isNotEmpty())
@@ -489,7 +489,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
-			statusLogin = !DataMessenger.notLoginData()
+			statusLogin = !DataMessengerRoot.notLoginData()
 			model.clear()
 
 			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
@@ -530,7 +530,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			hideKeyboard()
 			etQuery.setText("")
 
-			if (DataMessenger.notLoginData())
+			if (DataMessengerRoot.notLoginData())
 			{
 				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.internal_service_error), query)
 			}
