@@ -3,13 +3,15 @@ package chata.can.chata_ai_api
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.text.*
+import android.text.InputFilter
+import android.text.InputType
+import android.text.Spanned
 import android.util.SparseBooleanArray
 import android.view.Gravity
 import android.view.View
-import android.view.autofill.AutofillValue
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
@@ -22,6 +24,7 @@ import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
 import java.util.regex.Pattern
+
 
 object CustomViews
 {
@@ -63,19 +66,20 @@ object CustomViews
 
 				when(demoParam.typeInput)
 				{
-					TypeInput.INTEGER ->
-					{
+					TypeInput.INTEGER -> {
 						inputType = InputType.TYPE_CLASS_NUMBER
 					}
-					TypeInput.EMAIL ->
-					{
-						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+					TypeInput.EMAIL -> {
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(
+							InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+						)
 					}
-					TypeInput.PASSWORD ->
-					{
+					TypeInput.PASSWORD -> {
 						@RequiresApi(Build.VERSION_CODES.O)
 						importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
-						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD).or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD).or(
+							InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+						)
 					}
 					else ->
 					{
@@ -89,7 +93,10 @@ object CustomViews
 	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
 		context.run {
 			TextView(context).apply {
-				setBackgroundColor(getParsedColor(R.color.colorButton))
+				background = CustomColor.getBackgroundDrawable(
+					Color.WHITE,
+					ColorDrawable(getParsedColor(R.color.colorButton)))
+
 				layoutParams = getLinearLayoutParams(-1, 90)
 				margin(20.5f, 10.5f, 20.5f, 10.5f)
 				gravity = Gravity.CENTER
@@ -143,7 +150,7 @@ object CustomViews
 							addView(
 								ImageView(context).apply {
 									layoutParams = getLinearLayoutParams(56, 56)
-									margin(28f,0f,16f,0f)
+									margin(28f, 0f, 16f, 0f)
 									setImageResource(option.idResource)
 								}
 							)
@@ -151,7 +158,8 @@ object CustomViews
 						}
 						val tv = TextView(context).apply {
 							layoutParams = getLinearLayoutParams(
-								if (option.idResource != 0) -2 else -1, -1)
+								if (option.idResource != 0) -2 else -1, -1
+							)
 							gravity = Gravity.CENTER
 							id = option.idView
 							setOnClickListener(onClickListener)
@@ -162,7 +170,7 @@ object CustomViews
 						{
 							if (option.idResource == 0)
 							{
-								tv.setPadding(32,0,32,0)
+								tv.setPadding(32, 0, 32, 0)
 							}
 							else
 							{
@@ -256,14 +264,11 @@ object CustomViews
 				val color = demoParam.colors[indexColor]
 				subView.addView(EditText(context).apply {
 					val valueColor = color.value
-					try
-					{
+					try {
 						val pColor = valueColor.getContrast()
 						setBackgroundColor(pColor.first)
 						setTextColor(pColor.second)
-					}
-					finally
-					{
+					} finally {
 						layoutParams = getLinearLayoutParams(-1, 120)
 						margin(20.5f, 10.5f, 20.5f, 10.5f)
 						gravity = Gravity.CENTER
