@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.isDate
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
@@ -46,6 +47,8 @@ object HtmlBuilder
 
 		var posColumnX = 0
 		var posColumnY = 1
+		var aDataX = ArrayList<Int>()
+		var aDataY = ArrayList<Int>()
 		var isTriConfig = false
 		//region define data with support Case
 		/**
@@ -109,16 +112,31 @@ object HtmlBuilder
 			{
 				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-				val aDollarAMT = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
-				if (aString.isNotEmpty())
+//				val aDollarAMT = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
+//				val aStringDate = SearchColumn.getCountIndices(
+//					queryBase.aColumn,
+//					arrayListOf(TypeDataQuery.STRING, TypeDataQuery.DATE))
+				/*aDollar*/
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
+				/*aDate*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))
+
+				when
 				{
-					posColumnX = if (aString.size == 2)
-						aString[1]
-					else
-						aString[0]
+					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
+					aString.isNotEmpty() ->
+					{
+						posColumnX = if (aString.size == 2)
+							aString[1]
+						else
+							aString[0]
+					}
 				}
-				if (aNumber.isNotEmpty())
-					posColumnY = aNumber[0]
+				when
+				{
+					aDataY.isNotEmpty() -> posColumnY = aDataY[0]
+					aNumber.isNotEmpty() -> posColumnY = aNumber[0]
+				}
 
 				posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
@@ -311,6 +329,27 @@ object HtmlBuilder
 			}
 			else
 			{
+				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
+				{
+					val different = ArrayList<String>()
+					val aPreSeries = ArrayList< ArrayList<String> >()
+					val tmpARows = aRows.subList(0,20)
+					for (row in tmpARows)
+					{
+						//TODO to format to DATE
+						val header = row[aDataY[0]]
+						if (header !in different)
+							different.add(header)
+
+						val aHeader = arrayListOf(header)
+						for (posX in aDataX)
+						{
+							aHeader.add(row[posX])
+						}
+						aPreSeries.add(aHeader)
+					}
+					aPreSeries.toString()
+				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
 //					DatePivot.buildDateString(aRows, aColumn)

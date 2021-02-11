@@ -62,7 +62,8 @@
         text: ''
     },
     xAxis: {
-        categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+        //categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania'],
+        categories: ['1519831470', 'America', 'Asia', 'Europe', 'Oceania'],
         title: {
             text: null
         }
@@ -91,21 +92,21 @@
     legend: false,
     credits: { enabled: false },
 		//N times on series, define value for each category
-    // series: [{
-    //     data: [107, 31, 635, 203, 2]
-    // }, {
-    //     data: [133, 156, 947, 408, 6]
-    // }, {
-    //     data: [814, 841, 3714, 727, 31]
-    // }, {
-    //     data: [1216, 1001, 4436, 738, 40]
-    // }]
-		series: 
-		[
-			{
-				data: [["1", 107], ["2", 31], ["3", 635], ["4", 203], ["5", 2]]
-			}
-		]
+    series: [{
+        data: [107, 31, 635, 203, 2]//Blue
+    }, {
+        data: [133, 156, 947, 408, 6]//Black
+    }, {
+        data: [814, 841, 3714, 727, 31]//Verde
+    }, {
+        data: [1216, 1001, 4436, 738, 40]//Orange
+    }]
+		// series: 
+		// [
+		// 	{
+		// 		data: [["1", 107], ["2", 31], ["3", 635], ["4", 203], ["5", 2]]
+		// 	}
+		// ]
 });
     </script>
 </body>
