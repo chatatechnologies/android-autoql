@@ -88,28 +88,24 @@
             }
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
-    },
+    legend: false,
     credits: { enabled: false },
-    series: [{
-        data: [107, 31, 635, 203, 2]
-    }, {
-        data: [133, 156, 947, 408, 6]
-    }, {
-        data: [814, 841, 3714, 727, 31]
-    }, {
-        data: [1216, 1001, 4436, 738, 40]
-    }]
+		//N times on series, define value for each category
+    // series: [{
+    //     data: [107, 31, 635, 203, 2]
+    // }, {
+    //     data: [133, 156, 947, 408, 6]
+    // }, {
+    //     data: [814, 841, 3714, 727, 31]
+    // }, {
+    //     data: [1216, 1001, 4436, 738, 40]
+    // }]
+		series: 
+		[
+			{
+				data: [["1", 107], ["2", 31], ["3", 635], ["4", 203], ["5", 2]]
+			}
+		]
 });
     </script>
 </body>
