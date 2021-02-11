@@ -107,8 +107,9 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_6 ->
 			{
-				val aString = SearchColumn.getCountIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
+				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
+				val aDollarAMT = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
 				if (aString.isNotEmpty())
 				{
 					posColumnX = if (aString.size == 2)
@@ -191,9 +192,9 @@ object HtmlBuilder
 			if (isTriConfig)
 			{
 				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
-				val aString = SearchColumn.getCountIndices(aColumn, TypeDataQuery.STRING, 1, 1)
-				val aDate = SearchColumn.getCountIndices(aColumn, TypeDataQuery.DATE, 1)
-				val aDateString = SearchColumn.getCountIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
+				val aString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.STRING), 1, 1)
+				val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
+				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
 				//get aDataTable and aMapPure
 				val pair = TableTriBuilder.generateDataTableTri(

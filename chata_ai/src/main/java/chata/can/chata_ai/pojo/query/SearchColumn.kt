@@ -72,8 +72,8 @@ object SearchColumn
 
 	fun getCountIndices(
 		aColumns: ArrayList<ColumnQuery>,
-		type: TypeDataQuery,
-		count: Int,
+		type: ArrayList<TypeDataQuery>,
+		count: Int = 0,
 		ignoreCount: Int = 0): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
@@ -81,10 +81,10 @@ object SearchColumn
 		{
 			if (ignoreCount > index)
 				continue
-			if (aColumns[index].type == type)
+			if (aColumns[index].type in type)
 			{
 				aIndices.add(index)
-				if (count == aIndices.size) break
+				if (count != 0 && count == aIndices.size) break
 			}
 		}
 		return aIndices
