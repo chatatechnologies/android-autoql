@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.isDate
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
@@ -331,24 +330,24 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
-					val different = ArrayList<String>()
-					val aPreSeries = ArrayList< ArrayList<String> >()
-					val tmpARows = aRows.subList(0,20)
-					for (row in tmpARows)
+					val aDifferent = ArrayList<String>()
+					val mPreSeries = LinkedHashMap<String, ArrayList<String>>()
+					for (row in aRows)
 					{
+						val posY = aDataY[0]
 						//TODO to format to DATE
-						val header = row[aDataY[0]]
-						if (header !in different)
-							different.add(header)
+						val header = row[posY]
+						if (header in aDifferent)
+							continue
+						else
+							aDifferent.add(header)
 
-						val aHeader = arrayListOf(header)
+						val aHeader = ArrayList<String>()
 						for (posX in aDataX)
-						{
 							aHeader.add(row[posX])
-						}
-						aPreSeries.add(aHeader)
+						mPreSeries["${header}_${posY}"] = aHeader
 					}
-					aPreSeries.toString()
+					aDifferent.toString()
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
