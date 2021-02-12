@@ -53,10 +53,10 @@ object ConfigActions
 	val triStackedConfig = arrayListOf(
 		R.id.ivPivot,
 		R.id.ivTable,
+		R.id.ivStackedColumn,
 		R.id.ivHeat,
 		R.id.ivBubble,
 		R.id.ivStackedBar,
-		R.id.ivStackedColumn,
 		R.id.ivStackedArea
 	)
 
