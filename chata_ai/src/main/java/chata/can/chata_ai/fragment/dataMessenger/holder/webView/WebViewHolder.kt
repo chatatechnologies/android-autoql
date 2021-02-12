@@ -141,7 +141,8 @@ class WebViewHolder(
 				}
 			}
 			queryBase?.let {
-				if (it.isGroupable && R.id.ivColumn in aConfigs)
+				if (it.isGroupable &&
+					(R.id.ivColumn in aConfigs || R.id.ivStackedColumn in aConfigs))
 				{
 					Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
 					lastId = "#container"

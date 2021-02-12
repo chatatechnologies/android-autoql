@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.isDate
 import chata.can.chata_ai.extension.nextSeries
 import chata.can.chata_ai.extension.toListInt
@@ -335,8 +336,9 @@ object HtmlBuilder
 					for (row in aRows)
 					{
 						val posY = aDataY[0]
+						val column = queryBase.aColumn[posY]
 						//TODO to format to DATE
-						val header = row[posY]
+						val header = row[posY].formatWithColumn(column)
 						if (header in aDifferent)
 							continue
 						else
@@ -347,7 +349,6 @@ object HtmlBuilder
 							aHeader.add(row[posX])
 						mPreSeries["${header}_${posY}"] = aHeader
 					}
-					aDifferent.toString()
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
