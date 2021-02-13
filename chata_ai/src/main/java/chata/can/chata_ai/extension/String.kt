@@ -31,6 +31,8 @@ fun String.toDateV2(format: String = "yyyy-MM"): String
 
 //endregion
 
+fun String.toIntNotNull() = this.toIntOrNull() ?: 0
+
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
 fun String.toDateMonthYear(format: String): String

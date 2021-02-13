@@ -36,6 +36,7 @@ object SearchColumn
 			if (aColumns[index].type == type)
 			{
 				position = index
+				break
 			}
 		}
 		return position

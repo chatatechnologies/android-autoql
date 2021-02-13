@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
+import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 import kotlin.collections.ArrayList
 
 object HtmlBuilder
@@ -24,7 +25,7 @@ object HtmlBuilder
 			}
 			else
 			{
-				val iDateString = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
+				val iDateString = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
 				if (iDateString != -1)
 				{
 					newIndex = iDateString
@@ -73,6 +74,8 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_3 ->
 			{
+				orderRowDate(queryBase)
+
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
 				posColumnX = aGroupable[1]//0
 				posColumnY = aGroupable[0]//1
