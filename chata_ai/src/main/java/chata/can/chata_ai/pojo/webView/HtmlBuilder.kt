@@ -42,6 +42,13 @@ object HtmlBuilder
 		val limitRow = queryBase.limitRowNum
 		val dataForWebView = DataForWebView()
 
+		//region Order Data
+		if (aColumn.size < 4)
+		{
+			orderRowDate(queryBase)
+		}
+		//endregion
+
 		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
@@ -74,8 +81,6 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_3 ->
 			{
-				orderRowDate(queryBase)
-
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
 				posColumnX = aGroupable[1]//0
 				posColumnY = aGroupable[0]//1

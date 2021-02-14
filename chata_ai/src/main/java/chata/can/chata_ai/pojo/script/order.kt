@@ -34,7 +34,6 @@ fun setOrderRowByDate(queryBase: QueryBase)
 				for (row in aNewRows)
 					add(row.first)
 			}
-			aRows.toString()
 		}
 	}
 }
