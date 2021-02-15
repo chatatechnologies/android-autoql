@@ -82,9 +82,10 @@ object HtmlBuilder
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
-				posColumnX = aGroupable[1]//0
-				posColumnY = aGroupable[0]//1
-				posColumnX = hasDateIndex(queryBase, posColumnX)
+				posColumnX = aGroupable[0]//[1]
+//				posColumnY = aGroupable[0]
+//				posColumnX = hasDateIndex(queryBase, posColumnX)
+				posColumnY = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				isTriConfig = true
@@ -167,11 +168,19 @@ object HtmlBuilder
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = false, allowRepeat = !isTriConfig))
 			//endregion
+			var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
 			{
+				val column = aColumn[posColumnY]
+				if (column.type == TypeDataQuery.DATE || column.type == TypeDataQuery.DATE_STRING)
+				{
+					aCatYNotFormat = buildCategoryByPosition(
+						Category(
+							aRows, column, posColumnY, false, hasQuotes = true, allowRepeat = !isTriConfig))
+				}
 				buildCategoryByPosition(
-					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !isTriConfig))
+					Category(
+						aRows, column, posColumnY, true, hasQuotes = true, allowRepeat = !isTriConfig))
 			}
 			else
 			{
@@ -222,12 +231,16 @@ object HtmlBuilder
 				val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
 				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
+				//val mXAxis = queryBase.aXAxis.map { "\"$it\"" }
+				val aCatYTmp = aCatYNotFormat ?: aCatY
+				val mTri = if (posColumnX == 0) Pair(aCatYTmp, aCatX) else Pair(aCatYTmp, aCatY)
+
 				//get aDataTable and aMapPure
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					queryBase.aXAxis.map { "\"$it\"" },
-					aCatY,
+					mTri.first,
+					mTri.second,
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
 				val aMapPure = pair.second
