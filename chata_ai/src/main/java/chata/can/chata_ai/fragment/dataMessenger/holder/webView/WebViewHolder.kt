@@ -150,7 +150,7 @@ class WebViewHolder(
 				if (R.id.ivPie in aConfigs)
 				{
 					//check rows (for pie, bar, column is series)
-					if (it.hasDrillDown && it.aRows.size > 6)
+					if (/*it.hasDrillDown && */it.aRows.size > 6)
 					{
 						aConfigs.remove(R.id.ivPie)
 					}
