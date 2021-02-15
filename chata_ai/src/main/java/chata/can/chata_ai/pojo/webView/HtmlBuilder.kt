@@ -211,9 +211,15 @@ object HtmlBuilder
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = true, allowRepeat = true)).toString()
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
+				val column = aColumn[posColumnY]
 				buildCategoryByPosition(
-					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !isTriConfig)).toString()
+					Category(
+						aRows,
+						aColumn[posColumnY],
+						posColumnY,
+						column.type != TypeDataQuery.DATE && column.type != TypeDataQuery.DATE_STRING,
+						hasQuotes = true,
+						allowRepeat = !isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.drillTableY = if (aColumn.size > posColumnY) {
