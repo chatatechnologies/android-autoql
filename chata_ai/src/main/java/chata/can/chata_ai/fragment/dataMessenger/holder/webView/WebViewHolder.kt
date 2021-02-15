@@ -289,7 +289,9 @@ class WebViewHolder(
 			}
 		}
 		ivAlert?.let { ivAlert ->
-			ivAlert.visibility = if (simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+			ivAlert.visibility = if (
+				simpleQuery.hasDrillDown &&
+				simpleQuery.limitRowNum <= simpleQuery.aRows.size)
 			{
 				ivAlert.setOnClickListener {
 					chatView?.showToast()
