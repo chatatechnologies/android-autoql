@@ -23,6 +23,6 @@ class DataForWebView(
 	var min = -1
 	var max = -1
 
-	var stackedFrom = 0
-	var stackedTo = 0
+	var stackedFrom = -1
+	var stackedTo = -1
 }

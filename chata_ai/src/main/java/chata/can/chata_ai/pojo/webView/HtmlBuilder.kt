@@ -290,8 +290,21 @@ object HtmlBuilder
 							tPivot.run {
 								if (third.isNotEmpty())
 								{
-									dataForWebView.stackedFrom = third.minOrNull() ?: 0 - 1
-									dataForWebView.stackedTo = third.maxOrNull() ?: 0 + 1
+									val first = third[0]
+									var next = first
+									if (third.size > 1)
+									{
+										val second = third[1]
+										while (next == second -1)
+										{
+											next = second
+										}
+										if (first != next)
+										{
+											dataForWebView.stackedFrom = first
+											dataForWebView.stackedTo = next
+										}
+									}
 								}
 							}
 						}
