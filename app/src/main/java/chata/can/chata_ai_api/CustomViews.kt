@@ -24,7 +24,6 @@ import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
 import java.util.regex.Pattern
 
-
 object CustomViews
 {
 	val mViews = linkedMapOf<String, SparseBooleanArray>()
@@ -35,7 +34,6 @@ object CustomViews
 		isChecked = value == "true"
 		id = idView
 	}
-
 
 	fun getEditText(context: Context, demoParam: DemoParameter) =
 		context.run {
@@ -135,14 +133,16 @@ object CustomViews
 						layoutParams =
 							if (sizeOptions > 2 || option.idResource != 0)
 							{
-								getLinearLayoutParams(0, 99).apply {
+								getLinearLayoutParams(0, -2).apply {
+									orientation = LinearLayout.HORIZONTAL
 									setGravity(Gravity.CENTER)
 									weight = 1f
 								}
 							}
 							else
 							{
-								getLinearLayoutParams(-2, 99).apply {
+								getLinearLayoutParams(-2, -2).apply {
+									orientation = LinearLayout.HORIZONTAL
 									setGravity(Gravity.CENTER)
 								}
 							}
@@ -171,13 +171,16 @@ object CustomViews
 						{
 							if (option.idResource == 0)
 							{
-								tv.setPadding(32, 0, 32, 0)
+								tv.setPadding(32, 24, 32, 24)
 							}
 							else
 							{
-								tv.margin(8f, end = 16f)
+								//tv.margin(8f, end = 16f)
 							}
 						}
+						else
+							tv.setPadding(0, 24, 0, 24)
+
 						mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
 							val newSparse = SparseBooleanArray()
 							newSparse.put(tv.id, option.isActive)
@@ -269,8 +272,9 @@ object CustomViews
 						val pColor = valueColor.getContrast()
 						setBackgroundColor(pColor.first)
 						setTextColor(pColor.second)
-					} finally {
-						layoutParams = getLinearLayoutParams(-1, 120)
+					}
+					finally {
+						layoutParams = getLinearLayoutParams(-1, -2)
 						margin(20.5f, 10.5f, 20.5f, 10.5f)
 						gravity = Gravity.CENTER
 						addColor(valueColor)
@@ -299,7 +303,7 @@ object CustomViews
 				}
 				finally
 				{
-					layoutParams = getLinearLayoutParams(-1, 120)
+					layoutParams = getLinearLayoutParams(-1, -2)
 					margin(20.5f, 10.5f, 20.5f, 10.5f)
 					gravity = Gravity.CENTER
 					id = demoParam.idView
