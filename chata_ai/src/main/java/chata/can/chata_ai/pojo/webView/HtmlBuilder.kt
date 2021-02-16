@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
+import chata.can.chata_ai.pojo.script.hasValueInColumn
 import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
@@ -120,9 +121,6 @@ object HtmlBuilder
 			{
 				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-//				val aStringDate = SearchColumn.getCountIndices(
-//					queryBase.aColumn,
-//					arrayListOf(TypeDataQuery.STRING, TypeDataQuery.DATE))
 				/*aDate*/
 				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
 				/*aDollar*/
@@ -141,8 +139,16 @@ object HtmlBuilder
 				}
 				when
 				{
-					aDataY.isNotEmpty() -> posColumnY = aDataY[0]
-					aNumber.isNotEmpty() -> posColumnY = aNumber[0]
+					aDataY.isNotEmpty() ->
+					{
+						hasValueInColumn(aRows, aDataY, 0f)
+						posColumnY = aDataY[0]
+					}
+					aNumber.isNotEmpty() ->
+					{
+						hasValueInColumn(aRows, aDataY, 0f)
+						posColumnY = aNumber[0]
+					}
 				}
 
 				//posColumnX = hasDateIndex(queryBase, posColumnX)
