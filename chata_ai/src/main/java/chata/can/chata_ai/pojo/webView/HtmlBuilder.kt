@@ -9,7 +9,6 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
-import kotlin.collections.ArrayList
 
 object HtmlBuilder
 {
@@ -121,14 +120,13 @@ object HtmlBuilder
 			{
 				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-//				val aDollarAMT = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
 //				val aStringDate = SearchColumn.getCountIndices(
 //					queryBase.aColumn,
 //					arrayListOf(TypeDataQuery.STRING, TypeDataQuery.DATE))
-				/*aDollar*/
-				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
 				/*aDate*/
-				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
+				/*aDollar*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
 
 				when
 				{
@@ -147,7 +145,7 @@ object HtmlBuilder
 					aNumber.isNotEmpty() -> posColumnY = aNumber[0]
 				}
 
-				posColumnX = hasDateIndex(queryBase, posColumnX)
+				//posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 				queryBase.configActions = 4
 			}

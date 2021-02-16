@@ -5,7 +5,6 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import java.util.*
-import kotlin.collections.ArrayList
 
 fun setOrderRowByDate(queryBase: QueryBase)
 {

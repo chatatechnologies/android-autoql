@@ -7,7 +7,6 @@ import chata.can.chata_ai.extension.toDateMonthYear
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 object DatePivot
