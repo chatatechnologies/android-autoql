@@ -209,8 +209,10 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	 * Build.VERSION_CODES.M is 23
 	 * M is for Marshmallow!
 	 */
-	@RequiresApi(api = Build.VERSION_CODES.M)
-	private fun canDrawOverlays() = Settings.canDrawOverlays(this)
+	private fun canDrawOverlays() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+	{
+		Settings.canDrawOverlays(this)
+	} else false
 
 	var isVisibleTabLayout: Boolean = true
 	set(value) {

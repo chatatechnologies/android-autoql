@@ -17,7 +17,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai_api.model.DemoParameter
@@ -75,8 +74,10 @@ object CustomViews
 						)
 					}
 					TypeInput.PASSWORD -> {
-						@RequiresApi(Build.VERSION_CODES.O)
-						importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+						{
+							importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+						}
 						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD).or(
 							InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
 						)
