@@ -8,7 +8,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
-import chata.can.chata_ai.pojo.script.hasValueInColumn
+import chata.can.chata_ai.pojo.script.hasNotValueInColumn
 import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
@@ -141,13 +141,11 @@ object HtmlBuilder
 				{
 					aDataY.isNotEmpty() ->
 					{
-						hasValueInColumn(aRows, aDataY, 0f)
-						posColumnY = aDataY[0]
+						posColumnY = hasNotValueInColumn(aRows, aDataY, 0f)
 					}
 					aNumber.isNotEmpty() ->
 					{
-						hasValueInColumn(aRows, aDataY, 0f)
-						posColumnY = aNumber[0]
+						posColumnY = aDataY[0]
 					}
 				}
 

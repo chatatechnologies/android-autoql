@@ -1,7 +1,7 @@
 package chata.can.chata_ai.pojo.script
 
 //fun hasValueInColumn(queryBase: QueryBase)
-fun hasValueInColumn(
+fun hasNotValueInColumn(
 	aRows: ArrayList<ArrayList<String>>,
 	aSourceIndex: ArrayList<Int>,//That should have 1 item as minimal
 	valueSearch: Float
@@ -10,7 +10,7 @@ fun hasValueInColumn(
 	var indexOut = -1
 	for (index in aSourceIndex)
 	{
-		if (index < aRows.size)
+		if (index < aRows.size && indexOut == -1)
 		{
 			for (row in aRows)
 			{
