@@ -141,7 +141,8 @@ object HtmlBuilder
 				{
 					aDataY.isNotEmpty() ->
 					{
-						posColumnY = hasNotValueInColumn(aRows, aDataY, 0f)
+						val tmp = hasNotValueInColumn(aRows, aDataY, 0f)
+						posColumnY = if (tmp == -1) aDataY[0] else tmp
 					}
 					aNumber.isNotEmpty() ->
 					{

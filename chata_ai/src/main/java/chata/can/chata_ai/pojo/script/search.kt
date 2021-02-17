@@ -10,15 +10,18 @@ fun hasNotValueInColumn(
 	var indexOut = -1
 	for (index in aSourceIndex)
 	{
-		if (index < aRows.size && indexOut == -1)
+		if (indexOut == -1)
 		{
 			for (row in aRows)
 			{
-				val value = row[index].toFloatOrNull() ?: 0f
-				if (value != valueSearch)
+				if (index < row.size)
 				{
-					indexOut = index
-					break
+					val value = row[index].toFloatOrNull() ?: 0f
+					if (value != valueSearch)
+					{
+						indexOut = index
+						break
+					}
 				}
 			}
 		}
