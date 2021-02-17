@@ -28,7 +28,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 							}
 						}
 					}
-					"heatmap" ->
+					"heatmap", "stacked_column" ->
 					{
 						val aValues = content.split("_")
 						if (aValues.isNotEmpty())
