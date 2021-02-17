@@ -42,12 +42,7 @@ object HtmlBuilder
 		val limitRow = queryBase.limitRowNum
 		val dataForWebView = DataForWebView()
 
-		//region Order Data
-		if (aColumn.size < 4)
-		{
-			orderRowDate(queryBase)
-		}
-		//endregion
+		orderRowDate(queryBase)
 
 		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first

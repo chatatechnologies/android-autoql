@@ -11,7 +11,7 @@ fun setOrderRowByDate(queryBase: QueryBase)
 	queryBase.run {
 		val aDates = ArrayList<Pair< ArrayList<String>, Date>>()
 
-		val iDate = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DATE_STRING)
+		var iDate = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DATE_STRING)
 		if (iDate != -1)
 		{
 			val calendar = GregorianCalendar()
@@ -39,6 +39,26 @@ fun setOrderRowByDate(queryBase: QueryBase)
 				clear()
 				for (row in aNewRows)
 					add(row.first)
+			}
+		}
+		else
+		{
+			iDate = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DATE)
+			if (iDate != -1)
+			{
+				val calendar = GregorianCalendar()
+				for (row in aRows)
+				{
+					val rowDate = row[iDate]
+					calendar.timeInMillis = (rowDate.toLongOrNull() ?: 0L) * 1000
+					aDates.add(Pair(row, calendar.time))
+				}
+				val aNewRows = aDates.sortedByDescending { it.second }
+				aRows.run {
+					clear()
+					for (row in aNewRows)
+						add(row.first)
+				}
 			}
 		}
 	}
