@@ -24,7 +24,6 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
-import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.R
 
 class InputOutputFragment: BaseFragment(), InputOutputContract
@@ -57,12 +56,12 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		super.onRenderViews(view)
 		activity?.let { presenter = InputOutputPresenter(it, this) }
 		initViews()
-		if (BuildConfig.DEBUG)
-		{
-//			etQuery.setText("total revenue by area 2019")
-			etQuery.setText("Total revenue by ticket type last year")
-//			etQuery.setText("Bottom two customers")
-		}
+//		if (BuildConfig.DEBUG)
+//		{
+////			etQuery.setText("total revenue by area 2019")
+//			etQuery.setText("Total revenue by ticket type last year")
+////			etQuery.setText("Bottom two customers")
+//		}
 	}
 
 	override fun initListener()

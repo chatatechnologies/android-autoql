@@ -19,10 +19,17 @@ fun setOrderRowByDate(queryBase: QueryBase)
 			{
 				val rowDate = row[iDate]
 				val aRowDate = rowDate.split("-")
-				if (rowDate.isNotEmpty())
+				if (aRowDate.isNotEmpty())
 				{
+					if (aRowDate.size == 1)
+					{
+						aRowDate.toString()
+					}
 					val year = aRowDate[0].toIntNotNull()
-					val month = aRowDate[1].toIntNotNull() - 1
+					val month =
+					if (aRowDate.size > 1)
+						aRowDate[1].toIntNotNull() - 1
+					else 1
 					calendar.set(year, month, 1, 0, 0)
 					aDates.add(Pair(row, calendar.time))
 				}

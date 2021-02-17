@@ -133,7 +133,7 @@ object CustomViews
 						layoutParams =
 							if (sizeOptions > 2 || option.idResource != 0)
 							{
-								getLinearLayoutParams(0, -2).apply {
+								getLinearLayoutParams(0, -2).apply {//FACTOR
 									orientation = LinearLayout.HORIZONTAL
 									setGravity(Gravity.CENTER)
 									weight = 1f
@@ -151,7 +151,7 @@ object CustomViews
 							addView(
 								ImageView(context).apply {
 									layoutParams = getLinearLayoutParams(56, 56)
-									margin(28f, 0f, 16f, 0f)
+									margin(16f, 0f, 16f, 0f)
 									setImageResource(option.idResource)
 								}
 							)
@@ -159,7 +159,7 @@ object CustomViews
 						}
 						val tv = TextView(context).apply {
 							layoutParams = getLinearLayoutParams(
-								if (option.idResource != 0) -2 else -1, -1
+								if (option.idResource != 0) -2 else -1, -2
 							)
 							gravity = Gravity.CENTER
 							id = option.idView
@@ -167,19 +167,11 @@ object CustomViews
 							text = option.text
 							tag = demoParam.label
 						}
-						if (sizeOptions < 3)
-						{
-							if (option.idResource == 0)
-							{
-								tv.setPadding(32, 24, 32, 24)
-							}
-							else
-							{
-								//tv.margin(8f, end = 16f)
-							}
-						}
+						val pData = if (sizeOptions < 3)
+							Pair(32, 24)
 						else
-							tv.setPadding(0, 24, 0, 24)
+							Pair(0, 24)
+						tv.setPadding(pData.first, pData.second, pData.first, pData.second)
 
 						mViews[demoParam.label]?.put(tv.id, option.isActive) ?: run {
 							val newSparse = SparseBooleanArray()
