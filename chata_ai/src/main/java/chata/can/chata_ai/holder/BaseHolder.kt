@@ -50,8 +50,8 @@ open class BaseHolder(
 				SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
-			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
-			startAnimation(animationTop)
+			//val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			//startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
 			context?.run {
@@ -69,8 +69,8 @@ open class BaseHolder(
 		ivReport?.setOnClickListener(this)
 		ivPoints?.setOnClickListener(this)
 
-		val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
-		tvContent.startAnimation(animation)
+		//val animation = AnimationUtils.loadAnimation(tvContent.context, R.anim.scale)
+		//tvContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -84,7 +84,7 @@ class WebViewHolder(
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
-			startAnimation(animationTop)
+			//startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
 			ivReport?.setColorFilter(accentColor)
@@ -104,8 +104,8 @@ class WebViewHolder(
 		rvParent?.let {
 			parent ->
 			parent.backgroundGrayWhite()
-			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
-			parent.startAnimation(animation)
+			//val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
+			//parent.startAnimation(animation)
 		}
 	}
 
