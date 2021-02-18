@@ -68,8 +68,8 @@ class QueryBuilderHolder(
 				rvExplore?.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 				ivBackExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)
 
-				//val animation = AnimationUtils.loadAnimation(this, R.anim.scale)
-				//startAnimation(animation)
+				val animation = AnimationUtils.loadAnimation(this, R.anim.scale)
+				startAnimation(animation)
 			}
 		}
 	}

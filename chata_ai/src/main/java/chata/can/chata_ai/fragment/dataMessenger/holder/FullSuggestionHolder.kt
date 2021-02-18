@@ -39,8 +39,8 @@ class FullSuggestionHolder(
 			val queryDrawable = DrawableBuilder.setGradientDrawable(ThemeColor.currentColor.pDrawerAccentColor,18f)
 			background = queryDrawable
 
-			//val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
-			//startAnimation(animationTop)
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
 		}
 
 		val textColor = ThemeColor.currentColor.pDrawerTextColorPrimary
@@ -57,7 +57,7 @@ class FullSuggestionHolder(
 		}
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
-		//llContent.startAnimation(animation)
+		llContent.startAnimation(animation)
 
 		stvContent.setWindowManager(ScreenData.windowManager)
 	}

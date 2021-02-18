@@ -48,8 +48,8 @@ class SuggestionHolder(
 			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 			background = queryDrawable
 
-			//val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
-			//startAnimation(animationTop)
+			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
+			startAnimation(animationTop)
 		}
 
 		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
@@ -60,7 +60,7 @@ class SuggestionHolder(
 		ivReport?.setOnClickListener(this)
 
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
-		//llContent.startAnimation(animation)
+		llContent.startAnimation(animation)
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
