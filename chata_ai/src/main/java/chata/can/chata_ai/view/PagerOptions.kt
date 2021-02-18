@@ -378,46 +378,46 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		this.isVisible = isVisible
 		val iVisible = if (isVisible)
 		{
-			bubbleData?.let { bubble ->
-				if (bubble.isDataMessenger)
-				{
-					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-						if (it is DataMessengerFragment)
-						{
-							if (rlSelected?.id == R.id.rlChat)
-							{
-								bubbleData?.let { bubble ->
-									val argument = Bundle().apply {
-										putString("CUSTOMER_NAME", bubble.customerName)
-										putString("TITLE", bubble.title)
-										putString("INTRO_MESSAGE", bubble.introMessage)
-										putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-										putInt("MAX_MESSAGES", bubble.maxMessage)
-										putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-										putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-									}
-									setColors()
-									it.updateData(argument)
-								}
-							}
-							else
-							{
-								openChat()
-							}
-						}
-					} ?: run {
-						openChat()
-					}
-				}
-				else
-				{
-					openTips()
-				}
-			}
+//			bubbleData?.let { bubble ->
+//				if (bubble.isDataMessenger)
+//				{
+//					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+//						if (it is DataMessengerFragment)
+//						{
+//							if (rlSelected?.id == R.id.rlChat)
+//							{
+//								bubbleData?.let { bubble ->
+//									val argument = Bundle().apply {
+//										putString("CUSTOMER_NAME", bubble.customerName)
+//										putString("TITLE", bubble.title)
+//										putString("INTRO_MESSAGE", bubble.introMessage)
+//										putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+//										putInt("MAX_MESSAGES", bubble.maxMessage)
+//										putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+//										putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+//									}
+//									setColors()
+//									it.updateData(argument)
+//								}
+//							}
+//							else
+//							{
+//								openChat()
+//							}
+//						}
+//					} ?: run {
+//						openChat()
+//					}
+//				}
+//				else
+//				{
+//					openTips()
+//				}
+//			}
 
 			context?.let {
-				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-				startAnimation(animationTop)
+				//val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+				//startAnimation(animationTop)
 			}
 			updateTitle()
 			context.run {
