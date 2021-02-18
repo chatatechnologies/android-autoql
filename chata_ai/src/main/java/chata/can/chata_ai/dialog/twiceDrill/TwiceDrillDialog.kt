@@ -39,6 +39,7 @@ class TwiceDrillDialog(
 	private lateinit var rlHide: View
 	private lateinit var ivHide: ImageView
 	private lateinit var ivLoad2: View
+	private lateinit var rlDrillDown2: View
 	private lateinit var wbDrillDown1 : WebView
 	private lateinit var wbDrillDown2 : WebView
 
@@ -64,6 +65,7 @@ class TwiceDrillDialog(
 		rlHide = findViewById(R.id.rlHide)
 		ivHide = findViewById(R.id.ivHide)
 		ivLoad2 = findViewById(R.id.ivLoad2)
+		rlDrillDown2 = findViewById(R.id.rlDrillDown2)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
 		wbDrillDown2 = findViewById(R.id.wbDrillDown2)
 	}
@@ -112,6 +114,7 @@ class TwiceDrillDialog(
 		}
 	}
 
+	var isCenter = true
 	override fun onClick(view: View?)
 	{
 		view?.let {
@@ -120,11 +123,34 @@ class TwiceDrillDialog(
 				R.id.ivCancel -> dismiss()
 				R.id.ivHide ->
 				{
-					val set = ConstraintSet()
-					set.clone(layout)
-					set.connect(rlHide.id, ConstraintSet.TOP, guide.id, ConstraintSet.TOP)
-					set.connect(rlHide.id, ConstraintSet.BOTTOM, guide1.id, ConstraintSet.BOTTOM)
-					set.applyTo(layout)
+					val pIds = if (isCenter)
+					{
+						isCenter = false
+						val pCenter = Pair(ConstraintSet.PARENT_ID, guideHide.id)
+						val pBottom = Pair(guideHide.id, guide1.id)
+						Pair(pCenter, pBottom)
+					}
+					else
+					{
+						isCenter = true
+						val pCenter = Pair(guide.id, guide1.id)
+						val pBottom = Pair(guide1.id, ConstraintSet.PARENT_ID)
+						Pair(pCenter, pBottom)
+					}
+					ConstraintSet().run {
+						clone(layout)
+						val pCenter = pIds.first
+						val pBottom = pIds.second
+						connect(rlHide.id, ConstraintSet.TOP, pCenter.first, ConstraintSet.TOP)
+						connect(rlHide.id, ConstraintSet.BOTTOM, pCenter.second, ConstraintSet.BOTTOM)
+
+						connect(rlDrillDown2.id, ConstraintSet.TOP, pBottom.first, ConstraintSet.TOP)
+						connect(rlDrillDown2.id, ConstraintSet.BOTTOM, pBottom.second, ConstraintSet.BOTTOM)
+						applyTo(layout)
+					}
+					//region new code
+
+					//endregion
 				}
 			}
 		}
