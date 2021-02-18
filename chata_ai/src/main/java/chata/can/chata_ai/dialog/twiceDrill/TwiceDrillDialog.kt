@@ -36,6 +36,7 @@ class TwiceDrillDialog(
 	private lateinit var guide1: Guideline
 	private lateinit var guideHide: Guideline
 	private lateinit var ivLoad1: View
+	private lateinit var rlHide: View
 	private lateinit var ivHide: ImageView
 	private lateinit var ivLoad2: View
 	private lateinit var wbDrillDown1 : WebView
@@ -60,6 +61,7 @@ class TwiceDrillDialog(
 		guide1 = findViewById(R.id.guide1)
 		guideHide = findViewById(R.id.guideHide)
 		ivLoad1 = findViewById(R.id.ivLoad1)
+		rlHide = findViewById(R.id.rlHide)
 		ivHide = findViewById(R.id.ivHide)
 		ivLoad2 = findViewById(R.id.ivLoad2)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
@@ -120,7 +122,8 @@ class TwiceDrillDialog(
 				{
 					val set = ConstraintSet()
 					set.clone(layout)
-					set.connect(ivHide.id, ConstraintSet.START, guideHide.id, ConstraintSet.END)
+					set.connect(rlHide.id, ConstraintSet.TOP, guide.id, ConstraintSet.TOP)
+					set.connect(rlHide.id, ConstraintSet.BOTTOM, guide1.id, ConstraintSet.BOTTOM)
 					set.applyTo(layout)
 				}
 			}
