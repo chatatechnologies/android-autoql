@@ -10,6 +10,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Guideline
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
@@ -22,13 +25,18 @@ class TwiceDrillDialog(
 	private val queryBase: QueryBase,
 	private var value1: String,
 	private var value2: String = ""
-): BaseDialog(context, R.layout.dialog_twice_drill_down), DrillDownContract
+): BaseDialog(context, R.layout.dialog_twice_drill_down), View.OnClickListener, DrillDownContract
 {
 	private lateinit var rlParent: View
 	private lateinit var ivCancel: ImageView
 	private lateinit var tvTitle: TextView
 	private lateinit var vBorder: View
+	private lateinit var layout: ConstraintLayout
+	private lateinit var guide: Guideline
+	private lateinit var guide1: Guideline
+	private lateinit var guideHide: Guideline
 	private lateinit var ivLoad1: View
+	private lateinit var ivHide: ImageView
 	private lateinit var ivLoad2: View
 	private lateinit var wbDrillDown1 : WebView
 	private lateinit var wbDrillDown2 : WebView
@@ -47,7 +55,12 @@ class TwiceDrillDialog(
 		ivCancel = findViewById(R.id.ivCancel)
 		tvTitle = findViewById(R.id.tvTitle)
 		vBorder = findViewById(R.id.vBorder)
+		layout = findViewById(R.id.layout)
+		guide = findViewById(R.id.guide)
+		guide1 = findViewById(R.id.guide1)
+		guideHide = findViewById(R.id.guideHide)
 		ivLoad1 = findViewById(R.id.ivLoad1)
+		ivHide = findViewById(R.id.ivHide)
 		ivLoad2 = findViewById(R.id.ivLoad2)
 		wbDrillDown1 = findViewById(R.id.wbDrillDown1)
 		wbDrillDown2 = findViewById(R.id.wbDrillDown2)
@@ -97,11 +110,27 @@ class TwiceDrillDialog(
 		}
 	}
 
+	override fun onClick(view: View?)
+	{
+		view?.let {
+			when(it.id)
+			{
+				R.id.ivCancel -> dismiss()
+				R.id.ivHide ->
+				{
+					val set = ConstraintSet()
+					set.clone(layout)
+					set.connect(ivHide.id, ConstraintSet.START, guideHide.id, ConstraintSet.END)
+					set.applyTo(layout)
+				}
+			}
+		}
+	}
+
 	private fun setData()
 	{
-		ivCancel.setOnClickListener {
-			dismiss()
-		}
+		ivCancel.setOnClickListener(this)
+		ivHide.setOnClickListener(this)
 
 		tvTitle.text = queryBase.query
 		ivCancel.setColorFilter(
