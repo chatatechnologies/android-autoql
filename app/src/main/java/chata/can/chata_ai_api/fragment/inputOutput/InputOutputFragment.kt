@@ -59,7 +59,8 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		initViews()
 		if (BuildConfig.DEBUG)
 		{
-			etQuery.setText("Total revenue this year")
+			etQuery.setText("")
+//			etQuery.setText("Total revenue this year")
 		}
 	}
 
@@ -120,6 +121,12 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 					setAdapter(adapterAutoComplete)
 					setTextColor(pDrawerTextColorPrimary)
 					setHintTextColor(pDrawerHoverColor)
+
+					setDropDownBackgroundDrawable(DrawableBuilder.setGradientDrawable(
+						pDrawerBackgroundColor,
+						64f,
+						1,
+						pDrawerTextColorPrimary))
 
 					val displayMetrics = DisplayMetrics()
 					ScreenData.defaultDisplay.getMetrics(displayMetrics)
