@@ -2,10 +2,8 @@ package chata.can.chata_ai.view
 
 import android.content.Context
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -20,7 +18,6 @@ import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.extension.whenAllNotNull
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
@@ -40,13 +37,10 @@ import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent1
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent2
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent3
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent4
-import chata.can.chata_ai.view.resize.SplitViewConst
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.math.max
-import kotlin.math.min
 
-class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, StatusResponse
+class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View.OnTouchListener
 {
 	constructor(context: Context): super(context) { init() }
 
@@ -55,11 +49,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	constructor(context: Context, attrs: AttributeSet, defStyle: Int)
 		: super(context, attrs, defStyle) { init() }
 
-	private lateinit var mainBack: View
-
-	private lateinit var rlMain: View
 	private lateinit var llMenu: LinearLayout
-	private lateinit var vHandle: View
 	private lateinit var rlChat: View
 	private lateinit var ivChat: ImageView
 	private lateinit var rlTips: View
@@ -79,12 +69,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 	var bubbleData: BubbleData?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
 
-	private var mDraggingStarted = 0L
-	private var mDragStartX = 0f
-	private var mDragStartY = 0f
-	private var mPointerOffset = 0f
-	private var limitPrimary = 48f
-	private var limitSecondary = 432f
 	var isVisible = false
 
 	override fun onClick(view: View?)
@@ -105,9 +89,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 						}
 					}
 					setStatusGUI(false)
-//					context?.getSystemService(Activity.INPUT_METHOD_SERVICE)?.let {
-//						(it as? InputMethodManager)?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-//					}
 				}
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
@@ -137,44 +118,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		}
 	}
 
-	override fun onTouch(view: View?, motionEvent: MotionEvent): Boolean
-	{
-		view?.let {
-			if (it != vHandle) return false
-		}
-		when(motionEvent.action)
-		{
-			MotionEvent.ACTION_DOWN ->
-			{
-				mDraggingStarted = SystemClock.elapsedRealtime()
-				mDragStartX = motionEvent.x
-				mDragStartY = motionEvent.y
-				mPointerOffset = motionEvent.rawX - getPrimaryContentSize()
-			}
-			MotionEvent.ACTION_UP ->
-			{
-				if (
-					mDragStartX < (motionEvent.x + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-					mDragStartX > (motionEvent.x - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-					mDragStartY < (motionEvent.y + SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-					mDragStartY > (motionEvent.y - SplitViewConst.TAP_DRIFT_TOLERANCE) &&
-					((SystemClock.elapsedRealtime() - mDraggingStarted) < SplitViewConst.SINGLE_TAP_MAX_TIME)
-				)
-				{
-					if (isPrimaryContentMaximized() || isSecondaryContentMaximized())
-						setPrimaryContentSize(getPrimaryContentSize())
-					else
-						maximizeSecondaryContent()
-				}
-			}
-			MotionEvent.ACTION_MOVE ->
-			{
-				setPrimaryContentWidth((motionEvent.rawX - mPointerOffset).toInt())
-			}
-		}
-		return true
-	}
-
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {}
@@ -194,12 +137,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
 
 		view.run {
-			mainBack = findViewById(R.id.mainBack)
-
-			rlMain = findViewById(R.id.rlMain)
 			llMenu = findViewById(R.id.llMenu)
 			rlChat = findViewById(R.id.rlChat)
-			vHandle = findViewById(R.id.vHandle)
 			ivChat = findViewById(R.id.ivChat)
 			rlTips = findViewById(R.id.rlTips)
 			ivTips = findViewById(R.id.ivTips)
@@ -252,25 +191,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 					}
 				}
 				//endregion
-				//region vHandle
-				vHandle.layoutParams = (vHandle.layoutParams as? LayoutParams)?.apply {
-					height = -1
-					width = dpToPx(12f)
-					if (placement == ConstantDrawer.LEFT_PLACEMENT)
-					{
-						if (placement == ConstantDrawer.LEFT_PLACEMENT)
-						{
-							removeRules(alignOf1)
-							addRule(START_OF, R.id.llMenu)
-						}
-						else
-						{
-							removeRules(alignOf2)
-							addRule(END_OF, R.id.llMenu)
-						}
-					}
-				}
-				//endregion
 				//region little views
 				(ivChat.layoutParams as? LayoutParams)?.run {
 					height = dpToPx(56f)
@@ -319,22 +239,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 					{
 						removeRules(alignParent4)
 						addRule(ALIGN_PARENT_BOTTOM, TRUE)
-					}
-				}
-				//endregion
-				//region vHandle
-				vHandle.layoutParams = (vHandle.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(12f)
-					width = -1
-					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
-					{
-						removeRules(alignOf3)
-						addRule(BELOW, R.id.llMenu)
-					}
-					else
-					{
-						removeRules(alignOf4)
-						addRule(ABOVE, R.id.llMenu)
 					}
 				}
 				//endregion
@@ -420,18 +324,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 				startAnimation(animationTop)
 			}
 			updateTitle()
-			context.run {
-				bubbleData?.let {
-					mainBack.setBackgroundColor(
-						getParsedColor(
-							if (it.isDarkenBackgroundBehind)
-								R.color.darken_background_behind
-							else
-								R.color.transparent
-						)
-					)
-				}
-			}
 			View.VISIBLE
 		}
 		else View.GONE
@@ -441,9 +333,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
 		}
 
-		mainBack.visibility = iVisible
 		llMenu.visibility = iVisible
-		vHandle.visibility = iVisible
 		rlLocal.visibility = iVisible
 	}
 
@@ -577,54 +467,5 @@ class PagerOptions: RelativeLayout, View.OnClickListener, View.OnTouchListener, 
 				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 			}
 		}
-	}
-
-	private fun getPrimaryContentSize() = llMenu.measuredWidth
-
-	private fun isPrimaryContentMaximized() =
-		(rlLocal.measuredWidth < SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP)
-
-	private fun isSecondaryContentMaximized() =
-		(llMenu.measuredWidth < SplitViewConst.MAXIMIZED_VIEW_TOLERANCE_DIP)
-
-	private fun setPrimaryContentSize(newSize: Int): Boolean
-	{
-		return setPrimaryContentWidth(newSize)
-	}
-
-	private fun maximizeSecondaryContent()
-	{
-		arrayListOf(rlLocal, llMenu).whenAllNotNull {
-			maximizeContentPane(it[0], it[1])
-		}
-	}
-
-	private fun maximizeContentPane(toMaximize: View, toUnMaximize: View)
-	{
-		val params = toUnMaximize.layoutParams as RelativeLayout.LayoutParams
-		val secondParams = toMaximize.layoutParams as RelativeLayout.LayoutParams
-
-		params.width = 1
-
-		toUnMaximize.layoutParams = params
-		toMaximize.layoutParams = secondParams
-	}
-
-	private fun setPrimaryContentWidth(newWidth: Int): Boolean
-	{
-		var newWidth1 = max(0, newWidth)
-		newWidth1 = min(newWidth1, rlMain.measuredWidth - vHandle.measuredWidth)
-		val params = llMenu.layoutParams as RelativeLayout.LayoutParams
-		if (rlLocal.measuredWidth < 1 && newWidth1 > params.width) return false
-
-		if (newWidth1 >= 0 && newWidth1 > dpToPx(limitPrimary) && newWidth1 < limitSecondary)
-		{
-			val leftMargin = newWidth1 - llMenu.measuredWidth
-			params.leftMargin = if (leftMargin < 6) 0 else leftMargin
-		}
-		//TODO make method
-		//unMinimizeSecondaryContent()
-		llMenu.layoutParams = params
-		return true
 	}
 }
