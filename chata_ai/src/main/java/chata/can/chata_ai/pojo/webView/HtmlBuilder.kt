@@ -1,9 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.extension.isDate
-import chata.can.chata_ai.extension.nextSeries
-import chata.can.chata_ai.extension.toListInt
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -369,24 +366,29 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
-					val aDifferent = ArrayList<String>()
-					val mPreSeries = LinkedHashMap<String, ArrayList<String>>()
-					for (row in aRows)
+					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
+					val indexX = aDataX[0]
+					val mData = ArrayList< LinkedHashMap<String, Double>>()
+					for (iItem in aDataY)
 					{
-						val posY = aDataY[0]
-						val column = queryBase.aColumn[posY]
-						//TODO to format to DATE
-						val header = row[posY].formatWithColumn(column)
-						if (header in aDifferent)
-							continue
-						else
-							aDifferent.add(header)
+						val mRow = LinkedHashMap<String, Double>()
 
-						val aHeader = ArrayList<String>()
-						for (posX in aDataX)
-							aHeader.add(row[posX])
-						mPreSeries["${header}_${posY}"] = aHeader
+						for (row in aRows)
+						{
+							val key = row[indexX]
+							if (key !in aCategoriesX) aCategoriesX.add(key)
+							val value = row[iItem].toDoubleNotNull()
+							mRow[key]?.run {
+								mRow[key] = this + value
+							} ?: run {
+								mRow[key] = value
+							}
+						}
+						mData.add(mRow)
 					}
+					//aCategoriesX.map { it.formatWithColumn(aColumn[posColumnX]) }
+					aCategoriesX.toString()
+					mData.toString()
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
