@@ -368,7 +368,7 @@ object HtmlBuilder
 				{
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]
-					val mData = ArrayList< LinkedHashMap<String, Double>>()
+					val aData = ArrayList< LinkedHashMap<String, Double>>()
 					for (iItem in aDataY)
 					{
 						val mRow = LinkedHashMap<String, Double>()
@@ -384,11 +384,38 @@ object HtmlBuilder
 								mRow[key] = value
 							}
 						}
-						mData.add(mRow)
+						aData.add(mRow)
 					}
-					//aCategoriesX.map { it.formatWithColumn(aColumn[posColumnX]) }
-					aCategoriesX.toString()
-					mData.toString()
+					//Map for data
+					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+//					for (index in aCategoriesX.size - 1 downTo 0)
+//					{
+//						val key = aCategoriesX[index]
+//						println(key)
+//						mDataOrder[key]?.run {
+//
+//						} ?: run {
+//
+//						}
+//					}
+					val column = queryBase.aColumn[aDataY[0]]
+					for (mChild in aData)
+					{
+						for ((key, value) in mChild)
+						{
+							val sValue = value.toString().formatWithColumn(column)
+							mDataOrder[key]?.run {
+								this.add(sValue)
+							} ?: run {
+								mDataOrder[key] = arrayListOf(sValue)
+							}
+						}
+					}
+
+					dataForWebView.catX = aCategoriesX.map {
+						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
+					}.toString()
+					aData.toString()
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
