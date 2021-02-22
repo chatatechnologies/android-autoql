@@ -54,7 +54,7 @@ object QueryRequest
 			Request.Method.POST,
 			url,
 			typeJSON,
-			headers = header,
+			//headers = header,
 			//parametersAny = mParams,
 			//infoHolder = infoHolder,
 			listener = listener)
