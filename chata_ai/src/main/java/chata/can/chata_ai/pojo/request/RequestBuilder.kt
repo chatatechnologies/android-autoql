@@ -11,7 +11,6 @@ import java.net.UnknownHostException
 
 object RequestBuilder
 {
-
 	fun initVolleyRequest(context: Context)
 	{
 		requestQueue = Volley.newRequestQueue(context)

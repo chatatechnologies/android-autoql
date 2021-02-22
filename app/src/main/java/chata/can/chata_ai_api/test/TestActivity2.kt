@@ -26,13 +26,5 @@ class TestActivity2: BaseActivity(R.layout.test_activity_2)
 //				"UTF-8",
 //				null)
 //		}
-
-		ExampleRequest.callRequestSimple(
-			this,
-			typeJSON,
-			//headers = header,
-			//parametersAny = mParams,
-			//infoHolder = infoHolder
-		)
 	}
 }

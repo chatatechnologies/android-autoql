@@ -22,6 +22,7 @@ import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai_api.R
+import chata.can.request_native.ExampleRequest
 import com.google.android.material.tabs.TabLayout
 import org.json.JSONObject
 
@@ -199,6 +200,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		adapter = SlidePagerAdapter(supportFragmentManager, 1)
 		viewPager.adapter = adapter
 		RequestBuilder.initVolleyRequest(this)
+		ExampleRequest.initVolleyRequest(this)
 	}
 
 	/**
