@@ -35,7 +35,7 @@ class ChatServicePresenter(
 
 	private fun getQuery(query: String, mInfoHolder: HashMap<String, Any>)
 	{
-		//isLoading(true)
+		isLoading(true)
 		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
 	}
 

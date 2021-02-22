@@ -18,6 +18,7 @@
 		tools:targetApi="m">
 
 		<activity
+			android:hardwareAccelerated="false"
 			android:name=".main.PagerActivity"
 			android:configChanges="orientation|screenSize">
 			<intent-filter>
