@@ -55,8 +55,8 @@ object QueryRequest
 			url,
 			typeJSON,
 			headers = header,
-			parametersAny = mParams,
-			infoHolder = infoHolder,
+			//parametersAny = mParams,
+			//infoHolder = infoHolder,
 			listener = listener)
 	}
 

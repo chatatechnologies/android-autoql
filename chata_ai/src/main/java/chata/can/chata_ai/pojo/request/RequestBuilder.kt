@@ -3,7 +3,6 @@ package chata.can.chata_ai.pojo.request
 import android.content.Context
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -51,7 +50,6 @@ object RequestBuilder
 		val stringRequest = object: StringRequest(
 			methodRequest,
 			urlRequest,
-			Response.Listener
 			{
 				requestQueue?.cancelAll(urlRequest)
 
@@ -89,7 +87,6 @@ object RequestBuilder
 					}
 				}
 			},
-			Response.ErrorListener
 			{
 				requestQueue?.cancelAll(urlRequest)
 				val json = JSONObject()
