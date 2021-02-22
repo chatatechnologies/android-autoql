@@ -39,8 +39,6 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.view.typing.TypingAutoComplete
-import chata.can.request_native.ExampleRequest
-import com.android.volley.Request
 import org.json.JSONObject
 
 class DataMessengerFragment: BaseFragment(), ChatContract.View
@@ -179,14 +177,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				hideKeyboard()
 				isReleaseAutocomplete = true
 				etQuery.setText("")
-				ExampleRequest.callStringRequest(
-					Request.Method.POST,
-					"https://spira-staging.chata.io/autoql/api/v1/query?key=AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-					//headers = header,
-					//parametersAny = mParams,
-					//infoHolder = infoHolder,
-				)
-//				presenter.getQuery(query)
+				presenter.getQuery(query)
 			}
 		}
 

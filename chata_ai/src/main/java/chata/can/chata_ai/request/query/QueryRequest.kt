@@ -5,7 +5,6 @@ import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
-import chata.can.request_native.ExampleRequest
 import com.android.volley.Request
 import java.net.URLEncoder
 
@@ -51,22 +50,14 @@ object QueryRequest
 			}
 		}
 
-//		callStringRequest(
-//			Request.Method.POST,
-//			url,
-//			typeJSON,
-//			//headers = header,
-//			//parametersAny = mParams,
-//			//infoHolder = infoHolder,
-//			listener = listener)
-
-		ExampleRequest.callStringRequest(
+		callStringRequest(
 			Request.Method.POST,
-			url
-			//headers = header,
-			//parametersAny = mParams,
-			//infoHolder = infoHolder,
-				)
+			url,
+			typeJSON,
+			headers = header,
+			parametersAny = mParams,
+			infoHolder = infoHolder,
+			listener = listener)
 	}
 
 	fun callRelatedQueries(
