@@ -428,7 +428,21 @@ object HtmlBuilder
 					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
 						it.joinToString(prefix = "{data: [", postfix = "]}")
 					}
-
+					//region data drillDown
+					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+					for (mChild in aGroupedData)
+					{
+						for ((key, value) in mChild)
+						{
+							mDrillDown[key]?.run {
+								this.add(value)
+							} ?: run {
+								mDrillDown[key] = arrayListOf(value)
+							}
+						}
+					}
+					mDrillDown.toString()
+					//endregion
 					dataForWebView.catX = aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()

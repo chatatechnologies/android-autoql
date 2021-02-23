@@ -677,12 +677,13 @@ function biType(type,inverted) {
             backgroundColor: colorGhost,
             style: styleTooltip,
             formatter: function () {
+                var colorIndex = this.colorIndex;
                 var x = this.point.x;
-                var prefix = "";
+                var suffix = "";
                 if (! (dataChartBi[0] instanceof Array)) {
-                    prefix = x + "_"
+                    suffix = "_" + colorIndex;
                 }
-                drillDown(prefix + drillX[x])
+                drillDown(drillX[x] + suffix);
                 return "";
             }
         }
