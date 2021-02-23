@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 import android.app.Activity
 import android.content.Context
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -66,6 +67,21 @@ class JavaScriptInterface(
 									}
 								}
 								newContent = buildContent.toString().removeSuffix("_")
+							}
+						}
+					}
+				}
+				else ->
+				{
+					content.split("_").run {
+						if (this.size > 1)
+						{
+							val date = this[0]
+							val index = this[1].toIntNotNull()
+							queryBase.mDrillDown?.let { mDrillDown ->
+								mDrillDown[date]?.let {
+									val values = it[index]
+								}
 							}
 						}
 					}

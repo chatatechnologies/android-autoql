@@ -441,7 +441,8 @@ object HtmlBuilder
 							}
 						}
 					}
-					mDrillDown.toString()
+					queryBase.mDrillDown = mDrillDown
+					queryBase.hasDrillDown = queryBase.mDrillDown != null
 					//endregion
 					dataForWebView.catX = aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
