@@ -388,28 +388,30 @@ object HtmlBuilder
 					}
 					//Map for data
 					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
-//					for (index in aCategoriesX.size - 1 downTo 0)
-//					{
-//						val key = aCategoriesX[index]
-//						println(key)
-//						mDataOrder[key]?.run {
-//
-//						} ?: run {
-//
-//						}
-//					}
 					val column = queryBase.aColumn[aDataY[0]]
 					for (mChild in aData)
 					{
 						for ((key, value) in mChild)
 						{
-							val sValue = value.toString().formatWithColumn(column)
+							val sValue = value.toString()
 							mDataOrder[key]?.run {
 								this.add(sValue)
 							} ?: run {
 								mDataOrder[key] = arrayListOf(sValue)
 							}
 						}
+					}
+
+					val aDataOrder = ArrayList<ArrayList<String>>()
+					for (index in 0 until aDataY.size)
+					{
+						val aItem = ArrayList<String>()
+						for ((_, value) in mDataOrder)
+						{
+							val vString = value[index]
+							aItem.add(vString)
+						}
+						aDataOrder.add(aItem)
 					}
 
 					dataForWebView.catX = aCategoriesX.map {
