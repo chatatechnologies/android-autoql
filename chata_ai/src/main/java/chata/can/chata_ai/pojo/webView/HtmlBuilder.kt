@@ -372,7 +372,6 @@ object HtmlBuilder
 					for (iItem in aDataY)
 					{
 						val mRow = LinkedHashMap<String, Double>()
-
 						for (row in aRows)
 						{
 							val key = row[indexX]
@@ -388,8 +387,14 @@ object HtmlBuilder
 					}
 					//Map for data
 					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+					var max = 0
+					var min = 0
 					for (mChild in aData)
 					{
+						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMax > max) max = tmpMax
+						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMin < min) min = tmpMin
 						for ((key, value) in mChild)
 						{
 							val sValue = value.toString()
@@ -400,7 +405,8 @@ object HtmlBuilder
 							}
 						}
 					}
-
+					dataForWebView.min = if (min < 0) min else 0
+					dataForWebView.max = max
 					val aDataOrder = ArrayList<ArrayList<String>>()
 					for (index in 0 until aDataY.size)
 					{
