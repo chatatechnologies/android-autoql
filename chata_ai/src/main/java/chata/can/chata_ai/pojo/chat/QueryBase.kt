@@ -186,6 +186,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
+					if (displayType == "stacked_bar")
+					{
+						toString()
+					}
 				}
 
 				when(aColumn.size)
@@ -200,6 +204,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					else -> {}
 				}
 				dataForWebView.isColumn = isGroupable
+				dataForWebView.isDashboard = isDashboard
 				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot

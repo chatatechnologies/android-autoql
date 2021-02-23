@@ -484,7 +484,12 @@ function biType(type,inverted) {
             backgroundColor: colorGhost,
             style: styleTooltip,
             formatter: function () {
-                drillDown(drillX[this.point.x])
+                var x = this.point.x;
+                var prefix = "";
+                if (! (dataChartBi[0] instanceof Array)) {
+                    prefix = x + "_"
+                }
+                drillDown(prefix + drillX[x])
                 return "";
             }
         }

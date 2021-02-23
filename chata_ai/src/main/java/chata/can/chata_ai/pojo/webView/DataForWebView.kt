@@ -25,4 +25,6 @@ class DataForWebView(
 
 	var stackedFrom = -1
 	var stackedTo = -1
+
+	var isDashboard = false
 }

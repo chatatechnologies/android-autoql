@@ -180,7 +180,8 @@ object DashboardMaker
 		}
 
 		val typeChart =
-			if (dataForWebView.isColumn) if (isBi) "column" else "stacked_column"
+			if (dataForWebView.isColumn && !dataForWebView.isDashboard)
+				if (isBi) "column" else "stacked_column"
 			else
 				when(dataForWebView.type)
 				{
@@ -675,7 +676,12 @@ function biType(type,inverted) {
             backgroundColor: colorGhost,
             style: styleTooltip,
             formatter: function () {
-                drillDown(drillX[this.point.x])
+                var x = this.point.x;
+                var prefix = "";
+                if (! (dataChartBi[0] instanceof Array)) {
+                    prefix = x + "_"
+                }
+                drillDown(prefix + drillX[x])
                 return "";
             }
         }
