@@ -186,10 +186,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
-					if (displayType == "stacked_bar")
-					{
-						toString()
-					}
 				}
 
 				when(aColumn.size)

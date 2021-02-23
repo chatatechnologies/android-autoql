@@ -189,7 +189,7 @@ class TwiceDrillDialog(
 									presenter.getQueryDrillDown(value1)
 								}
 							}
-							"heatmap" ->
+							"heatmap", "stacked_bar", "stacked_column" ->
 							{
 								val aValues = content.split("_")
 								if (aValues.isNotEmpty())
