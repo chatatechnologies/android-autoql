@@ -186,6 +186,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
+					if (dataForWebView.type  == "line")
+					{
+						toString()
+					}
 				}
 
 				when(aColumn.size)

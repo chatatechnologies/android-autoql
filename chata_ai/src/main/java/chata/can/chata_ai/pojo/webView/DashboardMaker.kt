@@ -628,7 +628,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     series: dataChartLine,
                     tooltip: {
                         formatter: function () {
-                            drillDown(drillX[this.point.x])
+                            var position = categoriesY.indexOf(this.series.name);
+                            drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
                             return "";
                         }
                     },
