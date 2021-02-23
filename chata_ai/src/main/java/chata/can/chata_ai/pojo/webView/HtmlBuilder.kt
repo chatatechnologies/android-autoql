@@ -369,20 +369,25 @@ object HtmlBuilder
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]
 					val aData = ArrayList< LinkedHashMap<String, Double>>()
+					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList<String/*might transform to array list*/>>>()
 					for (iItem in aDataY)
 					{
 						val mRow = LinkedHashMap<String, Double>()
+						val mGroupedRow = LinkedHashMap<String, ArrayList<String>>()
 						for (row in aRows)
 						{
 							val key = row[indexX]
 							if (key !in aCategoriesX) aCategoriesX.add(key)
 							val value = row[iItem].toDoubleNotNull()
 							mRow[key]?.run {
+								mGroupedRow[key]?.add(row.toString())
 								mRow[key] = this + value
 							} ?: run {
+								mGroupedRow[key] = arrayListOf(row.toString())
 								mRow[key] = value
 							}
 						}
+						aGroupedData.add(mGroupedRow)
 						aData.add(mRow)
 					}
 					//Map for data
@@ -407,6 +412,7 @@ object HtmlBuilder
 					}
 					dataForWebView.min = if (min < 0) min else 0
 					dataForWebView.max = max
+					//region order data for data:
 					val aDataOrder = ArrayList<ArrayList<String>>()
 					for (index in 0 until aDataY.size)
 					{
@@ -418,7 +424,7 @@ object HtmlBuilder
 						}
 						aDataOrder.add(aItem)
 					}
-
+					//endregion
 					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
 						it.joinToString(prefix = "{data: [", postfix = "]}")
 					}
