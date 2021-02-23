@@ -388,7 +388,6 @@ object HtmlBuilder
 					}
 					//Map for data
 					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
-					val column = queryBase.aColumn[aDataY[0]]
 					for (mChild in aData)
 					{
 						for ((key, value) in mChild)
@@ -414,10 +413,13 @@ object HtmlBuilder
 						aDataOrder.add(aItem)
 					}
 
+					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
+						it.joinToString(prefix = "{data: [", postfix = "]}")
+					}
+
 					dataForWebView.catX = aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
-					aData.toString()
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
