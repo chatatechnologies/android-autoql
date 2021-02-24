@@ -32,7 +32,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 					{
 						drillForBi(content, queryBase)
 					}
-					"heatmap", "stacked_bar", "stacked_column" ->
+					"heatmap", "bubble", "stacked_bar", "stacked_column", "stacked_line" ->
 					{
 						drillForTri(content, queryBase)
 					}

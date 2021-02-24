@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -180,28 +181,53 @@ class TwiceDrillDialog(
 					queryBase.run {
 						when(displayType)
 						{
-							"bar", "column", "line", "pie" ->
+							"line" ->
 							{
-								val indexX = aXAxis.indexOf(content)
-								if (indexX != -1)
+								if (isTri)
 								{
-									value1 = aXDrillDown[indexX]
-									presenter.getQueryDrillDown(value1)
+									drillForTri(content, queryBase)
+								}
+								else
+								{
+									drillForBi(content, queryBase)
 								}
 							}
-							"heatmap", "stacked_bar", "stacked_column" ->
+							"bar", "column", "pie" ->
 							{
-								val aValues = content.split("_")
-								if (aValues.isNotEmpty())
-								{
-									val indexX = aXAxis.indexOf(aValues[0])
-									if (indexX != -1)
-									{
-										value1 = aValues[0]
-										value2 = aValues[1]
-										presenter.getQueryDrillDown(value1, value2)
-									}
-								}
+								drillForBi(content, queryBase)
+							}
+							"heatmap", "bubble", "stacked_bar", "stacked_column", "stacked_line" ->
+							{
+								drillForTri(content, queryBase)
+							}
+						}
+					}
+				}
+
+				private fun drillForBi(content: String, queryBase: QueryBase)
+				{
+					queryBase.run {
+						val indexX = aXAxis.indexOf(content)
+						if (indexX != -1)
+						{
+							value1 = aXDrillDown[indexX]
+							presenter.getQueryDrillDown(value1)
+						}
+					}
+				}
+
+				private fun drillForTri(content: String, queryBase: QueryBase)
+				{
+					queryBase.run {
+						val aValues = content.split("_")
+						if (aValues.isNotEmpty())
+						{
+							val indexX = aXAxis.indexOf(aValues[0])
+							if (indexX != -1)
+							{
+								value1 = aValues[0]
+								value2 = aValues[1]
+								presenter.getQueryDrillDown(value1, value2)
 							}
 						}
 					}
