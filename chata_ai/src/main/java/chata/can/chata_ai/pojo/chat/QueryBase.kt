@@ -27,6 +27,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var sql: String = ""
 	var queryId = ""
 	var displayType = ""
+	var showContainer = ""
 	private var interpretation = ""
 	var limitRowNum = 0
 
@@ -84,7 +85,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var rowsPivot = 0
 	lateinit var aXAxis: ArrayList<String>
 	lateinit var aXDrillDown: ArrayList<String>
-	var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList<String> > > ?= null
+	var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> > > ?= null
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null
@@ -187,10 +188,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
-					if (dataForWebView.type  == "line")
-					{
-						toString()
-					}
+//					if (dataForWebView.type  == "line")
+//					{
+//						toString()
+//					}
 				}
 
 				when(aColumn.size)

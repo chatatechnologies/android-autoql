@@ -21,6 +21,10 @@ class JavaScriptInterface(
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)
 		{
+			if (queryBase.mDrillDown != null)
+			{
+				if (queryBase.showContainer != "#container") return
+			}
 			val sizeColumn = queryBase.aColumn.size
 			var newContent = content
 			when(sizeColumn)

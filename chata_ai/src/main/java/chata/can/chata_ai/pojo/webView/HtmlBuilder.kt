@@ -369,21 +369,21 @@ object HtmlBuilder
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]
 					val aData = ArrayList< LinkedHashMap<String, Double>>()
-					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList<String/*might transform to array list*/>>>()
+					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
 					for (iItem in aDataY)
 					{
 						val mRow = LinkedHashMap<String, Double>()
-						val mGroupedRow = LinkedHashMap<String, ArrayList<String>>()
+						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
 						for (row in aRows)
 						{
 							val key = row[indexX]
 							if (key !in aCategoriesX) aCategoriesX.add(key)
 							val value = row[iItem].toDoubleNotNull()
 							mRow[key]?.run {
-								mGroupedRow[key]?.add(row.toString())
+								mGroupedRow[key]?.add(row)
 								mRow[key] = this + value
 							} ?: run {
-								mGroupedRow[key] = arrayListOf(row.toString())
+								mGroupedRow[key] = arrayListOf(row)
 								mRow[key] = value
 							}
 						}
@@ -429,7 +429,7 @@ object HtmlBuilder
 						it.joinToString(prefix = "{data: [", postfix = "]}")
 					}
 					//region data drillDown
-					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
 					for (mChild in aGroupedData)
 					{
 						for ((key, value) in mChild)

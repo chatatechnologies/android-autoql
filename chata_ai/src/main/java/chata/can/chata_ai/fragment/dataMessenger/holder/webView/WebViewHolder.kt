@@ -155,6 +155,7 @@ class WebViewHolder(
 						aConfigs.remove(R.id.ivPie)
 					}
 				}
+				it.showContainer = lastId
 			}
 			//region find the first item
 			aConfigs.firstOrNull()?.let {
@@ -404,6 +405,7 @@ class WebViewHolder(
 					else -> Pair("", factorHeight)
 				}
 				changeHeightWebView(pData.second)
+				queryBase.showContainer = lastId
 				wbQuery?.run {
 					requestLayout()
 					Handler(Looper.getMainLooper()).postDelayed({
