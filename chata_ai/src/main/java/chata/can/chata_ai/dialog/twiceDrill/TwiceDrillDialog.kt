@@ -1,7 +1,6 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +19,7 @@ import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class TwiceDrillDialog(
 	context: Context,
@@ -83,6 +83,8 @@ class TwiceDrillDialog(
 				vBorder.setBackgroundColor(pDrawerBorderColor)
 				ivLoad1.setBackgroundColor(pDrawerBackgroundColor)
 				ivLoad2.setBackgroundColor(pDrawerBackgroundColor)
+				ivHide.background =  DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor, 18f,1, pDrawerTextColorPrimary)
 			}
 		}
 	}
@@ -125,24 +127,26 @@ class TwiceDrillDialog(
 				R.id.ivCancel -> dismiss()
 				R.id.ivHide ->
 				{
-					val pIds = if (rlDrillDown1.visibility == View.VISIBLE)
+
+					val tIds = if (rlDrillDown1.visibility == View.VISIBLE)
 					{
 						rlDrillDown1.visibility = View.GONE
 						val pCenter = Pair(ConstraintSet.PARENT_ID, guideHide.id)
 						val pBottom = Pair(guideHide.id, guide1.id)
-						Pair(pCenter, pBottom)
+						Triple(pCenter, pBottom, 180f)
 					}
 					else
 					{
 						rlDrillDown1.visibility = View.VISIBLE
 						val pCenter = Pair(guide.id, guide1.id)
 						val pBottom = Pair(guide1.id, ConstraintSet.PARENT_ID)
-						Pair(pCenter, pBottom)
+						Triple(pCenter, pBottom, 0f)
 					}
+					ivHide.rotation = tIds.third
 					ConstraintSet().run {
 						clone(layout)
-						val pCenter = pIds.first
-						val pBottom = pIds.second
+						val pCenter = tIds.first
+						val pBottom = tIds.second
 						connect(rlHide.id, ConstraintSet.TOP, pCenter.first, ConstraintSet.TOP)
 						connect(rlHide.id, ConstraintSet.BOTTOM, pCenter.second, ConstraintSet.BOTTOM)
 
