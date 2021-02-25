@@ -7,6 +7,7 @@ import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 import org.json.JSONObject
 
@@ -94,11 +95,12 @@ class JavaScriptInterface(
 									val newQueryBase = QueryBase(json).apply {
 										aColumn.addAll(queryBase.aColumn)
 										aRows.addAll(values)
+										limitRowNum = values.size
 									}
-									newQueryBase.message = "Hi!"
-//									newQueryBase.resetData()
-//									chatView?.addNewChat(TypeChatView.LEFT_VIEW, newQueryBase)
-									presenter.callOut()
+									newQueryBase.resetData()
+									(context as? Activity)?.runOnUiThread {
+										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+									}
 								}
 							}
 						}
