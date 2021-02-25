@@ -7,8 +7,8 @@ import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
+import org.json.JSONObject
 
 class JavaScriptInterface(
 	private val context: Context,
@@ -40,6 +40,7 @@ class JavaScriptInterface(
 							aPositions[0].toIntOrNull()?.let {
 								val aRows = queryBase.aRows
 								newContent = aRows[it][0]
+								postDrillDown(newContent)
 							}
 						}
 					}
@@ -49,6 +50,7 @@ class JavaScriptInterface(
 						if (index != -1)
 						{
 							newContent = queryBase.aXDrillDown[index]
+							postDrillDown(newContent)
 						}
 					}
 				}
@@ -72,6 +74,7 @@ class JavaScriptInterface(
 									}
 								}
 								newContent = buildContent.toString().removeSuffix("_")
+								postDrillDown(newContent)
 							}
 						}
 					}
@@ -86,29 +89,30 @@ class JavaScriptInterface(
 							queryBase.mDrillDown?.let { mDrillDown ->
 								mDrillDown[date]?.let {
 									val values = it[index]
-									queryBase.json
-									val copyQueryBase = queryBase.copy().apply {
-										aRows.clear()
+
+									val json = JSONObject().put("query", "")
+									val newQueryBase = QueryBase(json).apply {
+										aColumn.addAll(queryBase.aColumn)
 										aRows.addAll(values)
-										resetData()
 									}
-									chatView?.addNewChat(TypeChatView.WEB_VIEW, copyQueryBase)
-									newContent = ""
+									newQueryBase.message = "Hi!"
+//									newQueryBase.resetData()
+//									chatView?.addNewChat(TypeChatView.LEFT_VIEW, newQueryBase)
+									presenter.callOut()
 								}
 							}
 						}
 					}
 				}
 			}
-
-			if (newContent.isEmpty())
-			{
-				newContent = "null"
-			}
-			(context as? Activity)?.runOnUiThread {
-				chatView?.isLoading(true)
-			}
-			presenter.postDrillDown(newContent)
 		}
+	}
+
+	private fun postDrillDown(newContent: String)
+	{
+		(context as? Activity)?.runOnUiThread {
+			chatView?.isLoading(true)
+		}
+		presenter.postDrillDown(if (newContent.isEmpty()) "null" else newContent)
 	}
 }

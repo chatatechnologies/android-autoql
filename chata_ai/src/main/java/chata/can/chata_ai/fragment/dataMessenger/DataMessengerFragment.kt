@@ -159,7 +159,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				AlertDialog.Builder(fragmentActivity)
 					.setMessage("Clear all queries & responses?")
 					.setPositiveButton("Clear") { _, _ ->
-						clearQueriesAndResponses()
+						addSimpleText("Hi!!!")
+//						clearQueriesAndResponses()
 					}
 					.setNegativeButton("Cancel", null).show()
 			}

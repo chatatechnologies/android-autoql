@@ -16,6 +16,11 @@ class DrillDownPresenter(
 	private val queryBase: QueryBase,
 	private val chatView: ChatContract.View?): StatusResponse
 {
+	fun callOut()
+	{
+		onSuccess()
+	}
+
 	fun postDrillDown(valueInRow: String = "")
 	{
 		var header: HashMap<String, String> ?= null
@@ -120,6 +125,10 @@ class DrillDownPresenter(
 				isLoading(false)
 				addNewChat(typeView, queryBase)
 			}
+		}
+		else
+		{
+			chatView?.addSimpleText("Hi!")
 		}
 	}
 }
