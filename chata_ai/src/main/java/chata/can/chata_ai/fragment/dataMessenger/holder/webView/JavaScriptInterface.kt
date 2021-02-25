@@ -95,7 +95,7 @@ class JavaScriptInterface(
 									val newQueryBase = QueryBase(json).apply {
 										aColumn.addAll(queryBase.aColumn)
 										aRows.addAll(values)
-										limitRowNum = values.size
+										limitRowNum = values.size + 1
 									}
 									newQueryBase.resetData()
 									(context as? Activity)?.runOnUiThread {

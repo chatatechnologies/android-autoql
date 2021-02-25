@@ -481,6 +481,7 @@ class WebViewHolder(
 
 			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
 			it.margin(12f, 32f, 12f, 1f)
+			chatView?.scrollToPosition()
 		}
 	}
 }

@@ -430,6 +430,21 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
+	override fun scrollToPosition()
+	{
+	//while(model.getParseCount() > DataMessengerData.maxMessages)
+		while(model.countData() > DataMessengerData.maxMessages)
+		{
+			model.removeAt(0)
+			chatAdapter.notifyItemRemoved(0)
+		}
+		Handler(Looper.getMainLooper()).postDelayed({
+			val position = model.countData() - 1
+			rvChat.smoothScrollToPosition(position)
+//			rvChat.scrollToPosition(position)
+		}, 200)
+	}
+
 	override fun showToast()
 	{
 		activity?.let {
@@ -616,21 +631,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				setOnClickListener { setRequestQuery() }
 			}
 		}
-	}
-
-	private fun scrollToPosition()
-	{
-		//while(model.getParseCount() > DataMessengerData.maxMessages)
-		while(model.countData() > DataMessengerData.maxMessages)
-		{
-			model.removeAt(0)
-			chatAdapter.notifyItemRemoved(0)
-		}
-		Handler(Looper.getMainLooper()).postDelayed({
-			val position = model.countData() - 1
-			rvChat.smoothScrollToPosition(position)
-//			rvChat.scrollToPosition(position)
-		}, 200)
 	}
 
 	private fun setSession(chatData: ChatData)
