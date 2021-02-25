@@ -215,8 +215,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			viewDrillDown?.loadDrillDown(this)
 
 			viewPresenter?.let {
-				viewPresenter?.isLoading(false)
-				viewPresenter?.addNewChat(typeView, this)
+				it.isLoading(false)
+				it.addNewChat(typeView, this)
 			} ?: run {
 				isLoadingHTML = false
 				showData()

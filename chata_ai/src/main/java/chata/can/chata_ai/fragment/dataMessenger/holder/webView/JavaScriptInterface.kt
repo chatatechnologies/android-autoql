@@ -7,6 +7,7 @@ import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 class JavaScriptInterface(
@@ -85,6 +86,14 @@ class JavaScriptInterface(
 							queryBase.mDrillDown?.let { mDrillDown ->
 								mDrillDown[date]?.let {
 									val values = it[index]
+									queryBase.json
+									val copyQueryBase = queryBase.copy().apply {
+										aRows.clear()
+										aRows.addAll(values)
+										resetData()
+									}
+									chatView?.addNewChat(TypeChatView.WEB_VIEW, copyQueryBase)
+									newContent = ""
 								}
 							}
 						}
