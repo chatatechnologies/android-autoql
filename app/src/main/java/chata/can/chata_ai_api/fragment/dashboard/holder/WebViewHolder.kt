@@ -61,7 +61,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
-		changeHeightParent(rlWebView, queryBase.rowsTable)
+		changeHeightParent(rlWebView, queryBase)
 		webView?.run {
 			clearCache(true)
 			clearHistory()
@@ -91,12 +91,23 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		}
 	}
 
-	private fun changeHeightParent(rlWebView: RelativeLayout, numRows: Int)
+	private val aChartSupport = arrayListOf(
+		"bar",
+		"line",
+		"column",
+		"pie",
+		"heatmap",
+		"bubble",
+		"stacked_column",
+		"stacked_line",
+		"stacked_bar")
+	private fun changeHeightParent(rlWebView: RelativeLayout, queryBase: QueryBase)
 	{
 		rlWebView.let {
+			val numRows = queryBase.rowsTable
 			val tmpRows = if (numRows == 0) 180 else numRows
 			var customHeight = it.dpToPx(30f * tmpRows) + 60
-			if (customHeight > 900)
+			if (customHeight > 900 || queryBase.displayType in aChartSupport)
 			{
 				customHeight = 900
 			}
