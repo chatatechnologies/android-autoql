@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/svParent"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<LinearLayout
@@ -49,14 +50,16 @@
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/rvDashboard"
 			android:layout_height="match_parent"
-			android:layout_width="match_parent"/>
+			android:layout_width="match_parent"
+			android:visibility="gone"/>
 		<TextView
 			android:gravity="center"
 			android:id="@+id/tvEmptyDashboard"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="24dp"
 			android:layout_width="match_parent"
-			android:text="@string/empty_dashboard"
-			android:visibility="gone"/>
+			android:text="@string/loading_dashboard"
+			android:visibility="visible"/>
+<!--		android:text="@string/empty_dashboard"-->
 	</LinearLayout>
 </ScrollView>

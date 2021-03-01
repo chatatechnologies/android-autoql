@@ -29,6 +29,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 	}
 
+	private lateinit var svParent: View
 	private lateinit var llOption: View
 	private lateinit var swLoad: SwitchCompat
 	private lateinit var btnExecute: TextView
@@ -46,6 +47,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun initViews(view: View)
 	{
 		view.run {
+			svParent = findViewById(R.id.svParent)
 			llOption = findViewById(R.id.llOption)
 			swLoad = findViewById(R.id.swLoad)
 			btnExecute = findViewById(R.id.btnExecute)
@@ -65,6 +67,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		ThemeColor.currentColor.run {
 			activity?.let {
+				svParent.setBackgroundColor(pDrawerColorSecondary)
 				val backgroundColor = it.getParsedColor(R.color.white)
 				val border = it.getParsedColor(R.color.border_widget_dashboard)
 				rvDashboard.setBackgroundColor(pDrawerColorSecondary)
@@ -75,6 +78,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				spDashboard.setPopupBackgroundDrawable(
 					DrawableBuilder.setGradientDrawable(
 						backgroundColor,18f, 3, border))
+				tvEmptyDashboard.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 	}
@@ -144,6 +148,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
+			rvDashboard.visibility = View.VISIBLE
 			mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
 			gridAdapter = GridAdapter(mModel, presenter)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
@@ -176,6 +181,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 							if (model.countData() == 0)
 							{
+								tvEmptyDashboard.setText(R.string.empty_dashboard)
 								tvEmptyDashboard.visibility = View.VISIBLE
 								rvDashboard.visibility = View.GONE
 							}
@@ -191,6 +197,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 			spDashboard.dropDownVerticalOffset = btnDashboard.height
 			spDashboard.dropDownWidth = btnDashboard.width
+//			hideDialog()
 		}
 	}
 
@@ -219,5 +226,15 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		isQueryClean = false
 		presenter.updateModel()
 		presenter.getDashboardQueries()
+	}
+
+	private fun showDialog()
+	{
+
+	}
+
+	private fun hideDialog()
+	{
+
 	}
 }

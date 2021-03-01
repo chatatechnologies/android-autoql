@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
@@ -158,7 +157,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		pagerOption.bubbleData = bubbleData
 		hideKeyboard()
 		pagerOption.setStatusGUI(isVisible)
-		//Toast.makeText(this, "(2) Screen is ${pagerOption.isVisible}", Toast.LENGTH_SHORT).show()
 		pagerOption.paintViews()
 	}
 
@@ -220,7 +218,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
-			adapter.numPages = 3
+//			adapter.numPages = 3
+			adapter.numPages = 2
 			View.VISIBLE
 		} else {
 			adapter.numPages = 1
