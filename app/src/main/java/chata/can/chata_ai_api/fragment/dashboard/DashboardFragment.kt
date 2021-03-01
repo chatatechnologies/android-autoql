@@ -227,14 +227,4 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		presenter.updateModel()
 		presenter.getDashboardQueries()
 	}
-
-	private fun showDialog()
-	{
-
-	}
-
-	private fun hideDialog()
-	{
-
-	}
 }
