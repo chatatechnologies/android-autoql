@@ -2,11 +2,13 @@ package chata.can.chata_ai.dialog
 
 import android.view.View
 import android.widget.PopupMenu
+import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
+import chata.can.chata_ai.pojo.SinglentonDrawer
 
 object ListPopup
 {
@@ -57,7 +59,14 @@ object ListPopup
 		chatView: ChatContract.View?)
 	{
 		val presenter = WebViewPresenter(chatView)
-		PopupMenu(view.context, view).run {
+		object: PopupMenu(view.context, view) {
+
+		}
+		val theme = if (SinglentonDrawer.themeColor == "dark")
+			R.style.popupMenuStyle2
+		else R.style.popupMenuStyle1
+		val wrapper = ContextThemeWrapper(view.context, theme)
+		PopupMenu(wrapper, view).run {
 			menu?.run {
 				add(1, R.id.iIncorrect, 1, R.string.the_data_is_incorrect)
 				add(2, R.id.iIncomplete, 2, R.string.the_data_is_incomplete)

@@ -59,7 +59,10 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
 			setColors()
-			gridAdapter.notifyDataSetChanged()
+			if (::gridAdapter.isInitialized)
+			{
+				gridAdapter.notifyDataSetChanged()
+			}
 		}
 	}
 
