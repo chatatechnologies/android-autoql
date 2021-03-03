@@ -44,6 +44,14 @@ object SinglentonDrawer
 
 	//region colors
 	var themeColor = "dark"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
+
 	val aThemeMethods = LinkedHashMap<String, () -> Unit>()
 
 	var lightThemeColor = "#26A7DF"

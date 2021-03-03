@@ -162,7 +162,6 @@ class BubbleHandle(
 		set(value) {
 			if (theme != value && value in aThemePossible)
 			{
-				SinglentonDrawer.themeColor = value
 				val themeColor = when(value)
 				{
 					"light" -> ThemeColor.lightColor
@@ -170,6 +169,7 @@ class BubbleHandle(
 					else -> ThemeColor.lightColor
 				}
 				ThemeColor.currentColor = themeColor
+				SinglentonDrawer.themeColor = value
 				field = value
 			}
 		}
