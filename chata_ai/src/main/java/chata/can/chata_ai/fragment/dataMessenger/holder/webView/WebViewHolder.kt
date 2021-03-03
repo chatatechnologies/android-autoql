@@ -194,6 +194,10 @@ class WebViewHolder(
 			configOptions(aConfigs.size)
 			ivActionHide?.setOnClickListener(this)
 		}
+		else
+		{
+			configOptions(0)
+		}
 	}
 
 	private fun configOptions(sizeConfig: Int)
