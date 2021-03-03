@@ -39,6 +39,7 @@ class BubbleLayout: BubbleBaseLayout
 	private var width1 = 0
 	private var windowManager1: WindowManager ?= null
 	private var shouldStickToWall = true
+	private var isVisible = true
 
 	private val defaultMargin = BubbleData.marginLeftDefault + BubbleData.marginRightDefault
 
@@ -90,7 +91,7 @@ class BubbleLayout: BubbleBaseLayout
 	{
 		super.onAttachedToWindow()
 		playAnimation()
-		definePositionInScreen()
+		definePositionInScreen(isVisible)
 	}
 
 	@SuppressLint("ClickableViewAccessibility")
@@ -163,9 +164,12 @@ class BubbleLayout: BubbleBaseLayout
 		}
 	}
 
-	fun definePositionInScreen(placement: Int = ConstantDrawer.RIGHT_PLACEMENT)
+	fun definePositionInScreen(
+		isVisible: Boolean,
+		placement: Int = ConstantDrawer.RIGHT_PLACEMENT)
 	{
 		updateSize()
+		this.isVisible = isVisible
 		when(placement)
 		{
 			ConstantDrawer.TOP_PLACEMENT ->
@@ -195,7 +199,7 @@ class BubbleLayout: BubbleBaseLayout
 			}
 		}
 
-		if (placementX != -1 && placementY != -1)
+		if (isVisible && placementX != -1 && placementY != -1)
 		{
 			if (visibility == View.GONE)
 			{

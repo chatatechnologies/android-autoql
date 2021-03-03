@@ -77,7 +77,7 @@ class BubbleHandle(
 				ConstantDrawer.NOT_PLACEMENT
 			if (::bubbleLayout.isInitialized)
 			{
-				bubbleLayout.definePositionInScreen(tmpPlacement)
+				bubbleLayout.definePositionInScreen(value, tmpPlacement)
 			}
 			field = value
 		}
@@ -87,7 +87,7 @@ class BubbleHandle(
 			if (placement != value && placement > 0)
 			{
 				field = value
-				bubbleLayout.definePositionInScreen(placement)
+				bubbleLayout.definePositionInScreen(isVisible, placement)
 			}
 		}
 
