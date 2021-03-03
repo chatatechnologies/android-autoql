@@ -31,6 +31,7 @@ object RequestBuilder
 		parametersAny : HashMap<String, Any> ?= null,
 		parameterArray: ArrayList<*> ?= null,
 		infoHolder: HashMap<String, Any> ?= null,
+		retryPolicy: DefaultRetryPolicy ?= null,
 		listener : StatusResponse)
 	{
 		fun addInfoHolder(json: JSONObject)
@@ -164,7 +165,7 @@ object RequestBuilder
 		}
 
 		stringRequest.tag = urlRequest
-		stringRequest.retryPolicy = DefaultRetryPolicy(
+		stringRequest.retryPolicy = retryPolicy ?: DefaultRetryPolicy(
 			10000,
 			3,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)

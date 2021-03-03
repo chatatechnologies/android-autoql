@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,6 +18,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.toString()
+		view.showNotifications(0, arrayListOf())
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -54,11 +56,16 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 	fun getNotifications(offset: Int = 0, limit: Int = 10)
 	{
 		val url = "$domainUrl/autoql/${api1}data-alerts/notifications?key=${apiKey}&offset=$offset&limit=$limit"
+		val retryPolicy = DefaultRetryPolicy(
+			DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+			0,
+			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 		callStringRequest(
 			Request.Method.GET,
 			url,
 			typeJSON,
 			headers = Authentication.getAuthorizationJWT(),
+			retryPolicy = retryPolicy,
 			listener = this)
 	}
 }
