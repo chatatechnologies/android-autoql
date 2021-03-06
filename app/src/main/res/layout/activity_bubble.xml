@@ -27,14 +27,17 @@
 	</LinearLayout>
 
 	<!-- View at the top -->
-	<FrameLayout
-		android:background="@color/transparent"
+<!--	<FrameLayout-->
+<!--		android:background="@color/transparent"-->
+<!--		android:layout_height="match_parent"-->
+<!--		android:layout_width="match_parent">-->
+<!--		<TextView-->
+<!--			android:background="@color/blue_chata_circle"-->
+<!--			android:layout_width="64dp"-->
+<!--			android:layout_height="64dp"/>-->
+<!--	</FrameLayout>-->
+	<chata.can.chata_ai_api.test.BubbleFrame
 		android:layout_height="match_parent"
-		android:layout_width="match_parent">
-		<TextView
-			android:background="@color/blue_chata_circle"
-			android:layout_width="64dp"
-			android:layout_height="64dp"/>
-	</FrameLayout>
+		android:layout_width="match_parent"/>
 
 </RelativeLayout>
