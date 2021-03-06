@@ -1,60 +1,60 @@
 package chata.can.chata_ai_api.test
 
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai_api.R
 
 class BubbleFrame: FrameLayout, View.OnTouchListener
 {
-	private var _xDelta = 0
-	private var _yDelta = 0
-//	private var lastTouchDown = 0L
+	private var initialX = 0f
+	private var initialY = 0f
+	private var _xDelta = 0f
+	private var _yDelta = 0f
+	private val touchTimeThreshold = 200
+	private var lastTouchDown = 0L
 
 	override fun onTouch(view: View, event: MotionEvent): Boolean
 	{
-		val x = event.x.toInt()
-		val y = event.y.toInt()
-
-		viewChild?.run {
-			val rect = Rect()
-			getLocalVisibleRect(rect)
-			println("Left ${rect.left}")//
-			println("Top ${rect.top}")//
-//			println("Right ${rect.right}")
-//			println("Bottom ${rect.bottom}")
-		}
-
 		when(event.action)
 		{
 			MotionEvent.ACTION_DOWN ->
 			{
-				(view.layoutParams as? FrameLayout.LayoutParams)?.run {
-					_xDelta = x - leftMargin
-					_yDelta = y - topMargin
-				}
+				lastTouchDown = System.currentTimeMillis()
+				initialX = view.x
+				initialY = view.y
+				_xDelta = view.x - event.rawX
+				_yDelta = view.y - event.rawY
 			}
 			MotionEvent.ACTION_MOVE ->
 			{
-				(view.layoutParams as? FrameLayout.LayoutParams)?.run {
-					leftMargin = x - _xDelta
-					topMargin = y - _yDelta
-					view.layoutParams = this
-				}
+				view.animateChild(event.rawX + _xDelta, event.rawY + _yDelta)
 			}
 			MotionEvent.ACTION_UP ->
 			{
-				//Read click
+				if (System.currentTimeMillis() - lastTouchDown < touchTimeThreshold)
+				{
+					view.animateChild(initialX, initialY)
+					Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show()
+				}
 			}
 		}
-		invalidate()
 		return true
+	}
+
+	private fun View.animateChild(valX: Float, valY: Float)
+	{
+		animate()
+			.x(valX)
+			.y(valY)
+			.setDuration(0)
+			.start()
 	}
 
 	private fun init()
