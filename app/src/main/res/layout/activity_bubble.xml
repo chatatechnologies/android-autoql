@@ -37,6 +37,7 @@
 <!--			android:layout_height="64dp"/>-->
 <!--	</FrameLayout>-->
 	<chata.can.chata_ai_api.test.BubbleFrame
+		android:id="@+id/bubbleFrame"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
 

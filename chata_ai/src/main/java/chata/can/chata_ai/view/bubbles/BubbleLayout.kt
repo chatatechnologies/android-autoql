@@ -213,6 +213,8 @@ class BubbleLayout: BubbleBaseLayout
 		{
 			visibility = View.GONE
 		}
+		//TODO to remove
+		visibility = View.GONE
 	}
 
 	private fun updateSize()

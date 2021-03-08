@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.test
+package chata.can.chata_ai.view.dm
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,11 +6,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai_api.R
 
-class BubbleFrame: FrameLayout, View.OnTouchListener
+class FloatingView: FrameLayout, View.OnTouchListener
 {
 	fun setEventClick(listener: () -> Unit)
 	{
@@ -38,7 +38,8 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 				if (System.currentTimeMillis() - lastTouchDown < touchTimeThreshold)
 				{
 					view.animateChild(initialX, initialY)
-					eventClick()
+					if (::eventClick.isInitialized)
+						eventClick()
 				}
 				else
 					goToWall()
@@ -86,7 +87,7 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 
 			}
 			setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
-			setOnTouchListener(this@BubbleFrame)
+			setOnTouchListener(this@FloatingView)
 		}
 		viewChild?.let { addView(it) }
 	}
