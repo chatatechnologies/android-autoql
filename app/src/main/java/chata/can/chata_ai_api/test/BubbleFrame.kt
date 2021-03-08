@@ -50,14 +50,36 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 		return true
 	}
 
+	private fun goToWall()
+	{
+		viewChild?.let { viewChild ->
+			val width = measuredWidthFixed()
+			val middle = width / 2
+			val nearestXWall = if (viewChild.x >= middle) width.toFloat() else 0f
+			viewChild.animateChild(nearestXWall, viewChild.y)
+		}
+	}
+
 	private fun View.animateChild(valX: Float, valY: Float)
 	{
+		var newY = valY
+		if (valY < 0)
+		{
+			newY = 0f
+		}
+		if (valY > measuredHeightFixed())
+		{
+			newY = measuredHeightFixed().toFloat()
+		}
 		animate()
 			.x(valX)
-			.y(valY)
+			.y(newY)
 			.setDuration(0)
 			.start()
 	}
+
+	fun measuredHeightFixed() = measuredHeight - sizeChild
+	fun measuredWidthFixed() = measuredWidth - sizeChild
 
 	private fun init()
 	{
@@ -70,16 +92,6 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 			setOnTouchListener(this@BubbleFrame)
 		}
 		viewChild?.let { addView(it) }
-	}
-
-	private fun goToWall()
-	{
-		viewChild?.let { viewChild ->
-			val width = measuredWidth - sizeChild
-			val middle = width / 2
-			val nearestXWall = if (viewChild.x >= middle) width.toFloat() else 0f
-			viewChild.animateChild(nearestXWall, viewChild.y)
-		}
 	}
 
 	constructor(context: Context): super(context) { init() }
