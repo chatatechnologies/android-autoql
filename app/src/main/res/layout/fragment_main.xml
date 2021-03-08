@@ -20,6 +20,7 @@
 	</ScrollView>
 
 	<chata.can.chata_ai.view.dm.FloatingView
+		android:id="@+id/floatingView"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
 

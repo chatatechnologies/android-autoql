@@ -17,6 +17,13 @@ class FloatingView: FrameLayout, View.OnTouchListener
 		eventClick = listener
 	}
 
+	fun updatePositionOnScreen()
+	{
+		viewChild?.animateChild(
+			measuredWidthFixed().toFloat(),
+			measuredHeightFixed().toFloat() / 2)
+	}
+
 	override fun onTouch(view: View, event: MotionEvent): Boolean
 	{
 		when(event.action)
@@ -90,6 +97,9 @@ class FloatingView: FrameLayout, View.OnTouchListener
 			setOnTouchListener(this@FloatingView)
 		}
 		viewChild?.let { addView(it) }
+		post {
+			updatePositionOnScreen()
+		}
 	}
 
 	constructor(context: Context): super(context) { init() }

@@ -28,6 +28,7 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.token
+import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -41,6 +42,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		private var bubbleHandle: BubbleHandle ?= null
 	}
+
+	private lateinit var floatingView: FloatingView
 
 	private lateinit var llContainer: LinearLayout
 	//private var swDemoData: Switch ?= null
@@ -213,6 +216,32 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			renderPresenter.initViews(llContainer)
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
+
+			floatingView = findViewById(R.id.floatingView)
+			floatingView.setEventClick {
+
+				bubbleHandle?.let { bubbleHandle ->
+					val bubbleData = BubbleData(
+						bubbleHandle.userDisplayName,
+						bubbleHandle.title,
+						bubbleHandle.introMessage,
+						bubbleHandle.inputPlaceholder,
+						bubbleHandle.maxMessages,
+						bubbleHandle.clearOnClose,
+						bubbleHandle.isDarkenBackgroundBehind,
+						bubbleHandle.visibleExploreQueries,
+						bubbleHandle.visibleNotification,
+						bubbleHandle.enableVoiceRecord,
+						isDataMessenger)
+					(parentActivity as? PagerActivity)?.let {
+						for (clearView in aClearFocus)
+						{
+							clearView.clearFocus()
+						}
+						it.setStatusGUI(true, bubbleData)
+					}
+				}
+			}
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
