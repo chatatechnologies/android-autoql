@@ -41,7 +41,7 @@ class BubbleLayout: BubbleBaseLayout
 	private var shouldStickToWall = true
 	private var isVisible = true
 
-	private val defaultMargin = BubbleData.marginLeftDefault + BubbleData.marginRightDefault
+	private val defaultMargin = BubbleData.marginLeftDefault.toInt() + BubbleData.marginRightDefault.toInt()
 
 	fun setOnBubbleClickListener(listener: () -> Unit)
 	{

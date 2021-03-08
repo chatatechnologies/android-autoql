@@ -5,11 +5,21 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.pojo.BubbleData
+import chata.can.chata_ai.pojo.BubbleData.heightDefault
+import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
+import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.circle.CircleImageView
 
 class FloatingView: FrameLayout, View.OnTouchListener
 {
@@ -121,15 +131,34 @@ class FloatingView: FrameLayout, View.OnTouchListener
 
 	private fun init()
 	{
-		viewChild = TextView(context).apply {
-			sizeChild = dpToPx(64f)
-			layoutParams = LayoutParams(sizeChild, sizeChild).apply {
+		viewChild = RelativeLayout(context).apply {
+			sizeChild = heightDefault
+			layoutParams = LayoutParams(-2, -2)
+			val alphaColor = ColorUtils.setAlphaComponent(
+				ThemeColor.lightColor.pDrawerTextColorPrimary, (0.25f * 255).toInt())
+			val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
+			background = drawable
+		}
+//		viewChild = TextView(context).apply {
+//			sizeChild = dpToPx(64f)
+//			layoutParams = LayoutParams(sizeChild, sizeChild).apply {
+//
+//			}
+//			setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
+//			setOnTouchListener(this@FloatingView)
+//		}
 
-			}
-			setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
+		val circleImageView = CircleImageView(context).apply {
+			layoutParams = LayoutParams(heightDefault, widthDefault)
+			margin(marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
+			setImageResource(R.drawable.ic_bubble_chata)
+			setCircleBackgroundColorResource(R.color.blue_chata_circle)
 			setOnTouchListener(this@FloatingView)
 		}
-		viewChild?.let { addView(it) }
+		viewChild?.let {
+			it.addView(circleImageView)
+			addView(it)
+		}
 		post {
 			updatePositionOnScreen()
 		}
@@ -154,7 +183,7 @@ class FloatingView: FrameLayout, View.OnTouchListener
 	//endregion
 
 	//region View
-	private var viewChild: TextView ?= null
+	private var viewChild: RelativeLayout ?= null
 	private var sizeChild = 0
 	private lateinit var eventClick: () -> Unit
 

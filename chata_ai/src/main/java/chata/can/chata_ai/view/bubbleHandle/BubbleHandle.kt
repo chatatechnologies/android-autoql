@@ -8,6 +8,8 @@ import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.isColor
+import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.pojo.BubbleData
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
@@ -254,11 +256,8 @@ class BubbleHandle(
 			parentCircle.addView(this)
 			layoutParams.height = heightDefault
 			layoutParams.width = widthDefault
-			if (layoutParams is ViewGroup.MarginLayoutParams)
-			{
-				(layoutParams as ViewGroup.MarginLayoutParams).setMargins(
-					marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
-			}
+			margin(marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault
+			)
 			setImageResource(R.drawable.ic_bubble_chata)
 			setCircleBackgroundColorResource(R.color.blue_chata_circle)
 		}
