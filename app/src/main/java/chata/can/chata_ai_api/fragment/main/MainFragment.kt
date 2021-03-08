@@ -657,7 +657,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						setColorOption(tv.tag as String, tv.id)
 					}
 					mPlacement[it.id]?.let { placement ->
-						bubbleHandle?.placement = placement
+//						bubbleHandle?.placement = placement
+						floatingView.placement = placement
 					}
 				}
 				R.id.tvDataMessenger, R.id.tvExploreQueries ->

@@ -9,6 +9,7 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.ConstantDrawer
 
 class FloatingView: FrameLayout, View.OnTouchListener
 {
@@ -17,11 +18,41 @@ class FloatingView: FrameLayout, View.OnTouchListener
 		eventClick = listener
 	}
 
-	fun updatePositionOnScreen()
+	fun updatePositionOnScreen(
+		placement: Int = ConstantDrawer.RIGHT_PLACEMENT
+	)
 	{
+		when(placement)
+		{
+			ConstantDrawer.TOP_PLACEMENT ->
+			{
+				_xDelta = centerX()
+				_yDelta = 0f
+			}
+			ConstantDrawer.BOTTOM_PLACEMENT ->
+			{
+				_xDelta = centerX()
+				_yDelta = measuredHeightFixed()
+			}
+			ConstantDrawer.LEFT_PLACEMENT ->
+			{
+				_xDelta = 0f
+				_yDelta = centerY()
+			}
+			ConstantDrawer.RIGHT_PLACEMENT ->
+			{
+				_xDelta = measuredWidthFixed()
+				_yDelta = centerY()
+			}
+			ConstantDrawer.NOT_PLACEMENT ->
+			{
+				_xDelta = -1f
+				_yDelta = -1f
+			}
+		}
 		viewChild?.animateChild(
-			measuredWidthFixed().toFloat(),
-			measuredHeightFixed().toFloat() / 2)
+			_xDelta,
+			_yDelta)
 	}
 
 	override fun onTouch(view: View, event: MotionEvent): Boolean
@@ -74,7 +105,7 @@ class FloatingView: FrameLayout, View.OnTouchListener
 		}
 		if (valY > measuredHeightFixed())
 		{
-			newY = measuredHeightFixed().toFloat()
+			newY = measuredHeightFixed()
 		}
 		animate()
 			.x(valX)
@@ -83,8 +114,10 @@ class FloatingView: FrameLayout, View.OnTouchListener
 			.start()
 	}
 
-	private fun measuredHeightFixed() = measuredHeight - sizeChild
-	private fun measuredWidthFixed() = measuredWidth - sizeChild
+	private fun measuredHeightFixed() = (measuredHeight - sizeChild).toFloat()
+	private fun centerY() = ((measuredHeight - sizeChild) / 2).toFloat()
+	private fun measuredWidthFixed() = (measuredWidth - sizeChild).toFloat()
+	private fun centerX() = ((measuredWidth - sizeChild) / 2).toFloat()
 
 	private fun init()
 	{
@@ -108,6 +141,17 @@ class FloatingView: FrameLayout, View.OnTouchListener
 
 	constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int)
 		: super(context, attrs, defStyleAttr) { init() }
+
+	//region property
+	var placement = ConstantDrawer.RIGHT_PLACEMENT
+	set(value) {
+		if (placement != value && placement > 0)
+		{
+			field = value
+			updatePositionOnScreen(value)
+		}
+	}
+	//endregion
 
 	//region View
 	private var viewChild: TextView ?= null
