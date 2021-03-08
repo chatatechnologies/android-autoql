@@ -43,6 +43,8 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 					view.animateChild(initialX, initialY)
 					Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show()
 				}
+				else
+					goToWall()
 			}
 		}
 		return true
@@ -60,13 +62,24 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 	private fun init()
 	{
 		viewChild = TextView(context).apply {
-			layoutParams = LayoutParams(dpToPx(64f),dpToPx(64f)).apply {
-				x = 64f
+			sizeChild = dpToPx(64f)
+			layoutParams = LayoutParams(sizeChild, sizeChild).apply {
+
 			}
 			setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
 			setOnTouchListener(this@BubbleFrame)
 		}
 		viewChild?.let { addView(it) }
+	}
+
+	private fun goToWall()
+	{
+		viewChild?.let { viewChild ->
+			val width = measuredWidth - sizeChild
+			val middle = width / 2
+			val nearestXWall = if (viewChild.x >= middle) width.toFloat() else 0f
+			viewChild.animateChild(nearestXWall, viewChild.y)
+		}
 	}
 
 	constructor(context: Context): super(context) { init() }
@@ -78,5 +91,6 @@ class BubbleFrame: FrameLayout, View.OnTouchListener
 
 	//region View
 	private var viewChild: TextView ?= null
+	private var sizeChild = 0
 	//endregion
 }
