@@ -6,16 +6,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.pojo.BubbleData
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
-import chata.can.chata_ai.pojo.BubbleData.widthDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -124,13 +119,22 @@ class FloatingView: FrameLayout, View.OnTouchListener
 			.start()
 	}
 
-	private fun measuredHeightFixed() = (measuredHeight - sizeChild).toFloat()
-	private fun centerY() = ((measuredHeight - sizeChild) / 2).toFloat()
-	private fun measuredWidthFixed() = (measuredWidth - sizeChild).toFloat()
-	private fun centerX() = ((measuredWidth - sizeChild) / 2).toFloat()
+//	private fun measuredHeightFixed() = (measuredHeight - sizeChild).toFloat()
+	private fun measuredHeightFixed() = (heightPixels - sizeChild).toFloat()
+	private fun centerY() = measuredHeightFixed() / 2
+//	private fun measuredWidthFixed() = (measuredWidth - sizeChild).toFloat()
+	private fun measuredWidthFixed() = (widthPixels1 - sizeChild).toFloat()
+	private fun centerX() = measuredWidthFixed() / 2
+
+	private var widthPixels1 = 0
+	private var heightPixels = 0
 
 	private fun init()
 	{
+		val dm = context.resources.displayMetrics
+		widthPixels1 = dm.widthPixels
+		heightPixels = dm.heightPixels
+
 		viewChild = RelativeLayout(context).apply {
 			sizeChild = heightDefault
 			layoutParams = LayoutParams(-2, -2)
@@ -138,22 +142,14 @@ class FloatingView: FrameLayout, View.OnTouchListener
 				ThemeColor.lightColor.pDrawerTextColorPrimary, (0.25f * 255).toInt())
 			val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 			background = drawable
+			setOnTouchListener(this@FloatingView)
 		}
-//		viewChild = TextView(context).apply {
-//			sizeChild = dpToPx(64f)
-//			layoutParams = LayoutParams(sizeChild, sizeChild).apply {
-//
-//			}
-//			setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
-//			setOnTouchListener(this@FloatingView)
-//		}
 
 		val circleImageView = CircleImageView(context).apply {
-			layoutParams = LayoutParams(heightDefault, widthDefault)
+			layoutParams = LayoutParams(sizeChild, sizeChild)
 			margin(marginLeftDefault, marginLeftDefault, marginLeftDefault, marginLeftDefault)
 			setImageResource(R.drawable.ic_bubble_chata)
 			setCircleBackgroundColorResource(R.color.blue_chata_circle)
-			setOnTouchListener(this@FloatingView)
 		}
 		viewChild?.let {
 			it.addView(circleImageView)
