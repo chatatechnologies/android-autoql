@@ -74,19 +74,20 @@ class FloatingView: FrameLayout
 			.start()
 	}
 
-	private fun measuredHeightFixed() = (heightPixels - sizeChild - (dpToPx(marginLeftDefault) * 2)).toFloat()
+	private fun factorSizeMargin(factor: Int) = (factor - sizeChild - (dpToPx(marginLeftDefault) * 2)).toFloat()
+	private fun measuredHeightFixed() = factorSizeMargin(heightPixels)
 	private fun centerY() = measuredHeightFixed() / 2
-	private fun measuredWidthFixed() = (widthPixels1 - sizeChild - (dpToPx(marginLeftDefault) * 2)).toFloat()
+	private fun measuredWidthFixed() = factorSizeMargin(widthPixels)
 	private fun centerX() = measuredWidthFixed() / 2
 
-	private var widthPixels1 = 0
+	private var widthPixels = 0
 	private var heightPixels = 0
 
 	private fun init()
 	{
 //		setBackgroundColor(R.color.red_notification)
 		context.resources.displayMetrics.let {
-			widthPixels1 = it.widthPixels
+			widthPixels = it.widthPixels
 			heightPixels = it.heightPixels
 		}
 

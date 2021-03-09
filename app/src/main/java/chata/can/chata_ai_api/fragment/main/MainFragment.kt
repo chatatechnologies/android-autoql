@@ -44,7 +44,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	}
 
 	private lateinit var floatingView: FloatingView
-
 	private lateinit var llContainer: LinearLayout
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
@@ -162,6 +161,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		with(view)
 		{
+			activity?.run {
+				if (this is PagerActivity)
+				{
+					floatingView = findViewById(R.id.floatingView)
+				}
+			}
+
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let { context ->
 				if (bubbleHandle == null)

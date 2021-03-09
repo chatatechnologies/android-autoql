@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Point
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -67,6 +68,13 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 //		pagerOption = findViewById(R.id.pagerOption)
 		floatingView = findViewById(R.id.floatingView)
 //		pagerOption.fragmentManager = supportFragmentManager
+
+		val display = windowManager?.defaultDisplay
+		val outPoint = Point()
+		if (Build.VERSION.SDK_INT >= 19)
+		{
+			display?.getSize(outPoint)
+		}
 
 		tabLayout.setupWithViewPager(viewPager)
 		if (isMarshmallow())
