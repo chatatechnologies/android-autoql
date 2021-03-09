@@ -146,8 +146,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			DataMessengerRoot.username = (etUsername?.text ?: "").toString().trim()
 			DataMessengerRoot.password = (etPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
-//			showDialog()
+//			servicePresenter.createAuthenticate()
 		}
 		else
 		{
@@ -216,32 +215,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			renderPresenter.initViews(llContainer)
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
-
-			floatingView = findViewById(R.id.floatingView)
-			floatingView.setEventClick {
-
-				bubbleHandle?.let { bubbleHandle ->
-					val bubbleData = BubbleData(
-						bubbleHandle.userDisplayName,
-						bubbleHandle.title,
-						bubbleHandle.introMessage,
-						bubbleHandle.inputPlaceholder,
-						bubbleHandle.maxMessages,
-						bubbleHandle.clearOnClose,
-						bubbleHandle.isDarkenBackgroundBehind,
-						bubbleHandle.visibleExploreQueries,
-						bubbleHandle.visibleNotification,
-						bubbleHandle.enableVoiceRecord,
-						isDataMessenger)
-					(parentActivity as? PagerActivity)?.let {
-						for (clearView in aClearFocus)
-						{
-							clearView.clearFocus()
-						}
-						it.setStatusGUI(true, bubbleData)
-					}
-				}
-			}
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)

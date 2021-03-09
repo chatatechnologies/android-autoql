@@ -119,10 +119,8 @@ class FloatingView: FrameLayout, View.OnTouchListener
 			.start()
 	}
 
-//	private fun measuredHeightFixed() = (measuredHeight - sizeChild).toFloat()
 	private fun measuredHeightFixed() = (heightPixels - sizeChild).toFloat()
 	private fun centerY() = measuredHeightFixed() / 2
-//	private fun measuredWidthFixed() = (measuredWidth - sizeChild).toFloat()
 	private fun measuredWidthFixed() = (widthPixels1 - sizeChild).toFloat()
 	private fun centerX() = measuredWidthFixed() / 2
 
@@ -131,6 +129,8 @@ class FloatingView: FrameLayout, View.OnTouchListener
 
 	private fun init()
 	{
+//		setBackgroundColor(R.color.red_notification)
+
 		val dm = context.resources.displayMetrics
 		widthPixels1 = dm.widthPixels
 		heightPixels = dm.heightPixels
@@ -142,7 +142,10 @@ class FloatingView: FrameLayout, View.OnTouchListener
 				ThemeColor.lightColor.pDrawerTextColorPrimary, (0.25f * 255).toInt())
 			val drawable = DrawableBuilder.setOvalDrawable(alphaColor)
 			background = drawable
-			setOnTouchListener(this@FloatingView)
+			setOnClickListener {
+				if (::eventClick.isInitialized)
+					eventClick()
+			}
 		}
 
 		val circleImageView = CircleImageView(context).apply {

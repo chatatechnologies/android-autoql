@@ -20,6 +20,7 @@ import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.R
 import chata.can.request_native.ExampleRequest
 import com.google.android.material.tabs.TabLayout
@@ -29,8 +30,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
-	private lateinit var pagerOption: PagerOptions
+//	private lateinit var pagerOption: PagerOptions
 	private lateinit var adapter: SlidePagerAdapter
+	private lateinit var floatingView: FloatingView
 
 	private val overlayPermission = 1000
 
@@ -44,7 +46,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 						val json = JSONObject(data)
 						json.optJSONObject("data")?.let { joData ->
 							val unacknowledged = joData.optInt("unacknowledged")
-							pagerOption.showNotify(unacknowledged > 0)
+//							pagerOption.showNotify(unacknowledged > 0)
 						}
 					} catch (ex: Exception) {}
 				}
@@ -62,8 +64,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	{
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
-		pagerOption = findViewById(R.id.pagerOption)
-		pagerOption.fragmentManager = supportFragmentManager
+//		pagerOption = findViewById(R.id.pagerOption)
+		floatingView = findViewById(R.id.floatingView)
+//		pagerOption.fragmentManager = supportFragmentManager
 
 		tabLayout.setupWithViewPager(viewPager)
 		if (isMarshmallow())
@@ -88,6 +91,10 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		{
 			initBubble()
 		}
+
+		floatingView.setEventClick {
+			Toast.makeText(this, "Open!", Toast.LENGTH_SHORT).show()
+		}
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
@@ -110,77 +117,77 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onResume()
 	{
 		super.onResume()
-		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
-		{
-			BubbleHandle.instance?.isVisible = true
-		}
+//		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
+//		{
+//			BubbleHandle.instance?.isVisible = true
+//		}
 		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
 	}
 
 	override fun onPause()
 	{
 		super.onPause()
-		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
-		{
-			BubbleHandle.instance?.isVisible = false
-		}
+//		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
+//		{
+//			BubbleHandle.instance?.isVisible = false
+//		}
 		unregisterReceiver(receiver)
 	}
 
 	override fun onBackPressed()
 	{
-		if (pagerOption.isVisible)
-		{
-			BubbleHandle.isOpenChat = false
-			BubbleHandle.instance?.isVisible = true
-			pagerOption.setStatusGUI(false)
-		}
-		else
-		{
-			if (supportFragmentManager.backStackEntryCount > 0)
-				finishAffinity()
-			else
-			//minimize App
-				moveTaskToBack(true)
-		}
+//		if (pagerOption.isVisible)
+//		{
+//			BubbleHandle.isOpenChat = false
+//			BubbleHandle.instance?.isVisible = true
+//			pagerOption.setStatusGUI(false)
+//		}
+//		else
+//		{
+//			if (supportFragmentManager.backStackEntryCount > 0)
+//				finishAffinity()
+//			else
+//			//minimize App
+//				moveTaskToBack(true)
+//		}
 	}
 
 	override fun onDestroy()
 	{
 		super.onDestroy()
 		BubbleHandle.instance = null
-		pagerOption.onDestroy()
+//		pagerOption.onDestroy()
 	}
 
 	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
 	{
-		pagerOption.bubbleData = bubbleData
-		hideKeyboard()
-		pagerOption.setStatusGUI(isVisible)
-		pagerOption.paintViews()
+//		pagerOption.bubbleData = bubbleData
+//		hideKeyboard()
+//		pagerOption.setStatusGUI(isVisible)
+//		pagerOption.paintViews()
 	}
 
 	fun clearDataMessenger(bubbleData: BubbleData ?= null)
 	{
-		pagerOption.bubbleData = bubbleData
-		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-			if (it is DataMessengerFragment)
-			{
-				pagerOption.bubbleData?.let { bubble ->
-					val argument = Bundle().apply {
-						putString("CUSTOMER_NAME", bubble.customerName)
-						putString("TITLE", bubble.title)
-						putString("INTRO_MESSAGE", bubble.introMessage)
-						putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-						putInt("MAX_MESSAGES", bubble.maxMessage)
-						putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-						putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-					}
-					it.updateData(argument)
-				}
-				it.clearQueriesAndResponses()
-			}
-		}
+//		pagerOption.bubbleData = bubbleData
+//		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+//			if (it is DataMessengerFragment)
+//			{
+//				pagerOption.bubbleData?.let { bubble ->
+//					val argument = Bundle().apply {
+//						putString("CUSTOMER_NAME", bubble.customerName)
+//						putString("TITLE", bubble.title)
+//						putString("INTRO_MESSAGE", bubble.introMessage)
+//						putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+//						putInt("MAX_MESSAGES", bubble.maxMessage)
+//						putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+//						putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+//					}
+//					it.updateData(argument)
+//				}
+//				it.clearQueriesAndResponses()
+//			}
+//		}
 	}
 
 	private fun initBubble()
