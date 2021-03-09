@@ -146,16 +146,12 @@ class SpinnerTextView: RelativeLayout
 		}
 	}
 
-	fun setWindowManager(_windowManager: WindowManager)
+	fun setWindowManager()
 	{
-		this.windowManager = _windowManager
-
-		val displayMetrics = DisplayMetrics()
-
-		val defaultDisplay = this.windowManager?.defaultDisplay
-		defaultDisplay?.getMetrics(displayMetrics)
-		val width = displayMetrics.widthPixels
-		spSelect?.dropDownWidth = width
+		context?.resources?.displayMetrics?.let {
+			val width = it.widthPixels
+			spSelect?.dropDownWidth = width
+		}
 	}
 
 	constructor(context: Context): super(context)
@@ -172,8 +168,6 @@ class SpinnerTextView: RelativeLayout
 
 	private var tvContent: TextView?= null
 	private var spSelect: Spinner?= null
-
-	private var windowManager: WindowManager?= null
 
 	private lateinit var aData: ArrayList<Suggestion>
 	private var lastData: ArrayList<String> ?= null

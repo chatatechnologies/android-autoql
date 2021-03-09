@@ -14,7 +14,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 
@@ -59,7 +58,7 @@ class FullSuggestionHolder(
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
 
-		stvContent.setWindowManager(ScreenData.windowManager)
+		stvContent.setWindowManager()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
