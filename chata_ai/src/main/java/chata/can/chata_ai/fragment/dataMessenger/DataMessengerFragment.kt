@@ -3,7 +3,6 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -186,10 +184,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			false
 		}
 
-		val displayMetrics = DisplayMetrics()
-		ScreenData.defaultDisplay.getRealMetrics(displayMetrics)
-		val width = displayMetrics.widthPixels
-		etQuery.dropDownWidth = width
+		context?.resources?.displayMetrics?.let {
+			etQuery.dropDownWidth = it.widthPixels
+		}
 	}
 
 	fun updateData(arguments: Bundle)
@@ -375,18 +372,18 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			aTmp.addAll(aMatches)
 			adapterAutoComplete.addAll(aMatches)
 
-			val size = Point()
-			ScreenData.defaultDisplay.getSize(size)
-			val maxHeight = size.y * 0.35
+			context?.resources?.displayMetrics?.let {
+				val maxHeight = it.heightPixels * 0.35
 
-			val count = adapterAutoComplete.count
-			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
+				val count = adapterAutoComplete.count
+				val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
 
-			etQuery.dropDownHeight =
-				if (height < maxHeight)
-					height.toInt()
-				else
-					maxHeight.toInt()
+				etQuery.dropDownHeight =
+					if (height < maxHeight)
+						height.toInt()
+					else
+						maxHeight.toInt()
+			}
 		}
 		adapterAutoComplete.notifyDataSetChanged()
 	}

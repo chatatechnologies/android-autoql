@@ -13,7 +13,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.request_native.ExampleRequest
 
 class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClickListener
 {
@@ -112,10 +111,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 
 	private fun initConfig()
 	{
-		windowManager?.let {
-			ScreenData.windowManager = it
-			ScreenData.defaultDisplay = it.defaultDisplay
-		}
 		resources?.let {
 			it.displayMetrics?.let {
 					itMetrics ->
@@ -123,7 +118,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 			}
 		}
 		RequestBuilder.initVolleyRequest(this)
-		ExampleRequest.initVolleyRequest(this)
 	}
 
 	private fun initData()

@@ -23,7 +23,6 @@ import chata.can.chata_ai.view.PagerOptions
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.R
-import chata.can.request_native.ExampleRequest
 import com.google.android.material.tabs.TabLayout
 import org.json.JSONObject
 
@@ -68,57 +67,20 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 //		pagerOption = findViewById(R.id.pagerOption)
 		floatingView = findViewById(R.id.floatingView)
 //		pagerOption.fragmentManager = supportFragmentManager
-
-		val display = windowManager?.defaultDisplay
-		val outPoint = Point()
-		if (Build.VERSION.SDK_INT >= 19)
-		{
-			display?.getSize(outPoint)
-		}
-
 		tabLayout.setupWithViewPager(viewPager)
-		if (isMarshmallow())
-		{
-			if (!canDrawOverlays())
-			{
-				with(
-					Intent(
-						Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-						Uri.parse("package:$packageName"))
-				)
-				{
-					startActivityForResult(this, overlayPermission)
-				}
-			}
-			else
-			{
-				initBubble()
+
+		resources?.let {
+			it.displayMetrics?.let { itMetrics ->
+				ScreenData.densityByDP = itMetrics.density
 			}
 		}
-		else
-		{
-			initBubble()
-		}
+
+		adapter = SlidePagerAdapter(supportFragmentManager, 1)
+		viewPager.adapter = adapter
+		RequestBuilder.initVolleyRequest(this)
 
 		floatingView.setEventClick {
 			Toast.makeText(this, "Open!", Toast.LENGTH_SHORT).show()
-		}
-	}
-
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-	{
-		super.onActivityResult(requestCode, resultCode, data)
-		if (isMarshmallow())
-		{
-			if (canDrawOverlays())
-			{
-				initBubble()
-			}
-			else
-			{
-				Toast.makeText(this, "canDrawOverlays is not enable", Toast.LENGTH_SHORT)
-					.show()
-			}
 		}
 	}
 
@@ -196,24 +158,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 //				it.clearQueriesAndResponses()
 //			}
 //		}
-	}
-
-	private fun initBubble()
-	{
-		windowManager?.let {
-			ScreenData.windowManager = it
-			ScreenData.defaultDisplay = it.defaultDisplay
-		}
-		resources?.let {
-			it.displayMetrics?.let { itMetrics ->
-				ScreenData.densityByDP = itMetrics.density
-			}
-		}
-
-		adapter = SlidePagerAdapter(supportFragmentManager, 1)
-		viewPager.adapter = adapter
-		RequestBuilder.initVolleyRequest(this)
-		ExampleRequest.initVolleyRequest(this)
 	}
 
 	/**

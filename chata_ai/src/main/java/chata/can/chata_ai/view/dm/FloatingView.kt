@@ -86,11 +86,6 @@ class FloatingView: FrameLayout
 	private fun init()
 	{
 //		setBackgroundColor(R.color.red_notification)
-		//TODO get display metrics without deprecated
-		context.resources.displayMetrics.let {
-//			widthPixels = it.widthPixels
-//			heightPixels = it.heightPixels
-		}
 
 		viewChild = RelativeLayout(context).apply {
 			sizeChild = heightDefault

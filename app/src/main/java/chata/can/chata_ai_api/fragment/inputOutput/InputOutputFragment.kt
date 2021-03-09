@@ -2,9 +2,7 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -128,10 +126,9 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 						1,
 						pDrawerTextColorPrimary))
 
-					val displayMetrics = DisplayMetrics()
-					ScreenData.defaultDisplay.getMetrics(displayMetrics)
-					val width = displayMetrics.widthPixels
-					dropDownWidth = width
+					context?.resources?.displayMetrics?.let {
+						dropDownWidth = it.widthPixels
+					}
 
 					onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
 						parent?.let {
@@ -164,19 +161,17 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		if (aData.isNotEmpty())
 		{
 			adapterAutoComplete.addAll(aData)
+			context?.resources?.displayMetrics?.let {
+				val maxHeight = it.heightPixels * 0.35
+				val count = adapterAutoComplete.count
+				val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
 
-			val size = Point()
-			ScreenData.defaultDisplay.getSize(size)
-			val maxHeight = size.y * 0.35
-
-			val count = adapterAutoComplete.count
-			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
-
-			etQuery.dropDownHeight =
-				if (height < maxHeight)
-					height.toInt()
-				else
-					maxHeight.toInt()
+				etQuery.dropDownHeight =
+					if (height < maxHeight)
+						height.toInt()
+					else
+						maxHeight.toInt()
+			}
 		}
 		adapterAutoComplete.notifyDataSetChanged()
 	}
