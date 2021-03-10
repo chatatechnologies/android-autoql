@@ -526,7 +526,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //					}
 //				}
 //			}
-			scrollToPosition()
+			//todo check for after render
+			//scrollToPosition()
 		}
 	}
 
