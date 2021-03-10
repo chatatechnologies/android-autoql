@@ -1,7 +1,6 @@
 package chata.can.chata_ai.view
 
 import android.content.Context
-import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View

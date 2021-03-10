@@ -84,7 +84,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 
 		floatingView.setEventClick {
 			startActivity(
-				Intent(this, DMActivity::class.java)
+				Intent(this, DMActivity::class.java).apply {
+					putExtra("PLACEMENT", floatingView.placement)
+				}
 			)
 			overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out)
 //			pagerOption = PagerOptions(this).apply {
