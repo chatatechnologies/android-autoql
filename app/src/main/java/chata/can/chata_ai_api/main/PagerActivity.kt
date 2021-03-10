@@ -88,6 +88,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 				paintViews(floatingView.placement)
 			}
 			llParent.addView(pagerOption)
+			supportFragmentManager
+			pagerOption?.fragmentManager = supportFragmentManager
 		}
 	}
 

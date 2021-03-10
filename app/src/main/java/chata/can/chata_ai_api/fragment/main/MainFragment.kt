@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.putArgs
@@ -640,7 +641,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					(it as? TextView)?.let { tv ->
 						setColorOption(tv.tag as String, tv.id)
-						isDataMessenger = it.id == R.id.tvDataMessenger
+						DataMessengerData.isDataMessenger = it.id == R.id.tvDataMessenger
 					}
 				}
 				else -> {}

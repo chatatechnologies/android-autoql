@@ -294,9 +294,14 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 
 	fun setStatusGUI()
 	{
-		bubbleData?.let { bubble ->
-			if (bubble.isDataMessenger)
-			{
+		DataMessengerData.run {
+			if (isDataMessenger)
+				openChat()
+			else openTips()
+		}
+//		bubbleData?.let { bubble ->
+//			if (bubble.isDataMessenger)
+//			{
 //				fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
 //					if (it is DataMessengerFragment)
 //					{
@@ -324,13 +329,13 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 //				} ?: run {
 //					openChat()
 //				}
-				openChat()
-			}
-			else
-			{
-				openTips()
-			}
-		}
+//				openChat()
+//			}
+//			else
+//			{
+//				openTips()
+//			}
+//		}
 
 		//region animation
 		context?.let {
@@ -466,15 +471,17 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 	private fun setDataToDataMessenger()
 	{
 		fragment.arguments?.let {
-			bubbleData?.let { bubble ->
-				it.putString("CUSTOMER_NAME", bubble.customerName)
-				it.putString("TITLE", bubble.title)
-				it.putString("INTRO_MESSAGE", bubble.introMessage)
-				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-				it.putInt("MAX_MESSAGES", bubble.maxMessages)
-				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+			DataMessengerData.run {
+				it.putString("CUSTOMER_NAME", customerName)
+				it.putString("TITLE", title)
+				it.putString("INTRO_MESSAGE", introMessage)
+				it.putString("INPUT_PLACE_HOLDER", inputPlaceholder)
+				it.putInt("MAX_MESSAGES", maxMessages)
+				it.putBoolean("CLEAR_ON_CLOSE", clearOnClose)
+				it.putBoolean("ENABLE_VOICE_RECORD", enableVoiceRecord)
 			}
+			//TODO clear after
+			//bubbleData?.let {  }
 		}
 	}
 }
