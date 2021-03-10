@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
@@ -82,14 +83,18 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		RequestBuilder.initVolleyRequest(this)
 
 		floatingView.setEventClick {
-			pagerOption = PagerOptions(this).apply {
-				fragmentManager = supportFragmentManager
-				setStatusGUI()
-				paintViews(floatingView.placement)
-			}
-			llParent.addView(pagerOption)
-			supportFragmentManager
-			pagerOption?.fragmentManager = supportFragmentManager
+			startActivity(
+				Intent(this, DMActivity::class.java)
+			)
+			overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out)
+//			pagerOption = PagerOptions(this).apply {
+//				fragmentManager = supportFragmentManager
+//				setStatusGUI()
+//				paintViews(floatingView.placement)
+//			}
+//			llParent.addView(pagerOption)
+//			pagerOption?.fragmentManager = supportFragmentManager
+//			supportFragmentManager
 		}
 	}
 

@@ -45,7 +45,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	{
 		super.finish()
 		BubbleHandle.isOpenChat = false
-		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
 	override fun onDestroy()
