@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
@@ -28,9 +29,10 @@ import org.json.JSONObject
 
 class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
+	private lateinit var llParent: RelativeLayout
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
-//	private lateinit var pagerOption: PagerOptions
+	private var pagerOption: PagerOptions ?= null
 	private lateinit var adapter: SlidePagerAdapter
 	private lateinit var floatingView: FloatingView
 
@@ -62,11 +64,11 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 
 	override fun onCreateView()
 	{
+		llParent = findViewById(R.id.llParent)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
-//		pagerOption = findViewById(R.id.pagerOption)
 		floatingView = findViewById(R.id.floatingView)
-//		pagerOption.fragmentManager = supportFragmentManager
+
 		tabLayout.setupWithViewPager(viewPager)
 
 		resources?.let {
@@ -80,7 +82,12 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		RequestBuilder.initVolleyRequest(this)
 
 		floatingView.setEventClick {
-			Toast.makeText(this, "Open!", Toast.LENGTH_SHORT).show()
+			pagerOption = PagerOptions(this).apply {
+				fragmentManager = supportFragmentManager
+				setStatusGUI()
+				paintViews(floatingView.placement)
+			}
+			llParent.addView(pagerOption)
 		}
 	}
 

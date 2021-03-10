@@ -18,6 +18,7 @@ import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
@@ -28,7 +29,6 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf1
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf2
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf3
@@ -78,17 +78,31 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 			{
 				R.id.llMenu, R.id.ivClose ->
 				{
-					BubbleHandle.isOpenChat = false
-					BubbleHandle.instance?.isVisible = true
-					if (bubbleData?.clearOnClose == true)
-					{
-						val model = SinglentonDrawer.mModel
-						while (model.countData() > 2)
+					parent?.let {
+						if (it is RelativeLayout)
 						{
-							model.removeAt(model.countData() - 1)
+							it.removeView(this)
+							if (DataMessengerData.clearOnClose)
+							{
+								val model = SinglentonDrawer.mModel
+								while (model.countData() > 2)
+								{
+									model.removeAt(model.countData() - 1)
+								}
+							}
 						}
 					}
-					setStatusGUI(false)
+//					BubbleHandle.isOpenChat = false
+//					BubbleHandle.instance?.isVisible = true
+//					if (bubbleData?.clearOnClose == true)
+//					{
+//						val model = SinglentonDrawer.mModel
+//						while (model.countData() > 2)
+//						{
+//							model.removeAt(model.countData() - 1)
+//						}
+//					}
+//					setStatusGUI()
 				}
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
@@ -168,9 +182,10 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 		addView(view)
 	}
 
-	fun paintViews()
+	fun paintViews(placement: Int)
 	{
-		when(val placement = BubbleHandle.instance?.placement)
+//		when(val placement = BubbleHandle.instance?.placement)
+		when(placement)
 		{
 			ConstantDrawer.LEFT_PLACEMENT, ConstantDrawer.RIGHT_PLACEMENT ->
 			{
@@ -277,64 +292,58 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 		}
 	}
 
-	fun setStatusGUI(isVisible: Boolean)
+	fun setStatusGUI()
 	{
-		this.isVisible = isVisible
-		val iVisible = if (isVisible)
-		{
-			bubbleData?.let { bubble ->
-				if (bubble.isDataMessenger)
-				{
-					fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-						if (it is DataMessengerFragment)
-						{
-							if (rlSelected?.id == R.id.rlChat)
-							{
-								bubbleData?.let { bubble ->
-									val argument = Bundle().apply {
-										putString("CUSTOMER_NAME", bubble.customerName)
-										putString("TITLE", bubble.title)
-										putString("INTRO_MESSAGE", bubble.introMessage)
-										putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-										putInt("MAX_MESSAGES", bubble.maxMessage)
-										putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-										putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-									}
-									setColors()
-									it.updateData(argument)
-								}
-							}
-							else
-							{
-								openChat()
-							}
-						}
-					} ?: run {
-						openChat()
-					}
-				}
-				else
-				{
-					openTips()
-				}
+		bubbleData?.let { bubble ->
+			if (bubble.isDataMessenger)
+			{
+//				fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+//					if (it is DataMessengerFragment)
+//					{
+//						if (rlSelected?.id == R.id.rlChat)
+//						{
+//							bubbleData?.let { bubble ->
+//								val argument = Bundle().apply {
+//									putString("CUSTOMER_NAME", bubble.customerName)
+//									putString("TITLE", bubble.title)
+//									putString("INTRO_MESSAGE", bubble.introMessage)
+//									putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+//									putInt("MAX_MESSAGES", bubble.maxMessages)
+//									putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+//									putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+//								}
+//								setColors()
+//								it.updateData(argument)
+//							}
+//						}
+//						else
+//						{
+//							openChat()
+//						}
+//					}
+//				} ?: run {
+//					openChat()
+//				}
+				openChat()
 			}
-
-			context?.let {
-				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-				startAnimation(animationTop)
+			else
+			{
+				openTips()
 			}
-			updateTitle()
-			View.VISIBLE
-		}
-		else View.GONE
-
-		bubbleData?.let {
-			rlTips.visibility = if (it.visibleExploreQueries) View.VISIBLE else View.GONE
-			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
 		}
 
-		llMenu.visibility = iVisible
-		rlLocal.visibility = iVisible
+		//region animation
+		context?.let {
+			val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+			startAnimation(animationTop)
+		}
+		//endregion
+		updateTitle()
+
+//		bubbleData?.let {
+//			rlTips.visibility = if (it.visibleExploreQueries) View.VISIBLE else View.GONE
+//			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
+//		}
 	}
 
 	private fun openChat()
@@ -462,7 +471,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 				it.putString("TITLE", bubble.title)
 				it.putString("INTRO_MESSAGE", bubble.introMessage)
 				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-				it.putInt("MAX_MESSAGES", bubble.maxMessage)
+				it.putInt("MAX_MESSAGES", bubble.maxMessages)
 				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
 				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
 			}

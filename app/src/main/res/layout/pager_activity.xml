@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/llParent"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
 	<androidx.viewpager.widget.ViewPager
@@ -21,9 +22,8 @@
 		android:id="@+id/floatingView"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
-
-	<chata.can.chata_ai.view.PagerOptions
-		android:id="@+id/pagerOption"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+<!--	<chata.can.chata_ai.view.PagerOptions-->
+<!--		android:id="@+id/pagerOption"-->
+<!--		android:layout_width="match_parent"-->
+<!--		android:layout_height="match_parent"/>-->
 </RelativeLayout>

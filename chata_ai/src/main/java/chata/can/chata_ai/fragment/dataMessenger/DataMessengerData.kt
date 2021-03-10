@@ -9,4 +9,6 @@ object DataMessengerData
 	var maxMessages = 0
 	var clearOnClose = false
 	var enableVoiceRecord = true
+	//components
+	var isDataMessenger = true
 }
