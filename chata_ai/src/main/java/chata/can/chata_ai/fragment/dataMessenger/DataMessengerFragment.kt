@@ -498,13 +498,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
 			statusLogin = !DataMessengerRoot.notLoginData()
-			model.clear()
 
-			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
-			model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-			if (statusLogin)
+			if (model.countData() == 0)
 			{
-				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
+				if (statusLogin)
+				{
+					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				}
 			}
 
 			val llm = LinearLayoutManager(it)

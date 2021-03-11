@@ -564,6 +564,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					else
 					{
+						DataMessengerRoot.clearData()
 						projectId = (etProjectId?.text ?: "").toString().trim()
 						userID = (etUserId?.text ?: "").toString().trim()
 						apiKey = (etApiKey?.text ?: "").toString().trim()

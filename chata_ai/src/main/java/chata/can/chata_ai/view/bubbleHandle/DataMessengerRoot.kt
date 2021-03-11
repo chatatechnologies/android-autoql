@@ -33,11 +33,7 @@ object DataMessengerRoot
 		token = ""
 		JWT = ""
 
-		val model = SinglentonDrawer.mModel
-		while (model.countData() > 2)
-		{
-			model.removeLast()
-		}
+		SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
 		ExploreQueriesData.lastWord = ""
 		ExploreQueriesData.lastExploreQuery = null
