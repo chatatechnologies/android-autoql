@@ -10,16 +10,15 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
-import chata.can.chata_ai.model.BubbleData
+import chata.can.chata_ai.model.DashboardAdmin
+import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.Authentication
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
@@ -28,11 +27,9 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
 import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.token
 import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -41,7 +38,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		fun newInstance() = MainFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_main)
 		}
-		private var bubbleHandle: BubbleHandle ?= null
+//		private var bubbleHandle: BubbleHandle ?= null
 	}
 
 	private lateinit var floatingView: FloatingView
@@ -93,7 +90,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
-	//TODO replace
 	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 
@@ -108,7 +104,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
 	private var isAuthenticate = false
-	private var isDataMessenger = true
 
 	override fun onRenderViews(view: View)
 	{
@@ -169,7 +164,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let { context ->
+			parentActivity?.let {
 //				if (bubbleHandle == null)
 //				{
 //					val dataMessenger = DataMessenger("#data-messenger",
@@ -265,7 +260,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 										child.setBackgroundColor(first)
 										child.setTextColor(second)
 									}
-									bubbleHandle?.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
+									DataMessengerAdmin.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
 							}
 							catch (ex: Exception) {}
@@ -360,7 +355,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		swDrawerHandle?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.isVisible = isChecked
+			DataMessengerData.isVisible = isChecked
 		}
 
 		etCurrencyCode?.setOnTextChanged {
@@ -368,7 +363,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				try
 				{
-					bubbleHandle?.dataFormatting?.currencyCode = it
+					DataMessengerData.dataFormatting.currencyCode = it
 				}
 				catch (e: Exception) {}
 			}
@@ -377,30 +372,29 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etFormatMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.monthYearFormat = it
+				DataMessengerData.dataFormatting.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.dayMonthYearFormat = it
+				DataMessengerData.dataFormatting.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.languageCode = it
+				DataMessengerData.dataFormatting.languageCode = it
 			}
 		}
 
 		etDecimalsCurrency?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				it.toIntOrNull()?.let {
-						integer ->
-					bubbleHandle?.dataFormatting?.currencyDecimals = integer
+				it.toIntOrNull()?.let { integer ->
+					DataMessengerData.dataFormatting.currencyDecimals = integer
 				}
 			}
 		}
@@ -408,32 +402,31 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etDecimalsQuantity?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				it.toIntOrNull()?.let {
-						integer ->
-					bubbleHandle?.dataFormatting?.quantityDecimals = integer
+				it.toIntOrNull()?.let { integer ->
+					DataMessengerData.dataFormatting.quantityDecimals = integer
 				}
 			}
 		}
 
 		etCustomerMessage?.setOnTextChanged {
-			bubbleHandle?.userDisplayName = it
+			DataMessengerData.customerName = it
 		}
 
 		etIntroMessage?.setOnTextChanged {
-			bubbleHandle?.introMessage = it
+			DataMessengerData.introMessage = it
 		}
 
 		etQueryPlaceholder?.setOnTextChanged {
-			bubbleHandle?.inputPlaceholder = it
+			DataMessengerData.inputPlaceholder = it
 		}
 
 		swClearMessage?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.clearOnClose = isChecked
+			DataMessengerData.clearOnClose = isChecked
 		}
 
 		etTitle?.setOnTextChanged {
-			bubbleHandle?.title = it
+			DataMessengerData.title = it
 		}
 
 		etAddColor?.setOnEditorActionListener {
@@ -449,7 +442,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					llColors.addView(newView, llColors.childCount)
 				}
 
-				bubbleHandle?.addChartColor(newColor)
+				DataMessengerAdmin.addChartColor(newColor)
 			}
 
 			textView.text = ""
@@ -465,7 +458,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						etDashboardColor?.setBackgroundColor(first)
 						etDashboardColor?.setTextColor(second)
 					}
-					bubbleHandle?.setDashboardColor(it)
+					DashboardAdmin.setDashboardColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -481,7 +474,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						etLightThemeColor?.setBackgroundColor(first)
 						etLightThemeColor?.setTextColor(second)
 					}
-					bubbleHandle?.setLightThemeColor(it)
+					DataMessengerAdmin.setLightThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -497,7 +490,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						etDarkThemeColor?.setBackgroundColor(first)
 						etDarkThemeColor?.setTextColor(second)
 					}
-					bubbleHandle?.setDarkThemeColor(it)
+					DataMessengerAdmin.setDarkThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -506,55 +499,49 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etMaxNumberMessage?.setOnTextChanged {
 			it.toIntOrNull()?.let {
 				integer ->
-				bubbleHandle?.maxMessages = integer
+				DataMessengerData.maxMessages = integer
 			}
 		}
 
 		swEnableAutocomplete?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableAutocomplete = isChecked
+			DataMessengerData.autoQLConfig.enableAutocomplete = isChecked
 		}
 
 		swEnableQuery?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableQueryValidation = isChecked
+			DataMessengerData.autoQLConfig.enableQueryValidation = isChecked
 		}
 
 		swEnableSuggestion?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableQuerySuggestions = isChecked
+			DataMessengerData.autoQLConfig.enableQuerySuggestions = isChecked
 		}
 
 		swEnableDrillDown?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableDrilldowns = isChecked
+			DataMessengerData.autoQLConfig.enableDrilldowns = isChecked
 		}
 
 		swBackgroundBehind?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.isDarkenBackgroundBehind = isChecked
+			DataMessengerData.isDarkenBackgroundBehind = isChecked
 		}
 
 		swTabExploreQueries?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.visibleExploreQueries = isChecked
+			DataMessengerData.visibleExploreQueries = isChecked
 		}
 
 		swTabNotification?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.visibleNotification = isChecked
+			DataMessengerData.visibleNotification = isChecked
 		}
 
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.enableVoiceRecord = isChecked
+			DataMessengerData.enableVoiceRecord = isChecked
 		}
-	}
-
-	override fun onDestroy()
-	{
-		bubbleHandle = null
-		super.onDestroy()
 	}
 
 	override fun onClick(view: View?)
@@ -572,8 +559,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
 
-						bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
-						bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
 						for(child in aClearFocus)
 							child.setText("")
 					}
@@ -593,29 +578,29 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				R.id.btnReloadDrawer ->
 				{
 					activity?.run {
-						if (this is PagerActivity)
-						{
-							bubbleHandle?.let { bubbleHandle ->
-								val bubbleData = BubbleData(
-									bubbleHandle.userDisplayName,
-									bubbleHandle.title,
-									bubbleHandle.introMessage,
-									bubbleHandle.inputPlaceholder,
-									bubbleHandle.maxMessages,
-									bubbleHandle.clearOnClose,
-									bubbleHandle.isDarkenBackgroundBehind,
-									bubbleHandle.visibleExploreQueries,
-									bubbleHandle.visibleNotification,
-									bubbleHandle.enableVoiceRecord,
-									isDataMessenger)
-								clearDataMessenger(bubbleData)
-							}
-						}
+//						if (this is PagerActivity)
+//						{
+//							bubbleHandle?.let { bubbleHandle ->
+//								val bubbleData = BubbleData(
+//									bubbleHandle.userDisplayName,
+//									bubbleHandle.title,
+//									bubbleHandle.introMessage,
+//									bubbleHandle.inputPlaceholder,
+//									bubbleHandle.maxMessages,
+//									bubbleHandle.clearOnClose,
+//									bubbleHandle.isDarkenBackgroundBehind,
+//									bubbleHandle.visibleExploreQueries,
+//									bubbleHandle.visibleNotification,
+//									bubbleHandle.enableVoiceRecord,
+//									isDataMessenger)
+//								clearDataMessenger(bubbleData)
+//							}
+//						}
 					}
 				}
 				R.id.btnOpenDrawer ->
 				{
-					bubbleHandle?.openChatActivity()
+					floatingView.runEvent()
 				}
 				R.id.tvLight, R.id.tvDark ->
 				{
@@ -624,7 +609,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					mTheme[it.id]?.let { config ->
 						val theme = if (config) "light" else "dark"
-						bubbleHandle?.theme = theme
+						floatingView.theme = theme
 					}
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
@@ -633,7 +618,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						setColorOption(tv.tag as String, tv.id)
 					}
 					mPlacement[it.id]?.let { placement ->
-//						bubbleHandle?.placement = placement
 						floatingView.placement = placement
 					}
 				}

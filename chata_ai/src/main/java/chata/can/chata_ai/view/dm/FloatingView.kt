@@ -12,12 +12,15 @@ import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.circle.CircleImageView
 
 class FloatingView: FrameLayout
 {
+	fun runEvent() = eventClick()
+
 	fun setEventClick(listener: () -> Unit)
 	{
 		eventClick = listener
@@ -125,6 +128,23 @@ class FloatingView: FrameLayout
 			updatePositionOnScreen(value)
 		}
 	}
+
+	private var aThemePossible = arrayListOf("light", "dark")
+	var theme: String = "dark"
+		set(value) {
+			if (theme != value && value in aThemePossible)
+			{
+				val themeColor = when(value)
+				{
+					"light" -> ThemeColor.lightColor
+					"dark" -> ThemeColor.darkColor
+					else -> ThemeColor.lightColor
+				}
+				ThemeColor.currentColor = themeColor
+				SinglentonDrawer.themeColor = value
+				field = value
+			}
+		}
 	//endregion
 	constructor(context: Context): super(context) { init() }
 
