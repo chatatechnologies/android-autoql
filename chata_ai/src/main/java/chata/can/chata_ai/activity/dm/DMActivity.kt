@@ -1,13 +1,16 @@
 package chata.can.chata_ai.activity.dm
 
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import chata.can.chata_ai.R
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
@@ -15,10 +18,10 @@ import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
-class DMActivity: BaseActivity(R.layout.view_pager_options), View.OnClickListener
+class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickListener
 {
 	private lateinit var llMenu: LinearLayout
 	private lateinit var rlChat: View
@@ -37,8 +40,9 @@ class DMActivity: BaseActivity(R.layout.view_pager_options), View.OnClickListene
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
 
-	override fun onCreateView()
+	override fun onCreate(savedInstanceState: Bundle?)
 	{
+		super.onCreate(savedInstanceState)
 		llMenu = findViewById(R.id.llMenu)
 		rlChat = findViewById(R.id.rlChat)
 		ivChat = findViewById(R.id.ivChat)
@@ -56,12 +60,16 @@ class DMActivity: BaseActivity(R.layout.view_pager_options), View.OnClickListene
 		rlSelected = rlChat
 		ivSelected = ivChat
 
-		setListener()
-		updateTitle()
 		intent?.extras?.let {
 			val placement = it.getInt("PLACEMENT", 0)
+			FirebaseCrashlytics.getInstance().run {
+				setCustomKey("PLACEMENT", placement)
+			}
 			paintViews(placement)
 		}
+		setColor()
+		setListener()
+		updateTitle()
 
 		openChat()
 	}
@@ -71,13 +79,22 @@ class DMActivity: BaseActivity(R.layout.view_pager_options), View.OnClickListene
 		view?.let {
 			when(it.id)
 			{
-				R.id.ivClose -> closeActivity()
+				R.id.llMenu, R.id.ivClose -> closeActivity()
 			}
 		}
 	}
 
+	private fun setColor()
+	{
+		val whiteColor = getParsedColor(R.color.white)
+		llMenu.setBackgroundColor(getParsedColor(R.color.darken_background_behind))
+		ivClose.setColorFilter(whiteColor)
+		ivClear.setColorFilter(whiteColor)
+	}
+
 	private fun setListener()
 	{
+		llMenu.setOnClickListener(this)
 		ivClose.setOnClickListener(this)
 	}
 

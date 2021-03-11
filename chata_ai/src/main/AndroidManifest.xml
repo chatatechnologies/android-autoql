@@ -15,7 +15,8 @@
 
 		<activity
 			android:hardwareAccelerated="false"
-			android:name=".activity.dm.DMActivity"/>
+			android:name=".activity.dm.DMActivity"
+			android:theme="@style/Theme.AppCompat.Translucent"/>
 
 		<service android:name=".view.bubbles.BubblesService"
 			android:enabled="true"
