@@ -20,9 +20,13 @@ import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import org.json.JSONArray
+import org.json.JSONObject
 
 class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickListener
 {
@@ -92,13 +96,14 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 							when(_view.id)
 							{
 								R.id.rlChat -> openChat()
-								R.id.rlTips ->
-								{
-									changeColor(rlTips, ivTips)
-								}
+								R.id.rlTips -> openTips()
 								R.id.rlNotify ->
 								{
 									changeColor(rlNotify, ivNotify)
+									visibleClear(false)
+									showNotification()
+									fragment = NotificationFragment.newInstance()
+									putFragment(NotificationFragment.nameFragment)
 								}
 							}
 						}
@@ -139,6 +144,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		ivNew.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		rlSelected = rlNew
 		ivSelected = ivNew
+		updateTitle()
 	}
 
 	private fun setListener()
@@ -153,7 +159,6 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 	private fun openChat()
 	{
 		changeColor(rlChat, ivChat)
-		updateTitle()
 		fragment = DataMessengerFragment.newInstance()
 		visibleClear(true)
 		//region setDataToDataMessenger
@@ -169,17 +174,41 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 			}
 		}
 		//endregion
-		addFragment(supportFragmentManager, fragment, DataMessengerFragment.nameFragment)
+		putFragment(DataMessengerFragment.nameFragment)
 	}
 
 	private fun openTips()
 	{
+		changeColor(rlTips, ivTips)
+		visibleClear(false)
+		fragment = ExploreQueriesFragment.newInstance()
+		putFragment(ExploreQueriesFragment.nameFragment)
+	}
 
+	private fun putFragment(nameFragment: String)
+	{
+		addFragment(supportFragmentManager, fragment, nameFragment)
 	}
 
 	private fun visibleClear(isVisible: Boolean)
 	{
 		ivClose.visibility = if (isVisible) View.VISIBLE else View.GONE
+	}
+
+	private fun showNotification()
+	{
+		if (tvNotification.visibility == View.VISIBLE)
+			Poll.callShowNotification(object: StatusResponse {
+				override fun onFailure(jsonObject: JSONObject?) { jsonObject?.let {} }
+
+				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					jsonObject?.let {
+						val message = it.optString("message") ?: ""
+						showNotify(message != "ok")
+					}
+				}
+			})
 	}
 
 	private fun paintViews(placement: Int)
@@ -341,5 +370,10 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 			}
 		}
 		finish()
+	}
+
+	fun showNotify(visible: Boolean)
+	{
+		tvNotification.visibility = if (visible) View.VISIBLE else View.GONE
 	}
 }
