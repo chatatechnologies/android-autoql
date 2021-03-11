@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
@@ -41,6 +42,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
+	private lateinit var fragment: Fragment
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -71,8 +73,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		}
 		setColor()
 		setListener()
-		updateTitle()
-
+		//Start first fragment
 		openChat()
 	}
 
@@ -90,10 +91,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 						{
 							when(_view.id)
 							{
-								R.id.rlChat ->
-								{
-									changeColor(rlChat, ivChat)
-								}
+								R.id.rlChat -> openChat()
 								R.id.rlTips ->
 								{
 									changeColor(rlTips, ivTips)
@@ -154,7 +152,11 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 
 	private fun openChat()
 	{
-		val fragment = DataMessengerFragment.newInstance()
+		changeColor(rlChat, ivChat)
+		updateTitle()
+		fragment = DataMessengerFragment.newInstance()
+		visibleClear(true)
+		//region setDataToDataMessenger
 		fragment.arguments?.let {
 			DataMessengerData.run {
 				it.putString("CUSTOMER_NAME", customerName)
@@ -166,7 +168,18 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 				it.putBoolean("ENABLE_VOICE_RECORD", enableVoiceRecord)
 			}
 		}
+		//endregion
 		addFragment(supportFragmentManager, fragment, DataMessengerFragment.nameFragment)
+	}
+
+	private fun openTips()
+	{
+
+	}
+
+	private fun visibleClear(isVisible: Boolean)
+	{
+		ivClose.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	private fun paintViews(placement: Int)
