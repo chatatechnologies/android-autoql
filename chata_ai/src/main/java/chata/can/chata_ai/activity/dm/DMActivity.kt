@@ -18,6 +18,8 @@ import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 
@@ -76,25 +78,77 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 
 	override fun onClick(view: View?)
 	{
-		view?.let {
-			when(it.id)
+		view?.let { _view ->
+			when(_view.id)
 			{
 				R.id.llMenu, R.id.ivClose -> closeActivity()
+				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
+				{
+					if (rlSelected != null)
+					{
+						if (rlSelected!!.id != _view.id)
+						{
+							when(_view.id)
+							{
+								R.id.rlChat ->
+								{
+									changeColor(rlChat, ivChat)
+								}
+								R.id.rlTips ->
+								{
+									changeColor(rlTips, ivTips)
+								}
+								R.id.rlNotify ->
+								{
+									changeColor(rlNotify, ivNotify)
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
 
 	private fun setColor()
 	{
-		val whiteColor = getParsedColor(R.color.white)
+		val accentColor = SinglentonDrawer.currentAccent
+		val white = getParsedColor(R.color.white)
+
+		toolbar.setBackgroundColor(accentColor)
+		rlChat.setBackgroundColor(accentColor)
+		rlTips.setBackgroundColor(accentColor)
+		rlNotify.setBackgroundColor(accentColor)
+		rlSelected?.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
+		ivChat.setColorFilter(white)
+		ivTips.setColorFilter(white)
+		ivNotify.setColorFilter(white)
+		ivSelected?.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
+		tvNotification.background = DrawableBuilder.setOvalDrawable(
+			getParsedColor(R.color.red_notification))
+
 		llMenu.setBackgroundColor(getParsedColor(R.color.darken_background_behind))
-		ivClose.setColorFilter(whiteColor)
-		ivClear.setColorFilter(whiteColor)
+		ivClose.setColorFilter(white)
+		ivClear.setColorFilter(white)
+	}
+
+	private fun changeColor(rlNew: View, ivNew: ImageView)
+	{
+		val accentColor = SinglentonDrawer.currentAccent
+		rlSelected?.setBackgroundColor(accentColor)
+		ivSelected?.setColorFilter(getParsedColor(R.color.white))
+		rlNew.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
+		ivNew.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
+		rlSelected = rlNew
+		ivSelected = ivNew
 	}
 
 	private fun setListener()
 	{
 		llMenu.setOnClickListener(this)
+		rlChat.setOnClickListener(this)
+		rlTips.setOnClickListener(this)
+		rlNotify.setOnClickListener(this)
 		ivClose.setOnClickListener(this)
 	}
 
