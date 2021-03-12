@@ -400,14 +400,6 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 			}
 		}
 		finish()
-
-		val pData = when(placement)
-		{
-			ConstantDrawer.LEFT_PLACEMENT -> Pair(R.anim.from_right_in, R.anim.from_left_out)
-			ConstantDrawer.RIGHT_PLACEMENT -> Pair(R.anim.from_left_in, R.anim.from_right_out)
-			else -> Pair(0, 0)
-		}
-		overridePendingTransition(pData.first, pData.second)
 	}
 
 	fun showNotify(visible: Boolean)

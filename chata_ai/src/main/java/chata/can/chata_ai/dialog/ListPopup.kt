@@ -17,7 +17,11 @@ object ListPopup
 		query: String,
 		dataPopup: DataPopup ?= null)
 	{
-		PopupMenu(view.context, view).run {
+		val theme = if (SinglentonDrawer.themeColor == "dark")
+			R.style.popupMenuStyle2
+		else R.style.popupMenuStyle1
+		val wrapper = ContextThemeWrapper(view.context, theme)
+		PopupMenu(wrapper, view).run {
 			menu?.run {
 				if (dataPopup?.isReduce == true)
 				{
@@ -59,9 +63,6 @@ object ListPopup
 		chatView: ChatContract.View?)
 	{
 		val presenter = WebViewPresenter(chatView)
-		object: PopupMenu(view.context, view) {
-
-		}
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2
 		else R.style.popupMenuStyle1
