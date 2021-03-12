@@ -1,5 +1,9 @@
 package chata.can.chata_ai.activity.dm
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -23,6 +27,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
+import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONArray
@@ -47,6 +52,23 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
 	private lateinit var fragment: Fragment
+
+	private val receiver = object : BroadcastReceiver()
+	{
+		override fun onReceive(context: Context?, intent: Intent?)
+		{
+			intent?.extras?.let {
+				it.getString(PollService.DATA)?.let { data ->
+					try {
+						val json = JSONObject(data)
+						json.optJSONObject("data")?.let { joData ->
+							val unacknowledged = joData.optInt("unacknowledged")
+						}
+					} catch(ex: Exception) {}
+				}
+			}
+		}
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -79,6 +101,18 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		setListener()
 		//Start first fragment
 		openChat()
+	}
+
+	override fun onResume()
+	{
+		super.onResume()
+		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
+	}
+
+	override fun onPause()
+	{
+		super.onPause()
+		unregisterReceiver(receiver)
 	}
 
 	override fun onClick(view: View?)

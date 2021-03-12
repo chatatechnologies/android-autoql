@@ -4,17 +4,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Point
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
@@ -33,11 +29,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	private lateinit var llParent: RelativeLayout
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
-	private var pagerOption: PagerOptions ?= null
 	private lateinit var adapter: SlidePagerAdapter
 	private lateinit var floatingView: FloatingView
-
-	private val overlayPermission = 1000
 
 	private val receiver = object: BroadcastReceiver()
 	{
@@ -49,6 +42,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 						val json = JSONObject(data)
 						json.optJSONObject("data")?.let { joData ->
 							val unacknowledged = joData.optInt("unacknowledged")
+							//todo move code to DMActivity
 //							pagerOption.showNotify(unacknowledged > 0)
 						}
 					} catch (ex: Exception) {}
