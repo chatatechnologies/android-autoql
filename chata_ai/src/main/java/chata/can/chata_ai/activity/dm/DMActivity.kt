@@ -52,6 +52,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
 	private lateinit var fragment: Fragment
+	private var placement = 0
 
 	private val receiver = object : BroadcastReceiver()
 	{
@@ -91,7 +92,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		ivSelected = ivChat
 
 		intent?.extras?.let {
-			val placement = it.getInt("PLACEMENT", 0)
+			placement = it.getInt("PLACEMENT", 0)
 			FirebaseCrashlytics.getInstance().run {
 				setCustomKey("PLACEMENT", placement)
 			}
@@ -386,9 +387,16 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		tvTitle.text = tmp
 	}
 
-	override fun finish() {
+	override fun finish()
+	{
 		super.finish()
-		overridePendingTransition(R.anim.from_left_in, R.anim.from_right_out)
+		val pData = when(placement)
+		{
+			ConstantDrawer.LEFT_PLACEMENT -> Pair(R.anim.from_right_in, R.anim.from_left_out)
+			ConstantDrawer.RIGHT_PLACEMENT -> Pair(R.anim.from_left_in, R.anim.from_right_out)
+			else -> Pair(0, 0)
+		}
+		overridePendingTransition(pData.first, pData.second)
 	}
 
 	override fun onBackPressed() = closeActivity()

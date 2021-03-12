@@ -12,6 +12,7 @@ import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.model.BubbleData
+import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -82,7 +83,13 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 					putExtra("PLACEMENT", floatingView.placement)
 				}
 			)
-			overridePendingTransition(R.anim.from_right_in, R.anim.from_left_out)
+			val pData = when(floatingView.placement)
+			{
+				ConstantDrawer.LEFT_PLACEMENT -> Pair(R.anim.from_left_in, R.anim.from_right_out)
+				ConstantDrawer.RIGHT_PLACEMENT -> Pair(R.anim.from_right_in, R.anim.from_left_out)
+				else -> Pair(0, 0)
+			}
+			overridePendingTransition(pData.first, pData.second)
 //			pagerOption = PagerOptions(this).apply {
 //				fragmentManager = supportFragmentManager
 //				setStatusGUI()
