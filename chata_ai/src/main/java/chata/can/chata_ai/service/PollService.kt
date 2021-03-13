@@ -3,6 +3,7 @@ package chata.can.chata_ai.service
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.Poll
 import org.json.JSONArray
@@ -22,7 +23,10 @@ class PollService: JobIntentService(), StatusResponse
 
 	override fun onHandleWork(intent: Intent)
 	{
-		Poll.callPoll(this)
+		if (DataMessengerData.activeNotifications)
+		{
+			Poll.callPoll(this)
+		}
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)

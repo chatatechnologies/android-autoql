@@ -40,4 +40,5 @@ object DataMessengerData
 	var isDarkenBackgroundBehind = true
 	var visibleExploreQueries = true
 	var visibleNotification = true
+	var activeNotifications = true
 }

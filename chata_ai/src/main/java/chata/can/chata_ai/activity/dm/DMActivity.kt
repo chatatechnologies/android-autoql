@@ -102,6 +102,11 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		setListener()
 		//Start first fragment
 		openChat()
+
+		DataMessengerData.run {
+			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
+			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
+		}
 	}
 
 	override fun onResume()

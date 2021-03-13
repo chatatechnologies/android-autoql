@@ -84,6 +84,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableQuery: SwitchCompat ?= null
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
+	private var swEnableNotification: SwitchCompat ?= null
 	private var swBackgroundBehind: SwitchCompat ?= null
 	private var swTabExploreQueries: SwitchCompat ?= null
 	private var swTabNotification: SwitchCompat ?= null
@@ -278,6 +279,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableQuery = findViewById(R.id.swEnableQuery)
 			swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
 			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
+			swEnableNotification = findViewById(R.id.swEnableNotification)
 			swBackgroundBehind = findViewById(R.id.swBackgroundBehind)
 			swTabExploreQueries = findViewById(R.id.swTabExploreQueries)
 			swTabNotification = findViewById(R.id.swTabNotification)
@@ -521,6 +523,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		swEnableDrillDown?.setOnCheckedChangeListener {
 			_, isChecked ->
 			DataMessengerData.autoQLConfig.enableDrilldowns = isChecked
+		}
+
+		swEnableNotification?.setOnCheckedChangeListener {
+			_, isChecked ->
+			DataMessengerData.visibleNotification = isChecked
+			DataMessengerData.activeNotifications = isChecked
 		}
 
 		swBackgroundBehind?.setOnCheckedChangeListener {

@@ -345,8 +345,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 		updateTitle()
 
 //		bubbleData?.let {
-//			rlTips.visibility = if (it.visibleExploreQueries) View.VISIBLE else View.GONE
-//			rlNotify.visibility = if (it.visibleNotification) View.VISIBLE else View.GONE
+//			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
+//			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
 //		}
 	}
 
