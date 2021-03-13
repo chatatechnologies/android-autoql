@@ -8,4 +8,5 @@ open class SimpleQuery(json: JSONObject)
 	val query = json.optStringInList(arrayListOf("query", "text"))
 	var typeView = 0
 	var isSession = false
+	var visibleTop = true
 }

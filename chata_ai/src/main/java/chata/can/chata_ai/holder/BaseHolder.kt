@@ -30,6 +30,7 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
+	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
@@ -161,6 +162,7 @@ open class BaseHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
+		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.GONE
 		if (simpleQuery.query.isNotEmpty())
 		{
 			tvContentTop.visibility = View.VISIBLE

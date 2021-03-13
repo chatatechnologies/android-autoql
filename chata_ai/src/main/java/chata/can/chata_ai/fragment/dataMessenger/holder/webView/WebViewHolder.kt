@@ -34,6 +34,7 @@ class WebViewHolder(
 	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
+	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
@@ -272,6 +273,7 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
+		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
 		if (simpleQuery.query.isNotEmpty())
 		{
 			tvContentTop.visibility = visible
