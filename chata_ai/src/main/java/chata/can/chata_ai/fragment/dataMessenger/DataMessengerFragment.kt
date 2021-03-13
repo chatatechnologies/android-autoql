@@ -429,13 +429,30 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun scrollToPosition()
 	{
-		model.getParseCount()
-	//while(model.getParseCount() > DataMessengerData.maxMessages)
-		while(model.countData() > DataMessengerData.maxMessages)
+		var countToDown = model.getParseCount()
+		DataMessengerData.maxMessages
+		while(countToDown > DataMessengerData.maxMessages)
 		{
-			model.removeAt(0)
-			chatAdapter.notifyItemRemoved(0)
+			model[0]?.let {
+				if (it.simpleQuery == null)
+				{
+					countToDown--
+					model.removeAt(0)
+					chatAdapter.notifyItemRemoved(0)
+				}
+				else
+				{
+					countToDown--
+					println("Hide top when is odd")
+				}
+			}
 		}
+	//the work before
+//		while(model.countData() > DataMessengerData.maxMessages)
+//		{
+//			model.removeAt(0)
+//			chatAdapter.notifyItemRemoved(0)
+//		}
 		Handler(Looper.getMainLooper()).postDelayed({
 			val position = model.countData() - 1
 			rvChat.smoothScrollToPosition(position)

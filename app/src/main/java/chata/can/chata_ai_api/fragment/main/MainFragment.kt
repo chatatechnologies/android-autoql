@@ -130,7 +130,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etCustomerMessage?.setText(customerMessage)
 			val title = nameFragment
 			etTitle?.setText(title)
-			val maxMessage = 10
+			val maxMessage = 3
 			etMaxNumberMessage?.setText("$maxMessage")
 			val languageCode = "es-MX"
 			etLanguageCode?.setText(languageCode)

@@ -27,11 +27,7 @@ class DataMessengerModel: BaseModelList<ChatData>()
 		var totalCount = 0
 		for (data in getData())
 		{
-			totalCount += when(data.typeView)
-			{
-				TypeChatView.QUERY_BUILDER -> 1
-				else -> 2
-			}
+			totalCount += if (data.simpleQuery == null) 1 else 2
 		}
 		return totalCount
 	}
