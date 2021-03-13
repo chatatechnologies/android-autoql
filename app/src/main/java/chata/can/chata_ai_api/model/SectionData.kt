@@ -95,7 +95,8 @@ object SectionData
 				DemoParameter("Dashboard Background Color", TypeParameter.COLOR, "#FAFAFA", idView = R.id.etDashboardColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
-				DemoParameter("Maximum Number of Messages", TypeParameter.INPUT, "10", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
+				//TODO change to original value
+				DemoParameter("Maximum Number of Messages", TypeParameter.INPUT, "4", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Explore Queries Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabExploreQueries),
 				DemoParameter("Enable Notifications Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabNotification),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)

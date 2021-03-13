@@ -429,6 +429,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun scrollToPosition()
 	{
+		model.getParseCount()
 	//while(model.getParseCount() > DataMessengerData.maxMessages)
 		while(model.countData() > DataMessengerData.maxMessages)
 		{
