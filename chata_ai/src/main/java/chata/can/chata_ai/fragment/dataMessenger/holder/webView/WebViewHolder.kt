@@ -70,6 +70,7 @@ class WebViewHolder(
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
 	private var isReduceOptions = false
+	private var canChangeHeight = false
 
 	private var accentColor = 0
 
@@ -410,6 +411,7 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
+				canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId
 				wbQuery?.run {
@@ -434,8 +436,6 @@ class WebViewHolder(
 	{
 		with(webView)
 		{
-			changeHeightWebView(numRows)
-
 			rlLoad?.visibility = visible
 			clearCache(true)
 			clearHistory()
@@ -443,6 +443,10 @@ class WebViewHolder(
 			if (lastId == "#container")
 			{
 				changeHeightWebView(factorHeight)
+			}
+			else
+			{
+				changeHeightWebView(numRows)
 			}
 			settings.javaScriptEnabled = true
 			queryBase?.let {
@@ -478,16 +482,20 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		rvParent?.let {
-			var customHeight = it.dpToPx(30f * numRows) + 60
-			if (customHeight > 900)
-			{
-				customHeight = 900
-			}
+		if (canChangeHeight)
+		{
+			canChangeHeight = false
+			rvParent?.let {
+				var customHeight = it.dpToPx(30f * numRows) + 60
+				if (customHeight > 900)
+				{
+					customHeight = 900
+				}
 
-			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-			it.margin(12f, 32f, 12f, 1f)
-			chatView?.scrollToPosition()
+				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+				it.margin(12f, 32f, 12f, 1f)
+				chatView?.scrollToPosition()
+			}
 		}
 	}
 }
