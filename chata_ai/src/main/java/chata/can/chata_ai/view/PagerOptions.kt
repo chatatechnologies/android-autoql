@@ -147,7 +147,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 	fun init()
 	{
 		val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
+		val view = inflater.inflate(R.layout.activity_pager_options, nullParent)
 
 		view.run {
 			llMenu = findViewById(R.id.llMenu)

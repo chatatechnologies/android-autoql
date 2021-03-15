@@ -33,8 +33,9 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickListener
+class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnClickListener
 {
+	private lateinit var vBehind: View
 	private lateinit var llMenu: LinearLayout
 	private lateinit var rlChat: View
 	private lateinit var ivChat: ImageView
@@ -74,6 +75,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
+		vBehind = findViewById(R.id.vBehind)
 		llMenu = findViewById(R.id.llMenu)
 		rlChat = findViewById(R.id.rlChat)
 		ivChat = findViewById(R.id.ivChat)
@@ -104,6 +106,7 @@ class DMActivity: AppCompatActivity(R.layout.view_pager_options), View.OnClickLi
 		openChat()
 
 		DataMessengerData.run {
+			vBehind.visibility = if (isDarkenBackgroundBehind) View.VISIBLE else View.GONE
 			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
 			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
 		}

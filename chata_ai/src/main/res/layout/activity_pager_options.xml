@@ -3,6 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent">
+	
+	<View
+		android:visibility="gone"
+		android:background="#99000000"
+		android:id="@+id/vBehind"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"/>
+	
 	<LinearLayout
 		android:background="@android:color/transparent"
 		android:clickable="true"
