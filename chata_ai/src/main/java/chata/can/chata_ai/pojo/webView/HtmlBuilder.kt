@@ -87,11 +87,43 @@ object HtmlBuilder
 			{
 				val aUncountable = SearchColumn.getUncountableIndices(queryBase.aColumn)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn)
-				posColumnX = aUncountable.nextSeries()
-				if (aNumber.isNotEmpty())
-					posColumnY = aNumber[0]
-				posColumnX = hasDateIndex(queryBase, posColumnX)
+				/*aDate*/
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
+				/*aDollar*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
+
+				when
+				{
+					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
+					aUncountable.isNotEmpty() ->
+					{
+						posColumnX = if (aUncountable.size == 2)
+							aUncountable[1]
+						else
+							aUncountable[0]
+					}
+				}
+				when
+				{
+					aDataY.isNotEmpty() ->
+					{
+						val tmp = hasNotValueInColumn(aRows, aDataY, 0f)
+						posColumnY = if (tmp == -1) aDataY[0] else tmp
+					}
+					aNumber.isNotEmpty() ->
+					{
+						posColumnY = aDataY[0]
+					}
+				}
+
 				queryBase.addIndices(posColumnX, posColumnY)
+				queryBase.configActions = 4
+
+//				posColumnX = aUncountable.nextSeries()
+//				if (aNumber.isNotEmpty())
+//					posColumnY = aNumber[0]
+//				posColumnX = hasDateIndex(queryBase, posColumnX)
+//				queryBase.addIndices(posColumnX, posColumnY)
 
 				dataForWebView.catX = Categories.buildCategoryByPosition(
 					Category(
@@ -107,7 +139,7 @@ object HtmlBuilder
 //				if (hasDecimals)
 //					queryBase.configActions = 0
 //				else
-					queryBase.configActions = 4
+//					queryBase.configActions = 4
 			}
 			SupportCase.CASE_6 ->
 			{
