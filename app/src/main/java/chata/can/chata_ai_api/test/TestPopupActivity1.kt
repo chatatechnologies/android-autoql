@@ -12,7 +12,7 @@ import android.widget.PopupWindow
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai_api.R
 
-class TestPopupActivity: BaseActivity(R.layout.main)
+class TestPopupActivity1: BaseActivity(R.layout.main)
 {
 	private var p: Point ?= null
 	private var button: Button ?= null
@@ -22,7 +22,7 @@ class TestPopupActivity: BaseActivity(R.layout.main)
 		findViewById<Button>(R.id.show_popup)?.apply {
 			setOnClickListener {
 				p?.let {
-					showPopup(this@TestPopupActivity)
+					showPopup(this@TestPopupActivity1)
 				}
 			}
 		}
@@ -42,7 +42,7 @@ class TestPopupActivity: BaseActivity(R.layout.main)
 		// Inflate the popup_layout.xml
 		val viewGroup = context.findViewById<LinearLayout>(R.id.popup)
 		val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val layout = layoutInflater.inflate(R.layout.poppu_layout, viewGroup)
+		val layout = layoutInflater.inflate(R.layout.popup_layout, viewGroup)
 		// Creating the PopupWindow
 		val popup = PopupWindow(this)
 		popup.contentView = layout
