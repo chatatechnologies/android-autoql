@@ -21,40 +21,46 @@ object ListPopup
 			R.style.popupMenuStyle2
 		else R.style.popupMenuStyle1
 		val wrapper = ContextThemeWrapper(view.context, theme)
+
 		PopupMenu(wrapper, view).run {
-			menu?.run {
-				if (dataPopup?.isReduce == true)
-				{
-					add(1, R.id.iReportProblem, 1, R.string.report_problem)
-					add(2, R.id.iDelete, 2, R.string.delete_response)
-				}
-				add(3, R.id.iGenerateSQL, 3, R.string.view_generated_sql)
-			}
-			setOnMenuItemClickListener { item ->
-				dataPopup?.run {
-					when(item.itemId)
-					{
-						R.id.iReportProblem ->
-						{
-							showListPopup(viewRoot, queryId, chatView)
-						}
-						R.id.iDelete ->
-						{
-							adapterView?.deleteQuery(adapterPosition)
-						}
-						R.id.iGenerateSQL ->
-						{
-							DisplaySQLDialog(view.context, query).show()
-						}
-						else -> {}
-					}
-				} ?: run {
-					DisplaySQLDialog(view.context, query).show()
-				}
-				true
-			}
+			menuInflater.inflate(R.menu.menu_complete, menu)
 			show()
 		}
+
+//		PopupMenu(wrapper, view).run {
+//			menu?.run {
+//				if (dataPopup?.isReduce == true)
+//				{
+//					add(1, R.id.iReportProblem, 1, R.string.report_problem).setIcon(R.mipmap.ic_launcher_tmp)
+//					add(2, R.id.iDelete, 2, R.string.delete_response).setIcon(R.mipmap.ic_launcher_tmp)
+//				}
+//				add(3, R.id.iGenerateSQL, 3, R.string.view_generated_sql).setIcon(R.mipmap.ic_launcher_tmp)
+//			}
+//			setOnMenuItemClickListener { item ->
+//				dataPopup?.run {
+//					when(item.itemId)
+//					{
+//						R.id.iReportProblem ->
+//						{
+//							showListPopup(viewRoot, queryId, chatView)
+//						}
+//						R.id.iDelete ->
+//						{
+//							adapterView?.deleteQuery(adapterPosition)
+//						}
+//						R.id.iGenerateSQL ->
+//						{
+//							DisplaySQLDialog(view.context, query).show()
+//						}
+//						else -> {}
+//					}
+//				} ?: run {
+//					DisplaySQLDialog(view.context, query).show()
+//				}
+//				true
+//			}
+//			show()
+//		}
 	}
 
 	fun showListPopup(

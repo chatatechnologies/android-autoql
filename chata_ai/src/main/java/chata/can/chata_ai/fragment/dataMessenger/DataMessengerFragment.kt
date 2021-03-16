@@ -86,13 +86,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			queryToTyping = ""
 			runTyping(tmp)
 		}
-//		if (BuildConfig.DEBUG)
-//		{
-////			val queryDemo = "Total revenue by month in 2019"
-////			val queryDemo = "Total cost by customer by month"
-//			val queryDemo = "revenue"
-//			etQuery.setText(queryDemo)
-//		}
+		if (BuildConfig.DEBUG)
+		{
+//			val queryDemo = "Total revenue by month in 2019"
+//			val queryDemo = "Total cost by customer by month"
+			val queryDemo = "total cost by customer by month"
+			etQuery.setText(queryDemo)
+		}
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
 			model.restartData()

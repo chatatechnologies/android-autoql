@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@id/iReportProblem"
+		android:icon="@mipmap/ic_launcher_tmp"
+		android:title="@string/report_problem"/>
+	<item
+		android:id="@id/iDelete"
+		android:icon="@mipmap/ic_launcher_tmp"
+		android:title="@string/delete_response"/>
+	<item
+		android:id="@id/iGenerateSQL"
+		android:icon="@mipmap/ic_launcher_tmp"
+		android:title="@string/view_generated_sql"/>
+</menu>
