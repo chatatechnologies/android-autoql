@@ -62,6 +62,14 @@
     });
     var fformat = locale.format("$,");
     //endregion
+
+    $(window).resize(function() {
+      
+      console.log("Width " + $(window).height());
+    });
+    //read size
+	  // console.log( "height in window: " + $(window).height() );
+	  // console.log( "width in window: " + $(window).width() );
     
     updateData(TypeEnum.COLUMN);
 </script>
