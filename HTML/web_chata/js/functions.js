@@ -19,10 +19,19 @@ function clearSvg() {
 	d3.select('svg').remove();
 }
 
-function updateData(tmpChart) {
-	if (typeChart != tmpChart) {
+function updateSize() {
+  //take $(window).height()
+  width = $(window).height() - margin.left - margin.right;
+  //take $(window).width()
+  height = $(window).width() - margin.top - margin.bottom;
+  radius = Math.min(width, height) / 2;
+}
+
+function updateData(tmpChart, isReload) {
+	if (typeChart != tmpChart || isReload) {
 	  typeChart = tmpChart;
 
+    updateSize();
 	  clearSvg();
 	  switch(typeChart) {
 		case TypeEnum.COLUMN:
@@ -41,7 +50,7 @@ function updateData(tmpChart) {
 		  console.log("default");
 	  }
 	}
-  }
+}
 
 function drillDown(content) {
 	try {

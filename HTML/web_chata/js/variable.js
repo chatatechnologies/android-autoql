@@ -30,12 +30,17 @@ var minValue = 57326.75;//put here min value
 
 //The left margin makes the left border visible
 var typeChart;
+//width dynamic, height dynamic
+var width1 = 0;
+var height = 0;
 var margin = {
   top: 20,
   right: 20,
   bottom: 72 + 10,//factor count letter by 7
   left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
-},
-width = 960 - margin.left - margin.right,
-height = 550 - margin.top - margin.bottom,
-radius = Math.min(width, height) / 2;
+};
+//width = width1 - margin.left - margin.right,
+var width = 0;
+//height = height - margin.top - margin.bottom,
+var height = 0;
+//radius = Math.min(width, height) / 2;

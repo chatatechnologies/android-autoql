@@ -64,13 +64,8 @@
     //endregion
 
     $(window).resize(function() {
-      
-      console.log("Width " + $(window).height());
+      updateData(TypeEnum.COLUMN, true);
     });
-    //read size
-	  // console.log( "height in window: " + $(window).height() );
-	  // console.log( "width in window: " + $(window).width() );
-    
     updateData(TypeEnum.COLUMN);
 </script>
 </body>
