@@ -108,12 +108,13 @@ open class BaseHolder(
 
 						rlDelete?.visibility = View.VISIBLE
 						ivReport?.visibility =
-							if (item.message == "I want to make sure I understood your query. Did you mean:")
-								View.GONE
-							else
-							{
-								if (it.isSession) View.VISIBLE else View.GONE
-							}
+//							if (item.message == "I want to make sure I understood your query. Did you mean:")
+//								View.GONE
+//							else
+//							{
+								//if (it.isSession) View.VISIBLE else
+									View.GONE
+							//}
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
