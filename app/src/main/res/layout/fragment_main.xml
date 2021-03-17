@@ -46,7 +46,8 @@
 				android:id="@+id/tvAlert"
 				android:layout_height="match_parent"
 				android:layout_width="wrap_content"
-				android:textAllCaps="false"/>
+				android:textAllCaps="false"
+				android:textColor="@android:color/black"/>
 		</LinearLayout>
 
 	</RelativeLayout>
