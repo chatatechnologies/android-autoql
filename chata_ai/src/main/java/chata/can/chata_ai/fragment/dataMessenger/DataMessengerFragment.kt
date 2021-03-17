@@ -90,7 +90,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 //			val queryDemo = "Total revenue by month in 2019"
 //			val queryDemo = "all invoices last month"
-			val queryDemo = "??"//error without report view
+			val queryDemo = "revenue"
 			etQuery.setText(queryDemo)
 		}
 
@@ -312,7 +312,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val chatData = ChatData(TypeChatView.LEFT_VIEW, message)
 		setSession(chatData)
 		model.add(chatData)
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
@@ -326,7 +328,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val chatData = ChatData(typeView, message, simpleQuery)
 		setSession(chatData)
 		model.add(chatData)
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
@@ -335,7 +339,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val chatData = ChatData(typeView, "", queryBase)
 		setSession(chatData)
 		model.add(chatData)
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
