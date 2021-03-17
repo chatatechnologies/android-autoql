@@ -2,6 +2,7 @@ package chata.can.chata_ai.service
 
 import android.content.Context
 import android.content.Intent
+import android.os.IBinder
 import androidx.core.app.JobIntentService
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -19,6 +20,10 @@ class PollService: JobIntentService(), StatusResponse
 		{
 			enqueueWork(context, PollService::class.java, 1, intent)
 		}
+	}
+
+	override fun onBind(intent: Intent): IBinder? {
+		return null
 	}
 
 	override fun onHandleWork(intent: Intent)
