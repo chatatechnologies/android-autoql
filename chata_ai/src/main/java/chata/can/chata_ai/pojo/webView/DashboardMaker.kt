@@ -485,9 +485,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     }
             function pieType(){
        ${'$'}('.container, #container').css({ "width": "99%", "position": "relative","height":"80%", "z-index": "0" });
-       chart.destroy()
-       chart = Highcharts.chart('container', {
-          
+       var newCategory = categoriesX;
+       var chartBiSeries = {
         chart: {
           backgroundColor: colorGhost,
           fill: colorGhost,
@@ -565,13 +564,38 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             showInLegend: true
           }
         },
-        colors: colors,
-        series: [{
-               colorByPoint: true,
-               data: dataChartBi
-           }]
-       });
+        colors: colors
+      };
 
+       chart.destroy()
+      if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+      } else {
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataChartBi
+
+        chart = Highcharts.chart('container', chartBiSeries);
+      }
+
+       //region choose option
+       if (categoriesX.length == 1 && newCategory[0] === "") {
+        console.log("here is")
+        }
+       if (dataChartBi[0] instanceof Array) {
+            console.log("is tri")
+       } else {
+            console.log("is bi")
+       }
     }
     function lineType(){
         finalSize(false);
