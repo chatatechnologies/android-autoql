@@ -199,7 +199,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						dataForWebView.yAxis = aColumn.getOrNull(
 							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
 					}
-					else -> {}
+					else ->
+					{
+						dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+						dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+					}
 				}
 				dataForWebView.isColumn = isGroupable
 				dataForWebView.isDashboard = isDashboard
