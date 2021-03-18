@@ -97,6 +97,7 @@ class JavaScriptInterface(
 										aRows.addAll(values)
 										limitRowNum = values.size + 1
 									}
+									newQueryBase.queryId = queryBase.queryId
 									newQueryBase.resetData()
 									(context as? Activity)?.runOnUiThread {
 										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
