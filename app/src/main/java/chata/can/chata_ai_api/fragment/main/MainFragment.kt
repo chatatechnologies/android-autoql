@@ -357,7 +357,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		swDrawerHandle?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.isVisible = isChecked
+			if (::floatingView.isInitialized) {
+				floatingView.visibility = if (isChecked) View.VISIBLE else View.GONE
+				DataMessengerData.isVisible = isChecked
+			}
 		}
 
 		etCurrencyCode?.setOnTextChanged {
