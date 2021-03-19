@@ -201,8 +201,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					}
 					else ->
 					{
-						dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
-						dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+						if (aIndex.isNotEmpty())
+						{
+							dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+							dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+						}
 					}
 				}
 				dataForWebView.isColumn = isGroupable
