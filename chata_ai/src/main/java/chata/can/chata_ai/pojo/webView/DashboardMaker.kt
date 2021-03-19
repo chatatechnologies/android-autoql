@@ -577,25 +577,16 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         }
         chart.update(chartBiSeries);
       } else {
+        var dataPie = Array.of(dataChartBi[0]);
         chartBiSeries.title = subTitle
         chartBiSeries.subTitle = subTitle
         chartBiSeries.showInLegend = true
         chartBiSeries.legend = false
         chartBiSeries.colors = colors
-        chartBiSeries.series = dataChartBi
+        chartBiSeries.series = dataPie
 
         chart = Highcharts.chart('container', chartBiSeries);
       }
-
-       //region choose option
-       if (categoriesX.length == 1 && newCategory[0] === "") {
-        console.log("here is")
-        }
-       if (dataChartBi[0] instanceof Array) {
-            console.log("is tri")
-       } else {
-            console.log("is bi")
-       }
     }
     function lineType(){
         finalSize(false);
