@@ -62,21 +62,26 @@ class JavaScriptInterface(
 						val aPositions = content.split("_")
 						if (aPositions.size > 1)
 						{
-							aPositions[0].toIntOrNull()?.let { itPosition ->
-								val buildContent = StringBuilder("")
-								val aRows = queryBase.aRows[itPosition]
-
-								for (index in queryBase.aColumn.indices)
-								{
-									val column = queryBase.aColumn[index]
-									if (column.isGroupable)
-									{
-										buildContent.append("${aRows[index]}_")
-									}
-								}
-								newContent = buildContent.toString().removeSuffix("_")
+							val indexX = queryBase.aXAxis.indexOf(aPositions[0])
+							if (indexX != -1)
+							{
 								postDrillDown(newContent)
 							}
+//							aPositions[0].toIntOrNull()?.let { itPosition ->
+//								val buildContent = StringBuilder("")
+//								val aRows = queryBase.aRows[itPosition]
+//
+//								for (index in queryBase.aColumn.indices)
+//								{
+//									val column = queryBase.aColumn[index]
+//									if (column.isGroupable)
+//									{
+//										buildContent.append("${aRows[index]}_")
+//									}
+//								}
+//								newContent = buildContent.toString().removeSuffix("_")
+//								postDrillDown(newContent)
+//							}
 						}
 					}
 				}
