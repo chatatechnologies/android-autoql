@@ -51,7 +51,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		}
 		else
 		{
-			val msg = "Oh no! Something went wrong while accessing your notifications."
+			val msg = "No notification yet.\nStay tuned!"
 			tvLoading.text = msg
 			ThemeColor.currentColor.run {
 			btnTry.run {
