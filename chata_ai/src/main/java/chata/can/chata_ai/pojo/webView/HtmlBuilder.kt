@@ -448,6 +448,7 @@ object HtmlBuilder
 							val vString = value[index]
 							aItem.add(vString)
 						}
+						if (dataForWebView.isReverseX) aItem.reverse()
 						aDataOrder.add(aItem)
 					}
 					//endregion
