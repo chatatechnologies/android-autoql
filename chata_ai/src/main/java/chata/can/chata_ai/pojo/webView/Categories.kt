@@ -42,9 +42,12 @@ object Categories
 						aStacked.add(parsed)
 				}
 			}
+			if (isReverse)
+			{
+				aStacked.reverse()
+			}
 		}
 
-		//aStacked.reverse()
 		return aStacked
 	}
 }

@@ -128,7 +128,7 @@ object HtmlBuilder
 				dataForWebView.catX = Categories.buildCategoryByPosition(
 					Category(
 						aRows, aColumn[posColumnX], posColumnX,
-						true, hasQuotes = true, allowRepeat = false
+						true, hasQuotes = true, allowRepeat = false, isReverse = true
 					)
 				).toString()
 				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
