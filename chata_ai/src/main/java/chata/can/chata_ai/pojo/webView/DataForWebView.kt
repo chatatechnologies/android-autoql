@@ -27,4 +27,6 @@ class DataForWebView(
 	var stackedTo = -1
 
 	var isDashboard = false
+
+	var isReverseX = false
 }

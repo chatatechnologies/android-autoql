@@ -124,13 +124,7 @@ object HtmlBuilder
 //					posColumnY = aNumber[0]
 //				posColumnX = hasDateIndex(queryBase, posColumnX)
 //				queryBase.addIndices(posColumnX, posColumnY)
-
-				dataForWebView.catX = Categories.buildCategoryByPosition(
-					Category(
-						aRows, aColumn[posColumnX], posColumnX,
-						true, hasQuotes = true, allowRepeat = false, isReverse = true
-					)
-				).toString()
+				dataForWebView.isReverseX = true
 				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
 				val pMM = SearchColumn.getMinMaxColumns(aRows, aNumber)
 				dataForWebView.max = pMM.first
@@ -476,6 +470,7 @@ object HtmlBuilder
 					queryBase.mDrillDown = mDrillDown
 					queryBase.hasDrillDown = queryBase.mDrillDown != null
 					//endregion
+					if (dataForWebView.isReverseX) aCategoriesX.reverse()
 					dataForWebView.catX = aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
