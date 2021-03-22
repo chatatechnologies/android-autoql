@@ -60,21 +60,21 @@ object TableTriBuilder
 	): Triple<String, Int, ArrayList<Int>>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
-		for (indexX in aCatX.indices)
+		for (indexY in aCatY.indices)
 		{
 			var onlyZero = true
-			val categoryX = aCatX[indexX]
-			val sbRow = StringBuilder("<td>${categoryX.replace("\"", "")}</td>")
-			for (indexY in aCatY.indices)
+			val categoryY = aCatY[indexY]
+			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
+			for (indexX in aCatX.indices)
 			{
-				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
 				//region
 				if (cell != "0.0" && cell.isNotEmpty())
 					onlyZero = false
@@ -85,7 +85,7 @@ object TableTriBuilder
 				sbRow.append("<td>$cell</td>")
 			}
 			if (onlyZero)
-				aIndexZero.add(indexX)
+				aIndexZero.add(indexY)
 			aRows.add("<tr>$sbRow</tr>")
 		}
 		//aRows.sort()
