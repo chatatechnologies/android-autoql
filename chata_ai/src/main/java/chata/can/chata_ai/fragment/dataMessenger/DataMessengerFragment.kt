@@ -88,9 +88,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-//			val queryDemo = "Total revenue by month in 2019"
-//			val queryDemo = "all invoices last month"
-			val queryDemo = "Advintage oil"
+			val queryDemo = "find me last invoice"
 			etQuery.setText(queryDemo)
 		}
 
@@ -573,7 +571,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (DataMessengerRoot.notLoginData())
 			{
-				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.internal_service_error), query)
+				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.it_looks_like), query)
 			}
 			else
 			{
