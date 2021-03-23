@@ -69,6 +69,10 @@ class JavaScriptInterface(
 							}
 						}
 					}
+					else
+					{
+						queryBase.aXAxis
+					}
 				}
 				else ->
 				{

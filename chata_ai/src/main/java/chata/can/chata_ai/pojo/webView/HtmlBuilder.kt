@@ -185,8 +185,9 @@ object HtmlBuilder
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !isTriConfig))
 			//region xAxis
+			val posTriConfig = if (isTriConfig) posColumnY else posColumnX
 			queryBase.aXAxis = buildCategoryByPosition(
-				Category(aRows, aColumn[posColumnX], posColumnX,
+				Category(aRows, aColumn[posTriConfig], posTriConfig,
 					false, hasQuotes = false, allowRepeat = !isTriConfig))
 			//endregion
 			var aCatYNotFormat: ArrayList<String> ?= null
