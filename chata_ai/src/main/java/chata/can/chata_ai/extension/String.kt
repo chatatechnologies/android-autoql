@@ -72,13 +72,11 @@ fun String.formatWithColumn(
 					if (aDataDate.size > 1)
 					{
 						SinglentonDrawer.localLocale?.let { locale ->
-							var date = ""
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
 								dateFormat.parse(this)?.let { dDate ->
-									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
-//									val dateFormat2 = SimpleDateFormat("yyyy", locale)
-//									date = dateFormat2.format(dDate)
+//									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
+									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, Locale.US)
 									dateFormat2.format(dDate)
 								}
 //								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
