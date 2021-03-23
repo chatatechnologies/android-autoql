@@ -114,7 +114,7 @@ fun String.formatWithColumn(
 			else
 				SinglentonDrawer.dayMonthYearFormat.
 				replace("Y", "y").
-				replace("D", "d")
+				replace("DD", "d")
 
 			if (isEmpty() || this == "0")
 				""
