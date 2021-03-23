@@ -90,10 +90,7 @@ object TableTriBuilder
 		}
 		//aRows.sort()
 		val sbBody = StringBuilder("<tbody>")
-		for (row in aRows)
-		{
-			sbBody.append("<tr>$row</tr>")
-		}
+		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
 		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size, aIndexZero)
 	}

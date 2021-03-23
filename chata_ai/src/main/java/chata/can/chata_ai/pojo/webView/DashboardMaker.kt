@@ -398,7 +398,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             var finalText = firstColumn[0].firstChild.innerText;
             var strDate = firstColumn[0].children[1].innerText;
             if (type == "idTableDataPivot" ){
-                finalText += "_"+drillSpecial[column - 1];
+                finalText = drillX[column - 1] + "_" + drillSpecial[row];
             } else if (type == "idTableDatePivot" ) {
                 finalText = ${'$'}this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
