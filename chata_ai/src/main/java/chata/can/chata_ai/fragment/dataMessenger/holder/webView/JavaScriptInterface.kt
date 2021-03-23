@@ -62,16 +62,8 @@ class JavaScriptInterface(
 						val aPositions = content.split("_")
 						if (aPositions.size > 1)
 						{
-							val indexX = queryBase.aXAxis.indexOf(aPositions[0])
-							if (indexX != -1)
-							{
-								postDrillDown(newContent)
-							}
+							postDrillDown(newContent)
 						}
-					}
-					else
-					{
-						toString()
 					}
 				}
 				else ->
