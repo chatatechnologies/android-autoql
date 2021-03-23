@@ -208,7 +208,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						}
 					}
 				}
-				dataForWebView.isColumn = isGroupable
+				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
 				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				rowsTable = dataForWebView.rowsTable
