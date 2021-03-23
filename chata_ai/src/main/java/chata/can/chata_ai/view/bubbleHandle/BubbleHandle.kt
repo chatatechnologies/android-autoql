@@ -2,14 +2,12 @@ package chata.can.chata_ai.view.bubbleHandle
 
 import android.content.Context
 import android.graphics.Color
-import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.extension.isColor
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.pojo.BubbleData
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.BubbleData.widthDefault
@@ -19,7 +17,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
 import chata.can.chata_ai.pojo.autoQL.AutoQLConfig
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.currency.Currency
+import chata.can.chata_ai.activity.dm.Currency
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.bubbles.BubbleLayout
@@ -44,10 +42,6 @@ class BubbleHandle(
 
 	companion object {
 		var instance: BubbleHandle ?= null
-		fun isInitialize(): Boolean
-		{
-			return instance != null
-		}
 
 		const val THEME_LIGHT = true
 		const val THEME_DARK = false

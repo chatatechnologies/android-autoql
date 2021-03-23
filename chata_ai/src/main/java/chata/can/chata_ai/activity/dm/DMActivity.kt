@@ -92,6 +92,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 		rlSelected = rlChat
 		ivSelected = ivChat
+		Currency.initCurrency(this)
 
 		intent?.extras?.let {
 			placement = it.getInt("PLACEMENT", 0)

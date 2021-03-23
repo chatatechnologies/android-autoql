@@ -741,14 +741,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private fun showDialog()
 	{
-		BubbleHandle.isOpenChat = true
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
 	}
 
 	private fun hideDialog()
 	{
 		ProgressWait.hideProgressDialog()
-		BubbleHandle.isOpenChat = false
 	}
 
 	private fun String.prepareDomain(): String

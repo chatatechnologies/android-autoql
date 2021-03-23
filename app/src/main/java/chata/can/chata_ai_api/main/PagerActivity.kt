@@ -18,7 +18,6 @@ import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.service.PollService
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
@@ -141,7 +140,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		BubbleHandle.instance = null
 //		pagerOption.onDestroy()
 	}
 
