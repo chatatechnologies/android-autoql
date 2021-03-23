@@ -71,7 +71,7 @@ class JavaScriptInterface(
 					}
 					else
 					{
-						queryBase.aXAxis
+						toString()
 					}
 				}
 				else ->
