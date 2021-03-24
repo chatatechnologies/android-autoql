@@ -13,6 +13,7 @@ import org.json.JSONObject
 class PollService: JobIntentService(), StatusResponse
 {
 	companion object {
+		var unacknowledged = 0
 		const val DATA = "data"
 		const val NOTIFICATION = "chata.can.chata_ai_api.test.PollService"
 
@@ -34,7 +35,7 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-			DataMessengerData.activeNotifications = true
+//			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, "{}")
 			sendBroadcast(intent)
@@ -44,7 +45,10 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
-			DataMessengerData.activeNotifications = true
+			it.optJSONObject("data")?.let { joData ->
+				unacknowledged = joData.optInt("unacknowledged")
+			}
+//			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, it.toString())
 			sendBroadcast(intent)

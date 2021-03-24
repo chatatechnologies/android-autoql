@@ -65,6 +65,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 						val json = JSONObject(data)
 						json.optJSONObject("data")?.let { joData ->
 							val unacknowledged = joData.optInt("unacknowledged")
+							showNotification(unacknowledged)
 						}
 					} catch(ex: Exception) {}
 				}
@@ -111,6 +112,8 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
 			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
 		}
+		if (PollService.unacknowledged != 0)
+			showNotification(PollService.unacknowledged)
 	}
 
 	override fun onResume()
@@ -227,6 +230,12 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 		visibleClear(false)
 		fragment = ExploreQueriesFragment.newInstance()
 		putFragment(ExploreQueriesFragment.nameFragment)
+	}
+
+	private fun showNotification(unacknowledged: Int)
+	{
+		ivNotify.visibility = View.VISIBLE
+		tvNotification.text = "$unacknowledged"
 	}
 
 	private fun putFragment(nameFragment: String)
