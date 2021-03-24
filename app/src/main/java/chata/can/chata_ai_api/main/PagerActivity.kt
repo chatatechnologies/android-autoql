@@ -1,27 +1,19 @@
 package chata.can.chata_ai_api.main
 
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
-import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
-import org.json.JSONObject
 
 class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
@@ -30,25 +22,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	private lateinit var tabLayout: TabLayout
 	private lateinit var adapter: SlidePagerAdapter
 	private lateinit var floatingView: FloatingView
-
-	private val receiver = object: BroadcastReceiver()
-	{
-		override fun onReceive(context: Context?, intent: Intent?)
-		{
-			intent?.extras?.let {
-				it.getString(PollService.DATA)?.let { data ->
-					try {
-						val json = JSONObject(data)
-						json.optJSONObject("data")?.let { joData ->
-							val unacknowledged = joData.optInt("unacknowledged")
-							//todo move code to DMActivity
-//							pagerOption.showNotify(unacknowledged > 0)
-						}
-					} catch (ex: Exception) {}
-				}
-			}
-		}
-	}
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -99,26 +72,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 	}
 
-	override fun onResume()
-	{
-		super.onResume()
-//		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
-//		{
-//			BubbleHandle.instance?.isVisible = true
-//		}
-		registerReceiver(receiver, IntentFilter(PollService.NOTIFICATION))
-	}
-
-	override fun onPause()
-	{
-		super.onPause()
-//		if (BubbleHandle.isInitialize() && !pagerOption.isVisible)
-//		{
-//			BubbleHandle.instance?.isVisible = false
-//		}
-		unregisterReceiver(receiver)
-	}
-
 	override fun onBackPressed()
 	{
 //		if (pagerOption.isVisible)
@@ -137,22 +90,16 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 //		}
 	}
 
-	override fun onDestroy()
-	{
-		super.onDestroy()
-//		pagerOption.onDestroy()
-	}
-
-	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
-	{
+//	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
+//	{
 //		pagerOption.bubbleData = bubbleData
 //		hideKeyboard()
 //		pagerOption.setStatusGUI(isVisible)
 //		pagerOption.paintViews()
-	}
+//	}
 
-	fun clearDataMessenger(bubbleData: BubbleData ?= null)
-	{
+//	fun clearDataMessenger(bubbleData: BubbleData ?= null)
+//	{
 //		pagerOption.bubbleData = bubbleData
 //		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
 //			if (it is DataMessengerFragment)
@@ -172,21 +119,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 //				it.clearQueriesAndResponses()
 //			}
 //		}
-	}
-
-	/**
-	 * Build.VERSION_CODES.M is 23
-	 */
-	private fun isMarshmallow() = Build.VERSION.SDK_INT >= 23
-
-	/**
-	 * Build.VERSION_CODES.M is 23
-	 * M is for Marshmallow!
-	 */
-	private fun canDrawOverlays() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-	{
-		Settings.canDrawOverlays(this)
-	} else false
+//	}
 
 	var isVisibleTabLayout: Boolean = true
 	set(value) {

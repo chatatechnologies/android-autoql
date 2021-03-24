@@ -22,14 +22,11 @@ class PollService: JobIntentService(), StatusResponse
 		}
 	}
 
-	override fun onBind(intent: Intent): IBinder? {
-		return null
-	}
-
 	override fun onHandleWork(intent: Intent)
 	{
 		if (DataMessengerData.activeNotifications)
 		{
+			DataMessengerData.activeNotifications = false
 			Poll.callPoll(this)
 		}
 	}
@@ -37,6 +34,7 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
+			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, "{}")
 			sendBroadcast(intent)
@@ -46,6 +44,7 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
+			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, it.toString())
 			sendBroadcast(intent)

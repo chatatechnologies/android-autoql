@@ -55,7 +55,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 	private lateinit var fragment: Fragment
 	private var placement = 0
 
-	private val receiver = object : BroadcastReceiver()
+	private val receiver = object: BroadcastReceiver()
 	{
 		override fun onReceive(context: Context?, intent: Intent?)
 		{
