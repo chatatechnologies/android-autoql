@@ -680,13 +680,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				val intent = Intent(it, PollService::class.java)
 				PollService.enqueueWork(it, intent)
 			}
-			mHandler.postDelayed(this, 2000)
+			mHandler.postDelayed(this, 10000)
 		}
 	}
 
 	override fun initPollService()
 	{
-		mHandler.postDelayed(runnable, 2000)
+		mHandler.postDelayed(runnable, 10000)
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)

@@ -2,7 +2,6 @@ package chata.can.chata_ai.service
 
 import android.content.Context
 import android.content.Intent
-import android.os.IBinder
 import androidx.core.app.JobIntentService
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -35,7 +34,6 @@ class PollService: JobIntentService(), StatusResponse
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-//			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, "{}")
 			sendBroadcast(intent)
@@ -48,7 +46,6 @@ class PollService: JobIntentService(), StatusResponse
 			it.optJSONObject("data")?.let { joData ->
 				unacknowledged = joData.optInt("unacknowledged")
 			}
-//			DataMessengerData.activeNotifications = true
 			val intent = Intent(NOTIFICATION)
 			intent.putExtra(DATA, it.toString())
 			sendBroadcast(intent)

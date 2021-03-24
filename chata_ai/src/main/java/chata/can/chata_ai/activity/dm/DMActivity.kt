@@ -64,8 +64,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 					try {
 						val json = JSONObject(data)
 						json.optJSONObject("data")?.let { joData ->
-							val unacknowledged = joData.optInt("unacknowledged")
-							showNotification(unacknowledged)
+							showNotification(PollService.unacknowledged)
 						}
 					} catch(ex: Exception) {}
 				}
@@ -234,7 +233,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun showNotification(unacknowledged: Int)
 	{
-		ivNotify.visibility = View.VISIBLE
+		tvNotification.visibility = View.VISIBLE
 		tvNotification.text = "$unacknowledged"
 	}
 
