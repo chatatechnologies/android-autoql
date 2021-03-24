@@ -22,7 +22,7 @@
 		android:id="@+id/floatingView"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
-<!--	<chata.can.chata_ai.view.PagerOptions-->
+<!--	<chata.can.chata_ai.view.PagerOptions1-->
 <!--		android:id="@+id/pagerOption"-->
 <!--		android:layout_width="match_parent"-->
 <!--		android:layout_height="match_parent"/>-->

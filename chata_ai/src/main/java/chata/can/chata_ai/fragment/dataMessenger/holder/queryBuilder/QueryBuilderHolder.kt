@@ -14,10 +14,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.setAnimator
@@ -83,8 +83,11 @@ class QueryBuilderHolder(
 		{
 			override fun onClick(widget: View)
 			{
-				(pagerActivity as? FragmentActivity)?.run {
-					DataMessengerFragment.exploreQueriesMethod?.let { it() }
+				(pagerActivity as? DMActivity)?.run {
+					openTips()
+//					DataMessengerFragment.exploreQueriesMethod?.let {
+//						it()
+//					}
 				}
 			}
 

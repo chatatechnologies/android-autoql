@@ -221,7 +221,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 		putFragment(DataMessengerFragment.nameFragment)
 	}
 
-	private fun openTips()
+	fun openTips()
 	{
 		changeColor(rlTips, ivTips)
 		visibleClear(false)

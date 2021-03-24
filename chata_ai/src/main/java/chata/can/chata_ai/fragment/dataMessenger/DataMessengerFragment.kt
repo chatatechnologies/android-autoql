@@ -88,7 +88,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "Revenue"
+			val queryDemo = ""
 			etQuery.setText(queryDemo)
 		}
 
@@ -185,54 +185,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		context?.resources?.displayMetrics?.let {
 			etQuery.dropDownWidth = it.widthPixels
 		}
-	}
-
-	fun updateData(arguments: Bundle)
-	{
-		arguments.let {
-			DataMessengerData.run {
-				customerName = it.getString("CUSTOMER_NAME") ?: ""
-				title = it.getString("TITLE") ?: ""
-				introMessage = it.getString("INTRO_MESSAGE") ?: ""
-				inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
-				maxMessages = it.getInt("MAX_MESSAGES")
-				clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
-				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
-			}
-			val title = DataMessengerData.title
-			dataMessengerTile = if (title.isNotEmpty())
-				title
-			else getString(R.string.data_messenger)
-
-			etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
-				DataMessengerData.inputPlaceholder
-			else
-				getString(R.string.type_queries_here)
-		}
-		if (statusLogin != !DataMessengerRoot.notLoginData())
-		{
-			clearQueriesAndResponses()
-		}
-		else
-		{
-			if (model.countData() == 2)
-			{
-				clearQueriesAndResponses()
-			}
-			else
-			{
-				val introMessageRes =
-					if (DataMessengerData.introMessage.isNotEmpty())
-						DataMessengerData.introMessage
-					else
-						"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-				val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
-				model[0]?.message = introMessage
-				chatAdapter.notifyItemChanged(0)
-			}
-		}
-		setTouchListener()
-		setColors()
 	}
 
 	fun clearQueriesAndResponses()
