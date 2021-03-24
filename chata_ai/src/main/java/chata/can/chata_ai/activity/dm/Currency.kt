@@ -49,6 +49,5 @@ object Currency
 				}
 			}
 		}
-		mCurrency.toString()
 	}
 }

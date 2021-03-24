@@ -26,7 +26,6 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.password
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 import chata.can.chata_ai.view.dm.FloatingView
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
@@ -38,7 +37,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		fun newInstance() = MainFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_main)
 		}
-//		private var bubbleHandle: BubbleHandle ?= null
 	}
 
 	private lateinit var floatingView: FloatingView
@@ -95,8 +93,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
-		R.id.tvLight to BubbleHandle.THEME_LIGHT,
-		R.id.tvDark to BubbleHandle.THEME_DARK)
+		R.id.tvLight to DataMessengerData.THEME_LIGHT,
+		R.id.tvDark to DataMessengerData.THEME_DARK)
 
 	private val mPlacement = hashMapOf(
 		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,

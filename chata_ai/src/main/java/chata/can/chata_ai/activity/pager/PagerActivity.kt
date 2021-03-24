@@ -12,7 +12,6 @@ import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClickListener
 {

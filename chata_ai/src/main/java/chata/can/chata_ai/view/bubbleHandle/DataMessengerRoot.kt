@@ -1,23 +1,22 @@
 package chata.can.chata_ai.view.bubbleHandle
 
-import chata.can.chata_ai.data.DataMessenger
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 
 object DataMessengerRoot
 {
-	var dataMessenger: DataMessenger? = null
+	//var dataMessenger: DataMessenger? = null
 	//set with order part
 	var projectId = ""
 
 	var userID = ""
 	//init
-	var apiKey = dataMessenger?.authentication?.apiKey ?: ""
+	var apiKey = ""
 	//init
-	var domainUrl = dataMessenger?.authentication?.domainUrl ?: ""
+	var domainUrl = ""
 	//init
-	var token = dataMessenger?.authentication?.token ?: ""
+	var token = ""
 	var username = ""
 	var password = ""
 	var JWT = ""

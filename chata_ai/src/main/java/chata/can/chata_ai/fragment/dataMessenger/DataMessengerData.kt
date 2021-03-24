@@ -41,4 +41,7 @@ object DataMessengerData
 	var visibleExploreQueries = true
 	var visibleNotification = true
 	var activeNotifications = true
+
+	const val THEME_LIGHT = true
+	const val THEME_DARK = false
 }
