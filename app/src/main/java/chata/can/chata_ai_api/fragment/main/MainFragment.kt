@@ -26,7 +26,7 @@ import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.password
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
 import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
-import chata.can.chata_ai.view.dm.FloatingView
+import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
 
@@ -39,7 +39,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	private lateinit var floatingView: FloatingView
+	private lateinit var floatingView: AutoQL
 	private lateinit var llContainer: LinearLayout
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null

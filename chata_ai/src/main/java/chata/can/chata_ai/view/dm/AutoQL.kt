@@ -17,7 +17,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.circle.CircleImageView
 
-class FloatingView: FrameLayout
+class AutoQL: FrameLayout
 {
 	fun runEvent() = eventClick()
 
@@ -99,7 +99,7 @@ class FloatingView: FrameLayout
 			background = drawable
 			setOnClickListener {
 				if (::eventClick.isInitialized)
-					eventClick()
+					runEvent()
 			}
 		}
 

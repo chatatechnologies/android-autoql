@@ -12,7 +12,74 @@
 
 ![alt text](Documentation/example_query.png "Data Messenger")
 
+## Requirements
+minimun Sdk Version 17 or later.
+
 ## Setting Up Data Messenger
+> The following sections in this document contain detailed information about how to customize the properties of the widget.
+
+## Installation
+
+1. chata is available through jitpack. To install it, simply add the following line to file build.gradle (Project: File):
+
+```gradle
+allprojects {
+    repositories {
+        . . .
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+2. Add the line to the build.gradle (Module: File) file:
+
+```gradle
+dependencies {
+  . . .
+    implementation 'com.github.chatatechnologies:android-autoql:1.0.44'
+}
+```
+
+3. Next to, import AutoQL to your project
+```kotlin
+import chata.can.chata_ai.view.dm.AutoQL
+```
+
+4. To initialize Auto variable, to do the next.
+```kotlin
+floatingView = AutoQL(this).apply {
+	id = R.id.floatingView
+	layoutParams = FrameLayout.LayoutParams(
+      FrameLayout.LayoutParams.MATCH_PARENT,
+      FrameLayout.LayoutParams.MATCH_PARENT)
+}
+```
+
+5. Set event clic neccesary for to open DM.
+```kotlin
+floatingView.setEventClick {
+  startActivity(
+    Intent(this, DMActivity::class.java).apply {
+      putExtra("PLACEMENT", floatingView.placement)
+    }
+  )
+}
+```
+
+
+<!-- TODO continue -->
+
+## Add source code in project
+> Let's start with the declaration and initiation of the variable floatingView (FloatingView). You can init view for XML code.
+```xml
+<chata.can.chata_ai.view.dm.FloatingView
+  android:id="@+id/floatingView"
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"/>
+```
+
+> The Authentication object is the container for the apiKey, domain Url, and token.
+
 
 ### Controlled Component
 > This widget is a controlled component in terms of its visibility. The Integrator is in full control of the visual state of Data Messenger within their application, making it easy to trigger the slide-in or slide-out functionality programmatically.

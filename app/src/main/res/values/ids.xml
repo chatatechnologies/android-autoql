@@ -27,4 +27,5 @@
 	<item name="tvNoQuery2" type="id"/>
 	<item name="tvRunQuery" type="id"/>
 	<!--endregion-->
+	<item name="floatingView" type="id"/>
 </resources>

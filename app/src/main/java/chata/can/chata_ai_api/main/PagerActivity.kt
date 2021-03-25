@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
@@ -11,7 +12,7 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.view.dm.FloatingView
+import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
 
@@ -21,7 +22,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
 	private lateinit var adapter: SlidePagerAdapter
-	private lateinit var floatingView: FloatingView
+	private lateinit var floatingView: AutoQL
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -34,8 +35,12 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		llParent = findViewById(R.id.llParent)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
-		floatingView = findViewById(R.id.floatingView)
-
+		floatingView = AutoQL(this).apply {
+			id = R.id.floatingView
+			layoutParams = FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+		}
+		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
 
 		resources?.let {
