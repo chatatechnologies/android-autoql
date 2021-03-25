@@ -170,10 +170,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 		setListener()
 		setColors()
 
-		ExploreQueriesFragment.dataMessengerMethod = { openChat() }
-
-		DataMessengerFragment.exploreQueriesMethod = { openTips() }
-
 		ThemeColor.aColorMethods["PagerOptions"] = {
 			setColors()
 		}

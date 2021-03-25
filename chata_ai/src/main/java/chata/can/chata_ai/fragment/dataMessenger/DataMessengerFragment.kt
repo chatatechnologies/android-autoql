@@ -46,7 +46,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		fun newInstance() = DataMessengerFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_data_messenger)
 		}
-		var exploreQueriesMethod: (() -> Unit)? = null
 		var queryToTyping = ""
 	}
 

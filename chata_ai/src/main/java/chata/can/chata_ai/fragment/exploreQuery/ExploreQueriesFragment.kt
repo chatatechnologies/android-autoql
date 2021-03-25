@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.exploreQuery.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
@@ -34,7 +35,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		fun newInstance() = ExploreQueriesFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_explore_queries)
 		}
-		var dataMessengerMethod: (() -> Unit)? = null
+		//var dataMessengerMethod: (() -> Unit)? = null
 	}
 
 	private lateinit var llParent: LinearLayout
@@ -71,7 +72,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val query = "??"
+			val query = "revenue"
 			etQuery.setText(query)
 		}
 	}
@@ -128,7 +129,9 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 					if (any is String)
 					{
 						DataMessengerFragment.queryToTyping = any
-						dataMessengerMethod?.let { it() }
+						(activity as? DMActivity)?.run {
+							openChat()
+						}
 					}
 				}
 			})

@@ -202,7 +202,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 		ivClose.setOnClickListener(this)
 	}
 
-	private fun openChat()
+	fun openChat()
 	{
 		changeColor(rlChat, ivChat)
 		fragment = DataMessengerFragment.newInstance()
