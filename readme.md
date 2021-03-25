@@ -66,119 +66,14 @@ floatingView.setEventClick {
 }
 ```
 
-
-<!-- TODO continue -->
-
-## Add source code in project
-> Let's start with the declaration and initiation of the variable floatingView (FloatingView). You can init view for XML code.
-```xml
-<chata.can.chata_ai.view.dm.FloatingView
-  android:id="@+id/floatingView"
-  android:layout_height="match_parent"
-  android:layout_width="match_parent"/>
+6. 
+```kotlin
+floatingView.setDataMessenger(
+  "API_KEY",
+  "DOMAIN_URL",
+  "TOKEN", 
+  "PROJECT_ID")
 ```
-
-> The Authentication object is the container for the apiKey, domain Url, and token.
-
-
-### Controlled Component
-> This widget is a controlled component in terms of its visibility. The Integrator is in full control of the visual state of Data Messenger within their application, making it easy to trigger the slide-in or slide-out functionality programmatically.
-
->> Note: The data messenger component can only be used in SDK version 17 or higher. This is shown below.
-
-![alt text](Documentation/minimum_sdk.png "Minimum sdk")
-
-> If we want to incorporate the Data messenger widget it is necessary to download it from https://gitlab.com/chata-widget/android-widget.
-> To download the source code we have 2 ways:
-> 1. Download directly from the repository https://gitlab.com/chata-widget/android-widget.
-> 2. Download via Android Studio.
-
-#### Download directly from the repository
-
-> Download directly from the repository https://gitlab.com/chata-widget/android-widget.
-
-#### Download via Android Studio
-
-> We open Android Studio, select *Check out project from Version Control*, select *Git*.
-
-![alt text](Documentation/import_repository.png "Minimum sdk")
-
-> We enter url _https://gitlab.com/chata-widget/android-widget_. We can press *Test* to verify the existence of the repository. In _Directory_ we select the download destination. At the end to download the repository press *Clone*.
-
-![alt text](Documentation/import_repository_2.png "Minimum sdk")
-
-> Now in the project we want to import the Data Messenger component.
-> Let's follow the following instructions:
->
-> In the menu File | New | Import Module...
-
-![alt text](Documentation/5_import_new_module.png "new module")
-
-> Next we look for the source code location where Data Messenger is located.
-
-![alt text](Documentation/6_import_module_from_source.png "import module")
-
-> In the Finder window, we will look for the folder where we downloaded the gitlab repository.
->
-> We look for the downloaded repository folder and inside the folder we select the `chata_ai` folder.
->
-> Then we click on `open`.
-
-![alt text](Documentation/7_choose_folder_module.png "choose folder")
-
-> After opening the `chata_ai` folder. We see the following window.
->
-> The text inside the `Module name` box is the name of the module that will be imported into the project.
-
-![alt text](Documentation/8_data_module.png "data module")
-
-> The next step is to add the library to our build.gradle (Module: app) file.
->
-> Add the line `implementation project (': chata_ai')`.
->
-> Then we click on `Sync now` to synchronize the library with the project.
-
-![alt text](Documentation/9_implement_library.png "data module")
-
-### Add source code in project
-
-> Let's start with the declaration and initiation of the variable bubbleHandle (BubbleHandle).
->
-> The Authentication object is the container for the apiKey, domain Url, and token.
-
-![alt text](Documentation/add_bubble_handle.png "bubble handle")
-
-> To use this component we must make some decisions regarding the version of the device.
-> We are going to determine if the device where our application will be executed is equal to or greater than Marshmallow.
-
-![alt text](Documentation/isMarshmallow.png "is Marshmallow")
-
-> Another thing to consider is the on-screen overlay, for this we must give the application permission to see the BubbleHandle element on our screen.
->
-> The way to evaluate that the overlay is active for our application is as follows.
-
-![alt text](Documentation/canDrawOverlays.png "is Marshmallow")
-
-> For a better understanding we are going to create the `initBubble` method to start our bubbleBundle.
-
-![alt text](Documentation/initBubbleHandle.png "is Marshmallow")
-
-> Now, if the user has not accepted the screen overlay permissions for our application, we are going to call an intent so that the user can accept it.
-> In turn, we are going to read the result once the user exits the overlay permission screen.
-> Once the user accepts the permissions, we start the BubbleHandle component.
-
-![alt text](Documentation/final_code.png "is Marshmallow")
-
-1. *Una vez es creada la actividad, es evaluada la versión de Android que corre nuestro disposiivo, si es igual o mayor a Marshmallow entrará en la primera sentencia `if`. Otherwise we start our BubbleHandle.*
-2. *En la segunda sentencia `if` revisamos la superposición de pantalla para nuestra App, si esta no ha sido aceptada mostramos la pantalla de permiso de superposición. Otherwise we start our BubbleHandle.*
-
-![alt text](Documentation/onActivityResult.png "is Marshmallow")
-
-*The response is read and checked if the user accepted the overlay permissions.*
-
-> Note: Once the app is installed you will see something similar to the following video.
-
-![alt text](Documentation/process_start_app.gif "process start app")
 
 ## Props
 <table>

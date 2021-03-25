@@ -40,6 +40,11 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			layoutParams = FrameLayout.LayoutParams(
 				FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
 		}
+		floatingView.setDataMessenger(
+		"API_KEY",
+		"DOMAIN_URL",
+		"TOKEN",
+		"PROJECT_ID")
 		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
 
@@ -66,65 +71,13 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 				else -> Pair(0, 0)
 			}
 			overridePendingTransition(pData.first, pData.second)
-//			pagerOption = PagerOptions(this).apply {
-//				fragmentManager = supportFragmentManager
-//				setStatusGUI()
-//				paintViews(floatingView.placement)
-//			}
-//			llParent.addView(pagerOption)
-//			pagerOption?.fragmentManager = supportFragmentManager
-//			supportFragmentManager
 		}
 	}
 
 	override fun onBackPressed()
 	{
-//		if (pagerOption.isVisible)
-//		{
-//			BubbleHandle.isOpenChat = false
-//			BubbleHandle.instance?.isVisible = true
-//			pagerOption.setStatusGUI(false)
-//		}
-//		else
-//		{
-//			if (supportFragmentManager.backStackEntryCount > 0)
-//				finishAffinity()
-//			else
-//			//minimize App
-//				moveTaskToBack(true)
-//		}
+		finishAffinity()
 	}
-
-//	fun setStatusGUI(isVisible: Boolean, bubbleData: BubbleData ?= null)
-//	{
-//		pagerOption.bubbleData = bubbleData
-//		hideKeyboard()
-//		pagerOption.setStatusGUI(isVisible)
-//		pagerOption.paintViews()
-//	}
-
-//	fun clearDataMessenger(bubbleData: BubbleData ?= null)
-//	{
-//		pagerOption.bubbleData = bubbleData
-//		pagerOption.fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-//			if (it is DataMessengerFragment)
-//			{
-//				pagerOption.bubbleData?.let { bubble ->
-//					val argument = Bundle().apply {
-//						putString("CUSTOMER_NAME", bubble.customerName)
-//						putString("TITLE", bubble.title)
-//						putString("INTRO_MESSAGE", bubble.introMessage)
-//						putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-//						putInt("MAX_MESSAGES", bubble.maxMessage)
-//						putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-//						putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-//					}
-//					it.updateData(argument)
-//				}
-//				it.clearQueriesAndResponses()
-//			}
-//		}
-//	}
 
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
