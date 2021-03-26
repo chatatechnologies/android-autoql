@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
@@ -28,6 +27,7 @@ import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
@@ -35,7 +35,6 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
 
@@ -188,15 +187,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	fun clearQueriesAndResponses()
 	{
-		statusLogin = !DataMessengerRoot.notLoginData()
+		statusLogin = !AutoQLData.notLoginData()
 		model.clear()
 		val introMessageRes =
-			if (DataMessengerData.introMessage.isNotEmpty())
-				DataMessengerData.introMessage
+			if (AutoQLData.introMessage.isNotEmpty())
+				AutoQLData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
-		val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+		val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 		if (statusLogin)
 		{
@@ -385,7 +384,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun scrollToPosition()
 	{
 		var countToDown = model.getParseCount()
-		val maxMessages = DataMessengerData.maxMessages
+		val maxMessages = AutoQLData.maxMessages
 		while(countToDown > maxMessages)
 		{
 			model[0]?.let { chatData ->
@@ -446,7 +445,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private fun initData()
 	{
 		arguments?.let {
-			DataMessengerData.run {
+			AutoQLData.run {
 				customerName = it.getString("CUSTOMER_NAME") ?: ""
 				title = it.getString("TITLE") ?: ""
 				introMessage = it.getString("INTRO_MESSAGE") ?: ""
@@ -456,13 +455,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
 			}
 		}
-		val title = DataMessengerData.title
+		val title = AutoQLData.title
 		dataMessengerTile = if (title.isNotEmpty())
 			title
 		else getString(R.string.data_messenger)
 
-		etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
-			DataMessengerData.inputPlaceholder
+		etQuery.hint = if (AutoQLData.inputPlaceholder.isNotEmpty())
+			AutoQLData.inputPlaceholder
 		else
 			getString(R.string.type_queries_here)
 	}
@@ -471,16 +470,16 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
-			val introMessageRes = if (DataMessengerData.introMessage.isNotEmpty())
-				DataMessengerData.introMessage
+			val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
+				AutoQLData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
-			statusLogin = !DataMessengerRoot.notLoginData()
+			statusLogin = !AutoQLData.notLoginData()
 
 			if (model.countData() == 0)
 			{
-				val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+				val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 				if (statusLogin)
 				{
@@ -520,7 +519,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			hideKeyboard()
 			etQuery.setText("")
 
-			if (DataMessengerRoot.notLoginData())
+			if (AutoQLData.notLoginData())
 			{
 				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.it_looks_like), query)
 			}
@@ -590,7 +589,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		with(ivMicrophone)
 		{
-			if (DataMessengerData.enableVoiceRecord)
+			if (AutoQLData.enableVoiceRecord)
 			{
 				setImageResource(R.drawable.ic_microphone)
 				setOnClickListener(null)

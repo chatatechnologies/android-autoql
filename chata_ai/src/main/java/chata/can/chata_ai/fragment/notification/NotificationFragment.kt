@@ -15,10 +15,10 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 
 class NotificationFragment: BaseFragment(), NotificationContract
 {
@@ -44,7 +44,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (!DataMessengerRoot.notLoginData())
+		if (!AutoQLData.notLoginData())
 		{
 			btnTry.visibility = View.GONE
 			getNotifications()

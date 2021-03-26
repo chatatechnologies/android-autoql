@@ -1,13 +1,13 @@
 package chata.can.chata_ai.request.dashboard
 
 import chata.can.chata_ai.pojo.api1
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.JWT
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.JWT
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.apiKey
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.domainUrl
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.projectId
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.urlChataIO
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
 import com.android.volley.Request
 
 object Dashboard

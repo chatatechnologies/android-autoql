@@ -3,12 +3,12 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,9 +17,9 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 {
 	fun putReport(idQuery: String, message: String)
 	{
-		if (!DataMessengerRoot.notLoginData())
+		if (!AutoQLData.notLoginData())
 		{
-			val url = "${DataMessengerRoot.domainUrl}/autoql/${api1}query/$idQuery?key=${DataMessengerRoot.apiKey}"
+			val url = "${AutoQLData.domainUrl}/autoql/${api1}query/$idQuery?key=${AutoQLData.apiKey}"
 			val header= getAuthorizationJWT()
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)

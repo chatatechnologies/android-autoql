@@ -19,12 +19,12 @@ import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import kotlin.math.abs
 import kotlin.math.log10
 
@@ -335,7 +335,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	private fun setRequestText()
 	{
-		if (!DataMessengerRoot.notLoginData())
+		if (!AutoQLData.notLoginData())
 		{
 			val query = etQuery.text.toString()
 			if (query.isNotEmpty())

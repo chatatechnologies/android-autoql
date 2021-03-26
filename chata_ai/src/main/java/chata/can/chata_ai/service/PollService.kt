@@ -3,7 +3,7 @@ package chata.can.chata_ai.service
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.Poll
 import org.json.JSONArray
@@ -24,9 +24,9 @@ class PollService: JobIntentService(), StatusResponse
 
 	override fun onHandleWork(intent: Intent)
 	{
-		if (DataMessengerData.activeNotifications)
+		if (AutoQLData.activeNotifications)
 		{
-			DataMessengerData.activeNotifications = false
+			AutoQLData.activeNotifications = false
 			Poll.callPoll(this)
 		}
 	}

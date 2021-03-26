@@ -17,12 +17,12 @@ import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -106,7 +106,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 		//Start first fragment
 		openChat()
 
-		DataMessengerData.run {
+		AutoQLData.run {
 			vBehind.visibility = if (isDarkenBackgroundBehind) View.VISIBLE else View.GONE
 			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
 			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
@@ -209,7 +209,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 		visibleClear(true)
 		//region setDataToDataMessenger
 		fragment.arguments?.let {
-			DataMessengerData.run {
+			AutoQLData.run {
 				it.putString("CUSTOMER_NAME", customerName)
 				it.putString("TITLE", title)
 				it.putString("INTRO_MESSAGE", introMessage)
@@ -395,7 +395,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 		val tmp = if (nameDMF == title)
 		{
-			val localTitle = DataMessengerData.title
+			val localTitle = AutoQLData.title
 			if (localTitle.isNotEmpty()) localTitle
 			else title
 		}
@@ -408,7 +408,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun closeActivity()
 	{
-		if (DataMessengerData.clearOnClose)
+		if (AutoQLData.clearOnClose)
 		{
 			val model = SinglentonDrawer.mModel
 			while (model.countData() > 2)

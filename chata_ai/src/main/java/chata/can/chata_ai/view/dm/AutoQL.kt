@@ -9,14 +9,13 @@ import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.pojo.BubbleData.heightDefault
 import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import chata.can.chata_ai.view.circle.CircleImageView
 
 class AutoQL: FrameLayout
@@ -28,10 +27,10 @@ class AutoQL: FrameLayout
 		projectID: String = ""
 	)
 	{
-		DataMessengerRoot.apiKey = apiKey
-		DataMessengerRoot.domainUrl = domain
-		DataMessengerRoot.token = token
-		DataMessengerRoot.projectId = projectID
+		AutoQLData.apiKey = apiKey
+		AutoQLData.domainUrl = domain
+		AutoQLData.token = token
+		AutoQLData.projectId = projectID
 	}
 
 	fun runEvent() = eventClick()

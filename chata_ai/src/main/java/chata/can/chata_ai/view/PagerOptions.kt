@@ -17,13 +17,13 @@ import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -81,7 +81,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 						if (it is RelativeLayout)
 						{
 							it.removeView(this)
-							if (DataMessengerData.clearOnClose)
+							if (AutoQLData.clearOnClose)
 							{
 								val model = SinglentonDrawer.mModel
 								while (model.countData() > 2)
@@ -289,7 +289,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 
 	fun setStatusGUI()
 	{
-		DataMessengerData.run {
+		AutoQLData.run {
 			if (isDataMessenger)
 				openChat()
 			else openTips()
@@ -466,7 +466,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 	private fun setDataToDataMessenger()
 	{
 		fragment.arguments?.let {
-			DataMessengerData.run {
+			AutoQLData.run {
 				it.putString("CUSTOMER_NAME", customerName)
 				it.putString("TITLE", title)
 				it.putString("INTRO_MESSAGE", introMessage)

@@ -2,11 +2,11 @@ package chata.can.chata_ai.fragment.notification.adapter
 
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.*
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -76,9 +76,9 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 	fun getRuleQuery(idRule: String)
 	{
 		view.showLoading()
-		val url = "$urlChataIO${api1}rule-notifications/$idRule?key=${DataMessengerRoot.apiKey}"
+		val url = "$urlChataIO${api1}rule-notifications/$idRule?key=${AutoQLData.apiKey}"
 		val mAuthorization = Authentication.getAuthorizationJWT()
-		mAuthorization["Integrator-Domain"] = DataMessengerRoot.domainUrl
+		mAuthorization["Integrator-Domain"] = AutoQLData.domainUrl
 		RequestBuilder.callStringRequest(
 			Request.Method.GET,
 			url,

@@ -1,7 +1,7 @@
 package chata.can.chata_ai_api.fragment.main
 
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai_api.R
@@ -12,7 +12,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 {
 	fun createAuthenticate()
 	{
-		with(DataMessengerRoot)
+		with(AutoQLData)
 		{
 			Authentication.callLogin(username, password, this@MainServicePresenter)
 		}
@@ -21,9 +21,9 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 	fun createJWT()
 	{
 		Authentication.callJWL(
-			DataMessengerRoot.token,
-			DataMessengerRoot.userID,
-			DataMessengerRoot.projectId,
+			AutoQLData.token,
+			AutoQLData.userID,
+			AutoQLData.projectId,
 			this)
 	}
 
@@ -61,13 +61,13 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 				"callLogin" ->
 				{
 					val token = jsonObject.optString("RESPONSE")
-					DataMessengerRoot.token = token
+					AutoQLData.token = token
 					view.callJWt()
 				}
 				"callJWL" ->
 				{
 					val jwt = jsonObject.optString("RESPONSE") ?: ""
-					DataMessengerRoot.JWT = jwt
+					AutoQLData.JWT = jwt
 					view.callRelated()
 					view.initPollService()
 				}

@@ -2,12 +2,12 @@ package chata.can.chata_ai.fragment.notification
 
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.apiKey
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.domainUrl
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import org.json.JSONArray

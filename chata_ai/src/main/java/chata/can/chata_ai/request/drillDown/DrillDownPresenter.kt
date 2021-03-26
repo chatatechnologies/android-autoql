@@ -2,12 +2,12 @@ package chata.can.chata_ai.request.drillDown
 
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.*
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -21,7 +21,7 @@ class DrillDownPresenter(
 		var header: HashMap<String, String> ?= null
 		val mParams = hashMapOf<String, Any>()
 
-		val url = if (DataMessengerRoot.notLoginData())
+		val url = if (AutoQLData.notLoginData())
 		{
 			val column = queryBase.aColumn[0]
 			val nameColumn = column.name
@@ -38,7 +38,7 @@ class DrillDownPresenter(
 		else
 		{
 			val queryId = queryBase.queryId
-			with(DataMessengerRoot)
+			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
 

@@ -11,21 +11,14 @@ import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerData
 import chata.can.chata_ai.model.DashboardAdmin
 import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.domainUrl
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.password
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.projectId
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.userID
-import chata.can.chata_ai.view.bubbleHandle.DataMessengerRoot.username
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
@@ -93,8 +86,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
-		R.id.tvLight to DataMessengerData.THEME_LIGHT,
-		R.id.tvDark to DataMessengerData.THEME_DARK)
+		R.id.tvLight to AutoQLData.THEME_LIGHT,
+		R.id.tvDark to AutoQLData.THEME_DARK)
 
 	private val mPlacement = hashMapOf(
 		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,
@@ -132,12 +125,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etMaxNumberMessage?.setText("$maxMessage")
 			val languageCode = "es-MX"
 			etLanguageCode?.setText(languageCode)
-			DataMessengerRoot.projectId = (etProjectId?.text ?: "").toString().trim()
-			userID = (etUserId?.text ?: "").toString().trim()
-			DataMessengerRoot.apiKey = (etApiKey?.text ?: "").toString().trim()
-			DataMessengerRoot.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessengerRoot.username = (etUsername?.text ?: "").toString().trim()
-			DataMessengerRoot.password = (etPassword?.text ?: "").toString().trim()
+			AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
+			AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
+			AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
+			AutoQLData.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
+			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
 			servicePresenter.createAuthenticate()
 		}
@@ -357,7 +350,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			_, isChecked ->
 			if (::floatingView.isInitialized) {
 				floatingView.visibility = if (isChecked) View.VISIBLE else View.GONE
-				DataMessengerData.isVisible = isChecked
+				AutoQLData.isVisible = isChecked
 			}
 		}
 
@@ -366,7 +359,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				try
 				{
-					DataMessengerData.dataFormatting.currencyCode = it
+					AutoQLData.dataFormatting.currencyCode = it
 				}
 				catch (e: Exception) {}
 			}
@@ -375,21 +368,21 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etFormatMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				DataMessengerData.dataFormatting.monthYearFormat = it
+				AutoQLData.dataFormatting.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				DataMessengerData.dataFormatting.dayMonthYearFormat = it
+				AutoQLData.dataFormatting.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				DataMessengerData.dataFormatting.languageCode = it
+				AutoQLData.dataFormatting.languageCode = it
 			}
 		}
 
@@ -397,7 +390,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			if (it.isNotEmpty())
 			{
 				it.toIntOrNull()?.let { integer ->
-					DataMessengerData.dataFormatting.currencyDecimals = integer
+					AutoQLData.dataFormatting.currencyDecimals = integer
 				}
 			}
 		}
@@ -406,30 +399,30 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			if (it.isNotEmpty())
 			{
 				it.toIntOrNull()?.let { integer ->
-					DataMessengerData.dataFormatting.quantityDecimals = integer
+					AutoQLData.dataFormatting.quantityDecimals = integer
 				}
 			}
 		}
 
 		etCustomerMessage?.setOnTextChanged {
-			DataMessengerData.customerName = it
+			AutoQLData.customerName = it
 		}
 
 		etIntroMessage?.setOnTextChanged {
-			DataMessengerData.introMessage = it
+			AutoQLData.introMessage = it
 		}
 
 		etQueryPlaceholder?.setOnTextChanged {
-			DataMessengerData.inputPlaceholder = it
+			AutoQLData.inputPlaceholder = it
 		}
 
 		swClearMessage?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.clearOnClose = isChecked
+			AutoQLData.clearOnClose = isChecked
 		}
 
 		etTitle?.setOnTextChanged {
-			DataMessengerData.title = it
+			AutoQLData.title = it
 		}
 
 		etAddColor?.setOnEditorActionListener {
@@ -502,54 +495,54 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etMaxNumberMessage?.setOnTextChanged {
 			it.toIntOrNull()?.let {
 				integer ->
-				DataMessengerData.maxMessages = integer
+				AutoQLData.maxMessages = integer
 			}
 		}
 
 		swEnableAutocomplete?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.autoQLConfig.enableAutocomplete = isChecked
+			AutoQLData.autoQLConfig.enableAutocomplete = isChecked
 		}
 
 		swEnableQuery?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.autoQLConfig.enableQueryValidation = isChecked
+			AutoQLData.autoQLConfig.enableQueryValidation = isChecked
 		}
 
 		swEnableSuggestion?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.autoQLConfig.enableQuerySuggestions = isChecked
+			AutoQLData.autoQLConfig.enableQuerySuggestions = isChecked
 		}
 
 		swEnableDrillDown?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.autoQLConfig.enableDrilldowns = isChecked
+			AutoQLData.autoQLConfig.enableDrilldowns = isChecked
 		}
 
 		swEnableNotification?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.visibleNotification = isChecked
-			DataMessengerData.activeNotifications = isChecked
+			AutoQLData.visibleNotification = isChecked
+			AutoQLData.activeNotifications = isChecked
 		}
 
 		swBackgroundBehind?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.isDarkenBackgroundBehind = isChecked
+			AutoQLData.isDarkenBackgroundBehind = isChecked
 		}
 
 		swTabExploreQueries?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.visibleExploreQueries = isChecked
+			AutoQLData.visibleExploreQueries = isChecked
 		}
 
 		swTabNotification?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.visibleNotification = isChecked
+			AutoQLData.visibleNotification = isChecked
 		}
 
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
-			DataMessengerData.enableVoiceRecord = isChecked
+			AutoQLData.enableVoiceRecord = isChecked
 		}
 	}
 
@@ -563,7 +556,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					isEnableLogin(false)
 					if (isAuthenticate)
 					{
-						DataMessengerRoot.clearData()
+						AutoQLData.clearData()
 						isAuthenticate = false
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
@@ -573,13 +566,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					else
 					{
-						DataMessengerRoot.clearData()
-						projectId = (etProjectId?.text ?: "").toString().trim()
-						userID = (etUserId?.text ?: "").toString().trim()
-						apiKey = (etApiKey?.text ?: "").toString().trim()
-						domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
-						username = (etUsername?.text ?: "").toString().trim()
-						password = (etPassword?.text ?: "").toString().trim()
+						AutoQLData.clearData()
+						AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
+						AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
+						AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
+						AutoQLData.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+						AutoQLData.username = (etUsername?.text ?: "").toString().trim()
+						AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
 						servicePresenter.createAuthenticate()
 						showDialog()
@@ -635,7 +628,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					(it as? TextView)?.let { tv ->
 						setColorOption(tv.tag as String, tv.id)
-						DataMessengerData.isDataMessenger = it.id == R.id.tvDataMessenger
+						AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
 					}
 				}
 				else -> {}
@@ -728,9 +721,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
 			with(sharePreferences.edit())
 			{
-				putString("PROJECT_ID", projectId)
-				putString("API_KEY", apiKey)
-				putString("DOMAIN_URL", domainUrl)
+				putString("PROJECT_ID", AutoQLData.projectId)
+				putString("API_KEY", AutoQLData.apiKey)
+				putString("DOMAIN_URL", AutoQLData.domainUrl)
 				apply()
 			}
 		}
