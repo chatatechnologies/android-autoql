@@ -73,11 +73,14 @@ object QueryRequest
 				"&search=$wordsEncode&scope=narrow&query_id=$queryId"
 			mData["nameService"] = "callRelatedQueries"
 
+			val header = getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
+
 			callStringRequest(
 				Request.Method.GET,
 				url,
 				typeJSON,
-				headers = getAuthorizationJWT(),
+				headers = header,
 				infoHolder = mData,
 				listener = listener)
 		}

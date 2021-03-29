@@ -112,7 +112,7 @@ class SuggestionHolder(
 							{
 								llSuggestion.addView(buildSuggestionView(
 									llSuggestion.context,
-									"None of these",
+									suggestion,
 									true,
 									it.queryId))
 							}
