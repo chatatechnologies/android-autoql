@@ -31,6 +31,6 @@
 	<string name="internal_service_error">Internal Service Error: Our system is experiencing an unexpected error. We\'re aware of this issue and are working to fix it as soon as possible.</string>
 	<string name="it_looks_like">Uh oh.. It looks like you don\'t have access to this resource. Please double check that all required authentication fields are correct.</string>
 	
-	<string name="limit_row_num">The display limit for your data has been reached. Try querying a smaller time-frame to ensure all your data is displayed.</string>
+	<string name="limit_row_num">The display limit of 500 rows has been reached. Try querying a smaller time-frame to ensure all your data is displayed.</string>
 	<string name="try_again">Try Again</string>
 </resources>

@@ -86,7 +86,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "all suggestion"
+			val queryDemo = "revenue"
 			etQuery.setText(queryDemo)
 		}
 
