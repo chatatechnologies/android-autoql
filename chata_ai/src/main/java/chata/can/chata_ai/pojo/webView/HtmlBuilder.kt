@@ -177,6 +177,8 @@ object HtmlBuilder
 				queryBase.supportCase.toString()
 			}
 		}
+		if (queryBase.aRows.size == 1)
+			queryBase.configActions = 0
 		//endregion
 
 		//TODO CHECK SUPPORT CASES
