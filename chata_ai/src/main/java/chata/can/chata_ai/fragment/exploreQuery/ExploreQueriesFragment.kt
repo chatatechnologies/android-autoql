@@ -72,7 +72,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val query = "revenue"
+			val query = ""
 			etQuery.setText(query)
 		}
 	}

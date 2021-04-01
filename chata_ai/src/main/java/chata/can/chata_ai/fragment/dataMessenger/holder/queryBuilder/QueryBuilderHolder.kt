@@ -210,7 +210,9 @@ class QueryBuilderHolder(
 							ExploreQueriesData.isPendingExecute = true
 							ExploreQueriesData.lastWord = wordExplore
 							//TODO open DM
-							//DataMessengerFragment.exploreQueriesMethod?.let { it() }
+							(pagerActivity as? DMActivity)?.run {
+								this.openTips()
+							}
 						}
 						else
 						{
