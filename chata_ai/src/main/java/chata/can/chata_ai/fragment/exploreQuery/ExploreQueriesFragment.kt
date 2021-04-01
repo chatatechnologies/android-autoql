@@ -1,6 +1,8 @@
 package chata.can.chata_ai.fragment.exploreQuery
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -72,8 +74,8 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val query = ""
-			etQuery.setText(query)
+//			val query = ""
+//			etQuery.setText(query)
 		}
 	}
 
@@ -260,16 +262,37 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		rlGif.visibility = gone
 	}
 
+	var mText: CharSequence = ""
+	val mDelay = 50L
+	var mIndex = 0
+	private val mHandler = Handler(Looper.getMainLooper())
+
+	private val characterAdder = object: Runnable {
+		override fun run()
+		{
+			etQuery.setText(mText.subSequence(0, mIndex++))
+			if (mIndex <= mText.length)
+			{
+				mHandler.postDelayed(this, mDelay)
+			}
+			else
+			{
+				mHandler.postDelayed({
+					ExploreQueriesData.isPendingExecute = false
+					ivSearch.performClick()
+				}, mDelay)
+			}
+		}
+	}
+
 	private fun checkLastData()
 	{
 		if (ExploreQueriesData.lastWord.isNotEmpty())
 		{
-			etQuery.setText(ExploreQueriesData.lastWord)
-			if (ExploreQueriesData.isPendingExecute)
-			{
-				ExploreQueriesData.isPendingExecute = false
-				ivSearch.performClick()
-			}
+			mText = ExploreQueriesData.lastWord
+			mIndex = 0
+			mHandler.removeCallbacks(characterAdder)
+			mHandler.postDelayed(characterAdder, mDelay)
 		}
 
 		ExploreQueriesData.lastExploreQuery?.let {
