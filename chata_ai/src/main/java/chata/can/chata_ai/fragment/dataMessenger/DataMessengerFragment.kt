@@ -86,7 +86,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "number of open job by resources"
+			val queryDemo = "All jobs between Feb and June"
+//			val queryDemo = "My revenue"
 //			val queryDemo = "All jobs in July 2019"
 			etQuery.setText(queryDemo)
 		}
@@ -186,7 +187,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
-	fun clearQueriesAndResponses()
+	private fun clearQueriesAndResponses()
 	{
 		statusLogin = !AutoQLData.notLoginData()
 		model.clear()

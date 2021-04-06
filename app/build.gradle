@@ -37,7 +37,7 @@ android {
 		chata {
 			applicationId "autoql.chata.ai"
 			versionCode 73
-			versionName "1.0.72"
+			versionName "1.0.74"
 		}
 	}
 	compileOptions {

@@ -34,6 +34,9 @@ object QueryRequest
 			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
+				header?.let {
+					it["accept-language"] = SinglentonDrawer.languageCode
+				}
 				mParams["source"] = "$source.user"
 				mParams["translation"] = "include"
 

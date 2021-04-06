@@ -202,7 +202,7 @@ open class BaseHolder(
 				if (message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
-					if (message.contains("report"))
+					if (message.contains("<") && message.contains(">"))
 						reportLink(simpleQuery.message, simpleQuery.queryId)
 					else
 					{
@@ -224,9 +224,11 @@ open class BaseHolder(
 
 	private fun reportLink(message: String, queryId: String = ""): CharSequence
 	{
-		return if (message.contains("<report>"))
+		return if (message.contains("<") && message.contains(">"))
 		{
-			val message1 = message.replace("<report>", "report")
+			val index = message.indexOf("<")
+			val index2 = message.indexOf(">") - 1
+			val message1 = message.replace("<","").replace(">","")
 			val spannable = SpannableString(message1)
 			if (queryId.isNotEmpty())
 			{
@@ -253,8 +255,8 @@ open class BaseHolder(
 						}
 					}
 				}
-				val index = message1.indexOf("report")
-				spannable.setSpan(clickable, index, index + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//				val index = message1.indexOf("report")
+				spannable.setSpan(clickable, index, index2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 				tvContent.movementMethod = LinkMovementMethod.getInstance()
 				spannable
 			}
