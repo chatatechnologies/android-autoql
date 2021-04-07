@@ -36,10 +36,15 @@ class SuggestionHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
+			context?.run {
+				ivReport?.setColorFilter(accentColor)
+				ivDelete?.setColorFilter(accentColor)
+			}
+
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
+			val accentColor = ThemeColor.currentColor.pDrawerAccentColor
 			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
 			background = queryDrawable
 
@@ -47,8 +52,7 @@ class SuggestionHolder(
 			startAnimation(animationTop)
 		}
 
-		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-		tvContent.setTextColor(textColor)
+		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		llContent.backgroundGrayWhite()
 
 		rlDelete?.backgroundGrayWhite()
@@ -108,7 +112,7 @@ class SuggestionHolder(
 							{
 								llSuggestion.addView(buildSuggestionView(
 									llSuggestion.context,
-									"None of these",
+									suggestion,
 									true,
 									it.queryId))
 							}
@@ -131,9 +135,11 @@ class SuggestionHolder(
 		queryId: String = ""): TextView
 	{
 		return TextView(context).apply {
-			val colorBase = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val borderColor = context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
-			background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 1, borderColor)
+			background = DrawableBuilder.setGradientDrawable(
+				ThemeColor.currentColor.pDrawerBackgroundColor,
+				18f,
+				1,
+				ThemeColor.currentColor.pDrawerBorderColor)
 
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
@@ -153,7 +159,7 @@ class SuggestionHolder(
 					view.runTyping(content)
 				}
 			}
-			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		}
 	}
 

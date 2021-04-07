@@ -1,7 +1,7 @@
 package chata.can.chata_ai.pojo.dataFormatting
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.currency.Currency
+import chata.can.chata_ai.activity.dm.Currency
 import java.util.*
 
 data class DataFormatting(

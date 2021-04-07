@@ -8,4 +8,5 @@ class Category(
 	val position: Int,
 	val isFormatted: Boolean,
 	val hasQuotes: Boolean,
-	val allowRepeat: Boolean)
+	val allowRepeat: Boolean,
+	val isReverse: Boolean = false)

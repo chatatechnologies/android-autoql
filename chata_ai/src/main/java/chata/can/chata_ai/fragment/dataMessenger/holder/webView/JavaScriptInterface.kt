@@ -3,10 +3,13 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 import android.app.Activity
 import android.content.Context
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
+import org.json.JSONObject
 
 class JavaScriptInterface(
 	private val context: Context,
@@ -20,6 +23,10 @@ class JavaScriptInterface(
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)
 		{
+			if (queryBase.mDrillDown != null)
+			{
+				if (queryBase.showContainer != "#container") return
+			}
 			val sizeColumn = queryBase.aColumn.size
 			var newContent = content
 			when(sizeColumn)
@@ -34,6 +41,7 @@ class JavaScriptInterface(
 							aPositions[0].toIntOrNull()?.let {
 								val aRows = queryBase.aRows
 								newContent = aRows[it][0]
+								postDrillDown(newContent)
 							}
 						}
 					}
@@ -43,6 +51,7 @@ class JavaScriptInterface(
 						if (index != -1)
 						{
 							newContent = queryBase.aXDrillDown[index]
+							postDrillDown(newContent)
 						}
 					}
 				}
@@ -53,33 +62,46 @@ class JavaScriptInterface(
 						val aPositions = content.split("_")
 						if (aPositions.size > 1)
 						{
-							aPositions[0].toIntOrNull()?.let { itPosition ->
-								val buildContent = StringBuilder("")
-								val aRows = queryBase.aRows[itPosition]
+							postDrillDown(newContent)
+						}
+					}
+				}
+				else ->
+				{
+					content.split("_").run {
+						if (this.size > 1)
+						{
+							val date = this[0]
+							val index = this[1].toIntNotNull()
+							queryBase.mDrillDown?.let { mDrillDown ->
+								mDrillDown[date]?.let {
+									val values = it[index]
 
-								for (index in queryBase.aColumn.indices)
-								{
-									val column = queryBase.aColumn[index]
-									if (column.isGroupable)
-									{
-										buildContent.append("${aRows[index]}_")
+									val json = JSONObject().put("query", "")
+									val newQueryBase = QueryBase(json).apply {
+										aColumn.addAll(queryBase.aColumn)
+										aRows.addAll(values)
+										limitRowNum = values.size + 1
+									}
+									newQueryBase.queryId = queryBase.queryId
+									newQueryBase.resetData()
+									(context as? Activity)?.runOnUiThread {
+										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
 									}
 								}
-								newContent = buildContent.toString().removeSuffix("_")
 							}
 						}
 					}
 				}
 			}
-
-			if (newContent.isEmpty())
-			{
-				newContent = "null"
-			}
-			(context as? Activity)?.runOnUiThread {
-				chatView?.isLoading(true)
-			}
-			presenter.postDrillDown(newContent)
 		}
+	}
+
+	private fun postDrillDown(newContent: String)
+	{
+		(context as? Activity)?.runOnUiThread {
+			chatView?.isLoading(true)
+		}
+		presenter.postDrillDown(if (newContent.isEmpty()) "null" else newContent)
 	}
 }

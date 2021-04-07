@@ -59,6 +59,7 @@
 	</RelativeLayout>
 
 	<RelativeLayout
+		android:background="@color/transparent"
 		android:id="@+id/rlAlert"
 		android:layout_centerHorizontal="true"
 		android:layout_height="60dp"
@@ -84,7 +85,8 @@
 				android:id="@+id/tvAlert"
 				android:layout_height="match_parent"
 				android:layout_width="wrap_content"
-				android:textAllCaps="false"/>
+				android:textAllCaps="false"
+				android:textColor="@android:color/black"/>
 		</LinearLayout>
 	</RelativeLayout>
 

@@ -14,13 +14,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
@@ -29,6 +28,7 @@ import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class QueryBuilderHolder(
@@ -60,13 +60,12 @@ class QueryBuilderHolder(
 		llContent?.run {
 			backgroundGrayWhite()
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+				val gray = ThemeColor.currentColor.pDrawerTextColorPrimary
 				tvLink?.setTextColor(gray)
 				tvMsg?.setTextColor(gray)
 				tvCurrentExplore?.setTextColor(gray)
 
-				rvExplore?.setBackgroundColor(white)
+				rvExplore?.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 				ivBackExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)
 
 				val animation = AnimationUtils.loadAnimation(this, R.anim.scale)
@@ -84,8 +83,8 @@ class QueryBuilderHolder(
 		{
 			override fun onClick(widget: View)
 			{
-				(pagerActivity as? FragmentActivity)?.run {
-					DataMessengerFragment.exploreQueriesMethod?.let { it() }
+				(pagerActivity as? DMActivity)?.run {
+					openTips()
 				}
 			}
 
@@ -94,12 +93,12 @@ class QueryBuilderHolder(
 				textPaint.run {
 					try {
 						tvLink?.context?.let {
-							color = it.getParsedColor(R.color.chata_drawer_accent_color)
+							color = SinglentonDrawer.currentAccent
 						}
 					}
 					finally {
 						tvLink?.context?.let {
-							bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+							bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
 						}
 						isUnderlineText = false
 					}
@@ -210,7 +209,10 @@ class QueryBuilderHolder(
 						{
 							ExploreQueriesData.isPendingExecute = true
 							ExploreQueriesData.lastWord = wordExplore
-							DataMessengerFragment.exploreQueriesMethod?.let { it() }
+							//TODO open DM
+							(pagerActivity as? DMActivity)?.run {
+								this.openTips()
+							}
 						}
 						else
 						{

@@ -47,12 +47,13 @@ class ChatServicePresenter(
 
 	private fun getRelatedQueries(query: String, message: String, queryId: String)
 	{
-		val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
+		//val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 		val mData = hashMapOf<String, Any>(
 			"query" to query,
 			"message" to message,
 			"query_id" to queryId)
-		QueryRequest.callRelatedQueries(words, this, mData)
+//QueryRequest.callRelatedQueries(words, this, mData)
+		QueryRequest.callRelatedQueries(query, this, mData)
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
@@ -68,74 +69,45 @@ class ChatServicePresenter(
 				}
 				else ->
 				{
-					when(jsonObject.optInt("CODE"))
+					val textError = jsonObject.optString("RESPONSE") ?: ""
+					if (textError.isNotEmpty())
 					{
-						400 ->
-						{
-							val textError = jsonObject.optString("RESPONSE") ?: ""
-							if (textError.isNotEmpty())
-							{
-								try {
-									val jsonError = JSONObject(textError)
-									val reference = jsonError.optString(referenceIdKey)
-									var message = jsonError.optString(messageKey)
-									val query = jsonObject.optString("query") ?: ""
-									if (reference == "1.1.430")
-									{
-										if (SinglentonDrawer.mIsEnableSuggestion)
-										{
-											val response = jsonObject.optString("RESPONSE", "")
-											var queryId = ""
-											try {
-												val joResponse = JSONObject(response)
-												joResponse.optJSONObject("data")?.let { joData ->
-													queryId = joData.optString("query_id")
-												}
-											} catch (ex: Exception) {}
-											getRelatedQueries(query, message, queryId)
-											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
-										}
-										else
-										{
-											message = "suggestion not supported"
-											view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
-										}
-									}
-								}
-								catch (ex: Exception) { }
-							}
-						}
-						in 500 .. 502 ->
-						{
+						try {
+							val jsonError = JSONObject(textError)
+							val reference = jsonError.optString(referenceIdKey) ?: ""
+							var message = jsonError.optString(messageKey) ?: ""
 							val query = jsonObject.optString("query") ?: ""
-							val response = jsonObject.optString("RESPONSE")
-							if (response.isNotEmpty())
+							if (reference == "1.1.430")
 							{
-								val joResponse = JSONObject(response)
-								val message = joResponse.optString(messageKey)
-								var queryId = ""
-								joResponse.optJSONObject("data")?.let { joData ->
-									queryId = joData.optString("query_id")
-								}
-								val referenceId = joResponse.optString("reference_id")
-								val messageComplete = if (message.isEmpty())
+								if (SinglentonDrawer.mIsEnableSuggestion)
 								{
-									"Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible."
+									val response = jsonObject.optString("RESPONSE", "")
+									var queryId = ""
+									try {
+										val joResponse = JSONObject(response)
+										joResponse.optJSONObject("data")?.let { joData ->
+											queryId = joData.optString("query_id")
+										}
+									} catch (ex: Exception) {}
+									getRelatedQueries(query, message, queryId)
 								}
 								else
-									"$message\n\nError ID: $referenceId"
-								val json = JSONObject().apply {
-									val joData = JSONObject().apply {
-										put("query_id", queryId)
-									}
-									put("data", joData)
-									put("message", messageComplete)
+								{
+									message = "suggestion not supported"
+									view?.isLoading(false)
 								}
-								val queryBase = QueryBase(json)
-								view?.addNewChat(TypeChatView.LEFT_VIEW, queryBase)
+								view?.addChatMessage(TypeChatView.LEFT_VIEW, message, query)
 							}
-							isLoading(false)
-						}
+							else
+							{
+//								if (message.contains("report"))
+								val messageComplete = "$message\n\nError ID: $reference"
+								view?.run {
+									addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+									isLoading(false)
+								}
+							}
+						} catch (ex: Exception) {}
 					}
 				}
 			}

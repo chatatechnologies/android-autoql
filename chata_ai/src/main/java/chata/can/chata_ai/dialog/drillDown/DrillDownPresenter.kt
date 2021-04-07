@@ -1,8 +1,8 @@
 package chata.can.chata_ai.dialog.drillDown
 
 import chata.can.chata_ai.dialog.DrillDownContract
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -37,7 +37,7 @@ class DrillDownPresenter(
 	fun getQueryDrillDown()
 	{
 		val queryId = queryBase.queryId
-		with(DataMessenger)
+		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
 			val mParams = hashMapOf<String, Any>(

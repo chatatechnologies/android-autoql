@@ -3,20 +3,18 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Point
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +27,7 @@ import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
@@ -46,7 +45,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		fun newInstance() = DataMessengerFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_data_messenger)
 		}
-		var exploreQueriesMethod: (() -> Unit)? = null
 		var queryToTyping = ""
 	}
 
@@ -69,6 +67,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
 	var isReleaseAutocomplete = true
+	var statusLogin = false
 
 	override fun onRenderViews(view: View)
 	{
@@ -87,20 +86,20 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-//				val queryDemo = "count invoices"
-//				val queryDemo = "Total tickets by customer this year"
-//				val queryDemo = "How many job by job area by year"
-//				val queryDemo = "Average revenue by area last year"
-//			  val queryDemo = "Number of invoice per customer number ordered"
-
-				val queryDemo = "Total revenue by month in 2019"
-//				val queryDemo = "Show me expenses last year over 10000"
-//				val queryDemo = "Last estimates over 10000"
+			val queryDemo = "All jobs between Feb and June"
+//			val queryDemo = "My revenue"
+//			val queryDemo = "All jobs in July 2019"
 			etQuery.setText(queryDemo)
+		}
+
+		SinglentonDrawer.aThemeMethods[nameFragment] = {
+			model.restartData()
+			chatAdapter.notifyDataSetChanged()
 		}
 
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
+			model.restartData()
 			chatAdapter.notifyDataSetChanged()
 		}
 
@@ -123,14 +122,14 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (string.isNotEmpty())
 				{
-					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
-					{
-						presenter.getAutocomplete(string)
-					}
-					else
+					if (statusLogin)
 					{
 						adapterAutoComplete.clear()
 						adapterAutoComplete.notifyDataSetChanged()
+						if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
+						{
+							presenter.getAutocomplete(string)
+						}
 					}
 					with(ivMicrophone)
 					{
@@ -161,14 +160,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					.setNegativeButton("Cancel", null).show()
 			}
 		}
-		etQuery.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-			parent?.let {
-				it.adapter?.let { adapter ->
-					val text = adapter.getItem(position).toString()
-					etQuery.setText(text)
-					setRequestQuery()
-				}
-			}
+		etQuery.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+			val text = aTmp[position]
+			etQuery.setText(text)
+			setRequestQuery()
 		}
 
 		etQuery.setFinishAnimationListener {
@@ -176,6 +171,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (query.isNotEmpty())
 			{
 				hideKeyboard()
+				isReleaseAutocomplete = true
 				etQuery.setText("")
 				presenter.getQuery(query)
 			}
@@ -186,53 +182,28 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			false
 		}
 
-		val displayMetrics = DisplayMetrics()
-		ScreenData.defaultDisplay.getRealMetrics(displayMetrics)
-		val width = displayMetrics.widthPixels
-		etQuery.dropDownWidth = width
-	}
-
-	fun updateData(arguments: Bundle)
-	{
-		arguments.let {
-			DataMessengerData.run {
-				customerName = it.getString("CUSTOMER_NAME") ?: ""
-				title = it.getString("TITLE") ?: ""
-				introMessage = it.getString("INTRO_MESSAGE") ?: ""
-				inputPlaceholder = it.getString("INPUT_PLACE_HOLDER") ?: ""
-				maxMessages = it.getInt("MAX_MESSAGES")
-				clearOnClose = it.getBoolean("CLEAR_ON_CLOSE", false)
-				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
-			}
-			val title = DataMessengerData.title
-			dataMessengerTile = if (title.isNotEmpty())
-				title
-			else getString(R.string.data_messenger)
-
-			etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
-				DataMessengerData.inputPlaceholder
-			else
-				getString(R.string.type_queries_here)
-		}
-		if (model.countData() == 0)
-		{
-			clearQueriesAndResponses()
+		context?.resources?.displayMetrics?.let {
+			etQuery.dropDownWidth = it.widthPixels
 		}
 	}
 
-	fun clearQueriesAndResponses()
+	private fun clearQueriesAndResponses()
 	{
+		statusLogin = !AutoQLData.notLoginData()
 		model.clear()
 		val introMessageRes =
-			if (DataMessengerData.introMessage.isNotEmpty())
-				DataMessengerData.introMessage
+			if (AutoQLData.introMessage.isNotEmpty())
+				AutoQLData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
 
-		val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+		val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-		model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-		notifyAdapter()
+		if (statusLogin)
+		{
+			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+		}
+		chatAdapter.notifyDataSetChanged()
 	}
 
 	override fun initViews(view: View)
@@ -255,34 +226,45 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				llParent.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
-				rvChat.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				llParent.setBackgroundColor(pDrawerColorSecondary)
+				rvChat.setBackgroundColor(pDrawerColorSecondary)
 				tvMsg.setTextColor(it.getParsedColor(R.color.we_run))
 				ivRun.setColorFilter(it.getParsedColor(R.color.we_run))
 
 				etQuery.setHintTextColor(it.getParsedColor(R.color.place_holder))
-				etQuery.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				etQuery.setTextColor(pDrawerTextColorPrimary)
 
-				val blue = it.getParsedColor(R.color.blue_chata_circle)
 				val circleDrawable = GradientDrawable().apply {
 					shape = GradientDrawable.OVAL
-					setColor(blue)
+					setColor(SinglentonDrawer.currentAccent)
 				}
 
-				val white = it.getParsedColor(drawerBackgroundColor)
-				val gray = it.getParsedColor(drawerTextColorPrimary)
-				val rectangleDrawable = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+				val rectangleDrawable = DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					64f,
+					1,
+					pDrawerTextColorPrimary)
 
 				ivMicrophone.background = circleDrawable
 				etQuery.background = rectangleDrawable
+
+				etQuery.setDropDownBackgroundDrawable(DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					64f,
+					1,
+					pDrawerTextColorPrimary))
 			}
 		}
 	}
 
 	override fun addSimpleText(message: String)
 	{
-		model.add(ChatData(TypeChatView.LEFT_VIEW, message))
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		val chatData = ChatData(TypeChatView.LEFT_VIEW, message)
+		setSession(chatData)
+		model.add(chatData)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
@@ -294,25 +276,37 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		val simpleQuery = SimpleQuery(json)
 		simpleQuery.typeView = typeView
 		val chatData = ChatData(typeView, message, simpleQuery)
+		setSession(chatData)
 		model.add(chatData)
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
 	override fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 	{
 		val chatData = ChatData(typeView, "", queryBase)
+		setSession(chatData)
 		model.add(chatData)
-		chatAdapter.notifyItemChanged(model.countData() - 1)
+		rvChat.post {
+			chatAdapter.notifyItemChanged(model.countData() - 1)
+		}
 		scrollToPosition()
 	}
 
 	override fun isLoading(isVisible: Boolean)
 	{
 		gifView.visibility = if (isVisible)
+		{
+			etQuery.isEnabled = false
 			View.VISIBLE
+		}
 		else
-			View.GONE
+		{
+			etQuery.isEnabled = true
+			View.INVISIBLE
+		}
 	}
 
 	override fun runTyping(text: String)
@@ -324,25 +318,28 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>) {}
 
+	private val aTmp = arrayListOf<String>()
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
 		adapterAutoComplete.clear()
 		if (aMatches.isNotEmpty())
 		{
+			aTmp.clear()
+			aTmp.addAll(aMatches)
 			adapterAutoComplete.addAll(aMatches)
 
-			val size = Point()
-			ScreenData.defaultDisplay.getSize(size)
-			val maxHeight = size.y * 0.35
+			context?.resources?.displayMetrics?.let {
+				val maxHeight = it.heightPixels * 0.35
 
-			val count = adapterAutoComplete.count
-			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
+				val count = adapterAutoComplete.count
+				val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
 
-			etQuery.dropDownHeight =
-				if (height < maxHeight)
-					height.toInt()
-				else
-					maxHeight.toInt()
+				etQuery.dropDownHeight =
+					if (height < maxHeight)
+						height.toInt()
+					else
+						maxHeight.toInt()
+			}
 		}
 		adapterAutoComplete.notifyDataSetChanged()
 	}
@@ -368,10 +365,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun setStopRecorder()
 	{
 		activity?.let {
-			val red = it.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
-				setColor(red)
+				setColor(ThemeColor.currentColor.pDrawerAccentColor)
 			}
 			ivMicrophone.background = circleDrawable
 		}
@@ -387,6 +383,52 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
+	override fun scrollToPosition()
+	{
+		var countToDown = model.getParseCount()
+		val maxMessages = AutoQLData.maxMessages
+		while(countToDown > maxMessages)
+		{
+			model[0]?.let { chatData ->
+				if (chatData.simpleQuery == null)
+				{
+					countToDown--
+					model.removeAt(0)
+					rvChat.post {
+						chatAdapter.notifyItemRemoved(0)
+					}
+				}
+				else
+				{
+					if (countToDown % maxMessages == 1)
+					{
+						countToDown--
+						chatData.simpleQuery.visibleTop = false
+						rvChat.post {
+							chatAdapter.notifyItemChanged(0)
+						}
+					}
+					else
+					{
+						countToDown -= 2
+						model.removeAt(0)
+					}
+				}
+			}
+		}
+		Handler(Looper.getMainLooper()).postDelayed({
+			val position = model.countData() - 1
+			rvChat.smoothScrollToPosition(position)
+		}, 200)
+	}
+
+	override fun showToast()
+	{
+		activity?.let {
+			Toast.makeText(it, R.string.limit_row_num, Toast.LENGTH_LONG).show()
+		}
+	}
+
 	override fun onPause()
 	{
 		super.onPause()
@@ -396,10 +438,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		if (DataMessengerData.clearOnClose)
-		{
-			model.clear()
-		}
+		SinglentonDrawer.aThemeMethods.remove(nameFragment)
 		ThemeColor.aColorMethods.remove(nameFragment)
 		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
 		SinglentonDrawer.aCurrencyMethods.remove(nameFragment)
@@ -408,7 +447,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private fun initData()
 	{
 		arguments?.let {
-			DataMessengerData.run {
+			AutoQLData.run {
 				customerName = it.getString("CUSTOMER_NAME") ?: ""
 				title = it.getString("TITLE") ?: ""
 				introMessage = it.getString("INTRO_MESSAGE") ?: ""
@@ -418,13 +457,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				enableVoiceRecord = it.getBoolean("ENABLE_VOICE_RECORD", false)
 			}
 		}
-		val title = DataMessengerData.title
+		val title = AutoQLData.title
 		dataMessengerTile = if (title.isNotEmpty())
 			title
 		else getString(R.string.data_messenger)
 
-		etQuery.hint = if (DataMessengerData.inputPlaceholder.isNotEmpty())
-			DataMessengerData.inputPlaceholder
+		etQuery.hint = if (AutoQLData.inputPlaceholder.isNotEmpty())
+			AutoQLData.inputPlaceholder
 		else
 			getString(R.string.type_queries_here)
 	}
@@ -433,26 +472,44 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
-			val introMessageRes = if (DataMessengerData.introMessage.isNotEmpty())
-				DataMessengerData.introMessage
+			val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
+				AutoQLData.introMessage
 			else
 				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
-			val introMessage = String.format(introMessageRes, DataMessengerData.customerName)
+
+			statusLogin = !AutoQLData.notLoginData()
+
 			if (model.countData() == 0)
 			{
+				val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 				model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
-				model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-			}
-			else
-			{
-				model[0]?.message = introMessage
+				if (statusLogin)
+				{
+					model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
+				}
 			}
 
 			val llm = LinearLayoutManager(it)
 			llm.orientation = LinearLayoutManager.VERTICAL
 			rvChat.layoutManager = llm
 			rvChat.adapter = chatAdapter
-			scrollToPosition()
+//			rvChat.addOnLayoutChangeListener {
+//				_, _, _, right, _, _, _, _, _ ->
+//				println("right: $right")
+//				if (lastRight == 0)
+//				{
+//					lastRight = right
+//				} else
+//				{
+//					if (lastRight <= right)
+//					{
+//						println("right (enter!): $right")
+//						chatAdapter.notifyDataSetChanged()
+//					}
+//				}
+//			}
+			//todo check for after render
+			//scrollToPosition()
 		}
 	}
 
@@ -463,10 +520,18 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			hideKeyboard()
 			etQuery.setText("")
-			if (SinglentonDrawer.mIsEnableQuery)
-				presenter.getSafety(query)
+
+			if (AutoQLData.notLoginData())
+			{
+				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.it_looks_like), query)
+			}
 			else
-				presenter.getQuery(query)
+			{
+				if (SinglentonDrawer.mIsEnableQuery)
+					presenter.getSafety(query)
+				else
+					presenter.getQuery(query)
+			}
 		}
 	}
 
@@ -526,8 +591,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	{
 		with(ivMicrophone)
 		{
-			if (DataMessengerData.enableVoiceRecord)
+			if (AutoQLData.enableVoiceRecord)
 			{
+				setImageResource(R.drawable.ic_microphone)
 				setOnClickListener(null)
 				setOnTouchListener { _, event ->
 					when(event.action)
@@ -547,23 +613,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
-	private fun notifyAdapter()
+	private fun setSession(chatData: ChatData)
 	{
-		chatAdapter.notifyDataSetChanged()
-	}
-
-	private fun scrollToPosition()
-	{
-		//while(model.getParseCount() > DataMessengerData.maxMessages)
-		while(model.countData() > DataMessengerData.maxMessages)
-		{
-			model.removeAt(0)
-			chatAdapter.notifyItemRemoved(0)
-		}
-		Handler(Looper.getMainLooper()).postDelayed({
-			val position = model.countData() - 1
-			rvChat.smoothScrollToPosition(position)
-//			rvChat.scrollToPosition(position)
-		}, 200)
+		chatData.simpleQuery?.isSession = statusLogin
 	}
 }

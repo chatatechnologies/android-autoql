@@ -11,15 +11,15 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 
 class MainRenderPresenter(
 	private val context: Context,
-	private val onClickListener: View.OnClickListener,
-	private val bubbleHandle: BubbleHandle)
+	private val onClickListener: View.OnClickListener
+	)
 {
 	fun initViews(llContainer: LinearLayout)
 	{
@@ -95,12 +95,14 @@ class MainRenderPresenter(
 					{
 						if (demoParam.colors.isEmpty())
 						{
-							CustomViews.getColor(context, demoParam) {}
+							CustomViews.getColor(context, demoParam) {
+
+							}
 						}
 						else
 						{
 							CustomViews.getColor(context, demoParam) {
-								bubbleHandle.addChartColor(it)
+								DataMessengerAdmin.addChartColor(it)
 							}
 						}
 					}

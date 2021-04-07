@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo
 
+import android.graphics.Color
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerModel
 import java.util.*
 
@@ -43,8 +44,39 @@ object SinglentonDrawer
 
 	//region colors
 	var themeColor = "dark"
-	var lightThemeColor = "#28A8E0"
-	var darkThemeColor = "#525252"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
+
+	val aThemeMethods = LinkedHashMap<String, () -> Unit>()
+
+	var lightThemeColor = "#26A7DF"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
+	var pLightThemeColor = Color.parseColor(lightThemeColor)
+
+	var darkThemeColor = "#26A7DF"
+		set(value) {
+			field = value
+			for ((_, method) in aThemeMethods)
+			{
+				method()
+			}
+		}
+	var pDarkThemeColor = Color.parseColor(darkThemeColor)
+
+	val currentAccent: Int
+		get() = if (themeColor == "dark") pDarkThemeColor
+			else pLightThemeColor
 	val aChartColors = ArrayList<String>()
 	//endregion
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_height="wrap_content"
 	android:layout_width="match_parent">
 	<ScrollView
@@ -31,7 +32,8 @@
 			android:layout_centerInParent="true"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:padding="5dp">
+			android:padding="5dp"
+			tools:ignore="UselessParent">
 			<ImageView
 				android:contentDescription="@null"
 				android:id="@+id/ivAlert"
@@ -44,7 +46,8 @@
 				android:id="@+id/tvAlert"
 				android:layout_height="match_parent"
 				android:layout_width="wrap_content"
-				android:textAllCaps="false"/>
+				android:textAllCaps="false"
+				android:textColor="@android:color/black"/>
 		</LinearLayout>
 
 	</RelativeLayout>

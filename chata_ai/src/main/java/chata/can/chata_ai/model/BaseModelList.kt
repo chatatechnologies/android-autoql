@@ -34,6 +34,11 @@ open class BaseModelList<Model: Any>
 		return aData.indexOfFirst(predicate)
 	}
 
+	fun removeLast()
+	{
+		aData.removeLast()
+	}
+
 	open fun countData() = aData.size
 
 	operator fun get(position: Int): Model?

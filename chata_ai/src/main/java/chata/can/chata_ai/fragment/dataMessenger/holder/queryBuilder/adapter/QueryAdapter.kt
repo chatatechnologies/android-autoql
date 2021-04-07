@@ -10,16 +10,21 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 
 class QueryAdapter(
-	model: BaseModelList<*>,
+	private val model: BaseModelList<*>,
 	listener: OnItemClickListener? = null
 ): BaseAdapter(model, listener)
 {
 	private var currentview = -1
 
+	override fun getItemViewType(position: Int): Int
+	{
+		return if (position == model.countData() - 1) 1 else 0
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent))
+		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent), viewType == 1)
 	}
 
 	fun checkBefore(position: Int)

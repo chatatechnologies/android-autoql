@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.color
 
+import android.content.Context
 import chata.can.chata_ai.R
 
 object ThemeColor
@@ -34,6 +35,12 @@ object ThemeColor
 		{
 			method()
 		}
+	}
+
+	fun parseColor(context: Context)
+	{
+		lightColor.initConfig(context)
+		darkColor.initConfig(context)
 	}
 
 	val aColorMethods = LinkedHashMap<String, () -> Unit>()

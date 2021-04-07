@@ -12,6 +12,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
@@ -20,10 +21,12 @@ import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import java.util.*
 
 class WebViewHolder(
 	itemView: View,
@@ -31,11 +34,13 @@ class WebViewHolder(
 	private val chatView: ChatContract.View?
 ): Holder(itemView), View.OnClickListener
 {
+	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
+	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
 	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
 	private val ivTable = itemView.findViewById<ImageView>(R.id.ivTable) ?: null
@@ -60,10 +65,14 @@ class WebViewHolder(
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
-	//private var lastId = "#idTableBasic"
 	private var lastId = "#idTableDataPivot"
+	private val factorHeight = 180
+	private val visible = View.VISIBLE
+	private val invisible = View.GONE
+	private var isReduceOptions = false
+	private var canChangeHeight = true
 
-	private val blueAccent = R.color.blue_chata_circle
+	private var accentColor = 0
 
 	//region paint views
 	override fun onPaint()
@@ -72,30 +81,26 @@ class WebViewHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(
+				SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 
-			context.run {
-				ivReport?.setColorFilter(getParsedColor(blueAccent))
-				ivDelete?.setColorFilter(getParsedColor(blueAccent))
-				ivPoints?.setColorFilter(getParsedColor(blueAccent))
-			}
+			accentColor = SinglentonDrawer.currentAccent
+			ivReport?.setColorFilter(accentColor)
+			ivDelete?.setColorFilter(accentColor)
+			ivPoints?.setColorFilter(accentColor)
 		}
 
 		rlLoad?.run {
-			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			setBackgroundColor(backgroundColor)
+			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 		}
 
 		llCharts?.backgroundGrayWhite()
 		rlDelete?.backgroundGrayWhite()
 
-		ivDelete?.setOnClickListener(this)
-		ivReport?.setOnClickListener(this)
 		ivPoints?.setOnClickListener(this)
 
 		rvParent?.let {
@@ -137,6 +142,23 @@ class WebViewHolder(
 					arrayListOf()
 				}
 			}
+			queryBase?.let {
+				if (it.isGroupable &&
+					(R.id.ivColumn in aConfigs || R.id.ivStackedColumn in aConfigs))
+				{
+					Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
+					lastId = "#container"
+				}
+				if (R.id.ivPie in aConfigs)
+				{
+					//check rows (for pie, bar, column is series)
+					if (/*it.hasDrillDown && */it.aRows.size > 6)
+					{
+						aConfigs.remove(R.id.ivPie)
+					}
+				}
+				it.showContainer = lastId
+			}
 			//region find the first item
 			aConfigs.firstOrNull()?.let {
 				firstConfig ->
@@ -155,23 +177,44 @@ class WebViewHolder(
 			//endregion
 
 			val tmpConfigs = aConfigs.subList(1, aConfigs.size)
-			for (index in 1 until aDefaultActions.size)
+			for (index in 0 until aDefaultActions.size)
 			{
 				aDefaultActions[index]?.let {
-					val idView = it.id
-					it.visibility = if (idView in tmpConfigs)
+					it.visibility = if (it.id in tmpConfigs)
 					{
 						it.setOnClickListener(this)
-						View.VISIBLE
+						it.setColorFilter(accentColor)
+						visible
 					}
 					else
 					{
 						it.setOnClickListener(null)
-						View.GONE
+						invisible
 					}
 				}
 			}
+			configOptions(aConfigs.size)
 			ivActionHide?.setOnClickListener(this)
+		}
+		else
+		{
+			configOptions(0)
+		}
+	}
+
+	private fun configOptions(sizeConfig: Int)
+	{
+		isReduceOptions = if (sizeConfig > 5)
+		{
+			ivDelete?.visibility = invisible
+			ivReport?.visibility = invisible
+			true
+		}
+		else
+		{
+			ivDelete?.setOnClickListener(this)
+			ivReport?.setOnClickListener(this)
+			false
 		}
 	}
 	//endregion
@@ -196,7 +239,15 @@ class WebViewHolder(
 				}
 				R.id.ivPoints ->
 				{
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "")
+					val dataPopup = DataPopup(
+						it,
+						chatView,
+						adapterView,
+						adapterPosition,
+						queryBase?.queryId ?: "",
+						queryBase?.sql ?: "",
+						isReduceOptions)
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup)
 				}
 				else -> {}
 			}
@@ -223,14 +274,15 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
+		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
 		if (simpleQuery.query.isNotEmpty())
 		{
-			tvContentTop.visibility = View.VISIBLE
+			tvContentTop.visibility = visible
 			tvContentTop.text = simpleQuery.query
 		}
 		else
 		{
-			tvContentTop.visibility = View.GONE
+			tvContentTop.visibility = invisible
 		}
 
 		queryBase = simpleQuery
@@ -238,11 +290,22 @@ class WebViewHolder(
 
 		if (simpleQuery.contentHTML.isNotEmpty())
 		{
-			rlLoad?.visibility = View.VISIBLE
+			rlLoad?.visibility = visible
 			wbQuery?.let {
 				wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
+		}
+		ivAlert?.let { ivAlert ->
+			ivAlert.visibility = if (
+				simpleQuery.hasDrillDown &&
+				simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+			{
+				ivAlert.setOnClickListener {
+					chatView?.showToast()
+				}
+				View.VISIBLE
+			} else View.GONE
 		}
 	}
 
@@ -251,7 +314,6 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-				val factorHeight = 180
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
@@ -327,7 +389,7 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
-						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
+						Pair("'$idHide', '#idTableDataPivot', 'idTableDataPivot'", queryBase.rowsPivot)
 					}
 					R.id.ivStackedBar ->
 					{
@@ -349,7 +411,9 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
+				canChangeHeight = true
 				changeHeightWebView(pData.second)
+				queryBase.showContainer = lastId
 				wbQuery?.run {
 					requestLayout()
 					Handler(Looper.getMainLooper()).postDelayed({
@@ -357,9 +421,12 @@ class WebViewHolder(
 					}, 200)
 				}
 
-				ivActionHide?.visibility = View.VISIBLE
+				ivActionHide?.run {
+					visibility = visible
+					setColorFilter(accentColor)
+				}
 				ivActionHide = iv
-				ivActionHide?.visibility = View.GONE
+				ivActionHide?.visibility = invisible
 			}
 		}
 	}
@@ -369,13 +436,18 @@ class WebViewHolder(
 	{
 		with(webView)
 		{
-			changeHeightWebView(numRows)
-
-			rlLoad?.visibility = View.VISIBLE
+			rlLoad?.visibility = visible
 			clearCache(true)
 			clearHistory()
 			requestLayout()
-
+			if (lastId == "#container")
+			{
+				changeHeightWebView(factorHeight)
+			}
+			else
+			{
+				changeHeightWebView(numRows)
+			}
 			settings.javaScriptEnabled = true
 			queryBase?.let {
 				if (it.hasDrillDown)
@@ -394,9 +466,9 @@ class WebViewHolder(
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					visibility = View.VISIBLE
+					visibility = visible
 					Handler(Looper.getMainLooper()).postDelayed({
-						rlLoad?.visibility = View.GONE
+						rlLoad?.visibility = invisible
 					}, 200)
 				}
 			}
@@ -410,15 +482,20 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		rvParent?.let {
-			var customHeight = rvParent.dpToPx(30f * numRows) + 60
-			if (customHeight > 900)
-			{
-				customHeight = 900
-			}
+		if (canChangeHeight)
+		{
+			canChangeHeight = false
+			rvParent?.let {
+				var customHeight = it.dpToPx(30f * numRows) + 60
+				if (customHeight > 900)
+				{
+					customHeight = 900
+				}
 
-			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-			it.margin(12f, 24f, 12f, 1f)
+				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+				it.margin(12f, 32f, 12f, 1f)
+				chatView?.scrollToPosition()
+			}
 		}
 	}
 }

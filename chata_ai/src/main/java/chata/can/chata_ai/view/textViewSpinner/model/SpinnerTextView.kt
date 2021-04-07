@@ -5,14 +5,11 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.view.WindowManager
 import android.widget.*
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter
@@ -27,8 +24,7 @@ class SpinnerTextView: RelativeLayout
 		}
 
 		tvContent = TextView(context).apply {
-			val backgroundColor = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			setBackgroundColor(backgroundColor)
+			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
@@ -148,16 +144,11 @@ class SpinnerTextView: RelativeLayout
 		}
 	}
 
-	fun setWindowManager(_windowManager: WindowManager)
+	fun setWindowManager()
 	{
-		this.windowManager = _windowManager
-
-		val displayMetrics = DisplayMetrics()
-
-		val defaultDisplay = this.windowManager?.defaultDisplay
-		defaultDisplay?.getMetrics(displayMetrics)
-		val width = displayMetrics.widthPixels
-		spSelect?.dropDownWidth = width
+		context?.resources?.displayMetrics?.let {
+			spSelect?.dropDownWidth = it.widthPixels
+		}
 	}
 
 	constructor(context: Context): super(context)
@@ -174,8 +165,6 @@ class SpinnerTextView: RelativeLayout
 
 	private var tvContent: TextView?= null
 	private var spSelect: Spinner?= null
-
-	private var windowManager: WindowManager?= null
 
 	private lateinit var aData: ArrayList<Suggestion>
 	private var lastData: ArrayList<String> ?= null

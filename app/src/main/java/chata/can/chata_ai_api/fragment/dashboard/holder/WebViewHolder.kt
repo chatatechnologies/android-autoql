@@ -9,7 +9,6 @@ import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -33,8 +32,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 				iView.layoutParams = layout
 			}
 		}
-		rlLoad.setBackgroundColor(
-			rlLoad.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor))
+		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 		webView?.visibility = View.GONE
 		rlLoad?.visibility = View.VISIBLE
 	}
@@ -63,7 +61,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
-		changeHeightParent(rlWebView, queryBase.rowsTable)
+		changeHeightParent(rlWebView, queryBase)
 		webView?.run {
 			clearCache(true)
 			clearHistory()
@@ -93,12 +91,23 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		}
 	}
 
-	private fun changeHeightParent(rlWebView: RelativeLayout, numRows: Int)
+	private val aChartSupport = arrayListOf(
+		"bar",
+		"line",
+		"column",
+		"pie",
+		"heatmap",
+		"bubble",
+		"stacked_column",
+		"stacked_line",
+		"stacked_bar")
+	private fun changeHeightParent(rlWebView: RelativeLayout, queryBase: QueryBase)
 	{
 		rlWebView.let {
+			val numRows = queryBase.rowsTable
 			val tmpRows = if (numRows == 0) 180 else numRows
 			var customHeight = it.dpToPx(30f * tmpRows) + 60
-			if (customHeight > 900)
+			if (customHeight > 900 || queryBase.displayType in aChartSupport)
 			{
 				customHeight = 900
 			}

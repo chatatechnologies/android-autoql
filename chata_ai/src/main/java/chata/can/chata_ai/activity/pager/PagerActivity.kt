@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import chata.can.chata_ai.R
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -13,7 +12,6 @@ import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
 
 class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClickListener
 {
@@ -23,11 +21,10 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	private var ivClear: ImageView ?= null
 
 	val model = SinglentonDrawer.mModel
-	var dataMessengerTile = "Data Messenger"
+	private var dataMessengerTile = "Data Messenger"
 
 	override fun onCreateView()
 	{
-		ContextActivity.context = this
 		tvToolbar = findViewById(R.id.tvToolbar)
 		ivCancel = findViewById(R.id.ivCancel)
 		ivLight = findViewById(R.id.ivLight)
@@ -46,17 +43,14 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 	override fun finish()
 	{
 		super.finish()
-		BubbleHandle.isOpenChat = false
-		overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_top)
 	}
 
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		BubbleHandle.instance?.isVisible = true
 		if (PagerData.clearOnClose)
 		{
-			SinglentonDrawer.mModel.clear()
+			model.clear()
 		}
 	}
 
@@ -109,29 +103,10 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		ivCancel?.setOnClickListener(this)
 		ivLight?.setOnClickListener(this)
 		ivClear?.setOnClickListener(this)
-		//TODO reusable when explore queries fragment is opened
-//		viewPager?.addOnPageChangeListener(object: PageSelectedListener
-//		{
-//			override fun onSelected(position: Int)
-//			{
-//				val pData = when(position)
-//				{
-//					0 -> Pair(dataMessengerTile, R.drawable.ic_light)
-//					1 -> Pair(exploreQueriesTile, R.drawable.ic_chat_white)
-//					else -> Pair(dataMessengerTile, R.drawable.ic_light)
-//				}
-//				tvToolbar?.text = pData.first
-//				ivLight?.setImageResource(pData.second)
-//			}
-//		})
 	}
 
 	private fun initConfig()
 	{
-		windowManager?.let {
-			ScreenData.windowManager = it
-			ScreenData.defaultDisplay = it.defaultDisplay
-		}
 		resources?.let {
 			it.displayMetrics?.let {
 					itMetrics ->

@@ -1,4 +1,4 @@
-<!-- [a relative link](readme_local.md)-->
+[a relative link](readme_local.md)
 
 # Data Messenger
 > Deliver the power of AutoQL to your users through Data Messenger, a state-of-the-art conversational interface you can easily build into your existing application.
@@ -15,69 +15,65 @@
 ## Requirements
 minimun Sdk Version 17 or later.
 
-### Setting Up Data Messenger
-The following sections in this document contain detailed information about how to customize the properties of the widget.
+## Setting Up Data Messenger
+> The following sections in this document contain detailed information about how to customize the properties of the widget.
 
-### Installation
+## Installation
 
 1. chata is available through jitpack. To install it, simply add the following line to file build.gradle (Project: File):
+
 ```gradle
 allprojects {
     repositories {
-        ...
+        . . .
         maven { url 'https://jitpack.io' }
     }
 }
 ```
+
 2. Add the line to the build.gradle (Module: File) file:
+
 ```gradle
 dependencies {
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    ...
+  . . .
     implementation 'com.github.chatatechnologies:android-autoql:1.0.44'
-    ...
 }
 ```
-### Add source code in project
 
-> Let's start with the declaration and initiation of the variable bubbleHandle (BubbleHandle).
->
-> The Authentication object is the container for the apiKey, domain Url, and token.
+3. Next to, import AutoQL to your project
+```kotlin
+import chata.can.chata_ai.view.dm.AutoQL
+```
 
-![alt text](Documentation/add_bubble_handle.png "bubble handle")
+4. To initialize Auto variable, to do the next.
+```kotlin
+floatingView = AutoQL(this).apply {
+	id = R.id.floatingView
+	layoutParams = FrameLayout.LayoutParams(
+      FrameLayout.LayoutParams.MATCH_PARENT,
+      FrameLayout.LayoutParams.MATCH_PARENT)
+}
+```
 
-> To use this component we must make some decisions regarding the version of the device.
-> We are going to determine if the device where our application will be executed is equal to or greater than Marshmallow.
+5. Set event clic neccesary for to open DM.
+```kotlin
+floatingView.setEventClick {
+  startActivity(
+    Intent(this, DMActivity::class.java).apply {
+      putExtra("PLACEMENT", floatingView.placement)
+    }
+  )
+}
+```
 
-![alt text](Documentation/isMarshmallow.png "is Marshmallow")
-
-> Another thing to consider is the on-screen overlay, for this we must give the application permission to see the BubbleHandle element on our screen.
->
-> The way to evaluate that the overlay is active for our application is as follows.
-
-![alt text](Documentation/canDrawOverlays.png "is Marshmallow")
-
-> For a better understanding we are going to create the `initBubble` method to start our bubbleBundle.
-
-![alt text](Documentation/initBubbleHandle.png "is Marshmallow")
-
-> Now, if the user has not accepted the screen overlay permissions for our application, we are going to call an intent so that the user can accept it.
-> In turn, we are going to read the result once the user exits the overlay permission screen.
-> Once the user accepts the permissions, we start the BubbleHandle component.
-
-![alt text](Documentation/final_code.png "is Marshmallow")
-
-1. *Una vez es creada la actividad, es evaluada la versión de Android que corre nuestro disposiivo, si es igual o mayor a Marshmallow entrará en la primera sentencia `if`. Otherwise we start our BubbleHandle.*
-2. *En la segunda sentencia `if` revisamos la superposición de pantalla para nuestra App, si esta no ha sido aceptada mostramos la pantalla de permiso de superposición. Otherwise we start our BubbleHandle.*
-
-![alt text](Documentation/onActivityResult.png "is Marshmallow")
-
-*The response is read and checked if the user accepted the overlay permissions.*
-
-> Note: Once the app is installed you will see something similar to the following video.
-
-![alt text](Documentation/process_start_app.gif "process start app")
+6. 
+```kotlin
+floatingView.setDataMessenger(
+  "API_KEY",
+  "DOMAIN_URL",
+  "TOKEN", 
+  "PROJECT_ID")
+```
 
 ## Props
 <table>

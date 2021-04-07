@@ -3,7 +3,6 @@ package chata.can.chata_ai.pojo.request
 import android.content.Context
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
@@ -12,7 +11,6 @@ import java.net.UnknownHostException
 
 object RequestBuilder
 {
-
 	fun initVolleyRequest(context: Context)
 	{
 		requestQueue = Volley.newRequestQueue(context)
@@ -33,6 +31,7 @@ object RequestBuilder
 		parametersAny : HashMap<String, Any> ?= null,
 		parameterArray: ArrayList<*> ?= null,
 		infoHolder: HashMap<String, Any> ?= null,
+		retryPolicy: DefaultRetryPolicy ?= null,
 		listener : StatusResponse)
 	{
 		fun addInfoHolder(json: JSONObject)
@@ -51,7 +50,6 @@ object RequestBuilder
 		val stringRequest = object: StringRequest(
 			methodRequest,
 			urlRequest,
-			Response.Listener
 			{
 				requestQueue?.cancelAll(urlRequest)
 
@@ -89,7 +87,6 @@ object RequestBuilder
 					}
 				}
 			},
-			Response.ErrorListener
 			{
 				requestQueue?.cancelAll(urlRequest)
 				val json = JSONObject()
@@ -168,7 +165,7 @@ object RequestBuilder
 		}
 
 		stringRequest.tag = urlRequest
-		stringRequest.retryPolicy = DefaultRetryPolicy(
+		stringRequest.retryPolicy = retryPolicy ?: DefaultRetryPolicy(
 			10000,
 			3,//DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
 			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)

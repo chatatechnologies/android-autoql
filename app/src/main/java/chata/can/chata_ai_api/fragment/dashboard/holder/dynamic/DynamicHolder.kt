@@ -2,7 +2,6 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
 import android.widget.LinearLayout
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
@@ -35,8 +34,7 @@ class DynamicHolder(
 		with(ThemeColor.currentColor)
 		{
 			ll1?.context?.let {
-				val backgroundColor = it.getParsedColor(drawerBackgroundColor)
-				ll1.background =  DrawableBuilder.setGradientDrawable(backgroundColor, 18f)
+				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
 			}
 		}
 	}

@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.SinglentonDashboard
@@ -44,9 +43,7 @@ object ChildSuggestion {
 		isPrimary: Boolean)
 	{
 		view.findViewById<TextView>(R.id.tvContent)?.let { tvContent ->
-			val drawerColorPrimary = tvContent.context.getParsedColor(
-				ThemeColor.currentColor.drawerTextColorPrimary)
-			tvContent.setTextColor(drawerColorPrimary)
+			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 
 			val introMessageRes = tvContent.context.getStringResources(R.string.msg_suggestion)
 			val message = String.format(introMessageRes, queryBase.message)
@@ -81,16 +78,17 @@ object ChildSuggestion {
 		isPrimary: Boolean): TextView
 	{
 		return TextView(context).apply {
-			val colorBase = context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val borderColor = context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
-			background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 1, borderColor)
+			background = DrawableBuilder.setGradientDrawable(
+				ThemeColor.currentColor.pDrawerBackgroundColor,
+				18f,
+				1, ThemeColor.currentColor.pDrawerBorderColor)
 
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 			setPadding(15,15,15,15)
-			setTextColor(context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			text = content
 			setOnClickListener {
 				val index = SinglentonDashboard.indexDashboard(dashboard)

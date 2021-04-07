@@ -1,25 +1,54 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
-import kotlin.collections.ArrayList
+import chata.can.chata_ai.pojo.script.hasNotValueInColumn
+import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
 {
+	private fun hasDateIndex(queryBase: QueryBase, posColumnX: Int): Int
+	{
+		var newIndex = posColumnX
+		if (!queryBase.aColumn[posColumnX].type.isDate())
+		{
+			val iDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
+			if (iDate != -1)
+			{
+				newIndex = iDate
+			}
+			else
+			{
+				val iDateString = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
+				if (iDateString != -1)
+				{
+					newIndex = iDateString
+				}
+			}
+		}
+		return newIndex
+	}
+
 	fun build(queryBase: QueryBase): DataForWebView
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
+		val limitRow = queryBase.limitRowNum
 		val dataForWebView = DataForWebView()
 
-		val pData = TableHtmlBuilder.buildTable(aRows, aColumn)
+		orderRowDate(queryBase)
+
+		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
 		var posColumnX = 0
 		var posColumnY = 1
+		var aDataX = ArrayList<Int>()
+		var aDataY = ArrayList<Int>()
 		var isTriConfig = false
 		//region define data with support Case
 		/**
@@ -45,8 +74,10 @@ object HtmlBuilder
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
-				posColumnX = aGroupable[1]//0
-				posColumnY = aGroupable[0]//1
+				posColumnX = aGroupable[0]//[1]
+//				posColumnY = aGroupable[0]
+//				posColumnX = hasDateIndex(queryBase, posColumnX)
+				posColumnY = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 
 				isTriConfig = true
@@ -54,50 +85,126 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_5 ->
 			{
-				//get second string column
-				val aString = SearchColumn.getTypeIndices(queryBase.aColumn, TypeDataQuery.STRING, 2)
-				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-				if (aString.isNotEmpty())
+				val aUncountable = SearchColumn.getUncountableIndices(queryBase.aColumn)
+				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn)
+				/*aDate*/
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
+				/*aDollar*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
+
+				when
 				{
-					posColumnX = if (aString.size == 2)
-						aString[1]
-					else
-						aString[0]
+					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
+					aUncountable.isNotEmpty() ->
+					{
+						posColumnX = if (aUncountable.size == 2)
+							aUncountable[1]
+						else
+							aUncountable[0]
+					}
 				}
-				if (aNumber.isNotEmpty())
-					posColumnY = aNumber[0]
+				when
+				{
+					aDataY.isNotEmpty() ->
+					{
+						val tmp = hasNotValueInColumn(aRows, aDataY, 0f)
+						posColumnY = if (tmp == -1) aDataY[0] else tmp
+					}
+					aNumber.isNotEmpty() ->
+					{
+						posColumnY = aDataY[0]
+					}
+				}
 
 				queryBase.addIndices(posColumnX, posColumnY)
+				queryBase.configActions = 4
 
-				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
-				if (hasDecimals)
-					queryBase.configActions = 0
-				else
-					queryBase.configActions = 4
+//				posColumnX = aUncountable.nextSeries()
+//				if (aNumber.isNotEmpty())
+//					posColumnY = aNumber[0]
+//				posColumnX = hasDateIndex(queryBase, posColumnX)
+//				queryBase.addIndices(posColumnX, posColumnY)
+				dataForWebView.isReverseX = true
+				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
+				val pMM = SearchColumn.getMinMaxColumns(aRows, aNumber)
+				dataForWebView.max = pMM.first
+				dataForWebView.min = pMM.second
+//				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
+//				if (hasDecimals)
+//					queryBase.configActions = 0
+//				else
+//					queryBase.configActions = 4
+			}
+			SupportCase.CASE_6 ->
+			{
+				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
+				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
+				/*aDate*/
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
+				/*aDollar*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
+
+				when
+				{
+					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
+					aString.isNotEmpty() ->
+					{
+						posColumnX = if (aString.size == 2)
+							aString[1]
+						else
+							aString[0]
+					}
+				}
+				when
+				{
+					aDataY.isNotEmpty() ->
+					{
+						val tmp = hasNotValueInColumn(aRows, aDataY, 0f)
+						posColumnY = if (tmp == -1) aDataY[0] else tmp
+					}
+					aNumber.isNotEmpty() ->
+					{
+						posColumnY = aDataY[0]
+					}
+				}
+
+				//posColumnX = hasDateIndex(queryBase, posColumnX)
+				queryBase.addIndices(posColumnX, posColumnY)
+				queryBase.configActions = 4
 			}
 			else ->
 			{
 				queryBase.supportCase.toString()
 			}
 		}
+		if (queryBase.aRows.size == 1)
+			queryBase.configActions = 0
 		//endregion
 
 		//TODO CHECK SUPPORT CASES
-		with(Categories)
-		{
+		Categories.run {
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					true, hasQuotes = true, allowRepeat = !isTriConfig))
 			//region xAxis
+			val posTriConfig = if (isTriConfig) posColumnY else posColumnX
 			queryBase.aXAxis = buildCategoryByPosition(
-				Category(aRows, aColumn[posColumnX], posColumnX,
+				Category(aRows, aColumn[posTriConfig], posTriConfig,
 					false, hasQuotes = false, allowRepeat = !isTriConfig))
 			//endregion
+			var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
 			{
+				val column = aColumn[posColumnY]
+				if (column.type == TypeDataQuery.DATE || column.type == TypeDataQuery.DATE_STRING)
+				{
+					aCatYNotFormat = buildCategoryByPosition(
+						Category(
+							aRows, column, posColumnY, false, hasQuotes = true, allowRepeat = !isTriConfig))
+				}
 				buildCategoryByPosition(
-					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !isTriConfig))
+					Category(
+						aRows, column, posColumnY, true, hasQuotes = true, allowRepeat = !isTriConfig))
 			}
 			else
 			{
@@ -105,9 +212,18 @@ object HtmlBuilder
 			}
 			val aCatYS = if (aColumn.size > posColumnY)
 			{
-				buildCategoryByPosition(
+				//calculate max and min for bi dimensional
+				val tmp = buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnY], posColumnY,
 						true, hasQuotes = true, allowRepeat = !isTriConfig))
+				val aInt = tmp.toListInt()
+				if (dataForWebView.max == -1 && dataForWebView.min == -1)
+				{
+					val tmpMin = (aInt.minOrNull() ?: 0)
+					dataForWebView.min = if (tmpMin < 0) tmpMin else 0
+					dataForWebView.max = (aInt.maxOrNull() ?: 0)
+				}
+				tmp
 			}
 			else ArrayList()
 
@@ -119,9 +235,15 @@ object HtmlBuilder
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = true, allowRepeat = true)).toString()
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
+				val column = aColumn[posColumnY]
 				buildCategoryByPosition(
-					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !isTriConfig)).toString()
+					Category(
+						aRows,
+						aColumn[posColumnY],
+						posColumnY,
+						column.type != TypeDataQuery.DATE && column.type != TypeDataQuery.DATE_STRING,
+						hasQuotes = true,
+						allowRepeat = !isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.drillTableY = if (aColumn.size > posColumnY) {
@@ -129,22 +251,26 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			dataForWebView.catX = aCatX.toString()
+			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
 			{
 				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
-				val aString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.STRING, 1, 1)
-				val aDate = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE, 1)
-				val aDateString = SearchColumn.getTypeIndices(aColumn, TypeDataQuery.DATE_STRING, 1)
+				val aString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.STRING), 1, 1)
+				val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
+				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
+
+				//val mXAxis = queryBase.aXAxis.map { "\"$it\"" }
+				val aCatYTmp = aCatYNotFormat ?: aCatY
+				val mTri = if (posColumnX == 0) Pair(aCatYTmp, aCatX) else Pair(aCatYTmp, aCatY)
 
 				//get aDataTable and aMapPure
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
 					aColumn[posColumnY],
-					queryBase.aXAxis.map { "\"$it\"" },
-					aCatY,
+					mTri.first,
+					mTri.second,
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
 				val aMapPure = pair.second
@@ -183,14 +309,34 @@ object HtmlBuilder
 //						aCheck.remove(aNumber[0])
 							val nameHeader = aColumn[tmpDate[0]].displayName
 
-							val pPivot = TableTriBuilder.buildDataPivot(
+							val tPivot = TableTriBuilder.buildDataPivot(
 								mDataPivot,
 								aColumn[aNumber.first()],
 								aCatX,//newListDescending(aCatX),
 								aCatY,
 								nameHeader)
-							dataForWebView.datePivot = pPivot.first
-							dataForWebView.rowsPivot = pPivot.second
+							dataForWebView.datePivot = tPivot.first
+							dataForWebView.rowsPivot = tPivot.second
+							tPivot.run {
+								if (third.isNotEmpty())
+								{
+									val first = third[0]
+									var next = first
+									if (third.size > 1)
+									{
+										val second = third[1]
+										while (next == second -1)
+										{
+											next = second
+										}
+										if (first != next)
+										{
+											dataForWebView.stackedFrom = first
+											dataForWebView.stackedTo = next
+										}
+									}
+								}
+							}
 						}
 						else
 						{
@@ -247,6 +393,92 @@ object HtmlBuilder
 			}
 			else
 			{
+				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
+				{
+					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
+					val indexX = aDataX[0]
+					val aData = ArrayList< LinkedHashMap<String, Double>>()
+					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
+					for (iItem in aDataY)
+					{
+						val mRow = LinkedHashMap<String, Double>()
+						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+						for (row in aRows)
+						{
+							val key = row[indexX]
+							if (key !in aCategoriesX) aCategoriesX.add(key)
+							val value = row[iItem].toDoubleNotNull()
+							mRow[key]?.run {
+								mGroupedRow[key]?.add(row)
+								mRow[key] = this + value
+							} ?: run {
+								mGroupedRow[key] = arrayListOf(row)
+								mRow[key] = value
+							}
+						}
+						aGroupedData.add(mGroupedRow)
+						aData.add(mRow)
+					}
+					//Map for data
+					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+					var max = 0
+					var min = 0
+					for (mChild in aData)
+					{
+						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMax > max) max = tmpMax
+						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMin < min) min = tmpMin
+						for ((key, value) in mChild)
+						{
+							val sValue = value.toString()
+							mDataOrder[key]?.run {
+								this.add(sValue)
+							} ?: run {
+								mDataOrder[key] = arrayListOf(sValue)
+							}
+						}
+					}
+					dataForWebView.min = if (min < 0) min else 0
+					dataForWebView.max = max
+					//region order data for data:
+					val aDataOrder = ArrayList<ArrayList<String>>()
+					for (index in 0 until aDataY.size)
+					{
+						val aItem = ArrayList<String>()
+						for ((_, value) in mDataOrder)
+						{
+							val vString = value[index]
+							aItem.add(vString)
+						}
+						if (dataForWebView.isReverseX) aItem.reverse()
+						aDataOrder.add(aItem)
+					}
+					//endregion
+					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
+						it.joinToString(prefix = "{data: [", postfix = "]}")
+					}
+					//region data drillDown
+					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
+					for (mChild in aGroupedData)
+					{
+						for ((key, value) in mChild)
+						{
+							mDrillDown[key]?.run {
+								this.add(value)
+							} ?: run {
+								mDrillDown[key] = arrayListOf(value)
+							}
+						}
+					}
+					queryBase.mDrillDown = mDrillDown
+					queryBase.hasDrillDown = queryBase.mDrillDown != null
+					//endregion
+					if (dataForWebView.isReverseX) aCategoriesX.reverse()
+					dataForWebView.catX = aCategoriesX.map {
+						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
+					}.toString()
+				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
 //					DatePivot.buildDateString(aRows, aColumn)
@@ -254,8 +486,10 @@ object HtmlBuilder
 //				queryBase.configActions = 1
 
 				val type = aColumn[0].type
-				val type1 = aColumn[1].type
-				if (type == TypeDataQuery.DATE_STRING && type1 != TypeDataQuery.DOLLAR_AMT)
+//				val type1 = aColumn[1].type
+				if (type == TypeDataQuery.DATE_STRING
+					//&& type1 != TypeDataQuery.DOLLAR_AMT
+				)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
 						dataForWebView.datePivot = first
@@ -265,15 +499,11 @@ object HtmlBuilder
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
-				dataForWebView.dataChartBi = Table.generateDataTable(
-					aRows, aColumn, queryBase.aIndex,true)
-
-//				queryBase.configActions = when(aColumn.size)
-//				{
-//					2 -> 4
-//					3 -> 5
-//					else -> 0
-//				}
+				if (dataForWebView.dataChartBi == "[]")
+				{
+					dataForWebView.dataChartBi = Table.generateDataTable(
+						aRows, aColumn, queryBase.aIndex,true)
+				}
 			}
 		}
 

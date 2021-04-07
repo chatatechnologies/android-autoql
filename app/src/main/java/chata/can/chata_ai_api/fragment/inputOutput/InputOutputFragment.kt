@@ -2,8 +2,7 @@ package chata.can.chata_ai_api.fragment.inputOutput
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Point
-import android.util.DisplayMetrics
+import android.graphics.drawable.GradientDrawable
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -35,9 +34,11 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		}
 	}
 
+	private lateinit var llParent: View
 	private lateinit var llQuery: View
 	private lateinit var ivChata: ImageView
 	private lateinit var etQuery: AutoCompleteTextView
+	private lateinit var ivSend: ImageView
 	private lateinit var rvLoad: View
 	private lateinit var tvContent: TextView
 	private lateinit var wbOutput: WebView
@@ -48,6 +49,7 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	private lateinit var presenter: InputOutputPresenter
 
+	@SuppressLint("SetTextI18n")
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
@@ -55,14 +57,16 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		initViews()
 		if (BuildConfig.DEBUG)
 		{
-//			etQuery.setText("total revenue by area 2019")
-			etQuery.setText("Total revenue by ticket type last year")
-//			etQuery.setText("Bottom two customers")
+			etQuery.setText("")
+//			etQuery.setText("Total revenue this year")
 		}
 	}
 
 	override fun initListener()
 	{
+		ivSend.setOnClickListener {
+			setRequestQuery()
+		}
 		etQuery.addTextChangedListener(object: TextChanged
 		{
 			override fun onTextChanged(string: String)
@@ -80,10 +84,12 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 
 	override fun initViews(view: View)
 	{
-		with(view){
+		with(view) {
+			llParent = findViewById(R.id.llParent)
 			llQuery = findViewById(R.id.llQuery)
 			ivChata = findViewById(R.id.ivChata)
 			etQuery = findViewById(R.id.etQuery)
+			ivSend = findViewById(R.id.ivSend)
 			rvLoad = findViewById(R.id.rvLoad)
 			tvContent = findViewById(R.id.tvContent)
 			wbOutput = findViewById(R.id.wbOutput)
@@ -95,39 +101,55 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 	override fun setColors()
 	{
 		activity?.run {
-			ivChata.setColorFilter(getParsedColor(R.color.blue_chata_circle))
+			ivChata.setColorFilter(SinglentonDrawer.currentAccent)
+			with(ThemeColor.currentColor)
+			{
+				llParent.setBackgroundColor(pDrawerColorSecondary)
+				vBlank.setBackgroundColor(pDrawerColorSecondary)
+				tvContent.setTextColor(pDrawerTextColorPrimary)
+				llQuery.background = DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					64f,
+					1,
+					pDrawerTextColorPrimary)
+				adapterAutoComplete = AutoCompleteAdapter(this@run, R.layout.row_spinner)
 
-			val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-			val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-			llQuery.background = DrawableBuilder.setGradientDrawable(white,64f,1, gray)
+				etQuery.run {
+					threshold = 1
+					setAdapter(adapterAutoComplete)
+					setTextColor(pDrawerTextColorPrimary)
+					setHintTextColor(pDrawerHoverColor)
 
-			adapterAutoComplete = AutoCompleteAdapter(this, R.layout.row_spinner)
+					setDropDownBackgroundDrawable(DrawableBuilder.setGradientDrawable(
+						pDrawerBackgroundColor,
+						64f,
+						1,
+						pDrawerTextColorPrimary))
 
-			etQuery.run {
-				threshold = 1
-				setAdapter(adapterAutoComplete)
+					context?.resources?.displayMetrics?.let {
+						dropDownWidth = it.widthPixels
+					}
 
-				setTextColor(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-				setHintTextColor(getParsedColor(ThemeColor.currentColor.drawerHoverColor))
-
-				val displayMetrics = DisplayMetrics()
-				ScreenData.defaultDisplay.getMetrics(displayMetrics)
-				val width = displayMetrics.widthPixels
-				dropDownWidth = width
-
-				onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
-					parent?.let {
-						it.adapter?.let { adapter ->
-							val text = adapter.getItem(position).toString()
-							etQuery.setText(text)
-							setRequestQuery()
+					onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+						parent?.let {
+							it.adapter?.let { adapter ->
+								val text = adapter.getItem(position).toString()
+								etQuery.setText(text)
+								setRequestQuery()
+							}
 						}
 					}
-				}
 
-				setOnEditorActionListener { _, _, _ ->
-					setRequestQuery()
-					false
+					setOnEditorActionListener { _, _, _ ->
+						setRequestQuery()
+						false
+					}
+
+					val circleDrawable = GradientDrawable().apply {
+						shape = GradientDrawable.OVAL
+						setColor(SinglentonDrawer.currentAccent)
+					}
+					ivSend.background = circleDrawable
 				}
 			}
 		}
@@ -139,19 +161,17 @@ class InputOutputFragment: BaseFragment(), InputOutputContract
 		if (aData.isNotEmpty())
 		{
 			adapterAutoComplete.addAll(aData)
+			context?.resources?.displayMetrics?.let {
+				val maxHeight = it.heightPixels * 0.35
+				val count = adapterAutoComplete.count
+				val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
 
-			val size = Point()
-			ScreenData.defaultDisplay.getSize(size)
-			val maxHeight = size.y * 0.35
-
-			val count = adapterAutoComplete.count
-			val height = ScreenData.densityByDP * (if (count < 2) 2 else adapterAutoComplete.count) * 40
-
-			etQuery.dropDownHeight =
-				if (height < maxHeight)
-					height.toInt()
-				else
-					maxHeight.toInt()
+				etQuery.dropDownHeight =
+					if (height < maxHeight)
+						height.toInt()
+					else
+						maxHeight.toInt()
+			}
 		}
 		adapterAutoComplete.notifyDataSetChanged()
 	}

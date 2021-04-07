@@ -30,6 +30,7 @@ open class BaseHolder(
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
 {
+	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 	val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
@@ -38,7 +39,7 @@ open class BaseHolder(
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 	protected var queryBase: QueryBase ?= null
 
-	private val blueAccent = R.color.blue_chata_circle
+	var accentColor = 0
 
 	override fun onPaint()
 	{
@@ -46,22 +47,22 @@ open class BaseHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(
+				SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 
+			accentColor = SinglentonDrawer.currentAccent
 			context?.run {
-				ivReport?.setColorFilter(getParsedColor(blueAccent))
-				ivDelete?.setColorFilter(getParsedColor(blueAccent))
-				ivPoints?.setColorFilter(getParsedColor(blueAccent))
+				ivReport?.setColorFilter(accentColor)
+				ivDelete?.setColorFilter(accentColor)
+				ivPoints?.setColorFilter(accentColor)
 			}
 		}
 
-		val gray = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
-		tvContent.setTextColor(gray)
+		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		tvContent.backgroundGrayWhite()
 
 		rlDelete?.backgroundGrayWhite()
@@ -90,6 +91,9 @@ open class BaseHolder(
 //						llMainBase?.visibility = View.VISIBLE
 //						tvContent.text = item.message
 //					}
+					ivReport?.visibility = View.GONE
+					ivPoints?.visibility = View.GONE
+
 					tvContent.text = item.message
 					item.simpleQuery?.let {
 						if (it.query.isNotEmpty())
@@ -104,13 +108,18 @@ open class BaseHolder(
 
 						rlDelete?.visibility = View.VISIBLE
 						ivReport?.visibility =
-							if (item.message == "I want to make sure I understood your query. Did you mean:")
-								View.GONE
-							else View.VISIBLE
+//							if (item.message == "I want to make sure I understood your query. Did you mean:")
+//								View.GONE
+//							else
+//							{
+								//if (it.isSession) View.VISIBLE else
+									View.GONE
+							//}
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
-						rlDelete?.visibility = View.GONE
+						rlDelete?.visibility = if (item.message == "Thank you for your feedback")
+							View.VISIBLE else View.GONE
 					}
 				}
 				else
@@ -154,6 +163,7 @@ open class BaseHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
+		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.GONE
 		if (simpleQuery.query.isNotEmpty())
 		{
 			tvContentTop.visibility = View.VISIBLE
@@ -188,10 +198,18 @@ open class BaseHolder(
 			}
 			simpleQuery.aRows.size == 0 ->
 			{
-				if (simpleQuery.message.isNotEmpty())
+				val message = simpleQuery.message
+				if (message.isNotEmpty())
 				{
 					rlDelete?.visibility = View.VISIBLE
-					reportLink(simpleQuery.message, simpleQuery.queryId)
+					if (message.contains("<") && message.contains(">"))
+						reportLink(simpleQuery.message, simpleQuery.queryId)
+					else
+					{
+						ivReport?.visibility = View.GONE
+						ivPoints?.visibility = View.GONE
+						message
+					}
 				}
 				else
 				{
@@ -206,9 +224,11 @@ open class BaseHolder(
 
 	private fun reportLink(message: String, queryId: String = ""): CharSequence
 	{
-		return if (message.contains("<report>"))
+		return if (message.contains("<") && message.contains(">"))
 		{
-			val message1 = message.replace("<report>", "report")
+			val index = message.indexOf("<")
+			val index2 = message.indexOf(">") - 1
+			val message1 = message.replace("<","").replace(">","")
 			val spannable = SpannableString(message1)
 			if (queryId.isNotEmpty())
 			{
@@ -228,15 +248,15 @@ open class BaseHolder(
 								}
 							} finally {
 								tvContent.context?.let {
-									bgColor = it.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
+									bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
 								}
 							}
 							isUnderlineText = false
 						}
 					}
 				}
-				val index = message1.indexOf("report")
-				spannable.setSpan(clickable, index, index + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//				val index = message1.indexOf("report")
+				spannable.setSpan(clickable, index, index2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 				tvContent.movementMethod = LinkMovementMethod.getInstance()
 				spannable
 			}

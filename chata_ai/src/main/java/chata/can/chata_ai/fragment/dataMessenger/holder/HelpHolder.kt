@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -25,7 +24,7 @@ class HelpHolder(itemView: View): Holder(itemView)
 		llContent?.backgroundGrayWhite()
 
 		tvContent?.let {
-			val gray = it.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+			val gray = ThemeColor.currentColor.pDrawerTextColorPrimary
 			it.setTextColor(gray)
 			tvGreatNewHelp?.setTextColor(gray)
 			llContent2?.backgroundGrayWhite()

@@ -84,6 +84,6 @@ class FullSuggestionQuery(json: JSONObject): SimpleQuery(json)
 		initQuery = initQuery.replace(oldText, newText)
 		suggestion.text = newText
 		suggestion.start = initQuery.indexOf(newText)
-		suggestion.end = suggestion.start + newText.length
+		suggestion.end = suggestion.start + newText.length - 1
 	}
 }

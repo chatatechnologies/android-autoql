@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 
 object SinglentonDashboard
 {
+	var dashboardColor = "#FAFAFA"
 	private var dashboardSelect = 0
 
 	private val aDashboardModel = ArrayList<DashboardSingle>()

@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -32,9 +31,8 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 		with(ThemeColor.currentColor)
 		{
 			ll1.context?.let {
-				val backgroundColor = it.getParsedColor(drawerBackgroundColor)
-				ll1.background =  DrawableBuilder.setGradientDrawable(backgroundColor, 18f)
-				tvExecute.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
+				tvExecute.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 

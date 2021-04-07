@@ -1,7 +1,7 @@
 package chata.can.chata_ai.fragment.exploreQuery
 
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -11,6 +11,7 @@ import chata.can.chata_ai.request.authentication.Authentication.getAuthorization
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
+import java.net.URLEncoder
 
 class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusResponse
 {
@@ -85,13 +86,17 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.let {
-
+			when(jsonObject.optString("nameService"))
+			{
+				"validate" -> getRelatedQueries()
+				else -> {}
+			}
 		}
 	}
 
 	fun validateQuery(query: String)
 	{
-		with(DataMessenger)
+		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
 			val url = "$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
@@ -110,11 +115,12 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 	{
 		view.clearPage()
 		view.showGif()
-		with(DataMessenger)
+		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
+			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
-				"&search=$currentQuery&page_size=$pageSize&page=$page"
+				"&search=$currentQueryEncode&page_size=$pageSize&page=$page"
 			callStringRequest(
 				Request.Method.GET,
 				url,

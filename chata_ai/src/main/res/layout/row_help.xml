@@ -33,7 +33,8 @@
 				android:paddingBottom="4dp"
 				android:paddingEnd="8dp"
 				android:paddingStart="8dp"
-				android:paddingTop="4dp">
+				android:paddingTop="4dp"
+				tools:ignore="UseCompoundDrawables">
 				<ImageView
 					android:contentDescription="@null"
 					android:layout_gravity="center"

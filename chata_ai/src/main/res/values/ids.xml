@@ -20,6 +20,7 @@
 	<item name="btnReloadDrawer" type="id"/>
 	<item name="btnOpenDrawer" type="id"/>
 	<item name="swDrawerHandle" type="id"/>
+	<item name="swBackgroundBehind" type="id"/>
 
 	<item name="tvLight" type="id"/>
 	<item name="tvDark" type="id"/>
@@ -28,6 +29,9 @@
 	<item name="tvBottom" type="id"/>
 	<item name="tvLeft" type="id"/>
 	<item name="tvRight" type="id"/>
+	
+	<item name="tvDataMessenger" type="id"/>
+	<item name="tvExploreQueries" type="id"/>
 
 	<item name="etCurrencyCode" type="id"/>
 	<item name="etLanguageCode" type="id"/>
@@ -42,6 +46,7 @@
 	<item name="etAddColor" type="id"/>
 
 	<item name="llColors" type="id"/>
+	<item name="etDashboardColor" type="id"/>
 	<item name="etLightThemeColor" type="id"/>
 	<item name="etDarkThemeColor" type="id"/>
 	<item name="etMaxNumberMessage" type="id"/>
@@ -49,6 +54,9 @@
 	<item name="swEnableQuery" type="id"/>
 	<item name="swEnableSuggestion" type="id"/>
 	<item name="swEnableDrillDown" type="id"/>
+	<item name="swEnableNotification" type="id"/>
+	<item name="swTabExploreQueries" type="id"/>
+	<item name="swTabNotification" type="id"/>
 	<item name="swEnableSpeechText" type="id"/>
 
 	<item name="etCustomerMessage" type="id"/>
@@ -57,5 +65,7 @@
 	<item name="iIncorrect" type="id"/>
 	<item name="iIncomplete" type="id"/>
 	<item name="iOther" type="id"/>
+	<item name="iReportProblem" type="id"/>
+	<item name="iDelete" type="id" />
 	<item name="iGenerateSQL" type="id"/>
 </resources>

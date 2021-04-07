@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +14,11 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
-import com.google.android.material.internal.ViewUtils
-import com.google.android.material.internal.ViewUtils.dpToPx
 
 class NotificationFragment: BaseFragment(), NotificationContract
 {
@@ -32,6 +32,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	private lateinit var llParent: View
 	private lateinit var iv1: ImageView
 	private lateinit var tvLoading: TextView
+	private lateinit var btnTry: Button
 	private lateinit var tvMsg1: TextView
 	private lateinit var rvNotification: RecyclerView
 	private val model = BaseModelList<Notification>()
@@ -43,7 +44,29 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		getNotifications()
+		if (!AutoQLData.notLoginData())
+		{
+			btnTry.visibility = View.GONE
+			getNotifications()
+		}
+		else
+		{
+			val msg = "No notification yet.\nStay tuned!"
+			tvLoading.text = msg
+			ThemeColor.currentColor.run {
+			btnTry.run {
+				context.run {
+						background = DrawableBuilder.setGradientDrawable(
+							pDrawerBackgroundColor,
+							12f,
+							3,
+							pDrawerBorderColor)
+					}
+					setTextColor(pDrawerTextColorPrimary)
+					visibility = View.VISIBLE
+				}
+			}
+		}
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 			adapter.notifyDataSetChanged()
@@ -58,6 +81,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 			llParent = view.findViewById(R.id.llParent)
 			iv1 = view.findViewById(R.id.iv1)
 			tvLoading = view.findViewById(R.id.tvLoading)
+			btnTry = view.findViewById(R.id.btnTry)
 			tvMsg1 = view.findViewById(R.id.tvMsg1)
 			rvNotification = view.findViewById(R.id.rvNotification)
 			presenter = NotificationPresenter(this)
@@ -77,10 +101,10 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		with(ThemeColor.currentColor)
 		{
 			activity?.let {
-				llParent.setBackgroundColor(it.getParsedColor(drawerBackgroundColor))
-				rvNotification.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
-				tvLoading.setTextColor(it.getParsedColor(drawerTextColorPrimary))
-				tvMsg1.setTextColor(it.getParsedColor(drawerTextColorPrimary))
+				llParent.setBackgroundColor(pDrawerBackgroundColor)
+				rvNotification.setBackgroundColor(pDrawerColorSecondary)
+				tvLoading.setTextColor(pDrawerTextColorPrimary)
+				tvMsg1.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 	}

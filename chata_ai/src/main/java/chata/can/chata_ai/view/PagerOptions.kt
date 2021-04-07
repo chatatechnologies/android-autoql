@@ -1,13 +1,10 @@
 package chata.can.chata_ai.view
 
-import android.app.Activity
 import android.content.Context
-import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -16,25 +13,33 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
-import chata.can.chata_ai.activity.pager.PagerData
 import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.BubbleData
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf1
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf2
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf3
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignOf4
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent1
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent2
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent3
+import chata.can.chata_ai.view.pagerOption.PagerOptionConst.alignParent4
 import org.json.JSONArray
 import org.json.JSONObject
 
-class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
+class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View.OnTouchListener
 {
 	constructor(context: Context): super(context) { init() }
 
@@ -52,6 +57,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private lateinit var ivNotify: ImageView
 	private lateinit var tvNotification: TextView
 	private lateinit var rlLocal: View
+	private lateinit var toolbar: View
 	private lateinit var ivClose: ImageView
 	private lateinit var tvTitle: TextView
 	private lateinit var ivClear: ImageView
@@ -61,6 +67,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	var fragmentManager: FragmentManager ?= null
 	var bubbleData: BubbleData?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
+
 	var isVisible = false
 
 	override fun onClick(view: View?)
@@ -70,15 +77,31 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				R.id.llMenu, R.id.ivClose ->
 				{
-					BubbleHandle.isOpenChat = false
-					BubbleHandle.instance?.isVisible = true
-					if (PagerData.clearOnClose)
-						SinglentonDrawer.mModel.clear()
-					setStatusGUI(false)
-
-					context?.getSystemService(Activity.INPUT_METHOD_SERVICE)?.let {
-						(it as? InputMethodManager)?.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+					parent?.let {
+						if (it is RelativeLayout)
+						{
+							it.removeView(this)
+							if (AutoQLData.clearOnClose)
+							{
+								val model = SinglentonDrawer.mModel
+								while (model.countData() > 2)
+								{
+									model.removeAt(model.countData() - 1)
+								}
+							}
+						}
 					}
+//					BubbleHandle.isOpenChat = false
+//					BubbleHandle.instance?.isVisible = true
+//					if (bubbleData?.clearOnClose == true)
+//					{
+//						val model = SinglentonDrawer.mModel
+//						while (model.countData() > 2)
+//						{
+//							model.removeAt(model.countData() - 1)
+//						}
+//					}
+//					setStatusGUI()
 				}
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
@@ -124,7 +147,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	fun init()
 	{
 		val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val view = inflater.inflate(R.layout.view_pager_options, nullParent)
+		val view = inflater.inflate(R.layout.activity_pager_options, nullParent)
 
 		view.run {
 			llMenu = findViewById(R.id.llMenu)
@@ -136,6 +159,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			ivNotify = findViewById(R.id.ivNotify)
 			tvNotification = findViewById(R.id.tvNotification)
 			rlLocal = findViewById(R.id.rlLocal)
+			toolbar = findViewById(R.id.toolbar)
 			ivClose = findViewById(R.id.ivClose)
 			tvTitle = findViewById(R.id.tvTitle)
 			ivClear = findViewById(R.id.ivClear)
@@ -146,10 +170,6 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		setListener()
 		setColors()
 
-		ExploreQueriesFragment.dataMessengerMethod = { openChat() }
-
-		DataMessengerFragment.exploreQueriesMethod = { openTips() }
-
 		ThemeColor.aColorMethods["PagerOptions"] = {
 			setColors()
 		}
@@ -157,25 +177,26 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		addView(view)
 	}
 
-	fun paintViews()
+	fun paintViews(placement: Int)
 	{
-		when(val placement = BubbleHandle.instance?.placement)
+//		when(val placement = BubbleHandle.instance?.placement)
+		when(placement)
 		{
 			ConstantDrawer.LEFT_PLACEMENT, ConstantDrawer.RIGHT_PLACEMENT ->
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
 					height = -1
-					width = dpToPx(32f)
+					width = dpToPx(48f)
 					llMenu.orientation = LinearLayout.VERTICAL
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_START, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent1)
 						addRule(ALIGN_PARENT_END, TRUE)
 					}
 					else
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_TOP, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent2)
 						addRule(ALIGN_PARENT_START, TRUE)
 					}
 				}
@@ -185,25 +206,28 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivChat.paddingAll(left = 6f, right = 6f)
 				(ivTips.layoutParams as? LayoutParams)?.run {
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivTips.paddingAll(left = 6f, right = 6f)
 				(ivNotify.layoutParams as? LayoutParams)?.run {
 					height = dpToPx(56f)
 					width = -1
 				}
+				ivNotify.paddingAll(left = 6f, right = 6f)
 				//endregion
 				//region rlLocal
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.LEFT_PLACEMENT)
 					{
-						removeRules(arrayListOf(ABOVE, BELOW, END_OF))
+						removeRules(alignOf1)
 						addRule(START_OF, R.id.llMenu)
 					}
 					else
 					{
-						removeRules(arrayListOf(ABOVE, BELOW, START_OF))
+						removeRules(alignOf2)
 						addRule(END_OF, R.id.llMenu)
 					}
 				}
@@ -213,17 +237,17 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 			{
 				//region llMenu
 				llMenu.layoutParams = (llMenu.layoutParams as? LayoutParams)?.apply {
-					height = dpToPx(32f)
+					height = dpToPx(48f)
 					width = -1
 					llMenu.orientation = LinearLayout.HORIZONTAL
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_BOTTOM))
+						removeRules(alignParent3)
 						addRule(ALIGN_PARENT_TOP, TRUE)
 					}
 					else
 					{
-						removeRules(arrayListOf(ALIGN_PARENT_START, ALIGN_PARENT_END, ALIGN_PARENT_TOP))
+						removeRules(alignParent4)
 						addRule(ALIGN_PARENT_BOTTOM, TRUE)
 					}
 				}
@@ -233,25 +257,28 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivChat.paddingAll(top = 6f, bottom = 6f)
 				(ivTips.layoutParams as? LayoutParams)?.run {
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivTips.paddingAll(top = 6f, bottom = 6f)
 				(ivNotify.layoutParams as? LayoutParams)?.run {
 					height = -1
 					width = dpToPx(56f)
 				}
+				ivNotify.paddingAll(top = 6f, bottom = 6f)
 				//endregion
 				//region rlLocal
 				rlLocal.layoutParams = (rlLocal.layoutParams as? LayoutParams)?.apply {
 					if (placement == ConstantDrawer.BOTTOM_PLACEMENT)
 					{
-						removeRules(arrayListOf(END_OF, START_OF, ABOVE))
+						removeRules(alignOf3)
 						addRule(BELOW, R.id.llMenu)
 					}
 					else
 					{
-						removeRules(arrayListOf(END_OF, START_OF, BELOW))
+						removeRules(alignOf4)
 						addRule(ABOVE, R.id.llMenu)
 					}
 				}
@@ -260,51 +287,68 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		}
 	}
 
-	fun setStatusGUI(isVisible: Boolean)
+	fun setStatusGUI()
 	{
-		this.isVisible = isVisible
-		val iVisible = if (isVisible)
-		{
-			var nameFragment = ""
-
-			fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
-				if (it is DataMessengerFragment)
-				{
-					bubbleData?.let { bubble ->
-						val argument = Bundle().apply {
-							putString("CUSTOMER_NAME", bubble.customerName)
-							putString("TITLE", bubble.title)
-							putString("INTRO_MESSAGE", bubble.introMessage)
-							putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-							putInt("MAX_MESSAGES", bubble.maxMessage)
-							putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-							putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
-						}
-						it.updateData(argument)
-					}
-				}
-			} ?: run {
-				if (fragment is DataMessengerFragment)
-				{
-					nameFragment = DataMessengerFragment.nameFragment
-					setDataToDataMessenger()
-				}
-				fragmentManager?.let { addFragment(it, fragment, nameFragment) }
-			}
-			context?.let {
-				val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
-				startAnimation(animationTop)
-			}
-			updateTitle()
-			View.VISIBLE
+		AutoQLData.run {
+			if (isDataMessenger)
+				openChat()
+			else openTips()
 		}
-		else View.GONE
-		llMenu.visibility = iVisible
-		rlLocal.visibility = iVisible
+//		bubbleData?.let { bubble ->
+//			if (bubble.isDataMessenger)
+//			{
+//				fragmentManager?.findFragmentByTag(DataMessengerFragment.nameFragment)?.let {
+//					if (it is DataMessengerFragment)
+//					{
+//						if (rlSelected?.id == R.id.rlChat)
+//						{
+//							bubbleData?.let { bubble ->
+//								val argument = Bundle().apply {
+//									putString("CUSTOMER_NAME", bubble.customerName)
+//									putString("TITLE", bubble.title)
+//									putString("INTRO_MESSAGE", bubble.introMessage)
+//									putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
+//									putInt("MAX_MESSAGES", bubble.maxMessages)
+//									putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
+//									putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+//								}
+//								setColors()
+//								it.updateData(argument)
+//							}
+//						}
+//						else
+//						{
+//							openChat()
+//						}
+//					}
+//				} ?: run {
+//					openChat()
+//				}
+//				openChat()
+//			}
+//			else
+//			{
+//				openTips()
+//			}
+//		}
+
+		//region animation
+		context?.let {
+			val animationTop = AnimationUtils.loadAnimation(it, R.anim.scale)
+			startAnimation(animationTop)
+		}
+		//endregion
+		updateTitle()
+
+//		bubbleData?.let {
+//			rlTips.visibility = if (visibleExploreQueries) View.VISIBLE else View.GONE
+//			rlNotify.visibility = if (visibleNotification) View.VISIBLE else View.GONE
+//		}
 	}
 
 	private fun openChat()
 	{
+		setColors()
 		changeColor(rlChat, ivChat)
 		updateTitle()
 		setVisibleDelete(true)
@@ -375,22 +419,23 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 		rlTips.setOnClickListener(this)
 		rlNotify.setOnClickListener(this)
 		ivClose.setOnClickListener(this)
+		//vHandle.setOnTouchListener(this)
 	}
 
 	private fun setColors()
 	{
 		context?.run {
-			rlChat.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlTips.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlNotify.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
-			rlSelected?.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
+			val accentColor = SinglentonDrawer.currentAccent
+			toolbar.setBackgroundColor(accentColor)
+			rlChat.setBackgroundColor(accentColor)
+			rlTips.setBackgroundColor(accentColor)
+			rlNotify.setBackgroundColor(accentColor)
+			rlSelected?.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
 
 			ivChat.setColorFilter(getParsedColor(R.color.white))
 			ivTips.setColorFilter(getParsedColor(R.color.white))
 			ivNotify.setColorFilter(getParsedColor(R.color.white))
-			ivSelected?.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
-
-			llMenu.setBackgroundColor(getParsedColor(R.color.gray_modal))
+			ivSelected?.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			tvNotification.background = DrawableBuilder.setOvalDrawable(
 				getParsedColor(R.color.red_notification))
 			ivClear.setColorFilter(getParsedColor(R.color.white))
@@ -400,10 +445,11 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun changeColor(rlNew: View, ivNew: ImageView)
 	{
 		context?.run {
-			rlSelected?.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+			val accentColor = SinglentonDrawer.currentAccent
+			rlSelected?.setBackgroundColor(accentColor)
 			ivSelected?.setColorFilter(getParsedColor(R.color.white))
-			rlNew.setBackgroundColor(getParsedColor(ThemeColor.currentColor.drawerColorSecondary))
-			ivNew.setColorFilter(getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary))
+			rlNew.setBackgroundColor(ThemeColor.currentColor.pDrawerColorSecondary)
+			ivNew.setColorFilter(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			rlSelected = rlNew
 			ivSelected = ivNew
 		}
@@ -420,15 +466,17 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse
 	private fun setDataToDataMessenger()
 	{
 		fragment.arguments?.let {
-			bubbleData?.let { bubble ->
-				it.putString("CUSTOMER_NAME", bubble.customerName)
-				it.putString("TITLE", bubble.title)
-				it.putString("INTRO_MESSAGE", bubble.introMessage)
-				it.putString("INPUT_PLACE_HOLDER", bubble.inputPlaceholder)
-				it.putInt("MAX_MESSAGES", bubble.maxMessage)
-				it.putBoolean("CLEAR_ON_CLOSE", bubble.clearOnClose)
-				it.putBoolean("ENABLE_VOICE_RECORD", bubble.enableVoiceRecord)
+			AutoQLData.run {
+				it.putString("CUSTOMER_NAME", customerName)
+				it.putString("TITLE", title)
+				it.putString("INTRO_MESSAGE", introMessage)
+				it.putString("INPUT_PLACE_HOLDER", inputPlaceholder)
+				it.putInt("MAX_MESSAGES", maxMessages)
+				it.putBoolean("CLEAR_ON_CLOSE", clearOnClose)
+				it.putBoolean("ENABLE_VOICE_RECORD", enableVoiceRecord)
 			}
+			//TODO clear after
+			//bubbleData?.let {  }
 		}
 	}
 }

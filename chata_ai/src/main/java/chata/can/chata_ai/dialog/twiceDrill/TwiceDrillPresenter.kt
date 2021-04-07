@@ -2,12 +2,12 @@ package chata.can.chata_ai.dialog.twiceDrill
 
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
-import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
+import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -19,10 +19,10 @@ class TwiceDrillPresenter(
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-		if (jsonObject != null)
-		{
-
-		}
+//		if (jsonObject != null)
+//		{
+//
+//		}
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -38,9 +38,9 @@ class TwiceDrillPresenter(
 	fun getQueryDrillDown(value1: String, value2: String = "")
 	{
 		val queryId = queryBase.queryId
-		with(DataMessenger)
+		with(AutoQLData)
 		{
-			val header = Authentication.getAuthorizationJWT()
+			val header = getAuthorizationJWT()
 
 			val aColumn = arrayListOf<HashMap<String, String>>()
 			when (queryBase.aColumn.size)

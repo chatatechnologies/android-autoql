@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
+import android.graphics.Color
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
@@ -9,6 +10,7 @@ import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -27,6 +29,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		}
 	}
 
+	private lateinit var svParent: View
+	private lateinit var llOption: View
 	private lateinit var swLoad: SwitchCompat
 	private lateinit var btnExecute: TextView
 	private lateinit var btnDashboard: TextView
@@ -42,22 +46,34 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun initViews(view: View)
 	{
-		swLoad = view.findViewById(R.id.swLoad)
-		btnExecute = view.findViewById(R.id.btnExecute)
-		btnDashboard = view.findViewById(R.id.btnDashboard)
-		spDashboard = view.findViewById(R.id.spDashboard)
-		rvDashboard = view.findViewById(R.id.rvDashboard)
-		tvEmptyDashboard = view.findViewById(R.id.tvEmptyDashboard)
+		view.run {
+			svParent = findViewById(R.id.svParent)
+			llOption = findViewById(R.id.llOption)
+			swLoad = findViewById(R.id.swLoad)
+			btnExecute = findViewById(R.id.btnExecute)
+			btnDashboard = findViewById(R.id.btnDashboard)
+			spDashboard = findViewById(R.id.spDashboard)
+			rvDashboard = findViewById(R.id.rvDashboard)
+			tvEmptyDashboard = findViewById(R.id.tvEmptyDashboard)
+		}
+
+		SinglentonDrawer.aThemeMethods[nameFragment] = {
+			setColors()
+			if (::gridAdapter.isInitialized)
+			{
+				gridAdapter.notifyDataSetChanged()
+			}
+		}
 	}
 
 	override fun setColors()
 	{
-		with(ThemeColor.currentColor)
-		{
+		ThemeColor.currentColor.run {
 			activity?.let {
+				svParent.setBackgroundColor(pDrawerColorSecondary)
 				val backgroundColor = it.getParsedColor(R.color.white)
 				val border = it.getParsedColor(R.color.border_widget_dashboard)
-				rvDashboard.setBackgroundColor(it.getParsedColor(drawerColorSecondary))
+				rvDashboard.setBackgroundColor(pDrawerColorSecondary)
 				btnExecute.background = DrawableBuilder.setGradientDrawable(
 					backgroundColor,18f, 3, border)
 				btnDashboard.background = DrawableBuilder.setGradientDrawable(
@@ -65,6 +81,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				spDashboard.setPopupBackgroundDrawable(
 					DrawableBuilder.setGradientDrawable(
 						backgroundColor,18f, 3, border))
+				tvEmptyDashboard.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 	}
@@ -86,6 +103,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun onResume()
 	{
 		super.onResume()
+		llOption.setBackgroundColor(Color.parseColor(SinglentonDashboard.dashboardColor))
 		if (SinglentonDashboard.isEmpty())
 		{
 			isQueryClean = true
@@ -133,6 +151,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	{
 		activity?.let {
 			isLoaded = true
+			rvDashboard.visibility = View.VISIBLE
 			mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
 			gridAdapter = GridAdapter(mModel, presenter)
 			rvDashboard.layoutManager = LinearLayoutManager(it)
@@ -165,6 +184,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 							if (model.countData() == 0)
 							{
+								tvEmptyDashboard.setText(R.string.empty_dashboard)
 								tvEmptyDashboard.visibility = View.VISIBLE
 								rvDashboard.visibility = View.GONE
 							}
@@ -180,6 +200,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 			spDashboard.dropDownVerticalOffset = btnDashboard.height
 			spDashboard.dropDownWidth = btnDashboard.width
+//			hideDialog()
 		}
 	}
 

@@ -14,7 +14,6 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
-import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
 
@@ -36,21 +35,20 @@ class FullSuggestionHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val accentColor = context.getParsedColor(ThemeColor.currentColor.drawerAccentColor)
-			val queryDrawable = DrawableBuilder.setGradientDrawable(accentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(ThemeColor.currentColor.pDrawerAccentColor,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
 			startAnimation(animationTop)
 		}
 
-		val textColor = tvContent.context.getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+		val textColor = ThemeColor.currentColor.pDrawerTextColorPrimary
 		tvContent.setTextColor(textColor)
 		tvRunQuery.setTextColor(textColor)
 		ivRunQuery.setColorFilter(textColor)
 		llContent.backgroundGrayWhite()
-		val colorBase = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-		val borderColor = rlRunQuery.context.getParsedColor(ThemeColor.currentColor.drawerBorderColor)
+		val colorBase = ThemeColor.currentColor.pDrawerBackgroundColor
+		val borderColor = ThemeColor.currentColor.pDrawerBorderColor
 		rlRunQuery.background = DrawableBuilder.setGradientDrawable(colorBase, 18f, 3, borderColor)
 		rlDelete?.let {
 			it.backgroundGrayWhite()
@@ -60,7 +58,7 @@ class FullSuggestionHolder(
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
 
-		stvContent.setWindowManager(ScreenData.windowManager)
+		stvContent.setWindowManager()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -3,31 +3,25 @@ package chata.can.chata_ai_api.fragment.main
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.BaseFragment
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.isColor
-import chata.can.chata_ai.extension.setOnTextChanged
-import chata.can.chata_ai.model.BubbleData
+import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.model.DashboardAdmin
+import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.putArgs
+import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.password
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.projectId
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.userID
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.username
-import chata.can.chata_ai.view.bubbleHandle.BubbleHandle
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.loginIsComplete
+import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import chata.can.chata_ai_api.test.PollService
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -36,24 +30,26 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		fun newInstance() = MainFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_main)
 		}
-		private var bubbleHandle: BubbleHandle ?= null
 	}
 
+	private lateinit var floatingView: AutoQL
 	private lateinit var llContainer: LinearLayout
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
-	private var tvProjectId: EditText?= null
+	private var etProjectId: EditText?= null
 	private var hUserId: TextView ?= null
-	private var tvUserId: EditText ?= null
+	private var etUserId: EditText ?= null
 	private var hApiKey: TextView ?= null
-	private var tvApiKey: EditText ?= null
+	private var etApiKey: EditText ?= null
 	private var hDomainUrl: TextView ?= null
-	private var tvDomainUrl: EditText ?= null
+	private var etDomainUrl: EditText ?= null
 	private var hUsername: TextView ?= null
-	private var tvUsername: EditText ?= null
+	private var etUsername: EditText ?= null
 	private var hPassword: TextView ?= null
-	private var tvPassword: EditText ?= null
+	private var etPassword: EditText ?= null
 	private var btnAuthenticate: TextView ?= null
+
+	private var aClearFocus = ArrayList<EditText>()
 
 	private var btnReloadDrawer: TextView ?= null
 	private var btnOpenDrawer: TextView ?= null
@@ -71,6 +67,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var etTitle: EditText ?= null
 	private var llColors: LinearLayout ?= null
 	private var etAddColor: EditText ?= null
+	private var etDashboardColor: EditText ?= null
 	private var etLightThemeColor: EditText ?= null
 	private var etDarkThemeColor: EditText ?= null
 	private var etMaxNumberMessage: EditText ?= null
@@ -78,17 +75,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableQuery: SwitchCompat ?= null
 	private var swEnableSuggestion: SwitchCompat ?= null
 	private var swEnableDrillDown: SwitchCompat ?= null
+	private var swEnableNotification: SwitchCompat ?= null
+	private var swBackgroundBehind: SwitchCompat ?= null
+	private var swTabExploreQueries: SwitchCompat ?= null
+	private var swTabNotification: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//import module https://developer.android.com/studio/projects/android-library
-
-	private lateinit var renderPresenter: MainRenderPresenter
 	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
-		R.id.tvLight to BubbleHandle.THEME_LIGHT,
-		R.id.tvDark to BubbleHandle.THEME_DARK)
+		R.id.tvLight to AutoQLData.THEME_LIGHT,
+		R.id.tvDark to AutoQLData.THEME_DARK)
 
 	private val mPlacement = hashMapOf(
 		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,
@@ -101,39 +100,22 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-//		activity?.let {
-//			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
-//			with(sharePreferences)
-//			{
-//				val projectId = getString("PROJECT_ID", "") ?: ""
-//				val apiKey = getString("API_KEY", "") ?: ""
-//				val domainUrl = getString("DOMAIN_URL", "") ?: ""
-//				tvProjectId?.setText(projectId)
-//				tvApiKey?.setText(apiKey)
-//				tvDomainUrl?.setText(domainUrl)
-//			}
-//		}
-
 		if (BuildConfig.DEBUG)
 //		if (true)
 		{
-			//\u0020\u00A0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u2028\u205F\u3000c
 			val projectId = "spira-demo3"
-//			val projectId = "accounting-demo"
-			tvProjectId?.setText(projectId)
-			val apiKey = "AIzaSyD4ewBvQdgdYfXl3yIzXbVaSyWGOcRFVeU"
-//			val apiKey = "AIzaSyDX28JVW248PmBwN8_xRROWvO0a2BWH67o"
-			tvApiKey?.setText(apiKey)
+			etProjectId?.setText(projectId)
+			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
+			etApiKey?.setText(apiKey)
 			val domainUrl = "https://spira-staging.chata.io"
-//			val domainUrl = "https://accounting-demo-staging.chata.io"
-			tvDomainUrl?.setText(domainUrl)
+			etDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
-			tvUserId?.setText(userId)
+			etUserId?.setText(userId)
 			val username = "admin"
-			tvUsername?.setText(username)
+			etUsername?.setText(username)
 			val password = "admin123"
-			tvPassword?.setText(password)
-			tvPassword?.setSelection(password.length)
+			etPassword?.setText(password)
+			etPassword?.setSelection(password.length)
 
 			val customerMessage = "Carlos"
 			etCustomerMessage?.setText(customerMessage)
@@ -141,16 +123,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-			etLanguageCode?.setText("es-MX")
-			DataMessenger.projectId = (tvProjectId?.text ?: "").toString().trim()
-			userID = (tvUserId?.text ?: "").toString().trim()
-			DataMessenger.apiKey = (tvApiKey?.text ?: "").toString().trim()
-			DataMessenger.domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-			DataMessenger.username = (tvUsername?.text ?: "").toString().trim()
-			DataMessenger.password = (tvPassword?.text ?: "").toString().trim()
+			val languageCode = "es-MX"
+			etLanguageCode?.setText(languageCode)
+			AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
+			AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
+			AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
+			AutoQLData.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
+			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
 			servicePresenter.createAuthenticate()
-//			showDialog()
 		}
 		else
 		{
@@ -166,45 +148,77 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		with(view)
 		{
-			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let { context ->
-				if (bubbleHandle == null)
+			activity?.run {
+				if (this is PagerActivity)
 				{
-					bubbleHandle = BubbleHandle(context) {
-						bubbleHandle?.let { bubbleHandle ->
-							val bubbleData = BubbleData(
-								bubbleHandle.userDisplayName,
-								bubbleHandle.title,
-								bubbleHandle.introMessage,
-								bubbleHandle.inputPlaceholder,
-								bubbleHandle.maxMessages,
-								bubbleHandle.clearOnClose,
-								bubbleHandle.enableVoiceRecord)
-							(parentActivity as? PagerActivity)?.setStatusGUI(true, bubbleData)
-						}
-					}
+					floatingView = findViewById(R.id.floatingView)
 				}
-				bubbleHandle?.let {
-					renderPresenter = MainRenderPresenter(context, this@MainFragment, it)
-				}
+			}
+
+			llContainer = findViewById(R.id.llContainer)
+			parentActivity?.let {
+//				if (bubbleHandle == null)
+//				{
+//					val dataMessenger = DataMessenger("#data-messenger",
+//						authentication = Authentication(
+//							token,
+//							apiKey,
+//							domainUrl
+//						),
+//						ConstantDrawer.RIGHT_PLACEMENT
+//					)
+//					bubbleHandle = BubbleHandle(context, dataMessenger) {
+//						//region catch data
+//						FirebaseCrashlytics.getInstance().run {
+//							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
+//							setCustomKey("domain_ulr", domainUrl)
+//							setCustomKey("api_key", apiKey)
+//							setCustomKey("project_id", projectId)
+//							setCustomKey("user_id", userID)
+//						}
+//						//endregion
+//						hideKeyboard()
+//						bubbleHandle?.let { bubbleHandle ->
+//							val bubbleData = BubbleData(
+//								bubbleHandle.userDisplayName,
+//								bubbleHandle.title,
+//								bubbleHandle.introMessage,
+//								bubbleHandle.inputPlaceholder,
+//								bubbleHandle.maxMessages,
+//								bubbleHandle.clearOnClose,
+//								bubbleHandle.isDarkenBackgroundBehind,
+//								bubbleHandle.visibleExploreQueries,
+//								bubbleHandle.visibleNotification,
+//								bubbleHandle.enableVoiceRecord,
+//								isDataMessenger)
+//							(parentActivity as? PagerActivity)?.let {
+//								for (clearView in aClearFocus)
+//								{
+//									clearView.clearFocus()
+//								}
+//								it.setStatusGUI(true, bubbleData)
+//							}
+//						}
+//					}
+//				}
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
-			renderPresenter.initViews(llContainer)
+			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
-			tvProjectId = findViewById(R.id.etProjectId)
+			etProjectId = findViewById(R.id.etProjectId)
 			hUserId = findViewById(R.id.hUserId)
-			tvUserId = findViewById(R.id.etUserId)
+			etUserId = findViewById(R.id.etUserId)
 			hApiKey = findViewById(R.id.hApiKey)
-			tvApiKey = findViewById(R.id.etApiKey)
+			etApiKey = findViewById(R.id.etApiKey)
 			hDomainUrl = findViewById(R.id.hDomainUrl)
-			tvDomainUrl = findViewById(R.id.etDomainUrl)
+			etDomainUrl = findViewById(R.id.etDomainUrl)
 			hUsername = findViewById(R.id.hUsername)
-			tvUsername = findViewById(R.id.etUsername)
+			etUsername = findViewById(R.id.etUsername)
 			hPassword = findViewById(R.id.hPassword)
-			tvPassword = findViewById(R.id.etPassword)
+			etPassword = findViewById(R.id.etPassword)
 			btnAuthenticate = findViewById(R.id.btnAuthenticate)
 			btnReloadDrawer = findViewById(R.id.btnReloadDrawer)
 			btnOpenDrawer = findViewById(R.id.btnOpenDrawer)
@@ -234,8 +248,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 								val pData = subColor.isColor()
 								if (pData.second)
 								{
-									child.setBackgroundColor(Color.parseColor(pData.first))
-									bubbleHandle?.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
+									pData.first.getContrast().run {
+										child.setBackgroundColor(first)
+										child.setTextColor(second)
+									}
+									DataMessengerAdmin.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
 							}
 							catch (ex: Exception) {}
@@ -245,6 +262,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 			//endregion
 			etAddColor = findViewById(R.id.etAddColor)
+			etDashboardColor = findViewById(R.id.etDashboardColor)
 			etLightThemeColor = findViewById(R.id.etLightThemeColor)
 			etDarkThemeColor = findViewById(R.id.etDarkThemeColor)
 			etMaxNumberMessage = findViewById(R.id.etMaxNumberMessage)
@@ -252,10 +270,16 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			swEnableQuery = findViewById(R.id.swEnableQuery)
 			swEnableSuggestion = findViewById(R.id.swEnableSuggestion)
 			swEnableDrillDown = findViewById(R.id.swEnableDrillDown)
+			swEnableNotification = findViewById(R.id.swEnableNotification)
+			swBackgroundBehind = findViewById(R.id.swBackgroundBehind)
+			swTabExploreQueries = findViewById(R.id.swTabExploreQueries)
+			swTabNotification = findViewById(R.id.swTabNotification)
 			swEnableSpeechText = findViewById(R.id.swEnableSpeechText)
+
+			arrayListOf(etProjectId, etUserId, etApiKey, etDomainUrl, etUsername, etPassword).whenAllNotNull {
+				aClearFocus.addAll(it)
+			}
 		}
-
-
 	}
 
 	override fun setColors()
@@ -268,17 +292,45 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
-					llContainer.findViewById<TextView>(key)?.let {
-							tv ->
-						if (isEnabled)
+					llContainer.findViewById<TextView>(key)?.let { tv ->
+						var parent: LinearLayout ?= null
+						//region set background for view parent
+						tv.parent?.let {
+							(it as? LinearLayout)?.let { tmpParent ->
+								if (tmpParent.tag == "child")
+								{
+									parent = tmpParent
+								}
+							}
+						}
+						//endregion
+						val background = if (isEnabled)
 						{
-							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
 							tv.setTextColor(Color.WHITE)
+							GradientDrawable().apply {
+								shape = GradientDrawable.RECTANGLE
+								setColor(activity.getParsedColor(R.color.colorButton))
+							}
 						}
 						else
 						{
-							tv.setBackgroundColor(Color.WHITE)
 							tv.setTextColor(Color.BLACK)
+							GradientDrawable().apply {
+								shape = GradientDrawable.RECTANGLE
+								setColor(Color.WHITE)
+								setStroke(1, Color.GRAY)
+							}
+						}
+
+						parent?.let {
+							it.getChildAt(0)?.let { iv ->
+								(iv as? ImageView)?.let {
+									iv.setColorFilter(if (isEnabled) Color.WHITE else Color.BLACK)
+								}
+							}
+							it.background = background
+						} ?: run {
+							tv.background = background
 						}
 					}
 				}
@@ -286,26 +338,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun initListener() {
-//		swDemoData?.setOnCheckedChangeListener {
-//			_, isChecked ->
-//			val iVisible = if (!isChecked) View.VISIBLE else View.GONE
-//
-//			hProjectId?.visibility = iVisible
-//			tvProjectId?.visibility = iVisible
-//			hUserId?.visibility = iVisible
-//			tvUserId?.visibility = iVisible
-//			hApiKey?.visibility = iVisible
-//			tvApiKey?.visibility = iVisible
-//			hDomainUrl?.visibility = iVisible
-//			tvDomainUrl?.visibility = iVisible
-//			hUsername?.visibility = iVisible
-//			tvUsername?.visibility = iVisible
-//			hPassword?.visibility = iVisible
-//			tvPassword?.visibility = iVisible
-//			btnAuthenticate?.visibility = iVisible
-//			bubbleHandle.isNecessaryLogin = !isChecked
-//		}
+	override fun initListener()
+	{
 		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)
@@ -314,7 +348,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 		swDrawerHandle?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.isVisible = isChecked
+			if (::floatingView.isInitialized) {
+				floatingView.visibility = if (isChecked) View.VISIBLE else View.GONE
+				AutoQLData.isVisible = isChecked
+			}
 		}
 
 		etCurrencyCode?.setOnTextChanged {
@@ -322,7 +359,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			{
 				try
 				{
-					bubbleHandle?.dataFormatting?.currencyCode = it
+					AutoQLData.dataFormatting.currencyCode = it
 				}
 				catch (e: Exception) {}
 			}
@@ -331,30 +368,29 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etFormatMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.monthYearFormat = it
+				AutoQLData.dataFormatting.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.dayMonthYearFormat = it
+				AutoQLData.dataFormatting.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				bubbleHandle?.dataFormatting?.languageCode = it
+				AutoQLData.dataFormatting.languageCode = it
 			}
 		}
 
 		etDecimalsCurrency?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				it.toIntOrNull()?.let {
-						integer ->
-					bubbleHandle?.dataFormatting?.currencyDecimals = integer
+				it.toIntOrNull()?.let { integer ->
+					AutoQLData.dataFormatting.currencyDecimals = integer
 				}
 			}
 		}
@@ -362,32 +398,31 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etDecimalsQuantity?.setOnTextChanged {
 			if (it.isNotEmpty())
 			{
-				it.toIntOrNull()?.let {
-						integer ->
-					bubbleHandle?.dataFormatting?.quantityDecimals = integer
+				it.toIntOrNull()?.let { integer ->
+					AutoQLData.dataFormatting.quantityDecimals = integer
 				}
 			}
 		}
 
 		etCustomerMessage?.setOnTextChanged {
-			bubbleHandle?.userDisplayName = it
+			AutoQLData.customerName = it
 		}
 
 		etIntroMessage?.setOnTextChanged {
-			bubbleHandle?.introMessage = it
+			AutoQLData.introMessage = it
 		}
 
 		etQueryPlaceholder?.setOnTextChanged {
-			bubbleHandle?.inputPlaceholder = it
+			AutoQLData.inputPlaceholder = it
 		}
 
 		swClearMessage?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.clearOnClose = isChecked
+			AutoQLData.clearOnClose = isChecked
 		}
 
 		etTitle?.setOnTextChanged {
-			bubbleHandle?.title = it
+			AutoQLData.title = it
 		}
 
 		etAddColor?.setOnEditorActionListener {
@@ -403,11 +438,26 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					llColors.addView(newView, llColors.childCount)
 				}
 
-				bubbleHandle?.addChartColor(newColor)
+				DataMessengerAdmin.addChartColor(newColor)
 			}
 
 			textView.text = ""
 			false
+		}
+
+		etDashboardColor?.setOnTextChanged {
+			try {
+				val pData = it.isColor()
+				if (pData.second)
+				{
+					pData.first.getContrast().run {
+						etDashboardColor?.setBackgroundColor(first)
+						etDashboardColor?.setTextColor(second)
+					}
+					DashboardAdmin.setDashboardColor(it)
+				}
+			}
+			catch (ex: Exception) {}
 		}
 
 		etLightThemeColor?.setOnTextChanged {
@@ -416,8 +466,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				val pData = it.isColor()
 				if (pData.second)
 				{
-					etLightThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
-					bubbleHandle?.setLightThemeColor(it)
+					pData.first.getContrast().run {
+						etLightThemeColor?.setBackgroundColor(first)
+						etLightThemeColor?.setTextColor(second)
+					}
+					DataMessengerAdmin.setLightThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -429,8 +482,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				val pData = it.isColor()
 				if (pData.second)
 				{
-					etDarkThemeColor?.setBackgroundColor(Color.parseColor(pData.first))
-					bubbleHandle?.setDarkThemeColor(it)
+					pData.first.getContrast().run {
+						etDarkThemeColor?.setBackgroundColor(first)
+						etDarkThemeColor?.setTextColor(second)
+					}
+					DataMessengerAdmin.setDarkThemeColor(it)
 				}
 			}
 			catch (ex: Exception) {}
@@ -439,58 +495,55 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etMaxNumberMessage?.setOnTextChanged {
 			it.toIntOrNull()?.let {
 				integer ->
-				bubbleHandle?.maxMessages = integer
+				AutoQLData.maxMessages = integer
 			}
 		}
 
 		swEnableAutocomplete?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableAutocomplete = isChecked
+			AutoQLData.autoQLConfig.enableAutocomplete = isChecked
 		}
 
 		swEnableQuery?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableQueryValidation = isChecked
+			AutoQLData.autoQLConfig.enableQueryValidation = isChecked
 		}
 
 		swEnableSuggestion?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableQuerySuggestions = isChecked
+			AutoQLData.autoQLConfig.enableQuerySuggestions = isChecked
 		}
 
 		swEnableDrillDown?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.autoQLConfig?.enableDrilldowns = isChecked
+			AutoQLData.autoQLConfig.enableDrilldowns = isChecked
+		}
+
+		swEnableNotification?.setOnCheckedChangeListener {
+			_, isChecked ->
+			AutoQLData.visibleNotification = isChecked
+			AutoQLData.activeNotifications = isChecked
+		}
+
+		swBackgroundBehind?.setOnCheckedChangeListener {
+			_, isChecked ->
+			AutoQLData.isDarkenBackgroundBehind = isChecked
+		}
+
+		swTabExploreQueries?.setOnCheckedChangeListener {
+			_, isChecked ->
+			AutoQLData.visibleExploreQueries = isChecked
+		}
+
+		swTabNotification?.setOnCheckedChangeListener {
+			_, isChecked ->
+			AutoQLData.visibleNotification = isChecked
 		}
 
 		swEnableSpeechText?.setOnCheckedChangeListener {
 			_, isChecked ->
-			bubbleHandle?.enableVoiceRecord = isChecked
+			AutoQLData.enableVoiceRecord = isChecked
 		}
-	}
-
-//	override fun onResume()
-//	{
-//		super.onResume()
-//		if (::bubbleHandle.isInitialized && !bubbleHandle.isVisible)
-//		{
-//			bubbleHandle.isVisible = true
-//		}
-//	}
-
-//	override fun onPause()
-//	{
-//		super.onPause()
-//		if (::bubbleHandle.isInitialized)
-//		{
-//			bubbleHandle.isVisible = false
-//		}
-//	}
-
-	override fun onDestroy()
-	{
-		bubbleHandle = null
-		super.onDestroy()
 	}
 
 	override fun onClick(view: View?)
@@ -503,23 +556,23 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					isEnableLogin(false)
 					if (isAuthenticate)
 					{
-						DataMessenger.clearData()
+						AutoQLData.clearData()
 						isAuthenticate = false
-						loginIsComplete = false
 						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
 
-						bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
-						bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
+						for(child in aClearFocus)
+							child.setText("")
 					}
 					else
 					{
-						projectId = (tvProjectId?.text ?: "").toString().trim()
-						userID = (tvUserId?.text ?: "").toString().trim()
-						apiKey = (tvApiKey?.text ?: "").toString().trim()
-						domainUrl = (tvDomainUrl?.text ?: "").toString().prepareDomain()
-						username = (tvUsername?.text ?: "").toString().trim()
-						password = (tvPassword?.text ?: "").toString().trim()
+						AutoQLData.clearData()
+						AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
+						AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
+						AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
+						AutoQLData.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
+						AutoQLData.username = (etUsername?.text ?: "").toString().trim()
+						AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
 						servicePresenter.createAuthenticate()
 						showDialog()
@@ -528,51 +581,55 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				R.id.btnReloadDrawer ->
 				{
 					activity?.run {
-						if (this is PagerActivity)
-						{
-							bubbleHandle?.let { bubbleHandle ->
-								val bubbleData = BubbleData(
-									bubbleHandle.userDisplayName,
-									bubbleHandle.title,
-									bubbleHandle.introMessage,
-									bubbleHandle.inputPlaceholder,
-									bubbleHandle.maxMessages,
-									bubbleHandle.clearOnClose,
-									bubbleHandle.enableVoiceRecord)
-								clearDataMessenger(bubbleData)
-							}
-						}
+//						if (this is PagerActivity)
+//						{
+//							bubbleHandle?.let { bubbleHandle ->
+//								val bubbleData = BubbleData(
+//									bubbleHandle.userDisplayName,
+//									bubbleHandle.title,
+//									bubbleHandle.introMessage,
+//									bubbleHandle.inputPlaceholder,
+//									bubbleHandle.maxMessages,
+//									bubbleHandle.clearOnClose,
+//									bubbleHandle.isDarkenBackgroundBehind,
+//									bubbleHandle.visibleExploreQueries,
+//									bubbleHandle.visibleNotification,
+//									bubbleHandle.enableVoiceRecord,
+//									isDataMessenger)
+//								clearDataMessenger(bubbleData)
+//							}
+//						}
 					}
 				}
 				R.id.btnOpenDrawer ->
 				{
-					bubbleHandle?.openChatActivity()
+					floatingView.runEvent()
 				}
 				R.id.tvLight, R.id.tvDark ->
 				{
-					if (it is TextView)
-					{
-						if (it.tag is String)
-						{
-							setColorOption(it.tag as String, it.id)
-						}
-						mTheme[it.id]?.let {
-							config ->
-							val theme = if (config) "light" else "dark"
-							bubbleHandle?.theme = theme
-						}
-					} else {}
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
+					}
+					mTheme[it.id]?.let { config ->
+						val theme = if (config) "light" else "dark"
+						floatingView.theme = theme
+					}
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
-					if (it is TextView)
-					{
-						if (it.tag is String)
-						{
-							setColorOption(it.tag as String, it.id)
-						}
-						mPlacement[it.id]?.let { placement -> bubbleHandle?.placement = placement }
-					} else {}
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
+					}
+					mPlacement[it.id]?.let { placement ->
+						floatingView.placement = placement
+					}
+				}
+				R.id.tvDataMessenger, R.id.tvExploreQueries ->
+				{
+					(it as? TextView)?.let { tv ->
+						setColorOption(tv.tag as String, tv.id)
+						AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
+					}
 				}
 				else -> {}
 			}
@@ -587,40 +644,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		animationAlert.showAlert()
 
 		Looper.getMainLooper()?.let {
-			android.os.Handler(it).postDelayed({
+			Handler(it).postDelayed({
 				animationAlert.hideAlert()
 			}, 1500)
 		}
 	}
-
-//	override fun showError(errorCode: String, errorService: String)
-//	{
-//		parentActivity?.let {
-//			val messageData =
-//"""
-//Project Id:
-//->$projectId<-
-//User Id:
-//->$userID<-
-//apiKey:
-//->$apiKey<-
-//domainUrl:
-//->$domainUrl<-
-//username:
-//->$username<-
-//password:
-//->$password<-
-//"""
-//			val alert = AlertDialog.Builder(it)
-//				.setCancelable(false)
-////				.setMessage("Error: code $errorCode on service \"$errorService\"")
-//				.setMessage(messageData)
-//				.setNeutralButton("Error", null)
-//				.show()
-//
-//			alert.findViewById<TextView>(android.R.id.message)?.typeface = Typeface.MONOSPACE
-//		}
-//	}
 
 	override fun callJWt()
 	{
@@ -637,13 +665,21 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		servicePresenter.callTopics()
 	}
 
-	//TODO call method
+	private val mHandler = Handler(Looper.getMainLooper())
+	private val runnable = object: Runnable {
+		override fun run()
+		{
+			activity?.let {
+				val intent = Intent(it, PollService::class.java)
+				PollService.enqueueWork(it, intent)
+			}
+			mHandler.postDelayed(this, 10000)
+		}
+	}
+
 	override fun initPollService()
 	{
-		activity?.let {
-			val intent = Intent(it, PollService::class.java)
-			PollService.enqueueWork(it, intent)
-		}
+		mHandler.postDelayed(runnable, 10000)
 	}
 
 	override fun changeAuthenticate(isAuthenticate: Boolean)
@@ -660,16 +696,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		val text = if (isAuthenticate)
 		{
-//			if (projectId.contains("spira"))
-//			{
-//				bubbleHandle?.setImageResource(R.drawable.ic_spira_logo)
-//				bubbleHandle?.setBackgroundColor(R.color.white)
-//			}
-//			else
-//			{
-//				bubbleHandle?.setImageResource(R.drawable.ic_bubble_chata)
-//				bubbleHandle?.setBackgroundColor(R.color.blue_chata_circle)
-//			}
 			"Log Out"
 		}
 		else
@@ -695,9 +721,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
 			with(sharePreferences.edit())
 			{
-				putString("PROJECT_ID", projectId)
-				putString("API_KEY", apiKey)
-				putString("DOMAIN_URL", domainUrl)
+				putString("PROJECT_ID", AutoQLData.projectId)
+				putString("API_KEY", AutoQLData.apiKey)
+				putString("DOMAIN_URL", AutoQLData.domainUrl)
 				apply()
 			}
 		}
@@ -706,14 +732,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private fun showDialog()
 	{
-		BubbleHandle.isOpenChat = true
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
 	}
 
 	private fun hideDialog()
 	{
 		ProgressWait.hideProgressDialog()
-		BubbleHandle.isOpenChat = false
 	}
 
 	private fun String.prepareDomain(): String
@@ -757,13 +781,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					if (isEnabled)
 					{
 						parentActivity?.let { activity ->
-							tv.setBackgroundColor(activity.getParsedColor(R.color.blue))
+							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
 						}
 						tv.setTextColor(Color.WHITE)
 					}
 					else
 					{
-						tv.setBackgroundColor(Color.WHITE)
+						tv.background = GradientDrawable().apply {
+							shape = GradientDrawable.RECTANGLE
+							setColor(Color.WHITE)
+							setStroke(1, Color.GRAY)
+						}
 						tv.setTextColor(Color.BLACK)
 					}
 				}

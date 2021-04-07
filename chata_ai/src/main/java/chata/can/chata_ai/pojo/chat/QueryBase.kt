@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
+import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
@@ -19,14 +20,16 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
 	var isDashboard = false
-	//private val referenceId = json.optString(referenceIdKey) ?: ""
+	val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)
 	var message = json.optString(messageKey) ?: ""
 
 	var sql: String = ""
 	var queryId = ""
 	var displayType = ""
+	var showContainer = ""
 	private var interpretation = ""
+	var limitRowNum = 0
 
 	var supportCase: SupportCase ?= null
 	val aRows = ArrayList<ArrayList<String>>()
@@ -38,6 +41,20 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	val numColumns: Int
 	get() {
 		return aColumn.size
+	}
+
+	val isGroupable: Boolean
+	get() {
+		var value = false
+		for (column in aColumn)
+		{
+			if (column.isGroupable)
+			{
+				value = true
+				break
+			}
+		}
+		return value
 	}
 
 	val hasHash: Boolean
@@ -68,6 +85,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var rowsPivot = 0
 	lateinit var aXAxis: ArrayList<String>
 	lateinit var aXDrillDown: ArrayList<String>
+	var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> > > ?= null
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null
@@ -80,6 +98,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			queryId = joData.optString("query_id") ?: ""
 			displayType = joData.optString("display_type") ?: ""
 			interpretation = joData.optString("interpretation") ?: ""
+			limitRowNum = joData.optInt("limit_row_num")
 
 			//region rows
 			it.optJSONArray("rows")?.let {
@@ -176,13 +195,21 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					2, 3 ->
 					{
 						dataForWebView.xAxis = aColumn.getOrNull(
-							if (aColumn.size == 2) 0 else 1)?.displayName ?: ""
+							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
 						dataForWebView.yAxis = aColumn.getOrNull(
-//							if (aColumn.size == 2) 1 else 2)?.displayName ?: ""
-							if (aColumn.size == 2) 1 else 0)?.displayName ?: ""
+							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
 					}
-					else -> {}
+					else ->
+					{
+						if (aIndex.isNotEmpty())
+						{
+							dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+							dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+						}
+					}
 				}
+				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
+				dataForWebView.isDashboard = isDashboard
 				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot
@@ -191,8 +218,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			viewDrillDown?.loadDrillDown(this)
 
 			viewPresenter?.let {
-				viewPresenter?.isLoading(false)
-				viewPresenter?.addNewChat(typeView, this)
+				it.isLoading(false)
+				it.addNewChat(typeView, this)
 			} ?: run {
 				isLoadingHTML = false
 				showData()
@@ -203,6 +230,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	fun resetData()
 	{
 		contentHTML = ""
+		viewPresenter = null
 		buildContent()
 	}
 

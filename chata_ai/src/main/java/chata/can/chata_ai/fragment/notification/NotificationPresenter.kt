@@ -2,12 +2,13 @@ package chata.can.chata_ai.fragment.notification
 
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.apiKey
+import chata.can.chata_ai.pojo.autoQL.AutoQLData.domainUrl
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.apiKey
-import chata.can.chata_ai.view.bubbleHandle.DataMessenger.domainUrl
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
@@ -17,6 +18,7 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 	override fun onFailure(jsonObject: JSONObject?)
 	{
 		jsonObject?.toString()
+		view.showNotifications(0, arrayListOf())
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
@@ -34,13 +36,15 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 					{
 						val json = joItems.optJSONObject(index)
 						val id = json.optString("id")
-						val dataAlertId = json.optString("data_alert_id")
+//						val dataAlertId = json.optString("data_alert_id")
 						val title = json.optString("title")
 						val message = json.optString("message")
 						val dataReturnQuery = json.optString("data_return_query")
 						val createdAt = json.optInt("created_at")
+						val state = json.optString("state")
 
-						val notification = Notification(id, dataAlertId, title, message, dataReturnQuery, createdAt)
+						val notification = Notification(
+							id, title, message, dataReturnQuery, createdAt, state)
 						aNotification.add(notification)
 					}
 				}
@@ -52,11 +56,16 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 	fun getNotifications(offset: Int = 0, limit: Int = 10)
 	{
 		val url = "$domainUrl/autoql/${api1}data-alerts/notifications?key=${apiKey}&offset=$offset&limit=$limit"
+		val retryPolicy = DefaultRetryPolicy(
+			DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+			0,
+			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 		callStringRequest(
 			Request.Method.GET,
 			url,
 			typeJSON,
 			headers = Authentication.getAuthorizationJWT(),
+			retryPolicy = retryPolicy,
 			listener = this)
 	}
 }

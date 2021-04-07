@@ -5,6 +5,10 @@ class BubbleData(
 	val title: String,
 	val introMessage: String,
 	val inputPlaceholder: String,
-	val maxMessage: Int,
+	val maxMessages: Int,
 	val clearOnClose: Boolean,
-	var enableVoiceRecord: Boolean)
+	var isDarkenBackgroundBehind: Boolean,
+	var visibleExploreQueries: Boolean,
+	var visibleNotification: Boolean,
+	var enableVoiceRecord: Boolean,
+	val isDataMessenger: Boolean)

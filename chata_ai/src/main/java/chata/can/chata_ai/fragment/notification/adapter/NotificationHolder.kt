@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.notification.model.Notification
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.text.SimpleDateFormat
@@ -35,6 +35,10 @@ class NotificationHolder(
 
 	private val presenter = RuleQueryPresenter(this)
 
+	private var white = 0
+	private var gray = 0
+	private var blue = 0
+
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
@@ -49,6 +53,16 @@ class NotificationHolder(
 						presenter.getRuleQuery(notification.id)
 					}
 				}
+				if (notification.state == "DISMISSED")
+				{
+					tvTitle.setTextColor(gray)
+					iView.visibility = View.INVISIBLE
+				}
+				else
+				{
+					tvTitle.setTextColor(blue)
+					iView.visibility = View.VISIBLE
+				}
 
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
@@ -62,20 +76,19 @@ class NotificationHolder(
 	{
 		rlParent.run {
 			context.run {
-				with(ThemeColor.currentColor) {
-					val white = getParsedColor(drawerBackgroundColor)
-					val gray = getParsedColor(drawerTextColorPrimary)
+				ThemeColor.currentColor.run {
+					white = pDrawerBackgroundColor
+					gray = pDrawerTextColorPrimary
+					blue = SinglentonDrawer.currentAccent
 					tvBody.setTextColor(gray)
 					tvDate.setTextColor(gray)
 					tvQuery.setTextColor(gray)
 					tvContent.setTextColor(gray)
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
-					val blue = getParsedColor(R.color.blue_chata_circle)
 					iView.background = DrawableBuilder.setGradientDrawable(
 						blue,
 						aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))
-					tvTitle.setTextColor(blue)
 				}
 			}
 		}
@@ -90,12 +103,14 @@ class NotificationHolder(
 		wbQuery.visibility = View.GONE
 	}
 
-	override fun showText(text: String, textSize: Float)
+	override fun showText(text: String, textSize: Float, intRes: Int)
 	{
 		rlLoad.visibility = View.GONE
-		tvContent.visibility = View.VISIBLE
-		tvContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-		tvContent.text = text
+		tvContent.run {
+			visibility = View.VISIBLE
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+			tvContent.text = if (intRes != 0) context.getString(intRes) else text
+		}
 		view.showItem(adapterPosition)
 	}
 

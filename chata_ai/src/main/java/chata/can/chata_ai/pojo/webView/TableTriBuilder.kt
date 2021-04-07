@@ -57,37 +57,42 @@ object TableTriBuilder
 		aCatX: List<String>,
 		aCatY: List<String>,
 		nameHeader: String
-	): Pair<String, Int>
+	): Triple<String, Int, ArrayList<Int>>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
+		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
-		for (indexX in aCatX.indices)
+		for (indexY in aCatY.indices)
 		{
-			val categoryX = aCatX[indexX]
-			val sbRow = StringBuilder("<td>${categoryX.replace("\"", "")}</td>")
-			for (indexY in aCatY.indices)
+			var onlyZero = true
+			val categoryY = aCatY[indexY]
+			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
+			for (indexX in aCatX.indices)
 			{
-				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
+				//region
+				if (cell != "0.0" && cell.isNotEmpty())
+					onlyZero = false
+				//endregion
 				if (cell.isNotEmpty())
 					cell = cell.clearDecimals()
 				cell = cell.formatWithColumn(aColumn)
 				sbRow.append("<td>$cell</td>")
 			}
+			if (onlyZero)
+				aIndexZero.add(indexY)
 			aRows.add("<tr>$sbRow</tr>")
 		}
 		//aRows.sort()
 		val sbBody = StringBuilder("<tbody>")
-		for (row in aRows)
-		{
-			sbBody.append("<tr>$row</tr>")
-		}
+		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
-		return Pair("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size)
+		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size, aIndexZero)
 	}
 
 	fun generateDataTableTri(

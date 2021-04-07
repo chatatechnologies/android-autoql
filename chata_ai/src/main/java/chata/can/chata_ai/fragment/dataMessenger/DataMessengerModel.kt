@@ -3,23 +3,10 @@ package chata.can.chata_ai.fragment.dataMessenger
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeChatView
 
 class DataMessengerModel: BaseModelList<ChatData>()
 {
-	fun getParseCount(): Int
-	{
-		var count = 0
-		for (data in getData())
-		{
-			data.simpleQuery?.let {
-				count += 2
-			} ?: run {
-				count++
-			}
-		}
-		return count
-	}
-
 	fun restartData()
 	{
 		for (index in 0..countData())
@@ -33,5 +20,15 @@ class DataMessengerModel: BaseModelList<ChatData>()
 				}
 			}
 		}
+	}
+
+	fun getParseCount(): Int
+	{
+		var totalCount = 0
+		for (data in getData())
+		{
+			totalCount += if (data.simpleQuery == null) 1 else 2
+		}
+		return totalCount
 	}
 }

@@ -19,31 +19,34 @@
 		<RelativeLayout
 			android:layout_height="36dp"
 			android:layout_width="match_parent">
-			<TextView
-				android:id="@+id/tvMsg"
-				android:layout_centerInParent="true"
+
+			<chata.can.chata_ai.view.gif.KGifView
+				android:layout_centerVertical="true"
+				android:id="@+id/gifView"
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:textColor="@color/chata_drawer_hover_color_dark"
-				android:textSize="12sp"
-				android:text="@string/msg_run_autoql"/>
+				android:visibility="invisible"/>
+
 			<ImageView
+				android:layout_centerVertical="true"
 				android:contentDescription="@null"
 				android:id="@+id/ivRun"
-				android:layout_centerInParent="true"
 				android:layout_marginEnd="4dp"
-				android:layout_toStartOf="@id/tvMsg"
+				android:layout_toEndOf="@id/gifView"
 				android:layout_height="12dp"
 				android:layout_width="12dp"
 				android:src="@drawable/ic_chata"/>
 
-			<chata.can.chata_ai.view.gif.GifView
+			<TextView
 				android:layout_centerVertical="true"
-				android:id="@+id/gifView"
+				android:id="@+id/tvMsg"
 				android:layout_height="wrap_content"
-				android:layout_toStartOf="@id/ivRun"
+				android:layout_toEndOf="@id/ivRun"
 				android:layout_width="wrap_content"
-				android:visibility="gone"/>
+				android:textColor="@color/chata_drawer_hover_color_dark"
+				android:textSize="12sp"
+				android:text="@string/msg_run_autoql"/>
+
 		</RelativeLayout>
 
 		<RelativeLayout
@@ -74,6 +77,7 @@
 	</LinearLayout>
 
 	<RelativeLayout
+		android:background="@color/transparent"
 		android:id="@+id/rlAlert"
 		android:layout_centerHorizontal="true"
 		android:layout_height="60dp"
@@ -99,7 +103,8 @@
 				android:id="@+id/tvAlert"
 				android:layout_height="match_parent"
 				android:layout_width="wrap_content"
-				android:textAllCaps="false"/>
+				android:textAllCaps="false"
+				android:textColor="@android:color/black"/>
 		</LinearLayout>
 
 	</RelativeLayout>

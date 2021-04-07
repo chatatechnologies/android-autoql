@@ -1,6 +1,8 @@
 package chata.can.chata_ai.pojo.query
 
 import chata.can.chata_ai.extension.isNumber
+import chata.can.chata_ai.extension.isUnCountable
+import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
@@ -11,7 +13,6 @@ object SearchColumn
 		count: Int): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
-
 		for (index in aColumns.indices)
 		{
 			if (aColumns[index].isGroupable)
@@ -23,9 +24,40 @@ object SearchColumn
 		return aIndices
 	}
 
+	//search type column in specific
+	fun getTypeColumn(
+		aColumns: ArrayList<ColumnQuery>,
+		type: TypeDataQuery
+	): Int
+	{
+		var position = -1
+		for (index in aColumns.indices)
+		{
+			if (aColumns[index].type == type)
+			{
+				position = index
+				break
+			}
+		}
+		return position
+	}
+
+	fun getUncountableIndices(aColumns: ArrayList<ColumnQuery>): ArrayList<Int>
+	{
+		val aIndices = ArrayList<Int>()
+		for (index in aColumns.indices)
+		{
+			if (aColumns[index].type.isUnCountable())
+			{
+				aIndices.add(index)
+			}
+		}
+		return aIndices
+	}
+
 	fun getNumberIndices(
 		aColumns: ArrayList<ColumnQuery>,
-		count: Int): ArrayList<Int>
+		count: Int = 0): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
 		for (index in aColumns.indices)
@@ -33,16 +65,16 @@ object SearchColumn
 			if (aColumns[index].type.isNumber())
 			{
 				aIndices.add(index)
-				if (count == aIndices.size) break
+				if (count != 0 && count == aIndices.size) break
 			}
 		}
 		return aIndices
 	}
 
-	fun getTypeIndices(
+	fun getCountIndices(
 		aColumns: ArrayList<ColumnQuery>,
-		type: TypeDataQuery,
-		count: Int,
+		type: ArrayList<TypeDataQuery>,
+		count: Int = 0,
 		ignoreCount: Int = 0): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
@@ -50,13 +82,31 @@ object SearchColumn
 		{
 			if (ignoreCount > index)
 				continue
-			if (aColumns[index].type == type)
+			if (aColumns[index].type in type)
 			{
 				aIndices.add(index)
-				if (count == aIndices.size) break
+				if (count != 0 && count == aIndices.size) break
 			}
 		}
 		return aIndices
+	}
+
+	fun getMinMaxColumns(
+		aRows: ArrayList<ArrayList<String>>,
+		aIndices: ArrayList<Int>
+	): Pair<Int, Int>
+	{
+		val aInt = ArrayList<Double>()
+		for (row in aRows)
+		{
+			for (index in aIndices)
+			{
+				aInt.add(row[index].toDoubleNotNull())
+			}
+		}
+		val max = (aInt.maxOrNull() ?: 0.0) + 100.0
+		val min = (aInt.minOrNull() ?: 0.0) - 100.0
+		return Pair(max.toInt() + 1, min.toInt() - 1)
 	}
 
 	fun hasDecimals(

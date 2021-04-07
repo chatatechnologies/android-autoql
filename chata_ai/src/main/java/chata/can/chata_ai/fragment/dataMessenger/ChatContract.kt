@@ -21,6 +21,9 @@ interface ChatContract
 		fun runTyping(text: String)
 		fun isLoading(isVisible: Boolean)
 		fun showAlert(message: String, intRes: Int)
+		fun scrollToPosition()
+
+		fun showToast()
 	}
 
 	interface ServiceView

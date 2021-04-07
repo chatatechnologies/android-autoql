@@ -1,14 +1,9 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.context.ContextActivity
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.getFooterScript
 import chata.can.chata_ai.model.validateArray
 import chata.can.chata_ai.pojo.SinglentonDrawer.aChartColors
-import chata.can.chata_ai.pojo.SinglentonDrawer.darkThemeColor
-import chata.can.chata_ai.pojo.SinglentonDrawer.lightThemeColor
-import chata.can.chata_ai.pojo.SinglentonDrawer.themeColor
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -131,7 +126,7 @@ object DashboardMaker
 		return ""
 	}
 
-	fun getChartFooter(
+	private fun getChartFooter(
 		row: ArrayList<ArrayList<String>>,
 		aColumnQuery: List<ColumnQuery>,
 		type: List<TypeDataQuery>,
@@ -152,12 +147,11 @@ object DashboardMaker
 		var dataChartLine = row.map {
 			validateArray(it,1).toString().toDouble()
 		}
-		if (type.size == 3)
-		{
-
-		}
+//		if (type.size == 3)
+//		{
+//
+//		}
 	}
-
 	//endregion
 
 
@@ -170,30 +164,32 @@ object DashboardMaker
 	fun getHTML(dataForWebView: DataForWebView): String
 	{
 		val isBi = dataForWebView.isBi
-		var backgroundColor = "#FFFFFF"
-		var textColor = "#000000"
+		var backgroundColor: String
+		var textColor: String
 
 		with(ThemeColor.currentColor)
 		{
-			ContextActivity.context?.let {
-				backgroundColor = "#" + Integer.toHexString(
-					it.getParsedColor(drawerBackgroundColor) and 0x00ffffff)
-				textColor = "#" + Integer.toHexString(
-					it.getParsedColor(drawerTextColorPrimary) and 0x00ffffff)
-			}
+			backgroundColor = "#" + Integer.toHexString(
+				pDrawerBackgroundColor and 0x00ffffff)
+			textColor = "#" + Integer.toHexString(
+				pDrawerTextColorPrimary and 0x00ffffff)
 		}
-		val color1: String = if (themeColor == "light") lightThemeColor else darkThemeColor
+		val color1 = aChartColors[0]
 		val sColors = aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
 
-		val typeChart = when(dataForWebView.type)
-		{
-			"table" -> dataForWebView.datePivot.tableOrPivot()
-			"pivot_table" -> "#idTableDataPivot"
-			"" -> dataForWebView.datePivot.tableOrPivot()
-			else -> dataForWebView.type
-		}
+		val typeChart =
+			if (dataForWebView.isColumn && !dataForWebView.isDashboard)
+				if (isBi) "column" else "stacked_column"
+			else
+				when(dataForWebView.type)
+				{
+					"table" -> dataForWebView.datePivot.tableOrPivot()
+					"pivot_table" -> "#idTableDataPivot"
+					"" -> dataForWebView.datePivot.tableOrPivot()
+					else -> dataForWebView.type
+				}
 
 		return with(dataForWebView) {
 			"""<!DOCTYPE html>
@@ -208,6 +204,7 @@ object DashboardMaker
 ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.js\"></script>\n" +
 "<script src=\"https://code.highcharts.com/modules/heatmap.js\"></script>\n" +
 "<script src=\"https://code.highcharts.com/modules/exporting.js\"></script>"}
+<script src="https://code.highcharts.com/modules/broken-axis.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
@@ -401,7 +398,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             var finalText = firstColumn[0].firstChild.innerText;
             var strDate = firstColumn[0].children[1].innerText;
             if (type == "idTableDataPivot" ){
-                finalText += "_"+drillSpecial[column - 1];
+                finalText = drillX[column - 1] + "_" + drillSpecial[row];
             } else if (type == "idTableDatePivot" ) {
                 finalText = ${'$'}this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
@@ -488,9 +485,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     }
             function pieType(){
        ${'$'}('.container, #container').css({ "width": "99%", "position": "relative","height":"80%", "z-index": "0" });
-       chart.destroy()
-       chart = Highcharts.chart('container', {
-          
+       var newCategory = categoriesX;
+       var chartBiSeries = {
         chart: {
           backgroundColor: colorGhost,
           fill: colorGhost,
@@ -568,13 +564,29 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             showInLegend: true
           }
         },
-        colors: colors,
-        series: [{
-               colorByPoint: true,
-               data: dataChartBi
-           }]
-       });
+        colors: colors
+      };
 
+       chart.destroy()
+      if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+      } else {
+        var dataPie = Array.of(dataChartBi[0]);
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataPie
+
+        chart = Highcharts.chart('container', chartBiSeries);
+      }
     }
     function lineType(){
         finalSize(false);
@@ -631,7 +643,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                     series: dataChartLine,
                     tooltip: {
                         formatter: function () {
-                            drillDown(drillX[this.point.x])
+                            var position = categoriesY.indexOf(this.series.name);
+                            drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
                             return "";
                         }
                     },
@@ -639,61 +652,81 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                 
         }
     }
-    function biType(type,inverted){
-				var newCategory = categoriesX;
-        if (categoriesX.length == 1 && newCategory[0] === "") {
-            var newCategory = categoriesY;
+function biType(type,inverted) {
+    var newCategory = categoriesX;
+    var chartBiSeries = {
+        chart: {
+            type: type,
+            inverted: inverted
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            categories: newCategory,
+            labels: {
+                rotation: -60,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                },
+                formatter: function() {
+                    return formatterLabel(this.value);
+                }
+            },
+            title: {
+                text: xAxis
+            }
+        },
+        yAxis: {
+            gridLineWidth: 0,
+            min: ${dataForWebView.min},
+            max: ${dataForWebView.max},
+            title: {
+                text: yAxis,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                }
+            }
+        },
+        tooltip: {
+            backgroundColor: colorGhost,
+            style: styleTooltip,
+            formatter: function () {
+                var colorIndex = this.colorIndex;
+                var x = this.point.x;
+                var suffix = "";
+                if (! (dataChartBi[0] instanceof Array)) {
+                    suffix = "_" + colorIndex;
+                }
+                drillDown(drillX[x] + suffix);
+                return "";
+            }
         }
-        finalSize(inverted);
-        chart.destroy()
-                chart = Highcharts.chart('container', defaultChart);
-        chart.update({
-                    chart: {
-                        type: type,
-                        inverted: inverted
-                    },
-                    
-                    xAxis: {
-                         gridLineWidth: 0,
-                         categories: newCategory,
-                         labels: {
-										        rotation: -60,
-										        style: {
-										            color: colorAxis,
-										             fontSize:'16px'
-										        },
-										        formatter: function(){
-										         return formatterLabel(this.value);
-										        }
-										       },
-                         
-                         title: {
-                           text: xAxis
-                         }
-                       },
-										yAxis: {
-                        title: {
-                            text: yAxis,
-                            style: {
-                                color: colorAxis
-                            }
-                        }
-                    },
-                    series: [{
-                            colorByPoint: false,
-                            name: newCategory,
-                            data: dataChartBi
-                        }],
-                    tooltip: {
-                        backgroundColor: colorGhost,
-                        style: styleTooltip,
-                        formatter: function () {
-                            drillDown(drillX[this.point.x])
-                            return "";
-                        }
-                    }
-                });
+    };
+    if (categoriesX.length == 1 && newCategory[0] === "") {
+        var newCategory = categoriesY;
     }
+    finalSize(inverted);
+    chart.destroy();
+    if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+    } else {
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataChartBi
+
+        chart = Highcharts.chart('container', chartBiSeries);
+    }
+}
     function biType3(type,inverted){
         finalSize(inverted);
         typeFinal = type.replace("contrast_", "");
@@ -799,66 +832,71 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         finalSize(invert);
         var rotation = invert ? 10 : 40
         chart.destroy();
-                chart = Highcharts.chart('container', {
-                    chart: {
-                        type: 'column',
-                        inverted: invert
+        chart = Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                inverted: invert
+            },
+            title: subTitle,
+            subTitle: subTitle,
+            yAxis: {
+                title: {
+                    text: yAxis
+                },
+                labels: {
+                    style: {
+                        color: colorAxis,
+                    }
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                tickInterval: 1,
+                breaks: [{
+                    from: ${stackedFrom},
+                    to: ${stackedTo},
+                    breakSize: 1
+                }],
+                categories: categoriesX,
+                labels: {
+                    rotation: -60,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
                     },
-                    title: subTitle,
-                    subTitle: subTitle,
-                    yAxis: {
-                        title: {
-                            text: yAxis
-                        },
-                        labels: {
-                           style: {
-                               color: colorAxis,
-                           }
-                         },
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    xAxis: {
-                        categories: categoriesX,
-                        labels: {
-									        rotation: -60,
-									        style: {
-									            color: colorAxis,
-									             fontSize:'16px'
-									        },
-									        formatter: function(){
-									         return formatterLabel(this.value);
-									        }
-									       },
-                        title: {
-                            text: xAxis
-                        }
-                    },
-                    dataLabels: {
-                        enabled: false,
-                        style: {
-                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                        }
-                    },
-                    tooltip: {
-                         backgroundColor: colorGhost,
-                         style: styleTooltip,
-                         formatter: function () {
-                             var position = categoriesY.indexOf(this.series.name);
-                             console.log(position);
-                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[position]);
-                           return "";
-                         }
-                       },
-                    colors: colors,
-                    plotOptions: {
-                        column: {
-                            stacking: 'normal'
-                        }
-                    },
-                    series: dataChartLine
-                });
+                    formatter: function(){
+                        return formatterLabel(this.value);
+                    }
+                },
+                title: {
+                    text: xAxis
+                }
+            },
+            dataLabels: {
+                enabled: false,
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            tooltip: {
+                backgroundColor: colorGhost,
+                style: styleTooltip,
+                formatter: function () {
+                    var position = categoriesY.indexOf(this.series.name);
+                    drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
+                    return "";
+                }
+            },
+            colors: colors,
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            series: dataChartLine
+        });
     }
 function stackedArea(){
     

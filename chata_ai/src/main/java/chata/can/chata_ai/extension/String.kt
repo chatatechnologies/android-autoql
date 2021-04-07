@@ -1,9 +1,9 @@
 package chata.can.chata_ai.extension
 
+import android.graphics.Color
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import chata.can.chata_ai.pojo.dataFormatting.ValidateLocale
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -30,6 +30,8 @@ fun String.toDateV2(format: String = "yyyy-MM"): String
 }
 
 //endregion
+
+fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
@@ -70,13 +72,11 @@ fun String.formatWithColumn(
 					if (aDataDate.size > 1)
 					{
 						SinglentonDrawer.localLocale?.let { locale ->
-							var date = ""
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
 								dateFormat.parse(this)?.let { dDate ->
-									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
-//									val dateFormat2 = SimpleDateFormat("yyyy", locale)
-//									date = dateFormat2.format(dDate)
+//									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
+									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, Locale.US)
 									dateFormat2.format(dDate)
 								}
 //								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
@@ -114,7 +114,7 @@ fun String.formatWithColumn(
 			else
 				SinglentonDrawer.dayMonthYearFormat.
 				replace("Y", "y").
-				replace("D", "d")
+				replace("DD", "d")
 
 			if (isEmpty() || this == "0")
 				""
@@ -205,4 +205,15 @@ fun String.isColor(): Pair<String, Boolean>
 	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
 	return Pair(newColor, colorPattern.matcher(newColor).matches())
+}
+
+/***
+ background and textColor in pair
+***/
+fun String.getContrast(): Pair<Int, Int>
+{
+	val color = Color.parseColor(this)
+	val contrast =
+		(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
+	return Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
 }

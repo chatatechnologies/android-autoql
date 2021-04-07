@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -20,10 +19,9 @@ class OptionHolder(view: View): Holder(view)
 	{
 		rlParent.run {
 			context.run {
-				val white = getParsedColor(ThemeColor.currentColor.drawerBackgroundColor)
-				setBackgroundColor(white)
+				setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 
-				val gray = getParsedColor(ThemeColor.currentColor.drawerTextColorPrimary)
+				val gray = ThemeColor.currentColor.pDrawerTextColorPrimary
 				tvQueryRoot.setTextColor(gray)
 
 				ivForwardExplore?.setColorFilter(gray, PorterDuff.Mode.SRC_ATOP)

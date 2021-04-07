@@ -69,3 +69,40 @@ key apichata123
 
 [Links](#links)
 ## Links
+
+Error reference id
+- Error: 1.1.430
+- Query: all sales
+- This is a suggestion
+- Content
+    {
+      "data": {
+        "query_id": "q_z7raa9mIRV2BziraFoeP2Q"
+      },
+      "message": "I want to make sure I understood your query. Did you mean:",
+      "reference_id": "1.1.430"
+    }
+
+- Error: 1.1.420
+- Query: Total Profit by Customer (2019), all estimates last year
+- This is a text with report link
+- Content
+    {
+      "data": {
+        "query_id": "q_OVeP8TsLRfuBQ_kzfDTLsg"
+      },
+      "message": "Connection Issue: It looks like you're having trouble accessing AutoQL. Try querying again. If this problem persists, please <report> this issue.",
+      "reference_id": "1.1.420"
+    }
+
+- Error: 1.9.502
+- Query: total hours utilization for equipment by month in 2017 for water trailer
+- This is a Query Translation Error
+- Content
+    {
+      "data": {
+        "query_id": "q_pio9lOQnRWu7C-jLYvXH_Q"
+      },
+      "message": "Query Translation Error: We've encountered an error in the query translation process. We're aware of this issue and are working to fix it as soon as possible.",
+      "reference_id": "1.9.502"
+    }

@@ -12,7 +12,7 @@
 	<string name="great_news_help">Great news, I can with that:</string>
 	<string name="explore_queries_msg_1">Discover what you can ask by entering a topic in the search bar above.</string>
 	<string name="explore_queries_msg_2">Simply click on any of the returned options to run the query in Data Messenger.</string>
-	<string name="empty_data_explore_queries">Sorry, I couldn’t find any queries matching your input. Try entering a different topic or keyword instead.</string>
+	<string name="empty_data_explore_queries">Sorry, I couldn\'t find any queries matching your input. Try entering a different topic or keyword instead.</string>
 	<string name="explore_queries_hint">Search relevant queries by topic</string>
 	<string name="arrow_left">←</string>
 	<string name="arrow_right">→</string>
@@ -20,9 +20,17 @@
 	<string name="the_data_is_incorrect">The data is incorrect</string>
 	<string name="the_data_is_incomplete">The data is incomplete</string>
 	<string name="other">Other…</string>
+	<string name="report_problem">Report a problem</string>
+	<string name="delete_response">Delete data response</string>
 	<string name="view_generated_sql">View generated SQL</string>
 	<string name="loading">Loading…</string>
 	<string name="empty_notification">No notifications yet.</string>
 	<string name="stay_tuned">Stay tuned!</string>
 	<string name="generated_sql">Generated SQL</string>
+
+	<string name="internal_service_error">Internal Service Error: Our system is experiencing an unexpected error. We\'re aware of this issue and are working to fix it as soon as possible.</string>
+	<string name="it_looks_like">Uh oh.. It looks like you don\'t have access to this resource. Please double check that all required authentication fields are correct.</string>
+	
+	<string name="limit_row_num">The display limit of 500 rows has been reached. Try querying a smaller time-frame to ensure all your data is displayed.</string>
+	<string name="try_again">Try Again</string>
 </resources>

@@ -14,7 +14,8 @@
 	<RelativeLayout
 		android:id="@+id/rlParent"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent">
+		android:layout_width="match_parent"
+		tools:ignore="UselessParent">
 		<View
 			android:id="@+id/iView"
 			android:layout_height="match_parent"
@@ -76,7 +77,7 @@
 				android:id="@+id/rlLoad"
 				android:layout_height="200dp"
 				android:layout_width="match_parent">
-				<chata.can.chata_ai.view.gif.GifView
+				<chata.can.chata_ai.view.gif.KGifView
 					android:layout_centerInParent="true"
 					android:layout_height="80dp"
 					android:layout_width="80dp"/>
@@ -85,6 +86,8 @@
 				android:gravity="center"
 				android:id="@+id/tvContent"
 				android:layout_height="200dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginStart="16dp"
 				android:layout_width="match_parent"
 				android:visibility="gone"
 				android:textSize="22sp"/>

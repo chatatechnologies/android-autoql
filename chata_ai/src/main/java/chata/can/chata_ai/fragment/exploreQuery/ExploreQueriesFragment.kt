@@ -1,6 +1,8 @@
 package chata.can.chata_ai.fragment.exploreQuery
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -11,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.exploreQuery.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
@@ -32,7 +37,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		fun newInstance() = ExploreQueriesFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_explore_queries)
 		}
-		var dataMessengerMethod: (() -> Unit)? = null
+		//var dataMessengerMethod: (() -> Unit)? = null
 	}
 
 	private lateinit var llParent: LinearLayout
@@ -69,8 +74,8 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val query = "tickets"
-			etQuery.setText(query)
+//			val query = ""
+//			etQuery.setText(query)
 		}
 	}
 
@@ -126,7 +131,9 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 					if (any is String)
 					{
 						DataMessengerFragment.queryToTyping = any
-						dataMessengerMethod?.let { it() }
+						(activity as? DMActivity)?.run {
+							openChat()
+						}
 					}
 				}
 			})
@@ -255,16 +262,37 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		rlGif.visibility = gone
 	}
 
+	var mText: CharSequence = ""
+	val mDelay = 50L
+	var mIndex = 0
+	private val mHandler = Handler(Looper.getMainLooper())
+
+	private val characterAdder = object: Runnable {
+		override fun run()
+		{
+			etQuery.setText(mText.subSequence(0, mIndex++))
+			if (mIndex <= mText.length)
+			{
+				mHandler.postDelayed(this, mDelay)
+			}
+			else
+			{
+				mHandler.postDelayed({
+					ExploreQueriesData.isPendingExecute = false
+					ivSearch.performClick()
+				}, mDelay)
+			}
+		}
+	}
+
 	private fun checkLastData()
 	{
 		if (ExploreQueriesData.lastWord.isNotEmpty())
 		{
-			etQuery.setText(ExploreQueriesData.lastWord)
-			if (ExploreQueriesData.isPendingExecute)
-			{
-				ExploreQueriesData.isPendingExecute = false
-				ivSearch.performClick()
-			}
+			mText = ExploreQueriesData.lastWord
+			mIndex = 0
+			mHandler.removeCallbacks(characterAdder)
+			mHandler.postDelayed(characterAdder, mDelay)
 		}
 
 		ExploreQueriesData.lastExploreQuery?.let {
@@ -330,12 +358,15 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	private fun setRequestText()
 	{
-		val query = etQuery.text.toString()
-		if (query.isNotEmpty())
+		if (!AutoQLData.notLoginData())
 		{
-			ExploreQueriesData.lastWord = query
-			hideKeyboard()
-			presenter.validateQuery(query)
+			val query = etQuery.text.toString()
+			if (query.isNotEmpty())
+			{
+				ExploreQueriesData.lastWord = query
+				hideKeyboard()
+				presenter.validateQuery(query)
+			}
 		}
 	}
 
@@ -344,7 +375,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		return activity?.getParsedColor(intRes) ?: 0
 	}
 
-	private fun getBlue() = getColor(R.color.chata_drawer_accent_color)
+	private fun getBlue() = SinglentonDrawer.currentAccent
 
 	private fun Int.length() = when(this) {
 		0 -> 1

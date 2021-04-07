@@ -8,16 +8,17 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 
 	<application
-		android:usesCleartextTraffic="true"
-		tools:targetApi="m"
 		android:allowBackup="false"
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@mipmap/ic_launcher_tmp"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
-		tools:ignore="GoogleAppIndexingWarning">
+		android:usesCleartextTraffic="true"
+		tools:ignore="GoogleAppIndexingWarning"
+		tools:targetApi="m">
 
 		<activity
+			android:hardwareAccelerated="false"
 			android:name=".main.PagerActivity"
 			android:configChanges="orientation|screenSize">
 			<intent-filter>
@@ -26,17 +27,10 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".test.TestActivity">
-<!--			<intent-filter>-->
-<!--				<action android:name="android.intent.action.MAIN" />-->
-<!--				<category android:name="android.intent.category.LAUNCHER" />-->
-<!--			</intent-filter>-->
-		</activity>
-
 		<service
-			android:name=".test.PollService"
+			android:name="chata.can.chata_ai.service.PollService"
 			android:permission="android.permission.BIND_JOB_SERVICE"
-			android:exported="true"/>
+			android:exported="false"/>
 
 	</application>
 </manifest>
