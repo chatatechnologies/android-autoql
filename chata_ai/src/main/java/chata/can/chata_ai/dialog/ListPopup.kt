@@ -34,16 +34,21 @@ object ListPopup
 			menu?.run {
 				if (dataPopup?.isReduce == true)
 				{
-					add(1, R.id.iReportProblem, 1, R.string.report_problem).setIcon(R.drawable.ic_report)
-					add(2, R.id.iDelete, 2, R.string.delete_response).setIcon(R.drawable.ic_delete)
+					add(1, R.id.iColumn, 1, R.string.show_hide_column)
+					add(2, R.id.iReportProblem, 2, R.string.report_problem).setIcon(R.drawable.ic_report)
+					add(3, R.id.iDelete, 3, R.string.delete_response).setIcon(R.drawable.ic_delete)
 				}
-				add(3, R.id.iGenerateSQL, 3, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
+				add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
 			}
 			insertMenuItemIcons(view.context, this)
 			setOnMenuItemClickListener { item ->
 				dataPopup?.run {
 					when(item.itemId)
 					{
+						R.id.iColumn ->
+						{
+							println()
+						}
 						R.id.iReportProblem ->
 						{
 							showListPopup(viewRoot, queryId, chatView)

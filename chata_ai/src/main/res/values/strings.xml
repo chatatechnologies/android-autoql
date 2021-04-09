@@ -33,4 +33,5 @@
 	
 	<string name="limit_row_num">The display limit of 500 rows has been reached. Try querying a smaller time-frame to ensure all your data is displayed.</string>
 	<string name="try_again">Try Again</string>
+	<string name="show_hide_column">Show/Hide Columns</string>
 </resources>

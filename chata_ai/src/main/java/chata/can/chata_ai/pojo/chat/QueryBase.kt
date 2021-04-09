@@ -1,6 +1,6 @@
 package chata.can.chata_ai.pojo.chat
 
-import chata.can.chata_ai.DoAsync
+import chata.can.chata_ai.Executor
 import chata.can.chata_ai.fragment.dataMessenger.presenter.PresenterContract
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
@@ -176,7 +176,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			else -> needDoAsync = true
 		}
 
-		DoAsync({
+		Executor({
 			isLoadingHTML = true
 			if (needDoAsync)
 			{
