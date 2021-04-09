@@ -161,7 +161,7 @@ class ChatServicePresenter(
 										}
 									}
 									queryBase.message = jsonObject.optString("message", "") ?: ""
-									val query = jsonObject.optString("query", "")
+									//val query = jsonObject.optString("query", "")
 									isLoading(false)
 									view?.run {
 										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)

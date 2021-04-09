@@ -155,7 +155,7 @@ object RequestBuilder
 				return headers ?: HashMap()
 			}
 
-			override fun getParams(): MutableMap<String, String>
+			override fun getParams(): MutableMap<String, String>?
 			{
 				return if (contentType.isEmpty())
 					parameters ?: HashMap()

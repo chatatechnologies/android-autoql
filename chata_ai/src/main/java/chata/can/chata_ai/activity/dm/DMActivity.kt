@@ -63,7 +63,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 				it.getString(PollService.DATA)?.let { data ->
 					try {
 						val json = JSONObject(data)
-						json.optJSONObject("data")?.let { joData ->
+						json.optJSONObject("data")?.let { _ ->
 							showNotification(PollService.unacknowledged)
 						}
 					} catch(ex: Exception) {}
