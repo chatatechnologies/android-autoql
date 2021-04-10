@@ -12,6 +12,7 @@ import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
@@ -34,7 +35,7 @@ object ListPopup
 			menu?.run {
 				if (dataPopup?.isReduce == true)
 				{
-					add(1, R.id.iColumn, 1, R.string.show_hide_column)
+					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(R.drawable.ic_hide)
 					add(2, R.id.iReportProblem, 2, R.string.report_problem).setIcon(R.drawable.ic_report)
 					add(3, R.id.iDelete, 3, R.string.delete_response).setIcon(R.drawable.ic_delete)
 				}
@@ -47,7 +48,7 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							println()
+							HideDialog(view.context).show()
 						}
 						R.id.iReportProblem ->
 						{

@@ -314,6 +314,7 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
+//				ivShowHide?.visibility = if (lastId == "#idTableBasic") View.VISIBLE else View.GONE
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
