@@ -12,6 +12,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -32,18 +33,14 @@ class HideDialog(
 	private lateinit var btnCancel: Button
 	private lateinit var btnApply: Button
 	private lateinit var adapter: ColumnAdapter
-	private val model = BaseModelList<Pair<*,*>>()
+	private val model = BaseModelList<ColumnQuery>()
 
 	override fun onCreateView()
 	{
 		super.onCreateView()
 		setData()
 		queryBase?.let { queryBase ->
-			for (column in queryBase.aColumn)
-			{
-				val pair = Pair(column.displayName, column.isVisible)
-				model.add(pair)
-			}
+			model.addAll(queryBase.aColumn)
 			adapter = ColumnAdapter(model)
 			rvColumn.layoutManager = LinearLayoutManager(context)
 			rvColumn.adapter = adapter
@@ -56,6 +53,11 @@ class HideDialog(
 		ivCancel.setOnClickListener(this)
 		btnCancel.setOnClickListener(this)
 		btnApply.setOnClickListener(this)
+		cbAll.setOnCheckedChangeListener { _, b ->
+			for (item in model.getData())
+				item.isVisible = b
+			adapter.notifyDataSetChanged()
+		}
 	}
 
 	override fun setViews()

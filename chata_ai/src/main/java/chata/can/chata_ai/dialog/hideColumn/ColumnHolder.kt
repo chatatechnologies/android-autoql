@@ -6,6 +6,7 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class ColumnHolder(itemView: View): Holder(itemView)
@@ -16,14 +17,9 @@ class ColumnHolder(itemView: View): Holder(itemView)
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let {
-			if (it is Pair<*,*>)
-			{
-				(it.first as? String)?.let { s ->
-					tvColumnName?.text = s
-				}
-				(it.second as? Boolean)?.let { b ->
-					cbCheck?.isChecked = b
-				}
+			(it as? ColumnQuery)?.let { column ->
+				tvColumnName?.text = column.displayName
+				cbCheck?.isChecked = column.isVisible
 			}
 		}
 	}

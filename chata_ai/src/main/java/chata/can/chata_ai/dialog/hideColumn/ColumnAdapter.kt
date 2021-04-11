@@ -9,7 +9,7 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.nullValue
 
 class ColumnAdapter(
-	private val model: BaseModelList<*>
+	model: BaseModelList<*>
 ): BaseAdapter(model)
 {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
