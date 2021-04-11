@@ -6,17 +6,19 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class HideDialog(
 	context: Context,
-	queryBase: QueryBase ?= null
+	private val queryBase: QueryBase ?= null
 ) : BaseDialog(context, R.layout.dialog_hide, false), View.OnClickListener
 {
 	private lateinit var rlParent: View
@@ -29,11 +31,23 @@ class HideDialog(
 	private lateinit var rvColumn: RecyclerView
 	private lateinit var btnCancel: Button
 	private lateinit var btnApply: Button
+	private lateinit var adapter: ColumnAdapter
+	private val model = BaseModelList<Pair<*,*>>()
 
 	override fun onCreateView()
 	{
 		super.onCreateView()
 		setData()
+		queryBase?.let { queryBase ->
+			for (column in queryBase.aColumn)
+			{
+				val pair = Pair(column.displayName, column.isVisible)
+				model.add(pair)
+			}
+			adapter = ColumnAdapter(model)
+			rvColumn.layoutManager = LinearLayoutManager(context)
+			rvColumn.adapter = adapter
+		}
 	}
 
 	private fun setData()
