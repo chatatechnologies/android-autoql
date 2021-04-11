@@ -12,6 +12,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
@@ -59,6 +60,7 @@ class WebViewHolder(
 			ivHeat, ivBubble, ivStackedBar, ivStackedColumn, ivStackedArea)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
+	private val ivShowHide = itemView.findViewById<ImageView>(R.id.ivShowHide) ?: null
 	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
 	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
@@ -89,6 +91,7 @@ class WebViewHolder(
 			startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
+			ivShowHide?.setColorFilter(accentColor)
 			ivReport?.setColorFilter(accentColor)
 			ivDelete?.setColorFilter(accentColor)
 			ivPoints?.setColorFilter(accentColor)
@@ -102,6 +105,7 @@ class WebViewHolder(
 		rlDelete?.backgroundGrayWhite()
 
 		ivPoints?.setOnClickListener(this)
+		ivShowHide?.setOnClickListener(this)
 
 		rvParent?.let {
 			parent ->
@@ -229,6 +233,10 @@ class WebViewHolder(
 				{
 					(it as? ImageView)?.let { imageView -> callAction(imageView) }
 				}
+				R.id.ivShowHide ->
+				{
+					HideDialog(it.context, queryBase).show()
+				}
 				R.id.ivDelete ->
 				{
 					adapterView?.deleteQuery(adapterPosition)
@@ -247,7 +255,7 @@ class WebViewHolder(
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
 						isReduceOptions)
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup)
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase)
 				}
 				else -> {}
 			}
@@ -314,7 +322,7 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-//				ivShowHide?.visibility = if (lastId == "#idTableBasic") View.VISIBLE else View.GONE
+				ivShowHide?.visibility = if (lastId == "#idTableBasic") View.VISIBLE else View.GONE
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->

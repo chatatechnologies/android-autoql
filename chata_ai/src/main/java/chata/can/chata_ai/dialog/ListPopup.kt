@@ -18,13 +18,15 @@ import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.chat.QueryBase
 
 object ListPopup
 {
 	fun showPointsPopup(
 		view: View,
 		query: String,
-		dataPopup: DataPopup ?= null)
+		dataPopup: DataPopup ?= null,
+		queryBase: QueryBase ?= null)
 	{
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2

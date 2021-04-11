@@ -35,31 +35,52 @@
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
 
-	<LinearLayout
-		android:id="@+id/llList"
+	<RelativeLayout
+		android:id="@+id/rlList"
 		android:layout_below="@id/vBorder"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:orientation="horizontal">
-		<TextView
+		android:layout_marginEnd="12dp"
+		android:layout_marginStart="12dp"
+		android:layout_width="match_parent">
+
+		<LinearLayout
+			android:layout_centerVertical="true"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:text="Column Name"/>
-		<TextView
-			android:gravity="end"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:layout_toStartOf="@id/cbAll">
+			<TextView
+				android:id="@+id/tvColumnName"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:text="@string/column_name"
+				android:textSize="16sp"/>
+			<TextView
+				android:gravity="end"
+				android:id="@+id/tvVisibility"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:text="@string/visibility"
+				android:textSize="16sp"/>
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_alignParentEnd="true"
+			android:id="@+id/cbAll"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_width="0dp"
-			android:text="Visibility"/>
-<!--		<CheckBox-->
-<!--			android:layout_height="wrap_content"-->
-<!--			android:layout_weight="1"-->
-<!--			android:layout_width="0dp"/>-->
-	</LinearLayout>
+			android:layout_width="wrap_content"/>
+	</RelativeLayout>
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_below="@id/rlList"
+		android:id="@+id/rvColumn"
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"/>
 
 	<LinearLayout
-		android:layout_below="@id/llList"
+		android:layout_below="@id/rvColumn"
 		android:layout_height="wrap_content"
 		android:layout_margin="16dp"
 		android:layout_width="match_parent"
