@@ -9,7 +9,9 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 
-class ColumnHolder(itemView: View): Holder(itemView)
+class ColumnHolder(
+	itemView: View,
+	private val view: ColumnChanges): Holder(itemView)
 {
 	private val tvColumnName = itemView.findViewById<TextView>(R.id.tvColumnName) ?: null
 	private val cbCheck = itemView.findViewById<CheckBox>(R.id.cbCheck) ?: null
@@ -20,6 +22,9 @@ class ColumnHolder(itemView: View): Holder(itemView)
 			(it as? ColumnQuery)?.let { column ->
 				tvColumnName?.text = column.displayName
 				cbCheck?.isChecked = column.isVisible
+				cbCheck?.setOnCheckedChangeListener { _, value ->
+					view.changeVisible(adapterPosition, value)
+				}
 			}
 		}
 	}

@@ -41,7 +41,7 @@ class HideDialog(
 		setData()
 		queryBase?.let { queryBase ->
 			model.addAll(queryBase.aColumn)
-			adapter = ColumnAdapter(model)
+			adapter = ColumnAdapter(model, queryBase)
 			rvColumn.layoutManager = LinearLayoutManager(context)
 			rvColumn.adapter = adapter
 		}
@@ -97,7 +97,11 @@ class HideDialog(
 			when(it.id)
 			{
 				R.id.ivCancel, R.id.btnCancel -> { dismiss() }
-				R.id.btnApply -> {  }
+				R.id.btnApply -> {
+					val hasChanges = adapter.hasChanges()
+					queryBase?.isModified = hasChanges
+					dismiss()
+				}
 			}
 		}
 	}

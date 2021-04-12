@@ -235,7 +235,11 @@ class WebViewHolder(
 				}
 				R.id.ivShowHide ->
 				{
-					HideDialog(it.context, queryBase).show()
+					val dialog = HideDialog(it.context, queryBase)
+					dialog.setOnDismissListener {
+
+					}
+					dialog.show()
 				}
 				R.id.ivDelete ->
 				{
