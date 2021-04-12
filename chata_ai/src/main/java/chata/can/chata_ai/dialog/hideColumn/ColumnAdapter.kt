@@ -15,9 +15,12 @@ class ColumnAdapter(
 	private val queryBase: QueryBase,
 ): BaseAdapter(model), ColumnChanges
 {
-	private val aColumn = ArrayList<ColumnQuery>()
+	private var aColumn = ArrayList<ColumnQuery>()
 	init {
-		aColumn.addAll(queryBase.aColumn)
+		for (column in queryBase.aColumn)
+		{
+			aColumn.add(column.copy())
+		}
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
@@ -43,8 +46,8 @@ class ColumnAdapter(
 		{
 			if (aCompare[index].isVisible != aColumn[index].isVisible)
 			{
+				aCompare[index].isVisible = aColumn[index].isVisible
 				hasChanges = true
-				break
 			}
 		}
 		return hasChanges

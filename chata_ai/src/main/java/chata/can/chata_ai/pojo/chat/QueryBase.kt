@@ -35,7 +35,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	val aRows = ArrayList<ArrayList<String>>()
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
-	var isModified = false
 
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 

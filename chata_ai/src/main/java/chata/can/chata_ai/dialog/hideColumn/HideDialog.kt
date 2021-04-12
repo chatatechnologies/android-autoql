@@ -98,8 +98,10 @@ class HideDialog(
 			{
 				R.id.ivCancel, R.id.btnCancel -> { dismiss() }
 				R.id.btnApply -> {
-					val hasChanges = adapter.hasChanges()
-					queryBase?.isModified = hasChanges
+					if (adapter.hasChanges())
+					{
+						queryBase?.resetData()
+					}
 					dismiss()
 				}
 			}
