@@ -12,15 +12,25 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
+import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.pojo.typeJSON
+import chata.can.chata_ai.request.authentication.Authentication
+import com.android.volley.Request
+import org.json.JSONArray
+import org.json.JSONObject
 
 class HideDialog(
 	context: Context,
 	private val queryBase: QueryBase ?= null
-) : BaseDialog(context, R.layout.dialog_hide, false), View.OnClickListener
+) : BaseDialog(context, R.layout.dialog_hide, false)
+	, View.OnClickListener, StatusResponse
 {
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
@@ -100,12 +110,42 @@ class HideDialog(
 				R.id.btnApply -> {
 					if (adapter.hasChanges())
 					{
-						queryBase?.resetData()
+						queryBase?.let {
+							val url = "${AutoQLData.domainUrl}/autoql/${api1}query/column-visibility?key=${AutoQLData.apiKey}"
+							val header = Authentication.getAuthorizationJWT()
+							val mParams = hashMapOf<String, Any>()
+							val aColumns = ArrayList< HashMap<String, Any> >()
+							for (column in it.aColumn)
+							{
+								val mColumn = hashMapOf<String, Any>("name" to column.name, "is_visible" to column.isVisible)
+								aColumns.add(mColumn)
+							}
+							mParams["columns"] = aColumns
+							callStringRequest(
+								Request.Method.PUT,
+								url,
+								typeJSON,
+								headers = header,
+								parametersAny = mParams,
+								listener = this)
+						}
+						//TODO call before
+						//queryBase?.resetData()
 					}
 					dismiss()
 				}
 			}
 		}
+	}
+
+	override fun onFailure(jsonObject: JSONObject?)
+	{
+
+	}
+
+	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	{
+		queryBase?.resetData()
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
