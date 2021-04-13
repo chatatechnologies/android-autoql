@@ -15,6 +15,7 @@ object TableHtmlBuilder
 		aColumn.find { it.isVisible }?.let {
 			//region create table head
 			val headTable = StringBuilder("<thead><tr>")
+			val footTable = StringBuilder("<tfoot><tr>")
 			for (column in aColumn)
 			{
 				if (column.isVisible)
@@ -28,9 +29,11 @@ object TableHtmlBuilder
 						column.name.toCapitalColumn()
 					}
 					headTable.append("<th>$cellHead</th>")
+					footTable.append("<th>$cellHead</th>")
 				}
 			}
 			headTable.append("</tr></thead>")
+			footTable.append("</tr></tfoot>")
 			//endregion
 
 			var numRows = 1
@@ -63,7 +66,7 @@ object TableHtmlBuilder
 
 			bodyTable.append("</tbody>")
 			//endregion
-			return Pair("<table id=\"$idTable\">$headTable$bodyTable</table>", numRows)
+			return Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
 		} ?: run {
 			return Pair(
 				"<p style=\"text-align: center;\">Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible.</p>",

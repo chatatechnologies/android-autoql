@@ -267,6 +267,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     .splitView{
         position: relative;
     }
+		tfoot {
+        display: table-header-group;
+    }
 </style>
 <div class="splitView">
 <div id='container' class='container'></div>
@@ -990,6 +993,10 @@ function hideTables(idHide, idShow, type2) {
     type = type2;
     changeGraphic(type2);
 }
+${'$'}('#idTableBasic tfoot th').each(function () {
+	var title = ${'$'}(this).text();
+	${'$'}(this).html('<input type="text" placeholder="Search on ' + title + '" />');
+});
 </script>
 </body>
 </html>"""
