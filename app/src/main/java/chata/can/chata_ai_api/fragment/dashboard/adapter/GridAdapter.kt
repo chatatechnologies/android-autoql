@@ -90,7 +90,7 @@ class GridAdapter(
 			0 -> ExecuteHolder(getRowExecute(context))
 			1 -> LoadingHolder(getRowLoading(context))
 			2 -> SupportHolder(getRowContent(context))//dynamic
-			3 -> ContentHolder(getRowContent(context))//dynamic
+			3 -> ContentHolder(getRowContent(context, true))//dynamic
 			4 -> WebViewHolder(getRowWebView(context))
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> NoQueryHolder(getRowExecute(context))//dynamic
