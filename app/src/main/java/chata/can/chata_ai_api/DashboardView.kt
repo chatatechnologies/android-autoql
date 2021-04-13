@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -144,7 +145,7 @@ object DashboardView
 			}
 		}
 
-	fun getRowContent(context: Context): RelativeLayout
+	fun getRowContent(context: Context, hasOption: Boolean = false): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
 			val ll1 = getLinearLayoutBase(context).apply {
@@ -159,6 +160,19 @@ object DashboardView
 				addView(tvContent)
 			}
 			addView(ll1)
+			if (hasOption)
+			{
+				addView(ImageView(context).apply {
+					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f))
+					layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
+					layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+					layoutParams = layoutParams1
+					margin(0f,0f,8f,8f)
+					paddingAll(0f, 0f, 0f, 20f)
+					setImageResource(R.drawable.ic_points)
+					id = R.id.ivOption
+				})
+			}
 		}
 	}
 	//endregion
