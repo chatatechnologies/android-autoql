@@ -110,7 +110,7 @@ object ListPopup
 		}
 	}
 
-	private fun insertMenuItemIcons(context: Context, popupMenu: PopupMenu)
+	fun insertMenuItemIcons(context: Context, popupMenu: PopupMenu)
 	{
 		val menu = popupMenu.menu
 		if (hasIcon(menu))
