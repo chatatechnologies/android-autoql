@@ -105,7 +105,6 @@ class WebViewHolder(
 		rlDelete?.backgroundGrayWhite()
 
 		ivPoints?.setOnClickListener(this)
-		ivShowHide?.setOnClickListener(this)
 
 		rvParent?.let {
 			parent ->
@@ -210,12 +209,14 @@ class WebViewHolder(
 	{
 		isReduceOptions = if (sizeConfig > 5)
 		{
+			ivShowHide?.visibility = invisible
 			ivDelete?.visibility = invisible
 			ivReport?.visibility = invisible
 			true
 		}
 		else
 		{
+			ivShowHide?.setOnClickListener(this)
 			ivDelete?.setOnClickListener(this)
 			ivReport?.setOnClickListener(this)
 			false

@@ -50,7 +50,7 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							HideDialog(view.context).show()
+							HideDialog(view.context, queryBase).show()
 						}
 						R.id.iReportProblem ->
 						{

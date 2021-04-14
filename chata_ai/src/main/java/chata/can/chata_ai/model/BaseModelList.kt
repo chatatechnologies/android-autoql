@@ -50,6 +50,11 @@ open class BaseModelList<Model: Any>
 		else null
 	}
 
+	operator fun set(position: Int, data: Model)
+	{
+		aData[position] = data
+	}
+
 	open fun onBindAtPosition(
 		view: HolderContract,
 		position: Int,

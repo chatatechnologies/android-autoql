@@ -50,7 +50,10 @@ class HideDialog(
 		super.onCreateView()
 		setData()
 		queryBase?.let { queryBase ->
-			model.addAll(queryBase.aColumn)
+			for (column in queryBase.aColumn)
+			{
+				model.add(column.copy())
+			}
 			adapter = ColumnAdapter(model, queryBase)
 			rvColumn.layoutManager = LinearLayoutManager(context)
 			rvColumn.adapter = adapter
@@ -63,9 +66,9 @@ class HideDialog(
 		ivCancel.setOnClickListener(this)
 		btnCancel.setOnClickListener(this)
 		btnApply.setOnClickListener(this)
-		cbAll.setOnCheckedChangeListener { _, b ->
-			for (item in model.getData())
-				item.isVisible = b
+		cbAll.setOnCheckedChangeListener { _, boolean ->
+			for (position in 0 until model.countData())
+				model[position]?.isVisible = boolean
 			adapter.notifyDataSetChanged()
 		}
 	}
@@ -129,8 +132,6 @@ class HideDialog(
 								parametersAny = mParams,
 								listener = this)
 						}
-						//TODO call before
-						//queryBase?.resetData()
 					}
 					dismiss()
 				}
@@ -140,7 +141,7 @@ class HideDialog(
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
-
+		jsonObject.toString()
 	}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)

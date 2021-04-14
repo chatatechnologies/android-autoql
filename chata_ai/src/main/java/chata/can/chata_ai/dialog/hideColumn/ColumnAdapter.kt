@@ -11,18 +11,10 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.nullValue
 
 class ColumnAdapter(
-	model: BaseModelList<*>,
+	private val model: BaseModelList<ColumnQuery>,
 	private val queryBase: QueryBase,
 ): BaseAdapter(model), ColumnChanges
 {
-	private var aColumn = ArrayList<ColumnQuery>()
-	init {
-		for (column in queryBase.aColumn)
-		{
-			aColumn.add(column.copy())
-		}
-	}
-
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,23 +23,27 @@ class ColumnAdapter(
 
 	override fun changeVisible(position: Int, value: Boolean)
 	{
-		val isVisible = aColumn[position].isVisible
-		if (isVisible != value)
-		{
-			aColumn[position].isVisible = value
+		model[position]?.let {
+			if (it.isVisible != value)
+			{
+				it.isVisible = value
+			}
 		}
+		toString()
 	}
 
 	fun hasChanges(): Boolean
 	{
 		var hasChanges = false
 		val aCompare = queryBase.aColumn
-		for (index in 0 until aColumn.size)
+		for (index in 0 until model.countData())
 		{
-			if (aCompare[index].isVisible != aColumn[index].isVisible)
-			{
-				aCompare[index].isVisible = aColumn[index].isVisible
-				hasChanges = true
+			model[index]?.let { value ->
+				if (value.isVisible != aCompare[index].isVisible)
+				{
+					aCompare[index].isVisible = value.isVisible
+					hasChanges = true
+				}
 			}
 		}
 		return hasChanges
