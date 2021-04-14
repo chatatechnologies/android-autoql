@@ -268,7 +268,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         position: relative;
     }
 		tfoot {
-        display: table-header-group;
+        /*display: table-header-group;*/
+				display: none;
     }
 </style>
 <div class="splitView">
