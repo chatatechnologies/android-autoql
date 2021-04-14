@@ -236,11 +236,7 @@ class WebViewHolder(
 				}
 				R.id.ivShowHide ->
 				{
-					val dialog = HideDialog(it.context, queryBase)
-					dialog.setOnDismissListener {
-
-					}
-					dialog.show()
+					HideDialog(it.context, queryBase).show()
 				}
 				R.id.ivDelete ->
 				{
@@ -327,7 +323,6 @@ class WebViewHolder(
 		queryBase?.let {
 			queryBase ->
 			iv?.let {
-				ivShowHide?.visibility = if (lastId == "#idTableBasic") View.VISIBLE else View.GONE
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
@@ -425,6 +420,8 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
+				ivShowHide?.visibility =
+					if (!isReduceOptions && lastId == "#idTableBasic") View.VISIBLE else View.GONE
 				canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId
