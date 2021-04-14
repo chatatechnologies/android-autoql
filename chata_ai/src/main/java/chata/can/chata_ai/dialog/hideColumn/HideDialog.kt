@@ -48,15 +48,20 @@ class HideDialog(
 	override fun onCreateView()
 	{
 		super.onCreateView()
-		setData()
 		queryBase?.let { queryBase ->
+			var isSelect = true
 			for (column in queryBase.aColumn)
 			{
+				if (!column.isVisible)
+				isSelect = false
 				model.add(column.copy())
 			}
+			cbAll.isChecked = isSelect
 			adapter = ColumnAdapter(model, queryBase)
 			rvColumn.layoutManager = LinearLayoutManager(context)
 			rvColumn.adapter = adapter
+
+			setData()
 		}
 	}
 

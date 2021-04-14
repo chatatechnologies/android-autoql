@@ -29,7 +29,6 @@ class ColumnAdapter(
 				it.isVisible = value
 			}
 		}
-		toString()
 	}
 
 	fun hasChanges(): Boolean
