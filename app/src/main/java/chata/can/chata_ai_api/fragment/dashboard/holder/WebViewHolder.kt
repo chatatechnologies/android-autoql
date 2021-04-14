@@ -6,10 +6,12 @@ import android.os.Looper
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -22,6 +24,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
+	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
 
 	override fun onPaint()
 	{
@@ -33,6 +36,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			}
 		}
 		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+		ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
 		webView?.visibility = View.GONE
 		rlLoad?.visibility = View.VISIBLE
 	}

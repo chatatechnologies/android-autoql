@@ -9,7 +9,8 @@
 		android:background="@color/red_notification"
 		android:layout_width="100dp"
 		android:layout_height="100dp"
-		android:layout_alignParentBottom="true"/>
+		android:layout_alignParentBottom="true"
+		android:orientation="vertical"/>
 	<View
 		android:background="@color/blue_chata_circle"
 		android:layout_width="30dp"

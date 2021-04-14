@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
@@ -10,10 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.view.gif.KGifView
 
@@ -162,19 +158,7 @@ object DashboardView
 			}
 			addView(ll1)
 			if (hasOption)
-			{
-				val abc = LinearLayout(context).apply {
-					setBackgroundColor(Color.RED)
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
-						addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
-						addRule(RelativeLayout.ALIGN_PARENT_END)
-					}
-					orientation = LinearLayout.VERTICAL
-					margin(8f, 8f, 8f, 8f)
-				}
-				addView(abc)
-				//addView(getPointsAction(context))
-			}
+				addView(getPointsAction(context))
 		}
 	}
 	//endregion
@@ -313,11 +297,12 @@ object DashboardView
 	}
 
 	private fun getPointsAction(context: Context) = ImageView(context).apply {
-		val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f))
-		layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
-		layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-		layoutParams = layoutParams1
-		margin(0f,0f,24f,24f)
+		backgroundGrayWhite()
+		layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+			addRule(RelativeLayout.ALIGN_PARENT_END)
+			addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
+		}
+		margin(0f,0f,10f,4f)
 		paddingAll(8f)
 		setImageResource(R.drawable.ic_points)
 		id = R.id.ivOption
