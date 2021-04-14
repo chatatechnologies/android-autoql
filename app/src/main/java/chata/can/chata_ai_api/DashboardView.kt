@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
@@ -162,16 +163,17 @@ object DashboardView
 			addView(ll1)
 			if (hasOption)
 			{
-				addView(ImageView(context).apply {
-					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f))
-					layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
-					layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-					layoutParams = layoutParams1
-					margin(0f,0f,8f,8f)
-					paddingAll(0f, 0f, 0f, 20f)
-					setImageResource(R.drawable.ic_points)
-					id = R.id.ivOption
-				})
+				val abc = LinearLayout(context).apply {
+					setBackgroundColor(Color.RED)
+					layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+						addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
+						addRule(RelativeLayout.ALIGN_PARENT_END)
+					}
+					orientation = LinearLayout.VERTICAL
+					margin(8f, 8f, 8f, 8f)
+				}
+				addView(abc)
+				//addView(getPointsAction(context))
 			}
 		}
 	}
@@ -306,7 +308,19 @@ object DashboardView
 				addView(rlWebView)
 			}
 			addView(ll1)
+			addView(getPointsAction(context))
 		}
+	}
+
+	private fun getPointsAction(context: Context) = ImageView(context).apply {
+		val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f))
+		layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_END)
+		layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+		layoutParams = layoutParams1
+		margin(0f,0f,24f,24f)
+		paddingAll(8f)
+		setImageResource(R.drawable.ic_points)
+		id = R.id.ivOption
 	}
 	//endregion
 }

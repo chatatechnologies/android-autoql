@@ -8,6 +8,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
+import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -25,6 +26,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 		super.onPaint()
 		tvContent.context?.let {
 			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+			ivPoints?.backgroundGrayWhite()
 			ivPoints?.setColorFilter(SinglentonDrawer.currentAccent)
 		}
 	}
