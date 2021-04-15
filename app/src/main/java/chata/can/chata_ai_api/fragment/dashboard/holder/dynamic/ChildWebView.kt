@@ -71,7 +71,7 @@ object ChildWebView {
 			{
 				customHeight = 900
 			}
-			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
 		}
 	}
 }

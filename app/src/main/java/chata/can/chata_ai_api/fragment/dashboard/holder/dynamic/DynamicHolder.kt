@@ -1,7 +1,7 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
@@ -26,8 +26,8 @@ class DynamicHolder(
 	private val tData2 = Triple(R.id.rvSplitView, R.id.webView2, R.id.rlLoad2)
 
 	private val ll1 = itemView.findViewById<View>(R.id.ll1)
-	private val lls1 = itemView.findViewById<LinearLayout>(R.id.lls1)
-	private val lls2 = itemView.findViewById<LinearLayout>(R.id.lls2)
+	private val lls1 = itemView.findViewById<RelativeLayout>(R.id.lls1)
+	private val lls2 = itemView.findViewById<RelativeLayout>(R.id.lls2)
 
 	override fun onPaint()
 	{
@@ -199,7 +199,7 @@ class DynamicHolder(
 		return findViewById(id)
 	}
 
-	private fun addView(llRoot: LinearLayout, newView: View)
+	private fun addView(llRoot: RelativeLayout, newView: View)
 	{
 		llRoot.run {
 			removeAllViews()

@@ -33,6 +33,13 @@ object DashboardView
 		}
 	}
 
+	private fun getRelativeLayoutBase(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+		}
+	}
+
 	private fun getHeaderDashboard(context: Context): LinearLayout
 	{
 		return getLinearLayoutBase(context).apply {
@@ -58,7 +65,7 @@ object DashboardView
 	fun getExecute(context: Context, idView: Int): TextView
 	{
 		return TextView(context).apply {
-			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
 			gravity = GRAVITY_CENTER
 			val message = context.getString(R.string.execute_run_dashboard)
 			text = message
@@ -100,7 +107,7 @@ object DashboardView
 	fun getChildLoading(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
 			id = R.id.rlLoad
 
 			val gifView = KGifView(context).apply {
@@ -158,7 +165,7 @@ object DashboardView
 			}
 			addView(ll1)
 			if (hasOption)
-				addView(getPointsAction(context))
+				addView(getPointsAction(context, R.id.ll1))
 		}
 	}
 	//endregion
@@ -174,7 +181,7 @@ object DashboardView
 			id = R.id.llMainSuggestion
 
 			val tvContent = TextView(context).apply {
-				layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+				layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
 				margin(5f, 5f, 5f, 5f)
 				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 				id = R.id.tvContent
@@ -217,18 +224,18 @@ object DashboardView
 					id = R.id.ll1
 
 					val llHeader = getHeaderDashboard(context)
-					val ll1 = getLinearLayoutBase(context).apply {
+					val ll1 = getRelativeLayoutBase(context).apply {
 						id = R.id.lls1
 					}
 
 					val iView = View(context).apply {
 						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
 						setBackgroundColor(getParsedColor(R.color.separator_dashboard))
-						margin(bottom = 2f, top = 2f)
+						margin(bottom = 6f, top = 6f)
 						id = R.id.iView
 					}
 
-					val ll2 = getLinearLayoutBase(context).apply {
+					val ll2 = getRelativeLayoutBase(context).apply {
 						id = R.id.lls2
 					}
 
@@ -239,7 +246,6 @@ object DashboardView
 				}
 				addView(ll1)
 			}
-
 		}
 	}
 	//endregion
@@ -255,7 +261,7 @@ object DashboardView
 		else Pair(R.id.webView2, R.id.rlLoad2)
 
 		return RelativeLayout(context).apply {
-			layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
 			id = newId
 			val webView = WebView(context).apply {
 				layoutParams = layoutParams()
@@ -292,14 +298,14 @@ object DashboardView
 				addView(rlWebView)
 			}
 			addView(ll1)
-			addView(getPointsAction(context))
+			addView(getPointsAction(context, R.id.ll1))
 		}
 	}
 
-	private fun getPointsAction(context: Context) = ImageView(context).apply {
+	private fun getPointsAction(context: Context, idAlign: Int) = ImageView(context).apply {
 		layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 			addRule(RelativeLayout.ALIGN_PARENT_END)
-			addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
+			addRule(RelativeLayout.ALIGN_BOTTOM, idAlign)
 		}
 		margin(0f,0f,12f,4f)
 		paddingAll(8f)

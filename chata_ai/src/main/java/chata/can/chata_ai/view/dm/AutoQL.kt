@@ -144,7 +144,7 @@ class AutoQL: FrameLayout
 	}
 
 	private var aThemePossible = arrayListOf("light", "dark")
-	var theme: String = "light"//dark
+	var theme: String = "dark"//light
 		set(value) {
 			if (theme != value && value in aThemePossible)
 			{

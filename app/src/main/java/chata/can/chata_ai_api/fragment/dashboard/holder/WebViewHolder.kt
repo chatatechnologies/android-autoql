@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -40,6 +41,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			}
 		}
 		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+		ivOption?.backgroundWhiteGray()
 		ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
 		webView?.visibility = View.GONE
 		rlLoad?.visibility = View.VISIBLE
