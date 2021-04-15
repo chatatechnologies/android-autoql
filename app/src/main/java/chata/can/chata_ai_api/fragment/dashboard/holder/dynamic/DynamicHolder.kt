@@ -1,8 +1,11 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -28,6 +31,8 @@ class DynamicHolder(
 	private val ll1 = itemView.findViewById<View>(R.id.ll1)
 	private val lls1 = itemView.findViewById<RelativeLayout>(R.id.lls1)
 	private val lls2 = itemView.findViewById<RelativeLayout>(R.id.lls2)
+	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption) ?: null
+	private val ivOption2 = itemView.findViewById<ImageView>(R.id.ivOption2) ?: null
 
 	override fun onPaint()
 	{
@@ -36,6 +41,7 @@ class DynamicHolder(
 			ll1?.context?.let {
 				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
 			}
+
 		}
 	}
 

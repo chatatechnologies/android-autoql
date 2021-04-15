@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
@@ -165,7 +166,7 @@ object DashboardView
 			}
 			addView(ll1)
 			if (hasOption)
-				addView(getPointsAction(context, R.id.ll1))
+				addView(getPointsAction(context))
 		}
 	}
 	//endregion
@@ -257,8 +258,8 @@ object DashboardView
 	fun getChildWebView(context: Context, newId: Int = R.id.rlWebView): RelativeLayout
 	{
 		val pData = if (newId == R.id.rlWebView)
-			 Pair(R.id.webView, R.id.rlLoad)
-		else Pair(R.id.webView2, R.id.rlLoad2)
+			 Triple(R.id.webView, R.id.rlLoad, R.id.ivOption)
+		else Triple(R.id.webView2, R.id.rlLoad2, R.id.ivOption2)
 
 		return RelativeLayout(context).apply {
 			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
@@ -280,6 +281,17 @@ object DashboardView
 			}
 			addView(webView)
 			addView(rlLoad)
+			addView(ImageView(context).apply {
+				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+					addRule(RelativeLayout.ALIGN_PARENT_END)
+					addRule(RelativeLayout.ALIGN_BOTTOM, pData.first)
+				}
+				paddingAll(8f)
+				setImageResource(R.drawable.ic_points)
+				setColorFilter(SinglentonDrawer.currentAccent)
+				backgroundWhiteGray()
+				id = pData.third
+			})
 		}
 	}
 
@@ -298,14 +310,14 @@ object DashboardView
 				addView(rlWebView)
 			}
 			addView(ll1)
-			addView(getPointsAction(context, R.id.ll1))
+			addView(getPointsAction(context))
 		}
 	}
 
-	private fun getPointsAction(context: Context, idAlign: Int) = ImageView(context).apply {
+	private fun getPointsAction(context: Context) = ImageView(context).apply {
 		layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 			addRule(RelativeLayout.ALIGN_PARENT_END)
-			addRule(RelativeLayout.ALIGN_BOTTOM, idAlign)
+			addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
 		}
 		margin(0f,0f,12f,4f)
 		paddingAll(8f)
