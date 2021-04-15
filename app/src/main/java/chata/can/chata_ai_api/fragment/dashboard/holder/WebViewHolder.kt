@@ -8,7 +8,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.PopupMenu
 import android.widget.RelativeLayout
+import androidx.appcompat.view.ContextThemeWrapper
+import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -52,9 +56,6 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 					setDataWebView(this)
 				}
 			}
-			item.queryBase2?.run {
-				this.toString()
-			}
 		}
 		if (item is QueryBase)
 		{
@@ -65,6 +66,27 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
+		ivOption?.setOnClickListener { view ->
+			val theme = if (SinglentonDrawer.themeColor == "dark")
+				R.style.popupMenuStyle2
+			else R.style.popupMenuStyle1
+			val wrapper = ContextThemeWrapper(view.context, theme)
+
+			PopupMenu(wrapper, view).run {
+				menu?.run {
+					add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
+				}
+				ListPopup.insertMenuItemIcons(view.context, this)
+				setOnMenuItemClickListener { item ->
+					when(item.itemId)
+					{
+						R.id.iGenerateSQL -> DisplaySQLDialog(view.context, queryBase.sql).show()
+					}
+					true
+				}
+				show()
+			}
+		}
 		changeHeightParent(rlWebView, queryBase)
 		webView?.run {
 			clearCache(true)

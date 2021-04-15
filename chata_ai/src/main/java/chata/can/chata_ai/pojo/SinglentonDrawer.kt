@@ -43,7 +43,7 @@ object SinglentonDrawer
 	//endregion
 
 	//region colors
-	var themeColor = "dark"
+	var themeColor = "light"//dark
 		set(value) {
 			field = value
 			for ((_, method) in aThemeMethods)

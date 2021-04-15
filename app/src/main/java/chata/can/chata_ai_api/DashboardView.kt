@@ -297,12 +297,11 @@ object DashboardView
 	}
 
 	private fun getPointsAction(context: Context) = ImageView(context).apply {
-		backgroundGrayWhite()
 		layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 			addRule(RelativeLayout.ALIGN_PARENT_END)
 			addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
 		}
-		margin(0f,0f,10f,4f)
+		margin(0f,0f,12f,4f)
 		paddingAll(8f)
 		setImageResource(R.drawable.ic_points)
 		id = R.id.ivOption

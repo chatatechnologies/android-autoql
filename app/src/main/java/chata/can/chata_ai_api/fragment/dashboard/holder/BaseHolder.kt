@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 
 import android.view.View
 import android.widget.TextView
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -20,14 +21,7 @@ abstract class BaseHolder(itemView: View): Holder(itemView)
 
 	override fun onPaint()
 	{
-		ll1?.let {
-			it.context.run {
-				drawerBackgroundColor = ThemeColor.currentColor.pDrawerBackgroundColor
-				drawerColorPrimary = ThemeColor.currentColor.pDrawerTextColorPrimary
-			it.background = DrawableBuilder.setGradientDrawable(
-				drawerBackgroundColor,18f,1, drawerColorPrimary)
-			}
-		}
+		ll1?.backgroundWhiteGray()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -8,7 +8,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
-import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -19,15 +19,15 @@ import chata.can.chata_ai_api.R
 class ContentHolder(itemView: View): BaseHolder(itemView)
 {
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
-	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivOption)
+	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
 
 	override fun onPaint()
 	{
 		super.onPaint()
 		tvContent.context?.let {
 			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
-			ivPoints?.backgroundGrayWhite()
-			ivPoints?.setColorFilter(SinglentonDrawer.currentAccent)
+			ivOption?.backgroundWhiteGray()
+			ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
 		}
 	}
 
@@ -53,28 +53,26 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						}
 					}
 				}
-				ivPoints?.let {
-					it.setOnClickListener { view ->
-						//region show list
-						val theme = if (SinglentonDrawer.themeColor == "dark")
-							R.style.popupMenuStyle2
-						else R.style.popupMenuStyle1
-						val wrapper = ContextThemeWrapper(view.context, theme)
+				ivOption?.setOnClickListener { view ->
+					//region show list
+					val theme = if (SinglentonDrawer.themeColor == "dark")
+						R.style.popupMenuStyle2
+					else R.style.popupMenuStyle1
+					val wrapper = ContextThemeWrapper(view.context, theme)
 
-						PopupMenu(wrapper, view).run {
-							menu?.run {
-								add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
-							}
-							ListPopup.insertMenuItemIcons(view.context, this)
-							setOnMenuItemClickListener { item ->
-								when(item.itemId)
-								{
-									R.id.iGenerateSQL -> DisplaySQLDialog(view.context, sql).show()
-								}
-								true
-							}
-							show()
+					PopupMenu(wrapper, view).run {
+						menu?.run {
+							add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
 						}
+						ListPopup.insertMenuItemIcons(view.context, this)
+						setOnMenuItemClickListener { item ->
+							when(item.itemId)
+							{
+								R.id.iGenerateSQL -> DisplaySQLDialog(view.context, sql).show()
+							}
+							true
+						}
+						show()
 					}
 				}
 			}
