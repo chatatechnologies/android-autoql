@@ -69,8 +69,13 @@ object TableHtmlBuilder
 			return Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
 		} ?: run {
 			return Pair(
-				"<p style=\"text-align: center;\">Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible.</p>",
-				8)
+				"""<div id='idTableBasic' class="empty-state">
+	<span class="alert-icon">&#9888</span>
+	<p>
+		All columns in this table are currently hidden. You can adjust your column visibility preferences using the Column Visibility Manager (&#128065) in the Options Toolbar.
+	</p>
+</div>""",
+				5)
 		}
 	}
 }

@@ -271,6 +271,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
         /*display: table-header-group;*/
 				display: none;
     }
+		.empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: $textColor!important;
+    }
+    .alert-icon {
+      font-size: 20px;
+      color: $textColor!important;
+    }
 </style>
 <div class="splitView">
 <div id='container' class='container'></div>
