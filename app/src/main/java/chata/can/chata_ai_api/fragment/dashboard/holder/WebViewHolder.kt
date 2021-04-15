@@ -29,7 +29,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
-	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
+	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption) ?: null
 
 	override fun onPaint()
 	{

@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
@@ -310,7 +309,6 @@ object DashboardView
 				addView(rlWebView)
 			}
 			addView(ll1)
-			addView(getPointsAction(context))
 		}
 	}
 
