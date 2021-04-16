@@ -11,6 +11,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.dialog.ReportProblemDialog
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
@@ -47,65 +48,29 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					if (isLoadingHTML && contentHTML.isEmpty())
 					{
 						isLoadingHTML = false
-						contentHTML = when
+						val message = when
 						{
 							simpleText.isNotEmpty() ->
 							{
 								aColumn.firstOrNull()?.let { column ->
+									it.setOnClickListener { view ->
+										if (SinglentonDrawer.mIsEnableDrillDown)
+										{
+											DrillDownDialog(view.context, this).show()
+										}
+									}
+
 									simpleText.formatWithColumn(column)
 								} ?: ""
 							}
+							aRows.size == 0 -> reportLink(message)
 							message.isNotEmpty() -> message
 							else -> message
 						}
+						tvContent.text = message
 					}
-					if (aRows.size == 0)
-					{
-						//region report link
-						contentHTML = if (message.contains("<") && message.contains(">"))
-						{
-							val index = message.indexOf("<")
-							val index2 = message.indexOf(">") - 1
-							val message1 = message.replace("<","").replace(">","")
-							val spannable = SpannableString(message1)
-							val clickable = object: ClickableSpan()
-							{
-								override fun onClick(widget: View)
-								{
-									//ReportProblemDialog(tvContent.context, queryId, null).show()
-								}
-
-								override fun updateDrawState(textPaint: TextPaint)
-								{
-									textPaint.run {
-										try {
-											tvContent.context?.let { context ->
-												color = context.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
-											}
-										} finally {
-											tvContent.context?.let {
-												bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
-											}
-										}
-										isUnderlineText = false
-									}
-								}
-							}
-							spannable.setSpan(clickable, index, index2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-							tvContent.movementMethod = LinkMovementMethod.getInstance()
-							spannable.toString()
-						}
-						else
-							message
-						//endregion
-					}
-					tvContent.text = contentHTML
-					it.setOnClickListener { view ->
-						if (SinglentonDrawer.mIsEnableDrillDown)
-						{
-							DrillDownDialog(view.context, this).show()
-						}
-					}
+					else
+						tvContent.text = contentHTML
 				}
 				ivOption?.setOnClickListener { view ->
 					//region show list
@@ -131,5 +96,46 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 				}
 			}
 		}
+	}
+
+	private fun reportLink(message: String): CharSequence
+	{
+		//region report link
+		return if (message.contains("<") && message.contains(">"))
+		{
+			val index = message.indexOf("<")
+			val index2 = message.indexOf(">") - 1
+			val message1 = message.replace("<","").replace(">","")
+			val spannable = SpannableString(message1)
+			val clickable = object: ClickableSpan()
+			{
+				override fun onClick(widget: View)
+				{
+					ReportProblemDialog(tvContent.context, "", null).show()
+				}
+
+				override fun updateDrawState(textPaint: TextPaint)
+				{
+					textPaint.run {
+						try {
+							tvContent.context?.let { context ->
+								color = context.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
+							}
+						} finally {
+							tvContent.context?.let {
+								bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
+							}
+						}
+						isUnderlineText = false
+					}
+				}
+			}
+			spannable.setSpan(clickable, index, index2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+			tvContent.movementMethod = LinkMovementMethod.getInstance()
+			spannable
+		}
+		else
+			message
+		//endregion
 	}
 }
