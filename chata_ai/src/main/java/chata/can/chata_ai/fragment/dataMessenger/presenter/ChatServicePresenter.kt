@@ -201,10 +201,7 @@ class ChatServicePresenter(
 							val numRows = queryBase.aRows.size
 							when
 							{
-								numRows == 0 ->
-								{
-									TypeChatView.LEFT_VIEW
-								}
+								numRows == 0 -> TypeChatView.LEFT_VIEW
 								numColumns == 1 && numRows > 1 ->
 								{
 									queryBase.viewPresenter = this

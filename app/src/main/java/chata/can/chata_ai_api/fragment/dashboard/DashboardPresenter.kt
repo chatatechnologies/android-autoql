@@ -265,9 +265,10 @@ class DashboardPresenter(
 			dataKey ->
 			{
 				val numColumns = queryBase.numColumns
+				val numRows = queryBase.aRows.size
 				when
 				{
-					queryBase.message == "No Data Found" -> TypeChatView.LEFT_VIEW
+					queryBase.message == "No Data Found" || numRows == 0 -> TypeChatView.LEFT_VIEW
 					numColumns == 1 ->
 					{
 						if(queryBase.hasHash)
