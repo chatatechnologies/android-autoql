@@ -41,9 +41,14 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					if (isLoadingHTML && contentHTML.isEmpty())
 					{
 						isLoadingHTML = false
-						aColumn.firstOrNull()?.let { column ->
-							contentHTML = simpleText.formatWithColumn(column)
+						contentHTML = if (simpleText.isNotEmpty())
+						{
+							aColumn.firstOrNull()?.let { column ->
+								simpleText.formatWithColumn(column)
+							} ?: ""
 						}
+						else
+							message
 					}
 					it.text = contentHTML
 					it.setOnClickListener { view ->
