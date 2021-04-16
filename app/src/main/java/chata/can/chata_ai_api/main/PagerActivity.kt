@@ -2,8 +2,11 @@ package chata.can.chata_ai_api.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
@@ -48,6 +51,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
 
+
+
 		resources?.let {
 			it.displayMetrics?.let { itMetrics ->
 				ScreenData.densityByDP = itMetrics.density
@@ -79,6 +84,18 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		finishAffinity()
 	}
 
+	private fun addTabLayoutEvent()
+	{
+		(tabLayout.getChildAt(0) as? LinearLayout)?.let { tabStrip ->
+			for (index in 0 until tabStrip.childCount)
+			{
+				tabStrip.getChildAt(index).setOnLongClickListener {
+					true
+				}
+			}
+		}
+	}
+
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
@@ -91,6 +108,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 		adapter.notifyDataSetChanged()
 		tabLayout.visibility = visible
+		Handler(Looper.getMainLooper()).postDelayed({
+			addTabLayoutEvent()
+		}, 500)
 		field = value
 	}
 }
