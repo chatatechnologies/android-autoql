@@ -32,7 +32,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 	{
 		super.onPaint()
 		tvContent.context?.let {
-			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+			tvContent.setTextColor(drawerColorPrimary)
 			ivOption?.backgroundWhiteGray()
 			ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
 		}
@@ -70,7 +70,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						tvContent.text = message
 					}
 					else
-						tvContent.text = contentHTML
+						tvContent.text = reportLink(message)
 				}
 				ivOption?.setOnClickListener { view ->
 					//region show list
