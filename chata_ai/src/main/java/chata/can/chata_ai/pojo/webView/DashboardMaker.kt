@@ -1007,6 +1007,13 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
 	var title = ${'$'}(this).text();
 	${'$'}(this).html('<input type="text" placeholder="Search on ' + title + '" />');
 });
+function showFilter() {
+	if ( ${'$'}('tfoot').is(':visible') ) {
+		${'$'}('tfoot').css({'display': 'none'});
+	} else {
+		${'$'}('tfoot').css({'display': 'table-header-group'});
+	}
+}
 </script>
 </body>
 </html>"""

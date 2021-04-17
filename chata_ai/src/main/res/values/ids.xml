@@ -66,6 +66,7 @@
 	<item name="iIncomplete" type="id"/>
 	<item name="iOther" type="id"/>
 	<item name="iColumn" type="id"/>
+	<item name="iFilterTable" type="id"/>
 	<item name="iReportProblem" type="id"/>
 	<item name="iDelete" type="id" />
 	<item name="iGenerateSQL" type="id"/>

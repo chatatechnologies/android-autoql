@@ -256,7 +256,7 @@ class WebViewHolder(
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
 						isReduceOptions)
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase)
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, wbQuery)
 				}
 				else -> {}
 			}

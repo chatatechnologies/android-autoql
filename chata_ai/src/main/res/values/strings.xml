@@ -20,6 +20,7 @@
 	<string name="the_data_is_incorrect">The data is incorrect</string>
 	<string name="the_data_is_incomplete">The data is incomplete</string>
 	<string name="other">Other…</string>
+	<string name="filter_table">Filter table</string>
 	<string name="report_problem">Report a problem</string>
 	<string name="delete_response">Delete data response</string>
 	<string name="view_generated_sql">View generated SQL</string>

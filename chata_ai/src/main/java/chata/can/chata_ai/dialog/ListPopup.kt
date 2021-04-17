@@ -8,6 +8,7 @@ import android.text.style.ImageSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.WebView
 import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
@@ -26,7 +27,8 @@ object ListPopup
 		view: View,
 		query: String,
 		dataPopup: DataPopup ?= null,
-		queryBase: QueryBase ?= null)
+		queryBase: QueryBase ?= null,
+		webView: WebView ?= null)
 	{
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2
@@ -38,10 +40,11 @@ object ListPopup
 				if (dataPopup?.isReduce == true)
 				{
 					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(R.drawable.ic_hide)
-					add(2, R.id.iReportProblem, 2, R.string.report_problem).setIcon(R.drawable.ic_report)
-					add(3, R.id.iDelete, 3, R.string.delete_response).setIcon(R.drawable.ic_delete)
+					add(2, R.id.iFilterTable, 2, R.string.filter_table).setIcon(R.drawable.ic_filter)
+					add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report)
+					add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete)
 				}
-				add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
+				add(5, R.id.iGenerateSQL, 5, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
 			}
 			insertMenuItemIcons(view.context, this)
 			setOnMenuItemClickListener { item ->
@@ -51,6 +54,10 @@ object ListPopup
 						R.id.iColumn ->
 						{
 							HideDialog(view.context, queryBase).show()
+						}
+						R.id.iFilterTable ->
+						{
+							webView?.loadUrl("javascript:showFilter();")
 						}
 						R.id.iReportProblem ->
 						{
