@@ -74,15 +74,17 @@
 	</RelativeLayout>
 
 	<androidx.recyclerview.widget.RecyclerView
+		android:layout_above="@id/llBottom"
 		android:layout_below="@id/rlList"
 		android:id="@+id/rvColumn"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"/>
 
 	<LinearLayout
-		android:layout_below="@id/rvColumn"
+		android:padding="8dp"
+		android:id="@+id/llBottom"
+		android:layout_alignParentBottom="true"
 		android:layout_height="wrap_content"
-		android:layout_margin="16dp"
 		android:layout_width="match_parent"
 		android:layout_gravity="end"
 		android:gravity="end">
