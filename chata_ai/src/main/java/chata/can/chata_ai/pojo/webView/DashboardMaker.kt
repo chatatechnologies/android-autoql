@@ -1004,17 +1004,30 @@ function hideTables(idHide, idShow, type2) {
     changeGraphic(type2);
 }
 ${'$'}('#idTableBasic tfoot th').each(function () {
-    var index = ${'$'}(this).index();
+    var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
     var idInput = title.split(' ').join('_');
-	${'$'}(this).html('<input id=' + idInput + ' type="text" placeholder="Search on ' + title + '"/>');
+	${'$'}(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="Search on ' + title + '"/>');
 
     ${'$'}("#" + idInput).on('input', function () {
-        var title = ${'$'}(this).val();
-        console.log(title);
-    });
+        var filter = ${'$'}(this).val().toUpperCase();
+        var table = document.getElementById("idTableBasic");
+        var tr = table.getElementsByTagName("tr");
 
-    console.log(index);
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
 });
 function showFilter() {
 	if ( ${'$'}('tfoot').is(':visible') ) {
