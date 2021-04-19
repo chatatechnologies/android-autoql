@@ -1004,8 +1004,14 @@ function hideTables(idHide, idShow, type2) {
     changeGraphic(type2);
 }
 ${'$'}('#idTableBasic tfoot th').each(function () {
+	${'$'}("#idTableBasic tfoot th").click(function () {
+		console.log( ${'$'}(this).index() );
+  });
+
 	var title = ${'$'}(this).text();
-	${'$'}(this).html('<input type="text" placeholder="Search on ' + title + '" />');
+    var title_ = title.split(' ').join('_');
+    console.log(title_);
+	${'$'}(this).html('<input id=' + title_ + ' type="text" placeholder="Search on ' + title + '"/>');
 });
 function showFilter() {
 	if ( ${'$'}('tfoot').is(':visible') ) {
