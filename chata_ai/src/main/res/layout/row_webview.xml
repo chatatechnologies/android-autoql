@@ -161,32 +161,8 @@
 			android:layout_width="wrap_content">
 			<ImageView
 				android:contentDescription="@null"
-				android:id="@+id/ivShowHide"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_hide"
-				android:padding="4dp"/>
-			<ImageView
-				android:contentDescription="@null"
-				android:id="@+id/ivReport"
-				android:layout_toEndOf="@id/ivShowHide"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_report"
-				android:padding="4dp"/>
-			<ImageView
-				android:contentDescription="@null"
-				android:id="@+id/ivDelete"
-				android:layout_toEndOf="@id/ivReport"
-				android:layout_height="40dp"
-				android:layout_width="40dp"
-				android:src="@drawable/ic_delete"
-				android:padding="4dp"/>
-			<ImageView
-				android:contentDescription="@null"
 				android:id="@+id/ivPoints"
 				android:layout_height="40dp"
-				android:layout_toEndOf="@id/ivDelete"
 				android:layout_width="40dp"
 				android:src="@drawable/ic_points"
 				android:padding="8dp"/>

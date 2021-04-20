@@ -12,7 +12,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.dpToPx
@@ -60,9 +59,6 @@ class WebViewHolder(
 			ivHeat, ivBubble, ivStackedBar, ivStackedColumn, ivStackedArea)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
-	private val ivShowHide = itemView.findViewById<ImageView>(R.id.ivShowHide) ?: null
-	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
-	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 
 	private var ivActionHide: ImageView ?= null
@@ -71,12 +67,10 @@ class WebViewHolder(
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
-	private var isReduceOptions = false
 	private var canChangeHeight = true
 
 	private var accentColor = 0
 
-	//region paint views
 	override fun onPaint()
 	{
 		tvContentTop.run {
@@ -91,9 +85,6 @@ class WebViewHolder(
 			startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
-			ivShowHide?.setColorFilter(accentColor)
-			ivReport?.setColorFilter(accentColor)
-			ivDelete?.setColorFilter(accentColor)
 			ivPoints?.setColorFilter(accentColor)
 		}
 
@@ -196,33 +187,9 @@ class WebViewHolder(
 					}
 				}
 			}
-			configOptions(aConfigs.size)
 			ivActionHide?.setOnClickListener(this)
 		}
-		else
-		{
-			configOptions(0)
-		}
 	}
-
-	private fun configOptions(sizeConfig: Int)
-	{
-		isReduceOptions = if (sizeConfig > 5)
-		{
-			ivShowHide?.visibility = invisible
-			ivDelete?.visibility = invisible
-			ivReport?.visibility = invisible
-			true
-		}
-		else
-		{
-			ivShowHide?.setOnClickListener(this)
-			ivDelete?.setOnClickListener(this)
-			ivReport?.setOnClickListener(this)
-			false
-		}
-	}
-	//endregion
 
 	override fun onClick(v: View?)
 	{
@@ -233,10 +200,6 @@ class WebViewHolder(
 				R.id.ivBubble, R.id.ivHeat, R.id.ivStackedBar, R.id.ivStackedColumn, R.id.ivStackedArea ->
 				{
 					(it as? ImageView)?.let { imageView -> callAction(imageView) }
-				}
-				R.id.ivShowHide ->
-				{
-					HideDialog(it.context, queryBase).show()
 				}
 				R.id.ivDelete ->
 				{
@@ -255,7 +218,7 @@ class WebViewHolder(
 						adapterPosition,
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
-						isReduceOptions)
+						lastId == "#idTableBasic")
 					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, wbQuery)
 				}
 				else -> {}
@@ -420,8 +383,6 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
-				ivShowHide?.visibility =
-					if (!isReduceOptions && lastId == "#idTableBasic") View.VISIBLE else View.GONE
 				canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId

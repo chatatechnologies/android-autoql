@@ -37,14 +37,14 @@ object ListPopup
 
 		PopupMenu(wrapper, view).run {
 			menu?.run {
-				if (dataPopup?.isReduce == true)
+				if (dataPopup?.isTable == true)
 				{
 					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(
-						if (queryBase?.allVisible() == true) R.drawable.ic_eye_2 else R.drawable.ic_eye_1)
+						if (queryBase?.allVisible() == true) R.drawable.ic_eye_1 else R.drawable.ic_eye_2)
 					add(2, R.id.iFilterTable, 2, R.string.filter_table).setIcon(R.drawable.ic_filter)
-					add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report)
-					add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete)
 				}
+				add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report)
+				add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete)
 				add(5, R.id.iGenerateSQL, 5, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
 			}
 			insertMenuItemIcons(view.context, this)
