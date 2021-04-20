@@ -86,10 +86,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
+			val queryDemo = "Total revenue by month from june 2019 to Nov 2019"
 //			val queryDemo = "All jobs in July 2019"
 //			val queryDemo = "revenue"
 //			val queryDemo = "All tickets yesterday"
-			val queryDemo = "last cost items over 5000"
+//			val queryDemo = "last cost items over 5000"
 			etQuery.setText(queryDemo)
 		}
 
