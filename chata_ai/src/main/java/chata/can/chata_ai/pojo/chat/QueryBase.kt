@@ -36,6 +36,17 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
 
+	fun allVisible(): Boolean
+	{
+		var allVisible = true
+		for (column in aColumn)
+		{
+			if (!column.isVisible)
+				allVisible = false
+		}
+		return allVisible
+	}
+
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 
 	val numColumns: Int

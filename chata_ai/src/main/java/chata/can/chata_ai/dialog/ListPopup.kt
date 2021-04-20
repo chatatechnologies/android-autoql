@@ -39,8 +39,8 @@ object ListPopup
 			menu?.run {
 				if (dataPopup?.isReduce == true)
 				{
-					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(R.drawable.ic_eye_1)
-//					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(R.drawable.ic_eye_2)
+					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(
+						if (queryBase?.allVisible() == true) R.drawable.ic_eye_2 else R.drawable.ic_eye_1)
 					add(2, R.id.iFilterTable, 2, R.string.filter_table).setIcon(R.drawable.ic_filter)
 					add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report)
 					add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete)
@@ -124,7 +124,7 @@ object ListPopup
 		if (hasIcon(menu))
 		{
 			for (index in 0 until menu.size())
-				insertMenuItemIcon(context, menu.getItem(index))
+				insertMenuItemIcon(context, menu.getItem(index), index)
 		}
 	}
 
@@ -137,15 +137,18 @@ object ListPopup
 		return false
 	}
 
-	private fun insertMenuItemIcon(context: Context, menuItem: MenuItem)
+	private fun insertMenuItemIcon(context: Context, menuItem: MenuItem, index: Int = -1)
 	{
 		var icon = menuItem.icon
 		if (icon == null)
 			icon = ColorDrawable(Color.TRANSPARENT)
 		else
 		{
-			val drawableWrap = DrawableCompat.wrap(icon).mutate()
-			DrawableCompat.setTint(drawableWrap, SinglentonDrawer.currentAccent)
+			if (index != 0)
+			{
+				val drawableWrap = DrawableCompat.wrap(icon).mutate()
+				DrawableCompat.setTint(drawableWrap, SinglentonDrawer.currentAccent)
+			}
 		}
 		val iconSize = context.resources.getDimensionPixelSize(R.dimen.menu_item_icon_size)
 		icon.setBounds(0, 0, iconSize, iconSize)
