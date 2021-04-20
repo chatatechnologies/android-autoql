@@ -96,6 +96,7 @@ class HideDialog(
 	{
 		context.run {
 			ThemeColor.currentColor.run {
+				rlParent.setBackgroundColor(pDrawerBackgroundColor)
 				tvTitle.setTextColor(pDrawerTextColorPrimary)
 				tvColumnName.setTextColor(pDrawerTextColorPrimary)
 				tvVisibility.setTextColor(pDrawerTextColorPrimary)

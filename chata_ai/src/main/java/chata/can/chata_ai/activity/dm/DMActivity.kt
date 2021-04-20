@@ -233,8 +233,13 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun showNotification(unacknowledged: Int)
 	{
-		tvNotification.visibility = View.VISIBLE
-		tvNotification.text = "$unacknowledged"
+		tvNotification.visibility = if (unacknowledged != 0)
+		{
+			tvNotification.text = "$unacknowledged"
+			View.VISIBLE
+		}
+		else
+			View.GONE
 	}
 
 	private fun putFragment(nameFragment: String)
