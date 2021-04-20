@@ -42,14 +42,20 @@ object SinglentonDrawer
 	var aMonthShorts = arrayListOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec")
 	//endregion
 
+	private fun updateThemeColor()
+	{
+		for ((_, method) in aThemeMethods)
+		{
+			method()
+		}
+		mModel.restartData()
+	}
+
 	//region colors
 	var themeColor = "dark"//light
 		set(value) {
 			field = value
-			for ((_, method) in aThemeMethods)
-			{
-				method()
-			}
+			updateThemeColor()
 		}
 
 	val aThemeMethods = LinkedHashMap<String, () -> Unit>()
@@ -57,20 +63,14 @@ object SinglentonDrawer
 	var lightThemeColor = "#26A7DF"
 		set(value) {
 			field = value
-			for ((_, method) in aThemeMethods)
-			{
-				method()
-			}
+			updateThemeColor()
 		}
 	var pLightThemeColor = Color.parseColor(lightThemeColor)
 
 	var darkThemeColor = "#26A7DF"
 		set(value) {
 			field = value
-			for ((_, method) in aThemeMethods)
-			{
-				method()
-			}
+			updateThemeColor()
 		}
 	var pDarkThemeColor = Color.parseColor(darkThemeColor)
 
