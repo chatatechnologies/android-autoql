@@ -67,7 +67,7 @@ class WebViewHolder(
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
-	private var canChangeHeight = true
+//	private var canChangeHeight = true
 
 	private var accentColor = 0
 
@@ -384,7 +384,7 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
-				canChangeHeight = true
+				queryBase.canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId
 				wbQuery?.run {
@@ -455,9 +455,9 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		if (canChangeHeight)
+		if (queryBase?.canChangeHeight == true)
 		{
-			canChangeHeight = false
+			queryBase?.canChangeHeight = false
 			rvParent?.let {
 				var customHeight = it.dpToPx(30f * numRows) + 60
 				if (customHeight > 900)

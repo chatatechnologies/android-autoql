@@ -152,7 +152,10 @@ class HideDialog(
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		queryBase?.resetData()
+		queryBase?.run {
+			canChangeHeight = true
+			resetData()
+		}
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
