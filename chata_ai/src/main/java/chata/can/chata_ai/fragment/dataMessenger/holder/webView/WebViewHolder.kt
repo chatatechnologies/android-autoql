@@ -218,7 +218,8 @@ class WebViewHolder(
 						adapterPosition,
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
-						lastId == "#idTableBasic" || lastId == "#idTableDataPivot")
+						lastId == "#idTableBasic" || lastId == "#idTableDataPivot",
+						lastId == "#idTableDataPivot")
 					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, wbQuery)
 				}
 				else -> {}

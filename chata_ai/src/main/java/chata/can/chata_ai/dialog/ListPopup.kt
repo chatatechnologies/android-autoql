@@ -39,8 +39,11 @@ object ListPopup
 			menu?.run {
 				if (dataPopup?.isTable == true)
 				{
-					add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(
-						if (queryBase?.allVisible() == true) R.drawable.ic_eye_1 else R.drawable.ic_eye_2)
+					if (!dataPopup.isDataPivot)
+					{
+						add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(
+							if (queryBase?.allVisible() == true) R.drawable.ic_eye_1 else R.drawable.ic_eye_2)
+					}
 					if (queryBase?.aRows?.count() != 1)
 					{
 						add(2, R.id.iFilterTable, 2, R.string.filter_table).setIcon(R.drawable.ic_filter)

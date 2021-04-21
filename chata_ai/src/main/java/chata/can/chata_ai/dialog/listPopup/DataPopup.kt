@@ -11,4 +11,5 @@ data class DataPopup(
 	val adapterPosition: Int,
 	val queryId: String,
 	val sql: String,
-	val isTable: Boolean)
+	val isTable: Boolean,
+	val isDataPivot: Boolean = false)
