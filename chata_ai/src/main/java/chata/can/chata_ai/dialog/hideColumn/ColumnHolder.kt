@@ -11,7 +11,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 class ColumnHolder(
 	itemView: View,
-	private val view: ColumnChanges): Holder(itemView)
+	private val view: ColumnChanges.SingleColumn): Holder(itemView)
 {
 	private val tvColumnName = itemView.findViewById<TextView>(R.id.tvColumnName) ?: null
 	private val cbCheck = itemView.findViewById<CheckBox>(R.id.cbCheck) ?: null

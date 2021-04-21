@@ -13,7 +13,8 @@ import chata.can.chata_ai.pojo.nullValue
 class ColumnAdapter(
 	private val model: BaseModelList<ColumnQuery>,
 	private val queryBase: QueryBase,
-): BaseAdapter(model), ColumnChanges
+	private val view: ColumnChanges.AllColumn
+): BaseAdapter(model), ColumnChanges.SingleColumn
 {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
@@ -28,6 +29,14 @@ class ColumnAdapter(
 			{
 				it.isVisible = value
 			}
+		}
+		view.changeAllColumn(hasSameStatus())
+	}
+
+	private fun hasSameStatus(): Boolean
+	{
+		model.getData().filter { it.isVisible }.run {
+			return if (count() == model.countData()) first().isVisible else false
 		}
 	}
 

@@ -2,10 +2,7 @@ package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
 import android.view.View
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
@@ -30,7 +27,7 @@ class HideDialog(
 	context: Context,
 	private val queryBase: QueryBase ?= null
 ) : BaseDialog(context, R.layout.dialog_hide, false)
-	, View.OnClickListener, StatusResponse
+	, View.OnClickListener, StatusResponse, ColumnChanges.AllColumn
 {
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
@@ -57,7 +54,7 @@ class HideDialog(
 				model.add(column.copy())
 			}
 			cbAll.isChecked = isSelect
-			adapter = ColumnAdapter(model, queryBase)
+			adapter = ColumnAdapter(model, queryBase, this)
 			rvColumn.layoutManager = LinearLayoutManager(context)
 			rvColumn.adapter = adapter
 
@@ -71,11 +68,14 @@ class HideDialog(
 		ivCancel.setOnClickListener(this)
 		btnCancel.setOnClickListener(this)
 		btnApply.setOnClickListener(this)
-		cbAll.setOnCheckedChangeListener { _, boolean ->
-			for (position in 0 until model.countData())
-				model[position]?.isVisible = boolean
-			adapter.notifyDataSetChanged()
-		}
+		cbAll.setOnCheckedChangeListener(buttonChecked)
+	}
+
+	private val buttonChecked = CompoundButton.OnCheckedChangeListener {
+		_, value ->
+		for (position in 0 until model.countData())
+			model[position]?.isVisible = value
+		adapter.notifyDataSetChanged()
 	}
 
 	override fun setViews()
@@ -156,6 +156,13 @@ class HideDialog(
 			canChangeHeight = true
 			resetData()
 		}
+	}
+
+	override fun changeAllColumn(value: Boolean)
+	{
+		cbAll.setOnCheckedChangeListener(null)
+		cbAll.isChecked = value
+		cbAll.setOnCheckedChangeListener(buttonChecked)
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
