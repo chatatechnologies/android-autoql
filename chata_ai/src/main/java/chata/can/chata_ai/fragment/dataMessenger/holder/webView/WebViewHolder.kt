@@ -63,7 +63,7 @@ class WebViewHolder(
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
-	private var lastId = "#idTableDataPivot"
+	private var lastId = "#idTableBasic"
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
@@ -218,7 +218,7 @@ class WebViewHolder(
 						adapterPosition,
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
-						lastId == "#idTableBasic")
+						lastId == "#idTableBasic" || lastId == "#idTableDataPivot")
 					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, wbQuery)
 				}
 				else -> {}
