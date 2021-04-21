@@ -65,6 +65,12 @@ object TableTriBuilder
 		})
 		sbHead.append("</tr></thead>")
 
+		val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
+		sbFoot.append(aCatX.joinTo(StringBuilder(""), separator = "") {
+			"<th>${it.replace("\"", "")}</th>"
+		})
+		sbFoot.append("</tr></tfoot>")
+
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
 		for (indexY in aCatY.indices)
@@ -92,7 +98,7 @@ object TableTriBuilder
 		val sbBody = StringBuilder("<tbody>")
 		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
-		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size, aIndexZero)
+		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
 	}
 
 	fun generateDataTableTri(

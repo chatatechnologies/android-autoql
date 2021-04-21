@@ -1006,7 +1006,7 @@ function hideTables(idHide, idShow, type2) {
 ${'$'}('#idTableBasic tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
-    var idInput = title.split(' ').join('_');
+    var idInput = title.split(' ').join('_') + '_Basic';
 	${'$'}(this).html(
         '<input id=' + idInput +
         ' type="text" placeholder="Search on ' + title + '"/>');
@@ -1014,6 +1014,32 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
     ${'$'}("#" + idInput).on('input', function () {
         var filter = ${'$'}(this).val().toUpperCase();
         var table = document.getElementById("idTableBasic");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+${'$'}('#idTableDataPivot tfoot th').each(function () {
+    var indexInput = ${'$'}(this).index();
+    var title = ${'$'}(this).text();
+    var idInput = title.split(' ').join('_') + '_DataPivot';
+	${'$'}(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="Search on ' + title + '"/>');
+
+    ${'$'}("#" + idInput).on('input', function () {
+        var filter = ${'$'}(this).val().toUpperCase();
+        var table = document.getElementById("idTableDataPivot");
         var tr = table.getElementsByTagName("tr");
 
         for (index = 0; index < tr.length; index++) {
