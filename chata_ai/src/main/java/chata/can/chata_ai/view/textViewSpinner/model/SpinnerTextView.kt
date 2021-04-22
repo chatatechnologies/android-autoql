@@ -44,12 +44,13 @@ class SpinnerTextView: RelativeLayout
 		addView(tvContent)
 	}
 
-	private fun getDataSuggestion(aData: ArrayList<String>): ArrayAdapter<String>
+	private fun getDataSuggestion(aData: ArrayList<Pair<String, String>>): ArrayAdapter<String>
 	{
-		return TermAdapter(context, aData)
+		val aText = aData.map { it.first }
+		return TermAdapter(context, aText)
 	}
 
-	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>?)
+	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<Pair<String, String>>?)
 	{
 		aData?.let {
 			if (lastData != aData)
@@ -122,7 +123,7 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.aSuggestion != null)
 					{
-						val tmp = if (suggestion.end == text.count()) suggestion.end -1 else suggestion.end
+						val tmp = if (suggestion.end == text.count()) suggestion.end - 1 else suggestion.end
 						span.setSpan(ClickableSpan(this, suggestion) {
 							callSpinnerClick(suggestion, it.aSuggestion)
 						}, suggestion.start, tmp + 1, 0)
@@ -168,5 +169,5 @@ class SpinnerTextView: RelativeLayout
 	private var spSelect: Spinner?= null
 
 	private lateinit var aData: ArrayList<Suggestion>
-	private var lastData: ArrayList<String> ?= null
+	private var lastData: ArrayList<Pair<String, String>> ?= null
 }

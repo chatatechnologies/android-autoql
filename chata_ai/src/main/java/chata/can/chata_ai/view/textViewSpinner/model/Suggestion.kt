@@ -8,7 +8,7 @@ class Suggestion
 		_text: String,
 		_start: Int,
 		_end: Int,
-		_aSuggestion: ArrayList<String>? = null)
+		_aSuggestion: ArrayList<Pair<String, String>>? = null)
 	{
 		text = _text
 		start = _start
@@ -42,13 +42,14 @@ class Suggestion
 			for (index in 0 until jaSuggestion.length())
 			{
 				val joSuggestion = jaSuggestion.optJSONObject(index)
+				val canonical = joSuggestion.optString("canonical", "")
 				var suggestion = joSuggestion.optString("text", "")
 				val extra = joSuggestion.optString("value_label", "")
 				if (extra.isNotEmpty())
 				{
 					suggestion = "$suggestion ($extra)"
 				}
-				aSuggestion?.add(suggestion)
+				aSuggestion?.add(Pair(suggestion, canonical))
 			}
 		}
 	}
@@ -56,7 +57,9 @@ class Suggestion
 	var text = ""
 	var start = 0
 	var end = 0
-	var aSuggestion: ArrayList<String>? = ArrayList()
+	//var aSuggestion: ArrayList<String>? = ArrayList()
+	/** Pair<text: String, canonical: String>**/
+	var aSuggestion: ArrayList<Pair<String, String>>? = ArrayList()
 
 	var position = 0
 }
