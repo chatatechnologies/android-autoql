@@ -56,6 +56,13 @@ class SpinnerTextView: RelativeLayout
 			if (lastData != aData)
 			{
 				lastData = aData
+				lastData?.get(0)?.let {
+					val text = it.first
+					val iStart = text.indexOf("(") + 1
+					val iEnd = text.indexOf(")")
+					valueLabel = text.substring(iStart, iEnd)
+					canonical = it.second
+				}
 				spSelect?.adapter = getDataSuggestion(aData)
 			}
 			spSelect?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
@@ -64,6 +71,7 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.position != position)
 					{
+						//region for remove view on parent
 						if (position == aData.size - 1)
 						{
 							this@SpinnerTextView.aData.run {
@@ -71,6 +79,7 @@ class SpinnerTextView: RelativeLayout
 								setText(this)
 							}
 						}
+						//endregion
 						else
 						{
 							parent?.getItemAtPosition(position)?.let {
@@ -83,6 +92,11 @@ class SpinnerTextView: RelativeLayout
 									val newEnd = suggestion.end
 									val beforeSection = currentText.substring(newStart, newEnd)
 
+									lastData?.get(position)?.let { pair ->
+										valueLabel = aIt[1].replace(")", "")
+										canonical = pair.second
+									}
+
 									if (beforeSection != currentSection)
 									{
 										val newText = currentText.toString().replace(beforeSection, currentSection)
@@ -94,7 +108,6 @@ class SpinnerTextView: RelativeLayout
 								}
 							}
 						}
-
 					}
 				}
 
@@ -103,9 +116,6 @@ class SpinnerTextView: RelativeLayout
 			spSelect?.performClick()
 		}
 	}
-
-	val text: String
-		get() = tvContent?.text.toString()
 
 	fun setText(aData: ArrayList<Suggestion> ?= null)
 	{
@@ -170,4 +180,10 @@ class SpinnerTextView: RelativeLayout
 
 	private lateinit var aData: ArrayList<Suggestion>
 	private var lastData: ArrayList<Pair<String, String>> ?= null
+
+	val text: String
+		get() = tvContent?.text.toString()
+
+	var valueLabel = ""
+	var canonical = ""
 }
