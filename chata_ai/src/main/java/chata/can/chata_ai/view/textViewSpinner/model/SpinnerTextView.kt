@@ -122,9 +122,10 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.aSuggestion != null)
 					{
+						val tmp = if (suggestion.end == text.count()) suggestion.end -1 else suggestion.end
 						span.setSpan(ClickableSpan(this, suggestion) {
 							callSpinnerClick(suggestion, it.aSuggestion)
-						}, suggestion.start, suggestion.end, 0)
+						}, suggestion.start, tmp + 1, 0)
 					}
 				}
 				setText(span)
