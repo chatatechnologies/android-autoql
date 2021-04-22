@@ -81,9 +81,11 @@ class FullSuggestionHolder(
 
 					rlRunQuery.setOnClickListener {
 						val query = stvContent.text
+						val canonical = stvContent.canonical
+						val valueLabel = stvContent.valueLabel
 						if (query.isNotEmpty())
 						{
-							view.runTyping(query)
+							view.runTyping(query, canonical, valueLabel)
 						}
 					}
 				}

@@ -56,13 +56,6 @@ class SpinnerTextView: RelativeLayout
 			if (lastData != aData)
 			{
 				lastData = aData
-				lastData?.get(0)?.let {
-					val text = it.first
-					val iStart = text.indexOf("(") + 1
-					val iEnd = text.indexOf(")")
-					valueLabel = text.substring(iStart, iEnd)
-					canonical = it.second
-				}
 				spSelect?.adapter = getDataSuggestion(aData)
 			}
 			spSelect?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener
@@ -133,6 +126,13 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.aSuggestion != null)
 					{
+						suggestion.aSuggestion?.get(0)?.let {
+							val textTmp = it.first
+							val iStart = textTmp.indexOf("(") + 1
+							val iEnd = textTmp.lastIndexOf(")")
+							valueLabel = textTmp.substring(iStart, iEnd)
+							canonical = it.second
+						}
 						val tmp = if (suggestion.end == text.count()) suggestion.end - 1 else suggestion.end
 						span.setSpan(ClickableSpan(this, suggestion) {
 							callSpinnerClick(suggestion, it.aSuggestion)

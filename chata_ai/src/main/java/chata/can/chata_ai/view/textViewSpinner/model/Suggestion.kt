@@ -57,8 +57,6 @@ class Suggestion
 	var text = ""
 	var start = 0
 	var end = 0
-	//var aSuggestion: ArrayList<String>? = ArrayList()
-	/** Pair<text: String, canonical: String>**/
 	var aSuggestion: ArrayList<Pair<String, String>>? = ArrayList()
 
 	var position = 0

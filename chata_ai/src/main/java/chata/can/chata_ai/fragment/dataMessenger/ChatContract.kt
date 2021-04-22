@@ -19,6 +19,7 @@ interface ChatContract
 		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 		fun runTyping(text: String)
+		fun runTyping(text: String, canonical: String, valueLabel: String)
 		fun isLoading(isVisible: Boolean)
 		fun showAlert(message: String, intRes: Int)
 		fun scrollToPosition()

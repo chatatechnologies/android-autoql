@@ -64,10 +64,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var animationAlert: AnimationAlert
 
 	private val model = SinglentonDrawer.mModel
+	private val aTmp = arrayListOf<String>()
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
 	var isReleaseAutocomplete = true
 	var statusLogin = false
+	private var canonical = ""
+	private var valueLabel = ""
 
 	override fun onRenderViews(view: View)
 	{
@@ -171,13 +174,21 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 
 		etQuery.setFinishAnimationListener {
-			val query = etQuery.text.toString()
-			if (query.isNotEmpty())
+			if (canonical != "" && valueLabel != "")
 			{
-				hideKeyboard()
-				isReleaseAutocomplete = true
-				etQuery.setText("")
-				presenter.getQuery(query)
+				canonical = ""
+				valueLabel = ""
+			}
+			else
+			{
+				val query = etQuery.text.toString()
+				if (query.isNotEmpty())
+				{
+					hideKeyboard()
+					isReleaseAutocomplete = true
+					etQuery.setText("")
+					presenter.getQuery(query)
+				}
 			}
 		}
 
@@ -320,9 +331,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		etQuery.animateText(text)
 	}
 
+	override fun runTyping(text: String, canonical: String, valueLabel: String)
+	{
+		this.canonical = canonical
+		this.valueLabel = valueLabel
+		runTyping(text)
+	}
+
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>) {}
 
-	private val aTmp = arrayListOf<String>()
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
 		adapterAutoComplete.clear()
