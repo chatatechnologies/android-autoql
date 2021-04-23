@@ -32,7 +32,7 @@ class WebViewHolder(
 	itemView: View,
 	private val adapterView: ChatAdapterContract?,
 	private val chatView: ChatContract.View?
-): Holder(itemView), View.OnClickListener
+): Holder(itemView), View.OnClickListener, WebViewContract
 {
 	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
@@ -67,7 +67,7 @@ class WebViewHolder(
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
-//	private var canChangeHeight = true
+	private var isFilter = false
 
 	private var accentColor = 0
 
@@ -102,6 +102,34 @@ class WebViewHolder(
 			parent.backgroundGrayWhite()
 			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
 			parent.startAnimation(animation)
+		}
+	}
+
+	override fun showFilter()
+	{
+		queryBase?.run {
+			if (isFilter)
+			{
+				isFilter = false
+				rowsTable--
+				rowsPivot--
+			}
+			else
+			{
+				rowsTable++
+				rowsPivot++
+				isFilter = true
+			}
+
+			val lastNum = when(lastId)
+			{
+				"#idTableBasic" -> rowsTable
+				"#idTableDataPivot" -> rowsPivot
+				"#container" -> factorHeight
+				else -> 0
+			}
+			changeHeightWebView(lastNum)
+			wbQuery?.loadUrl("javascript:showFilter();")
 		}
 	}
 
@@ -220,7 +248,7 @@ class WebViewHolder(
 						queryBase?.sql ?: "",
 						lastId == "#idTableBasic" || lastId == "#idTableDataPivot",
 						lastId == "#idTableDataPivot")
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, wbQuery)
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, this)
 				}
 				else -> {}
 			}

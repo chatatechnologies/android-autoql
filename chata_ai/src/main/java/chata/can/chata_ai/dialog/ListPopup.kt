@@ -8,7 +8,6 @@ import android.text.style.ImageSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebView
 import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
@@ -17,6 +16,7 @@ import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -28,7 +28,7 @@ object ListPopup
 		query: String,
 		dataPopup: DataPopup ?= null,
 		queryBase: QueryBase ?= null,
-		webView: WebView ?= null)
+		webViewView: WebViewContract ?= null)
 	{
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2
@@ -64,7 +64,7 @@ object ListPopup
 						}
 						R.id.iFilterTable ->
 						{
-							webView?.loadUrl("javascript:showFilter();")
+							webViewView?.showFilter()
 						}
 						R.id.iReportProblem ->
 						{
