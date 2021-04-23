@@ -70,7 +70,9 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						tvContent.text = message
 					}
 					else
-						tvContent.text = reportLink(message)
+						if (contentHTML.isEmpty())
+							tvContent.text = reportLink(message)
+						else tvContent.text = contentHTML
 				}
 				ivOption?.setOnClickListener { view ->
 					//region show list
