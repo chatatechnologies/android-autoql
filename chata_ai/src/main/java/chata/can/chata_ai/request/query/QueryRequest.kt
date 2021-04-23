@@ -37,14 +37,21 @@ object QueryRequest
 				header?.let {
 					it["accept-language"] = SinglentonDrawer.languageCode
 				}
-				mParams["source"] = "$source.user"
+				mParams["source"] = source
 				mParams["translation"] = "include"
 
 				infoHolder?.let {
 					it["user_selection"]?.let { mUserSelection ->
 						if (mUserSelection is HashMap<*, *>)
 						{
-							mParams["user_selection"] = mUserSelection
+							if (source == "data_messenger.validation")
+							{
+								mParams["user_selection"] = arrayListOf(mUserSelection)
+							}
+							else
+							{
+								mParams["user_selection"] = mUserSelection
+							}
 						}
 					}
 				}

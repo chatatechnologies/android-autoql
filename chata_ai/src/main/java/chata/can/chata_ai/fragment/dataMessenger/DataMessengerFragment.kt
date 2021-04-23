@@ -174,19 +174,30 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 
 		etQuery.setFinishAnimationListener {
+			val query = etQuery.text.toString()
+			hideKeyboard()
+			isReleaseAutocomplete = true
+			etQuery.setText("")
+
 			if (canonical != "" && valueLabel != "")
 			{
+				val tmpCanonical = canonical
+				val tmpValueLabel = valueLabel
 				canonical = ""
 				valueLabel = ""
+				val mUserSelection = hashMapOf<String, Any>(
+					"end" to 8,
+					"start" to 0,
+					"value" to query,
+					"value_label" to tmpValueLabel,
+					"canonical" to tmpCanonical)
+				val mInfoHolder = hashMapOf<String, Any>("user_selection" to mUserSelection)
+				presenter.getQuery(query, mInfoHolder, "data_messenger.validation")
 			}
 			else
 			{
-				val query = etQuery.text.toString()
 				if (query.isNotEmpty())
 				{
-					hideKeyboard()
-					isReleaseAutocomplete = true
-					etQuery.setText("")
 					presenter.getQuery(query)
 				}
 			}

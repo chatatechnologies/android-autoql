@@ -33,10 +33,10 @@ class ChatServicePresenter(
 		contract.callSafetyNet(query, this)
 	}
 
-	private fun getQuery(query: String, mInfoHolder: HashMap<String, Any>)
+	fun getQuery(query: String, mInfoHolder: HashMap<String, Any>, source: String = "data_messenger.user")
 	{
 		isLoading(true)
-		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
+		QueryRequest.callQuery(query, this, source, mInfoHolder)
 	}
 
 	fun getQuery(query: String)
