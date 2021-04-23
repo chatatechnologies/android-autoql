@@ -72,7 +72,18 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					else
 						if (contentHTML.isEmpty())
 							tvContent.text = reportLink(message)
-						else tvContent.text = contentHTML
+						else
+						{
+							aColumn.firstOrNull()?.let { _ ->
+								it.setOnClickListener { view ->
+									if (SinglentonDrawer.mIsEnableDrillDown)
+									{
+										DrillDownDialog(view.context, this).show()
+									}
+								}
+							}
+							tvContent.text = contentHTML
+						}
 				}
 				ivOption?.setOnClickListener { view ->
 					//region show list
