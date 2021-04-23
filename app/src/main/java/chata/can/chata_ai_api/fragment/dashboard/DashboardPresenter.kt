@@ -280,7 +280,7 @@ class DashboardPresenter(
 					{
 						queryBase.displayType =
 							if (isSplitView) dashboard.secondDisplayType else dashboard.displayType
-						if (queryBase.displayType.isEmpty())
+						if (queryBase.displayType.isEmpty() && queryBase.numColumns == 2)
 						{
 							queryBase.displayType = "bar"
 						}

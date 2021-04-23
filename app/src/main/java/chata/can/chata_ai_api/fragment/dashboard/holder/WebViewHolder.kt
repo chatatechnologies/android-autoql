@@ -132,7 +132,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private fun changeHeightParent(rlWebView: RelativeLayout, queryBase: QueryBase)
 	{
 		rlWebView.let {
-			val numRows = queryBase.rowsTable
+			val numRows = if (queryBase.configActions == 5) queryBase.rowsPivot else queryBase.rowsTable
 			val tmpRows = if (numRows == 0) 180 else numRows
 			var customHeight = it.dpToPx(30f * tmpRows) + 60
 			if (customHeight > 900 || queryBase.displayType in aChartSupport)
