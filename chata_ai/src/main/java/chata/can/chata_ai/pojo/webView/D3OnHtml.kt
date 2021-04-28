@@ -5,6 +5,7 @@ import chata.can.chata_ai.pojo.html.Actions.getActions
 import chata.can.chata_ai.pojo.html.Bar.getBar
 import chata.can.chata_ai.pojo.html.Column.getColumn
 import chata.can.chata_ai.pojo.html.Donut.getDonut
+import chata.can.chata_ai.pojo.html.Filter.getFilter
 import chata.can.chata_ai.pojo.html.Functions.getFunctions
 import chata.can.chata_ai.pojo.html.Line.getLine
 import chata.can.chata_ai.pojo.html.Variable.getVariables
@@ -79,6 +80,10 @@ object D3OnHtml
     height: 100%;
     z-index: 0;*/
   }
+	tfoot {
+    /*display: table-header-group;*/
+		display: none;
+  }
   .button {
     border: none;
     color: white;
@@ -91,6 +96,7 @@ object D3OnHtml
 </head>
 <body>
 ${getActions()}
+${dataD3.table}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3)}
@@ -98,7 +104,8 @@ ${getBar()}
 ${getColumn()}
 ${getLine()}
 ${getDonut()}
-var scaleColorBi = d3.scaleOrdinal().range(colorBi);
+${getFilter()}
+	var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
     //region locale settings
     var locale = d3.formatLocale({

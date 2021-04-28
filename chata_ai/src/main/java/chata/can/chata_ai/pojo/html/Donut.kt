@@ -54,7 +54,7 @@ function setDonut() {
 			// }
 			// return d.data.percentage + '%';
 		});
-}
+	}
 """
 	}
 }

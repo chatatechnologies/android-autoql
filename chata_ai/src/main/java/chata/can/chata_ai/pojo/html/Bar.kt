@@ -84,7 +84,7 @@ function setBar() {
 		.attr('x', margin.top + (-height / 2))//center Y axis title
 		.attr('fill', '#808080')
 		.text(axisY);
-}
+	}
 """
 	}
 }

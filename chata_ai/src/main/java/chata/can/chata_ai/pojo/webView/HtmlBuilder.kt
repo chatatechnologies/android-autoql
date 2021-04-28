@@ -45,6 +45,7 @@ object HtmlBuilder
 
 		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
+		dataD3.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
 		var posColumnX = 0

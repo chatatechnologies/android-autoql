@@ -55,7 +55,7 @@ function setLine() {
       .on('click', function(d) {
         drillDown(d.value);
       });
-}
+	}
 """
 	}
 }
