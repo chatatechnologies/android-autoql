@@ -1,9 +1,16 @@
 package chata.can.chata_ai.pojo.html
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.webView.DataForWebView
+
 object Variable
 {
-	fun getVariables(): String
+	fun getVariables(dataForWebView: DataForWebView): String
 	{
+		val color1 = SinglentonDrawer.aChartColors[0]
+		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
+			"\"$it\""
+		}
 		return """
 //region not mutable
 const TypeEnum = Object.freeze({
@@ -18,10 +25,13 @@ const TypeEnum = Object.freeze({
   "STACKED_BAR": 9,
   "STACKED_COLUMN": 10,
   "STACKED_AREA": 11,
-  "UNKNOW": 0});
+  "UNKNOWN": 0});
 
-var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
-var colorBi = ['#26a7df'];//Main color for bars
+var colorPie = $sColors;
+var colorBi = ['$color1'];//Main color for bars
+
+var axisX = 'Total Order Amount';
+var axisY = 'Month';
 
 //Main data
 var data = [
@@ -31,21 +41,26 @@ var data = [
   {name: "oct. 2019", value: 104254.00},
   {name: "nov. 2019", value: 106630.75},
 ];
-var maxValue = 106630.75;//put here max value
-var minValue = 57326.75;//put here min value
+var maxValue = ${dataForWebView.max}
+var minValue = ${dataForWebView.min}
 //endregion
 
 //The left margin makes the left border visible
-var typeChart;
+var typeChart = TypeEnum.TABLE;
+//width dynamic, height dynamic
+var width1 = 0;
+var height = 0;
 var margin = {
   top: 20,
   right: 20,
   bottom: 72 + 10,//factor count letter by 7
   left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
-},
-width = 960 - margin.left - margin.right,
-height = 550 - margin.top - margin.bottom,
-radius = Math.min(width, height) / 2;
+};
+//width = width1 - margin.left - margin.right,
+var width = 0;
+//height = height - margin.top - margin.bottom,
+var height = 0;
+//radius = Math.min(width, height) / 2;
 """
 	}
 }

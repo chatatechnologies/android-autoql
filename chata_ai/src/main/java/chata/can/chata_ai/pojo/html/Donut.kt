@@ -33,6 +33,9 @@ function setDonut() {
 		.attr('d', arc)
 		.style('fill', function(d,i) {
 			return scaleColorPie(d.value);
+		})
+		.on('click', function(d) {
+			drillDown(d.value);
 		});
 
 	g.append('text')

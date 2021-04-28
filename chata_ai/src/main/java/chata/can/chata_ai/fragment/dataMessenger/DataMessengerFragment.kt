@@ -90,7 +90,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 //			val queryDemo = "hydrovac"
-			val queryDemo = "Total revenue by month from june 2019 to Nov 2019"
+			val queryDemo = "Total revenue by month in 2019"
 //			val queryDemo = "All jobs in July 2019"
 //			val queryDemo = "Average by province frac sand year"
 //			val queryDemo = "revenue"

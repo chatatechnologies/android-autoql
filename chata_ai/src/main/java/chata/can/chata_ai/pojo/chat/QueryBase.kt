@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.webView.DashboardMaker
+import chata.can.chata_ai.pojo.webView.TestingHTML
 import org.json.JSONObject
 
 data class QueryBase(val json: JSONObject): SimpleQuery(json)
@@ -222,7 +223,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				}
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
-				contentHTML = DashboardMaker.getHTML(dataForWebView)
+//				contentHTML = DashboardMaker.getHTML(dataForWebView)
+				contentHTML = TestingHTML.getHtmlTest(dataForWebView)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot
 			}

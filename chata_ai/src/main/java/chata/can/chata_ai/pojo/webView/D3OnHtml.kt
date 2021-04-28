@@ -9,7 +9,7 @@ import chata.can.chata_ai.pojo.html.Functions.getFunctions
 import chata.can.chata_ai.pojo.html.Line.getLine
 import chata.can.chata_ai.pojo.html.Variable.getVariables
 
-object TestingHTML
+object D3OnHtml
 {
 	fun getHtmlTest(dataForWebView: DataForWebView): String
 	{
@@ -22,6 +22,8 @@ object TestingHTML
 			textColor = "#" + Integer.toHexString(
 				pDrawerTextColorPrimary and 0x00ffffff)
 		}
+
+		var abc = dataForWebView
 		return """
 <!DOCTYPE html>
 <html lang="en">
