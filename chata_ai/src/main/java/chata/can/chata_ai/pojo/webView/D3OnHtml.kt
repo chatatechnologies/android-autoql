@@ -11,7 +11,7 @@ import chata.can.chata_ai.pojo.html.Variable.getVariables
 
 object D3OnHtml
 {
-	fun getHtmlTest(dataForWebView: DataForWebView): String
+	fun getHtmlTest(dataD3: DataD3): String
 	{
 		var backgroundColor: String
 		var textColor: String
@@ -23,7 +23,6 @@ object D3OnHtml
 				pDrawerTextColorPrimary and 0x00ffffff)
 		}
 
-		var abc = dataForWebView
 		return """
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +93,7 @@ object D3OnHtml
 ${getActions()}
 <script>
 ${getFunctions()}
-${getVariables(dataForWebView)}
+${getVariables(dataD3)}
 ${getBar()}
 ${getColumn()}
 ${getLine()}

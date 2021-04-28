@@ -11,7 +11,7 @@ import chata.can.chata_ai.pojo.html.Variable.getVariables
 
 object TestingHTML
 {
-	fun getHtmlTest(dataForWebView: DataForWebView): String
+	fun getHtmlTest(dataD3: DataD3): String
 	{
 		var backgroundColor: String
 		var textColor: String
@@ -92,7 +92,7 @@ object TestingHTML
 ${getActions()}
 <script>
 ${getFunctions()}
-${getVariables(dataForWebView)}
+${getVariables(dataD3)}
 ${getBar()}
 ${getColumn()}
 ${getLine()}

@@ -1,11 +1,11 @@
 package chata.can.chata_ai.pojo.html
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.webView.DataForWebView
+import chata.can.chata_ai.pojo.webView.DataD3
 
 object Variable
 {
-	fun getVariables(dataForWebView: DataForWebView): String
+	fun getVariables(dataD3: DataD3): String
 	{
 		val color1 = SinglentonDrawer.aChartColors[0]
 		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
@@ -34,15 +34,9 @@ var axisX = 'Total Order Amount';
 var axisY = 'Month';
 
 //Main data
-var data = [
-  {name: "may. 2019", value: 100500.00},
-  {name: "ago. 2019", value: 122868.00},
-  {name: "sep. 2019", value: 57326.75},
-  {name: "oct. 2019", value: 104254.00},
-  {name: "nov. 2019", value: 106630.75},
-];
-var maxValue = ${dataForWebView.max}
-var minValue = ${dataForWebView.min}
+var data = ${dataD3.data}
+var maxValue = ${dataD3.max}
+var minValue = ${dataD3.min}
 //endregion
 
 //The left margin makes the left border visible

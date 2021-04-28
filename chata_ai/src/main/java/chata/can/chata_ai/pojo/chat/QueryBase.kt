@@ -197,7 +197,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				val rulesHTML = RulesHtml(aColumn, CountColumn(), aRows.size)
 				supportCase = rulesHTML.getSupportCharts()
 
-				val dataForWebView = HtmlBuilder.build(this)
+				val pData = HtmlBuilder.build(this)
+				val dataForWebView = pData.first
+				val dataD3 = pData.second
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
@@ -224,7 +226,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
 //				contentHTML = DashboardMaker.getHTML(dataForWebView)
-				contentHTML = TestingHTML.getHtmlTest(dataForWebView)
+				contentHTML = TestingHTML.getHtmlTest(dataD3)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot
 			}
