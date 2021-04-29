@@ -69,6 +69,9 @@ class WebViewHolder(
 	private val invisible = View.GONE
 	private var isFilter = false
 
+	private var isReduceOptions = false
+	private var canChangeHeight = false
+
 	private var accentColor = 0
 
 	override fun onPaint()
@@ -313,7 +316,7 @@ class WebViewHolder(
 	private fun callAction(iv: ImageView?)
 	{
 		queryBase?.let {
-			queryBase ->
+				queryBase ->
 			iv?.let {
 				val pData = when(iv.id)
 				{
@@ -321,7 +324,8 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableBasic"
-						Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
+						//Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
+						Pair("TypeEnum.TABLE", queryBase.rowsTable)
 					}
 					R.id.ivBar ->
 					{
@@ -337,7 +341,8 @@ class WebViewHolder(
 							}
 							else
 							{
-								Pair("'$idHide', '#container', 'bar'", factorHeight)
+//								Pair("'$idHide', '#container', 'bar'", factorHeight)
+								Pair("TypeEnum.BAR", factorHeight)
 							}
 						}
 					}
@@ -355,7 +360,8 @@ class WebViewHolder(
 							}
 							else
 							{
-								Pair("'$idHide', '#container', 'column'", factorHeight)
+//								Pair("'$idHide', '#container', 'column'", factorHeight)
+								Pair("TypeEnum.COLUMN", factorHeight)
 							}
 						}
 					}
@@ -366,13 +372,15 @@ class WebViewHolder(
 						if (queryBase.isContrast)
 							Pair("'$idHide', '#container', 'contrast_line'", factorHeight)
 						else
-							Pair("'$idHide', '#container', 'line'", factorHeight)
+//							Pair("'$idHide', '#container', 'line'", factorHeight)
+							Pair("TypeEnum.LINE", factorHeight)
 					}
 					R.id.ivPie ->
 					{
 						val idHide = lastId
 						lastId = "#container"
-						Pair("'$idHide', '#container', 'pie'", factorHeight)
+//						Pair("'$idHide', '#container', 'pie'", factorHeight)
+						Pair("TypeEnum.PIE", factorHeight)
 					}
 					R.id.ivBubble ->
 					{
@@ -390,7 +398,7 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
-						Pair("'$idHide', '#idTableDataPivot', 'idTableDataPivot'", queryBase.rowsPivot)
+						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
 					}
 					R.id.ivStackedBar ->
 					{
@@ -412,13 +420,13 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
-				queryBase.canChangeHeight = true
+				canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId
 				wbQuery?.run {
 					requestLayout()
 					Handler(Looper.getMainLooper()).postDelayed({
-						loadUrl("javascript:hideTables(${pData.first});")
+						loadUrl("javascript:updateData(${pData.first});")
 					}, 200)
 				}
 
