@@ -5,8 +5,26 @@ import chata.can.chata_ai.pojo.webView.DataD3
 
 object Variable
 {
+	private fun String.tableOrPivot(): String
+	{
+		return if (isEmpty()) "TypeEnum.TABLE" else "#idTableDataPivot"
+	}
+
 	fun getVariables(dataD3: DataD3): String
 	{
+
+		val typeChart =
+			if (dataD3.isColumn && !dataD3.isDashboard)
+				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
+			else
+				when(dataD3.type)
+				{
+					"table" -> dataD3.datePivot.tableOrPivot()
+					"pivot_table" -> "#idTableDataPivot"
+					"" -> dataD3.datePivot.tableOrPivot()
+					else -> dataD3.type
+				}
+
 		val color1 = SinglentonDrawer.aChartColors[0]
 		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
@@ -40,7 +58,7 @@ var minValue = ${dataD3.min}
 //endregion
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = $typeChart;
 //width dynamic, height dynamic
 var width1 = 0;
 var height = 0;

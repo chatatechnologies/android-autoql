@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.webView.D3OnHtml
+import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
 data class QueryBase(val json: JSONObject): SimpleQuery(json)
@@ -202,6 +203,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
+					dataD3.type = displayType
 				}
 
 				when(aColumn.size)
@@ -223,6 +225,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					}
 				}
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
+				dataD3.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
 //				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				contentHTML = D3OnHtml.getHtmlTest(dataD3)
