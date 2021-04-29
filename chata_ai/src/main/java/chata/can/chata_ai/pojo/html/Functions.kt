@@ -36,32 +36,33 @@ function updateSize() {
 }
 
 function updateData(tmpChart, isReload) {
+  console.log(tmpChart);
 	if (typeChart != tmpChart || isReload) {
 	  typeChart = tmpChart;
+  }
 
-    updateSize();
-    if (tmpChart == TypeEnum.TABLE) {
-      ${'$'}("svg").hide(0);
-      ${'$'}("table").show(0);
-    } else {
-      ${'$'}("table").hide(0);
-      clearSvg();
-      switch(typeChart) {
-      case TypeEnum.COLUMN:
-        setColumn();
-        break;
-      case TypeEnum.BAR:
-        setBar();
-        break;
-      case TypeEnum.LINE:
-        setLine();
-        break;
-      case TypeEnum.PIE:
-        setDonut();
-        break;
-      }
+  updateSize();
+  if (tmpChart == TypeEnum.TABLE) {
+    ${'$'}("svg").hide(0);
+    ${'$'}("table").show(0);
+  } else {
+    ${'$'}("table").hide(0);
+    clearSvg();
+    switch(typeChart) {
+    case TypeEnum.COLUMN:
+      setColumn();
+      break;
+    case TypeEnum.BAR:
+      setBar();
+      break;
+    case TypeEnum.LINE:
+      setLine();
+      break;
+    case TypeEnum.PIE:
+      setDonut();
+      break;
     }
-	}
+  }	
 }
 
 function drillDown(content) {

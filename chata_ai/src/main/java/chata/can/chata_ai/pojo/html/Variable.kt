@@ -48,8 +48,8 @@ const TypeEnum = Object.freeze({
 var colorPie = $sColors;
 var colorBi = ['$color1'];//Main color for bars
 
-var axisX = 'Total Order Amount';
-var axisY = 'Month';
+var axisX = '${dataD3.xAxis}';
+var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}

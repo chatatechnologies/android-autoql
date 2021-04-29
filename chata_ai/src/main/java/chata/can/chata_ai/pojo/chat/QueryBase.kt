@@ -212,7 +212,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					{
 						dataForWebView.xAxis = aColumn.getOrNull(
 							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
+						dataD3.xAxis = aColumn.getOrNull(
+							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
 						dataForWebView.yAxis = aColumn.getOrNull(
+							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
+						dataD3.yAxis = aColumn.getOrNull(
 							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
 					}
 					else ->
@@ -220,7 +224,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						if (aIndex.isNotEmpty())
 						{
 							dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+							dataD3.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
 							dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+							dataD3.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
 						}
 					}
 				}

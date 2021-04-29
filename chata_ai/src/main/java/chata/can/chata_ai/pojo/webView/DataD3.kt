@@ -8,6 +8,9 @@ class DataD3
 
 	var datePivot: String = ""
 
+	var xAxis = ""
+	var yAxis = ""
+
 	var min = -1
 	var max = -1
 
