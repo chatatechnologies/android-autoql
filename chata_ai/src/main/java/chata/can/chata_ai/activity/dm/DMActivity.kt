@@ -249,7 +249,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun visibleClear(isVisible: Boolean)
 	{
-		ivClose.visibility = if (isVisible) View.VISIBLE else View.GONE
+		ivClear.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	private fun showNotification()

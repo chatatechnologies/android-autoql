@@ -1009,7 +1009,7 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
     var idInput = title.split(' ').join('_') + '_Basic';
 	${'$'}(this).html(
         '<input id=' + idInput +
-        ' type="text" placeholder="Search on ' + title + '"/>');
+        ' type="text" placeholder="filter column..."/>');
 
     ${'$'}("#" + idInput).on('input', function () {
         var filter = ${'$'}(this).val().toUpperCase();
