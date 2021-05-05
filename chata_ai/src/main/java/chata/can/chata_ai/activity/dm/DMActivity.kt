@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -33,7 +35,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnClickListener
+class DMActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var vBehind: View
 	private lateinit var llMenu: LinearLayout
@@ -75,6 +77,8 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_pager_options)
+//		window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 		vBehind = findViewById(R.id.vBehind)
 		llMenu = findViewById(R.id.llMenu)
 		rlChat = findViewById(R.id.rlChat)

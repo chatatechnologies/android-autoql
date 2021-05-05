@@ -73,7 +73,7 @@ object SectionData
 				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
 				//Shift Screen on Open/Close    TypeParameter.TOGGLE
 				//Darken Background Behind Data Messenger   TypeParameter.TOGGLE
-				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "true", idView = R.id.swBackgroundBehind),
+				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "false", idView = R.id.swBackgroundBehind),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT, options = aPlacement),
 				DemoParameter("Default Tab", TypeParameter.SEGMENT, options = aTabs),
