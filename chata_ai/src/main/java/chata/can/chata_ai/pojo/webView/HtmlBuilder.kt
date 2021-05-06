@@ -217,14 +217,14 @@ object HtmlBuilder
 			}
 
 			//region build data for D3
-			val sb = StringBuilder()
-			for (index in 0 until aCatX.count())
-			{
-				val name = aCatX[index]
-				val value = aCatY[index]
-				sb.append("{name: $name, value: $value},\n")
-			}
-			dataD3.data = "[${sb.removeSuffix(",\n")}]"
+//			val sb = StringBuilder()
+//			for (index in 0 until aCatX.count())
+//			{
+//				val name = aCatX[index]
+//				val value = aCatY[index]
+//				sb.append("{name: $name, value: $value},\n")
+//			}
+//			dataD3.data = "[${sb.removeSuffix(",\n")}]"
 			//endregion
 
 			val aCatYS = if (aColumn.size > posColumnY)

@@ -136,7 +136,16 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			{
 				R.id.btnExecute ->
 				{
-					getDashboardQueries()
+					val unExecute = getString(R.string.un_execute_dashboard)
+					btnExecute.text = if (btnExecute.text.toString() == unExecute)
+					{
+						getString(R.string.execute_dashboard)
+					}
+					else
+					{
+						getDashboardQueries()
+						getString(R.string.un_execute_dashboard)
+					}
 				}
 				R.id.btnDashboard ->
 				{
