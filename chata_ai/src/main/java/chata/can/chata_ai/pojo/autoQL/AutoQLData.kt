@@ -7,6 +7,8 @@ import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
 
 object AutoQLData
 {
+	var isRelease = true
+
 	const val THEME_LIGHT = true
 	const val THEME_DARK = false
 

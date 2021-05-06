@@ -1,4 +1,4 @@
- package chata.can.chata_ai.view.dm
+package chata.can.chata_ai.view.dm
 
 import android.content.Context
 import android.util.AttributeSet
@@ -33,7 +33,14 @@ class AutoQL: FrameLayout
 		AutoQLData.projectId = projectID
 	}
 
-	fun runEvent() = eventClick()
+	fun runEvent()
+	{
+		if (AutoQLData.isRelease)
+		{
+			AutoQLData.isRelease = false
+			eventClick()
+		}
+	}
 
 	fun setEventClick(listener: () -> Unit)
 	{

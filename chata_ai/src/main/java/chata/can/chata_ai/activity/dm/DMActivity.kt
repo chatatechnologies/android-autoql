@@ -129,6 +129,12 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 		unregisterReceiver(receiver)
 	}
 
+	override fun finish()
+	{
+		super.finish()
+		AutoQLData.isRelease = true
+	}
+
 	override fun onClick(view: View?)
 	{
 		view?.let { _view ->
