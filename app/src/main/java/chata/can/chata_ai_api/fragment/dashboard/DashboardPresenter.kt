@@ -3,11 +3,15 @@ package chata.can.chata_ai_api.fragment.dashboard
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
+import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.pojo.urlStaging
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
 import org.json.JSONArray
@@ -325,6 +329,18 @@ class DashboardPresenter(
 					notifyQueryByIndex(index)
 					if (toClearQuery)
 						callQuery(dashboard)
+					else
+					{
+						val url = if (AutoQLData.notLoginData())
+							"$urlStaging${api1}chata/query"
+						else
+							with(AutoQLData)
+							{
+								"$domainUrl/autoql/${api1}query?key=$apiKey"
+							}
+						//TODO
+						RequestBuilder.cancelRequestWithTag(url)
+					}
 				}
 			}
 		}
