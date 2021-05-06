@@ -302,7 +302,7 @@ class WebViewHolder(
 		}
 		ivAlert?.let { ivAlert ->
 			ivAlert.visibility = if (
-				simpleQuery.hasDrillDown &&
+				//simpleQuery.hasDrillDown &&
 				simpleQuery.limitRowNum <= simpleQuery.aRows.size)
 			{
 				ivAlert.setOnClickListener {
