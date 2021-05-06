@@ -312,16 +312,19 @@ class DashboardPresenter(
 		RequestDashboard.getDashboard(this)
 	}
 
-	fun getDashboardQueries()
+	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
 			for (index in 0 until this.countData())
 			{
 				this[index]?.let { dashboard ->
-					dashboard.isWaitingData = true
+					dashboard.isWaitingData = toClearQuery// true
+					dashboard.isWaitingData2 = toClearQuery// true
 					dashboard.queryBase = null
+					dashboard.queryBase2 = null
 					notifyQueryByIndex(index)
-					callQuery(dashboard)
+					if (toClearQuery)
+						callQuery(dashboard)
 				}
 			}
 		}

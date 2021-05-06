@@ -139,6 +139,21 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 					val unExecute = getString(R.string.un_execute_dashboard)
 					btnExecute.text = if (btnExecute.text.toString() == unExecute)
 					{
+						//region clear queries on dashboards
+//						mModel.run {
+//							for (index in 0 until countData())
+//							{
+//								this[index]?.run {
+//									isWaitingData = false
+//									isWaitingData2 = false
+//									queryBase = null
+//									queryBase2 = null
+//									notifyQueryAtIndex(index)
+//								}
+//							}
+//						}
+						presenter.getDashboardQueries(false)
+						//endregion
 						getString(R.string.execute_dashboard)
 					}
 					else
