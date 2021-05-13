@@ -38,7 +38,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 
 	override fun onCreateView()
 	{
-		sdm = findViewById(R.id.sdm)
 		llParent = findViewById(R.id.llParent)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
@@ -54,9 +53,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		"PROJECT_ID")
 		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
-
-//		sdm.setText("Activar", SwitchDM.TEXT_ON)
-//		sdm.setText("No activar", SwitchDM.TEXT_OFF)
 
 		resources?.let {
 			it.displayMetrics?.let { itMetrics ->

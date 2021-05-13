@@ -5,24 +5,12 @@
     android:id="@+id/llParent"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
-<!--    <com.github.angads25.toggle.widget.LabeledSwitch-->
-<!--        android:id="@+id/switchQA"-->
+<!--    <chata.can.chata_ai.view.SwitchDM-->
+<!--        android:id="@+id/sdm"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:textSize="14sp"-->
-<!--        app:on="false"-->
-<!--        app:textOff="Q*A OFF"-->
-<!--        app:textOn="Q*A ON"-->
-<!--        app:colorBorder="@color/accent_color_1"/>-->
-
-    <chata.can.chata_ai.view.SwitchDM
-        android:id="@+id/sdm"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+<!--        android:layout_width="wrap_content"/>-->
 
     <androidx.viewpager.widget.ViewPager
-        android:layout_marginTop="56dp"
-
         android:id="@+id/viewPager"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -32,11 +20,5 @@
             android:layout_width="match_parent"
             android:visibility="gone"
             app:tabMode="fixed"/>
-        <!--			app:tabMode="scrollable"/>-->
     </androidx.viewpager.widget.ViewPager>
-
-    <!--	<chata.can.chata_ai.view.PagerOptions1-->
-    <!--		android:id="@+id/pagerOption"-->
-    <!--		android:layout_width="match_parent"-->
-    <!--		android:layout_height="match_parent"/>-->
 </RelativeLayout>

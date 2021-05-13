@@ -37,6 +37,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
 	private var etProjectId: EditText?= null
+	private var hThemeColor: TextView?= null
+	private var etThemeColor: EditText?= null
 	private var hUserId: TextView ?= null
 	private var etUserId: EditText ?= null
 	private var hApiKey: TextView ?= null
@@ -209,6 +211,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
 			etProjectId = findViewById(R.id.etProjectId)
+			etThemeColor = findViewById(R.id.etThemeColor)
 			hUserId = findViewById(R.id.hUserId)
 			etUserId = findViewById(R.id.etUserId)
 			hApiKey = findViewById(R.id.hApiKey)

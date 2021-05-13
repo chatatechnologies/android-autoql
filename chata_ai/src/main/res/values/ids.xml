@@ -3,7 +3,10 @@
 	<item name="swDemoData" type="id"/>
 
 	<item name="hProjectId" type="id"/>
+	<item name="swQA" type="id"/>
 	<item name="etProjectId" type="id"/>
+	<item name="hThemeColor" type="id"/>
+	<item name="etThemeColor" type="id"/>
 	<item name="hUserId" type="id"/>
 	<item name="etUserId" type="id"/>
 	<item name="hApiKey" type="id"/>

@@ -50,7 +50,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 					addRule(CENTER_VERTICAL)
 				}
 				background = DrawableBuilder.setOvalDrawable(
-					context.getParsedColor(R.color.red_notification)
+					context.getParsedColor(R.color.white)
 				)
 				margin(start = 8f, end = 8f)
 //				setOnClickListener(this@SwitchDM)
@@ -90,7 +90,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 		val widthTv = _tv.measuredWidth.toFloat()
 		val widthView = _view.measuredWidth.toFloat()
 
-		val moveX = if (_isActive) widthTv - widthView else 0f
+		val moveX = if (_isActive) widthTv - widthView - dpToPx(4f) else 0f
 		_view.setAnimator(moveX,"translationX")
 
 		val moveX2 = if (_isActive) -widthView else 0f

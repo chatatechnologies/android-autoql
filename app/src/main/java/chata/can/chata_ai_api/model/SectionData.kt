@@ -48,7 +48,9 @@ object SectionData
 		"Authentication" to
 			arrayListOf(
 				//DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
+				DemoParameter("", TypeParameter.TOGGLE_QA),
 				DemoParameter("* Project ID", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.etProjectId),
+				DemoParameter("Theme Code", TypeParameter.INPUT, labelId = R.id.hThemeColor, idView = R.id.etThemeColor, isVisible = false),
 				DemoParameter("* User Email", TypeParameter.INPUT, labelId = R.id.hUserId, idView = R.id.etUserId, typeInput = TypeInput.EMAIL),
 				DemoParameter("* API key", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
 				DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
