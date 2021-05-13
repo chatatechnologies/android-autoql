@@ -70,4 +70,7 @@
 	<item name="iReportProblem" type="id"/>
 	<item name="iDelete" type="id" />
 	<item name="iGenerateSQL" type="id"/>
+
+	<item name="toggleSwitch" type="id"/>
+	<item name="statusSwitch" type="id"/>
 </resources>
