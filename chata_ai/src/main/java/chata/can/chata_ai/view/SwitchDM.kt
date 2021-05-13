@@ -8,10 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SwitchDM: RelativeLayout, View.OnClickListener
@@ -53,10 +50,10 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 					addRule(CENTER_VERTICAL)
 				}
 				background = DrawableBuilder.setOvalDrawable(
-					context.getParsedColor(R.color.white)
+					context.getParsedColor(R.color.red_notification)
 				)
 				margin(start = 8f, end = 8f)
-				setOnClickListener(this@SwitchDM)
+//				setOnClickListener(this@SwitchDM)
 			}
 			addView(_view)
 			//endregion
@@ -75,6 +72,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 			}
 			addView(_tv)
 			//endregion
+			setOnClickListener(this@SwitchDM)
 		}
 		addView(_parent)
 	}
@@ -88,6 +86,16 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 	private fun hasActive()
 	{
 		_isActive = !_isActive
+
+		val widthTv = _tv.measuredWidth.toFloat()
+		val widthView = _view.measuredWidth.toFloat()
+
+		val moveX = if (_isActive) widthTv - widthView else 0f
+		_view.setAnimator(moveX,"translationX")
+
+		val moveX2 = if (_isActive) -widthView else 0f
+		_tv.setAnimator(moveX2,"translationX")
+
 		updateText()
 		updateColor()
 	}
