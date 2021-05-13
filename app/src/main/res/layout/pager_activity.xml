@@ -16,6 +16,7 @@
 <!--        app:colorBorder="@color/accent_color_1"/>-->
 
     <chata.can.chata_ai.view.SwitchDM
+        android:id="@+id/sdm"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"/>
 

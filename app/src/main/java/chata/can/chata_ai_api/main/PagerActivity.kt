@@ -15,12 +15,15 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import com.google.android.material.tabs.TabLayout
 
 class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
+	private lateinit var sdm: SwitchDM
+
 	private lateinit var llParent: RelativeLayout
 	private lateinit var viewPager: ViewPager
 	private lateinit var tabLayout: TabLayout
@@ -35,6 +38,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 
 	override fun onCreateView()
 	{
+		sdm = findViewById(R.id.sdm)
 		llParent = findViewById(R.id.llParent)
 		viewPager = findViewById(R.id.viewPager)
 		tabLayout = findViewById(R.id.tabLayout)
@@ -51,7 +55,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
 
-
+		sdm.setText("Activar", SwitchDM.TEXT_ON)
+		sdm.setText("No activar", SwitchDM.TEXT_OFF)
 
 		resources?.let {
 			it.displayMetrics?.let { itMetrics ->
