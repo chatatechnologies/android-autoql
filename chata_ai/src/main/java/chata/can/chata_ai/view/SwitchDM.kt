@@ -17,11 +17,12 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 class SwitchDM: RelativeLayout, View.OnClickListener
 {
 	companion object {
-		val TEXT_ON = 1
-		val TEXT_OFF = 0
+		const val TEXT_ON = 1
+		const val TEXT_OFF = 0
 	}
 	private var _isActive = false
 	private val aText = arrayOf("Q&A On", "Q&A Off")
+	private lateinit var _parent: View
 	private lateinit var _view: View
 	private lateinit var _tv: TextView
 
@@ -39,46 +40,43 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 
 	fun init()
 	{
-		addView(
-			RelativeLayout(context).apply {
-				layoutParams = LayoutParams(-2, -2)
-				background = DrawableBuilder.setGradientDrawable(
-					context.getParsedColor(R.color.red_notification),
-					56f,
-					1,
-					context.getParsedColor(R.color.blue_chata_circle)
+		_parent = RelativeLayout(context).apply {
+			layoutParams = LayoutParams(-2, -2)
+			background = DrawableBuilder.setGradientDrawable(
+				context.getParsedColor(R.color.chata_drawer_background_color_dark),
+				56f
+			)
+			//region view
+			_view = View(context).apply {
+				id = R.id.toggleSwitch
+				layoutParams = LayoutParams(dpToPx(21f), dpToPx(21f)).apply {
+					addRule(CENTER_VERTICAL)
+				}
+				background = DrawableBuilder.setOvalDrawable(
+					context.getParsedColor(R.color.white)
 				)
-				//region view
-				_view = View(context).apply {
-					id = R.id.toggleSwitch
-					layoutParams = LayoutParams(dpToPx(21f), dpToPx(21f)).apply {
-						addRule(CENTER_VERTICAL)
-					}
-					background = DrawableBuilder.setOvalDrawable(
-						context.getParsedColor(R.color.blue_chata_circle)
-					)
-					margin(start = 8f, end = 8f)
-					setOnClickListener(this@SwitchDM)
-				}
-				addView(_view)
-				//endregion
-				//region
-				_tv = TextView(context).apply {
-					id = R.id.statusSwitch
-					layoutParams = LayoutParams(-2, -2).apply {
-						addRule(ALIGN_START, R.id.toggleSwitch)
-					}
-					margin(4f)
-					//setText("Q&A On")
-					paddingAll(left = 21f, right = 21f, top = 3f, bottom = 3f)
-					setTextColor(context.getParsedColor(R.color.white))
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-					text = aText[0]
-				}
-				addView(_tv)
-				//endregion
+				margin(start = 8f, end = 8f)
+				setOnClickListener(this@SwitchDM)
 			}
-		)
+			addView(_view)
+			//endregion
+			//region
+			_tv = TextView(context).apply {
+				id = R.id.statusSwitch
+				layoutParams = LayoutParams(-2, -2).apply {
+					addRule(ALIGN_START, R.id.toggleSwitch)
+				}
+				margin(4f)
+				//setText("Q&A On")
+				paddingAll(left = 21f, right = 21f, top = 3f, bottom = 3f)
+				setTextColor(context.getParsedColor(R.color.white))
+				setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+				text = aText[1]
+			}
+			addView(_tv)
+			//endregion
+		}
+		addView(_parent)
 	}
 
 	fun setText(text: String, STATUS_SWITCH: Int)
@@ -90,8 +88,15 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 	private fun hasActive()
 	{
 		_isActive = !_isActive
-		println("Value is: $_isActive")
 		updateText()
+		updateColor()
+	}
+
+	private fun updateColor()
+	{
+		val color = if (_isActive) R.color.blue_chata_circle
+			else R.color.chata_drawer_background_color_dark
+		_parent.background = DrawableBuilder.setGradientDrawable(context.getParsedColor(color), 56f)
 	}
 
 	private fun updateText()

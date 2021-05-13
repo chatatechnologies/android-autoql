@@ -55,8 +55,8 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		llParent.addView(floatingView)
 		tabLayout.setupWithViewPager(viewPager)
 
-		sdm.setText("Activar", SwitchDM.TEXT_ON)
-		sdm.setText("No activar", SwitchDM.TEXT_OFF)
+//		sdm.setText("Activar", SwitchDM.TEXT_ON)
+//		sdm.setText("No activar", SwitchDM.TEXT_OFF)
 
 		resources?.let {
 			it.displayMetrics?.let { itMetrics ->
