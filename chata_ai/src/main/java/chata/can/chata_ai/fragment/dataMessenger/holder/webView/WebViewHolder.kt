@@ -478,6 +478,11 @@ class WebViewHolder(
 				{
 					visibility = visible
 					Handler(Looper.getMainLooper()).postDelayed({
+						//todo show change tables
+						queryBase?.let {
+							println("LAST ID $lastId")
+							//addActionViews(it.configActions)
+						}
 						rlLoad?.visibility = invisible
 					}, 200)
 				}

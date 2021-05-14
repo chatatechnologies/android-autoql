@@ -154,6 +154,7 @@ class HideDialog(
 	{
 		queryBase?.run {
 			canChangeHeight = true
+			hasHistorySaved = true
 			resetData()
 		}
 	}

@@ -361,6 +361,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		},{
 			hThemeColor?.visibility = visible
 			etThemeColor?.visibility = visible
+			hUserId?.visibility = gone
+			etUserId?.visibility = gone
 			hDomainUrl?.visibility = gone
 			etDomainUrl?.visibility = gone
 			hUsername?.visibility = gone

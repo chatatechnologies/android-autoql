@@ -90,6 +90,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	}
 
 	var configActions = 0
+	var hasHistorySaved = false
 	var isContrast = false
 	var isTri = false
 	var isTriInBi = false
