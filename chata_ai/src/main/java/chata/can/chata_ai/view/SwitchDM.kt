@@ -6,7 +6,6 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -19,6 +18,8 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 	}
 	private var _isActive = false
 	private val aText = arrayOf("Q&A On", "Q&A Off")
+	private lateinit var disableListener: () -> Unit
+	private lateinit var enableListener: () -> Unit
 	private lateinit var _parent: View
 	private lateinit var _view: View
 	private lateinit var _tv: TextView
@@ -35,7 +36,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 		hasActive()
 	}
 
-	fun init()
+	private fun init()
 	{
 		_parent = RelativeLayout(context).apply {
 			layoutParams = LayoutParams(-2, -2)
@@ -53,7 +54,6 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 					context.getParsedColor(R.color.white)
 				)
 				margin(start = 8f, end = 8f)
-//				setOnClickListener(this@SwitchDM)
 			}
 			addView(_view)
 			//endregion
@@ -77,6 +77,12 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 		addView(_parent)
 	}
 
+	fun setCallbackEventChanged(disableListener: () -> Unit, enableListener: () -> Unit)
+	{
+		this.disableListener = disableListener
+		this.enableListener = enableListener
+	}
+
 	fun setText(text: String, STATUS_SWITCH: Int)
 	{
 		aText[STATUS_SWITCH] = text
@@ -86,6 +92,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 	private fun hasActive()
 	{
 		_isActive = !_isActive
+		if (_isActive) enableListener() else disableListener()
 
 		val widthTv = _tv.measuredWidth.toFloat()
 		val widthView = _view.measuredWidth.toFloat()
