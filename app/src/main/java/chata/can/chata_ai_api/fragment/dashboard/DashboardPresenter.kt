@@ -22,6 +22,7 @@ class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
 {
 	private var mModel: BaseModelList<Dashboard> ?= null
+	private var queryReset = false
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -31,6 +32,7 @@ class DashboardPresenter(
 			{
 				"getDashboardQueries" ->
 				{
+					if (queryReset) return
 					val response = jsonObject.optString("RESPONSE") ?: ""
 					val joCurrent = JSONObject(response)
 
@@ -133,6 +135,7 @@ class DashboardPresenter(
 				}
 				"getDashboardQueries" ->
 				{
+					if (queryReset) return
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 					mModel?.run {
@@ -322,13 +325,16 @@ class DashboardPresenter(
 			for (index in 0 until this.countData())
 			{
 				this[index]?.let { dashboard ->
-					dashboard.isWaitingData = toClearQuery// true
-					dashboard.isWaitingData2 = toClearQuery// true
+					dashboard.isWaitingData = toClearQuery
+					dashboard.isWaitingData2 = toClearQuery
 					dashboard.queryBase = null
 					dashboard.queryBase2 = null
 					notifyQueryByIndex(index)
 					if (toClearQuery)
+					{
+						queryReset = !toClearQuery
 						callQuery(dashboard)
+					}
 					else
 					{
 						val url = if (AutoQLData.notLoginData())
@@ -338,7 +344,7 @@ class DashboardPresenter(
 							{
 								"$domainUrl/autoql/${api1}query?key=$apiKey"
 							}
-						//TODO
+						queryReset = !toClearQuery
 						RequestBuilder.cancelRequestWithTag(url)
 					}
 				}
