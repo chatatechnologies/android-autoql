@@ -50,8 +50,8 @@ object ListPopup
 							add(2, R.id.iFilterTable, 2, R.string.filter_table).setIcon(R.drawable.ic_filter)
 						}
 					}
-					add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report)
-					add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete)
+					add(3, R.id.iReportProblem, 3, R.string.report_problem).setIcon(R.drawable.ic_report_m)
+					add(4, R.id.iDelete, 4, R.string.delete_response).setIcon(R.drawable.ic_delete_m)
 				}
 				add(5, R.id.iGenerateSQL, 5, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
 			}
