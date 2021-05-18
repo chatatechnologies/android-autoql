@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.drillDown
 
 import chata.can.chata_ai.dialog.DrillDownContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -40,6 +41,7 @@ class DrillDownPresenter(
 		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 			val mParams = hashMapOf<String, Any>(
 				"columns" to ArrayList<String>(),
 				"test" to true,

@@ -2,6 +2,7 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.messageKey
@@ -21,6 +22,7 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 		{
 			val url = "${AutoQLData.domainUrl}/autoql/${api1}query/$idQuery?key=${AutoQLData.apiKey}"
 			val header= getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)
 			if (message.isNotEmpty())

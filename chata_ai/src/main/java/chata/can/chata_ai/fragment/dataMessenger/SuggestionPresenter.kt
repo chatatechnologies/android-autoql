@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder
@@ -29,6 +30,7 @@ class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
 		with(AutoQLData) {
 			val url = "$domainUrl/autoql/${api1}query/$idQuery/suggestions?key=$apiKey"
 			val header = Authentication.getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 			val mParams = hashMapOf<String, Any>("suggestion" to "None of these")
 			RequestBuilder.callStringRequest(
 				Request.Method.PUT,

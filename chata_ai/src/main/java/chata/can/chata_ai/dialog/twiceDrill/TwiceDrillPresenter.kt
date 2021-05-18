@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
 import chata.can.chata_ai.dialog.DrillDownContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -41,6 +42,7 @@ class TwiceDrillPresenter(
 		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 
 			val aColumn = arrayListOf<HashMap<String, String>>()
 			when (queryBase.aColumn.size)

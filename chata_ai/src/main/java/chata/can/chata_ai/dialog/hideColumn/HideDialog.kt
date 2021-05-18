@@ -9,6 +9,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.ColumnQuery
@@ -122,6 +123,7 @@ class HideDialog(
 						queryBase?.let {
 							val url = "${AutoQLData.domainUrl}/autoql/${api1}query/column-visibility?key=${AutoQLData.apiKey}"
 							val header = Authentication.getAuthorizationJWT()
+							header["accept-language"] = SinglentonDrawer.languageCode
 							val mParams = hashMapOf<String, Any>()
 							val aColumns = ArrayList< HashMap<String, Any> >()
 							for (column in it.aColumn)

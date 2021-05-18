@@ -1,6 +1,7 @@
 package chata.can.chata_ai.fragment.notification
 
 import chata.can.chata_ai.fragment.notification.model.Notification
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData.apiKey
 import chata.can.chata_ai.pojo.autoQL.AutoQLData.domainUrl
@@ -60,11 +61,13 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 			DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
 			0,
 			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+		val header = Authentication.getAuthorizationJWT()
+		header["accept-language"] = SinglentonDrawer.languageCode
 		callStringRequest(
 			Request.Method.GET,
 			url,
 			typeJSON,
-			headers = Authentication.getAuthorizationJWT(),
+			headers = header,
 			retryPolicy = retryPolicy,
 			listener = this)
 	}

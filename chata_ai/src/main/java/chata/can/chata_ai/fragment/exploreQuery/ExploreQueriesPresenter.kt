@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.exploreQuery
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.dataKey
@@ -99,6 +100,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 			val url = "$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
 
 			callStringRequest(
@@ -118,6 +120,7 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		with(AutoQLData)
 		{
 			val header = getAuthorizationJWT()
+			header["accept-language"] = SinglentonDrawer.languageCode
 			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
 				"&search=$currentQueryEncode&page_size=$pageSize&page=$page"
