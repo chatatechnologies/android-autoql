@@ -171,7 +171,12 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun setResources()
 	{
-		StringContainer.columnHidden = getString(R.string.column_hidden)
+		StringContainer.run {
+			columnHidden = getString(R.string.column_hidden)
+			errorId = getString(R.string.errorId)
+			notRecognized = getString(R.string.not_recognized)
+			success = getString(R.string.success)
+		}
 	}
 
 	private fun setColor()

@@ -2,6 +2,7 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -54,7 +55,7 @@ class WebViewPresenter(
 			if (jsonObject.has(messageKey))
 			{
 				val message = jsonObject.optString(messageKey)
-				if (message == "Success")
+				if (message == StringContainer.success)
 				{
 					chatView?.showAlert(message, R.drawable.ic_done)
 				}

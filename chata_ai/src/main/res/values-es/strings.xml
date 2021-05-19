@@ -9,10 +9,10 @@
     <string name="run_query">Run Query</string>
     <string name="msg_run_autoql">We run on AutoQL by Chata</string>
     <string name="type_queries_here">" Type your queries here"</string>
-    <string name="great_news_help">Great news, I can with that:</string>
+    <string name="great_news_help">Buenas noticias, puedo ayudar con eso:</string>
     <string name="explore_queries_msg_1">Discover what you can ask by entering a topic in the search bar above.</string>
     <string name="explore_queries_msg_2">Simply click on any of the returned options to run the query in Data Messenger.</string>
-    <string name="empty_data_explore_queries">Sorry, I couldn\'t find any queries matching your input. Try entering a different topic or keyword instead.</string>
+    <string name="empty_data_explore_queries">Lo siento, no pude encontrar ninguna consulta que coincida con su entrada. En su lugar, intente ingresar un tema o una palabra clave diferente.</string>
     <string name="explore_queries_hint">Search relevant queries by topic</string>
     <string name="arrow_left">←</string>
     <string name="arrow_right">→</string>
@@ -29,7 +29,7 @@
     <string name="stay_tuned">Stay tuned!</string>
     <string name="generated_sql">Generated SQL</string>
 
-    <string name="internal_service_error">Internal Service Error: Our system is experiencing an unexpected error. We\'re aware of this issue and are working to fix it as soon as possible.</string>
+    <string name="internal_service_error">Error del servicio interno: nuestro sistema está experimentando un error inesperado. Somos conscientes de este problema y estamos trabajando para solucionarlo lo antes posible.</string>
     <string name="it_looks_like">Uh oh.. It looks like you don\'t have access to this resource. Please double check that all required authentication fields are correct.</string>
 
     <string name="limit_row_num">Se alcanzó el límite de visualización de 500 filas. Intente consultar un rango de tiempo más pequeño para asegurarse de que se muestren todos sus datos.</string>
@@ -46,4 +46,7 @@
     <string name="untitled">Sin titulo</string>
     <string name="no_query_title">No se proporcionó ninguna consulta para este titulo</string>
     <string name="column_hidden">Actualmente, todas las columnas de esta tabla están ocultas. Puede ajustar sus preferencias de visibilidad de columna usando el Administrador de visibilidad de columna (&#38;#128065) en la barra de herramientas de opciones.</string>
+    <string name="errorId">ID de error:</string>
+    <string name="not_recognized">Tipo de visualización no reconocido</string>
+    <string name="success">Éxito</string>
 </resources>

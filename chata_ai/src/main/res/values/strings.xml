@@ -46,4 +46,7 @@
 	<string name="untitled">Untitled</string>
 	<string name="no_query_title">No query was supplied for this title</string>
 	<string name="column_hidden">All columns in this table are currently hidden. You can adjust your column visibility preferences using the Column Visibility Manager (&#38;#128065) in the Options Toolbar.</string>
+	<string name="errorId">Error ID:</string>
+	<string name="not_recognized">display type not recognized</string>
+	<string name="success">Success</string>
 </resources>

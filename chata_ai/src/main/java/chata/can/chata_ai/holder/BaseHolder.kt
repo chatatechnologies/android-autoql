@@ -17,6 +17,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -217,7 +218,7 @@ open class BaseHolder(
 					"Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
 				}
 			}
-			else -> "display type not recognized: ${simpleQuery.displayType}"
+			else -> "${StringContainer.notRecognized}: ${simpleQuery.displayType}"
 		}
 
 		tvContent.text = message
