@@ -90,7 +90,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 //			val queryDemo = "hydrovac"
-				val queryDemo = "total revenue this year"
+			val queryDemo = "Total revenue by month in 2019"
 //			val queryDemo = "Total revenue by month in 2019"
 //			val queryDemo = "All jobs in July 2019"
 //			val queryDemo = "Average by province frac sand year"
@@ -222,7 +222,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (AutoQLData.introMessage.isNotEmpty())
 				AutoQLData.introMessage
 			else
-				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				getString(R.string.discover_today)
 
 		val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
@@ -508,7 +508,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
 				AutoQLData.introMessage
 			else
-				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				getString(R.string.discover_today)
 
 			statusLogin = !AutoQLData.notLoginData()
 

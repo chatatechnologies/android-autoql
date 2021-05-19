@@ -39,4 +39,11 @@
 	<string name="apply">Apply</string>
 	<string name="visibility">Visibility</string>
 	<string name="column_name">Column Name</string>
+	<string name="discover_today">Let\'s dive into your data. What can I help you discover today?</string>
+	<string name="tell_more_about">Please tell us more about the problem you are experiencing:</string>
+	<string name="thank_you_feedback">Thank you for your feedback</string>
+	<string name="copied_clipboard">Successfully copied generated query to clipboard!</string>
+	<string name="untitled">Untitled</string>
+	<string name="no_query_title">No query was supplied for this title</string>
+	<string name="column_hidden">All columns in this table are currently hidden. You can adjust your column visibility preferences using the Column Visibility Manager (&#38;#128065) in the Options Toolbar.</string>
 </resources>

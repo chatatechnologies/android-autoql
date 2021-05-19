@@ -20,6 +20,7 @@ import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -103,6 +104,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 			}
 			paintViews(placement)
 		}
+		setResources()
 		setColor()
 		setListener()
 		//Start first fragment
@@ -165,6 +167,11 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 				}
 			}
 		}
+	}
+
+	private fun setResources()
+	{
+		StringContainer.columnHidden = getString(R.string.column_hidden)
 	}
 
 	private fun setColor()

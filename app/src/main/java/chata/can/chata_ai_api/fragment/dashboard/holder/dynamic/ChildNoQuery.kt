@@ -7,10 +7,9 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
 object ChildNoQuery {
-	private const val noQueryText = "No query was supplied for this title"
-
 	fun onBind(view: View, dashboard: Dashboard, isPrimary: Boolean)
 	{
+		val noQueryText = view.context.getString(R.string.no_query_title)
 		view.findViewById<TextView>(R.id.tvNoQuery)?.let { tvNoQuery ->
 			tvNoQuery.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 

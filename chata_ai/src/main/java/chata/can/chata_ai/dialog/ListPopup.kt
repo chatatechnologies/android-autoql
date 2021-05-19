@@ -96,7 +96,8 @@ object ListPopup
 		queryId: String,
 		chatView: ChatContract.View?)
 	{
-		val presenter = WebViewPresenter(chatView)
+		val presenter = WebViewPresenter(
+			chatView, view.context.getString(R.string.thank_you_feedback))
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2
 		else R.style.popupMenuStyle1

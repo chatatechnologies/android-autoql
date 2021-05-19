@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toCapitalColumn
+import chata.can.chata_ai.model.StringContainer
 
 object TableHtmlBuilder
 {
@@ -68,11 +69,12 @@ object TableHtmlBuilder
 			//endregion
 			return Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
 		} ?: run {
+
 			return Pair(
 				"""<div id='idTableBasic' class="empty-state">
 	<span class="alert-icon">&#9888</span>
 	<p>
-		All columns in this table are currently hidden. You can adjust your column visibility preferences using the Column Visibility Manager (&#128065) in the Options Toolbar.
+		${StringContainer.columnHidden}
 	</p>
 </div>""",
 				5)

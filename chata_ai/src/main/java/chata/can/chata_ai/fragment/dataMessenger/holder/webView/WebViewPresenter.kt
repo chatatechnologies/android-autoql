@@ -14,7 +14,9 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
+class WebViewPresenter(
+	private val chatView: ChatContract.View?,
+	val message: String): StatusResponse
 {
 	fun putReport(idQuery: String, message: String)
 	{
@@ -54,7 +56,7 @@ class WebViewPresenter(private val chatView: ChatContract.View?): StatusResponse
 				val message = jsonObject.optString(messageKey)
 				if (message == "Success")
 				{
-					chatView?.showAlert("Thank you for your feedback.", R.drawable.ic_done)
+					chatView?.showAlert(message, R.drawable.ic_done)
 				}
 			}
 		}

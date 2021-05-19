@@ -25,7 +25,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
-	itemView: View,
+	private val itemView: View,
 	private val view: ChatAdapterContract? = null,
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
@@ -118,7 +118,8 @@ open class BaseHolder(
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
-						rlDelete?.visibility = if (item.message == "Thank you for your feedback")
+						val msgFeedback = itemView.context.getString(R.string.thank_you_feedback)
+						rlDelete?.visibility = if (item.message == msgFeedback)
 							View.VISIBLE else View.GONE
 					}
 				}

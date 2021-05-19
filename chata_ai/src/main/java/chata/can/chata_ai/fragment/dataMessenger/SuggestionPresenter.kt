@@ -11,7 +11,9 @@ import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
-class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
+class SuggestionPresenter(
+	private val view: ChatContract.View,
+	private val thankYouFeedback: String): StatusResponse
 {
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -21,7 +23,7 @@ class SuggestionPresenter(private val view: ChatContract.View): StatusResponse
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
-			view.addSimpleText("Thank you for your feedback")
+			view.addSimpleText(thankYouFeedback)
 		}
 	}
 
