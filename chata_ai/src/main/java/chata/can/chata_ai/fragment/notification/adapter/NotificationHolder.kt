@@ -126,7 +126,7 @@ class NotificationHolder(
 			val currentDate = Date()
 
 			val formatHour = SimpleDateFormat("hh:mma", Locale.US)
-			val hour = formatHour.format(recordDate).toLowerCase(Locale.US)
+			val hour = formatHour.format(recordDate).lowercase(Locale.US)
 
 			when((currentDate.time - recordDate.time).toInt() / (1000 * 60 * 60 * 24))
 			{

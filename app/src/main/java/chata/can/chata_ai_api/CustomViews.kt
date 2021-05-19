@@ -249,7 +249,7 @@ object CustomViews
 
 				sb.append(chart)
 			}
-			return sb.toString().toUpperCase(Locale.US)
+			return sb.toString().uppercase(Locale.US)
 		}
 	}
 	private val aFilters = arrayOf(inputFilterText, InputFilter.LengthFilter(7))
