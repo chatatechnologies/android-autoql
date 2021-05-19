@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.date
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.aMonthShorts
+import chata.can.chata_ai.pojo.SinglentonDrawer.mMonthShort
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,13 +16,18 @@ object ChataDateFormat
 			{
 				3 ->
 				{
-					val month = SimpleDateFormat("MM", locale).format(date)
-					//region
-					month.toIntOrNull()?.let {
-						aMonthShorts[it] + " " + SimpleDateFormat("yyyy", locale).format(date)
+					val monthIndex = SimpleDateFormat("MM", locale).format(date)
+					var month = ""
+					monthIndex.toIntOrNull()?.let { index ->
+						val aLocale = locale.toString().split("_")
+						if (aLocale.size > 1)
+						{
+							mMonthShort[aLocale[0]]?.let {
+								month = it[index]
+							}
+						}
+						month + " " + SimpleDateFormat("yyyy", locale).format(date)
 					} ?: run {""}
-					//endregion
-
 				}
 				else -> SimpleDateFormat("MM", locale).format(date)
 			}

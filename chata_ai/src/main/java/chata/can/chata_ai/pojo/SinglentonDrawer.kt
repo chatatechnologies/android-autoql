@@ -40,6 +40,13 @@ object SinglentonDrawer
 
 	var aMonths = arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
 	var aMonthShorts = arrayListOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec")
+
+	val mMonthLanguages = hashMapOf(
+		"es" to arrayListOf("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"),
+		"en" to arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+	val mMonthShort = hashMapOf(
+		"es" to arrayListOf("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"),
+		"en" to arrayListOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"))
 	//endregion
 
 	private fun updateThemeColor()
