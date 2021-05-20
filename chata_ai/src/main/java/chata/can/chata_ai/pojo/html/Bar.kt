@@ -50,6 +50,7 @@ function setBar() {
 		//Remove line on domain for X axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
+		.attr('transform', 'translate(0,20)rotate(-45)')
 		.attr('fill', '#909090');
 
 	svg.append('g')
@@ -63,7 +64,6 @@ function setBar() {
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
 		//rotate text
-		.attr('transform', 'translate(-10,-20)rotate(-45)')
 		.attr('fill', '#909090');
 
 	//Add X axis label:

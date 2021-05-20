@@ -36,7 +36,6 @@ function updateSize() {
 }
 
 function updateData(tmpChart, isReload) {
-  console.log(tmpChart);
 	if (typeChart != tmpChart || isReload) {
 	  typeChart = tmpChart;
   }
