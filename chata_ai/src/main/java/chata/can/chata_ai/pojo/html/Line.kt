@@ -25,10 +25,35 @@ function setLine() {
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScaleBand));
+      .call(d3.axisBottom(xScaleBand))
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+			//region set opacity for each tick item
+			.call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+      .selectAll('text')
+      //rotate text
+      .attr('transform', 'translate(10,10)rotate(-45)')
+      //Set color each item on X axis
+      .attr('fill', '#909090')
+      .style('text-anchor', 'end');
 
     svg.append("g")
-      .call(d3.axisLeft(yScale));
+      .call(
+        d3.axisLeft(yScale)
+        .tickSize(0)
+        .tickFormat(x => `${'$'}{fformat(x)}`))
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', width)
+      )
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('fill', '#909090');
 
     // Updata the line
     svg.selectAll()
