@@ -76,10 +76,7 @@ fun String.formatWithColumn(
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
 								dateFormat.parse(this)?.let { dDate ->
-//									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
 									ChataDateFormat.dateFormat(dDate)
-									//val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, Locale.US)
-									//dateFormat2.format(dDate)
 								}
 //								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
 							}
@@ -88,24 +85,6 @@ fun String.formatWithColumn(
 					}
 					else this
 				}
-//				var date = ""
-//				val aPart = columnQuery.name.split(",")
-//				if (aPart.size > 1)
-//				{
-//					val source = aPart[1]
-//					val index1 = source.indexOf("'")
-//					val index2 = source.lastIndexOf("'")
-//					val sourceDate = source.substring(index1 + 1, index2)
-//					try {
-//						val dataFormat = SimpleDateFormat(sourceDate, Locale.US)
-//						dataFormat.parse(this)?.let { dDate ->
-//							val dateFormat2 = SimpleDateFormat(sourceDate, Locale.US)
-//							date = dateFormat2.format(dDate)
-//						}
-//					}
-//					catch (ex: Exception) {}
-//				}
-//				date
 			}
 		}
 		TypeDataQuery.DATE ->

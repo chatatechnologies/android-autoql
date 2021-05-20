@@ -172,7 +172,7 @@ object DatePivot
 					val cell = mData["$year-$indexS"]?.let {
 						isNotHasZero = true
 						it.formatDecimals(2)
-					} ?: ""
+					} ?: "-"
 
 					val newCell = if (cell.isNotEmpty())
 						cell.formatWithColumn(dollarColumn)
