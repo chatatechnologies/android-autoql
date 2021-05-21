@@ -57,6 +57,15 @@ var maxValue = ${dataD3.max}
 var minValue = ${dataD3.min}
 //endregion
 
+//REGION get max value
+for (const item in data) {
+  var value = data[item].value;
+  if (maxValue < value) {
+    maxValue = value
+  }
+}
+//ENDREGION
+
 //The left margin makes the left border visible
 var typeChart = $typeChart;
 //width dynamic, height dynamic
@@ -65,8 +74,8 @@ var height = 0;
 var margin = {
   top: 20,
   right: 20,
-  bottom: 72 + 10,//factor count letter by 7
-  left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
+  bottom: 70 + 10,//factor count letter by 7
+  left: ((digitsCount(maxValue)) * 12 + 40)//plus 30 for Y axis title
 };
 //width = width1 - margin.left - margin.right,
 var width = 0;
