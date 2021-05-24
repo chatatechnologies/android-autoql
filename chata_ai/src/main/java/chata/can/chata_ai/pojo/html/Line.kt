@@ -25,7 +25,9 @@ function setLine() {
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScaleBand))
+      .call(
+        d3.axisBottom(xScaleBand)
+        .tickFormat(x =>`${'$'}{getFirst10(x)}`))
       //Remove line on domain for X axis
       .call(g => g.select('.domain').remove())
 			//region set opacity for each tick item
@@ -80,7 +82,25 @@ function setLine() {
       .on('click', function(d) {
         drillDown(d.value);
       });
-	}
-"""
+			
+		//Add X axis label:
+    svg.append('text')
+      .attr('text-anchor', 'end')
+      .style('font-size', 16)
+      .attr('x', (width / 2) + margin.top)//for center
+      .attr('y', height + margin.bottom - 10)//for set on bottom with -10
+      .attr('fill', '#808080')
+      .text(axisX);
+
+    //Y axis label:
+    svg.append('text')
+      .attr('text-anchor', 'end')
+      .style('font-size', 16)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -margin.left + 20)
+      .attr('x', margin.top + (-height / 2))//center Y axis title
+      .attr('fill', '#808080')
+      .text(axisY);
+	}"""
 	}
 }
