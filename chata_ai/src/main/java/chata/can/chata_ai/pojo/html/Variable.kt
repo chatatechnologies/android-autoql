@@ -53,9 +53,25 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
+var limitName = 0;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
 //endregion
+
+//REGION max letters in name
+for (const item in data) {
+  var value = data[item].name.length;
+  if (limitName < value) {
+    limitName = value;
+    if (limitName > 10) {
+      limitName = 110;
+      break;
+    } else {
+      limitName *= 10;
+    }
+  }
+}
+//ENDREGION
 
 //REGION get max value
 for (const item in data) {
@@ -68,14 +84,17 @@ for (const item in data) {
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
+var _maxValue = digitsCount(maxValue) * 60;
+var _bottom = typeChart == TypeEnum.COLUMN ? limitName : _maxValue;
+var _left = typeChart == TypeEnum.COLUMN ? _maxValue : limitName;
 //width dynamic, height dynamic
 var width1 = 0;
 var height = 0;
 var margin = {
   top: 20,
   right: 20,
-  bottom: 110,
-  left: 110
+  bottom: _bottom,
+  left: _left
 };
 var width = 0;
 var height = 0;
