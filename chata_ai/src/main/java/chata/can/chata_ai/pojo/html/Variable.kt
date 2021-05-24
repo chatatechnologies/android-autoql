@@ -53,19 +53,9 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
-var maxLength = 0
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
 //endregion
-
-//REGION max letters in name
-for (const item in data) {
-  var value = data[item].name.length;
-  if (maxLength < value) {
-    maxLength = value;
-  }
-}
-//ENDREGION
 
 //REGION get max value
 for (const item in data) {
@@ -75,12 +65,6 @@ for (const item in data) {
   }
 }
 //ENDREGION
-var bottom = 0
-if (maxLength < 11) {
-  bottom = maxLength * 10;
-} else {
-  bottom = maxLength * 5;
-}
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
@@ -90,7 +74,7 @@ var height = 0;
 var margin = {
   top: 20,
   right: 20,
-  bottom: bottom,
+  bottom: 110,
   left: ((digitsCount(maxValue)) * 12 + 40)//plus 30 for Y axis title
 };
 //width = width1 - margin.left - margin.right,

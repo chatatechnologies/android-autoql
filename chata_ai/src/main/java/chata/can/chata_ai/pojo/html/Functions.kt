@@ -6,6 +6,17 @@ object Functions
 	fun getFunctions(): String
 	{
 		return """
+function getFirst10(string) {
+  var newString = '';
+  if (string.length < 11) {
+    newString = string
+  } else {
+    newString = string.substring(0, 10) + '...';
+    //console.log('size ' + newString.length);
+  }
+  return newString;
+}
+
 function digitsCount(n) {
 	var count = 0;
 	if ( n >= 1) ++count;
