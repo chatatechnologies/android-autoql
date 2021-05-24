@@ -55,7 +55,8 @@ function setBar() {
 
 	svg.append('g')
 		.call(
-			d3.axisLeft(x))
+			d3.axisLeft(x)
+      .tickFormat(x =>`${'$'}{getFirst10(x)}`))
 		//region set opacity for each tick item
 		.call(g => g.selectAll('.tick line')
 		.attr('opacity', 0.2))

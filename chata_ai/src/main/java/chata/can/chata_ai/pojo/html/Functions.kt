@@ -12,7 +12,6 @@ function getFirst10(string) {
     newString = string
   } else {
     newString = string.substring(0, 10) + '...';
-    //console.log('size ' + newString.length);
   }
   return newString;
 }

@@ -75,13 +75,10 @@ var margin = {
   top: 20,
   right: 20,
   bottom: 110,
-  left: ((digitsCount(maxValue)) * 12 + 40)//plus 30 for Y axis title
+  left: 110
 };
-//width = width1 - margin.left - margin.right,
 var width = 0;
-//height = height - margin.top - margin.bottom,
 var height = 0;
-//radius = Math.min(width, height) / 2;
 """
 	}
 }

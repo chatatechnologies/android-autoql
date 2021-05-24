@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +92,6 @@ function getFirst10(string) {
     newString = string
   } else {
     newString = string.substring(0, 10) + '...';
-    //console.log('size ' + newString.length);
   }
   return newString;
 }
@@ -217,7 +215,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.BAR;
 //width dynamic, height dynamic
 var width1 = 0;
 var height = 0;
@@ -225,13 +223,10 @@ var margin = {
   top: 20,
   right: 20,
   bottom: 110,
-  left: ((digitsCount(maxValue)) * 12 + 40)//plus 30 for Y axis title
+  left: 110
 };
-//width = width1 - margin.left - margin.right,
 var width = 0;
-//height = height - margin.top - margin.bottom,
 var height = 0;
-//radius = Math.min(width, height) / 2;
 
 
 function setBar() {
@@ -284,7 +279,8 @@ function setBar() {
 
 	svg.append('g')
 		.call(
-			d3.axisLeft(x))
+			d3.axisLeft(x)
+      .tickFormat(x =>`${getFirst10(x)}`))
 		//region set opacity for each tick item
 		.call(g => g.selectAll('.tick line')
 		.attr('opacity', 0.2))
