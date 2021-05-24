@@ -73,6 +73,7 @@ svg.append('g')
   //Remove line on domain for Y axis
   .call(g => g.select('.domain').remove())
   .selectAll('text')
+	.attr('transform', 'translate(0,0)rotate(0)')
   .attr('fill', '#909090');
 
 //Add X axis label:

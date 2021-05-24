@@ -88,8 +88,6 @@ var _maxValue = digitsCount(maxValue) * 60;
 var _bottom = typeChart == TypeEnum.COLUMN ? limitName : _maxValue;
 var _left = typeChart == TypeEnum.COLUMN ? _maxValue : limitName;
 //width dynamic, height dynamic
-var width1 = 0;
-var height = 0;
 var margin = {
   top: 20,
   right: 20,

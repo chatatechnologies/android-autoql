@@ -118,9 +118,8 @@ function clearSvg() {
 }
 
 function updateSize() {
-  //take $(window).height()
-  width = $(window).width() - margin.left - margin.right;
-  //take $(window).width()
+  var width1 = $(window).width() - margin.left - margin.right;
+  width = (width1 / 10) * data.length;
   height = $(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }
@@ -231,13 +230,11 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BAR;
+var typeChart = TypeEnum.COLUMN;
 var _maxValue = digitsCount(maxValue) * 60;
 var _bottom = typeChart == TypeEnum.COLUMN ? limitName : _maxValue;
 var _left = typeChart == TypeEnum.COLUMN ? _maxValue : limitName;
 //width dynamic, height dynamic
-var width1 = 0;
-var height = 0;
 var margin = {
   top: 20,
   right: 20,
@@ -293,7 +290,7 @@ function setBar() {
 		//Remove line on domain for X axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
-		.attr('transform', 'translate(0,20)rotate(-45)')
+		.attr('transform', 'translate(0,0)rotate(0)')
 		.attr('fill', '#909090');
 
 	svg.append('g')
@@ -307,7 +304,7 @@ function setBar() {
 		//Remove line on domain for Y axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
-		//rotate text
+		.attr('transform', 'translate(-10,-25)rotate(-45)')
 		.attr('fill', '#909090');
 
 	//Add X axis label:
@@ -399,6 +396,7 @@ svg.append('g')
   //Remove line on domain for Y axis
   .call(g => g.select('.domain').remove())
   .selectAll('text')
+	.attr('transform', 'translate(0,0)rotate(0)')
   .attr('fill', '#909090');
 
 //Add X axis label:
