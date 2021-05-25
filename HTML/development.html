@@ -83,7 +83,7 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_AREA)">STACKED AREA</button> -->
   </div>
 		
-<table id="idTableBasic"><thead><tr><th>Customer</th><th>Number of Jobs</th></tr></thead><tfoot><tr><th>Customer</th><th>Number of Jobs</th></tr></tfoot><tbody><tr><td>American Business Corporation</td><td>2</td></tr><tr><td>Bill & Sons</td><td>4</td></tr><tr><td>Canadian Business Corporation</td><td>1</td></tr><tr><td>Chesapeake Energy</td><td>1</td></tr><tr><td>Clark Resources</td><td>3</td></tr><tr><td>Great Big North</td><td>1</td></tr><tr><td>Marshall Fluid Hauling Services</td><td>3</td></tr><tr><td>New Customer</td><td>1</td></tr><tr><td>Petronix Inc.</td><td>5</td></tr><tr><td>Rice Energy</td><td>7</td></tr><tr><td>Shell</td><td>4</td></tr><tr><td>Sirocco Enterprises</td><td>3</td></tr><tr><td>Southern Trucking and Services</td><td>4</td></tr><tr><td>Spira Data Corp.</td><td>7</td></tr><tr><td>TRAILER UNIT 557799</td><td>1</td></tr></tbody></table>
+<table id="idTableBasic"><thead><tr><th>Month</th></tr></thead><tfoot><tr><th>Month</th></tr></tfoot><tbody><tr><td>Nov 2019</td></tr><tr><td>Oct 2019</td></tr><tr><td>Sep 2019</td></tr><tr><td>Aug 2019</td></tr><tr><td>May 2019</td></tr></tbody></table>
 <script>
 
 function getFirst10(string) {
@@ -185,27 +185,17 @@ const TypeEnum = Object.freeze({
 var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
 var colorBi = ['#355c7d'];//Main color for bars
 
-var axisX = 'Customer';
-var axisY = 'Number of Jobs';
+var axisX = 'Month';
+var axisY = 'Total Revenue';
 
 //Main data
-var data = [{name: "American Business Corporation", value: 2},
-{name: "Bill & Sons", value: 4},
-{name: "Canadian Business Corporation", value: 1},
-{name: "Chesapeake Energy", value: 1},
-{name: "Clark Resources", value: 3},
-{name: "Great Big North", value: 1},
-{name: "Marshall Fluid Hauling Services", value: 3},
-{name: "New Customer", value: 1},
-{name: "Petronix Inc.", value: 5},
-{name: "Rice Energy", value: 7},
-{name: "Shell", value: 4},
-{name: "Sirocco Enterprises", value: 3},
-{name: "Southern Trucking and Services", value: 4},
-{name: "Spira Data Corp.", value: 7},
-{name: "TRAILER UNIT 557799", value: 1}]
+var data = [{name: "Nov 2019", value: 106630.75},
+{name: "Oct 2019", value: 104254.00},
+{name: "Sep 2019", value: 57326.75},
+{name: "Aug 2019", value: 122868.00},
+{name: "May 2019", value: 100500.00}]
 var limitName = 0;
-var maxValue = 7;
+var maxValue = 122868;
 var minValue = 0;
 //endregion
 
@@ -235,7 +225,7 @@ for (const item in data) {
 
 //The left margin makes the left border visible
 var typeChart = TypeEnum.COLUMN;
-var _maxValue = digitsCount(maxValue) * 60;
+var _maxValue = digitsCount(maxValue) * 10 + 50;
 var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
 var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
@@ -248,14 +238,12 @@ var margin = {
 var width = 0;
 var height = 0;
 
-
 function setBar() {
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.bottom + margin.right)
 		.attr('height', height + margin.top + margin.left)
 		.append('g')
-		//.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-    .attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
+		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
 
 	var x = d3.scaleBand()
 		.range([height, 0])

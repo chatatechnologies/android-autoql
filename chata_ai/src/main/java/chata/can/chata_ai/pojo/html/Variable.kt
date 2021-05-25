@@ -84,7 +84,9 @@ for (const item in data) {
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
-var _maxValue = digitsCount(maxValue) * 60;
+var digits = digitsCount(maxValue);
+var _plusSingle = digits == 1 ? 10 : 0;
+var _maxValue = (digits * 8) + 35 + _plusSingle;
 var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
 var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
