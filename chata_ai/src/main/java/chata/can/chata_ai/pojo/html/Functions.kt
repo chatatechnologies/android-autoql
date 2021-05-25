@@ -42,8 +42,12 @@ function clearSvg() {
 }
 
 function updateSize() {
-  var width1 = ${'$'}(window).width() - margin.left - margin.right;
-  width = (width1 / 8) * data.length;
+  if (data.length < 8) {
+    width = ${'$'}(window).width() - margin.left - margin.right;
+  } else {
+    var width1 = ${'$'}(window).width() - margin.left - margin.right;
+    width = (width1 / 8) * data.length;
+  }
   height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }
