@@ -112,6 +112,10 @@ function angle(d) {
 	return a > 90 ? a - 180 : a;
 }
 
+function isHorizontal(type) {
+  return (type == TypeEnum.BAR);
+}
+
 function clearSvg() {
 	//remove svg
 	d3.select('svg').remove();
@@ -232,8 +236,8 @@ for (const item in data) {
 //The left margin makes the left border visible
 var typeChart = TypeEnum.COLUMN;
 var _maxValue = digitsCount(maxValue) * 60;
-var _bottom = typeChart == TypeEnum.COLUMN ? limitName : _maxValue;
-var _left = typeChart == TypeEnum.COLUMN ? _maxValue : limitName;
+var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
+var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
 var margin = {
   top: 20,

@@ -4,13 +4,12 @@ object Bar
 {
 	fun getBar(): String
 	{
-		return """
-function setBar() {
+		return """function setBar() {
 	var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + margin.bottom + margin.right)
+		.attr('height', height + margin.top + margin.left)
 		.append('g')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
 
 	var x = d3.scaleBand()
 		.range([height, 0])
@@ -72,7 +71,7 @@ function setBar() {
 		.attr('text-anchor', 'end')
 		.style('font-size', 16)
 		.attr('x', (width / 2) + margin.top)//for center
-		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
+		.attr('y', height + margin.left - 10)//for set on bottom with -10
 		.attr('fill', '#808080')
 		.text(axisY);
 
@@ -81,11 +80,10 @@ function setBar() {
 		.attr('text-anchor', 'end')
 		.style('font-size', 16)
 		.attr('transform', 'rotate(-90)')
-		.attr('y', -margin.left + 20)
+		.attr('y', -margin.bottom + 20)
 		.attr('x', margin.top + (-height / 2))//center Y axis title
 		.attr('fill', '#808080')
 		.text(axisX);
-	}
-"""
+	}"""
 	}
 }

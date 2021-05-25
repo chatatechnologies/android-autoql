@@ -85,8 +85,8 @@ for (const item in data) {
 //The left margin makes the left border visible
 var typeChart = $typeChart;
 var _maxValue = digitsCount(maxValue) * 60;
-var _bottom = typeChart == TypeEnum.COLUMN ? limitName : _maxValue;
-var _left = typeChart == TypeEnum.COLUMN ? _maxValue : limitName;
+var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
+var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
 var margin = {
   top: 20,

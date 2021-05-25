@@ -32,6 +32,10 @@ function angle(d) {
 	return a > 90 ? a - 180 : a;
 }
 
+function isHorizontal(type) {
+  return (type == TypeEnum.BAR);
+}
+
 function clearSvg() {
 	//remove svg
 	d3.select('svg').remove();
