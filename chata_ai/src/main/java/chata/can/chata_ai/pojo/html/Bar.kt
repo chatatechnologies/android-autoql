@@ -49,7 +49,7 @@ object Bar
 		//Remove line on domain for X axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
-		.attr('transform', 'translate(0,0)rotate(0)')
+		.attr('transform', 'translate(10,10)rotate(-45)')
 		.attr('fill', '#909090');
 
 	svg.append('g')

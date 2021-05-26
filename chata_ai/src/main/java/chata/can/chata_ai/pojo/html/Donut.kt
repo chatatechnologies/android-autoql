@@ -7,8 +7,8 @@ object Donut
 		return """//REGION DONUT
 function setDonut() {
   var arc = d3.arc()
-    .outerRadius(radius - 0)
-		.innerRadius((radius - 0) * 0.5);
+    .outerRadius(radius)
+		.innerRadius(radius * 0.5);
 
 	var pie = d3.pie()
 		.sort(null)

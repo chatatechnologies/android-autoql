@@ -53,6 +53,7 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
+var drillX = ${dataD3.drillX}
 var limitName = 0;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};

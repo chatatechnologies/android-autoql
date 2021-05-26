@@ -6,6 +6,9 @@ class DataD3
 	var table = ""
 	var data = ""
 
+	var drillX = ""
+	var drillY = ""
+
 	var datePivot: String = ""
 
 	var xAxis = ""

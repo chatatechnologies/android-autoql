@@ -83,10 +83,9 @@ function updateData(tmpChart, isReload) {
 
 function drillDown(content) {
 	try {
-		console.log("Good content: " + content);
-		// Android.drillDown(content);
+		Android.boundMethod(content);
 	} catch(err) {
-		console.log("Wrong content: " + content);
+		console.log("Good content: " + content);
 	};
 }
 """
