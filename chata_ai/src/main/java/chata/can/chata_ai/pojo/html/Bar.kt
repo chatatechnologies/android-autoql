@@ -31,7 +31,9 @@ object Bar
 		.attr('y', function(d) { return x(d.name); })
 		.attr('height', x.bandwidth())
 		.on('click', function(_, d) {
-			drillDown(d.value);
+			var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
 		});
 
 	svg.append('g')

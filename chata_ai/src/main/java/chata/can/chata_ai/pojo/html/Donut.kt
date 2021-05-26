@@ -39,7 +39,8 @@ function setDonut() {
 		})
 		.on('click', function(_, i) {
 			var index = i.index;
-			drillDown(data[index].value);
+			var value = drillX[index];
+			drillDown(value);
 		});
 		
 	var factorBack = -(maxHeight / 2) - 30;

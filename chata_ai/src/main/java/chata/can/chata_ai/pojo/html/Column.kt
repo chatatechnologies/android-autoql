@@ -32,7 +32,9 @@ function setColumn() {
     .attr('y', function(d) { return y(d.value); })
     .attr('height', function(d) { return height - y(d.value); })
     .on('click', function(_, d) {
-      drillDown(d.value);
+      var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
     });
 
 //the X DATA for axis bar

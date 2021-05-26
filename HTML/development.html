@@ -225,7 +225,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.LINE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -268,7 +268,9 @@ function setBar() {
 		.attr('y', function(d) { return x(d.name); })
 		.attr('height', x.bandwidth())
 		.on('click', function(_, d) {
-			drillDown(d.value);
+			var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
 		});
 
 	svg.append('g')
@@ -350,7 +352,9 @@ function setColumn() {
     .attr('y', function(d) { return y(d.value); })
     .attr('height', function(d) { return height - y(d.value); })
     .on('click', function(_, d) {
-      drillDown(d.value);
+      var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
     });
 
 //the X DATA for axis bar
@@ -489,8 +493,10 @@ function setLine() {
       .attr("r", 4)
       .attr("fill", colorBi)
       .on('click', function(_, d) {
-        drillDown(d.value);
-      });
+	      var index = data.indexOf(d);
+	      var value = drillX[index];
+	      drillDown(value);
+	    });
 			
 		//Add X axis label:
     svg.append('text')
@@ -546,7 +552,8 @@ function setDonut() {
 		})
 		.on('click', function(_, i) {
 			var index = i.index;
-			drillDown(data[index].value);
+			var value = drillX[index];
+			drillDown(value);
 		});
 		
 	var factorBack = -(maxHeight / 2) - 30;

@@ -79,8 +79,10 @@ object Line
       .attr("r", 4)
       .attr("fill", colorBi)
       .on('click', function(_, d) {
-        drillDown(d.value);
-      });
+	      var index = data.indexOf(d);
+	      var value = drillX[index];
+	      drillDown(value);
+	    });
 			
 		//Add X axis label:
     svg.append('text')
