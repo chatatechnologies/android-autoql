@@ -79,7 +79,7 @@ function setLine() {
       .attr("cy", function(d) { return yScale(d.value) })
       .attr("r", 4)
       .attr("fill", colorBi)
-      .on('click', function(d) {
+      .on('click', function(_, d) {
         drillDown(d.value);
       });
 			

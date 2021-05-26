@@ -30,7 +30,7 @@ object Bar
 		.attr('width', function(d) { return y(d.value); })
 		.attr('y', function(d) { return x(d.name); })
 		.attr('height', x.bandwidth())
-		.on('click', function(d) {
+		.on('click', function(_, d) {
 			drillDown(d.value);
 		});
 
