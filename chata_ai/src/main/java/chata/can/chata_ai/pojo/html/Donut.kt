@@ -33,8 +33,8 @@ function setDonut() {
 
 	g.append('path')
 		.attr('d', arc)
-		.style('fill', function(d,i) {
-			return scaleColorPie(d.value);
+		.style('fill', function(_, i) {
+			return colorPie[i];
 		})
 		.on('click', function(_, i) {
 			var index = i.index;
@@ -47,10 +47,16 @@ function setDonut() {
     var item = data[index];
     svg.append('text')
     .style('font-size', 12)
-    .attr('x', -(maxWidth / 2) - 35)
+    .attr('x', -(maxWidth / 2) - 20)
     .attr('y', factorBack)
     .attr('fill', '#808080')
     .text(item.name + ': ' + item.value);
+		
+    svg.append('circle')
+      .attr("cx", -(maxWidth / 2) - 30)
+      .attr("cy", factorBack - 5)
+      .attr("r", 5)
+      .attr("fill", colorPie[index])
     factorBack += 20;
   }
 }
