@@ -4,8 +4,7 @@ object Line
 {
 	fun getLine(): String
 	{
-		return """
-function setLine() {
+		return """function setLine() {
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)

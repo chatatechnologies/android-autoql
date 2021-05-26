@@ -5,8 +5,7 @@ object Functions
 	//region function
 	fun getFunctions(): String
 	{
-		return """
-function getFirst10(string) {
+		return """function getFirst10(string) {
   var newString = '';
   if (string.length < 11) {
     newString = string

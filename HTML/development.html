@@ -68,8 +68,7 @@
 </style>
 </head>
 <body>
-
-	<div style="display: none;">
+<div style="display: none;">
     <button class="button" onclick="updateData(TypeEnum.TABLE)">TABLE</button>
     <!-- <button class="button" onclick="updateData(TypeEnum.PIVOT)">PIVOT</button> -->
     <button class="button" onclick="updateData(TypeEnum.COLUMN)">COLUMN</button>
@@ -82,10 +81,8 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_COLUMN)">STACKED COLUMN</button> -->
     <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_AREA)">STACKED AREA</button> -->
   </div>
-		
 <table id="idTableBasic"><thead><tr><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Nov 2019</td><td>$106,630.75</td></tr><tr><td>Oct 2019</td><td>$104,254.00</td></tr><tr><td>Sep 2019</td><td>$57,326.75</td></tr><tr><td>Aug 2019</td><td>$122,868.00</td></tr><tr><td>May 2019</td><td>$100,500.00</td></tr></tbody></table>
 <script>
-
 function getFirst10(string) {
   var newString = '';
   if (string.length < 11) {
@@ -169,7 +166,6 @@ function drillDown(content) {
 	};
 }
 
-
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
@@ -197,6 +193,7 @@ var data = [{name: "Nov 2019", value: 106630.75},
 {name: "Sep 2019", value: 57326.75},
 {name: "Aug 2019", value: 122868.00},
 {name: "May 2019", value: 100500.00}]
+var drillTableY = [106630.75, 104254.00, 57326.75, 122868.00, 100500.00];
 var drillX = ["2019-11", "2019-10", "2019-09", "2019-08", "2019-05"]
 var limitName = 0;
 var maxValue = 122868;
@@ -417,7 +414,6 @@ svg.append('text')
   .text(axisY);
 }
 
-
 function setLine() {
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -515,6 +511,7 @@ function setLine() {
       .attr('fill', '#808080')
       .text(axisY);
 	}
+
 //REGION DONUT
 function setDonut() {
   var arc = d3.arc()
@@ -572,7 +569,8 @@ function setDonut() {
   }
 }
 //END DONUT
-$('#idTableBasic tfoot th').each(function () {
+
+		$('#idTableBasic tfoot th').each(function () {
     var indexInput = $(this).index();
     var title = $(this).text();
     var idInput = title.split(' ').join('_') + '_Basic';
@@ -598,6 +596,7 @@ $('#idTableBasic tfoot th').each(function () {
         }
     });
 });
+
 $('#idTableDataPivot tfoot th').each(function () {
     var indexInput = $(this).index();
     var title = $(this).text();
@@ -624,6 +623,7 @@ $('#idTableDataPivot tfoot th').each(function () {
         }
     });
 });
+
 function showFilter() {
 	if ( $('tfoot').is(':visible') ) {
 		$('tfoot').css({'display': 'none'});
@@ -631,22 +631,32 @@ function showFilter() {
 		$('tfoot').css({'display': 'table-header-group'});
 	}
 }
-	var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
-    //region locale settings
-    var locale = d3.formatLocale({
-      "decimal": ",",//","
-      "thousands": ",",//" ",
-      "grouping": [3],
-      "currency": ["$", ""]//["€", ""] first if prefix, second is suffix
-    });
-    var fformat = locale.format("$,");
-    //endregion
+$('td').click(function() {
+  var $this = $(this);
+  var row = $this.closest('tr').index();
+  var column = $this.closest('td').index();
+  var firstColumn = $this.closest('tr');
+  var finalText = firstColumn[0].firstChild.innerText;
+  var strDate = firstColumn[0].children[1].innerText;
+  drillDown(finalText);
+});
+var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
-    $(window).resize(function() {
-      updateData(typeChart, true);
-    });
-    updateData(typeChart);
+//region locale settings
+var locale = d3.formatLocale({
+  "decimal": ",",//","
+  "thousands": ",",//" ",
+  "grouping": [3],
+  "currency": ["$", ""]//["€", ""] first if prefix, second is suffix
+});
+var fformat = locale.format("$,");
+//endregion
+
+$(window).resize(function() {
+  updateData(typeChart, true);
+});
+updateData(typeChart);
 </script>
 </body>
 </html>

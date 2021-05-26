@@ -272,6 +272,7 @@ object HtmlBuilder
 				buildCategoryByPosition(Category(aRows, aColumn[posColumnY],
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
+			dataD3.drillTableY = dataForWebView.drillTableY
 
 			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()

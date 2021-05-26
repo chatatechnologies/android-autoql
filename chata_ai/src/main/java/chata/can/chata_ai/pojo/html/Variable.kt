@@ -12,7 +12,6 @@ object Variable
 
 	fun getVariables(dataD3: DataD3): String
 	{
-
 		val typeChart =
 			if (dataD3.isColumn && !dataD3.isDashboard)
 				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
@@ -29,8 +28,7 @@ object Variable
 		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
-		return """
-//region not mutable
+		return """//region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
   "PIVOT": 2,
@@ -53,6 +51,7 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
+var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX}
 var limitName = 0;
 var maxValue = ${dataD3.max};
