@@ -122,8 +122,12 @@ function clearSvg() {
 }
 
 function updateSize() {
-  var width1 = $(window).width() - margin.left - margin.right;
-  width = (width1 / 8) * data.length;
+  if (data.length < 8) {
+    width = $(window).width() - margin.left - margin.right;
+  } else {
+    var width1 = $(window).width() - margin.left - margin.right;
+    width = (width1 / 8) * data.length;
+  }
   height = $(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }
@@ -224,8 +228,10 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
-var _maxValue = digitsCount(maxValue) * 10 + 50;
+var typeChart = TypeEnum.PIE;
+var digits = digitsCount(maxValue);
+var _plusSingle = digits == 1 ? 10 : 0;
+var _maxValue = (digits * 8) + 35 + _plusSingle;
 var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
 var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
@@ -264,7 +270,7 @@ function setBar() {
 		.attr('width', function(d) { return y(d.value); })
 		.attr('y', function(d) { return x(d.name); })
 		.attr('height', x.bandwidth())
-		.on('click', function(d) {
+		.on('click', function(_, d) {
 			drillDown(d.value);
 		});
 
@@ -486,7 +492,7 @@ function setLine() {
       .attr("cy", function(d) { return yScale(d.value) })
       .attr("r", 4)
       .attr("fill", colorBi)
-      .on('click', function(d) {
+      .on('click', function(_, d) {
         drillDown(d.value);
       });
 			
@@ -509,7 +515,7 @@ function setLine() {
       .attr('fill', '#808080')
       .text(axisY);
 	}
-
+//REGION DONUT
 function setDonut() {
   var arc = d3.arc()
     .outerRadius(radius - 10)
@@ -518,15 +524,17 @@ function setDonut() {
 	var pie = d3.pie()
 		.sort(null)
 		.value(function(d) {
-			//return d.count;
 			return d.value;
 		});
+		
+	var maxWidth = width + margin.left + margin.right;
+  var maxHeight = height + margin.top + margin.bottom;
 
 	var svg = d3.select('body').append('svg')
-		.attr('width', width)
-		.attr('height', height)
+    .attr('width', maxWidth)
+    .attr('height', maxHeight)
 		.append('g')
-		.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+		.attr('transform', 'translate(' + maxWidth / 2 + ',' + maxHeight / 2 + ')');
 
 	var g = svg.selectAll('.arc')
 		.data(pie(data))
@@ -539,28 +547,39 @@ function setDonut() {
 		.style('fill', function(d,i) {
 			return scaleColorPie(d.value);
 		})
-		.on('click', function(d) {
-			drillDown(d.value);
+		.on('click', function(_, i) {
+			var index = i.index;
+			drillDown(data[index].value);
 		});
-
-	g.append('text')
-		.attr('transform', function(d) {
-			var _d = arc.centroid(d);
-			_d[0] *= 1.6;	//multiply by a constant factor
-			_d[1] *= 1.6;	//multiply by a constant factor
-			return 'translate(' + _d + ')';
-		})
-		.attr('dy', '.50em')
-		.style('text-anchor', 'middle')
-		.text(function(d) {
-			return d.data.name;
-			// if(d.data.percentage < 8) {
-			// 	return '';
-			// }
-			// return d.data.percentage + '%';
-		});
+		
+		var factorBack = (data.length * 20) / -2;//-2 I need it to be a negative number
+		
+		for (const index in data) {
+	    var item = data[index];
+	    svg.append('text')
+	    .style('font-size', 16)
+	    .attr('x', -(maxWidth / 2) + margin.left)
+	    .attr('y', factorBack)
+	    .attr('fill', '#808080')
+	    .text(item.name + ': ' + item.value);
+	    //console.log(index)
+	    factorBack += 20;
+	  }
+		
+	// g.append('text')
+	// 	.attr('transform', function(d) {
+	// 		var _d = arc.centroid(d);
+	// 		_d[0] *= 1.6;	//multiply by a constant factor
+	// 		_d[1] *= 1.6;	//multiply by a constant factor
+	// 		return 'translate(' + _d + ')';
+	// 	})
+	// 	.attr('dy', '.50em')
+	// 	.style('text-anchor', 'middle')
+	// 	.text(function(d) {
+	// 		return d.data.name;
+	// 	});
 	}
-
+//END DONUT
 $('#idTableBasic tfoot th').each(function () {
     var indexInput = $(this).index();
     var title = $(this).text();

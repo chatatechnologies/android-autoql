@@ -4,7 +4,7 @@ object Donut
 {
 	fun getDonut(): String
 	{
-		return """
+		return """//REGION DONUT
 function setDonut() {
   var arc = d3.arc()
     .outerRadius(radius - 10)
@@ -13,15 +13,17 @@ function setDonut() {
 	var pie = d3.pie()
 		.sort(null)
 		.value(function(d) {
-			//return d.count;
 			return d.value;
 		});
+		
+	var maxWidth = width + margin.left + margin.right;
+  var maxHeight = height + margin.top + margin.bottom;
 
 	var svg = d3.select('body').append('svg')
-		.attr('width', width)
-		.attr('height', height)
+    .attr('width', maxWidth)
+    .attr('height', maxHeight)
 		.append('g')
-		.attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+		.attr('transform', 'translate(' + maxWidth / 2 + ',' + maxHeight / 2 + ')');
 
 	var g = svg.selectAll('.arc')
 		.data(pie(data))
@@ -36,26 +38,36 @@ function setDonut() {
 		})
 		.on('click', function(_, i) {
 			var index = i.index;
-			drillDown(value);
+			drillDown(data[index].value);
 		});
-
-	g.append('text')
-		.attr('transform', function(d) {
-			var _d = arc.centroid(d);
-			_d[0] *= 1.6;	//multiply by a constant factor
-			_d[1] *= 1.6;	//multiply by a constant factor
-			return 'translate(' + _d + ')';
-		})
-		.attr('dy', '.50em')
-		.style('text-anchor', 'middle')
-		.text(function(d) {
-			return d.data.name;
-			// if(d.data.percentage < 8) {
-			// 	return '';
-			// }
-			// return d.data.percentage + '%';
-		});
+		
+		var factorBack = (data.length * 20) / -2;//-2 I need it to be a negative number
+		
+		for (const index in data) {
+	    var item = data[index];
+	    svg.append('text')
+	    .style('font-size', 16)
+	    .attr('x', -(maxWidth / 2) + margin.left)
+	    .attr('y', factorBack)
+	    .attr('fill', '#808080')
+	    .text(item.name + ': ' + item.value);
+	    //console.log(index)
+	    factorBack += 20;
+	  }
+		
+	// g.append('text')
+	// 	.attr('transform', function(d) {
+	// 		var _d = arc.centroid(d);
+	// 		_d[0] *= 1.6;	//multiply by a constant factor
+	// 		_d[1] *= 1.6;	//multiply by a constant factor
+	// 		return 'translate(' + _d + ')';
+	// 	})
+	// 	.attr('dy', '.50em')
+	// 	.style('text-anchor', 'middle')
+	// 	.text(function(d) {
+	// 		return d.data.name;
+	// 	});
 	}
-"""
+//END DONUT"""
 	}
 }
