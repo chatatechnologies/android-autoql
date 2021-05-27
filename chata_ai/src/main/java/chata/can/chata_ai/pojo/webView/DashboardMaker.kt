@@ -252,6 +252,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
       text-overflow: ellipsis;
       border: 0.5px solid #cccccc;
     }
+    span {
+        display: none;
+    }
     .green{
         color: #2ecc40;
     }
@@ -410,8 +413,8 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             var firstColumn = ${'$'}this.closest('tr');
             var finalText = firstColumn[0].firstChild.innerText;
             var strDate = firstColumn[0].children[1].innerText;
-            if (type == "idTableDataPivot" ){
-                finalText = drillX[column - 1] + "_" + drillSpecial[row];
+            if (type == "#idTableDataPivot" ){
+                finalText = firstColumn[0].children[column].children[0].innerText;
             } else if (type == "idTableDatePivot" ) {
                 finalText = ${'$'}this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
