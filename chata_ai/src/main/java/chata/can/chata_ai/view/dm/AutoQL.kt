@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
@@ -39,6 +40,10 @@ class AutoQL: FrameLayout
 		{
 			AutoQLData.isRelease = false
 			eventClick()
+		}
+		else
+		{
+			Toast.makeText(context, "Is release is blocked", Toast.LENGTH_LONG).show()
 		}
 	}
 
@@ -121,6 +126,8 @@ class AutoQL: FrameLayout
 			setOnClickListener {
 				if (::eventClick.isInitialized)
 					runEvent()
+				else
+					Toast.makeText(context, "DM is not enable", Toast.LENGTH_LONG).show()
 			}
 		}
 

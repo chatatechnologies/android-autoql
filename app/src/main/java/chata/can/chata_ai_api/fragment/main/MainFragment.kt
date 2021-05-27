@@ -738,6 +738,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			if (this is PagerActivity)
 			{
 				this.isVisibleTabLayout = isAuthenticate
+				AutoQLData.isRelease = true
 			}
 		}
 
