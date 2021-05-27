@@ -48,11 +48,15 @@ class JavaScriptInterface(
 					else
 					{
 						val index = queryBase.aXAxis.indexOf(newContent)
-						if (index != -1)
+						newContent = if (index != -1)
 						{
-							newContent = queryBase.aXDrillDown[index]
-							postDrillDown(newContent)
+							queryBase.aXDrillDown[index]
 						}
+						else
+						{
+							"undefined"
+						}
+						postDrillDown(newContent)
 					}
 				}
 				3 ->
