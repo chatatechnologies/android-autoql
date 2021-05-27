@@ -146,6 +146,10 @@ object DatePivot
 				addAll(aYearDistinct)
 				sort()
 			}
+			if (aYears.size == 1)
+			{
+				return Pair("", 0)
+			}
 			//endregion
 			val dollarColumn = aColumn[1]
 

@@ -508,15 +508,20 @@ object HtmlBuilder
 
 				val type = aColumn[0].type
 				//val type1 = aColumn[1].type
-				if (type == TypeDataQuery.DATE_STRING
-					//&& type1 != TypeDataQuery.DOLLAR_AMT
-				)
+				if (type == TypeDataQuery.DATE_STRING/* && type1 != TypeDataQuery.DOLLAR_AMT*/)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
-						dataForWebView.datePivot = first
-						dataForWebView.rowsPivot = second
+						if (first != "" && second != 0)
+						{
+							dataForWebView.datePivot = first
+							dataForWebView.rowsPivot = second
+							queryBase.configActions = 1
+						}
+						else
+						{
+							toString()
+						}
 					}
-					queryBase.configActions = 1
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
