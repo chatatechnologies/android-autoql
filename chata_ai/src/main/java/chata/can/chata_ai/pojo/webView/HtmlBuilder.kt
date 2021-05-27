@@ -253,6 +253,9 @@ object HtmlBuilder
 			dataForWebView.drillX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX,
 					false, hasQuotes = true, allowRepeat = true)).toString()
+			/*D3 variable*/
+			dataD3.drillX = dataForWebView.drillX
+
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
 				val column = aColumn[posColumnY]
 				buildCategoryByPosition(
@@ -269,6 +272,7 @@ object HtmlBuilder
 				buildCategoryByPosition(Category(aRows, aColumn[posColumnY],
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
+			dataD3.drillTableY = dataForWebView.drillTableY
 
 			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
 			dataForWebView.catY = aCatY.toString()

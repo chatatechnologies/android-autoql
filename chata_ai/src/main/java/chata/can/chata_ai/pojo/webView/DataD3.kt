@@ -5,6 +5,10 @@ class DataD3
 	var type = "table"
 	var table = ""
 	var data = ""
+	var drillX = ""
+
+	var drillY = ""
+	var drillTableY = "[]"
 
 	var datePivot: String = ""
 

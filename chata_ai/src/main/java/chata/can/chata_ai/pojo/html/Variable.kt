@@ -12,7 +12,6 @@ object Variable
 
 	fun getVariables(dataD3: DataD3): String
 	{
-
 		val typeChart =
 			if (dataD3.isColumn && !dataD3.isDashboard)
 				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
@@ -29,8 +28,7 @@ object Variable
 		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
 			"\"$it\""
 		}
-		return """
-//region not mutable
+		return """//region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
   "PIVOT": 2,
@@ -53,26 +51,53 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
-var maxValue = ${dataD3.max}
-var minValue = ${dataD3.min}
+var drillTableY = ${dataD3.drillTableY};
+var drillX = ${dataD3.drillX}
+var limitName = 0;
+var maxValue = ${dataD3.max};
+var minValue = ${dataD3.min};
 //endregion
+
+//REGION max letters in name
+for (const item in data) {
+  var value = data[item].name.length;
+  if (limitName < value) {
+    limitName = value;
+    if (limitName > 10) {
+      limitName = 110;
+      break;
+    } else {
+      limitName *= 10;
+    }
+  }
+}
+//ENDREGION
+
+//REGION get max value
+for (const item in data) {
+  var value = data[item].value;
+  if (maxValue < value) {
+    maxValue = value;
+  }
+}
+//ENDREGION
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
+var digits = digitsCount(maxValue);
+var _plusSingle = digits == 1 ? 10 : 0;
+var _maxValue = (digits * 8) + 35 + _plusSingle;
+var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
+var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
-var width1 = 0;
-var height = 0;
 var margin = {
   top: 20,
   right: 20,
-  bottom: 72 + 10,//factor count letter by 7
-  left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
+  bottom: _bottom,
+  left: _left
 };
-//width = width1 - margin.left - margin.right,
 var width = 0;
-//height = height - margin.top - margin.bottom,
 var height = 0;
-//radius = Math.min(width, height) / 2;
 """
 	}
 }

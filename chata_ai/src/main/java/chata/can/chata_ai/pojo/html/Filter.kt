@@ -4,7 +4,8 @@ object Filter
 {
 	fun getFilter(): String
 	{
-		return """${'$'}('#idTableBasic tfoot th').each(function () {
+		return """
+		${'$'}('#idTableBasic tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
     var idInput = title.split(' ').join('_') + '_Basic';
@@ -30,6 +31,7 @@ object Filter
         }
     });
 });
+
 ${'$'}('#idTableDataPivot tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
@@ -56,6 +58,7 @@ ${'$'}('#idTableDataPivot tfoot th').each(function () {
         }
     });
 });
+
 function showFilter() {
 	if ( ${'$'}('tfoot').is(':visible') ) {
 		${'$'}('tfoot').css({'display': 'none'});

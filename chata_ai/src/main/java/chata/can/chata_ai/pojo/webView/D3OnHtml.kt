@@ -5,6 +5,7 @@ import chata.can.chata_ai.pojo.html.Actions.getActions
 import chata.can.chata_ai.pojo.html.Bar.getBar
 import chata.can.chata_ai.pojo.html.Column.getColumn
 import chata.can.chata_ai.pojo.html.Donut.getDonut
+import chata.can.chata_ai.pojo.html.Event.getEvents
 import chata.can.chata_ai.pojo.html.Filter.getFilter
 import chata.can.chata_ai.pojo.html.Functions.getFunctions
 import chata.can.chata_ai.pojo.html.Line.getLine
@@ -24,8 +25,7 @@ object D3OnHtml
 				pDrawerTextColorPrimary and 0x00ffffff)
 		}
 
-		return """
-<!DOCTYPE html>
+		return """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -105,22 +105,23 @@ ${getColumn()}
 ${getLine()}
 ${getDonut()}
 ${getFilter()}
-	var scaleColorBi = d3.scaleOrdinal().range(colorBi);
+${getEvents()}
+var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
-    //region locale settings
-    var locale = d3.formatLocale({
-      "decimal": ",",//","
-      "thousands": ",",//" ",
-      "grouping": [3],
-      "currency": ["${'$'}", ""]//["€", ""] first if prefix, second is suffix
-    });
-    var fformat = locale.format("${'$'},");
-    //endregion
+//region locale settings
+var locale = d3.formatLocale({
+  "decimal": ",",//","
+  "thousands": ",",//" ",
+  "grouping": [3],
+  "currency": ["${'$'}", ""]//["€", ""] first if prefix, second is suffix
+});
+var fformat = locale.format("${'$'},");
+//endregion
 
-    ${'$'}(window).resize(function() {
-      updateData(typeChart, true);
-    });
-    updateData(typeChart);
+${'$'}(window).resize(function() {
+  updateData(typeChart, true);
+});
+updateData(typeChart);
 </script>
 </body>
 </html>"""
