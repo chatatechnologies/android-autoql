@@ -23,7 +23,7 @@ object ChataDateFormat
 						if (aLocale.size > 1)
 						{
 							mMonthShort[aLocale[0]]?.let {
-								month = it[index]
+								month = it[index - 1]
 							}
 						}
 						month + " " + SimpleDateFormat("yyyy", locale).format(date)
