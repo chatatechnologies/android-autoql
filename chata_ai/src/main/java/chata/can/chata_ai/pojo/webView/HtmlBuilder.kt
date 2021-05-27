@@ -517,10 +517,6 @@ object HtmlBuilder
 							dataForWebView.rowsPivot = second
 							queryBase.configActions = 1
 						}
-						else
-						{
-							toString()
-						}
 					}
 				}
 

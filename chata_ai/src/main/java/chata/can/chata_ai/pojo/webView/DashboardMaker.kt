@@ -416,6 +416,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
                 finalText = ${'$'}this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
                 finalText += "_"+drillTableY[row];
+            } else {
+                var index = categoriesX.indexOf(finalText)
+                finalText = drillX[index]
             }
             //var d = new Date( Date.parse('2017 2') );
            drillDown( finalText );
