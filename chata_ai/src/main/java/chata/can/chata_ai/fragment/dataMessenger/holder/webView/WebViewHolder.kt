@@ -327,7 +327,7 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableBasic"
-						Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
+						Pair("'$idHide', '#idTableBasic', '#idTableBasic'", queryBase.rowsTable)
 //						Pair("TypeEnum.TABLE", queryBase.rowsTable)
 					}
 					R.id.ivBar ->
@@ -401,7 +401,7 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
-						Pair("'$idHide', '#idTableDataPivot', ''", queryBase.rowsPivot)
+						Pair("'$idHide', '#idTableDataPivot', '#idTableDataPivot'", queryBase.rowsPivot)
 					}
 					R.id.ivStackedBar ->
 					{
