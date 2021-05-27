@@ -1012,7 +1012,7 @@ function hideTables(idHide, idShow, type2) {
 ${'$'}('#idTableBasic tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
-    var idInput = title.split(' ').join('_') + '_Basic';
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_') + '_Basic';
 	${'$'}(this).html(
         '<input id=' + idInput +
         ' type="text" placeholder="filter column..."/>');
@@ -1038,7 +1038,7 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
 ${'$'}('#idTableDataPivot tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
-    var idInput = title.split(' ').join('_') + '_DataPivot';
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_') + '_DataPivot';
 	${'$'}(this).html(
         '<input id=' + idInput +
         ' type="text" placeholder="Search on ' + title + '"/>');
