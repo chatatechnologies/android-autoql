@@ -51,6 +51,7 @@ var axisY = '${dataD3.yAxis}';
 
 //Main data
 var data = ${dataD3.data}
+var categoriesX = ${dataD3.catX}
 var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX}
 var limitName = 0;

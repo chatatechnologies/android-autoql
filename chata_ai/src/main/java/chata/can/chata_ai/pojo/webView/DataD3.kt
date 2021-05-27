@@ -5,6 +5,9 @@ class DataD3
 	var type = "table"
 	var table = ""
 	var data = ""
+
+	var catX = "[]"
+
 	var drillX = ""
 
 	var drillY = ""

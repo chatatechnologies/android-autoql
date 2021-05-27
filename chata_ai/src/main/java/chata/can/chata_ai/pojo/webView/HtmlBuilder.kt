@@ -274,7 +274,11 @@ object HtmlBuilder
 			} else arrayListOf<String>().toString()
 			dataD3.drillTableY = dataForWebView.drillTableY
 
-			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
+			if (dataForWebView.catX == "[]")
+			{
+				dataForWebView.catX = aCatX.toString()
+				dataD3.catX = dataForWebView.catX
+			}
 			dataForWebView.catY = aCatY.toString()
 
 			if (isTriConfig)
@@ -503,6 +507,7 @@ object HtmlBuilder
 					dataForWebView.catX = aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
+					dataD3.catX = dataForWebView.catX
 				}
 				//TODO COMPLETE
 //				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))

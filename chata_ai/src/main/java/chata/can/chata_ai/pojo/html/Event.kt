@@ -10,6 +10,10 @@ ${'$'}('td').click(function() {
   var firstColumn = ${'$'}this.closest('tr');
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
+	//simple table
+  var index = categoriesX.indexOf(finalText);
+  finalText = drillX[index];
+  //endregion
   drillDown(finalText);
 });"""
 	}
