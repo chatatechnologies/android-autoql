@@ -140,7 +140,7 @@ class WebViewHolder(
 	{
 		if (configActions != 0)
 		{
-			val aConfigs = when(configActions)
+			val aMutable = when(configActions)
 			{
 				1 -> ConfigActions.biConfig
 				2 ->
@@ -167,6 +167,7 @@ class WebViewHolder(
 					arrayListOf()
 				}
 			}
+			val aConfigs = aMutable.toMutableList()
 			queryBase?.let {
 				if (it.isGroupable &&
 					(R.id.ivColumn in aConfigs || R.id.ivStackedColumn in aConfigs))
