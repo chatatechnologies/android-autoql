@@ -2,23 +2,17 @@ package chata.can.chata_ai.dialog
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
-import android.util.TypedValue
 import android.view.*
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
 import chata.can.chata_ai.R
-import chata.can.chata_ai.dialog.hideColumn.HideDialog
+import chata.can.chata_ai.dialog.hideColumn.CustomAlertDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
@@ -66,7 +60,7 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							HideColumnsDialog.showHideColumnsDialog(view.context)
+							CustomAlertDialog(view.context, queryBase).showDialog()
 							//HideDialog(view.context, queryBase).show()
 						}
 						R.id.iFilterTable ->

@@ -79,6 +79,7 @@
 	<!-- region HideDialog -->
 	<item name="vBorder" type="id"/>
 	<item name="rlList" type="id"/>
+	<item name="rvColumn" type="id"/>
 	<item name="tvColumnName" type="id"/>
 	<item name="tvVisibility" type="id"/>
 	<item name="cbAll" type="id"/>

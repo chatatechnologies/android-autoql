@@ -1,23 +1,34 @@
-package chata.can.chata_ai.dialog
+package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.chat.ColumnQuery
+import chata.can.chata_ai.pojo.chat.QueryBase
 
-object HideColumnsDialog
+class CustomAlertDialog(
+	private val context: Context,
+	private val queryBase: QueryBase?): View.OnClickListener, ColumnChanges.AllColumn
 {
-	fun showHideColumnsDialog(context: Context)
+	private lateinit var cbAll: CheckBox
+	private lateinit var rvColumn: RecyclerView
+	private lateinit var adapter: ColumnAdapter
+	val model = BaseModelList<ColumnQuery>()
+
+	fun showDialog()
 	{
-		val builder = AlertDialog.Builder(context)
 		val rlView = LinearLayout(context).apply {
 			layoutParams = LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
@@ -26,7 +37,6 @@ object HideColumnsDialog
 			paddingAll(8f)
 			//region RelativeLayout
 			val rl = RelativeLayout(context).apply {
-				setBackgroundColor(Color.RED)
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -89,7 +99,7 @@ object HideColumnsDialog
 					})
 				})
 				//all checkBox
-				addView(CheckBox(ContextThemeWrapper(context, R.style.checkBoxStyle)).apply {
+				cbAll = CheckBox(ContextThemeWrapper(context, R.style.checkBoxStyle)).apply {
 					layoutParams = RelativeLayout.LayoutParams(
 						RelativeLayout.LayoutParams.WRAP_CONTENT,
 						RelativeLayout.LayoutParams.WRAP_CONTENT)
@@ -97,14 +107,24 @@ object HideColumnsDialog
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
 					id = R.id.cbAll
-				})
+				}
+				addView(cbAll)
 				//endregion
 			}
 			addView(rlTop)
 			//endregion
+			//region RecyclerView
+			rvColumn = RecyclerView(context).apply {
+				layoutParams = LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT)
+					//dpToPx(40f) * 2)
+				id = R.id.rvColumn
+			}
+			addView(rvColumn)
+			//endregion
 			//region bottom actions
 			val llBottom = LinearLayout(context).apply {
-				setBackgroundColor(Color.GREEN)
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -113,16 +133,54 @@ object HideColumnsDialog
 				addView(Button(context).apply {
 					setText(R.string.cancel)
 					isAllCaps = false
+					setOnClickListener {
+//						dismiss()
+					}
 				})
 				addView(Button(context).apply {
 					setText(R.string.apply)
 					isAllCaps = false
+					setOnClickListener {
+//						dismiss()
+					}
 				})
 			}
 			addView(llBottom)
 			//endregion
 		}
-		builder.setView(rlView)
-		builder.show()
+
+		AlertDialog.Builder(context).create().run {
+			setView(rlView)
+			setCancelable(false)
+			show()
+		}
+		setColumns()
+	}
+
+	fun setColumns()
+	{
+		queryBase?.let { queryBase ->
+			var isSelect = true
+			for(column in queryBase.aColumn)
+			{
+				if (!column.isVisible) isSelect = false
+				model.add(column.copy())
+			}
+			cbAll.isChecked = isSelect
+			adapter = ColumnAdapter(model, queryBase, this)
+			rvColumn.layoutManager = LinearLayoutManager(context)
+			rvColumn.adapter = adapter
+		}
+	}
+
+	override fun onClick(view: View?)
+	{
+
+	}
+
+	override fun changeAllColumn(value: Boolean)
+	{
+		cbAll.setOnCheckedChangeListener(null)
+		cbAll.isChecked = value
 	}
 }
