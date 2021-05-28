@@ -77,11 +77,14 @@
 	<item name="toggleSwitch" type="id"/>
 	<item name="statusSwitch" type="id"/>
 	<!-- region HideDialog -->
+	<item name="ivCancel" type="id"/>
 	<item name="vBorder" type="id"/>
 	<item name="rlList" type="id"/>
 	<item name="rvColumn" type="id"/>
 	<item name="tvColumnName" type="id"/>
 	<item name="tvVisibility" type="id"/>
 	<item name="cbAll" type="id"/>
+	<item name="btnCancel" type="id"/>
+	<item name="btnApply" type="id"/>
 	<!-- endregion -->
 </resources>
