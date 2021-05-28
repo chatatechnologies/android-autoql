@@ -2,11 +2,13 @@ package chata.can.chata_ai.dialog
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
+import android.util.TypedValue
 import android.view.*
-import android.widget.PopupMenu
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
@@ -14,6 +16,8 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
+import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
@@ -61,17 +65,64 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							val build = AlertDialog.Builder(view.context)
-							val layoutInflater = LayoutInflater.from(view.context)
-							val viewDialog = layoutInflater.inflate(R.layout.dialog_hide, null)
-							val dialogCard = build.create()
-							build.setView(viewDialog)
-							val window = dialogCard.window
-							window?.setLayout(
-								WindowManager.LayoutParams.MATCH_PARENT,
-								WindowManager.LayoutParams.WRAP_CONTENT)
-							window?.setGravity(Gravity.END)
-							build.show()
+							val context = view.context
+							val builder = AlertDialog.Builder(context)
+							val rlView = LinearLayout(context).apply {
+								layoutParams = LinearLayout.LayoutParams(
+									LinearLayout.LayoutParams.MATCH_PARENT,
+									LinearLayout.LayoutParams.WRAP_CONTENT)
+								orientation = LinearLayout.VERTICAL
+								paddingAll(8f)
+								//region RelativeLayout
+								val rl = RelativeLayout(context).apply {
+									setBackgroundColor(Color.RED)
+									layoutParams = LinearLayout.LayoutParams(
+										LinearLayout.LayoutParams.MATCH_PARENT,
+										LinearLayout.LayoutParams.WRAP_CONTENT)
+									//region Title
+									addView(TextView(context).apply {
+										layoutParams = RelativeLayout.LayoutParams(
+											RelativeLayout.LayoutParams.MATCH_PARENT,
+											RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+												addRule(RelativeLayout.CENTER_IN_PARENT)
+										}
+										text = context.getString(R.string.show_hide_column)
+										setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+										setTypeface(typeface, Typeface.BOLD)
+									})
+									//endregion
+								}
+								addView(rl)
+								//endregion
+								//region bottom actions
+								val llBottom = LinearLayout(context).apply {
+									setBackgroundColor(Color.GREEN)
+									layoutParams = LinearLayout.LayoutParams(
+										LinearLayout.LayoutParams.MATCH_PARENT,
+										LinearLayout.LayoutParams.WRAP_CONTENT)
+									orientation = LinearLayout.HORIZONTAL
+									gravity = Gravity.END
+									addView(Button(context).apply {
+										setText(R.string.cancel)
+										isAllCaps = false
+									})
+									addView(Button(context).apply {
+										setText(R.string.apply)
+										isAllCaps = false
+									})
+								}
+								addView(llBottom)
+								//endregion
+							}
+							builder.setView(rlView)
+//							builder.setPositiveButton("Apply", object :DialogInterface.OnClickListener {
+//								override fun onClick(dialog: DialogInterface?, which: Int) {
+//									dismiss()
+//								}
+//							})
+//							builder.setNegativeButton("Cancel", null)
+							builder.show()
+
 							//HideDialog(view.context, queryBase).show()
 						}
 						R.id.iFilterTable ->
