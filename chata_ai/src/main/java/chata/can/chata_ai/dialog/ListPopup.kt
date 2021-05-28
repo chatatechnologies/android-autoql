@@ -16,6 +16,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.hideColumn.HideDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
@@ -65,64 +66,7 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							val context = view.context
-							val builder = AlertDialog.Builder(context)
-							val rlView = LinearLayout(context).apply {
-								layoutParams = LinearLayout.LayoutParams(
-									LinearLayout.LayoutParams.MATCH_PARENT,
-									LinearLayout.LayoutParams.WRAP_CONTENT)
-								orientation = LinearLayout.VERTICAL
-								paddingAll(8f)
-								//region RelativeLayout
-								val rl = RelativeLayout(context).apply {
-									setBackgroundColor(Color.RED)
-									layoutParams = LinearLayout.LayoutParams(
-										LinearLayout.LayoutParams.MATCH_PARENT,
-										LinearLayout.LayoutParams.WRAP_CONTENT)
-									//region Title
-									addView(TextView(context).apply {
-										layoutParams = RelativeLayout.LayoutParams(
-											RelativeLayout.LayoutParams.MATCH_PARENT,
-											RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
-												addRule(RelativeLayout.CENTER_IN_PARENT)
-										}
-										text = context.getString(R.string.show_hide_column)
-										setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-										setTypeface(typeface, Typeface.BOLD)
-									})
-									//endregion
-								}
-								addView(rl)
-								//endregion
-								//region bottom actions
-								val llBottom = LinearLayout(context).apply {
-									setBackgroundColor(Color.GREEN)
-									layoutParams = LinearLayout.LayoutParams(
-										LinearLayout.LayoutParams.MATCH_PARENT,
-										LinearLayout.LayoutParams.WRAP_CONTENT)
-									orientation = LinearLayout.HORIZONTAL
-									gravity = Gravity.END
-									addView(Button(context).apply {
-										setText(R.string.cancel)
-										isAllCaps = false
-									})
-									addView(Button(context).apply {
-										setText(R.string.apply)
-										isAllCaps = false
-									})
-								}
-								addView(llBottom)
-								//endregion
-							}
-							builder.setView(rlView)
-//							builder.setPositiveButton("Apply", object :DialogInterface.OnClickListener {
-//								override fun onClick(dialog: DialogInterface?, which: Int) {
-//									dismiss()
-//								}
-//							})
-//							builder.setNegativeButton("Cancel", null)
-							builder.show()
-
+							HideColumnsDialog.showHideColumnsDialog(view.context)
 							//HideDialog(view.context, queryBase).show()
 						}
 						R.id.iFilterTable ->

@@ -76,4 +76,11 @@
 
 	<item name="toggleSwitch" type="id"/>
 	<item name="statusSwitch" type="id"/>
+	<!-- region HideDialog -->
+	<item name="vBorder" type="id"/>
+	<item name="rlList" type="id"/>
+	<item name="tvColumnName" type="id"/>
+	<item name="tvVisibility" type="id"/>
+	<item name="cbAll" type="id"/>
+	<!-- endregion -->
 </resources>
