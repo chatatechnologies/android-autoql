@@ -5,10 +5,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.PopupMenu
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
 import chata.can.chata_ai.R
@@ -62,7 +61,18 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							HideDialog(view.context, queryBase).show()
+							val build = AlertDialog.Builder(view.context)
+							val layoutInflater = LayoutInflater.from(view.context)
+							val viewDialog = layoutInflater.inflate(R.layout.dialog_hide, null)
+							val dialogCard = build.create()
+							build.setView(viewDialog)
+							val window = dialogCard.window
+							window?.setLayout(
+								WindowManager.LayoutParams.MATCH_PARENT,
+								WindowManager.LayoutParams.WRAP_CONTENT)
+							window?.setGravity(Gravity.END)
+							build.show()
+							//HideDialog(view.context, queryBase).show()
 						}
 						R.id.iFilterTable ->
 						{

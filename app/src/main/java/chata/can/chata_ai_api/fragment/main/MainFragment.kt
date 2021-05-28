@@ -370,6 +370,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			hPassword?.visibility = gone
 			etPassword?.visibility = gone
 		})
+		swQA.visibility = gone
 		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)
