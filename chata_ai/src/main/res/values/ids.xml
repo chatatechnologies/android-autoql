@@ -77,6 +77,8 @@
 	<item name="toggleSwitch" type="id"/>
 	<item name="statusSwitch" type="id"/>
 	<!-- region HideDialog -->
+	<item name="rlParent" type="id"/>
+	<item name="tvTitle" type="id"/>
 	<item name="ivCancel" type="id"/>
 	<item name="vBorder" type="id"/>
 	<item name="rlList" type="id"/>

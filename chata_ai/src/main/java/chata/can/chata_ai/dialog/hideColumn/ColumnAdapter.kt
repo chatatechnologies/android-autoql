@@ -19,7 +19,7 @@ class ColumnAdapter(
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return ColumnHolder(layoutInflater.inflate(R.layout.row_column, nullValue), this)
+		return ColumnHolder(layoutInflater.inflate(R.layout.row_column,parent,false), this)
 	}
 
 	override fun changeVisible(position: Int, value: Boolean)
