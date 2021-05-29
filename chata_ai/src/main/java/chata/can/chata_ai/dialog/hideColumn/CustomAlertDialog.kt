@@ -57,18 +57,19 @@ class CustomAlertDialog(
 
 	fun showDialog()
 	{
-		rlParent = LinearLayout(context1).apply {
-			layoutParams = LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT)
-			orientation = LinearLayout.VERTICAL
+		rlParent = RelativeLayout(context1).apply {
+			layoutParams = RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.MATCH_PARENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT)
+			//orientation = LinearLayout.VERTICAL
 			id = R.id.rlParent
 			paddingAll(8f)
 			//region RelativeLayout
-			val rl = RelativeLayout(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+			val rlTitle = RelativeLayout(context1).apply {
+				layoutParams = RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT)
+				id = R.id.rlTitle
 				//region Title
 				tvTitle = TextView(context1).apply {
 					layoutParams = RelativeLayout.LayoutParams(
@@ -96,13 +97,15 @@ class CustomAlertDialog(
 				addView(ivCancel)
 				//endregion
 			}
-			addView(rl)
+			addView(rlTitle)
 			//endregion
 			//region top menu
-			val rlTop = RelativeLayout(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+			val rlList = RelativeLayout(context1).apply {
+				layoutParams = RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+						addRule(RelativeLayout.BELOW, R.id.rlTitle)
+					}
 				margin(12f, end = 12f)
 				id = R.id.rlList
 				addView(LinearLayout(context1).apply {
@@ -144,24 +147,30 @@ class CustomAlertDialog(
 				addView(cbAll)
 				//endregion
 			}
-			addView(rlTop)
+			addView(rlList)
 			//endregion
 			//region RecyclerView
 			rvColumn = RecyclerView(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+				layoutParams = RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+						addRule(RelativeLayout.ABOVE, R.id.llBottom)
+						addRule(RelativeLayout.BELOW, R.id.rlList)
+					}
 				id = R.id.rvColumn
 			}
 			addView(rvColumn)
 			//endregion
 			//region bottom actions
 			val llBottom = LinearLayout(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+				layoutParams = RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+						addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+					}
 				orientation = LinearLayout.HORIZONTAL
 				gravity = Gravity.END
+				id = R.id.llBottom
 				btnCancel = Button(context1).apply {
 					setText(R.string.cancel)
 					isAllCaps = false

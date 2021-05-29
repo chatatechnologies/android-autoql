@@ -78,6 +78,7 @@
 	<item name="statusSwitch" type="id"/>
 	<!-- region HideDialog -->
 	<item name="rlParent" type="id"/>
+	<item name="rlTitle" type="id"/>
 	<item name="tvTitle" type="id"/>
 	<item name="ivCancel" type="id"/>
 	<item name="vBorder" type="id"/>
@@ -86,6 +87,7 @@
 	<item name="tvColumnName" type="id"/>
 	<item name="tvVisibility" type="id"/>
 	<item name="cbAll" type="id"/>
+	<item name="llBottom" type="id"/>
 	<item name="btnCancel" type="id"/>
 	<item name="btnApply" type="id"/>
 	<!-- endregion -->
