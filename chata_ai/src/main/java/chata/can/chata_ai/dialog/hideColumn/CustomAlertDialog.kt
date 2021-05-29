@@ -286,7 +286,6 @@ class CustomAlertDialog(
 	{
 		queryBase?.run {
 			canChangeHeight = true
-			hasHistorySaved = true
 			resetData()
 		}
 	}

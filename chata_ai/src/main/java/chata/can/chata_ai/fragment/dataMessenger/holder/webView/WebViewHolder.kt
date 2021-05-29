@@ -172,10 +172,10 @@ class WebViewHolder(
 				if (it.isGroupable &&
 					(R.id.ivColumn in aConfigs || R.id.ivStackedColumn in aConfigs))
 				{
-					if (!it.hasHistorySaved)
-					{
+//					if (!it.hasHistorySaved)
+//					{
 						Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
-					}
+//					}
 					lastId = "#container"
 				}
 				if (R.id.ivPie in aConfigs)
@@ -322,6 +322,10 @@ class WebViewHolder(
 		queryBase?.let {
 				queryBase ->
 			iv?.let {
+				if (isFilter && (lastId == "#idTableBasic" || lastId == "#idTableDataPivot"))
+				{
+					showFilter()
+				}
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->

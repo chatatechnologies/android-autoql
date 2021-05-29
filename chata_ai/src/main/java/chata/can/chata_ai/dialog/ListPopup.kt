@@ -62,7 +62,7 @@ object ListPopup
 						R.id.iColumn ->
 						{
 							CustomAlertDialog(view.context, queryBase).showDialog()
-							//HideDialog(view.context, queryBase).show()
+//							HideDialog(view.context, queryBase).show()
 						}
 						R.id.iFilterTable ->
 						{
