@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
@@ -108,6 +109,18 @@ class CustomAlertDialog(
 					}
 				margin(12f, end = 12f)
 				id = R.id.rlList
+				//all checkBox
+				cbAll = CheckBox(ContextThemeWrapper(context1, R.style.checkBoxStyle)).apply {
+					layoutParams = RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT)
+						.apply {
+							addRule(RelativeLayout.ALIGN_PARENT_END)
+						}
+					id = R.id.cbAll
+				}
+				addView(cbAll)
+				//endregion
 				addView(LinearLayout(context1).apply {
 					layoutParams = RelativeLayout.LayoutParams(
 						RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -124,6 +137,7 @@ class CustomAlertDialog(
 						text = context1.getString(R.string.column_name)
 						id = R.id.tvColumnName
 					}
+					addView(tvColumnName)
 					tvVisibility = TextView(context1).apply {
 						layoutParams = LinearLayout.LayoutParams(
 							0, LinearLayout.LayoutParams.WRAP_CONTENT
@@ -133,19 +147,8 @@ class CustomAlertDialog(
 						text = context1.getString(R.string.visibility)
 						id = R.id.tvVisibility
 					}
+					addView(tvVisibility)
 				})
-				//all checkBox
-				cbAll = CheckBox(ContextThemeWrapper(context1, R.style.checkBoxStyle)).apply {
-					layoutParams = RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.WRAP_CONTENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT)
-						.apply {
-							addRule(RelativeLayout.ALIGN_PARENT_END)
-						}
-					id = R.id.cbAll
-				}
-				addView(cbAll)
-				//endregion
 			}
 			addView(rlList)
 			//endregion
@@ -175,18 +178,12 @@ class CustomAlertDialog(
 					setText(R.string.cancel)
 					isAllCaps = false
 					id = R.id.btnCancel
-					setOnClickListener {
-//						dismiss()
-					}
 				}
 				addView(btnCancel)
 				btnApply = Button(context1).apply {
 					setText(R.string.apply)
 					isAllCaps = false
 					id = R.id.btnApply
-					setOnClickListener {
-//						dismiss()
-					}
 				}
 				addView(btnApply)
 			}

@@ -54,8 +54,8 @@ class WebViewPresenter(
 		{
 			if (jsonObject.has(messageKey))
 			{
-				val message = jsonObject.optString(messageKey)
-				if (message == StringContainer.success)
+				val message1 = jsonObject.optString(messageKey)
+				if (message1 == StringContainer.success)
 				{
 					chatView?.showAlert(message, R.drawable.ic_done)
 				}
