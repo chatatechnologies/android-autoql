@@ -337,24 +337,24 @@ object HtmlBuilder
 							dataForWebView.datePivot = tPivot.first
 							dataForWebView.rowsPivot = tPivot.second
 							tPivot.run {
-//								if (third.isNotEmpty())
-//								{
-//									val first = third[0]
-//									var next = first
-//									if (third.size > 1)
-//									{
-//										val second = third[1]
-//										while (next == second -1)
-//										{
-//											next = second
-//										}
-//										if (first != next)
-//										{
-//											dataForWebView.stackedFrom = first
-//											dataForWebView.stackedTo = next
-//										}
-//									}
-//								}
+								if (third.isNotEmpty())
+								{
+									val first = third[0]
+									var next = first
+									if (third.size > 1)
+									{
+										val second = third[1]
+										while (next == second -1)
+										{
+											next = second
+										}
+										if (first != next)
+										{
+											dataForWebView.stackedFrom = first
+											dataForWebView.stackedTo = next
+										}
+									}
+								}
 							}
 						}
 						else
