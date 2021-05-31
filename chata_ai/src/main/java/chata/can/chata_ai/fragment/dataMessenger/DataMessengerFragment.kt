@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.view.ContextThemeWrapper
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -159,7 +160,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			etQuery.threshold = 1
 			etQuery.setAdapter(adapterAutoComplete)
 			fragmentActivity.findViewById<ImageView>(R.id.ivClear)?.setOnClickListener {
-				AlertDialog.Builder(fragmentActivity)
+				val theme = if (SinglentonDrawer.themeColor == "dark")
+					R.style.AlertDialogCustom2
+				else R.style.AlertDialogCustom1
+				val wrapper = ContextThemeWrapper(fragmentActivity, theme)
+				AlertDialog.Builder(wrapper)
 					.setMessage("Clear all queries & responses?")
 					.setPositiveButton("Clear") { _, _ ->
 						clearQueriesAndResponses()
