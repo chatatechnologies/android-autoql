@@ -1,7 +1,6 @@
 package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
@@ -154,10 +153,11 @@ class CustomAlertDialog(
 			//endregion
 			//region RecyclerView
 			rvColumn = RecyclerView(context1).apply {
+				val numColumns = queryBase?.aColumn?.size ?: 1
 				layoutParams = RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.MATCH_PARENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
-						addRule(RelativeLayout.ABOVE, R.id.llBottom)
+					dpToPx(33f * numColumns)).apply {
+//						addRule(RelativeLayout.ABOVE, R.id.llBottom)
 						addRule(RelativeLayout.BELOW, R.id.rlList)
 					}
 				id = R.id.rvColumn
@@ -169,7 +169,8 @@ class CustomAlertDialog(
 				layoutParams = RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.MATCH_PARENT,
 					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
-						addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+						addRule(RelativeLayout.BELOW, R.id.rvColumn)
+						//addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
 					}
 				orientation = LinearLayout.HORIZONTAL
 				gravity = Gravity.END
