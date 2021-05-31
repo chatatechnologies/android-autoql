@@ -878,7 +878,7 @@ function biType(type,inverted) {
                     to: ${stackedTo},
                     breakSize: 1
                 }],
-                categories: categoriesX,
+                categories: categoriesY,
                 labels: {
                     rotation: -60,
                     style: {
@@ -1038,7 +1038,7 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
 ${'$'}('#idTableDataPivot tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
-    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_') + '_DataPivot';
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
 	${'$'}(this).html(
         '<input id=' + idInput +
         ' type="text" placeholder="Search on ' + title + '"/>');
