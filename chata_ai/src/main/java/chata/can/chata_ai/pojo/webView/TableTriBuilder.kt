@@ -73,25 +73,26 @@ object TableTriBuilder
 
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
+
 		for (indexY in aCatY.indices)
 		{
-			var onlyZero = true
+			//var onlyZero = true
 			val categoryY = aCatY[indexY]
 			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
 			for (indexX in aCatX.indices)
 			{
 				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
 				//region
-				if (cell != "0.0" && cell.isNotEmpty())
-					onlyZero = false
+//				if (cell != "0.0" && cell.isNotEmpty())
+//					onlyZero = false
 				//endregion
 				if (cell.isNotEmpty())
 					cell = cell.clearDecimals()
 				cell = cell.formatWithColumn(aColumn)
 				sbRow.append("<td>$cell</td>")
 			}
-			if (onlyZero)
-				aIndexZero.add(indexY)
+//			if (onlyZero)
+//				aIndexZero.add(indexY)
 			aRows.add("<tr>$sbRow</tr>")
 		}
 		//aRows.sort()
