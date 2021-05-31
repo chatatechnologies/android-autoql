@@ -139,7 +139,7 @@ object TableTriBuilder
 
 			val dNumber = value.toDoubleNotNull()
 			mData["${iX}_$iY"] = if (hasNumber) "$dNumber" else value
-			val aNewRow = arrayListOf<Any>(iX, iY, dNumber)
+			val aNewRow = arrayListOf<Any>(iY, iX, dNumber)
 			aDataTable.add(aNewRow)
 		}
 		return Pair(aDataTable, mData)
