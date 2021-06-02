@@ -115,7 +115,7 @@ object HtmlBuilder
 					}
 					aNumber.isNotEmpty() ->
 					{
-						posColumnY = aDataY[0]
+						posColumnY = if (aDataY.isNotEmpty()) aDataY[0] else aNumber[0]
 					}
 				}
 
