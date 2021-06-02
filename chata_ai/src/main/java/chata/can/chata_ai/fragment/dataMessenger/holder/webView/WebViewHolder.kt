@@ -124,7 +124,7 @@ class WebViewHolder(
 				isFilter = true
 			}
 
-			val lastNum = when(lastId)
+			val lastNum = when(this@WebViewHolder.lastId)
 			{
 				"#idTableBasic" -> rowsTable
 				"#idTableDataPivot" -> rowsPivot
@@ -285,7 +285,7 @@ class WebViewHolder(
 		if (simpleQuery.onlyHTML)
 		{
 			simpleQuery.onlyHTML = false
-			simpleQuery.lastId = ""
+			//simpleQuery.lastId = ""
 			wbQuery?.let { wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
