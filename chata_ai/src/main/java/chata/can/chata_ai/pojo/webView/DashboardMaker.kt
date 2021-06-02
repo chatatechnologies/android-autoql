@@ -180,7 +180,13 @@ object DashboardMaker
 		}
 
 		val typeChart =
-			if (dataForWebView.isColumn && !dataForWebView.isDashboard)
+			if (dataForWebView.updateTable || dataForWebView.updatePivot)
+			{
+				dataForWebView.updateTable = false
+				dataForWebView.updatePivot = false
+				dataForWebView.datePivot.tableOrPivot()
+			}
+			else if (dataForWebView.isColumn && !dataForWebView.isDashboard)
 				if (isBi) "column" else "stacked_column"
 			else
 				when(dataForWebView.type)

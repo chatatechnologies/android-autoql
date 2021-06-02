@@ -282,6 +282,8 @@ class CustomAlertDialog(
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		queryBase?.run {
+			lastId = "table"
+			onlyHTML = true
 			canChangeHeight = true
 			resetData()
 		}

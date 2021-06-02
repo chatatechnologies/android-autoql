@@ -282,38 +282,48 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
-		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
-		if (simpleQuery.query.isNotEmpty())
+		if (simpleQuery.onlyHTML)
 		{
-			tvContentTop.visibility = visible
-			tvContentTop.text = simpleQuery.query
-		}
-		else
-		{
-			tvContentTop.visibility = invisible
-		}
-
-		queryBase = simpleQuery
-		addActionViews(simpleQuery.configActions)
-
-		if (simpleQuery.contentHTML.isNotEmpty())
-		{
-			rlLoad?.visibility = visible
-			wbQuery?.let {
-				wbQuery ->
+			simpleQuery.onlyHTML = false
+			simpleQuery.lastId = ""
+			wbQuery?.let { wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
-		ivAlert?.let { ivAlert ->
-			ivAlert.visibility = if (
-				//simpleQuery.hasDrillDown &&
-				simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+		else
+		{
+			rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
+			if (simpleQuery.query.isNotEmpty())
 			{
-				ivAlert.setOnClickListener {
-					chatView?.showToast()
+				tvContentTop.visibility = visible
+				tvContentTop.text = simpleQuery.query
+			}
+			else
+			{
+				tvContentTop.visibility = invisible
+			}
+
+			queryBase = simpleQuery
+			addActionViews(simpleQuery.configActions)
+
+			if (simpleQuery.contentHTML.isNotEmpty())
+			{
+				rlLoad?.visibility = visible
+				wbQuery?.let { wbQuery ->
+					loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 				}
-				View.VISIBLE
-			} else View.GONE
+			}
+			ivAlert?.let { ivAlert ->
+				ivAlert.visibility = if (
+				//simpleQuery.hasDrillDown &&
+					simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+				{
+					ivAlert.setOnClickListener {
+						chatView?.showToast()
+					}
+					View.VISIBLE
+				} else View.GONE
+			}
 		}
 	}
 
