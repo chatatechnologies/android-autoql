@@ -36,7 +36,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	val aRows = ArrayList<ArrayList<String>>()
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
-	var canChangeHeight = true
 
 	fun allVisible(): Boolean
 	{

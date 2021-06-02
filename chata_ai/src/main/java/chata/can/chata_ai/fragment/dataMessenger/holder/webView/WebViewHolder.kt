@@ -515,20 +515,16 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		if (queryBase?.canChangeHeight == true)
-		{
-			queryBase?.canChangeHeight = false
-			rvParent?.let {
-				var customHeight = it.dpToPx(30f * numRows) + 60
-				if (customHeight > 900)
-				{
-					customHeight = 900
-				}
-
-				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-				it.margin(12f, 32f, 12f, 1f)
-				chatView?.scrollToPosition()
+		rvParent?.let {
+			var customHeight = it.dpToPx(30f * numRows) + 60
+			if (customHeight > 900)
+			{
+				customHeight = 900
 			}
+
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+			it.margin(12f, 32f, 12f, 1f)
+			chatView?.scrollToPosition()
 		}
 	}
 }

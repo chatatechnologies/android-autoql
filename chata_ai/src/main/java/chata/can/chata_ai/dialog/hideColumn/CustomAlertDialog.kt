@@ -284,7 +284,6 @@ class CustomAlertDialog(
 		queryBase?.run {
 			lastId = "table"
 			onlyHTML = true
-			canChangeHeight = true
 			resetData()
 		}
 	}
