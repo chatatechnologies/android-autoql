@@ -60,15 +60,15 @@ class CustomAlertDialog(
 		rlParent = LinearLayout(context1).apply {
 			layoutParams = LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.MATCH_PARENT)
+				LinearLayout.LayoutParams.WRAP_CONTENT)
 			orientation = LinearLayout.VERTICAL
 			id = R.id.rlParent
 			paddingAll(8f)
 			//region RelativeLayout
 			val rlTitle = RelativeLayout(context1).apply {
-				layoutParams = RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.MATCH_PARENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT)
+				layoutParams = LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT)
 				id = R.id.rlTitle
 				//region Title
 				tvTitle = TextView(context1).apply {
@@ -97,15 +97,13 @@ class CustomAlertDialog(
 				addView(ivCancel)
 				//endregion
 			}
-			/**addView(rlTitle)*/
+			addView(rlTitle)
 			//endregion
 			//region top menu
 			val rlList = RelativeLayout(context1).apply {
-				layoutParams = RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.MATCH_PARENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
-						addRule(RelativeLayout.BELOW, R.id.rlTitle)
-					}
+				layoutParams = LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT)
 				margin(12f, end = 12f)
 				id = R.id.rlList
 				//all checkBox
@@ -149,18 +147,14 @@ class CustomAlertDialog(
 					addView(tvVisibility)
 				})
 			}
-			/**addView(rlList)**/
+			addView(rlList)
 			//endregion
 			//region RecyclerView
 			rvColumn = RecyclerView(context1).apply {
-				val numColumns = queryBase?.aColumn?.size ?: 1
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
-					//dpToPx(33f * numColumns)).apply {
-					LinearLayout.LayoutParams.WRAP_CONTENT).apply {
-						weight = 0f
-						//addRule(RelativeLayout.ABOVE, R.id.llBottom)
-						//addRule(RelativeLayout.BELOW, R.id.rlList)
+					0).apply {
+						weight = 1f
 					}
 				id = R.id.rvColumn
 			}
@@ -170,11 +164,7 @@ class CustomAlertDialog(
 			val llBottom = LinearLayout(context1).apply {
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
-					0).apply {
-					weight = 1f
-						//addRule(RelativeLayout.BELOW, R.id.rvColumn)
-						//addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-					}
+					LinearLayout.LayoutParams.WRAP_CONTENT).apply { weight = 0f }
 				orientation = LinearLayout.HORIZONTAL
 				gravity = Gravity.BOTTOM or Gravity.END
 				id = R.id.llBottom
@@ -194,7 +184,7 @@ class CustomAlertDialog(
 			addView(llBottom)
 			//endregion
 		}
-		//setColors()
+		setColors()
 		setColumns()
 		dialog = AlertDialog.Builder(context1).create().apply {
 			setView(rlParent)
@@ -230,15 +220,15 @@ class CustomAlertDialog(
 				if (!column.isVisible) isSelect = false
 				model.add(column.copy())
 			}
-			/**cbAll.isChecked = isSelect*/
+			cbAll.isChecked = isSelect
 			adapter = ColumnAdapter(model, queryBase, this)
 			rvColumn.layoutManager = LinearLayoutManager(context1)
 			rvColumn.adapter = adapter
 
-//			ivCancel.setOnClickListener(this)
-//			btnCancel.setOnClickListener(this)
-//			btnApply.setOnClickListener(this)
-//			cbAll.setOnCheckedChangeListener(buttonChecked)
+			ivCancel.setOnClickListener(this)
+			btnCancel.setOnClickListener(this)
+			btnApply.setOnClickListener(this)
+			cbAll.setOnCheckedChangeListener(buttonChecked)
 		}
 	}
 
@@ -287,10 +277,7 @@ class CustomAlertDialog(
 		cbAll.setOnCheckedChangeListener(buttonChecked)
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-
-	}
+	override fun onFailure(jsonObject: JSONObject?) {}
 
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
