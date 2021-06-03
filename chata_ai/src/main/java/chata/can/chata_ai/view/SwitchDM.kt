@@ -64,7 +64,6 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 					addRule(ALIGN_START, R.id.toggleSwitch)
 				}
 				margin(4f)
-				//setText("Q&A On")
 				paddingAll(left = 21f, right = 21f, top = 3f, bottom = 3f)
 				setTextColor(context.getParsedColor(R.color.white))
 				setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
