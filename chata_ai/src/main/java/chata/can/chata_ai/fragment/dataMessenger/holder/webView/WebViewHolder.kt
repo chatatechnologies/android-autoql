@@ -440,7 +440,6 @@ class WebViewHolder(
 					requestLayout()
 					Handler(Looper.getMainLooper()).postDelayed({
 						loadUrl("javascript:hideTables(${pData.first});")
-//						loadUrl("javascript:updateData(${pData.first});")
 					}, 200)
 				}
 
