@@ -67,13 +67,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 					putExtra("PLACEMENT", floatingView.placement)
 				}
 			)
-//			val pData = when(floatingView.placement)
-//			{
-//				ConstantDrawer.LEFT_PLACEMENT -> Pair(R.anim.from_left_in, R.anim.from_right_out)
-//				ConstantDrawer.RIGHT_PLACEMENT -> Pair(R.anim.from_right_in, R.anim.from_left_out)
-//				else -> Pair(0, 0)
-//			}
-//			overridePendingTransition(pData.first, pData.second)
 		}
 	}
 
