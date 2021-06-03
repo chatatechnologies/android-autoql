@@ -201,7 +201,6 @@ class CustomAlertDialog(
 				tvTitle.setTextColor(pDrawerTextColorPrimary)
 				tvColumnName.setTextColor(pDrawerTextColorPrimary)
 				tvVisibility.setTextColor(pDrawerTextColorPrimary)
-				//vBorder.setBackgroundColor(pDrawerBorderColor)
 				btnApply.background = getBackgroundColor(
 					getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
 				btnApply.setTextColor(pDrawerTextColorPrimary)
