@@ -77,7 +77,6 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	{
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_pager_options)
-//		window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 		vBehind = findViewById(R.id.vBehind)
 		llMenu = findViewById(R.id.llMenu)
 		rlChat = findViewById(R.id.rlChat)
