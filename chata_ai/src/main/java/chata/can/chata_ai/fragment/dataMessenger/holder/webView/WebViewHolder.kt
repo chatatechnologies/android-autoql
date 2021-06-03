@@ -339,7 +339,6 @@ class WebViewHolder(
 						val idHide = lastId
 						lastId = "#idTableBasic"
 						Pair("'$idHide', '#idTableBasic', '#idTableBasic'", queryBase.rowsTable)
-//						Pair("TypeEnum.TABLE", queryBase.rowsTable)
 					}
 					R.id.ivBar ->
 					{
