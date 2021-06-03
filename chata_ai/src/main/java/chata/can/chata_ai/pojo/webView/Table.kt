@@ -25,7 +25,6 @@ object Table
 				for (indexValue in aIndex)
 				{
 					val oColumn = aColumns[indexValue]
-					//if (oColumn.isVisible) { }
 					val cell = aRow[indexValue]
 
 					val sCell = when(oColumn.type)
