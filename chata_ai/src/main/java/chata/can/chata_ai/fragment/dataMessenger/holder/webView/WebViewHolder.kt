@@ -282,7 +282,6 @@ class WebViewHolder(
 		if (simpleQuery.onlyHTML)
 		{
 			simpleQuery.onlyHTML = false
-			//simpleQuery.lastId = ""
 			wbQuery?.let { wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
