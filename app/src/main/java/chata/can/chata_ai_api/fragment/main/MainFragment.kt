@@ -211,7 +211,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			swQA = findViewById(R.id.swQA)
-			//swDemoData = findViewById(R.id.swDemoData)
 			hProjectId = findViewById(R.id.hProjectId)
 			etProjectId = findViewById(R.id.etProjectId)
 			hThemeColor = findViewById(R.id.hThemeColor)
