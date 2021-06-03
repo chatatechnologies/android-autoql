@@ -48,7 +48,9 @@ object SectionData
 		"Authentication" to
 			arrayListOf(
 				//DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
+				DemoParameter("", TypeParameter.TOGGLE_QA, value = "false"),
 				DemoParameter("* Project ID", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.etProjectId),
+				DemoParameter("Theme Code", TypeParameter.INPUT, labelId = R.id.hThemeColor, idView = R.id.etThemeColor, isVisible = false),
 				DemoParameter("* User Email", TypeParameter.INPUT, labelId = R.id.hUserId, idView = R.id.etUserId, typeInput = TypeInput.EMAIL),
 				DemoParameter("* API key", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
 				DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
@@ -73,7 +75,7 @@ object SectionData
 				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
 				//Shift Screen on Open/Close    TypeParameter.TOGGLE
 				//Darken Background Behind Data Messenger   TypeParameter.TOGGLE
-				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "true", idView = R.id.swBackgroundBehind),
+				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "false", idView = R.id.swBackgroundBehind),
 				DemoParameter("Theme", TypeParameter.SEGMENT, options = aTheme),
 				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT, options = aPlacement),
 				DemoParameter("Default Tab", TypeParameter.SEGMENT, options = aTabs),

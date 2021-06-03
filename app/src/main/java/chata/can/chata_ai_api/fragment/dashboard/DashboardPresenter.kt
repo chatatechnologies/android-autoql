@@ -3,11 +3,15 @@ package chata.can.chata_ai_api.fragment.dashboard
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
+import chata.can.chata_ai.pojo.api1
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dataKey
+import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.chata_ai.pojo.urlStaging
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
 import org.json.JSONArray
@@ -18,6 +22,7 @@ class DashboardPresenter(
 	private val view: DashboardContract): StatusResponse
 {
 	private var mModel: BaseModelList<Dashboard> ?= null
+	private var queryReset = false
 
 	override fun onFailure(jsonObject: JSONObject?)
 	{
@@ -27,6 +32,7 @@ class DashboardPresenter(
 			{
 				"getDashboardQueries" ->
 				{
+					if (queryReset) return
 					val response = jsonObject.optString("RESPONSE") ?: ""
 					val joCurrent = JSONObject(response)
 
@@ -129,6 +135,7 @@ class DashboardPresenter(
 				}
 				"getDashboardQueries" ->
 				{
+					if (queryReset) return
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 					mModel?.run {
@@ -265,9 +272,10 @@ class DashboardPresenter(
 			dataKey ->
 			{
 				val numColumns = queryBase.numColumns
+				val numRows = queryBase.aRows.size
 				when
 				{
-					queryBase.message == "No Data Found" -> TypeChatView.LEFT_VIEW
+					queryBase.message == "No Data Found" || numRows == 0 -> TypeChatView.LEFT_VIEW
 					numColumns == 1 ->
 					{
 						if(queryBase.hasHash)
@@ -279,7 +287,7 @@ class DashboardPresenter(
 					{
 						queryBase.displayType =
 							if (isSplitView) dashboard.secondDisplayType else dashboard.displayType
-						if (queryBase.displayType.isEmpty())
+						if (queryBase.displayType.isEmpty() && queryBase.numColumns == 2)
 						{
 							queryBase.displayType = "bar"
 						}
@@ -311,16 +319,34 @@ class DashboardPresenter(
 		RequestDashboard.getDashboard(this)
 	}
 
-	fun getDashboardQueries()
+	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
 			for (index in 0 until this.countData())
 			{
 				this[index]?.let { dashboard ->
-					dashboard.isWaitingData = true
+					dashboard.isWaitingData = toClearQuery
+					dashboard.isWaitingData2 = toClearQuery
 					dashboard.queryBase = null
+					dashboard.queryBase2 = null
 					notifyQueryByIndex(index)
-					callQuery(dashboard)
+					if (toClearQuery)
+					{
+						queryReset = !toClearQuery
+						callQuery(dashboard)
+					}
+					else
+					{
+						val url = if (AutoQLData.notLoginData())
+							"$urlStaging${api1}chata/query"
+						else
+							with(AutoQLData)
+							{
+								"$domainUrl/autoql/${api1}query?key=$apiKey"
+							}
+						queryReset = !toClearQuery
+						RequestBuilder.cancelRequestWithTag(url)
+					}
 				}
 			}
 		}
@@ -370,14 +396,14 @@ class DashboardPresenter(
 		if (query.isNotEmpty())
 		{
 			val mInfoHolder = getDataQuery(dashboard,false)
-			QueryRequest.callQuery(query, this, "dashboards", mInfoHolder)
+			QueryRequest.callQuery(query, this, "dashboards.user", mInfoHolder)
 		}
 		val secondQuery = dashboard.secondQuery
 		if (secondQuery.isNotEmpty())
 		{
 			dashboard.isWaitingData2 = true
 			val mInfoHolder = getDataQuery(dashboard,true)
-			QueryRequest.callQuery(secondQuery, this, "dashboards", mInfoHolder)
+			QueryRequest.callQuery(secondQuery, this, "dashboards.user", mInfoHolder)
 		}
 	}
 }

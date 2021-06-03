@@ -10,12 +10,12 @@ object LineBuilder
 		aCatY: List<String>): ArrayList<String>
 	{
 		val aChartLine = ArrayList<String>()
-		for((index2, category) in aCatY.withIndex())
+		for((index1_, category) in aCatX.withIndex())
 		{
 			val aEachY = ArrayList<Double>()
-			for (index1 in aCatX.indices)
+			for (index2 in aCatY.indices)
 			{
-				aMapData["${index1}_$index2"]?.let {
+				aMapData["${index1_}_$index2"]?.let {
 					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
 				} ?: run { aEachY.add(0.0) }
 			}

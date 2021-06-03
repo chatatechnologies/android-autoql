@@ -44,12 +44,13 @@ class SpinnerTextView: RelativeLayout
 		addView(tvContent)
 	}
 
-	private fun getDataSuggestion(aData: ArrayList<String>): ArrayAdapter<String>
+	private fun getDataSuggestion(aData: ArrayList<Pair<String, String>>): ArrayAdapter<String>
 	{
-		return TermAdapter(context, aData)
+		val aText = aData.map { it.first }
+		return TermAdapter(context, aText)
 	}
 
-	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<String>?)
+	private fun callSpinnerClick(suggestion: Suggestion, aData: ArrayList<Pair<String, String>>?)
 	{
 		aData?.let {
 			if (lastData != aData)
@@ -63,6 +64,7 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.position != position)
 					{
+						//region for remove view on parent
 						if (position == aData.size - 1)
 						{
 							this@SpinnerTextView.aData.run {
@@ -70,6 +72,7 @@ class SpinnerTextView: RelativeLayout
 								setText(this)
 							}
 						}
+						//endregion
 						else
 						{
 							parent?.getItemAtPosition(position)?.let {
@@ -82,6 +85,11 @@ class SpinnerTextView: RelativeLayout
 									val newEnd = suggestion.end
 									val beforeSection = currentText.substring(newStart, newEnd)
 
+									lastData?.get(position)?.let { pair ->
+										valueLabel = aIt[1].replace(")", "")
+										canonical = pair.second
+									}
+
 									if (beforeSection != currentSection)
 									{
 										val newText = currentText.toString().replace(beforeSection, currentSection)
@@ -93,7 +101,6 @@ class SpinnerTextView: RelativeLayout
 								}
 							}
 						}
-
 					}
 				}
 
@@ -102,9 +109,6 @@ class SpinnerTextView: RelativeLayout
 			spSelect?.performClick()
 		}
 	}
-
-	val text: String
-		get() = tvContent?.text.toString()
 
 	fun setText(aData: ArrayList<Suggestion> ?= null)
 	{
@@ -122,9 +126,17 @@ class SpinnerTextView: RelativeLayout
 				{
 					if (suggestion.aSuggestion != null)
 					{
+						suggestion.aSuggestion?.get(0)?.let {
+							val textTmp = it.first
+							val iStart = textTmp.indexOf("(") + 1
+							val iEnd = textTmp.lastIndexOf(")")
+							valueLabel = textTmp.substring(iStart, iEnd)
+							canonical = it.second
+						}
+						val tmp = if (suggestion.end == text.count()) suggestion.end - 1 else suggestion.end
 						span.setSpan(ClickableSpan(this, suggestion) {
 							callSpinnerClick(suggestion, it.aSuggestion)
-						}, suggestion.start, suggestion.end, 0)
+						}, suggestion.start, tmp + 1, 0)
 					}
 				}
 				setText(span)
@@ -167,5 +179,11 @@ class SpinnerTextView: RelativeLayout
 	private var spSelect: Spinner?= null
 
 	private lateinit var aData: ArrayList<Suggestion>
-	private var lastData: ArrayList<String> ?= null
+	private var lastData: ArrayList<Pair<String, String>> ?= null
+
+	val text: String
+		get() = tvContent?.text.toString()
+
+	var valueLabel = ""
+	var canonical = ""
 }

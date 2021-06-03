@@ -32,17 +32,20 @@ object HtmlBuilder
 		return newIndex
 	}
 
-	fun build(queryBase: QueryBase): DataForWebView
+	fun build(queryBase: QueryBase): Pair<DataForWebView, DataD3>
 	{
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
 		val limitRow = queryBase.limitRowNum
+		//region container for webView
 		val dataForWebView = DataForWebView()
+		val dataD3 = DataD3()
 
 		orderRowDate(queryBase)
 
 		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
+		dataD3.table = pData.first
 		dataForWebView.rowsTable = pData.second
 
 		var posColumnX = 0
@@ -112,7 +115,7 @@ object HtmlBuilder
 					}
 					aNumber.isNotEmpty() ->
 					{
-						posColumnY = aDataY[0]
+						posColumnY = if (aDataY.isNotEmpty()) aDataY[0] else aNumber[0]
 					}
 				}
 
@@ -128,7 +131,9 @@ object HtmlBuilder
 				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
 				val pMM = SearchColumn.getMinMaxColumns(aRows, aNumber)
 				dataForWebView.max = pMM.first
+				dataD3.max = pMM.first
 				dataForWebView.min = pMM.second
+				dataD3.min = pMM.second
 //				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
 //				if (hasDecimals)
 //					queryBase.configActions = 0
@@ -210,6 +215,18 @@ object HtmlBuilder
 			{
 				ArrayList()
 			}
+
+			//region build data for D3
+//			val sb = StringBuilder()
+//			for (index in 0 until aCatX.count())
+//			{
+//				val name = aCatX[index]
+//				val value = aCatY[index]
+//				sb.append("{name: $name, value: $value},\n")
+//			}
+//			dataD3.data = "[${sb.removeSuffix(",\n")}]"
+			//endregion
+
 			val aCatYS = if (aColumn.size > posColumnY)
 			{
 				//calculate max and min for bi dimensional
@@ -221,7 +238,9 @@ object HtmlBuilder
 				{
 					val tmpMin = (aInt.minOrNull() ?: 0)
 					dataForWebView.min = if (tmpMin < 0) tmpMin else 0
+					dataD3.min = if (tmpMin < 0) tmpMin else 0
 					dataForWebView.max = (aInt.maxOrNull() ?: 0)
+					dataD3.max = (aInt.maxOrNull() ?: 0)
 				}
 				tmp
 			}
@@ -440,7 +459,9 @@ object HtmlBuilder
 						}
 					}
 					dataForWebView.min = if (min < 0) min else 0
+					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
+					dataD3.max = min
 					//region order data for data:
 					val aDataOrder = ArrayList<ArrayList<String>>()
 					for (index in 0 until aDataY.size)
@@ -486,16 +507,17 @@ object HtmlBuilder
 //				queryBase.configActions = 1
 
 				val type = aColumn[0].type
-//				val type1 = aColumn[1].type
-				if (type == TypeDataQuery.DATE_STRING
-					//&& type1 != TypeDataQuery.DOLLAR_AMT
-				)
+				//val type1 = aColumn[1].type
+				if (type == TypeDataQuery.DATE_STRING/* && type1 != TypeDataQuery.DOLLAR_AMT*/)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
-						dataForWebView.datePivot = first
-						dataForWebView.rowsPivot = second
+						if (first != "" && second != 0)
+						{
+							dataForWebView.datePivot = first
+							dataForWebView.rowsPivot = second
+							queryBase.configActions = 1
+						}
 					}
-					queryBase.configActions = 1
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
@@ -507,6 +529,6 @@ object HtmlBuilder
 			}
 		}
 
-		return dataForWebView
+		return Pair(dataForWebView, dataD3)
 	}
 }

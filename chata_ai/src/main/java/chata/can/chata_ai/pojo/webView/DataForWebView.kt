@@ -29,4 +29,7 @@ class DataForWebView(
 	var isDashboard = false
 
 	var isReverseX = false
+
+	var updateTable = false
+	var updatePivot = false
 }

@@ -9,4 +9,5 @@ data class DemoParameter(
 	val hint: String = "",
 	val labelId: Int = 0,
 	val idView: Int = 0,
-	val typeInput: TypeInput = TypeInput.TEXT)
+	val typeInput: TypeInput = TypeInput.TEXT,
+	val isVisible: Boolean = true)

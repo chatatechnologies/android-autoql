@@ -77,7 +77,7 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 								if (PagerData.introMessage.isNotEmpty()) {
 									PagerData.introMessage
 								} else {
-									"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+									getString(R.string.discover_today)
 								}
 
 							val introMessage = String.format(introMessageRes, PagerData.customerName)

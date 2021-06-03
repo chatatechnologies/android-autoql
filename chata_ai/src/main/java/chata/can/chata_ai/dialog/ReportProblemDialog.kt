@@ -63,7 +63,7 @@ class ReportProblemDialog(
 
 		val title = "Report a Problem"
 		tvTitle.text = title
-		val msg = "Please tell us more about the problem you are experiencing:"
+		val msg = context.getString(R.string.tell_more_about)
 		tvMessage.text = msg
 		val ok = "Report"
 		btnReport.text = ok
@@ -84,7 +84,8 @@ class ReportProblemDialog(
 				R.id.btnReport ->
 				{
 					val message = etMessage.text.toString()
-					WebViewPresenter(chatView).run {
+					val feedbackMessage = context.getString(R.string.thank_you_feedback)
+					WebViewPresenter(chatView, feedbackMessage).run {
 						putReport(queryId, message)
 						dismiss()
 					}

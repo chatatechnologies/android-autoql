@@ -43,8 +43,10 @@ class NoQueryHolder(itemView: View): BaseHolder(itemView)
 
 			if (item.query.isEmpty())
 			{
-				val text = "No query was supplied for this title"
-				tvExecute?.text = text
+				tvExecute?.let {
+					val noQueryTitle = it.context.getString(R.string.no_query_title)
+					it.text = noQueryTitle
+				}
 			}
 		}
 	}

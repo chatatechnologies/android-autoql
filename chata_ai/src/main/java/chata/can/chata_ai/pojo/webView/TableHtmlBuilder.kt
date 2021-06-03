@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toCapitalColumn
+import chata.can.chata_ai.model.StringContainer
 
 object TableHtmlBuilder
 {
@@ -15,6 +16,7 @@ object TableHtmlBuilder
 		aColumn.find { it.isVisible }?.let {
 			//region create table head
 			val headTable = StringBuilder("<thead><tr>")
+			val footTable = StringBuilder("<tfoot><tr>")
 			for (column in aColumn)
 			{
 				if (column.isVisible)
@@ -28,9 +30,11 @@ object TableHtmlBuilder
 						column.name.toCapitalColumn()
 					}
 					headTable.append("<th>$cellHead</th>")
+					footTable.append("<th>$cellHead</th>")
 				}
 			}
 			headTable.append("</tr></thead>")
+			footTable.append("</tr></tfoot>")
 			//endregion
 
 			var numRows = 1
@@ -63,11 +67,17 @@ object TableHtmlBuilder
 
 			bodyTable.append("</tbody>")
 			//endregion
-			return Pair("<table id=\"$idTable\">$headTable$bodyTable</table>", numRows)
+			return Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
 		} ?: run {
+
 			return Pair(
-				"<p style=\"text-align: center;\">Internal Service Error: Our system is experiencing an unexpected error. We're aware of this issue and are working to fix it as soon as possible.</p>",
-				8)
+				"""<div id='idTableBasic' class="empty-state">
+	<span class="alert-icon">&#9888</span>
+	<p>
+		${StringContainer.columnHidden}
+	</p>
+</div>""",
+				5)
 		}
 	}
 }

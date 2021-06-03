@@ -18,6 +18,7 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.ProgressWait
+import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
@@ -34,9 +35,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private lateinit var floatingView: AutoQL
 	private lateinit var llContainer: LinearLayout
+	private lateinit var swQA: SwitchDM
 	//private var swDemoData: Switch ?= null
 	private var hProjectId: TextView ?= null
 	private var etProjectId: EditText?= null
+	private var hThemeColor: TextView?= null
+	private var etThemeColor: EditText?= null
 	private var hUserId: TextView ?= null
 	private var etUserId: EditText ?= null
 	private var hApiKey: TextView ?= null
@@ -206,9 +210,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
-			//swDemoData = findViewById(R.id.swDemoData)
+			swQA = findViewById(R.id.swQA)
 			hProjectId = findViewById(R.id.hProjectId)
 			etProjectId = findViewById(R.id.etProjectId)
+			hThemeColor = findViewById(R.id.hThemeColor)
+			etThemeColor = findViewById(R.id.etThemeColor)
 			hUserId = findViewById(R.id.hUserId)
 			etUserId = findViewById(R.id.etUserId)
 			hApiKey = findViewById(R.id.hApiKey)
@@ -338,8 +344,32 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	val visible = View.VISIBLE
+	val gone = View.GONE
 	override fun initListener()
 	{
+		swQA.setCallbackEventChanged({
+			hThemeColor?.visibility = gone
+			etThemeColor?.visibility = gone
+			hDomainUrl?.visibility = visible
+			etDomainUrl?.visibility = visible
+			hUsername?.visibility = visible
+			etUsername?.visibility = visible
+			hPassword?.visibility = visible
+			etPassword?.visibility = visible
+		},{
+			hThemeColor?.visibility = visible
+			etThemeColor?.visibility = visible
+			hUserId?.visibility = gone
+			etUserId?.visibility = gone
+			hDomainUrl?.visibility = gone
+			etDomainUrl?.visibility = gone
+			hUsername?.visibility = gone
+			etUsername?.visibility = gone
+			hPassword?.visibility = gone
+			etPassword?.visibility = gone
+		})
+		swQA.visibility = gone
 		animationAlert.hideAlert()
 
 		btnAuthenticate?.setOnClickListener(this)
@@ -349,7 +379,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		swDrawerHandle?.setOnCheckedChangeListener {
 			_, isChecked ->
 			if (::floatingView.isInitialized) {
-				floatingView.visibility = if (isChecked) View.VISIBLE else View.GONE
+				floatingView.visibility = if (isChecked) visible else gone
 				AutoQLData.isVisible = isChecked
 			}
 		}
@@ -708,6 +738,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			if (this is PagerActivity)
 			{
 				this.isVisibleTabLayout = isAuthenticate
+				AutoQLData.isRelease = true
 			}
 		}
 

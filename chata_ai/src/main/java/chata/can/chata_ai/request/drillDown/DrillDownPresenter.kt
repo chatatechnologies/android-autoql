@@ -41,6 +41,9 @@ class DrillDownPresenter(
 			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
+				header?.let {
+					it["accept-language"] = SinglentonDrawer.languageCode
+				}
 
 				val aValues = valueInRow.split("_")
 				val aColumns = arrayListOf<HashMap<String, String>>()

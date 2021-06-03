@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ApiChata</string>
+    <string name="execute_dashboard">Execute</string>
+    <string name="un_execute_dashboard">Un-Execute</string>
+    <string name="execute_run_dashboard">Haga clic en \"Ejecutar\" para ejecutar este panel</string>
+    <string name="run_dashboard_automatically">Run Dashboard Automatically</string>
+    <string name="empty_dashboard">Empty dashboard</string>
+    <string name="msg_full_suggestion">Necesito tu ayuda para hacer coincidir un término que utilizó con el término correspondiente exacto en su base de datos. Verifique seleccionando el término correcto en el menú a continuación:</string>
+    <string name="loading_dashboard">Loading dashboard</string>
+</resources>

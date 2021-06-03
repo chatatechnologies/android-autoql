@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.view.ContextThemeWrapper
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -64,10 +65,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private lateinit var animationAlert: AnimationAlert
 
 	private val model = SinglentonDrawer.mModel
+	private val aTmp = arrayListOf<String>()
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
 	var isReleaseAutocomplete = true
 	var statusLogin = false
+	private var canonical = ""
+	private var valueLabel = ""
 
 	override fun onRenderViews(view: View)
 	{
@@ -86,9 +90,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "All jobs between Feb and June"
-//			val queryDemo = "My revenue"
-//			val queryDemo = "All jobs in July 2019"
+			//query base for testing
+//			val queryDemo = "last revenue items"
+			val queryDemo = "Total revenue by month in 2019"
+//			val queryDemo = "all jobs in bid state"
+//			val queryDemo = "Total revenue by customer for bill & sons and advantage oil per month"
+			//query not contains pivot
+//			val queryDemo = "Total revenue this year"
+			//query contains pivot
+//			val queryDemo = "total revenue by month"
 			etQuery.setText(queryDemo)
 		}
 
@@ -152,7 +162,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			etQuery.threshold = 1
 			etQuery.setAdapter(adapterAutoComplete)
 			fragmentActivity.findViewById<ImageView>(R.id.ivClear)?.setOnClickListener {
-				AlertDialog.Builder(fragmentActivity)
+				val theme = if (SinglentonDrawer.themeColor == "dark")
+					R.style.AlertDialogCustom2
+				else R.style.AlertDialogCustom1
+				val wrapper = ContextThemeWrapper(fragmentActivity, theme)
+				AlertDialog.Builder(wrapper)
 					.setMessage("Clear all queries & responses?")
 					.setPositiveButton("Clear") { _, _ ->
 						clearQueriesAndResponses()
@@ -168,12 +182,31 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		etQuery.setFinishAnimationListener {
 			val query = etQuery.text.toString()
-			if (query.isNotEmpty())
+			hideKeyboard()
+			isReleaseAutocomplete = true
+			etQuery.setText("")
+
+			if (canonical != "" && valueLabel != "")
 			{
-				hideKeyboard()
-				isReleaseAutocomplete = true
-				etQuery.setText("")
-				presenter.getQuery(query)
+				val tmpCanonical = canonical
+				val tmpValueLabel = valueLabel
+				canonical = ""
+				valueLabel = ""
+				val mUserSelection = hashMapOf<String, Any>(
+					"end" to 8,
+					"start" to 0,
+					"value" to query,
+					"value_label" to tmpValueLabel,
+					"canonical" to tmpCanonical)
+				val mInfoHolder = hashMapOf<String, Any>("user_selection" to mUserSelection)
+				presenter.getQuery(query, mInfoHolder, "data_messenger.validation")
+			}
+			else
+			{
+				if (query.isNotEmpty())
+				{
+					presenter.getQuery(query)
+				}
 			}
 		}
 
@@ -195,7 +228,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (AutoQLData.introMessage.isNotEmpty())
 				AutoQLData.introMessage
 			else
-				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				getString(R.string.discover_today)
 
 		val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
@@ -316,9 +349,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		etQuery.animateText(text)
 	}
 
+	override fun runTyping(text: String, canonical: String, valueLabel: String)
+	{
+		this.canonical = canonical
+		this.valueLabel = valueLabel
+		runTyping(text)
+	}
+
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>) {}
 
-	private val aTmp = arrayListOf<String>()
 	override fun setDataAutocomplete(aMatches: ArrayList<String>)
 	{
 		adapterAutoComplete.clear()
@@ -475,7 +514,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
 				AutoQLData.introMessage
 			else
-				"Hi %s! Let\'s dive into your data. What can I help you discover today?"
+				getString(R.string.discover_today)
 
 			statusLogin = !AutoQLData.notLoginData()
 

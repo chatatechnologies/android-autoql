@@ -101,7 +101,7 @@ class DisplaySQLDialog(
 	private fun showAlert()
 	{
 		animationAlert.run {
-			setText("Successfully copied generated query to clipboard!")
+			setText(context.getString(R.string.copied_clipboard))
 			setResource(R.drawable.ic_done)
 			showAlert()
 			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)

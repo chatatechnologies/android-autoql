@@ -28,7 +28,7 @@ object ThemeColor
 		R.color.highlight_color_2,
 		R.color.danger_color_2)
 
-	var currentColor: Color = darkColor
+	var currentColor: Color = darkColor//lightColor
 	set(value) {
 		field = value
 		for ((_, method) in aColorMethods)

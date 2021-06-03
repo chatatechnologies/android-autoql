@@ -18,6 +18,11 @@ object RequestBuilder
 	//Start when chat or dashboard's component start in XMLs
 	var requestQueue: RequestQueue ?= null
 
+	fun cancelRequestWithTag(tag: String)
+	{
+		requestQueue?.cancelAll(tag)
+	}
+
 	/**
 	 * @since 0.1
 	 * @author Carlos Buruel
@@ -155,7 +160,7 @@ object RequestBuilder
 				return headers ?: HashMap()
 			}
 
-			override fun getParams(): MutableMap<String, String>
+			override fun getParams(): MutableMap<String, String>?
 			{
 				return if (contentType.isEmpty())
 					parameters ?: HashMap()

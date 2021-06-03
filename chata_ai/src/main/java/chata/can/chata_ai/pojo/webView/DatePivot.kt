@@ -146,6 +146,10 @@ object DatePivot
 				addAll(aYearDistinct)
 				sort()
 			}
+			if (aYears.size == 1)
+			{
+				return Pair("", 0)
+			}
 			//endregion
 			val dollarColumn = aColumn[1]
 
@@ -160,7 +164,7 @@ object DatePivot
 			var numRows = 1
 			//region body table
 			val bodyTable = StringBuilder("<tbody>")
-			val aMonths = SinglentonDrawer.aMonths//val aMonths = DateFormatSymbols(Locale.US).months
+			val aMonths = SinglentonDrawer.aMonths
 			for (index in aMonths.indices)
 			{
 				val month = aMonths[index]
@@ -172,12 +176,12 @@ object DatePivot
 					val cell = mData["$year-$indexS"]?.let {
 						isNotHasZero = true
 						it.formatDecimals(2)
-					} ?: ""
+					} ?: "-"
 
 					val newCell = if (cell.isNotEmpty())
 						cell.formatWithColumn(dollarColumn)
 					else cell
-					sRow.append("<td>$newCell</td>")
+					sRow.append("<td>$newCell<span>${"$year-$indexS"}</span></td>")
 				}
 
 				if (isNotHasZero)

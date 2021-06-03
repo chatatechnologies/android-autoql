@@ -5,6 +5,8 @@ import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
 
 class ClickableSpan(
@@ -22,7 +24,7 @@ class ClickableSpan(
 	override fun updateDrawState(textPaint: TextPaint)
 	{
 		textPaint.run {
-			color = Color.parseColor("#0000EE")
+			color = tvSource.context.getParsedColor(R.color.blue_chata_circle)
 			isUnderlineText = true
 		}
 	}

@@ -1,9 +1,34 @@
 package chata.can.chata_ai.pojo.html
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.webView.DataD3
+
 object Variable
 {
-	fun getVariables(): String
+	private fun String.tableOrPivot(): String
 	{
+		return if (isEmpty()) "TypeEnum.TABLE" else "#idTableDataPivot"
+	}
+
+	fun getVariables(dataD3: DataD3): String
+	{
+
+		val typeChart =
+			if (dataD3.isColumn && !dataD3.isDashboard)
+				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
+			else
+				when(dataD3.type)
+				{
+					"table" -> dataD3.datePivot.tableOrPivot()
+					"pivot_table" -> "#idTableDataPivot"
+					"" -> dataD3.datePivot.tableOrPivot()
+					else -> dataD3.type
+				}
+
+		val color1 = SinglentonDrawer.aChartColors[0]
+		val sColors = SinglentonDrawer.aChartColors.joinTo(StringBuilder("["), postfix = "]") {
+			"\"$it\""
+		}
 		return """
 //region not mutable
 const TypeEnum = Object.freeze({
@@ -18,34 +43,36 @@ const TypeEnum = Object.freeze({
   "STACKED_BAR": 9,
   "STACKED_COLUMN": 10,
   "STACKED_AREA": 11,
-  "UNKNOW": 0});
+  "UNKNOWN": 0});
 
-var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
-var colorBi = ['#26a7df'];//Main color for bars
+var colorPie = $sColors;
+var colorBi = ['$color1'];//Main color for bars
+
+var axisX = '${dataD3.xAxis}';
+var axisY = '${dataD3.yAxis}';
 
 //Main data
-var data = [
-  {name: "may. 2019", value: 100500.00},
-  {name: "ago. 2019", value: 122868.00},
-  {name: "sep. 2019", value: 57326.75},
-  {name: "oct. 2019", value: 104254.00},
-  {name: "nov. 2019", value: 106630.75},
-];
-var maxValue = 106630.75;//put here max value
-var minValue = 57326.75;//put here min value
+var data = ${dataD3.data}
+var maxValue = ${dataD3.max}
+var minValue = ${dataD3.min}
 //endregion
 
 //The left margin makes the left border visible
-var typeChart;
+var typeChart = $typeChart;
+//width dynamic, height dynamic
+var width1 = 0;
+var height = 0;
 var margin = {
   top: 20,
   right: 20,
   bottom: 72 + 10,//factor count letter by 7
   left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
-},
-width = 960 - margin.left - margin.right,
-height = 550 - margin.top - margin.bottom,
-radius = Math.min(width, height) / 2;
+};
+//width = width1 - margin.left - margin.right,
+var width = 0;
+//height = height - margin.top - margin.bottom,
+var height = 0;
+//radius = Math.min(width, height) / 2;
 """
 	}
 }

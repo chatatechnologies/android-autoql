@@ -68,6 +68,7 @@ class MainRenderPresenter(
 							id = demoParam.labelId
 						}
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						visibility = if (demoParam.isVisible) View.VISIBLE else View.GONE
 						llContainer.addView(this)
 					}
 					//endregion
@@ -78,6 +79,10 @@ class MainRenderPresenter(
 					TypeParameter.TOGGLE ->
 					{
 						CustomViews.getSwitch(context, demoParam.value, demoParam.idView)
+					}
+					TypeParameter.TOGGLE_QA ->
+					{
+						CustomViews.getSwitchQA(context)
 					}
 					TypeParameter.INPUT ->
 					{

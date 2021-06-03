@@ -65,8 +65,15 @@ object TableTriBuilder
 		})
 		sbHead.append("</tr></thead>")
 
+		val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
+		sbFoot.append(aCatX.joinTo(StringBuilder(""), separator = "") {
+			"<th>${it.replace("\"", "")}</th>"
+		})
+		sbFoot.append("</tr></tfoot>")
+
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
+
 		for (indexY in aCatY.indices)
 		{
 			var onlyZero = true
@@ -74,7 +81,7 @@ object TableTriBuilder
 			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
 			for (indexX in aCatX.indices)
 			{
-				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
+				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
 				//region
 				if (cell != "0.0" && cell.isNotEmpty())
 					onlyZero = false
@@ -88,11 +95,10 @@ object TableTriBuilder
 				aIndexZero.add(indexY)
 			aRows.add("<tr>$sbRow</tr>")
 		}
-		//aRows.sort()
 		val sbBody = StringBuilder("<tbody>")
 		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
-		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatY.size, aIndexZero)
+		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
 	}
 
 	fun generateDataTableTri(
@@ -132,8 +138,8 @@ object TableTriBuilder
 			}
 
 			val dNumber = value.toDoubleNotNull()
-			mData["${iX}_$iY"] = if (hasNumber) "$dNumber" else value
-			val aNewRow = arrayListOf<Any>(iX, iY, dNumber)
+			mData["${iY}_$iX"] = if (hasNumber) "$dNumber" else value
+			val aNewRow = arrayListOf<Any>(iY, iX, dNumber)
 			aDataTable.add(aNewRow)
 		}
 		return Pair(aDataTable, mData)

@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import chata.can.chata_ai.extension.backgroundGrayWhite
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -60,15 +60,15 @@ class SuggestionHolder(
 	private fun buildSuggestionView(context: Context, content: String, dashboard: Dashboard): TextView
 	{
 		return TextView(context).apply {
-			backgroundGrayWhite()
+			backgroundWhiteGray()
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 			setPadding(15,15,15,15)
 			text = content
+			setTextColor(drawerColorPrimary)
 			setOnClickListener {
-//				view.addChatMessage(2, content)
 				val index = SinglentonDashboard.indexDashboard(dashboard)
 				if (index != -1)
 				{

@@ -3,7 +3,10 @@
 	<item name="swDemoData" type="id"/>
 
 	<item name="hProjectId" type="id"/>
+	<item name="swQA" type="id"/>
 	<item name="etProjectId" type="id"/>
+	<item name="hThemeColor" type="id"/>
+	<item name="etThemeColor" type="id"/>
 	<item name="hUserId" type="id"/>
 	<item name="etUserId" type="id"/>
 	<item name="hApiKey" type="id"/>
@@ -65,7 +68,27 @@
 	<item name="iIncorrect" type="id"/>
 	<item name="iIncomplete" type="id"/>
 	<item name="iOther" type="id"/>
+	<item name="iColumn" type="id"/>
+	<item name="iFilterTable" type="id"/>
 	<item name="iReportProblem" type="id"/>
 	<item name="iDelete" type="id" />
 	<item name="iGenerateSQL" type="id"/>
+
+	<item name="toggleSwitch" type="id"/>
+	<item name="statusSwitch" type="id"/>
+	<!-- region HideDialog -->
+	<item name="rlParent" type="id"/>
+	<item name="rlTitle" type="id"/>
+	<item name="tvTitle" type="id"/>
+	<item name="ivCancel" type="id"/>
+	<item name="vBorder" type="id"/>
+	<item name="rlList" type="id"/>
+	<item name="rvColumn" type="id"/>
+	<item name="tvColumnName" type="id"/>
+	<item name="tvVisibility" type="id"/>
+	<item name="cbAll" type="id"/>
+	<item name="llBottom" type="id"/>
+	<item name="btnCancel" type="id"/>
+	<item name="btnApply" type="id"/>
+	<!-- endregion -->
 </resources>

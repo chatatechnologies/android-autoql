@@ -180,7 +180,13 @@ object DashboardMaker
 		}
 
 		val typeChart =
-			if (dataForWebView.isColumn && !dataForWebView.isDashboard)
+			if (dataForWebView.updateTable || dataForWebView.updatePivot)
+			{
+				dataForWebView.updateTable = false
+				dataForWebView.updatePivot = false
+				dataForWebView.datePivot.tableOrPivot()
+			}
+			else if (dataForWebView.isColumn && !dataForWebView.isDashboard)
 				if (isBi) "column" else "stacked_column"
 			else
 				when(dataForWebView.type)
@@ -252,6 +258,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
       text-overflow: ellipsis;
       border: 0.5px solid #cccccc;
     }
+    span {
+        display: none;
+    }
     .green{
         color: #2ecc40;
     }
@@ -266,6 +275,19 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     }
     .splitView{
         position: relative;
+    }
+		tfoot {
+        /*display: table-header-group;*/
+				display: none;
+    }
+		.empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: $textColor!important;
+    }
+    .alert-icon {
+      font-size: 20px;
+      color: $textColor!important;
     }
 </style>
 <div class="splitView">
@@ -397,12 +419,15 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
             var firstColumn = ${'$'}this.closest('tr');
             var finalText = firstColumn[0].firstChild.innerText;
             var strDate = firstColumn[0].children[1].innerText;
-            if (type == "idTableDataPivot" ){
-                finalText = drillX[column - 1] + "_" + drillSpecial[row];
+            if (type == "#idTableDataPivot" ){
+                finalText = firstColumn[0].children[column].children[0].innerText;
             } else if (type == "idTableDatePivot" ) {
                 finalText = ${'$'}this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
                 finalText += "_"+drillTableY[row];
+            } else {
+                var index = categoriesX.indexOf(finalText)
+                finalText = drillX[index]
             }
             //var d = new Date( Date.parse('2017 2') );
            drillDown( finalText );
@@ -859,7 +884,7 @@ function biType(type,inverted) {
                     to: ${stackedTo},
                     breakSize: 1
                 }],
-                categories: categoriesX,
+                categories: categoriesY,
                 labels: {
                     rotation: -60,
                     style: {
@@ -989,6 +1014,65 @@ function hideTables(idHide, idShow, type2) {
     //${'$'}( idShow ).show("slow");
     type = type2;
     changeGraphic(type2);
+}
+${'$'}('#idTableBasic tfoot th').each(function () {
+    var indexInput = ${'$'}(this).index();
+    var title = ${'$'}(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+	${'$'}(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="filter column..."/>');
+
+    ${'$'}("#" + idInput).on('input', function () {
+        var filter = ${'$'}(this).val().toUpperCase();
+        var table = document.getElementById("idTableBasic");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+${'$'}('#idTableDataPivot tfoot th').each(function () {
+    var indexInput = ${'$'}(this).index();
+    var title = ${'$'}(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+	${'$'}(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="Search on ' + title + '"/>');
+
+    ${'$'}("#" + idInput).on('input', function () {
+        var filter = ${'$'}(this).val().toUpperCase();
+        var table = document.getElementById("idTableDataPivot");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+function showFilter() {
+	if ( ${'$'}('tfoot').is(':visible') ) {
+		${'$'}('tfoot').css({'display': 'none'});
+	} else {
+		${'$'}('tfoot').css({'display': 'table-header-group'});
+	}
 }
 </script>
 </body>

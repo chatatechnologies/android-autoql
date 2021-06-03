@@ -19,6 +19,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
 import java.util.*
@@ -27,6 +28,12 @@ import java.util.regex.Pattern
 object CustomViews
 {
 	val mViews = linkedMapOf<String, SparseBooleanArray>()
+
+	fun getSwitchQA(context: Context) = SwitchDM(context).apply {
+		layoutParams = getLinearLayoutParams(-2, -2)
+		gravity = Gravity.CENTER_HORIZONTAL
+		id = R.id.swQA
+	}
 
 	fun getSwitch(context: Context, value: String, idView: Int) = SwitchCompat(context).apply {
 		layoutParams = getLinearLayoutParams(-2, -2)
@@ -38,6 +45,7 @@ object CustomViews
 	fun getEditText(context: Context, demoParam: DemoParameter) =
 		context.run {
 			EditText(context).apply {
+				visibility = if (demoParam.isVisible) View.VISIBLE else View.GONE
 				background = GradientDrawable().apply {
 					shape = GradientDrawable.RECTANGLE
 					setColor(getParsedColor(R.color.white))
@@ -241,7 +249,7 @@ object CustomViews
 
 				sb.append(chart)
 			}
-			return sb.toString().toUpperCase(Locale.US)
+			return sb.toString().uppercase(Locale.US)
 		}
 	}
 	private val aFilters = arrayOf(inputFilterText, InputFilter.LengthFilter(7))

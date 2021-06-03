@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger.presenter
 import android.content.Context
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.*
 import chata.can.chata_ai.pojo.request.StatusResponse
@@ -33,10 +34,10 @@ class ChatServicePresenter(
 		contract.callSafetyNet(query, this)
 	}
 
-	private fun getQuery(query: String, mInfoHolder: HashMap<String, Any>)
+	fun getQuery(query: String, mInfoHolder: HashMap<String, Any>, source: String = "data_messenger.user")
 	{
 		isLoading(true)
-		QueryRequest.callQuery(query, this, "data_messenger", mInfoHolder)
+		QueryRequest.callQuery(query, this, source, mInfoHolder)
 	}
 
 	fun getQuery(query: String)
@@ -101,7 +102,7 @@ class ChatServicePresenter(
 							else
 							{
 //								if (message.contains("report"))
-								val messageComplete = "$message\n\nError ID: $reference"
+								val messageComplete = "$message\n\n${StringContainer.errorId} $reference"
 								view?.run {
 									addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
 									isLoading(false)
@@ -161,7 +162,7 @@ class ChatServicePresenter(
 										}
 									}
 									queryBase.message = jsonObject.optString("message", "") ?: ""
-									val query = jsonObject.optString("query", "")
+									//val query = jsonObject.optString("query", "")
 									isLoading(false)
 									view?.run {
 										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
@@ -201,10 +202,7 @@ class ChatServicePresenter(
 							val numRows = queryBase.aRows.size
 							when
 							{
-								numRows == 0 ->
-								{
-									TypeChatView.LEFT_VIEW
-								}
+								numRows == 0 -> TypeChatView.LEFT_VIEW
 								numColumns == 1 && numRows > 1 ->
 								{
 									queryBase.viewPresenter = this

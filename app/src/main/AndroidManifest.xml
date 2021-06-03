@@ -27,6 +27,10 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name=".test.BubbleTest">
+
+		</activity>
+
 		<service
 			android:name="chata.can.chata_ai.service.PollService"
 			android:permission="android.permission.BIND_JOB_SERVICE"

@@ -2,8 +2,11 @@ package chata.can.chata_ai_api.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
@@ -64,19 +67,24 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 					putExtra("PLACEMENT", floatingView.placement)
 				}
 			)
-			val pData = when(floatingView.placement)
-			{
-				ConstantDrawer.LEFT_PLACEMENT -> Pair(R.anim.from_left_in, R.anim.from_right_out)
-				ConstantDrawer.RIGHT_PLACEMENT -> Pair(R.anim.from_right_in, R.anim.from_left_out)
-				else -> Pair(0, 0)
-			}
-			overridePendingTransition(pData.first, pData.second)
 		}
 	}
 
 	override fun onBackPressed()
 	{
 		finishAffinity()
+	}
+
+	private fun addTabLayoutEvent()
+	{
+		(tabLayout.getChildAt(0) as? LinearLayout)?.let { tabStrip ->
+			for (index in 0 until tabStrip.childCount)
+			{
+				tabStrip.getChildAt(index).setOnLongClickListener {
+					true
+				}
+			}
+		}
 	}
 
 	var isVisibleTabLayout: Boolean = true
@@ -91,6 +99,9 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 		adapter.notifyDataSetChanged()
 		tabLayout.visibility = visible
+		Handler(Looper.getMainLooper()).postDelayed({
+			addTabLayoutEvent()
+		}, 500)
 		field = value
 	}
 }

@@ -4,6 +4,7 @@ import android.graphics.Color
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.pojo.date.ChataDateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -18,7 +19,7 @@ fun String.toDateV2(format: String = "yyyy-MM"): String
 
 	for ((index, _format) in aFormat.withIndex())
 	{
-		when (_format.toLowerCase(Locale.US))
+		when (_format.lowercase(Locale.US))
 		{
 			"yyyy" -> year = aDate[index]
 			"mm", "m" -> month = aDate[index]
@@ -75,9 +76,7 @@ fun String.formatWithColumn(
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
 								dateFormat.parse(this)?.let { dDate ->
-//									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, locale)
-									val dateFormat2 = SimpleDateFormat(SinglentonDrawer.monthYearFormat, Locale.US)
-									dateFormat2.format(dDate)
+									ChataDateFormat.dateFormat(dDate)
 								}
 //								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
 							}
@@ -86,24 +85,6 @@ fun String.formatWithColumn(
 					}
 					else this
 				}
-//				var date = ""
-//				val aPart = columnQuery.name.split(",")
-//				if (aPart.size > 1)
-//				{
-//					val source = aPart[1]
-//					val index1 = source.indexOf("'")
-//					val index2 = source.lastIndexOf("'")
-//					val sourceDate = source.substring(index1 + 1, index2)
-//					try {
-//						val dataFormat = SimpleDateFormat(sourceDate, Locale.US)
-//						dataFormat.parse(this)?.let { dDate ->
-//							val dateFormat2 = SimpleDateFormat(sourceDate, Locale.US)
-//							date = dateFormat2.format(dDate)
-//						}
-//					}
-//					catch (ex: Exception) {}
-//				}
-//				date
 			}
 		}
 		TypeDataQuery.DATE ->
@@ -201,7 +182,7 @@ fun String.toCapitalColumn(): String
 
 fun String.isColor(): Pair<String, Boolean>
 {
-	val newColor = toLowerCase(Locale.US)
+	val newColor = lowercase(Locale.US)
 	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
 	return Pair(newColor, colorPattern.matcher(newColor).matches())

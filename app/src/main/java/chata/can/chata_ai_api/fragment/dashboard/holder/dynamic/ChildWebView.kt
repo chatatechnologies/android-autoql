@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -71,7 +70,7 @@ object ChildWebView {
 			{
 				customHeight = 900
 			}
-			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
 		}
 	}
 }

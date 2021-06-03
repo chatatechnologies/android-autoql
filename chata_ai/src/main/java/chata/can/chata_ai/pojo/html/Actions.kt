@@ -5,8 +5,8 @@ object Actions
 	fun getActions(): String
 	{
 		return """
-	<div>
-    <!-- <button class="button" onclick="updateData(TypeEnum.TABLE)">TABLE</button> -->
+	<div style="display: none;">
+    <button class="button" onclick="updateData(TypeEnum.TABLE)">TABLE</button>
     <!-- <button class="button" onclick="updateData(TypeEnum.PIVOT)">PIVOT</button> -->
     <button class="button" onclick="updateData(TypeEnum.COLUMN)">COLUMN</button>
     <button class="button" onclick="updateData(TypeEnum.BAR)">BAR</button>

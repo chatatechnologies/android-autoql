@@ -1,6 +1,6 @@
 package chata.can.chata_ai.pojo.chat
 
-import chata.can.chata_ai.DoAsync
+import chata.can.chata_ai.Executor
 import chata.can.chata_ai.fragment.dataMessenger.presenter.PresenterContract
 import chata.can.chata_ai.dialog.DrillDownContract
 import chata.can.chata_ai.holder.HolderContract
@@ -13,6 +13,7 @@ import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.referenceIdKey
+import chata.can.chata_ai.pojo.webView.D3OnHtml
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
@@ -35,6 +36,17 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	val aRows = ArrayList<ArrayList<String>>()
 	val aIndex = ArrayList<Int>()
 	var aColumn = ArrayList<ColumnQuery>()
+
+	fun allVisible(): Boolean
+	{
+		var allVisible = true
+		for (column in aColumn)
+		{
+			if (!column.isVisible)
+				allVisible = false
+		}
+		return allVisible
+	}
 
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
 
@@ -91,6 +103,8 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var viewPresenter: PresenterContract?= null
 	var viewDrillDown: DrillDownContract?= null
 	var isLoadingHTML = true
+	var onlyHTML = false
+	var lastId = ""
 
 	init {
 		joData?.let {
@@ -176,7 +190,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			else -> needDoAsync = true
 		}
 
-		DoAsync({
+		Executor({
 			isLoadingHTML = true
 			if (needDoAsync)
 			{
@@ -184,10 +198,17 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				val rulesHTML = RulesHtml(aColumn, CountColumn(), aRows.size)
 				supportCase = rulesHTML.getSupportCharts()
 
-				val dataForWebView = HtmlBuilder.build(this)
+				val pData = HtmlBuilder.build(this)
+				val dataForWebView = pData.first
+				val dataD3 = pData.second
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType
+					dataD3.type = displayType
+				}
+				if (lastId.isNotEmpty())
+				{
+					dataForWebView.updateTable = true
 				}
 
 				when(aColumn.size)
@@ -196,7 +217,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					{
 						dataForWebView.xAxis = aColumn.getOrNull(
 							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
+						dataD3.xAxis = aColumn.getOrNull(
+							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
 						dataForWebView.yAxis = aColumn.getOrNull(
+							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
+						dataD3.yAxis = aColumn.getOrNull(
 							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
 					}
 					else ->
@@ -204,13 +229,17 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						if (aIndex.isNotEmpty())
 						{
 							dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+							dataD3.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
 							dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+							dataD3.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
 						}
 					}
 				}
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
+				dataD3.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
 				contentHTML = DashboardMaker.getHTML(dataForWebView)
+//				contentHTML = D3OnHtml.getHtmlTest(dataD3)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot
 			}

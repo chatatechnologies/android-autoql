@@ -5,7 +5,7 @@ data class ColumnQuery(
 	var type: TypeDataQuery,
 	val name: String,
 	val displayName: String = "",
-	val isVisible: Boolean)
+	var isVisible: Boolean)
 {
 	var formatDate = ""
 }

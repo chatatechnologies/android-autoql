@@ -20,6 +20,7 @@ import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 import chata.can.chata_ai.fragment.notification.NotificationFragment
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -33,7 +34,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnClickListener
+class DMActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var vBehind: View
 	private lateinit var llMenu: LinearLayout
@@ -63,7 +64,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 				it.getString(PollService.DATA)?.let { data ->
 					try {
 						val json = JSONObject(data)
-						json.optJSONObject("data")?.let { joData ->
+						json.optJSONObject("data")?.let { _ ->
 							showNotification(PollService.unacknowledged)
 						}
 					} catch(ex: Exception) {}
@@ -75,6 +76,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_pager_options)
 		vBehind = findViewById(R.id.vBehind)
 		llMenu = findViewById(R.id.llMenu)
 		rlChat = findViewById(R.id.rlChat)
@@ -101,6 +103,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 			}
 			paintViews(placement)
 		}
+		setResources()
 		setColor()
 		setListener()
 		//Start first fragment
@@ -125,6 +128,12 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 	{
 		super.onPause()
 		unregisterReceiver(receiver)
+	}
+
+	override fun finish()
+	{
+		super.finish()
+		AutoQLData.isRelease = true
 	}
 
 	override fun onClick(view: View?)
@@ -156,6 +165,16 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 					}
 				}
 			}
+		}
+	}
+
+	private fun setResources()
+	{
+		StringContainer.run {
+			columnHidden = getString(R.string.column_hidden)
+			errorId = getString(R.string.errorId)
+			notRecognized = getString(R.string.not_recognized)
+			success = getString(R.string.success)
 		}
 	}
 
@@ -233,8 +252,13 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun showNotification(unacknowledged: Int)
 	{
-		tvNotification.visibility = View.VISIBLE
-		tvNotification.text = "$unacknowledged"
+		tvNotification.visibility = if (unacknowledged != 0)
+		{
+			tvNotification.text = "$unacknowledged"
+			View.VISIBLE
+		}
+		else
+			View.GONE
 	}
 
 	private fun putFragment(nameFragment: String)
@@ -244,7 +268,7 @@ class DMActivity: AppCompatActivity(R.layout.activity_pager_options), View.OnCli
 
 	private fun visibleClear(isVisible: Boolean)
 	{
-		ivClose.visibility = if (isVisible) View.VISIBLE else View.GONE
+		ivClear.visibility = if (isVisible) View.VISIBLE else View.GONE
 	}
 
 	private fun showNotification()

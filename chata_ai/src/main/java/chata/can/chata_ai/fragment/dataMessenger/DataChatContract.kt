@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -26,6 +27,9 @@ class DataChatContract
 			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
+				header?.let {
+					it["accept-language"] = SinglentonDrawer.languageCode
+				}
 				nameService = "autocomplete"
 				"$domainUrl/autoql/${api1}query/autocomplete?text=$content&key=$apiKey"
 			}
@@ -55,6 +59,9 @@ class DataChatContract
 			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
+				header?.let {
+					it["accept-language"] = SinglentonDrawer.languageCode
+				}
 				nameService = "validate"
 				"$domainUrl/autoql/${api1}query/validate?text=$queryEncode&key=$apiKey"
 			}

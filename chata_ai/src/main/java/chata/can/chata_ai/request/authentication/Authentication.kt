@@ -1,5 +1,6 @@
 package chata.can.chata_ai.request.authentication
 
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -57,12 +58,13 @@ object Authentication
 	fun callRelatedQuery(listener: StatusResponse)
 	{
 		val url = "${AutoQLData.domainUrl}/autoql/${api1}query/related-queries?key=${AutoQLData.apiKey}&search=test"
-		val mAuthorization = getAuthorizationJWT()
+		val header = getAuthorizationJWT()
+		header["accept-language"] = SinglentonDrawer.languageCode
 
 		callStringRequest(
 			Request.Method.GET,
 			url,
-			headers = mAuthorization,
+			headers = header,
 			infoHolder = hashMapOf("nameService" to "callRelatedQuery"),
 			listener = listener
 		)
@@ -72,13 +74,14 @@ object Authentication
 	{
 		val url = "${urlChataIO}${api1}topics?" +
 			"key=${AutoQLData.apiKey}&project_id=${AutoQLData.projectId}"
-		val mAuthorization = getAuthorizationJWT()
-		mAuthorization["Integrator-Domain"] = AutoQLData.domainUrl
+		val header = getAuthorizationJWT()
+		header["accept-language"] = SinglentonDrawer.languageCode
+		header["Integrator-Domain"] = AutoQLData.domainUrl
 
 		callStringRequest(
 			Request.Method.GET,
 			url,
-			headers = mAuthorization,
+			headers = header,
 			infoHolder = hashMapOf("nameService" to "callTopics"),
 			listener = listener
 		)

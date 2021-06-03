@@ -17,6 +17,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.listener.OnItemClickListener
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -25,7 +26,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
-	itemView: View,
+	private val itemView: View,
 	private val view: ChatAdapterContract? = null,
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener
@@ -118,7 +119,8 @@ open class BaseHolder(
 
 					} ?: run {
 						tvContentTop.visibility = View.GONE
-						rlDelete?.visibility = if (item.message == "Thank you for your feedback")
+						val msgFeedback = itemView.context.getString(R.string.thank_you_feedback)
+						rlDelete?.visibility = if (item.message == msgFeedback)
 							View.VISIBLE else View.GONE
 					}
 				}
@@ -216,7 +218,7 @@ open class BaseHolder(
 					"Uh oh.. It looks like you don't have access to this resource. Please double check that all the required authentication fields are provided."
 				}
 			}
-			else -> "display type not recognized: ${simpleQuery.displayType}"
+			else -> "${StringContainer.notRecognized}: ${simpleQuery.displayType}"
 		}
 
 		tvContent.text = message

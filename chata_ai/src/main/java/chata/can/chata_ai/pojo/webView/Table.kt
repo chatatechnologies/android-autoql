@@ -25,67 +25,64 @@ object Table
 				for (indexValue in aIndex)
 				{
 					val oColumn = aColumns[indexValue]
-					if (oColumn.isVisible)
+					val cell = aRow[indexValue]
+
+					val sCell = when(oColumn.type)
 					{
-						val cell = aRow[indexValue]
-
-						val sCell = when(oColumn.type)
+						TypeDataQuery.QUANTITY -> {
+							if (isDataCenter) cell
+							else "\"$cell\""
+						}
+						TypeDataQuery.DOLLAR_AMT ->
 						{
-							TypeDataQuery.QUANTITY -> {
-								if (isDataCenter) cell
-								else "\"$cell\""
-							}
-							TypeDataQuery.DOLLAR_AMT ->
-							{
-								val value = cell.replace("##", "")
+							val value = cell.replace("##", "")
 
-								if (isDataCenter)formatter.format(value.toDouble()).replace(",", "")
-								else "\"$" + formatter.format(value.toDouble()) + "\""
-							}
-							TypeDataQuery.NUMBER ->
+							if (isDataCenter)formatter.format(value.toDouble()).replace(",", "")
+							else "\"$" + formatter.format(value.toDouble()) + "\""
+						}
+						TypeDataQuery.NUMBER ->
+						{
+							if (isDataCenter)cell.replace("##","")
+							else "\"${cell.replace("##",", ")}\""
+						}
+						TypeDataQuery.DATE ->
+						{
+							if(cell.isEmpty() || cell == "0" )
+								"\" \""
+							else
 							{
-								if (isDataCenter)cell.replace("##","")
-								else "\"${cell.replace("##",", ")}\""
-							}
-							TypeDataQuery.DATE ->
-							{
-								if(cell.isEmpty() || cell == "0" )
-									"\" \""
-								else
-								{
-									val sName = oColumn.name
+								val sName = oColumn.name
 
-									val hasYear = sName.contains("year")
-									val hasMonth = sName.contains("month")
-									val hasDay = sName.contains("day")
+								val hasYear = sName.contains("year")
+								val hasMonth = sName.contains("month")
+								val hasDay = sName.contains("day")
 
-									val dateFormat = SimpleDateFormat(
-										if(hasYear)
-										{
-											"yyyy"
-										}
-										else if(hasMonth && !hasDay)
-										{
-											"MMM yyyy"
-										}
-										else
-										{
-											"MMM dd, yyyy"
-										}, Locale.US)
-									dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+								val dateFormat = SimpleDateFormat(
+									if(hasYear)
+									{
+										"yyyy"
+									}
+									else if(hasMonth && !hasDay)
+									{
+										"MMM yyyy"
+									}
+									else
+									{
+										"MMM dd, yyyy"
+									}, Locale.US)
+								dateFormat.timeZone = TimeZone.getTimeZone("GMT")
 
-									val date = Date(cell.toFloat().toLong() * 1000)
-									"\"${dateFormat.format(date).replace(".", ",")}\""
-								}
-							}
-							else ->
-							{
-								"\"${cell.replace("##",", ")}\""
+								val date = Date(cell.toFloat().toLong() * 1000)
+								"\"${dateFormat.format(date).replace(".", ",")}\""
 							}
 						}
-
-						sRow += ",$sCell"
+						else ->
+						{
+							"\"${cell.replace("##",", ")}\""
+						}
 					}
+
+					sRow += ",$sCell"
 				}
 				sRow = "[${sRow.removePrefix(",")}]"
 				aDataTable.add(sRow)

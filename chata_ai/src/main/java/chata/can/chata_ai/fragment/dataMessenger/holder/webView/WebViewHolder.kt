@@ -32,7 +32,7 @@ class WebViewHolder(
 	itemView: View,
 	private val adapterView: ChatAdapterContract?,
 	private val chatView: ChatContract.View?
-): Holder(itemView), View.OnClickListener
+): Holder(itemView), View.OnClickListener, WebViewContract
 {
 	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
@@ -59,22 +59,21 @@ class WebViewHolder(
 			ivHeat, ivBubble, ivStackedBar, ivStackedColumn, ivStackedArea)
 
 	private val rlDelete = itemView.findViewById<View>(R.id.rlDelete) ?: null
-	private val ivDelete = itemView.findViewById<ImageView>(R.id.ivDelete) ?: null
-	private val ivReport = itemView.findViewById<ImageView>(R.id.ivReport) ?: null
 	private val ivPoints = itemView.findViewById<ImageView>(R.id.ivPoints) ?: null
 
 	private var ivActionHide: ImageView ?= null
 	private var queryBase: QueryBase ?= null
-	private var lastId = "#idTableDataPivot"
+	private var lastId = "#idTableBasic"
 	private val factorHeight = 180
 	private val visible = View.VISIBLE
 	private val invisible = View.GONE
+	private var isFilter = false
+
 	private var isReduceOptions = false
-	private var canChangeHeight = true
+	private var canChangeHeight = false
 
 	private var accentColor = 0
 
-	//region paint views
 	override fun onPaint()
 	{
 		tvContentTop.run {
@@ -89,8 +88,6 @@ class WebViewHolder(
 			startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
-			ivReport?.setColorFilter(accentColor)
-			ivDelete?.setColorFilter(accentColor)
 			ivPoints?.setColorFilter(accentColor)
 		}
 
@@ -111,11 +108,39 @@ class WebViewHolder(
 		}
 	}
 
+	override fun showFilter()
+	{
+		queryBase?.run {
+			if (isFilter)
+			{
+				isFilter = false
+				rowsTable--
+				rowsPivot--
+			}
+			else
+			{
+				rowsTable++
+				rowsPivot++
+				isFilter = true
+			}
+
+			val lastNum = when(this@WebViewHolder.lastId)
+			{
+				"#idTableBasic" -> rowsTable
+				"#idTableDataPivot" -> rowsPivot
+				"#container" -> factorHeight
+				else -> 0
+			}
+			changeHeightWebView(lastNum)
+			wbQuery?.loadUrl("javascript:showFilter();")
+		}
+	}
+
 	private fun addActionViews(configActions: Int)
 	{
 		if (configActions != 0)
 		{
-			val aConfigs = when(configActions)
+			val aMutable = when(configActions)
 			{
 				1 -> ConfigActions.biConfig
 				2 ->
@@ -142,11 +167,12 @@ class WebViewHolder(
 					arrayListOf()
 				}
 			}
+			val aConfigs = aMutable.toMutableList()
 			queryBase?.let {
 				if (it.isGroupable &&
 					(R.id.ivColumn in aConfigs || R.id.ivStackedColumn in aConfigs))
 				{
-					Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
+						Collections.swap(aConfigs, 0, if (R.id.ivPivot in aConfigs) 2 else 1)
 					lastId = "#container"
 				}
 				if (R.id.ivPie in aConfigs)
@@ -193,31 +219,9 @@ class WebViewHolder(
 					}
 				}
 			}
-			configOptions(aConfigs.size)
 			ivActionHide?.setOnClickListener(this)
 		}
-		else
-		{
-			configOptions(0)
-		}
 	}
-
-	private fun configOptions(sizeConfig: Int)
-	{
-		isReduceOptions = if (sizeConfig > 5)
-		{
-			ivDelete?.visibility = invisible
-			ivReport?.visibility = invisible
-			true
-		}
-		else
-		{
-			ivDelete?.setOnClickListener(this)
-			ivReport?.setOnClickListener(this)
-			false
-		}
-	}
-	//endregion
 
 	override fun onClick(v: View?)
 	{
@@ -246,8 +250,9 @@ class WebViewHolder(
 						adapterPosition,
 						queryBase?.queryId ?: "",
 						queryBase?.sql ?: "",
-						isReduceOptions)
-					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup)
+						lastId == "#idTableBasic" || lastId == "#idTableDataPivot",
+						lastId == "#idTableDataPivot")
+					ListPopup.showPointsPopup(it, queryBase?.sql ?: "", dataPopup, queryBase, this)
 				}
 				else -> {}
 			}
@@ -274,53 +279,66 @@ class WebViewHolder(
 
 	private fun processQueryBase(simpleQuery: QueryBase)
 	{
-		rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
-		if (simpleQuery.query.isNotEmpty())
+		if (simpleQuery.onlyHTML)
 		{
-			tvContentTop.visibility = visible
-			tvContentTop.text = simpleQuery.query
-		}
-		else
-		{
-			tvContentTop.visibility = invisible
-		}
-
-		queryBase = simpleQuery
-		addActionViews(simpleQuery.configActions)
-
-		if (simpleQuery.contentHTML.isNotEmpty())
-		{
-			rlLoad?.visibility = visible
-			wbQuery?.let {
-				wbQuery ->
+			simpleQuery.onlyHTML = false
+			wbQuery?.let { wbQuery ->
 				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 			}
 		}
-		ivAlert?.let { ivAlert ->
-			ivAlert.visibility = if (
-				simpleQuery.hasDrillDown &&
-				simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+		else
+		{
+			rvContentTop.visibility = if (simpleQuery.visibleTop) View.VISIBLE else View.INVISIBLE
+			if (simpleQuery.query.isNotEmpty())
 			{
-				ivAlert.setOnClickListener {
-					chatView?.showToast()
+				tvContentTop.visibility = visible
+				tvContentTop.text = simpleQuery.query
+			}
+			else
+			{
+				tvContentTop.visibility = invisible
+			}
+
+			queryBase = simpleQuery
+			addActionViews(simpleQuery.configActions)
+
+			if (simpleQuery.contentHTML.isNotEmpty())
+			{
+				rlLoad?.visibility = visible
+				wbQuery?.let { wbQuery ->
+					loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
 				}
-				View.VISIBLE
-			} else View.GONE
+			}
+			ivAlert?.let { ivAlert ->
+				ivAlert.visibility = if (
+				//simpleQuery.hasDrillDown &&
+					simpleQuery.limitRowNum <= simpleQuery.aRows.size)
+				{
+					ivAlert.setOnClickListener {
+						chatView?.showToast()
+					}
+					View.VISIBLE
+				} else View.GONE
+			}
 		}
 	}
 
 	private fun callAction(iv: ImageView?)
 	{
 		queryBase?.let {
-			queryBase ->
+				queryBase ->
 			iv?.let {
+				if (isFilter && (lastId == "#idTableBasic" || lastId == "#idTableDataPivot"))
+				{
+					showFilter()
+				}
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
 					{
 						val idHide = lastId
 						lastId = "#idTableBasic"
-						Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
+						Pair("'$idHide', '#idTableBasic', '#idTableBasic'", queryBase.rowsTable)
 					}
 					R.id.ivBar ->
 					{
@@ -337,6 +355,7 @@ class WebViewHolder(
 							else
 							{
 								Pair("'$idHide', '#container', 'bar'", factorHeight)
+//								Pair("TypeEnum.BAR", factorHeight)
 							}
 						}
 					}
@@ -355,6 +374,7 @@ class WebViewHolder(
 							else
 							{
 								Pair("'$idHide', '#container', 'column'", factorHeight)
+//								Pair("TypeEnum.COLUMN", factorHeight)
 							}
 						}
 					}
@@ -366,12 +386,14 @@ class WebViewHolder(
 							Pair("'$idHide', '#container', 'contrast_line'", factorHeight)
 						else
 							Pair("'$idHide', '#container', 'line'", factorHeight)
+//							Pair("TypeEnum.LINE", factorHeight)
 					}
 					R.id.ivPie ->
 					{
 						val idHide = lastId
 						lastId = "#container"
 						Pair("'$idHide', '#container', 'pie'", factorHeight)
+//						Pair("TypeEnum.PIE", factorHeight)
 					}
 					R.id.ivBubble ->
 					{
@@ -389,7 +411,7 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
-						Pair("'$idHide', '#idTableDataPivot', 'idTableDataPivot'", queryBase.rowsPivot)
+						Pair("'$idHide', '#idTableDataPivot', '#idTableDataPivot'", queryBase.rowsPivot)
 					}
 					R.id.ivStackedBar ->
 					{
@@ -468,6 +490,11 @@ class WebViewHolder(
 				{
 					visibility = visible
 					Handler(Looper.getMainLooper()).postDelayed({
+						//todo show change tables
+						queryBase?.let {
+							println("LAST ID $lastId")
+							//addActionViews(it.configActions)
+						}
 						rlLoad?.visibility = invisible
 					}, 200)
 				}
@@ -482,20 +509,16 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		if (canChangeHeight)
-		{
-			canChangeHeight = false
-			rvParent?.let {
-				var customHeight = it.dpToPx(30f * numRows) + 60
-				if (customHeight > 900)
-				{
-					customHeight = 900
-				}
-
-				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-				it.margin(12f, 32f, 12f, 1f)
-				chatView?.scrollToPosition()
+		rvParent?.let {
+			var customHeight = it.dpToPx(30f * numRows) + 60
+			if (customHeight > 900)
+			{
+				customHeight = 900
 			}
+
+			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+			it.margin(12f, 32f, 12f, 1f)
+			chatView?.scrollToPosition()
 		}
 	}
 }

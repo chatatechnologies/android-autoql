@@ -27,6 +27,16 @@ fun View.backgroundGrayWhite(iCornerRadius: Float = 18f)
 	}
 }
 
+fun View.backgroundWhiteGray()
+{
+	context.run {
+		ThemeColor.currentColor.run {
+			background = DrawableBuilder.setGradientDrawable(
+				pDrawerBackgroundColor,18f,1, pDrawerTextColorPrimary)
+		}
+	}
+}
+
 fun View.setAnimator(yValue: Float, property: String)
 {
 	ObjectAnimator.ofFloat(this, property, yValue).run {
