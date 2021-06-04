@@ -101,11 +101,32 @@ class ChatServicePresenter(
 							}
 							else
 							{
-//								if (message.contains("report"))
-								val messageComplete = "$message\n\n${StringContainer.errorId} $reference"
-								view?.run {
-									addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
-									isLoading(false)
+								val response = jsonObject.optString("RESPONSE", "")
+								var queryId = ""
+								try {
+									val joResponse = JSONObject(response)
+									joResponse.optJSONObject("data")?.let { joData ->
+										queryId = joData.optString("query_id")
+									}
+								}
+								catch (ex: Exception) {}
+								if (queryId.isNotEmpty())
+								{
+									val json = JSONObject().put("query", "")
+									val newQueryBase = QueryBase(json)
+									newQueryBase.queryId = queryId
+									view?.run {
+										addNewChat(TypeChatView.LEFT_VIEW, newQueryBase)
+										isLoading(false)
+									}
+								}
+								else
+								{
+									val messageComplete = "$message\n\n${StringContainer.errorId} $reference"
+									view?.run {
+										addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
+										isLoading(false)
+									}
 								}
 							}
 						} catch (ex: Exception) {}
