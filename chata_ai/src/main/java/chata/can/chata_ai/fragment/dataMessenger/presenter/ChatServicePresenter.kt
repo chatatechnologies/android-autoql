@@ -110,10 +110,13 @@ class ChatServicePresenter(
 									}
 								}
 								catch (ex: Exception) {}
+
+								val messageComplete = "$message\n\n${StringContainer.errorId} $reference"
 								if (queryId.isNotEmpty())
 								{
 									val json = JSONObject().put("query", "")
 									val newQueryBase = QueryBase(json)
+									newQueryBase.message = messageComplete
 									newQueryBase.queryId = queryId
 									view?.run {
 										addNewChat(TypeChatView.LEFT_VIEW, newQueryBase)
@@ -122,7 +125,6 @@ class ChatServicePresenter(
 								}
 								else
 								{
-									val messageComplete = "$message\n\n${StringContainer.errorId} $reference"
 									view?.run {
 										addChatMessage(TypeChatView.LEFT_VIEW, messageComplete, query)
 										isLoading(false)
