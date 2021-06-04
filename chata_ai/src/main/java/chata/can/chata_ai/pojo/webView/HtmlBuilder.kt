@@ -83,6 +83,11 @@ object HtmlBuilder
 				posColumnY = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 
+				/*aDate*/
+				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE_STRING))
+				/*aDollar*/
+				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
+
 				isTriConfig = true
 				queryBase.configActions = 5
 			}
@@ -382,33 +387,97 @@ object HtmlBuilder
 				val isDollar = aColumn[2].type == TypeDataQuery.DOLLAR_AMT
 				if (isDate && isDateString && isDollar)
 				{
-					//TODO COMPLETE
-//						dataForWebView.dataChartBiWithTri = Table.generateDataTable(
-//							aRows, aColumn,queryBase.mIndexColumn,true)
 					queryBase.isTriInBi = true
-//						queryBase.configActions = 6
 				}
 
-//				if (queryBase.configActions == 2)
-//				{
-//					val aDataXAxis = ArrayList<String>()
-//					val aDataYAxis = ArrayList<String>()
-//
-//					for (row in aRows)
-//					{
-//						if (row.size == 3)
-//							aDataXAxis.add(row[1])
-//						aDataYAxis.add(row[2])
-//					}
-//
-//					val title1 = aColumn[0].name
-//					val title2 = aColumn[1].name
-//					dataForWebView.catYS = "[{name:\"${title1.toCapitalColumn()}\", data:$aDataXAxis}," +
-//						"{name:\"${title2.toCapitalColumn()}\", data:$aDataYAxis}]"
-//					queryBase.isContrast = true
-//					queryBase.isTri = true
-//					dataForWebView.isBi = false
-//				}
+				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
+				{
+					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
+					val indexX = aDataX[0]
+					val aData = ArrayList< LinkedHashMap<String, Double>>()
+					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
+					for (iItem in aDataY)
+					{
+						val mRow = LinkedHashMap<String, Double>()
+						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+						for (row in aRows)
+						{
+							val key = row[indexX]
+							if (key !in aCategoriesX) aCategoriesX.add(key)
+							val value = row[iItem].toDoubleNotNull()
+							mRow[key]?.run {
+								mGroupedRow[key]?.add(row)
+								mRow[key] = this + value
+							} ?: run {
+								mGroupedRow[key] = arrayListOf(row)
+								mRow[key] = value
+							}
+						}
+						aGroupedData.add(mGroupedRow)
+						aData.add(mRow)
+					}
+					//Map for data
+					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+					var max = 0
+					var min = 0
+					for (mChild in aData)
+					{
+						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMax > max) max = tmpMax
+						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+						if (tmpMin < min) min = tmpMin
+						for ((key, value) in mChild)
+						{
+							val sValue = value.toString()
+							mDataOrder[key]?.run {
+								this.add(sValue)
+							} ?: run {
+								mDataOrder[key] = arrayListOf(sValue)
+							}
+						}
+					}
+					dataForWebView.min = if (min < 0) min else 0
+					dataD3.min = if (min < 0) min else 0
+					dataForWebView.max = max
+					dataD3.max = min
+					//region order data for data:
+					val aDataOrder = ArrayList<ArrayList<String>>()
+					for (index in 0 until aDataY.size)
+					{
+						val aItem = ArrayList<String>()
+						for ((_, value) in mDataOrder)
+						{
+							val vString = value[index]
+							aItem.add(vString)
+						}
+						if (dataForWebView.isReverseX) aItem.reverse()
+						aDataOrder.add(aItem)
+					}
+					//endregion
+					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
+						it.joinToString(prefix = "{data: [", postfix = "]}")
+					}
+					//region data drillDown
+					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
+					for (mChild in aGroupedData)
+					{
+						for ((key, value) in mChild)
+						{
+							mDrillDown[key]?.run {
+								this.add(value)
+							} ?: run {
+								mDrillDown[key] = arrayListOf(value)
+							}
+						}
+					}
+					queryBase.mDrillDown = mDrillDown
+					queryBase.hasDrillDown = queryBase.mDrillDown != null
+					//endregion
+					if (dataForWebView.isReverseX) aCategoriesX.reverse()
+					dataForWebView.catX = aCategoriesX.map {
+						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
+					}.toString()
+				}
 			}
 			else
 			{
@@ -500,14 +569,7 @@ object HtmlBuilder
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
 				}
-				//TODO COMPLETE
-//				pData = if (queryBase.isTypeColumn(TypeDataQuery.DATE_STRING))
-//					DatePivot.buildDateString(aRows, aColumn)
-//				else DatePivot.buildBi(aRows, aColumn)
-//				queryBase.configActions = 1
-
 				val type = aColumn[0].type
-				//val type1 = aColumn[1].type
 				if (type == TypeDataQuery.DATE_STRING/* && type1 != TypeDataQuery.DOLLAR_AMT*/)
 				{
 					DatePivot.buildDateString(aRows, aColumn).run {
