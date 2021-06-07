@@ -82,12 +82,6 @@ object HtmlBuilder
 //				posColumnX = hasDateIndex(queryBase, posColumnX)
 				posColumnY = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
-
-				/*aDate*/
-				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE_STRING))
-				/*aDollar*/
-				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
-
 				isTriConfig = true
 				queryBase.configActions = 5
 			}
@@ -389,6 +383,30 @@ object HtmlBuilder
 				{
 					queryBase.isTriInBi = true
 				}
+
+				var indexDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
+				val indexDollar = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DOLLAR_AMT)
+				if (indexDate == -1) {
+					indexDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
+				}
+				val mData = LinkedHashMap<String, ArrayList<Double>>()
+				for (row in aRows)
+				{
+					val key = row[indexDate]
+					val value = row[indexDollar].toDoubleNotNull()
+					mData[key]?.run {
+						this.add(value)
+					} ?: run {
+						mData[key] = arrayListOf(value)
+					}
+				}
+
+				val aData = ArrayList< ArrayList <Double> >()
+				for((_, value) in mData) aData.add(value)
+				val dataD2 = aData.joinToString(",\n", "[", "]") {
+					it.joinToString(prefix = "{data: [", postfix = "]}")
+				}
+				dataD2.toString()
 
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
