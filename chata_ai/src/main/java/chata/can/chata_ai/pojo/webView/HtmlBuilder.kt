@@ -6,6 +6,7 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.hasNotValueInColumn
+import kotlin.math.asin
 import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
@@ -389,113 +390,44 @@ object HtmlBuilder
 				if (indexDate == -1) {
 					indexDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
 				}
-				val mData = LinkedHashMap<String, ArrayList<Double>>()
+				val aIndices = arrayListOf(0, 1 ,2)
+				aIndices.remove(indexDate)
+				aIndices.remove(indexDollar)
+				//var maxLength = 1
+				val secondIndex = aIndices[0]
+				val aFirstKey = ArrayList<String>()
+				val aSecondKey = ArrayList<String>()
+				val mData = LinkedHashMap<String, Double>()
 				for (row in aRows)
 				{
-					val key = row[indexDate]
+					val firstKey = row[indexDate]
+					val secondKey = row[secondIndex]
+					if (firstKey !in aFirstKey) aFirstKey.add(firstKey)
+					if (secondKey !in aSecondKey) aSecondKey.add(secondKey)
+
+					val key = "${row[indexDate]}__${secondKey}"//main key and second key
 					val value = row[indexDollar].toDoubleNotNull()
-					mData[key]?.run {
-						this.add(value)
-					} ?: run {
-						mData[key] = arrayListOf(value)
-					}
+					mData[key] = value
 				}
 
 				val aData = ArrayList< ArrayList <Double> >()
-				for((_, value) in mData) aData.add(value)
+				for (second in aSecondKey)
+				{
+					val aValues = ArrayList<Double>()
+					for (first in aFirstKey)
+					{
+						mData["${first}__${second}"]?.let {
+							aValues.add(it)
+						} ?: run {
+							aValues.add(0.0)
+						}
+					}
+					aData.add(aValues)
+				}
 				val dataD2 = aData.joinToString(",\n", "[", "]") {
 					it.joinToString(prefix = "{data: [", postfix = "]}")
 				}
 				dataD2.toString()
-
-				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
-				{
-					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
-					val indexX = aDataX[0]
-					val aData = ArrayList< LinkedHashMap<String, Double>>()
-					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
-					for (iItem in aDataY)
-					{
-						val mRow = LinkedHashMap<String, Double>()
-						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
-						for (row in aRows)
-						{
-							val key = row[indexX]
-							if (key !in aCategoriesX) aCategoriesX.add(key)
-							val value = row[iItem].toDoubleNotNull()
-							mRow[key]?.run {
-								mGroupedRow[key]?.add(row)
-								mRow[key] = this + value
-							} ?: run {
-								mGroupedRow[key] = arrayListOf(row)
-								mRow[key] = value
-							}
-						}
-						aGroupedData.add(mGroupedRow)
-						aData.add(mRow)
-					}
-					//Map for data
-					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
-					var max = 0
-					var min = 0
-					for (mChild in aData)
-					{
-						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
-						if (tmpMax > max) max = tmpMax
-						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
-						if (tmpMin < min) min = tmpMin
-						for ((key, value) in mChild)
-						{
-							val sValue = value.toString()
-							mDataOrder[key]?.run {
-								this.add(sValue)
-							} ?: run {
-								mDataOrder[key] = arrayListOf(sValue)
-							}
-						}
-					}
-					dataForWebView.min = if (min < 0) min else 0
-					dataD3.min = if (min < 0) min else 0
-					dataForWebView.max = max
-					dataD3.max = min
-					//region order data for data:
-					val aDataOrder = ArrayList<ArrayList<String>>()
-					for (index in 0 until aDataY.size)
-					{
-						val aItem = ArrayList<String>()
-						for ((_, value) in mDataOrder)
-						{
-							val vString = value[index]
-							aItem.add(vString)
-						}
-						if (dataForWebView.isReverseX) aItem.reverse()
-						aDataOrder.add(aItem)
-					}
-					//endregion
-					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
-						it.joinToString(prefix = "{data: [", postfix = "]}")
-					}
-					//region data drillDown
-					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
-					for (mChild in aGroupedData)
-					{
-						for ((key, value) in mChild)
-						{
-							mDrillDown[key]?.run {
-								this.add(value)
-							} ?: run {
-								mDrillDown[key] = arrayListOf(value)
-							}
-						}
-					}
-					queryBase.mDrillDown = mDrillDown
-					queryBase.hasDrillDown = queryBase.mDrillDown != null
-					//endregion
-					if (dataForWebView.isReverseX) aCategoriesX.reverse()
-					dataForWebView.catX = aCategoriesX.map {
-						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
-					}.toString()
-				}
 			}
 			else
 			{
@@ -601,10 +533,13 @@ object HtmlBuilder
 				}
 
 				dataForWebView.catYS = aCatYS.toString()
-				if (dataForWebView.dataChartBi == "[]")
+				when (dataForWebView.dataChartBi)
 				{
-					dataForWebView.dataChartBi = Table.generateDataTable(
-						aRows, aColumn, queryBase.aIndex,true)
+					"[]" -> {
+						dataForWebView.dataChartBi = Table.generateDataTable(
+							aRows, aColumn, queryBase.aIndex,true)
+					}
+					else -> {}
 				}
 			}
 		}
