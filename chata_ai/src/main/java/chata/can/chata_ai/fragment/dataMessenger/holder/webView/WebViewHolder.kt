@@ -143,24 +143,15 @@ class WebViewHolder(
 			val aMutable = when(configActions)
 			{
 				1 -> ConfigActions.biConfig
-				2 ->
-				{
-					ConfigActions.triReduceConfig
-				}
+				2 -> ConfigActions.triReduceConfig
 				3 -> ConfigActions.triConfig
 				4 ->
 				{
 					lastId = "#idTableBasic"
 					ConfigActions.biConfigReduce
 				}
-				5 ->
-				{
-					ConfigActions.triStackedConfig
-				}
-				6 ->
-				{
-					ConfigActions.triBiBarColumnConfig
-				}
+				5 -> ConfigActions.triStackedConfig
+				6 -> ConfigActions.triBiBarColumnConfig
 				else ->
 				{
 					lastId = "#idTableBasic"

@@ -56,6 +56,11 @@
 				android:visibility="gone"/>
 		</RelativeLayout>
 
+		<HorizontalScrollView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+
+		</HorizontalScrollView>
 		<LinearLayout
 			android:id="@+id/llCharts"
 			android:layout_height="wrap_content"

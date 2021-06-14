@@ -424,8 +424,12 @@ object HtmlBuilder
 					}
 					aData.add(aValues)
 				}
-				dataForWebView.dataChartBiOnTri = aData.joinToString(",\n", "[", "]") {
-					it.joinToString(prefix = "{data: [", postfix = "]}")
+				if (aData.isNotEmpty())
+				{
+					queryBase.configActions = 6
+					dataForWebView.dataChartBiOnTri = aData.joinToString(",\n", "[", "]") {
+						it.joinToString(prefix = "{data: [", postfix = "]}")
+					}
 				}
 			}
 			else

@@ -66,10 +66,13 @@ object ConfigActions
 	val triBiBarColumnConfig = arrayListOf(
 		R.id.ivPivot,
 		R.id.ivTable,
-		R.id.ivHeat,
-		R.id.ivBubble,
+		R.id.ivStackedColumn,
 		R.id.ivBar,
 		R.id.ivColumn,
+		R.id.ivLine,
+		R.id.ivHeat,
+		R.id.ivBubble,
+		R.id.ivStackedBar,
 		R.id.ivStackedArea
 	)
 }
