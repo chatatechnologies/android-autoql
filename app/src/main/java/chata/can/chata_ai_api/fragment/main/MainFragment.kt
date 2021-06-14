@@ -104,53 +104,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (BuildConfig.DEBUG)
-//		if (true)
-		{
-			val projectId = "spira-demo3"
-//			val projectId = "accounting-demo"
-			etProjectId?.setText(projectId)
-			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-//			val apiKey = "AIzaSyA8EomrHDJxkTnc2euI3NOaGDnUGJLCj2c"
-			etApiKey?.setText(apiKey)
-			val domainUrl = "https://spira-staging.chata.io"
-//			val domainUrl = "https://accounting-demo.chata.io"
-			etDomainUrl?.setText(domainUrl)
-			val userId = "carlos@rinro.com.mx"
-			etUserId?.setText(userId)
-			val username = "admin"
-//			val username = "accountdemo"
-			etUsername?.setText(username)
-			val password = "admin123"
-//			val password = "accountdemo123"
-			etPassword?.setText(password)
-			etPassword?.setSelection(password.length)
-
-			val customerMessage = "Carlos"
-			etCustomerMessage?.setText(customerMessage)
-			val title = nameFragment
-			etTitle?.setText(title)
-			val maxMessage = 10
-			etMaxNumberMessage?.setText("$maxMessage")
-			val languageCode = "en-US"
-			etLanguageCode?.setText(languageCode)
-			AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
-			AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
-			AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
-			AutoQLData.domainUrl = (etDomainUrl?.text ?: "").toString().prepareDomain()
-			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
-			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
-
-			servicePresenter.createAuthenticate()
-		}
-		else
-		{
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
 			etQueryPlaceholder?.setText((etQueryPlaceholder?.text ?: "").trim())
 			etMaxNumberMessage?.setText((etMaxNumberMessage?.text ?: "").trim())
-		}
 	}
 
 	override fun initViews(view: View)
