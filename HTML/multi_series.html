@@ -56,6 +56,9 @@
       text-overflow: ellipsis;
       border: 0.5px solid #cccccc;
     }
+    span {
+        display: none;
+    }
     .green{
         color: #2ecc40;
     }
@@ -71,33 +74,46 @@
     .splitView{
         position: relative;
     }
+		tfoot {
+        /*display: table-header-group;*/
+				display: none;
+    }
+		.empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: #ffffff!important;
+    }
+    .alert-icon {
+      font-size: 20px;
+      color: #ffffff!important;
+    }
 </style>
 <div class="splitView">
 <div id='container' class='container'></div>
     
-    <table id="idTableBasic"><thead><tr><th>Element</th><th>Available</th><th>Inactive</th><th>Item</th><th>Stocked</th><th>Item Type</th><th>Actual Amount</th><th>Actual Quantity</th><th>Actual Rate</th><th>Ticket Division</th><th>Invoiced</th><th>Line Number</th><th>Order Amount</th><th>Order Quantity</th><th>Order Rate</th><th>(Ticket Detail) State</th><th>Ticket Type</th><th>Date Created</th><th>Ticket End Time</th><th>Ticket Start Time</th><th>Date</th><th>Ticket Type ID</th><th>Ticket Total Amount</th></tr></thead><tbody><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$240.00</td><td>12</td><td>$20.00</td><td>Posted</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$240.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$240.00</td><td>12</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Grader Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>4</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr></tbody></table>
+    <table id="idTableBasic"><thead><tr><th>Element</th><th>Available</th><th>Inactive</th><th>Item</th><th>Stocked</th><th>Item Type</th><th>Cost</th><th>Quantity (Cost)</th><th>Rate (Cost)</th><th>Ticket Division</th><th>Invoice</th><th>Line Number</th><th>Revenue</th><th>Quantity (Revenue)</th><th>Rate (Revenue)</th><th>(Ticket Detail) State</th><th>Ticket Type</th><th>Date Created</th><th>Date</th><th>Ticket Type ID</th><th>Ticket Total Amount</th></tr></thead><tfoot><tr><th>Element</th><th>Available</th><th>Inactive</th><th>Item</th><th>Stocked</th><th>Item Type</th><th>Cost</th><th>Quantity (Cost)</th><th>Rate (Cost)</th><th>Ticket Division</th><th>Invoice</th><th>Line Number</th><th>Revenue</th><th>Quantity (Revenue)</th><th>Rate (Revenue)</th><th>(Ticket Detail) State</th><th>Ticket Type</th><th>Date Created</th><th>Date</th><th>Ticket Type ID</th><th>Ticket Total Amount</th></tr></tfoot><tbody><tr><td>Other</td><td>0</td><td>0</td><td>1 Ton and Trailer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$100.00</td><td>1</td><td>$100.00</td><td>Update</td><td>Ticket</td><td>Jun 2, 2021</td><td>Jun 2, 2021</td><td>Ticket</td><td>$100.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$240.00</td><td>12</td><td>$20.00</td><td>Posted</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$240.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$240.00</td><td>12</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Grader Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>4</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 14, 2021</td><td>Jan 14, 2021</td><td>Ticket</td><td>$840.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Update</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Grading</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>2</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Concrete</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>3</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr><tr><td>Other</td><td>0</td><td>0</td><td>Bobcat/Skidsteer Paving</td><td>0</td><td>Revenue</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>NotInvoiced</td><td>1</td><td>$200.00</td><td>10</td><td>$20.00</td><td>Hold</td><td>Ticket</td><td>Jan 13, 2021</td><td>Jan 13, 2021</td><td>Ticket</td><td>$600.00</td></tr></tbody></table>
 </div>
 <script>
-    var type = '#idTableBasic';
-    var xAxis = '';
-    var yAxis = '';
+    var type = 'column';
+    var xAxis = 'Date Created';
+    var yAxis = 'Revenue';
 		
-    var dataChartBi = [{data: [0.0, 0.0, 0.0, 0.0]},
-{data: [0.0, 0.0, 0.0, 0.0]},
-{data: [240.0, 840.0, 600.0, 600.0]},
-{data: [20.0, 80.0, 60.0, 60.0]},
-{data: [240.0, 3360.0, 1800.0, 1800.0]}];
+    var dataChartBi = [{data: [0.0, 0.0, 0.0, 0.0, 0.0]},
+{data: [0.0, 0.0, 0.0, 0.0, 0.0]},
+{data: [100.0, 240.0, 840.0, 600.0, 600.0]},
+{data: [100.0, 20.0, 80.0, 60.0, 60.0]},
+{data: [100.0, 240.0, 3360.0, 1800.0, 1800.0]}];
     var datachartTri = [];
 		
-    var dataChartLine = [240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
-		var categoriesX = ["Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021", "Jan 13, 2021"];
-		var categoriesY = [240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
+    var dataChartLine = [100.00, 240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
+		var categoriesX = ["Jun 2, 2021", "Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021", "Jan 13, 2021"];
+		var categoriesY = [100.00, 240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
 		
-    var drillX = ["1610620917", "1610620588", "1610620588", "1610620588", "1610620588", "1610539486", "1610539486", "1610539486", "1610539273", "1610539273", "1610539273"];
-    var drillY = [240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
+    var drillX = ["1622640651", "1610620917", "1610620588", "1610620588", "1610620588", "1610620588", "1610539486", "1610539486", "1610539486", "1610539273", "1610539273", "1610539273"];
+    var drillY = [100.00, 240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
 		
-    var drillTableY = [240.00, 200.00];
-    var drillSpecial = [240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
+    var drillTableY = [100.00, 240.00, 200.00];
+    var drillSpecial = [100.00, 240.00, 200.00, 200.00, 240.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00, 200.00];
     var colorAxis = "#ffffff";
     var colorFill = "#3b3f46";
 		var color1 = "#355c7d";
@@ -205,12 +221,15 @@
             var firstColumn = $this.closest('tr');
             var finalText = firstColumn[0].firstChild.innerText;
             var strDate = firstColumn[0].children[1].innerText;
-            if (type == "idTableDataPivot" ){
-                finalText += "_"+drillSpecial[column - 1];
+            if (type == "#idTableDataPivot" ){
+                finalText = firstColumn[0].children[column].children[0].innerText;
             } else if (type == "idTableDatePivot" ) {
                 finalText = $this[0].childNodes[0].id
             } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
                 finalText += "_"+drillTableY[row];
+            } else {
+                var index = categoriesX.indexOf(finalText)
+                finalText = drillX[index]
             }
             //var d = new Date( Date.parse('2017 2') );
            drillDown( finalText );
@@ -293,9 +312,8 @@
     }
             function pieType(){
        $('.container, #container').css({ "width": "99%", "position": "relative","height":"80%", "z-index": "0" });
-       chart.destroy()
-       chart = Highcharts.chart('container', {
-          
+       var newCategory = categoriesX;
+       var chartBiSeries = {
         chart: {
           backgroundColor: colorGhost,
           fill: colorGhost,
@@ -373,13 +391,29 @@
             showInLegend: true
           }
         },
-        colors: colors,
-        series: [{
-               colorByPoint: true,
-               data: dataChartBi
-           }]
-       });
+        colors: colors
+      };
 
+       chart.destroy()
+      if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+      } else {
+        var dataPie = Array.of(dataChartBi[0]);
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataPie
+
+        chart = Highcharts.chart('container', chartBiSeries);
+      }
     }
     function lineType(){
         finalSize(false);
@@ -436,7 +470,8 @@
                     series: dataChartLine,
                     tooltip: {
                         formatter: function () {
-                            drillDown(drillX[this.point.x])
+                            var position = categoriesY.indexOf(this.series.name);
+                            drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
                             return "";
                         }
                     },
@@ -484,12 +519,13 @@ function biType(type,inverted) {
             backgroundColor: colorGhost,
             style: styleTooltip,
             formatter: function () {
+                var colorIndex = this.colorIndex;
                 var x = this.point.x;
-                var prefix = "";
+                var suffix = "";
                 if (! (dataChartBi[0] instanceof Array)) {
-                    prefix = x + "_"
+                    suffix = "_" + colorIndex;
                 }
-                drillDown(prefix + drillX[x])
+                drillDown(drillX[x] + suffix);
                 return "";
             }
         }
@@ -500,6 +536,7 @@ function biType(type,inverted) {
     finalSize(inverted);
     chart.destroy();
     if (dataChartBi[0] instanceof Array) {
+        console.log('column first option')
         chart = Highcharts.chart('container', defaultChart);
         chartBiSeries.series = {
             colorByPoint: false,
@@ -508,6 +545,7 @@ function biType(type,inverted) {
         }
         chart.update(chartBiSeries);
     } else {
+        console.log('column second option')
         chartBiSeries.title = subTitle
         chartBiSeries.subTitle = subTitle
         chartBiSeries.showInLegend = true
@@ -650,7 +688,7 @@ function biType(type,inverted) {
                     to: -1,
                     breakSize: 1
                 }],
-                categories: categoriesX,
+                categories: categoriesY,
                 labels: {
                     rotation: -60,
                     style: {
@@ -780,6 +818,65 @@ function hideTables(idHide, idShow, type2) {
     //$( idShow ).show("slow");
     type = type2;
     changeGraphic(type2);
+}
+$('#idTableBasic tfoot th').each(function () {
+    var indexInput = $(this).index();
+    var title = $(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+	$(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="filter column..."/>');
+
+    $("#" + idInput).on('input', function () {
+        var filter = $(this).val().toUpperCase();
+        var table = document.getElementById("idTableBasic");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+$('#idTableDataPivot tfoot th').each(function () {
+    var indexInput = $(this).index();
+    var title = $(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+	$(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="Search on ' + title + '"/>');
+
+    $("#" + idInput).on('input', function () {
+        var filter = $(this).val().toUpperCase();
+        var table = document.getElementById("idTableDataPivot");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+function showFilter() {
+	if ( $('tfoot').is(':visible') ) {
+		$('tfoot').css({'display': 'none'});
+	} else {
+		$('tfoot').css({'display': 'table-header-group'});
+	}
 }
 </script>
 </body>
