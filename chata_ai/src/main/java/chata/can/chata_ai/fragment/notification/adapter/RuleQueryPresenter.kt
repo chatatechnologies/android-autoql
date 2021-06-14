@@ -76,7 +76,7 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 	fun getRuleQuery(idRule: String)
 	{
 		view.showLoading()
-		val url = "$urlChataIO${api1}rule-notifications/$idRule?key=${AutoQLData.apiKey}"
+		val url = "${getMainURL()}${api1}rule-notifications/$idRule?key=${AutoQLData.apiKey}"
 		val header = Authentication.getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
 		header["Integrator-Domain"] = AutoQLData.domainUrl

@@ -3,9 +3,9 @@ package chata.can.chata_ai.request.authentication
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.pojo.getMainURL
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.urlChataIO
 import com.android.volley.Request
 
 object Authentication
@@ -19,7 +19,7 @@ object Authentication
 	 */
 	fun callLogin(username: String, password: String, listener: StatusResponse)
 	{
-		val url = "$urlChataIO${api1}login"
+		val url = "${getMainURL()}${api1}login"
 
 		val mParams = hashMapOf(
 			"username" to username,
@@ -45,7 +45,7 @@ object Authentication
 		projectId: String,
 		listener: StatusResponse)
 	{
-		val url = "$urlChataIO${api1}jwt?display_name=$userId&project_id=$projectId"
+		val url = "${getMainURL()}${api1}jwt?display_name=$userId&project_id=$projectId"
 		val mAuthorization = hashMapOf("Authorization" to "Bearer $beaverToken")
 		callStringRequest(
 			Request.Method.GET,
@@ -72,7 +72,7 @@ object Authentication
 
 	fun callTopics(listener: StatusResponse)
 	{
-		val url = "${urlChataIO}${api1}topics?" +
+		val url = "${getMainURL()}${api1}topics?" +
 			"key=${AutoQLData.apiKey}&project_id=${AutoQLData.projectId}"
 		val header = getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
