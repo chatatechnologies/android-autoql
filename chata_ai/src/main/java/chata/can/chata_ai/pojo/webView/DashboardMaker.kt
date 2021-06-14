@@ -300,7 +300,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     var xAxis = '${dataForWebView.xAxis}';
     var yAxis = '${dataForWebView.yAxis}';
 		
-    var dataChartBi = ${if (isBi) dataChartBi else dataChartBiWithTri};
+    var dataChartBi = ${if (isBi) dataChartBi else if (dataChartBiOnTri != "[]") dataChartBiOnTri else dataChartBiWithTri};
     var datachartTri = ${if (isBi) "[]" else dataChartBi};
 		
     var dataChartLine = ${if (isBi) catY else catYS};
@@ -679,6 +679,9 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
     }
 function biType(type,inverted) {
     var newCategory = categoriesX;
+		if (datachartTri.length > 0) {
+      newCategory = categoriesY
+    }
     var chartBiSeries = {
         chart: {
             type: type,
@@ -703,8 +706,8 @@ function biType(type,inverted) {
         },
         yAxis: {
             gridLineWidth: 0,
-            min: ${dataForWebView.min},
-            max: ${dataForWebView.max},
+            //min: ${dataForWebView.min}, TODO
+            //max: ${dataForWebView.max}, TODO
             title: {
                 text: yAxis,
                 style: {

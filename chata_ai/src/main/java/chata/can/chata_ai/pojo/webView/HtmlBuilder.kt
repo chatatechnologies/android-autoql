@@ -424,10 +424,9 @@ object HtmlBuilder
 					}
 					aData.add(aValues)
 				}
-				val dataD2 = aData.joinToString(",\n", "[", "]") {
+				dataForWebView.dataChartBiOnTri = aData.joinToString(",\n", "[", "]") {
 					it.joinToString(prefix = "{data: [", postfix = "]}")
 				}
-				dataD2.toString()
 			}
 			else
 			{

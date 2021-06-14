@@ -96,12 +96,12 @@
     <table id="idTableBasic"><thead><tr><th>Customer</th><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Customer</th><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Advantage Oil</td><td>Jun 2021</td><td>$100.00</td></tr><tr><td>Advantage Oil</td><td>Jun 2018</td><td>$6,950.00</td></tr><tr><td>Advantage Oil</td><td>May 2018</td><td>$425.00</td></tr><tr><td>Advantage Oil</td><td>Apr 2018</td><td>$2,850.00</td></tr><tr><td>Bill & Sons</td><td>Mar 2018</td><td>$1,642.00</td></tr><tr><td>Advantage Oil</td><td>Feb 2018</td><td>$0.00</td></tr><tr><td>Bill & Sons</td><td>Feb 2018</td><td>$100.00</td></tr><tr><td>Advantage Oil</td><td>Jan 2018</td><td>$11,104.00</td></tr><tr><td>Bill & Sons</td><td>Jan 2018</td><td>$13,871.65</td></tr><tr><td>Bill & Sons</td><td>Nov 2017</td><td>$11,361.54</td></tr><tr><td>Bill & Sons</td><td>Jan 2017</td><td>$5,235.75</td></tr><tr><td>Bill & Sons</td><td>Jul 2016</td><td>$18,105.00</td></tr><tr><td>Bill & Sons</td><td>Jun 2016</td><td>$3,885.00</td></tr></tbody></table>
 </div>
 <script>
-    var type = 'column';
+    var type = 'bar';
     var xAxis = 'Customer';
     var yAxis = 'Month';
 		
-    var dataChartBi = [{data: [3885.0, 18105.0, 5235.75, 11361.54, 13871.65, 100.0, 1642.0, 0.0, 0.0,0.0, 0.0]},
-    {data: [0.0, 0.0, 0.0, 0.0, 11104.0, 0.0, 0.0, 2850.0, 425.0, 6950.0, 100.0]}]// todo redefine dataChartBi
+    var dataChartBi = [{data: [100.0, 6950.0, 425.0, 2850.0, 0.0, 0.0, 11104.0, 0.0, 0.0, 0.0, 0.0]},
+{data: [0.0, 0.0, 0.0, 0.0, 1642.0, 100.0, 13871.65, 11361.54, 5235.75, 18105.0, 3885.0]}];
     var datachartTri = [[0, 0, 100.0], [0, 1, 6950.0], [0, 2, 425.0], [0, 3, 2850.0], [1, 4, 1642.0], [0, 5, 0.0], [1, 5, 100.0], [0, 6, 11104.0], [1, 6, 13871.65], [1, 7, 11361.54], [1, 8, 5235.75], [1, 9, 18105.0], [1, 10, 3885.0]];
 		
     var dataChartLine = [{"data":[100,6950,425,2850,0,0,11104,0,0,0,0],"name":"Advantage Oil"}, {"data":[0,0,0,0,1642,100,13871.7,11361.5,5235.8,18105,3885],"name":"Bill & Sons"}];
@@ -480,6 +480,9 @@
     }
 function biType(type,inverted) {
     var newCategory = categoriesX;
+		if (datachartTri.length > 0) {
+      newCategory = categoriesY
+    }
     var chartBiSeries = {
         chart: {
             type: type,
@@ -487,7 +490,7 @@ function biType(type,inverted) {
         },
         xAxis: {
             gridLineWidth: 0,
-            categories: categoriesY, // TODO define categories with 3 dimensions
+            categories: newCategory,
             labels: {
                 rotation: -60,
                 style: {
@@ -499,15 +502,15 @@ function biType(type,inverted) {
                 }
             },
             title: {
-                text: yAxis
+                text: xAxis
             }
         },
         yAxis: {
             gridLineWidth: 0,
-            //min: 0, TODO refine min
-            //max: 0, TODO refine min
+            //min: 0, TODO
+            //max: 0, TODO
             title: {
-                text: xAxis,
+                text: yAxis,
                 style: {
                     color: colorAxis,
                     fontSize:'16px'
@@ -535,7 +538,6 @@ function biType(type,inverted) {
     finalSize(inverted);
     chart.destroy();
     if (dataChartBi[0] instanceof Array) {
-        console.log('column first option')
         chart = Highcharts.chart('container', defaultChart);
         chartBiSeries.series = {
             colorByPoint: false,
@@ -544,8 +546,6 @@ function biType(type,inverted) {
         }
         chart.update(chartBiSeries);
     } else {
-        console.log('column second option')
-        console.log('las series ' + dataChartBi)
         chartBiSeries.title = subTitle
         chartBiSeries.subTitle = subTitle
         chartBiSeries.showInLegend = true
