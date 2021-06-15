@@ -3,7 +3,6 @@ package chata.can.chata_ai.fragment.dataMessenger
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.chat.TypeChatView
 
 class DataMessengerModel: BaseModelList<ChatData>()
 {

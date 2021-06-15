@@ -40,11 +40,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 		initConfig()
 	}
 
-	override fun finish()
-	{
-		super.finish()
-	}
-
 	override fun onDestroy()
 	{
 		super.onDestroy()

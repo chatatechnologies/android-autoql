@@ -1,7 +1,6 @@
 package chata.can.request_native
 
 import android.content.Context
-import com.android.volley.DefaultRetryPolicy
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley

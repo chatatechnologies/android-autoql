@@ -67,7 +67,11 @@ class NotificationHolder(
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
 				tvDate.text = toDate(notification.createdAt)
-				tvQuery.text = notification.query.capitalize(Locale.US)
+				tvQuery.text = notification.query.replaceFirstChar {
+					if (it.isLowerCase()) it.titlecase(
+						Locale.US
+					) else it.toString()
+				}
 			}
 		}
 	}
@@ -126,7 +130,7 @@ class NotificationHolder(
 			val currentDate = Date()
 
 			val formatHour = SimpleDateFormat("hh:mma", Locale.US)
-			val hour = formatHour.format(recordDate).toLowerCase(Locale.US)
+			val hour = formatHour.format(recordDate).lowercase(Locale.US)
 
 			when((currentDate.time - recordDate.time).toInt() / (1000 * 60 * 60 * 24))
 			{

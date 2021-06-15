@@ -21,7 +21,7 @@ object ValidateLocale {
 		calendar.set(Calendar.MONTH, iMonth - 1)
 		val month = formatter.format(calendar.time)
 		return if (month[0].isLowerCase())
-			month.capitalize(locale)
+			month.replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
 		else month
 	}
 }
