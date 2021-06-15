@@ -63,10 +63,11 @@ class NotificationHolder(
 					tvTitle.setTextColor(blue)
 					iView.visibility = View.VISIBLE
 				}
-
+				//unicode for calendar
+				val sDate = "\uD83D\uDCC5 ${toDate(notification.createdAt)}"
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
-				tvDate.text = toDate(notification.createdAt)
+				tvDate.text = sDate
 				tvQuery.text = notification.query.capitalize(Locale.US)
 			}
 		}
@@ -134,31 +135,11 @@ class NotificationHolder(
 				1 -> "Yesterday $hour"
 				else ->
 				{
-					val ordinal = getOrdinalDate(recordDate)
-					val format = SimpleDateFormat("MMMM dd$ordinal, yyyy", Locale.US)
+					val format = SimpleDateFormat("MMMM dd°, yyyy", Locale.US)
 					format.format(recordDate) + " at $hour"
 				}
 			}
 		}
 		catch (ex: Exception) { "" }
-	}
-
-	private fun getOrdinalDate(date: Date): String
-	{
-		val calendar = Calendar.getInstance()
-		calendar.time = date
-		val day = calendar.get(Calendar.DATE)
-		return if(!((day>10) && (day<19)))
-		{
-			when(day % 10)
-			{
-				1 -> "'st'"
-				2 -> "'nd'"
-				3 -> "'rd'"
-				else -> "'th'"
-			}
-		}
-		else
-			"'th'"
 	}
 }
