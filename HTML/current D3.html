@@ -143,10 +143,25 @@ function updateData(tmpChart, isReload) {
     clearSvg();
     switch(typeChart) {
     case TypeEnum.COLUMN:
-      setColumn();
+      {
+        //region define columns number
+        var nColumns = 0
+        data.map(function(a1) {
+          var keys = Object.keys(a1);
+          nColumns = keys.length
+        });
+        //endregion
+        if (nColumns == 2) {
+          setColumn()
+        } else {
+          setMultiSeries()
+        }
+      }
       break;
     case TypeEnum.BAR:
-      setBar();
+      {
+        setBar();
+      }
       break;
     case TypeEnum.LINE:
       setLine();
@@ -188,11 +203,19 @@ var axisX = 'Month';
 var axisY = 'Total Revenue';
 
 //Main data
-var data = [{name: "Nov 2019", value: 106630.75},
-{name: "Oct 2019", value: 104254.00},
-{name: "Sep 2019", value: 57326.75},
-{name: "Aug 2019", value: 122868.00},
-{name: "May 2019", value: 100500.00}]
+// var data = [{name: "Nov 2019", value: 106630.75},
+// {name: "Oct 2019", value: 104254.00},
+// {name: "Sep 2019", value: 57326.75},
+// {name: "Aug 2019", value: 122868.00},
+// {name: "May 2019", value: 100500.00}]
+var data = [
+  {name: 'banana', Nitrogen: '12', normal: '1', stress: '13'},
+  {name: 'poacee', Nitrogen: '6', normal: '6', stress: '33'},
+  {name: 'sorgho', Nitrogen: '11', normal: '28', stress: '12'},
+  {name: 'triticum', Nitrogen: '19', normal: '6', stress: '1'}
+]
+
+var categoriesX = ["Nov 2019", "Oct 2019", "Sep 2019", "Aug 2019", "May 2019"]
 var drillTableY = [106630.75, 104254.00, 57326.75, 122868.00, 100500.00];
 var drillX = ["2019-11", "2019-10", "2019-09", "2019-08", "2019-05"]
 var limitName = 0;
@@ -225,7 +248,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.LINE;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -240,6 +263,72 @@ var margin = {
 };
 var width = 0;
 var height = 0;
+
+//Start with column
+function setMultiSeries() {
+  var subgroups = []
+  data.map(function(a1) {
+    var keys1 = Object.keys(a1);
+    subgroups = keys1.slice(1)
+  });
+
+  var margin1 = {top: 10, right: 30, bottom: 20, left: 50},
+    width1 = 460 - margin1.left - margin1.right,
+    height1 = 400 - margin1.top - margin1.bottom;
+  // append the svg object to the body of the page
+  var svg = d3.select('body').append('svg')
+    .append("svg")
+      .attr("width", width1 + margin1.bottom + margin1.right)
+      .attr("height", height1 + margin1.top + margin1.left)
+    .append("g")
+      .attr("transform", "translate(" + margin1.left + "," + margin1.top + ")");
+
+  var groups = d3.map(data, function(d){return(d.name)}).keys()
+
+  // Add X axis
+  var x = d3.scaleBand()
+    .domain(groups)
+    .range([0, width])
+    .padding([0.2])
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x).tickSize(0));
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 40])
+    .range([ height, 0 ]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  // Another scale for subgroup position?
+  var xSubgroup = d3.scaleBand()
+    .domain(subgroups)
+    .range([0, x.bandwidth()])
+    .padding([0.05])
+
+  // color palette = one color per subgroup
+  var color = d3.scaleOrdinal()
+    .domain(subgroups)
+    .range(['#e41a1c','#377eb8','#4daf4a'])
+
+  // Show the bars
+  svg.append("g")
+    .selectAll("g")
+    // Enter in data = loop group per group
+    .data(data)
+    .enter()
+    .append("g")
+      .attr("transform", function(d) { return "translate(" + x(d.name) + ",0)"; })
+    .selectAll("rect")
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .enter().append("rect")
+      .attr("x", function(d) { return xSubgroup(d.key); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("width", xSubgroup.bandwidth())
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("fill", function(d) { return color(d.key); });
+}
 
 function setBar() {
 	var svg = d3.select('body').append('svg')
@@ -646,6 +735,10 @@ $('td').click(function() {
   var firstColumn = $this.closest('tr');
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
+	//simple table
+  var index = categoriesX.indexOf(finalText);
+  finalText = drillX[index];
+  //endregion
   drillDown(finalText);
 });
 var scaleColorBi = d3.scaleOrdinal().range(colorBi);
