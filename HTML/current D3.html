@@ -209,10 +209,10 @@ var axisY = 'Total Revenue';
 // {name: "Aug 2019", value: 122868.00},
 // {name: "May 2019", value: 100500.00}]
 var data = [
-  {name: 'banana', Nitrogen: '12', normal: '1', stress: '13'},
-  {name: 'poacee', Nitrogen: '6', normal: '6', stress: '33'},
-  {name: 'sorgho', Nitrogen: '11', normal: '28', stress: '12'},
-  {name: 'triticum', Nitrogen: '19', normal: '6', stress: '1'}
+  {name: 'banana', value: 12, normal: 1, stress: 13},
+  {name: 'poacee', value: 6, normal: 6, stress: 33},
+  {name: 'sorgho', value: 11, normal: 28, stress: 12},
+  {name: 'triticum', value: 19, normal: 6, stress: 1}
 ]
 
 var categoriesX = ["Nov 2019", "Oct 2019", "Sep 2019", "Aug 2019", "May 2019"]
@@ -271,17 +271,12 @@ function setMultiSeries() {
     var keys1 = Object.keys(a1);
     subgroups = keys1.slice(1)
   });
-
-  var margin1 = {top: 10, right: 30, bottom: 20, left: 50},
-    width1 = 460 - margin1.left - margin1.right,
-    height1 = 400 - margin1.top - margin1.bottom;
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
-    .append("svg")
-      .attr("width", width1 + margin1.bottom + margin1.right)
-      .attr("height", height1 + margin1.top + margin1.left)
+      .attr("width", width + margin.bottom + margin.right)
+      .attr("height", height + margin.top + margin.left)
     .append("g")
-      .attr("transform", "translate(" + margin1.left + "," + margin1.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var groups = d3.map(data, function(d){return(d.name)}).keys()
 
