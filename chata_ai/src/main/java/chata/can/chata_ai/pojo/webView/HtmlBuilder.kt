@@ -480,6 +480,10 @@ object HtmlBuilder
 							}
 						}
 					}
+					//fix drillX for multi-series
+					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
+						"\"$it\""
+					}
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
