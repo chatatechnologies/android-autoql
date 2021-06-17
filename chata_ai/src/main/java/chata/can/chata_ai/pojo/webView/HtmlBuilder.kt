@@ -466,6 +466,23 @@ object HtmlBuilder
 							}
 						}
 					}
+					//loop data for multi series for D3
+					val sbMultiSeries = StringBuilder()
+					for ((key, aValue) in mDataOrder)
+					{
+						var sValues = ""
+						//"{name: 'Jun 2, 2021', timestap_1: 12, timestap_2: 1, timestap_3: 13}"
+						for ((index, value) in aValue.withIndex())
+						{
+							sValues += ", time_${key}_$index: $value"
+						}
+						sbMultiSeries.append("{name: $key$sValues},\n")
+					}
+					"[${sbMultiSeries.removeSuffix(",\n")}]"
+					//fix drillX for multi-series
+					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
+						"\"$it\""
+					}
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
