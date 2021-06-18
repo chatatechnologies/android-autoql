@@ -209,18 +209,20 @@ var axisY = 'Total Revenue';
 // {name: "Aug 2019", value: 122868.00},
 // {name: "May 2019", value: 100500.00}]
 var data1 = [
-  {name: 'Jun 2, 2021', timestap_1: 12, timestap_2: 1, timestap_3: 13},
+  {name: 'Jun 2, 2021', timestap_1: 12.0, timestap_2: 1, timestap_3: 13},
   {name: 'Jan 14, 2021_1', timestap_1: 6, timestap_2: 6, timestap_3: 33},
   {name: 'Jan 14, 2021_2', timestap_1: 11, timestap_2: 28, timestap_3: 12},
   {name: 'Jan 13, 2021_1', timestap_1: 19, timestap_2: 6, timestap_3: 1},
   {name: 'Jan 13, 2021_2', timestap_1: 1, timestap_2: 2, timestap_3: 1}
 ]
 
-var data = [{name: 1622640651, time_1622640651_0: 0.0, time_1622640651_1: 0.0, time_1622640651_2: 100.0, time_1622640651_3: 100.0, time_1622640651_4: 100.0},
-{name: 1610620917, time_1610620917_0: 0.0, time_1610620917_1: 0.0, time_1610620917_2: 240.0, time_1610620917_3: 20.0, time_1610620917_4: 240.0},
-{name: 1610620588, time_1610620588_0: 0.0, time_1610620588_1: 0.0, time_1610620588_2: 840.0, time_1610620588_3: 80.0, time_1610620588_4: 3360.0},
-{name: 1610539486, time_1610539486_0: 0.0, time_1610539486_1: 0.0, time_1610539486_2: 600.0, time_1610539486_3: 60.0, time_1610539486_4: 1800.0},
-{name: 1610539273, time_1610539273_0: 0.0, time_1610539273_1: 0.0, time_1610539273_2: 600.0, time_1610539273_3: 60.0, time_1610539273_4: 1800.0}]
+var data = [
+  {name: "Jun 2, 2021_1", time_1622640651_0: 0.0, time_1622640651_1: 0.0, time_1622640651_2: 100.0, time_1622640651_3: 100.0, time_1622640651_4: 100.0},
+  {name: "Jan 14, 2021_1", time_1610620917_0: 0.0, time_1610620917_1: 0.0, time_1610620917_2: 240.0, time_1610620917_3: 20.0, time_1610620917_4: 240.0}
+  // {name: "Jan 14, 2021_2", time_1610620588_0: 0.0, time_1610620588_1: 0.0, time_1610620588_2: 840.0, time_1610620588_3: 80.0, time_1610620588_4: 3360.0},
+  // {name: "Jan 13, 2021_1", time_1610539486_0: 0.0, time_1610539486_1: 0.0, time_1610539486_2: 600.0, time_1610539486_3: 60.0, time_1610539486_4: 1800.0},
+  // {name: "Jan 13, 2021_2", time_1610539273_0: 0.0, time_1610539273_1: 0.0, time_1610539273_2: 600.0, time_1610539273_3: 60.0, time_1610539273_4: 1800.0}
+]
 
 var categoriesX = ["Nov 2019", "Oct 2019", "Sep 2019", "Aug 2019", "May 2019"]
 var drillTableY = [106630.75, 104254.00, 57326.75, 122868.00, 100500.00];
@@ -295,7 +297,7 @@ function setMultiSeries() {
     .attr('transform', `translate(0, ${height})`)
     .call(
       d3.axisBottom(x)
-        .tickFormat(x => `${x.split('_')[0]}`)
+        //.tickFormat(x => `${x.split('_')[0]}`)
     )
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())

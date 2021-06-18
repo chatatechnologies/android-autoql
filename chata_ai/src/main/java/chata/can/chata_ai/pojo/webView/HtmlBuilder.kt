@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.pojo.isUseD3
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.hasNotValueInColumn
@@ -466,19 +467,34 @@ object HtmlBuilder
 							}
 						}
 					}
-					//loop data for multi series for D3
-					val sbMultiSeries = StringBuilder()
-					for ((key, aValue) in mDataOrder)
+					if (isUseD3)
 					{
-						var sValues = ""
-						//"{name: 'Jun 2, 2021', timestap_1: 12, timestap_2: 1, timestap_3: 13}"
-						for ((index, value) in aValue.withIndex())
+						//loop data for multi series for D3
+						val sbMultiSeries = StringBuilder()
+						val mDateParsed = LinkedHashMap<String, Int>()
+						for ((key, aValue) in mDataOrder)
 						{
-							sValues += ", time_${key}_$index: $value"
+							val columnDate = aColumn[aDataX[0]]
+							val formattedKey = key.formatWithColumn(columnDate)
+							val parsedKey =
+							mDateParsed[formattedKey]?.let {
+								mDateParsed[formattedKey] = it + 1
+								"${formattedKey}_${it + 1}"
+							} ?: run {
+								mDateParsed[formattedKey] = 1
+								"${formattedKey}_1"
+							}
+
+							var sValues = ""
+							//"{name: 'Jun 2, 2021', timestap_1: 12, timestap_2: 1, timestap_3: 13}"
+							for ((index, value) in aValue.withIndex())
+							{
+								sValues += ", time_${key}_$index: $value"
+							}
+							sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
 						}
-						sbMultiSeries.append("{name: $key$sValues},\n")
+						"[${sbMultiSeries.removeSuffix(",\n")}]"
 					}
-					"[${sbMultiSeries.removeSuffix(",\n")}]"
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\"$it\""
