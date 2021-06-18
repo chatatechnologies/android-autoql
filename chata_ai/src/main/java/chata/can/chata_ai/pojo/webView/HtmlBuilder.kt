@@ -486,10 +486,10 @@ object HtmlBuilder
 							}
 
 							var sValues = ""
-							//"{name: 'Jun 2, 2021', timestap_1: 12, timestap_2: 1, timestap_3: 13}"
 							for ((index, value) in aValue.withIndex())
 							{
-								sValues += ", time_${key}_$index: $value"
+								//sValues += ", time_${key}_$index: $value"
+								sValues += ", time_$index: $value"
 							}
 							sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
 						}
