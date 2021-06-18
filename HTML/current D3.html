@@ -210,7 +210,7 @@ var categoriesX = ["Jun 2, 2021", "Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021"
 var drillTableY = [100.00, 240.00, 200.00];
 var drillX = ["1622640651", "1610620917", "1610620588", "1610620588", "1610620588", "1610620588", "1610539486", "1610539486", "1610539486", "1610539273", "1610539273", "1610539273"]
 var limitName = 0;
-var maxValue = 0;
+var maxValue = 3360;
 var minValue = 0;
 //endregion
 
@@ -278,7 +278,7 @@ function setMultiSeries() {
     .attr('transform', `translate(0, ${height})`)
     .call(
       d3.axisBottom(x)
-        //.tickFormat(x => `${x.split('_')[0]}`)
+        .tickFormat(x => `${x.split('_')[0]}`)
     )
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
@@ -293,7 +293,7 @@ function setMultiSeries() {
 
   // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, 40])
+    .domain([0, maxValue])
     .range([ height, 0 ]);
   svg.append('g')
     .call(

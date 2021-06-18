@@ -27,7 +27,7 @@ object MultiSeries
     .attr('transform', `translate(0, ${'$'}{height})`)
     .call(
       d3.axisBottom(x)
-        //.tickFormat(x => `${'$'}{x.split('_')[0]}`)
+        .tickFormat(x => `${'$'}{x.split('_')[0]}`)
     )
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
@@ -42,7 +42,7 @@ object MultiSeries
 
   // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, 40])
+    .domain([0, maxValue])
     .range([ height, 0 ]);
   svg.append('g')
     .call(
