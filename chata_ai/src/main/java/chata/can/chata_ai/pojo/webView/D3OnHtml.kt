@@ -9,6 +9,7 @@ import chata.can.chata_ai.pojo.html.Event.getEvents
 import chata.can.chata_ai.pojo.html.Filter.getFilter
 import chata.can.chata_ai.pojo.html.Functions.getFunctions
 import chata.can.chata_ai.pojo.html.Line.getLine
+import chata.can.chata_ai.pojo.html.MultiSeries.getMultiSeries
 import chata.can.chata_ai.pojo.html.Variable.getVariables
 
 object D3OnHtml
@@ -100,6 +101,7 @@ ${dataD3.table}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3)}
+${getMultiSeries()}
 ${getBar()}
 ${getColumn()}
 ${getLine()}

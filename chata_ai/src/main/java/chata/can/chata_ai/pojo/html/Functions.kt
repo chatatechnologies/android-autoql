@@ -65,10 +65,23 @@ function updateData(tmpChart, isReload) {
     clearSvg();
     switch(typeChart) {
     case TypeEnum.COLUMN:
-      setColumn();
+      {
+        var nColumns = 0
+        data.map(function(a1) {
+          var keys = Object.keys(a1);
+          nColumns = keys.length
+        });
+        if (nColumns == 2) {
+          setColumn()
+        } else {
+          setMultiSeries()
+        }
+      }
       break;
     case TypeEnum.BAR:
-      setBar();
+      {
+				setBar();
+			}
       break;
     case TypeEnum.LINE:
       setLine();

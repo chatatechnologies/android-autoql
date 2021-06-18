@@ -493,7 +493,7 @@ object HtmlBuilder
 							}
 							sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
 						}
-						"[${sbMultiSeries.removeSuffix(",\n")}]"
+						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
 					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
