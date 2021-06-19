@@ -208,7 +208,7 @@ var data = [{name: "Jun 2, 2021_1", time_0: 0.0, time_1: 0.0, time_2: 100.0, tim
 {name: "Jan 13, 2021_2", time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}]
 var categoriesX = ["Jun 2, 2021", "Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021", "Jan 13, 2021"]
 var drillTableY = [100.00, 240.00, 200.00];
-var drillX = ["1622640651", "1610620917", "1610620588", "1610620588", "1610620588", "1610620588", "1610539486", "1610539486", "1610539486", "1610539273", "1610539273", "1610539273"]
+var drillX = ["1622640651","1610620917","1610620588","1610539486","1610539273"]
 var limitName = 0;
 var maxValue = 3360;
 var minValue = 0;
@@ -331,6 +331,7 @@ function setMultiSeries() {
     .data(data)
     .join('g')
       .attr('transform', d => `translate(${x(d.name)}, 0)`)
+      .attr('id', function(_,i){ return 'item_' + i;})
     .selectAll('rect')
     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
     .join('rect')
@@ -339,8 +340,11 @@ function setMultiSeries() {
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.key))
-      .on('click', function(_, d) {
+      .on('click', function (d, i) {
         console.log(d)
+        console.log(i)
+        //id for request data
+        console.log(this.parentNode.id)
         //drillDown(value);
       })
 }

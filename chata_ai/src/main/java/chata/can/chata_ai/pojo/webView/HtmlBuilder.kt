@@ -488,7 +488,6 @@ object HtmlBuilder
 							var sValues = ""
 							for ((index, value) in aValue.withIndex())
 							{
-								//sValues += ", time_${key}_$index: $value"
 								sValues += ", time_$index: $value"
 							}
 							sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
@@ -499,6 +498,7 @@ object HtmlBuilder
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\"$it\""
 					}
+					dataD3.drillX = dataForWebView.drillX
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
