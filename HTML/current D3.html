@@ -144,15 +144,15 @@ function updateData(tmpChart, isReload) {
     switch(typeChart) {
     case TypeEnum.COLUMN:
       {
-        var nColumns = 0
+        var nColumns = 0;
         data.map(function(a1) {
           var keys = Object.keys(a1);
-          nColumns = keys.length
+          nColumns = keys.length;
         });
         if (nColumns == 2) {
-          setColumn()
+          setColumn();
         } else {
-          setMultiSeries()
+          setMultiSeries();
         }
       }
       break;
@@ -205,8 +205,8 @@ var data = [{name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, tim
 {name: 'Jan 14, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
 {name: 'Jan 14, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
 {name: 'Jan 13, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-{name: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}]
-var categoriesX = ["Jun 2, 2021", "Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021", "Jan 13, 2021"]
+{name: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}];
+var categoriesX = ["Jun 2, 2021", "Jan 14, 2021", "Jan 14, 2021", "Jan 13, 2021", "Jan 13, 2021"];
 var drillTableY = [100.00, 240.00, 200.00];
 var drillX = ['1622640651','1610620917','1610620588','1610539486','1610539273']
 var limitName = 0;
@@ -263,17 +263,17 @@ function setMultiSeries() {
   .append('g')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  var keys1 = Object.keys(data[0])
-  const subgroups = keys1.slice(1)
+  var keys1 = Object.keys(data[0]);
+  const subgroups = keys1.slice(1);
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
-  const groups = data.map(d => d.name)
+  const groups = data.map(d => d.name);
 
   // Add X axis
   const x = d3.scaleBand()
     .domain(groups)
     .range([0, width])
-    .padding([0.2])
+    .padding([0.2]);
   svg.append("g")
     .attr('transform', `translate(0, ${height})`)
     .call(
@@ -289,7 +289,7 @@ function setMultiSeries() {
     //rotate text
     .attr('transform', 'translate(10,10)rotate(-45)')
     .attr('fill', '#909090')
-    .style('text-anchor', 'end')
+    .style('text-anchor', 'end');
 
   // Add Y axis
   const y = d3.scaleLinear()
@@ -311,18 +311,18 @@ function setMultiSeries() {
     .call(g => g.select('.domain').remove())
     .selectAll('text')
 	  .attr('transform', 'translate(0,0)rotate(0)')
-    .attr('fill', '#909090')
+    .attr('fill', '#909090');
 
   // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()
     .domain(subgroups)
     .range([0, x.bandwidth()])
-    .padding([0.05])
+    .padding([0.05]);
 
   // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(colorPie)
+    .range(colorPie);
 
   // Show the bars
   svg.append('g')
@@ -349,7 +349,7 @@ function setMultiSeries() {
           var value = drillX[index]
           drillDown(value)
         }
-      })
+      });
 }
 function setBar() {
 	var svg = d3.select('body').append('svg')

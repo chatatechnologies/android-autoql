@@ -12,17 +12,17 @@ object MultiSeries
   .append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-  var keys1 = Object.keys(data[0])
-  const subgroups = keys1.slice(1)
+  var keys1 = Object.keys(data[0]);
+  const subgroups = keys1.slice(1);
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
-  const groups = data.map(d => d.name)
+  const groups = data.map(d => d.name);
 
   // Add X axis
   const x = d3.scaleBand()
     .domain(groups)
     .range([0, width])
-    .padding([0.2])
+    .padding([0.2]);
   svg.append("g")
     .attr('transform', `translate(0, ${'$'}{height})`)
     .call(
@@ -38,7 +38,7 @@ object MultiSeries
     //rotate text
     .attr('transform', 'translate(10,10)rotate(-45)')
     .attr('fill', '#909090')
-    .style('text-anchor', 'end')
+    .style('text-anchor', 'end');
 
   // Add Y axis
   const y = d3.scaleLinear()
@@ -60,18 +60,18 @@ object MultiSeries
     .call(g => g.select('.domain').remove())
     .selectAll('text')
 	  .attr('transform', 'translate(0,0)rotate(0)')
-    .attr('fill', '#909090')
+    .attr('fill', '#909090');
 
   // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()
     .domain(subgroups)
     .range([0, x.bandwidth()])
-    .padding([0.05])
+    .padding([0.05]);
 
   // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(colorPie)
+    .range(colorPie);
 
   // Show the bars
   svg.append('g')
@@ -98,7 +98,7 @@ object MultiSeries
           var value = drillX[index]
           drillDown(value)
         }
-      })
+      });
 }"""
 	}
 }

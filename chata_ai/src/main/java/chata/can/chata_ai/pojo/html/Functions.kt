@@ -66,15 +66,15 @@ function updateData(tmpChart, isReload) {
     switch(typeChart) {
     case TypeEnum.COLUMN:
       {
-        var nColumns = 0
+        var nColumns = 0;
         data.map(function(a1) {
           var keys = Object.keys(a1);
-          nColumns = keys.length
+          nColumns = keys.length;
         });
         if (nColumns == 2) {
-          setColumn()
+          setColumn();
         } else {
-          setMultiSeries()
+          setMultiSeries();
         }
       }
       break;
