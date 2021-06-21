@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.html.Actions.getActions
+import chata.can.chata_ai.pojo.html.MultiBar.getMultiBar
 import chata.can.chata_ai.pojo.html.Bar.getBar
 import chata.can.chata_ai.pojo.html.Column.getColumn
 import chata.can.chata_ai.pojo.html.Donut.getDonut
@@ -101,6 +102,7 @@ ${dataD3.table}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3)}
+${getMultiBar()}
 ${getMultiSeries()}
 ${getBar()}
 ${getColumn()}

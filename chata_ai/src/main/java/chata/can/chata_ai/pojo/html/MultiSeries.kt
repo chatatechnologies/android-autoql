@@ -4,7 +4,8 @@ object MultiSeries
 {
 	fun getMultiSeries(): String
 	{
-		return """function setMultiSeries() {
+		return """
+function setMultiSeries() {
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.bottom + margin.right)
@@ -90,12 +91,12 @@ object MultiSeries
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.key))
       .on('click', function (d, i) {
-        var idParent = this.parentNode.id
-        var aData = idParent.split('_')
+        var idParent = this.parentNode.id;
+        var aData = idParent.split('_');
         if (aData.length > 0)
         {
-          var index = aData[1]
-          var value = drillX[index]
+          var index = aData[1];
+          var value = `${'$'}{drillX[index]}_${'$'}{index}`;
           drillDown(value)
         }
       });

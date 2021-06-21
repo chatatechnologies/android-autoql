@@ -141,32 +141,34 @@ function updateData(tmpChart, isReload) {
   } else {
     $("table").hide(0);
     clearSvg();
+    var nColumns = 0;
+    data.map(function(a1) {
+      var keys = Object.keys(a1);
+      nColumns = keys.length;
+    });
     switch(typeChart) {
-    case TypeEnum.COLUMN:
-      {
-        var nColumns = 0;
-        data.map(function(a1) {
-          var keys = Object.keys(a1);
-          nColumns = keys.length;
-        });
+      case TypeEnum.COLUMN:
         if (nColumns == 2) {
           setColumn();
         } else {
           setMultiSeries();
         }
-      }
-      break;
-    case TypeEnum.BAR:
-      {
-				setBar();
-			}
-      break;
-    case TypeEnum.LINE:
-      setLine();
-      break;
-    case TypeEnum.PIE:
-      setDonut();
-      break;
+        break;
+      case TypeEnum.BAR:
+        {
+          if (nColumns == 2) {
+            setBar();
+          } else {
+            setMultiBar();
+          }
+        }
+        break;
+      case TypeEnum.LINE:
+        setLine();
+        break;
+      case TypeEnum.PIE:
+        setDonut();
+        break;
     }
   }	
 }
@@ -239,7 +241,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.BAR;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -254,6 +256,63 @@ var margin = {
 };
 var width = 0;
 var height = 0;
+
+function setMultiBar() {
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.bottom + margin.right)
+		.attr('height', height + margin.top + margin.left)
+		.append('g')
+		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
+
+  var keys1 = Object.keys(data[0]);
+  const subgroups = keys1.slice(1);
+
+  // List of groups = species here = value of the first column called group -> I show them on the X axis
+  const groups = data.map(d => d.name);
+
+  // Add X axis
+  const x = d3.scaleBand()
+    .domain(groups)
+    .range([height, 0])
+    .padding([0.2]);
+  svg.append("g")
+    .call(
+      d3.axisLeft(x)
+        .tickFormat(x => `${x.split('_')[0]}`)
+    )
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    .selectAll('text')
+    //rotate text
+    .attr('transform', 'translate(-10,-25)rotate(-45)')
+    .attr('fill', '#909090')
+    .style('text-anchor', 'end');
+
+    // Add Y axis
+  const y = d3.scaleLinear()
+    .domain([0, maxValue])
+    .range([ 0, width]);
+
+    svg.append("g")
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(y)
+      .tickFormat(x =>`${fformat(x)}`)
+    )
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    .selectAll('text')
+    //rotate text
+    .attr('transform', 'translate(10,10)rotate(-45)')
+    .attr('fill', '#909090')
+    .style('text-anchor', 'end');
+}
 
 function setMultiSeries() {
   // append the svg object to the body of the page
@@ -345,12 +404,13 @@ function setMultiSeries() {
         var aData = idParent.split('_')
         if (aData.length > 0)
         {
-          var index = aData[1]
-          var value = drillX[index]
+          var index = aData[1];
+          var value = `${drillX[index]}_${index}`;
           drillDown(value)
         }
       });
 }
+
 function setBar() {
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.bottom + margin.right)
