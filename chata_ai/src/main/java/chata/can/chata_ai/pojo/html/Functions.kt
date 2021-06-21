@@ -63,36 +63,36 @@ function updateData(tmpChart, isReload) {
   } else {
     ${'$'}("table").hide(0);
     clearSvg();
+		var nColumns = 0;
+    data.map(function(a1) {
+      var keys = Object.keys(a1);
+      nColumns = keys.length;
+    });
     switch(typeChart) {
-    case TypeEnum.COLUMN:
-      {
-        var nColumns = 0;
-        data.map(function(a1) {
-          var keys = Object.keys(a1);
-          nColumns = keys.length;
-        });
+      case TypeEnum.COLUMN:
         if (nColumns == 2) {
           setColumn();
         } else {
           setMultiColumn();
         }
-      }
       break;
       case TypeEnum.BAR:
-        {
-          if (nColumns == 2) {
+        if (nColumns == 2) {
             setBar();
           } else {
             setMultiBar();
           }
+        break;
+      case TypeEnum.LINE:
+        if (nColumns == 2) {
+          setLine();
+        } else {
+          
         }
         break;
-    case TypeEnum.LINE:
-      setLine();
-      break;
-    case TypeEnum.PIE:
-      setDonut();
-      break;
+      case TypeEnum.PIE:
+        setDonut();
+        break;
     }
   }	
 }
