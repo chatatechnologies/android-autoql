@@ -80,6 +80,7 @@ object MultiSeries
     .data(data)
     .join('g')
       .attr('transform', d => `translate(${'$'}{x(d.name)}, 0)`)
+			.attr('id', function(_,i){ return 'item_' + i;})
     .selectAll('rect')
     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
     .join('rect')
@@ -88,9 +89,15 @@ object MultiSeries
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.key))
-      .on('click', function(_, d) {
-        console.log(d)
-        //drillDown(value);
+      .on('click', function (d, i) {
+        var idParent = this.parentNode.id
+        var aData = idParent.split('_')
+        if (aData.length > 0)
+        {
+          var index = aData[1]
+          var value = drillX[index]
+          drillDown(value)
+        }
       })
 }"""
 	}

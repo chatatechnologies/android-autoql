@@ -490,13 +490,13 @@ object HtmlBuilder
 							{
 								sValues += ", time_$index: $value"
 							}
-							sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
+							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
 						}
 						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
 					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
-						"\"$it\""
+						"\'$it\'"
 					}
 					dataD3.drillX = dataForWebView.drillX
 					dataForWebView.min = if (min < 0) min else 0
