@@ -141,19 +141,21 @@ function updateData(tmpChart, isReload) {
   } else {
     $("table").hide(0);
     clearSvg();
-    var nColumns = 0;
-    data.map(function(a1) {
-      var keys = Object.keys(a1);
-      nColumns = keys.length;
-    });
     switch(typeChart) {
-      case TypeEnum.COLUMN:
+    case TypeEnum.COLUMN:
+      {
+        var nColumns = 0;
+        data.map(function(a1) {
+          var keys = Object.keys(a1);
+          nColumns = keys.length;
+        });
         if (nColumns == 2) {
           setColumn();
         } else {
-          setMultiSeries();
+          setMultiColumn();
         }
-        break;
+      }
+      break;
       case TypeEnum.BAR:
         {
           if (nColumns == 2) {
@@ -163,12 +165,12 @@ function updateData(tmpChart, isReload) {
           }
         }
         break;
-      case TypeEnum.LINE:
-        setLine();
-        break;
-      case TypeEnum.PIE:
-        setDonut();
-        break;
+    case TypeEnum.LINE:
+      setLine();
+      break;
+    case TypeEnum.PIE:
+      setDonut();
+      break;
     }
   }	
 }
@@ -241,7 +243,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BAR;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -256,6 +258,7 @@ var margin = {
 };
 var width = 0;
 var height = 0;
+
 
 function setMultiBar() {
   var svg = d3.select('body').append('svg')
@@ -294,7 +297,7 @@ function setMultiBar() {
     // Add Y axis
   const y = d3.scaleLinear()
     .domain([0, maxValue])
-    .range([ 0, width]);
+    .range([0, width]);
 
     svg.append("g")
     .attr('transform', `translate(0, ${height})`)
@@ -304,17 +307,58 @@ function setMultiBar() {
     )
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
-    //region set opacity for each tick item
-    .call(g => g.selectAll('.tick line')
-      .attr('opacity', 0.2))
+    //region set lines by each value for y axis
+    .call(
+      g => g.selectAll('.tick line')
+      .clone()
+      .attr('stroke-opacity', 0.1)
+      .attr('y2', -height))
     .selectAll('text')
     //rotate text
     .attr('transform', 'translate(10,10)rotate(-45)')
     .attr('fill', '#909090')
     .style('text-anchor', 'end');
+
+    // Another scale for subgroup position?
+  const xSubgroup = d3.scaleBand()
+    .domain(subgroups)
+    .range([x.bandwidth(), 0])
+    .padding([0.05]);//TODO CHANGE
+
+    // color palette = one color per subgroup
+  const color = d3.scaleOrdinal()
+    .domain(subgroups)
+    .range(colorPie);
+
+    // Show the bars
+  svg.append('g')
+    .selectAll('g')
+    // Enter in data = loop group per group
+    .data(data)
+    .join('g')
+      .attr('transform', d => `translate(0, ${x(d.name)})`)
+			.attr('id', function(_,i){ return 'item_' + i;})
+    .selectAll('rect')
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .join('rect')
+      .attr('x', d => 0)
+      .attr('y', d => xSubgroup(d.key))
+      .attr('height', xSubgroup.bandwidth())
+      .attr('width', d => y(d.value))
+      .attr('fill', d => color(d.key))
+      .on('click', function () {
+        var idParent = this.parentNode.id
+        var aData = idParent.split('_')
+        if (aData.length > 0)
+        {
+          var index = aData[1];
+          var value = `${drillX[index]}_${index}`;
+          drillDown(value)
+        }
+      });
 }
 
-function setMultiSeries() {
+function setMultiColumn() {
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.bottom + margin.right)
@@ -399,9 +443,9 @@ function setMultiSeries() {
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.key))
-      .on('click', function (d, i) {
-        var idParent = this.parentNode.id
-        var aData = idParent.split('_')
+      .on('click', function () {
+        var idParent = this.parentNode.id;
+        var aData = idParent.split('_');
         if (aData.length > 0)
         {
           var index = aData[1];
@@ -410,7 +454,6 @@ function setMultiSeries() {
         }
       });
 }
-
 function setBar() {
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.bottom + margin.right)

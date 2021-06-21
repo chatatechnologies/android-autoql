@@ -1,11 +1,11 @@
 package chata.can.chata_ai.pojo.html
 
-object MultiSeries
+object MultiColumn
 {
-	fun getMultiSeries(): String
+	fun getMultiColumn(): String
 	{
 		return """
-function setMultiSeries() {
+function setMultiColumn() {
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.bottom + margin.right)
@@ -90,7 +90,7 @@ function setMultiSeries() {
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => height - y(d.value))
       .attr('fill', d => color(d.key))
-      .on('click', function (d, i) {
+      .on('click', function () {
         var idParent = this.parentNode.id;
         var aData = idParent.split('_');
         if (aData.length > 0)

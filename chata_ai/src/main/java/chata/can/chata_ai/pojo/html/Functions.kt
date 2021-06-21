@@ -74,15 +74,19 @@ function updateData(tmpChart, isReload) {
         if (nColumns == 2) {
           setColumn();
         } else {
-          setMultiSeries();
+          setMultiColumn();
         }
       }
       break;
-    case TypeEnum.BAR:
-      {
-				setBar();
-			}
-      break;
+      case TypeEnum.BAR:
+        {
+          if (nColumns == 2) {
+            setBar();
+          } else {
+            setMultiBar();
+          }
+        }
+        break;
     case TypeEnum.LINE:
       setLine();
       break;
