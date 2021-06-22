@@ -149,6 +149,7 @@ object HtmlBuilder
 				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
 				/*aDollar*/
 				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
+				SearchColumn.getSeriesColumn(queryBase)
 
 				when
 				{

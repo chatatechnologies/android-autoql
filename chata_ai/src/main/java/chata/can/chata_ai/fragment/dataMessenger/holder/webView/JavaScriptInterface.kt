@@ -22,6 +22,9 @@ class JavaScriptInterface(
 	fun modalCategories(content: String)
 	{
 		println("modalCategories: $content")
+		queryBase.run {
+
+		}
 	}
 
 	@JavascriptInterface

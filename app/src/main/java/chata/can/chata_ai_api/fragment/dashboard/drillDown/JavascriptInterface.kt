@@ -10,12 +10,6 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 class JavascriptInterface(private val context: Context, private val queryBase: QueryBase)
 {
 	@JavascriptInterface
-	fun modalCategories(content: String)
-	{
-		println("modalCategories: $content")
-	}
-
-	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
 		queryBase.run {

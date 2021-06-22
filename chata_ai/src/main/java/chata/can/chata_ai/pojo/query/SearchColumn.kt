@@ -4,10 +4,26 @@ import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.isUnCountable
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object SearchColumn
 {
+	fun getSeriesColumn(queryBase: QueryBase)
+	{
+		queryBase.run {
+			for (column in aColumn)
+			{
+				when(column.type)
+				{
+					TypeDataQuery.DOLLAR_AMT -> aCurrency.add(column)
+					TypeDataQuery.QUANTITY -> aQuality.add(column)
+					TypeDataQuery.STRING, TypeDataQuery.DATE -> aCommon.add(column)
+				}
+			}
+		}
+	}
+
 	fun getGroupableIndices(
 		aColumns: ArrayList<ColumnQuery>,
 		count: Int): ArrayList<Int>
