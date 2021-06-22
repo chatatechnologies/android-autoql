@@ -87,7 +87,7 @@ function updateData(tmpChart, isReload) {
         if (nColumns == 2) {
           setLine();
         } else {
-          
+          setMultiLine();
         }
         break;
       case TypeEnum.PIE:
