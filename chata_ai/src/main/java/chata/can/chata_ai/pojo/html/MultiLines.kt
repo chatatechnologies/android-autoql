@@ -5,7 +5,7 @@ object MultiLines
 	fun getMultiLine(): String
 	{
 		return """
-			function setMultiLine() {
+function setMultiLine() {
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.bottom + margin.right)
@@ -88,6 +88,35 @@ object MultiLines
       .attr("stroke", function(d){ return myColor(d.name) })
       .style("stroke-width", 1)
       .style("fill", "none");
+			
+	// Add the points
+  svg
+    // First we need to enter in a group
+    .selectAll()
+    .data(dataReady)
+    .enter()
+      .append('g')
+      .style("fill", function(d){ return myColor(d.name) })
+    // Second we need to enter in the 'values' part of this group
+    .selectAll()
+    .data(function(d){ return d.values })
+    .enter()
+    .append("circle")
+      .attr('id', function(_, i){ return 'item_' + i;})
+      .attr("cx", function(d) { return x(d.subname) } )
+      .attr("cy", function(d) { return y(d.value) } )
+      .attr("r", 5)
+      .attr("stroke", "white")
+    .on('click', function () {
+      var idParent = this.id;
+      var aData = idParent.split('_');
+      if (aData.length > 0)
+      {
+        var index = aData[1];
+        var value = `${'$'}{drillX[index]}_${'$'}{index}`;
+        drillDown(value);
+      }
+    });
 }"""
 	}
 }

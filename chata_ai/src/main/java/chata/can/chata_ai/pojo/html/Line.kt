@@ -76,7 +76,7 @@ object Line
       .append("circle")
       .attr("cx", function(d) { return xScaleBand(d.name) })
       .attr("cy", function(d) { return yScale(d.value) })
-      .attr("r", 4)
+      .attr("r", 5)
       .attr("fill", colorBi)
       .on('click', function(_, d) {
 	      var index = data.indexOf(d);

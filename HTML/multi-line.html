@@ -53,7 +53,6 @@ const allGroups = keys1.slice(1);
       })
     };
   });
-  console.log(dataReady)
 
   // A color scale: one color for each group
   var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
@@ -118,6 +117,35 @@ const allGroups = keys1.slice(1);
       .attr("stroke", function(d){ return myColor(d.name) })
       .style("stroke-width", 1)
       .style("fill", "none");
+
+  // Add the points
+  svg
+    // First we need to enter in a group
+    .selectAll()
+    .data(dataReady)
+    .enter()
+      .append('g')
+      .style("fill", function(d){ return myColor(d.name) })
+    // Second we need to enter in the 'values' part of this group
+    .selectAll()
+    .data(function(d){ return d.values })
+    .enter()
+    .append("circle")
+      .attr('id', function(_, i){ return 'item_' + i;})
+      .attr("cx", function(d) { return x(d.subname) } )
+      .attr("cy", function(d) { return y(d.value) } )
+      .attr("r", 4)
+      .attr("stroke", "white")
+      .on('click', function () {
+        var idParent = this.id;
+        var aData = idParent.split('_');
+        if (aData.length > 0)
+        {
+          var index = aData[1];
+          //var value = `${drillX[index]}_${index}`;
+          console.log(index);
+        }
+      });
   </script>
 </body>
 </html>
