@@ -105,11 +105,11 @@ function drillDown(content) {
 	};
 }
 
-function modalCategories(content) {
+function modalCategories(type, content) {
   try {
-		Android.modalCategories(content);
+		Android.modalCategories(type, content);
 	} catch(err) {
-		console.log("Good content: " + content);
+		console.log(`Good content: ${'$'}{content}; ${'$'}{type}`);
 	};
 }
 """

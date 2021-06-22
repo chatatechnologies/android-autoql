@@ -22,9 +22,11 @@ class JavaScriptInterface(
 	private val presenter = DrillDownPresenter(queryBase, chatView)
 
 	@JavascriptInterface
-	fun modalCategories(content: String)
+	fun modalCategories(type: String, content: String)
 	{
-		ManageDataPopup.showPlainOptions(view, queryBase)
+		type
+		content
+		//ManageDataPopup.showPlainOptions(view, queryBase)
 	}
 
 	@JavascriptInterface

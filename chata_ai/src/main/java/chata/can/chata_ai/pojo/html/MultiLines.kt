@@ -127,7 +127,7 @@ function setMultiLine() {
       .attr('fill', '#808080')
       .text(axisX)
 			.on('click', function () {
-        modalCategories(this.textContent)
+        modalCategories(TypeManage.PLAIN, this.textContent);
       });
 
 		//Y axis label:
@@ -140,7 +140,7 @@ function setMultiLine() {
       .attr('fill', '#808080')
       .text(axisY)
 			.on('click', function () {
-        modalCategories(this.textContent)
+        modalCategories(TypeManage.SELECTABLE, this.textContent);
       });
 }"""
 	}

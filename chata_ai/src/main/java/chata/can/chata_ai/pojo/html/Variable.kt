@@ -43,6 +43,11 @@ const TypeEnum = Object.freeze({
   "STACKED_AREA": 11,
   "UNKNOWN": 0});
 
+const TypeManage = Object.freeze({
+  'SELECTABLE': 'SELECTABLE',
+  'PLAIN': 'PLAIN'
+});
+
 var colorPie = $sColors;
 var colorBi = ['$color1'];//Main color for bars
 
