@@ -24,21 +24,6 @@ var svg = d3.select("body")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-
-          //time is the ordinal number
-          var data2 = [
-    {time: "1", valueA: "2", valueB: "5", valueC: "13"},
-    {time: "2", valueA: "3", valueB: "4", valueC: "14"},
-    {time: "3", valueA: "1", valueB: "4", valueC: "16"},
-    {time: "4", valueA: "7", valueB: "4", valueC: "12"},
-    {time: "5", valueA: "8", valueB: "8", valueC: "7"},
-    {time: "6", valueA: "8", valueB: "13", valueC: "9"},
-    {time: "7", valueA: "5", valueB: "15", valueC: "3"},
-    {time: "8", valueA: "4", valueB: "17", valueC: "2"},
-    {time: "9", valueA: "9", valueB: "18", valueC: "1"},
-    {time: "10", valueA: "11", valueB: "13", valueC: "1"}
-  ];
-
   var data1 = [
 {name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
 {name: 'Jan 14, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
@@ -46,13 +31,14 @@ var svg = d3.select("body")
 {name: 'Jan 13, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
 {name: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}];
 
+//time is the ordinal number
 //time 0, 1, ... , n are name in data1
 var data = [
-  {time: "1", time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
-  {time: "2", time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
-  {time: "3", time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
-  {time: "4", time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-  {time: "5", time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}
+  {time: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
+  {time: 'Jan 14, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
+  {time: 'Jan 14, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
+  {time: 'Jan 13, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
+  {time: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}
 ]
 
   var keys1 = Object.keys(data[0]);
@@ -72,69 +58,68 @@ var data = [
     console.log(dataReady)
 
     // A color scale: one color for each group
+    var colorPie = ["#355c7d", "#6c5b7b", "#c06c84", "#f67280", "#f8b195"];
     var myColor = d3.scaleOrdinal()
       .domain(allGroups)
-      .range(d3.schemeSet2);
+      .range(colorPie);
 
     // Add X axis --> it is a date format
-    var x = d3.scaleLinear()
-      .domain([0,10])
-      .range([ 0, width ]);
+    var x = d3.scaleBand()
+      .domain(data.map(function(d) { return d.time; }))
+      .range([0, width])
+      .padding(1);
     svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .attr('transform', `translate(0,${height})`)
+      .call(
+        d3.axisBottom(x)
+        .tickFormat(x =>`${x.split('_')[0]}`)
+      )
+      //Remove line on domain for X axis
+      //.call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+			.call(
+        g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      .selectAll('text')
+      //rotate text
+      .attr('transform', 'translate(10,10)rotate(-45)')
+      //Set color each item on X axis
+      .attr('fill', '#909090')
+      .style('text-anchor', 'end');
 
     // Add Y axis
     var y = d3.scaleLinear()
-      .domain( [0, 3360.0])//maxValue is here
-      .range([ height, 0 ]);
+      .domain([0, 3360.0])//maxValue is here
+      .range([height, 0]);
     svg.append("g")
-      .call(d3.axisLeft(y));
+      .call(
+        d3.axisLeft(y)
+        .tickSize(0)
+        .tickFormat(x => `${x}`)
+      )
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', width)
+      )
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('fill', '#909090');
 
     // Add the lines
     var line = d3.line()
-      .x(function(d) { return x(+d.subname) })
-      .y(function(d) { return y(+d.value) })
+      .x(function(d) { return x(d.subname) })
+      .y(function(d) { return y(d.value) })
     svg.selectAll("myLines")
       .data(dataReady)
       .enter()
       .append("path")
         .attr("d", function(d){ return line(d.values) } )
         .attr("stroke", function(d){ return myColor(d.name) })
-        .style("stroke-width", 4)
+        .style("stroke-width", 1)
         .style("fill", "none")
-
-    // Add the points
-    svg
-      // First we need to enter in a group
-      .selectAll("myDots")
-      .data(dataReady)
-      .enter()
-        .append('g')
-        .style("fill", function(d){ return myColor(d.name) })
-      // Second we need to enter in the 'values' part of this group
-      .selectAll("myPoints")
-      .data(function(d){ return d.values })
-      .enter()
-      .append("circle")
-        .attr("cx", function(d) { return x(d.subname) } )
-        .attr("cy", function(d) { return y(d.value) } )
-        .attr("r", 5)
-        .attr("stroke", "white")
-
-    // Add a legend at the end of each line
-    svg
-      .selectAll("myLabels")
-      .data(dataReady)
-      .enter()
-        .append('g')
-        .append("text")
-          .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
-          .attr("transform", function(d) { return "translate(" + x(d.value.subname) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
-          .attr("x", 12) // shift the text a bit more right
-          .text(function(d) { return d.name; })
-          .style("fill", function(d){ return myColor(d.name) })
-          .style("font-size", 15)
   </script>
 </body>
 </html>
