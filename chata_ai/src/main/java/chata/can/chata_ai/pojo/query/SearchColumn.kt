@@ -19,6 +19,7 @@ object SearchColumn
 					TypeDataQuery.DOLLAR_AMT -> aCurrency.add(column)
 					TypeDataQuery.QUANTITY -> aQuality.add(column)
 					TypeDataQuery.STRING, TypeDataQuery.DATE -> aCommon.add(column)
+					else -> {}
 				}
 			}
 		}

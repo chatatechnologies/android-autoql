@@ -2,7 +2,9 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.dialog.manageData.ManageDataPopup
 import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -12,6 +14,7 @@ import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 import org.json.JSONObject
 
 class JavaScriptInterface(
+	private val view: View,
 	private val context: Context,
 	private val queryBase: QueryBase,
 	private val chatView: ChatContract.View?)
@@ -21,10 +24,7 @@ class JavaScriptInterface(
 	@JavascriptInterface
 	fun modalCategories(content: String)
 	{
-		println("modalCategories: $content")
-		queryBase.run {
-
-		}
+		ManageDataPopup.showPlainOptions(view, queryBase)
 	}
 
 	@JavascriptInterface
