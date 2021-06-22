@@ -108,7 +108,7 @@ function setMultiColumn() {
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX)
+      .text(getAxisX())
 			.on('click', function () {
         modalCategories(TypeManage.PLAIN, this.textContent);
       });
@@ -121,7 +121,7 @@ function setMultiColumn() {
       .attr('y', -margin.left + 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY)
+      .text(getAxisY())
 			.on('click', function () {
         modalCategories(TypeManage.SELECTABLE, this.textContent);
       });

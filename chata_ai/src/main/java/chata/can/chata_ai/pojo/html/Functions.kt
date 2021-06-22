@@ -63,7 +63,6 @@ function updateData(tmpChart, isReload) {
   } else {
     ${'$'}("table").hide(0);
     clearSvg();
-		var nColumns = 0;
     data.map(function(a1) {
       var keys = Object.keys(a1);
       nColumns = keys.length;
@@ -112,7 +111,22 @@ function modalCategories(type, content) {
 		console.log(`Good content: ${'$'}{content}; ${'$'}{type}`);
 	};
 }
-"""
+
+function getAxisX() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${'$'}{axisX} ${'$'}{extra}`;
+}
+
+function getAxisY() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${'$'}{axisY} ${'$'}{extra}`;
+}"""
 	}
 	//endregion
 }

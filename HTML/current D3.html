@@ -141,7 +141,6 @@ function updateData(tmpChart, isReload) {
   } else {
     $("table").hide(0);
     clearSvg();
-		var nColumns = 0;
     data.map(function(a1) {
       var keys = Object.keys(a1);
       nColumns = keys.length;
@@ -191,6 +190,21 @@ function modalCategories(type, content) {
 	};
 }
 
+function getAxisX() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${axisX} ${extra}`;
+}
+
+function getAxisY() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${axisY} ${extra}`;
+}
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
@@ -216,6 +230,7 @@ var colorBi = ['#355c7d'];//Main color for bars
 
 var axisX = 'Date Created';
 var axisY = 'Revenue';
+var nColumns = 0;
 
 //Main data
 var data = [{name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
@@ -256,7 +271,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.LINE;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -377,7 +392,7 @@ function setMultiBar() {
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX)
+      .text(getAxisY())
 			.on('click', function () {
 	      modalCategories(TypeManage.SELECTABLE, this.textContent);
 	    });
@@ -390,7 +405,7 @@ function setMultiBar() {
       .attr('y', -margin.left - 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY)
+      .text(getAxisX())
 			.on('click', function () {
 	      modalCategories(TypeManage.PLAIN, this.textContent);
 	    });
@@ -499,7 +514,7 @@ function setMultiColumn() {
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX)
+      .text(getAxisX())
 			.on('click', function () {
         modalCategories(TypeManage.PLAIN, this.textContent);
       });
@@ -512,7 +527,7 @@ function setMultiColumn() {
       .attr('y', -margin.left + 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY)
+      .text(getAxisY())
 			.on('click', function () {
         modalCategories(TypeManage.SELECTABLE, this.textContent);
       });
@@ -638,7 +653,7 @@ function setMultiLine() {
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX)
+      .text(getAxisX())
 			.on('click', function () {
         modalCategories(TypeManage.PLAIN, this.textContent);
       });
@@ -651,7 +666,7 @@ function setMultiLine() {
       .attr('y', -margin.left + 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY)
+      .text(getAxisY())
 			.on('click', function () {
         modalCategories(TypeManage.SELECTABLE, this.textContent);
       });

@@ -24,9 +24,11 @@ class JavaScriptInterface(
 	@JavascriptInterface
 	fun modalCategories(type: String, content: String)
 	{
-		type
-		content
-		//ManageDataPopup.showPlainOptions(view, queryBase)
+		when(type)
+		{
+			"SELECTABLE" -> {}
+			"PLAIN" -> ManageDataPopup.showPlainOptions(view, queryBase)
+		}
 	}
 
 	@JavascriptInterface
