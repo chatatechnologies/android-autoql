@@ -9,7 +9,7 @@ function setMultiColumn() {
   // append the svg object to the body of the page
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.bottom + margin.right)
-    .attr('height', height + margin.top + margin.left)
+    .attr('height', height + margin.top + margin.left + 50)
   .append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
@@ -99,6 +99,31 @@ function setMultiColumn() {
           var value = `${'$'}{drillX[index]}_${'$'}{index}`;
           drillDown(value)
         }
+      });
+			
+		//Add X axis label:
+    svg.append('text')
+      .attr('text-anchor', 'end')
+      .style('font-size', 16)
+      .attr('x', (width / 2) + margin.top)//for center
+      .attr('y', height + margin.bottom - 10)//for set on bottom with -10
+      .attr('fill', '#808080')
+      .text(axisX)
+			.on('click', function () {
+        modalCategories(this.textContent)
+      });
+
+		//Y axis label:
+    svg.append('text')
+      .attr('text-anchor', 'end')
+      .style('font-size', 16)
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -margin.left + 20)
+      .attr('x', margin.top + (-height / 2))//center Y axis title
+      .attr('fill', '#808080')
+      .text(axisY)
+			.on('click', function () {
+        modalCategories(this.textContent)
       });
 }"""
 	}

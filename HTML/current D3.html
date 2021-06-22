@@ -183,6 +183,14 @@ function drillDown(content) {
 	};
 }
 
+function modalCategories(content) {
+  try {
+		Android.modalCategories(content);
+	} catch(err) {
+		console.log("Good content: " + content);
+	};
+}
+
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
@@ -243,7 +251,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BAR;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -356,17 +364,20 @@ function setMultiBar() {
           drillDown(value)
         }
       });
-
-    //Add X axis label:
+			
+		//Add X axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX);
+      .text(axisX)
+			.on('click', function () {
+	      modalCategories(this.textContent)
+	    });
 
-      //Y axis label:
+    //Y axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
@@ -374,7 +385,10 @@ function setMultiBar() {
       .attr('y', -margin.left - 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY);
+      .text(axisY)
+			.on('click', function () {
+	      modalCategories(this.textContent)
+	    });
 }
 
 function setMultiColumn() {
@@ -472,17 +486,20 @@ function setMultiColumn() {
           drillDown(value)
         }
       });
-
-    //Add X axis label:
+			
+		//Add X axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX);
+      .text(axisX)
+			.on('click', function () {
+        modalCategories(this.textContent)
+      });
 
-      //Y axis label:
+		//Y axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
@@ -490,7 +507,10 @@ function setMultiColumn() {
       .attr('y', -margin.left + 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY);
+      .text(axisY)
+			.on('click', function () {
+        modalCategories(this.textContent)
+      });
 }
 
 function setMultiLine() {
@@ -605,17 +625,20 @@ function setMultiLine() {
         drillDown(value);
       }
     });
-
-    //Add X axis label:
+		
+		//Add X axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
       .attr('x', (width / 2) + margin.top)//for center
       .attr('y', height + margin.bottom - 10)//for set on bottom with -10
       .attr('fill', '#808080')
-      .text(axisX);
+      .text(axisX)
+			.on('click', function () {
+        modalCategories(this.textContent)
+      });
 
-      //Y axis label:
+		//Y axis label:
     svg.append('text')
       .attr('text-anchor', 'end')
       .style('font-size', 16)
@@ -623,7 +646,10 @@ function setMultiLine() {
       .attr('y', -margin.left + 20)
       .attr('x', margin.top + (-height / 2))//center Y axis title
       .attr('fill', '#808080')
-      .text(axisY);
+      .text(axisY)
+			.on('click', function () {
+        modalCategories(this.textContent)
+      });
 }
 
 function setBar() {

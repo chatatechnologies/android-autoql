@@ -19,6 +19,12 @@ class JavaScriptInterface(
 	private val presenter = DrillDownPresenter(queryBase, chatView)
 
 	@JavascriptInterface
+	fun modalCategories(content: String)
+	{
+		println("modalCategories: $content")
+	}
+
+	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)

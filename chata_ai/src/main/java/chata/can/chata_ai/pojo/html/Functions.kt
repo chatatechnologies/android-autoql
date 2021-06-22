@@ -104,6 +104,14 @@ function drillDown(content) {
 		console.log("Good content: " + content);
 	};
 }
+
+function modalCategories(content) {
+  try {
+		Android.modalCategories(content);
+	} catch(err) {
+		console.log("Good content: " + content);
+	};
+}
 """
 	}
 	//endregion
