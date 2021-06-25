@@ -28,9 +28,9 @@ class JavaScriptInterface(
 		when(type)
 		{
 			"SELECTABLE" ->
-				ManageDataDialog(view.context, TypeColumnData.SELECTABLE, queryBase).show()
+				ManageDataDialog(view.context, TypeColumnData.SELECTABLE, queryBase).showDialog()//.show()
 			"PLAIN" ->
-				ManageDataDialog(view.context, TypeColumnData.PLAIN, queryBase).show()
+				ManageDataDialog(view.context, TypeColumnData.PLAIN, queryBase).showDialog()//.show()
 		}
 	}
 
