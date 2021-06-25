@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.webkit.JavascriptInterface
-import chata.can.chata_ai.dialog.manageData.ManageDataPopup
+import chata.can.chata_ai.dialog.manageData.ManageDataDialog
 import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -26,8 +26,14 @@ class JavaScriptInterface(
 	{
 		when(type)
 		{
-			"SELECTABLE" -> {}
-			"PLAIN" -> ManageDataPopup.showPlainOptions(view, queryBase)
+			"SELECTABLE" ->
+			{
+				ManageDataDialog(view.context, queryBase).show()
+			}
+			"PLAIN" ->
+			{
+
+			}//ManageDataPopup.showPlainOptions(view, queryBase)
 		}
 	}
 
