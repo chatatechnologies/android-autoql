@@ -3,12 +3,14 @@ package chata.can.chata_ai.dialog.manageData
 import android.content.Context
 import android.view.View
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
@@ -20,7 +22,8 @@ class ManageDataDialog(
 {
 	private lateinit var btnApply: Button
 	private lateinit var rvColumn: RecyclerView
-	val model = BaseModelList<String>()
+	val model = BaseModelList<FilterColumn>()
+	private lateinit var adapter: FilterColumnAdapter
 
 	override fun onCreateView() {
 		super.onCreateView()
@@ -32,9 +35,13 @@ class ManageDataDialog(
 		queryBase?.run {
 			for (column in queryBase.aColumn)
 			{
-				model.add(column.displayName)
+				val item = FilterColumn(column.displayName, column.type == TypeDataQuery.DOLLAR_AMT)
+				model.add(item)
 			}
 		}
+		adapter = FilterColumnAdapter(model)
+		rvColumn.layoutManager = LinearLayoutManager(context)
+		rvColumn.adapter = adapter
 		btnApply.setOnClickListener(this)
 	}
 
