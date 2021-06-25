@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -25,7 +26,7 @@ class FilterColumnHolder(view: View): Holder(view)
 				paddingAll(left = 12f, right = 12f)
 				//region TextView
 				addView(TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(-1, -2)
+					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(24f))
 					id = R.id.tvColumnName
 					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
 				})
@@ -49,6 +50,15 @@ class FilterColumnHolder(view: View): Holder(view)
 	{
 		(item as? FilterColumn)?.run {
 			tvColumnName?.text = nameColumn
+			cbCheck?.let {
+				it.visibility =
+				if (isOnlyText) View.GONE
+				else
+				{
+					it.isChecked = isSelected
+					View.VISIBLE
+				}
+			}
 		}
 	}
 

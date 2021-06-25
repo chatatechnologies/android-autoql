@@ -16,6 +16,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class ManageDataDialog(
 	context: Context,
+	private val typeData: TypeColumnData,
 	private val queryBase: QueryBase?= null
 ): BaseDialog(context, R.layout.dialog_manage_data, false),
 	View.OnClickListener
@@ -33,16 +34,32 @@ class ManageDataDialog(
 	private fun setData()
 	{
 		queryBase?.run {
-			for (column in queryBase.aColumn)
+			if (typeData == TypeColumnData.SELECTABLE)
 			{
-				val item = FilterColumn(column.displayName, column.type == TypeDataQuery.DOLLAR_AMT)
-				model.add(item)
+				for (column in aCurrency)
+				{
+					model.add(FilterColumn(column.displayName))
+				}
+				for (column in aQuality)
+				{
+					model.add(FilterColumn(column.displayName, false))
+				}
+
+				btnApply.setOnClickListener(this@ManageDataDialog)
+			}
+			else
+			{
+				for (column in aCommon)
+				{
+					model.add(FilterColumn(column.displayName, isOnlyText = true))
+				}
+				btnApply.visibility = View.GONE
 			}
 		}
 		adapter = FilterColumnAdapter(model)
 		rvColumn.layoutManager = LinearLayoutManager(context)
 		rvColumn.adapter = adapter
-		btnApply.setOnClickListener(this)
+
 	}
 
 	override fun setColors()
@@ -64,7 +81,9 @@ class ManageDataDialog(
 
 	override fun onClick(v: View?)
 	{
-
+		v?.run {
+			dismiss()
+		}
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
