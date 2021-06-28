@@ -5,16 +5,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
@@ -22,25 +19,14 @@ class ManageDataDialog(
 	private val context1: Context,
 	private val typeData: TypeColumnData,
 	private val queryBase: QueryBase?= null
-)//: BaseDialog(context1, R.layout.dialog_manage_data, false), View.OnClickListener
+)
 {
+	private lateinit var dialog: AlertDialog
 	private lateinit var btnApply: Button
 	private lateinit var rvColumn: RecyclerView
 	val model = BaseModelList<FilterColumn>()
 	private lateinit var adapter: FilterColumnAdapter
-
-//	override fun onCreateView() {
-//		super.onCreateView()
-//		setData()
-//	}
-
-	//region custom build Dialog
 	private lateinit var llParent: View
-	//endregion
-
-	companion object {
-
-	}
 
 	fun showDialog()
 	{
@@ -59,7 +45,8 @@ class ManageDataDialog(
 				}
 				id = R.id.rvColumn
 			}
-//			btnApply = Button(ContextThemeWrapper(context1, android.R.attr.buttonBarButtonStyle)).apply {
+			addView(rvColumn)
+
 			btnApply = Button(context1).apply {
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
@@ -67,15 +54,30 @@ class ManageDataDialog(
 						weight = 0f
 				}
 				id = R.id.btnApply
-				paddingAll(8f)
 				isAllCaps = false
+				paddingAll(8f)
+				setText(R.string.apply)
 			}
+			addView(btnApply)
 		}
 
-		AlertDialog.Builder(context1).create().apply {
+		setColors()
+		setData()
+
+		dialog = AlertDialog.Builder(context1).create().apply {
 			setView(llParent)
-			setCancelable(false)
 			show()
+		}
+	}
+
+	private fun setColors()
+	{
+		context1.run {
+			btnApply.run {
+				background = getBackgroundColor(
+					getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
+				setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+			}
 		}
 	}
 
@@ -93,7 +95,7 @@ class ManageDataDialog(
 					model.add(FilterColumn(column.displayName, false))
 				}
 
-				//btnApply.setOnClickListener(this@ManageDataDialog)
+				btnApply.setOnClickListener { dialog.dismiss() }
 			}
 			else
 			{
@@ -107,32 +109,7 @@ class ManageDataDialog(
 		adapter = FilterColumnAdapter(model)
 		rvColumn.layoutManager = LinearLayoutManager(context1)
 		rvColumn.adapter = adapter
-
 	}
-
-//	override fun setColors()
-//	{
-//		context.run {
-//			ThemeColor.currentColor.run {
-//				btnApply.background = getBackgroundColor(
-//					getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
-//				btnApply.setTextColor(pDrawerTextColorPrimary)
-//			}
-//		}
-//	}
-
-//	override fun setViews()
-//	{
-//		btnApply = findViewById(R.id.btnApply)
-//		rvColumn = findViewById(R.id.rvColumn)
-//	}
-//
-//	override fun onClick(v: View?)
-//	{
-//		v?.run {
-//			dismiss()
-//		}
-//	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
 		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
