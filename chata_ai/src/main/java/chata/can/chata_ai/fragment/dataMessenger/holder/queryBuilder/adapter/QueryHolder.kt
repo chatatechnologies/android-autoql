@@ -15,7 +15,7 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 	private var rlParent = view.findViewById<View>(R.id.rlParent)
 	private var tvQueryExplore = view.findViewById<TextView>(R.id.tvQueryExplore)
 	private var ivPlay = view.findViewById<ImageView>(R.id.ivPlay)
-	private var isSelected = false
+	//private var isSelected = false
 
 	override fun onPaint()
 	{
@@ -23,10 +23,6 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 			context.run {
 				setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 				tvQueryExplore.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
-				if (isLast)
-				{
-					ivPlay.visibility = View.INVISIBLE
-				}
 				ivPlay.setColorFilter(Color.WHITE)
 			}
 		}
@@ -34,29 +30,19 @@ class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
-		if (isSelected)
+		if (item is OptionData)
 		{
+			tvQueryExplore?.text = item.text
+			ivPlay.visibility = if (item.isSelected) View.VISIBLE else View.INVISIBLE
 			rlParent.setBackgroundColor(
-				ThemeColor.currentColor.pDrawerBackgroundColor)
-			ivPlay.visibility = View.VISIBLE
-		}
-		else
-		{
-			if (!isLast)
-			{
-				ivPlay.visibility = View.INVISIBLE
-			}
-		}
+				if (item.isSelected) SinglentonDrawer.currentAccent
+				else ThemeColor.currentColor.pDrawerBackgroundColor)
 
-		if (item is String)
-		{
-			tvQueryExplore?.text = item
 			rlParent?.setOnClickListener {
-				if (!isSelected)
+				if (!item.isSelected)
 				{
-					isSelected = true
-					val accentColor = SinglentonDrawer.currentAccent
-					rlParent.setBackgroundColor(accentColor)
+					item.isSelected = true
+					rlParent.setBackgroundColor(SinglentonDrawer.currentAccent)
 					ivPlay.visibility = View.VISIBLE
 				}
 				listener?.onItemClick(item)

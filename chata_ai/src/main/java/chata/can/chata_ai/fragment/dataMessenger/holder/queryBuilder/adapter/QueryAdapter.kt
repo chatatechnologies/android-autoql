@@ -33,6 +33,12 @@ class QueryAdapter(
 		{
 			if (currentview != -1)
 			{
+				model[currentview]?.let {
+					if (it is OptionData)
+					{
+						it.isSelected = false
+					}
+				}
 				notifyItemChanged(currentview)
 			}
 			currentview = position

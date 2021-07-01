@@ -164,14 +164,14 @@ fun String.toCapitalColumn(): String
 	val aSequence = tmp.subSequence(0,1)
 	return if (aSequence.isNotEmpty())
 	{
-		val upperCase = aSequence[0].toUpperCase()
-		val sb = StringBuilder("$upperCase")
+		val upperCase = aSequence[0].uppercase()
+		val sb = StringBuilder(upperCase)
 
 		for(index in 1 until tmp.length)
 		{
 			sb.append(
 				if(!tmp[index-1].isLetterOrDigit())
-					tmp[index].toUpperCase()
+					tmp[index].uppercase()
 				else
 					tmp[index])
 		}

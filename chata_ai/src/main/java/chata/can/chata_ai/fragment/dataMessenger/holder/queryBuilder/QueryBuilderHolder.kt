@@ -25,6 +25,7 @@ import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.Opt
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionData
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -48,7 +49,7 @@ class QueryBuilderHolder(
 	private var rvQueries = view.findViewById<RecyclerView>(R.id.rvQueries)
 
 	private var modelRoot: BaseModelList<String> ?= null
-	private var modelQueries: BaseModelList<String> ?= null
+	private var modelQueries: BaseModelList<OptionData> ?= null
 	private var qbAdapter: OptionAdapter ?= null
 	private var queriesAdapter: QueryAdapter ?= null
 
@@ -197,7 +198,10 @@ class QueryBuilderHolder(
 			model ->
 			val first = modelRoot?.get(0) ?: ""
 			secondaryData(first).let {
-				model.addAll(it)
+				for (item in it)
+				{
+					model.add(OptionData(item, false))
+				}
 			}
 			queriesAdapter = QueryAdapter(model, object: OnItemClickListener
 			{
@@ -219,7 +223,7 @@ class QueryBuilderHolder(
 							modelQueries?.indexOfFirst { any == it }?.let {
 								queriesAdapter?.checkBefore(it)
 							}
-							viewContract.runTyping(any)
+							//viewContract.runTyping(any)
 						}
 					}
 				}
@@ -233,7 +237,10 @@ class QueryBuilderHolder(
 	{
 		modelQueries?.clear()
 		secondaryData(wordExplore).let {
-			modelQueries?.addAll(it)
+			for (item in it)
+			{
+				modelQueries?.add(OptionData(item, false))
+			}
 		}
 		queriesAdapter?.notifyDataSetChanged()
 	}

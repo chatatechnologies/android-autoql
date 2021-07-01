@@ -68,7 +68,11 @@ class NotificationHolder(
 				tvTitle.text = notification.title
 				tvBody.text = notification.message
 				tvDate.text = sDate
-				tvQuery.text = notification.query.capitalize(Locale.US)
+				tvQuery.text = notification.query.replaceFirstChar {
+					if (it.isLowerCase()) it.titlecase(
+						Locale.US
+					) else it.toString()
+				}
 			}
 		}
 	}
