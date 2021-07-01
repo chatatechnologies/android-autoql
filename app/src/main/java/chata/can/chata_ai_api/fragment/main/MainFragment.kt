@@ -133,7 +133,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-			val languageCode = "en-US"
+			val languageCode = "es-MX"
 			etLanguageCode?.setText(languageCode)
 			AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
 			AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
