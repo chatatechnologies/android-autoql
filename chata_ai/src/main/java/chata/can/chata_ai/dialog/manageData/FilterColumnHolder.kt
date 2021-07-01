@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.manageData
 
 import android.content.Context
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.CheckBox
@@ -23,6 +24,7 @@ class FilterColumnHolder(view: View): Holder(view)
 					addRule(RelativeLayout.CENTER_VERTICAL)
 					addRule(RelativeLayout.START_OF, R.id.cbCheck)
 				}
+				id = R.id.rlParent
 				paddingAll(left = 12f, right = 12f)
 				//region TextView
 				addView(TextView(context).apply {
@@ -43,6 +45,7 @@ class FilterColumnHolder(view: View): Holder(view)
 		}
 	}
 
+	private val rlParent = itemView.findViewById<View>(R.id.rlParent) ?: null
 	private val tvColumnName = itemView.findViewById<TextView>(R.id.tvColumnName) ?: null
 	private val cbCheck = itemView.findViewById<CheckBox>(R.id.cbCheck) ?: null
 
@@ -57,6 +60,16 @@ class FilterColumnHolder(view: View): Holder(view)
 				{
 					it.isChecked = isSelected
 					View.VISIBLE
+				}
+			}
+			rlParent?.setOnClickListener {
+				if (item.allowClick)
+				{
+					Log.e("Manage", "I can: ${item.indexColumn}")
+				}
+				else
+				{
+					Log.e("Manage", "I cannot")
 				}
 			}
 		}

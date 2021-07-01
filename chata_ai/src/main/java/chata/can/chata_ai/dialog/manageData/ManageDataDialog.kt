@@ -86,22 +86,29 @@ class ManageDataDialog(
 		queryBase?.run {
 			if (typeData == TypeColumnData.SELECTABLE)
 			{
-				for (column in aCurrency)
+				model.add(FilterColumn("Currency", isOnlyText = true))
+				for (pair in aCurrency)
 				{
-					model.add(FilterColumn(column.displayName))
+					pair.first
+					model.add(FilterColumn(pair.second.displayName))
 				}
-				for (column in aQuality)
+				model.add(FilterColumn("Quantity", isOnlyText = true))
+				for (pair in aQuality)
 				{
-					model.add(FilterColumn(column.displayName, false))
+					model.add(FilterColumn(pair.second.displayName, false))
 				}
-
 				btnApply.setOnClickListener { dialog.dismiss() }
 			}
 			else
 			{
-				for (column in aCommon)
+				for (pair in aCommon)
 				{
-					model.add(FilterColumn(column.displayName, isOnlyText = true))
+					model.add(
+						FilterColumn(
+							pair.second.displayName,
+							isOnlyText = true,
+							allowClick = true,
+							indexColumn = pair.first))
 				}
 				btnApply.visibility = View.GONE
 			}

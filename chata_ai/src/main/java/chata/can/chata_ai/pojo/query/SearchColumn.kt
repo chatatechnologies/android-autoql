@@ -12,13 +12,15 @@ object SearchColumn
 	fun getSeriesColumn(queryBase: QueryBase)
 	{
 		queryBase.run {
-			for (column in aColumn)
+			for (index in aColumn.indices)
 			{
+				val column = aColumn[index]
+				val pair = Pair(index, column)
 				when(column.type)
 				{
-					TypeDataQuery.DOLLAR_AMT -> aCurrency.add(column)
-					TypeDataQuery.QUANTITY -> aQuality.add(column)
-					TypeDataQuery.STRING, TypeDataQuery.DATE -> aCommon.add(column)
+					TypeDataQuery.DOLLAR_AMT -> aCurrency.add(pair)
+					TypeDataQuery.QUANTITY -> aQuality.add(pair)
+					TypeDataQuery.STRING, TypeDataQuery.DATE -> aCommon.add(pair)
 					else -> {}
 				}
 			}

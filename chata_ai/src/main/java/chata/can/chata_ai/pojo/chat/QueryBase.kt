@@ -99,9 +99,9 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	lateinit var aXDrillDown: ArrayList<String>
 	var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> > > ?= null
 
-	var aCurrency = ArrayList<ColumnQuery>()
-	var aQuality = ArrayList<ColumnQuery>()
-	var aCommon = ArrayList<ColumnQuery>()
+	var aCurrency = ArrayList<Pair<Int, ColumnQuery>>()
+	var aQuality = ArrayList<Pair<Int, ColumnQuery>>()
+	var aCommon = ArrayList<Pair<Int, ColumnQuery>>()
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null
