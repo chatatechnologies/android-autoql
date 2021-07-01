@@ -57,6 +57,7 @@
 	<item name="swEnableQuery" type="id"/>
 	<item name="swEnableSuggestion" type="id"/>
 	<item name="swEnableDrillDown" type="id"/>
+	<item name="swEnableColumn" type="id"/>
 	<item name="swEnableNotification" type="id"/>
 	<item name="swTabExploreQueries" type="id"/>
 	<item name="swTabNotification" type="id"/>

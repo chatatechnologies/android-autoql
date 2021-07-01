@@ -68,6 +68,7 @@ object SectionData
 				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
 				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
 				DemoParameter("Enable Drilldowns", TypeParameter.TOGGLE, "true", idView = R.id.swEnableDrillDown),
+				DemoParameter("Enable Column Visibility Editor", TypeParameter.TOGGLE, "true", idView = R.id.swEnableColumn),
 				DemoParameter("Enable Notifications", TypeParameter.TOGGLE, "true", idView = R.id.swEnableNotification)
 			),
 		"UI Configuration Options" to

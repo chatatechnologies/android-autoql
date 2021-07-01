@@ -75,6 +75,7 @@ object AutoQLData
 
 	var isDarkenBackgroundBehind = true
 	var visibleExploreQueries = true
+	var isColumnVisibility = true
 	var visibleNotification = true
 	var activeNotifications = true
 }

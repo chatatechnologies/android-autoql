@@ -17,6 +17,7 @@ import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 
 object ListPopup
@@ -38,7 +39,7 @@ object ListPopup
 				dataPopup?.let {
 					if (dataPopup.isTable)
 					{
-						if (!dataPopup.isDataPivot)
+						if (!dataPopup.isDataPivot && AutoQLData.isColumnVisibility)
 						{
 							add(1, R.id.iColumn, 1, R.string.show_hide_column).setIcon(
 								if (queryBase?.allVisible() == true) R.drawable.ic_eye_1 else R.drawable.ic_eye_2)

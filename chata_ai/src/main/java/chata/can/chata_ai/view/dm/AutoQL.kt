@@ -41,10 +41,10 @@ class AutoQL: FrameLayout
 			AutoQLData.isRelease = false
 			eventClick()
 		}
-		else
-		{
-			Toast.makeText(context, "Is release is blocked", Toast.LENGTH_LONG).show()
-		}
+//		else
+//		{
+//			Toast.makeText(context, "Is release is blocked", Toast.LENGTH_LONG).show()
+//		}
 	}
 
 	fun setEventClick(listener: () -> Unit)
