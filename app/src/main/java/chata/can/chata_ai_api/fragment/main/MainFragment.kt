@@ -23,6 +23,8 @@ import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 {
@@ -133,8 +135,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etTitle?.setText(title)
 			val maxMessage = 10
 			etMaxNumberMessage?.setText("$maxMessage")
-			val languageCode = "en-US"
-			etLanguageCode?.setText(languageCode)
 			AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
 			AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
 			AutoQLData.apiKey = (etApiKey?.text ?: "").toString().trim()
@@ -152,6 +152,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etQueryPlaceholder?.setText((etQueryPlaceholder?.text ?: "").trim())
 			etMaxNumberMessage?.setText((etMaxNumberMessage?.text ?: "").trim())
 		}
+		//region get languageCode
+		Locale.getDefault().run {
+			val languageCode = "$language-$country"
+			etLanguageCode?.setText(languageCode)
+		}
+		//endregion
 	}
 
 	override fun initViews(view: View)
