@@ -28,6 +28,7 @@ object SinglentonDrawer
 	var monthYearFormat = "MMM YYYY"
 	var dayMonthYearFormat = "MMM DD, YYYY"
 
+	var flagLanguage = ""
 	var localLocale: Locale ?= Locale("en", "US")
 	set(value) {
 		field = value

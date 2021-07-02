@@ -38,6 +38,8 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
@@ -120,6 +122,30 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		SinglentonDrawer.aCurrencyMethods[nameFragment] = {
 			model.restartData()
 			chatAdapter.notifyDataSetChanged()
+		}
+	}
+
+	override fun onResume()
+	{
+		super.onResume()
+		val tmpFlagLanguage = Locale.getDefault().language
+		val isReplace = SinglentonDrawer.flagLanguage.isNotEmpty()
+		if (SinglentonDrawer.flagLanguage != tmpFlagLanguage)
+		{
+			SinglentonDrawer.flagLanguage = tmpFlagLanguage
+			if (isReplace)
+			{
+				model[0]?.let {
+					val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
+						AutoQLData.introMessage
+					else
+						getString(R.string.discover_today)
+
+					val introMessage = String.format(introMessageRes, AutoQLData.customerName)
+					model[0] = ChatData(TypeChatView.LEFT_VIEW, introMessage)
+					chatAdapter.notifyItemChanged(0)
+				}
+			}
 		}
 	}
 

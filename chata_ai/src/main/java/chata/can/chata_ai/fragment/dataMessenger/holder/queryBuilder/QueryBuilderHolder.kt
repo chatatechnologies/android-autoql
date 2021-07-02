@@ -24,7 +24,6 @@ import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionData
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -207,9 +206,9 @@ class QueryBuilderHolder(
 			{
 				override fun onItemClick(any: Any)
 				{
-					if (any is String)
+					if (any is OptionData)
 					{
-						if (any == "💡See more...")
+						if (any.text == "💡See more...")
 						{
 							ExploreQueriesData.isPendingExecute = true
 							ExploreQueriesData.lastWord = wordExplore
@@ -223,7 +222,7 @@ class QueryBuilderHolder(
 							modelQueries?.indexOfFirst { any == it }?.let {
 								queriesAdapter?.checkBefore(it)
 							}
-							//viewContract.runTyping(any)
+							viewContract.runTyping(any.text)
 						}
 					}
 				}
