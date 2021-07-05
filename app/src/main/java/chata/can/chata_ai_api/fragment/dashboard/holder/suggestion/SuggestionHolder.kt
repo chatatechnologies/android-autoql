@@ -4,18 +4,18 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
+import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
 
 class SuggestionHolder(
@@ -25,6 +25,8 @@ class SuggestionHolder(
 {
 	private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	private val llSuggestion: LinearLayout = itemView.findViewById(R.id.llSuggestion)
+	private lateinit var tvSuggestion: TextView
+	private lateinit var spSuggestion: Spinner
 
 	override fun onPaint()
 	{
@@ -37,8 +39,6 @@ class SuggestionHolder(
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
-			val currentColor = ThemeColor.currentColor
-
 			item.queryBase?.let { queryBase ->
 				tvContent.context?.let { context ->
 					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
@@ -66,6 +66,43 @@ class SuggestionHolder(
 					llSuggestion.addView(
 						RelativeLayout(context).apply {
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							background = DrawableBuilder.setGradientDrawable(
+								0,
+								3f,
+							3,
+								SinglentonDrawer.currentAccent)
+							paddingAll(8f, 4f, 8f, 4f)
+							//region view hidden
+							spSuggestion = Spinner(context).apply {
+								visibility = View.GONE
+								layoutParams = RelativeLayout.LayoutParams(-1,-2)
+								val aItem = rows.map { it[0] }
+								adapter = DashboardSpinnerAdapter(context, aItem)
+								setSelection(0, false)
+//								onItemSelectedListener = object: ItemSelectedListener {
+//									override fun onSelected(
+//										parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+//									{
+//										tvSuggestion.text = rows[position][0]
+//									}
+//								}
+							}
+							addView(spSuggestion)
+							spSuggestion.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+								override fun onItemSelected(
+									parent: AdapterView<*>?,
+									view: View?,
+									position: Int,
+									id: Long
+								) {
+									println("Hola 1")
+								}
+
+								override fun onNothingSelected(parent: AdapterView<*>?) {
+									println("Hola 2")
+								}
+							}
+							//endregion
 							//view on Right
 							addView(
 								ImageView(context).apply {
@@ -76,21 +113,30 @@ class SuggestionHolder(
 									id = R.id.ivAction
 									setImageResource(R.drawable.ic_down)
 									setColorFilter(SinglentonDrawer.currentAccent)
+									setOnClickListener { spSuggestion.performClick() }
 								}
 							)
-							addView(
-								//region front text
-								TextView(context).apply {
-									layoutParams = RelativeLayout.LayoutParams(-1,-2).apply {
-										addRule(RelativeLayout.CENTER_VERTICAL)
-										addRule(RelativeLayout.START_OF, R.id.ivAction)
+							//region front text
+							tvSuggestion = TextView(context).apply {
+								layoutParams = RelativeLayout.LayoutParams(-1,-2).apply {
+									addRule(RelativeLayout.CENTER_VERTICAL)
+									addRule(RelativeLayout.START_OF, R.id.ivAction)
+								}
+								setTextColor(drawerColorPrimary)
+								paddingAll(4f)
+								if (rows.isNotEmpty())
+								{
+									val child = rows[0]
+									if (child.isNotEmpty())
+									{
+										val firstText = child[0]
+										text = firstText
 									}
-									setTextColor(drawerColorPrimary)
-									paddingAll(4f)
-									text = "Suggestion is here"
 								}
-								//endregion
-							)
+								setOnClickListener { spSuggestion.performClick() }
+							}
+							//endregion
+							addView(tvSuggestion)
 						}
 					)
 				}
