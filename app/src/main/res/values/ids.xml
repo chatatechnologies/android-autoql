@@ -30,4 +30,7 @@
 	<item name="tvRunQuery" type="id"/>
 	<!--endregion-->
 	<item name="floatingView" type="id"/>
+	<!-- suggestion with spinner -->
+	<item name="ivAction" type="id"/>
+	<!--endregion-->
 </resources>

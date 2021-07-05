@@ -4,13 +4,15 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
-import chata.can.chata_ai.extension.backgroundWhiteGray
-import chata.can.chata_ai.extension.getStringResources
-import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDashboard
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
@@ -35,6 +37,8 @@ class SuggestionHolder(
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
+			val currentColor = ThemeColor.currentColor
+
 			item.queryBase?.let { queryBase ->
 				tvContent.context?.let { context ->
 					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
@@ -58,10 +62,37 @@ class SuggestionHolder(
 				}
 				else
 				{
-					llSuggestion.addView(TextView(llSuggestion.context).apply {
-						setTextColor(drawerColorPrimary)
-						text = "Test"
-					})
+					val context = llSuggestion.context
+					llSuggestion.addView(
+						RelativeLayout(context).apply {
+							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							//view on Right
+							addView(
+								ImageView(context).apply {
+									layoutParams = RelativeLayout.LayoutParams(dpToPx(24f), dpToPx(24f)).apply {
+										addRule(RelativeLayout.ALIGN_PARENT_END)
+									}
+									gravity = Gravity.CENTER
+									id = R.id.ivAction
+									setImageResource(R.drawable.ic_down)
+									setColorFilter(SinglentonDrawer.currentAccent)
+								}
+							)
+							addView(
+								//region front text
+								TextView(context).apply {
+									layoutParams = RelativeLayout.LayoutParams(-1,-2).apply {
+										addRule(RelativeLayout.CENTER_VERTICAL)
+										addRule(RelativeLayout.START_OF, R.id.ivAction)
+									}
+									setTextColor(drawerColorPrimary)
+									paddingAll(4f)
+									text = "Suggestion is here"
+								}
+								//endregion
+							)
+						}
+					)
 				}
 			}
 		}
