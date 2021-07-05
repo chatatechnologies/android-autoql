@@ -35,23 +35,33 @@ class SuggestionHolder(
 		super.onBind(item, listener)
 		if (item is Dashboard)
 		{
-			item.queryBase?.let {
+			item.queryBase?.let { queryBase ->
 				tvContent.context?.let { context ->
 					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
-					val message = String.format(introMessageRes, it.message)
+					val message = String.format(introMessageRes, queryBase.message)
 					tvContent.text = message
 				}
 
-				val rows = it.aRows
+				val rows = queryBase.aRows
 				llSuggestion.removeAllViews()
-				for (index in 0 until rows.size)
+				if (queryBase.typeSuggestion != "table")
 				{
-					val singleRow = rows[index]
-					singleRow.firstOrNull()?.let { suggestion ->
-						//add new view for suggestion
-						val tv = buildSuggestionView(llSuggestion.context, suggestion, item)
-						llSuggestion.addView(tv)
+					for (index in 0 until rows.size)
+					{
+						val singleRow = rows[index]
+						singleRow.firstOrNull()?.let { suggestion ->
+							//add new view for suggestion
+							val tv = buildSuggestionView(llSuggestion.context, suggestion, item)
+							llSuggestion.addView(tv)
+						}
 					}
+				}
+				else
+				{
+					llSuggestion.addView(TextView(llSuggestion.context).apply {
+						setTextColor(drawerColorPrimary)
+						text = "Test"
+					})
 				}
 			}
 		}
