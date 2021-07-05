@@ -51,7 +51,20 @@ class DashboardPresenter(
 						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431" || referenceId == "1.1.420"
 						if (code == 400 && isSuggestion)
 						{
+							//region skipQuery
+							var skipQueryValidation = true
+							mModel?.run {
+								val index = indexOfFirst { it.key == key }
+								if (index != -1)
+								{
+									this[index]?.let { dashboard ->
+										skipQueryValidation = dashboard.skipQueryValidation
+									}
+								}
+							}
+							//endregion
 							val mData = hashMapOf<String, Any>(
+								"skipQueryValidation" to skipQueryValidation,
 								"query" to query,
 								"query_id" to queryId,
 								"title" to title,
@@ -104,7 +117,10 @@ class DashboardPresenter(
 					//region build json for suggestion
 					jsonObject.optJSONObject("data")?.let { joData ->
 						joData.optJSONArray("items")?.let { jaItems ->
-							val json = JSONObject().put("query", "")
+							val json = JSONObject().apply {
+								put("query", "")
+								put("skipQueryValidation", jsonObject.optBoolean("skipQueryValidation"))
+							}
 							val queryBase = QueryBase(json).apply {
 								isDashboard = true
 								for (index in 0 until jaItems.length())
@@ -135,7 +151,7 @@ class DashboardPresenter(
 				}
 				"getDashboardQueries" ->
 				{
-					if (queryReset) return
+					/*if (queryReset) */return
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 					mModel?.run {
@@ -239,6 +255,9 @@ class DashboardPresenter(
 											dashboard.value = qvs.optString("text")
 											dashboard.valueLabel = qvs.optString("value_label")
 										}
+									}
+									optBoolean("skipQueryValidation").let {
+										dashboard.skipQueryValidation = it
 									}
 									mPartial["${axisY}_$axisX"] = dashboard
 								}

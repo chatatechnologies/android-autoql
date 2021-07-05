@@ -49,6 +49,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	}
 
 	var isSecondaryQuery = json.optBoolean("isSecondaryQuery", false)
+	var skipQueryValidation = json.optBoolean("skipQueryValidation", true)
 
 	val numColumns: Int
 	get() {

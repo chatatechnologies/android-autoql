@@ -32,6 +32,7 @@ data class Dashboard(
 
 	var value = ""
 	var valueLabel = ""
+	var skipQueryValidation = true
 
 	fun isInitial() = !isWaitingData && !isWaitingData2 && queryBase == null && queryBase2 == null
 }
