@@ -26,10 +26,10 @@ import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapter
 import chata.can.chata_ai.fragment.dataMessenger.presenter.ChatServicePresenter
 import chata.can.chata_ai.fragment.dataMessenger.voice.VoiceRecognition
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
-import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.chat.TypeChatView
@@ -95,7 +95,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			//query base for testing
 //			val queryDemo = "last revenue items"
 //			val queryDemo = "all jobs in bid state"
-			val queryDemo = "Total revenue this year"
+			val queryDemo = "Max 1000 province by total utilization"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot
@@ -152,34 +152,31 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun initListener()
 	{
 		animationAlert.hideAlert()
-		etQuery.addTextChangedListener(object: TextChanged {
-			override fun onTextChanged(string: String)
+		etQuery.setOnTextChanged { string ->
+			if (string.isNotEmpty())
 			{
-				if (string.isNotEmpty())
+				if (statusLogin)
 				{
-					if (statusLogin)
+					adapterAutoComplete.clear()
+					adapterAutoComplete.notifyDataSetChanged()
+					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
-						adapterAutoComplete.clear()
-						adapterAutoComplete.notifyDataSetChanged()
-						if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
-						{
-							presenter.getAutocomplete(string)
-						}
-					}
-					with(ivMicrophone)
-					{
-						setImageResource(R.drawable.ic_send)
-						setOnTouchListener(null)
-						setOnClickListener { setRequestQuery() }
+						presenter.getAutocomplete(string)
 					}
 				}
-				else
+				with(ivMicrophone)
 				{
-					ivMicrophone.setImageResource(R.drawable.ic_microphone)
-					setTouchListener()
+					setImageResource(R.drawable.ic_send)
+					setOnTouchListener(null)
+					setOnClickListener { setRequestQuery() }
 				}
 			}
-		})
+			else
+			{
+				ivMicrophone.setImageResource(R.drawable.ic_microphone)
+				setTouchListener()
+			}
+		}
 		setTouchListener()
 
 		activity?.let { fragmentActivity ->

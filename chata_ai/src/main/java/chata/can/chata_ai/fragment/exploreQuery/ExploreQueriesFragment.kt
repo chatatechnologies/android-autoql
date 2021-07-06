@@ -17,12 +17,12 @@ import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.exploreQuery.adapter.ExploreQueriesAdapter
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.setOnTextChanged
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
-import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -72,11 +72,11 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 		}
-		if (BuildConfig.DEBUG)
-		{
+//		if (BuildConfig.DEBUG)
+//		{
 //			val query = ""
 //			etQuery.setText(query)
-		}
+//		}
 	}
 
 	override fun initListener()
@@ -88,16 +88,12 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		tvLastPage.setOnClickListener(this)
 		tvNext.setOnClickListener(this)
 
-		etQuery.addTextChangedListener(object: TextChanged
-		{
-			override fun onTextChanged(string: String)
+		etQuery.setOnTextChanged { string ->
+			if (string.isNotEmpty())
 			{
-				if (string.isNotEmpty())
-				{
-					presenter.currentQuery = string
-				}
+				presenter.currentQuery = string
 			}
-		})
+		}
 
 		etQuery.setOnEditorActionListener { _, _, _ ->
 			setRequestText()

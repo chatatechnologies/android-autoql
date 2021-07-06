@@ -151,7 +151,6 @@ class DashboardPresenter(
 				}
 				"getDashboardQueries" ->
 				{
-					/*if (queryReset) */return
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 					mModel?.run {

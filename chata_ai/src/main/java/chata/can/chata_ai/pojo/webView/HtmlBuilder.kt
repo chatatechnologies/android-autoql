@@ -385,11 +385,18 @@ object HtmlBuilder
 					queryBase.isTriInBi = true
 				}
 
+				//region index dollar
+				var indexDollar = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DOLLAR_AMT)
+				if (indexDollar == -1)
+					indexDollar = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.QUANTITY)
+				//endregion
+				//region index date
 				var indexDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
-				val indexDollar = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DOLLAR_AMT)
-				if (indexDate == -1) {
-					indexDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
-				}
+				indexDate = if (indexDate == -1)
+					SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
+				else
+					SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.STRING)
+				//endregion
 				val aIndices = arrayListOf(0, 1 ,2)
 				aIndices.remove(indexDate)
 				aIndices.remove(indexDollar)
