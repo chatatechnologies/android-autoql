@@ -2,7 +2,10 @@ package chata.can.chata_ai.extension
 
 import android.animation.ObjectAnimator
 import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.Spinner
+import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -17,6 +20,16 @@ fun EditText.setOnTextChanged(listener: (String) -> Unit)
 			}
 		}
 	)
+}
+
+fun Spinner.setOnItemSelected(listener: (AdapterView<*>?, View?, Int, Long) -> Unit)
+{
+	onItemSelectedListener = object : ItemSelectedListener {
+		override fun onSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+		{
+			listener(parent, view, position, id)
+		}
+	}
 }
 
 fun View.backgroundGrayWhite(iCornerRadius: Float = 18f)

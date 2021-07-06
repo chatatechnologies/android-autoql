@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.setOnItemSelected
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -175,34 +176,30 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			btnDashboard.text = aData.firstOrNull() ?: ""
 
 			spDashboard.setSelection(0, false)
-			spDashboard.onItemSelectedListener = object: ItemSelectedListener
-			{
-				override fun onSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
-				{
-					adapter.positionSelect = position
-					parent?.getItemAtPosition(position)?.let { content ->
-						if (content is String)
+			spDashboard.setOnItemSelected { parent, _, position, _ ->
+				adapter.positionSelect = position
+				parent?.getItemAtPosition(position)?.let { content ->
+					if (content is String)
+					{
+						btnDashboard.text = content
+						SinglentonDashboard.clearDashboard()
+						SinglentonDashboard.setDashboardIndex(position)
+
+						val model = SinglentonDashboard.getCurrentDashboard()
+						mModel.clear()
+						mModel.addAll(model.getData())
+						gridAdapter.notifyDataSetChanged()
+
+						if (model.countData() == 0)
 						{
-							btnDashboard.text = content
-							SinglentonDashboard.clearDashboard()
-							SinglentonDashboard.setDashboardIndex(position)
-
-							val model = SinglentonDashboard.getCurrentDashboard()
-							mModel.clear()
-							mModel.addAll(model.getData())
-							gridAdapter.notifyDataSetChanged()
-
-							if (model.countData() == 0)
-							{
-								tvEmptyDashboard.setText(R.string.empty_dashboard)
-								tvEmptyDashboard.visibility = View.VISIBLE
-								rvDashboard.visibility = View.GONE
-							}
-							else
-							{
-								tvEmptyDashboard.visibility = View.GONE
-								rvDashboard.visibility = View.VISIBLE
-							}
+							tvEmptyDashboard.setText(R.string.empty_dashboard)
+							tvEmptyDashboard.visibility = View.VISIBLE
+							rvDashboard.visibility = View.GONE
+						}
+						else
+						{
+							tvEmptyDashboard.visibility = View.GONE
+							rvDashboard.visibility = View.VISIBLE
 						}
 					}
 				}

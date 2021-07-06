@@ -67,41 +67,24 @@ class SuggestionHolder(
 						RelativeLayout(context).apply {
 							layoutParams = LinearLayout.LayoutParams(-1, -2)
 							background = DrawableBuilder.setGradientDrawable(
-								0,
+								ThemeColor.currentColor.pDrawerBackgroundColor,
 								3f,
 							3,
 								SinglentonDrawer.currentAccent)
 							paddingAll(8f, 4f, 8f, 4f)
 							//region view hidden
 							spSuggestion = Spinner(context).apply {
-								visibility = View.GONE
+								//visibility = View.GONE
 								layoutParams = RelativeLayout.LayoutParams(-1,-2)
 								val aItem = rows.map { it[0] }
 								adapter = DashboardSpinnerAdapter(context, aItem)
 								setSelection(0, false)
-//								onItemSelectedListener = object: ItemSelectedListener {
-//									override fun onSelected(
-//										parent: AdapterView<*>?, view: View?, position: Int, id: Long)
-//									{
-//										tvSuggestion.text = rows[position][0]
-//									}
-//								}
+								setOnItemSelected { _, _, position, _ ->
+									val text = aItem[position]
+									tvSuggestion.text = text
+								}
 							}
 							addView(spSuggestion)
-							spSuggestion.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-								override fun onItemSelected(
-									parent: AdapterView<*>?,
-									view: View?,
-									position: Int,
-									id: Long
-								) {
-									println("Hola 1")
-								}
-
-								override fun onNothingSelected(parent: AdapterView<*>?) {
-									println("Hola 2")
-								}
-							}
 							//endregion
 							//view on Right
 							addView(
@@ -111,6 +94,7 @@ class SuggestionHolder(
 									}
 									gravity = Gravity.CENTER
 									id = R.id.ivAction
+									setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 									setImageResource(R.drawable.ic_down)
 									setColorFilter(SinglentonDrawer.currentAccent)
 									setOnClickListener { spSuggestion.performClick() }
@@ -122,6 +106,7 @@ class SuggestionHolder(
 									addRule(RelativeLayout.CENTER_VERTICAL)
 									addRule(RelativeLayout.START_OF, R.id.ivAction)
 								}
+								setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 								setTextColor(drawerColorPrimary)
 								paddingAll(4f)
 								if (rows.isNotEmpty())
