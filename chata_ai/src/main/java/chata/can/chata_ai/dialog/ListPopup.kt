@@ -24,7 +24,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 object ListPopup
 {
 	fun showChartPopup(
-		view: View
+		view: View,
+		webViewView: WebViewContract ?= null
 	)
 	{
 		val theme = if (SinglentonDrawer.themeColor == "dark")
@@ -36,11 +37,19 @@ object ListPopup
 				val aData = ConfigActions.pBiTriConfig
 				for (index in aData.indices)
 				{
-					val pData = aData[index]
-					add(index, pData.first, index, "").setIcon(pData.second)
+					aData[index].run {
+						add(index, first, index, third).setIcon(second)
+					}
 				}
 			}
 			insertMenuItemIcons(view.context, this)
+			setOnMenuItemClickListener { item ->
+				val iv = ImageView(view.context).apply {
+					id = item.itemId
+				}
+				webViewView?.callAction(iv)
+				true
+			}
 			show()
 		}
 	}

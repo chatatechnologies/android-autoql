@@ -199,11 +199,13 @@ class WebViewHolder(
 			if (aConfigs.size == 10)
 			{
 				llCharts?.visibility = View.GONE
+				rlCharts?.visibility = View.VISIBLE
 				ivCharts?.setOnClickListener(this)
 			}
 			else
 			{
 				llCharts?.visibility = View.VISIBLE
+				rlCharts?.visibility = View.GONE
 				val tmpConfigs = aConfigs.subList(1, aConfigs.size)
 				for (index in 0 until aDefaultActions.size)
 				{
@@ -246,7 +248,7 @@ class WebViewHolder(
 				}
 				R.id.ivCharts ->
 				{
-					ListPopup.showChartPopup(it)
+					ListPopup.showChartPopup(it, this)
 				}
 				R.id.ivPoints ->
 				{
@@ -330,10 +332,10 @@ class WebViewHolder(
 		}
 	}
 
-	private fun callAction(iv: ImageView?)
+	//TODO make public
+	override fun callAction(iv: ImageView?)
 	{
-		queryBase?.let {
-				queryBase ->
+		queryBase?.let { queryBase ->
 			iv?.let {
 				if (isFilter && (lastId == "#idTableBasic" || lastId == "#idTableDataPivot"))
 				{

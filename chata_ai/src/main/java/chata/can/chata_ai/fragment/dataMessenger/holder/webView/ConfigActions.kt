@@ -77,15 +77,15 @@ object ConfigActions
 	)
 
 	val pBiTriConfig = arrayListOf(
-		Pair(R.id.ivPivot, R.drawable.ic_table_data),
-		Pair(R.id.ivTable, R.drawable.ic_table),
-		Pair(R.id.ivBar, R.drawable.ic_bar),
-		Pair(R.id.ivColumn, R.drawable.ic_column),
-		Pair(R.id.ivLine, R.drawable.ic_line),
-		Pair(R.id.ivHeat, R.drawable.ic_heat),
-		Pair(R.id.ivBubble, R.drawable.ic_bubble),
-		Pair(R.id.ivStackedColumn, R.drawable.ic_stacked_column),
-		Pair(R.id.ivStackedBar, R.drawable.ic_stacked_bar),
-		Pair(R.id.ivStackedArea, R.drawable.ic_stacked_area)
+		Triple(R.id.ivPivot, R.drawable.ic_table_data, "Pivot Table"),
+		Triple(R.id.ivTable, R.drawable.ic_table, "Table"),
+		Triple(R.id.ivBar, R.drawable.ic_bar, "Bar Chart"),
+		Triple(R.id.ivColumn, R.drawable.ic_column, "Column Chart"),
+		Triple(R.id.ivLine, R.drawable.ic_line, "Line Chart"),
+		Triple(R.id.ivHeat, R.drawable.ic_heat, "Heatmap"),
+		Triple(R.id.ivBubble, R.drawable.ic_bubble, "Bubble Chart"),
+		Triple(R.id.ivStackedColumn, R.drawable.ic_stacked_column, "Stacked Column Chart"),
+		Triple(R.id.ivStackedBar, R.drawable.ic_stacked_bar, "Stacked Bar Chart"),
+		Triple(R.id.ivStackedArea, R.drawable.ic_stacked_area, "Stacked Area Chart")
 	)
 }
