@@ -42,6 +42,8 @@ class WebViewHolder(
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
+	private val rlCharts = itemView.findViewById<View>(R.id.rlCharts) ?: null
+	private val ivCharts = itemView.findViewById<ImageView>(R.id.ivCharts) ?: null
 	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
 	private val ivTable = itemView.findViewById<ImageView>(R.id.ivTable) ?: null
 	private val ivColumn = itemView.findViewById<ImageView>(R.id.ivColumn) ?: null
@@ -88,6 +90,7 @@ class WebViewHolder(
 			startAnimation(animationTop)
 
 			accentColor = SinglentonDrawer.currentAccent
+			ivCharts?.setColorFilter(accentColor)
 			ivPoints?.setColorFilter(accentColor)
 		}
 
@@ -95,6 +98,7 @@ class WebViewHolder(
 			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
 		}
 
+		rlCharts?.backgroundGrayWhite()
 		llCharts?.backgroundGrayWhite()
 		rlDelete?.backgroundGrayWhite()
 
@@ -192,25 +196,33 @@ class WebViewHolder(
 				}
 			}
 			//endregion
-
-			val tmpConfigs = aConfigs.subList(1, aConfigs.size)
-			for (index in 0 until aDefaultActions.size)
+			if (aConfigs.size == 10)
 			{
-				aDefaultActions[index]?.let {
-					it.visibility = if (it.id in tmpConfigs)
-					{
-						it.setOnClickListener(this)
-						it.setColorFilter(accentColor)
-						visible
-					}
-					else
-					{
-						it.setOnClickListener(null)
-						invisible
+				llCharts?.visibility = View.GONE
+				ivCharts?.setOnClickListener(this)
+			}
+			else
+			{
+				llCharts?.visibility = View.VISIBLE
+				val tmpConfigs = aConfigs.subList(1, aConfigs.size)
+				for (index in 0 until aDefaultActions.size)
+				{
+					aDefaultActions[index]?.let {
+						it.visibility = if (it.id in tmpConfigs)
+						{
+							it.setOnClickListener(this)
+							it.setColorFilter(accentColor)
+							visible
+						}
+						else
+						{
+							it.setOnClickListener(null)
+							invisible
+						}
 					}
 				}
+				ivActionHide?.setOnClickListener(this)
 			}
-			ivActionHide?.setOnClickListener(this)
 		}
 	}
 
@@ -231,6 +243,10 @@ class WebViewHolder(
 				R.id.ivReport ->
 				{
 					ListPopup.showListPopup(it, queryBase?.queryId ?: "", chatView)
+				}
+				R.id.ivCharts ->
+				{
+					ListPopup.showChartPopup(it)
 				}
 				R.id.ivPoints ->
 				{

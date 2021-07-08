@@ -14,6 +14,7 @@ import chata.can.chata_ai.dialog.hideColumn.CustomAlertDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
+import chata.can.chata_ai.fragment.dataMessenger.holder.webView.ConfigActions
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -22,6 +23,28 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 
 object ListPopup
 {
+	fun showChartPopup(
+		view: View
+	)
+	{
+		val theme = if (SinglentonDrawer.themeColor == "dark")
+			R.style.popupMenuStyle2
+		else R.style.popupMenuStyle1
+		val wrapper = ContextThemeWrapper(view.context, theme)
+		PopupMenu(wrapper, view).run {
+			menu?.run {
+				val aData = ConfigActions.pBiTriConfig
+				for (index in aData.indices)
+				{
+					val pData = aData[index]
+					add(index, pData.first, index, "").setIcon(pData.second)
+				}
+			}
+			insertMenuItemIcons(view.context, this)
+			show()
+		}
+	}
+
 	fun showPointsPopup(
 		view: View,
 		query: String,

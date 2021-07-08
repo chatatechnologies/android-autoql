@@ -75,4 +75,17 @@ object ConfigActions
 		R.id.ivStackedBar,
 		R.id.ivStackedArea
 	)
+
+	val pBiTriConfig = arrayListOf(
+		Pair(R.id.ivPivot, R.drawable.ic_table_data),
+		Pair(R.id.ivTable, R.drawable.ic_table),
+		Pair(R.id.ivBar, R.drawable.ic_bar),
+		Pair(R.id.ivColumn, R.drawable.ic_column),
+		Pair(R.id.ivLine, R.drawable.ic_line),
+		Pair(R.id.ivHeat, R.drawable.ic_heat),
+		Pair(R.id.ivBubble, R.drawable.ic_bubble),
+		Pair(R.id.ivStackedColumn, R.drawable.ic_stacked_column),
+		Pair(R.id.ivStackedBar, R.drawable.ic_stacked_bar),
+		Pair(R.id.ivStackedArea, R.drawable.ic_stacked_area)
+	)
 }
