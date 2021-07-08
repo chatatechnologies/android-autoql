@@ -174,6 +174,8 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 			btnDashboard.text = aData.firstOrNull() ?: ""
 
+			configDashboard()
+
 			spDashboard.setSelection(0, false)
 			spDashboard.setOnItemSelected { parent, _, position, _ ->
 				adapter.positionSelect = position
@@ -189,17 +191,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 						mModel.addAll(model.getData())
 						gridAdapter.notifyDataSetChanged()
 
-						if (model.countData() == 0)
-						{
-							tvEmptyDashboard.setText(R.string.empty_dashboard)
-							tvEmptyDashboard.visibility = View.VISIBLE
-							rvDashboard.visibility = View.GONE
-						}
-						else
-						{
-							tvEmptyDashboard.visibility = View.GONE
-							rvDashboard.visibility = View.VISIBLE
-						}
+						configDashboard()
 					}
 				}
 			}
@@ -228,6 +220,21 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 //				presenter.resetDashboards(!isAutomatic)
 //			}
 //		}
+	}
+
+	private fun configDashboard()
+	{
+		if (mModel.countData() == 0)
+		{
+			tvEmptyDashboard.setText(R.string.empty_dashboard)
+			tvEmptyDashboard.visibility = View.VISIBLE
+			rvDashboard.visibility = View.GONE
+		}
+		else
+		{
+			tvEmptyDashboard.visibility = View.GONE
+			rvDashboard.visibility = View.VISIBLE
+		}
 	}
 
 	private fun getDashboardQueries()
