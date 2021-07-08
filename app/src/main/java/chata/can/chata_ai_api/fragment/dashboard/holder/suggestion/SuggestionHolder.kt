@@ -14,7 +14,6 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
-import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
 
 class SuggestionHolder(
@@ -73,13 +72,13 @@ class SuggestionHolder(
 							paddingAll(8f, 4f, 8f, 4f)
 							//region view hidden
 							spSuggestion = Spinner(context).apply {
-								//visibility = View.GONE
 								layoutParams = RelativeLayout.LayoutParams(-1,-2)
 								val aItem = rows.map { it[0] }
-								adapter = DashboardSpinnerAdapter(context, aItem)
+								adapter = SuggestionAdapter(context, aItem)
 								setSelection(0, false)
 								setOnItemSelected { _, _, position, _ ->
 									val text = aItem[position]
+									(adapter as? SuggestionAdapter)?.updatePositionSelected(position)
 									tvSuggestion.text = text
 								}
 							}
@@ -89,6 +88,7 @@ class SuggestionHolder(
 							addView(
 								ImageView(context).apply {
 									layoutParams = RelativeLayout.LayoutParams(dpToPx(24f), dpToPx(24f)).apply {
+										addRule(RelativeLayout.CENTER_VERTICAL)
 										addRule(RelativeLayout.ALIGN_PARENT_END)
 									}
 									gravity = Gravity.CENTER
