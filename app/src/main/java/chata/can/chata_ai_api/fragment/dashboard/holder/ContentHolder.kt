@@ -63,7 +63,11 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 									simpleText.formatWithColumn(column)
 								} ?: ""
 							}
-							aRows.size == 0 -> reportLink(message)
+							aRows.size == 0 ->
+							{
+								tvContent.setOnClickListener(null)
+								reportLink(message)
+							}
 							message.isNotEmpty() -> message
 							else -> message
 						}
@@ -71,7 +75,10 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					}
 					else
 						if (contentHTML.isEmpty())
+						{
+							tvContent.setOnClickListener(null)
 							tvContent.text = reportLink(message)
+						}
 						else
 						{
 							aColumn.firstOrNull()?.let { _ ->
