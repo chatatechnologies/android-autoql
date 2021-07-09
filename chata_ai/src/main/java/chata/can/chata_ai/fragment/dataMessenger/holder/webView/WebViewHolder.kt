@@ -71,6 +71,7 @@ class WebViewHolder(
 	private val invisible = View.GONE
 	private var isFilter = false
 
+	var idViewSelected = 0
 	private var isReduceOptions = false
 	private var canChangeHeight = false
 
@@ -194,6 +195,7 @@ class WebViewHolder(
 					{
 						if (view.id == firstConfig)
 						{
+							idViewSelected = firstConfig
 							ivActionHide = view
 							break
 						}
@@ -254,8 +256,7 @@ class WebViewHolder(
 				R.id.ivCharts ->
 				{
 					ivCharts?.rotation = 180f
-					lastId
-					ListPopup.showChartPopup(it, this)
+					ListPopup.showChartPopup(it, idViewSelected, this)
 				}
 				R.id.ivPoints ->
 				{
@@ -344,6 +345,7 @@ class WebViewHolder(
 	{
 		queryBase?.let { queryBase ->
 			iv?.let {
+				idViewSelected = it.id
 				if (isFilter && (lastId == "#idTableBasic" || lastId == "#idTableDataPivot"))
 				{
 					showFilter()

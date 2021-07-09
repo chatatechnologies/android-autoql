@@ -25,6 +25,7 @@ object ListPopup
 {
 	fun showChartPopup(
 		view: View,
+		viewExclude: Int,
 		webViewView: WebViewContract ?= null
 	)
 	{
@@ -38,7 +39,8 @@ object ListPopup
 				for (index in aData.indices)
 				{
 					aData[index].run {
-						add(index, first, index, third).setIcon(second)
+						if (viewExclude != first)
+							add(index, first, index, third).setIcon(second)
 					}
 				}
 			}
