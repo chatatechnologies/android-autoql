@@ -71,8 +71,7 @@ class WebViewHolder(
 	private val invisible = View.GONE
 	private var isFilter = false
 
-	var idViewSelected = 0
-	private var isReduceOptions = false
+	private var idViewSelected = 0
 	private var canChangeHeight = false
 
 	private var accentColor = 0

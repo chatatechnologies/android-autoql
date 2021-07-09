@@ -145,7 +145,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 					else
 					{
 						getDashboardQueries()
-						getString(R.string.un_execute_dashboard)
+						unExecute
 					}
 				}
 				R.id.btnDashboard ->
@@ -182,6 +182,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				parent?.getItemAtPosition(position)?.let { content ->
 					if (content is String)
 					{
+						btnExecute.text = getString(R.string.execute_dashboard)
 						btnDashboard.text = content
 						SinglentonDashboard.clearDashboard()
 						SinglentonDashboard.setDashboardIndex(position)
