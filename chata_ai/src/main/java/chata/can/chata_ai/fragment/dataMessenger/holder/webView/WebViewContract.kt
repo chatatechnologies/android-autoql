@@ -5,5 +5,6 @@ import android.widget.ImageView
 interface WebViewContract
 {
 	fun callAction(iv: ImageView?)
+	fun rotateCharts()
 	fun showFilter()
 }

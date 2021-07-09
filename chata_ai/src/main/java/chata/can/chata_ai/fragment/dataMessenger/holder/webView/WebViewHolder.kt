@@ -92,6 +92,7 @@ class WebViewHolder(
 			accentColor = SinglentonDrawer.currentAccent
 			ivCharts?.setColorFilter(accentColor)
 			ivPoints?.setColorFilter(accentColor)
+			rotateCharts()
 		}
 
 		rlLoad?.run {
@@ -110,6 +111,10 @@ class WebViewHolder(
 			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
 			parent.startAnimation(animation)
 		}
+	}
+
+	override fun rotateCharts() {
+		ivCharts?.rotation = 0f
 	}
 
 	override fun showFilter()
@@ -248,6 +253,8 @@ class WebViewHolder(
 				}
 				R.id.ivCharts ->
 				{
+					ivCharts?.rotation = 180f
+					lastId
 					ListPopup.showChartPopup(it, this)
 				}
 				R.id.ivPoints ->

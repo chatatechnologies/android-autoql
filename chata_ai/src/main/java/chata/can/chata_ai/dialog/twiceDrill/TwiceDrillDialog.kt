@@ -127,7 +127,6 @@ class TwiceDrillDialog(
 				R.id.ivCancel -> dismiss()
 				R.id.ivHide ->
 				{
-
 					val tIds = if (rlDrillDown1.visibility == View.VISIBLE)
 					{
 						rlDrillDown1.visibility = View.GONE

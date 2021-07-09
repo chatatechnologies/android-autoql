@@ -51,6 +51,9 @@ object ListPopup
 				true
 			}
 			show()
+			setOnDismissListener {
+				webViewView?.rotateCharts()
+			}
 		}
 	}
 
