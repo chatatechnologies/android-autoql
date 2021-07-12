@@ -12,14 +12,17 @@ object Table
 		aRows: ArrayList<ArrayList<String>>,
 	  aColumns: ArrayList<ColumnQuery>,
 		aIndex: ArrayList<Int>,
-		isDataCenter: Boolean) : String
+		isDataCenter: Boolean,
+		hasDate: Boolean) : String
 	{
 		val formatter = DecimalFormat("###,###,##0.00")
 
 		val aDataTable = ArrayList<String>()
 		try
 		{
-			for (aRow in aRows)
+			val tmpRows = ArrayList<ArrayList<String>>()
+			if (hasDate) tmpRows.addAll(aRows.reversed()) else tmpRows.addAll(aRows)
+			for (aRow in tmpRows)
 			{
 				var sRow = ""
 				for (indexValue in aIndex)

@@ -555,8 +555,10 @@ object HtmlBuilder
 				when (dataForWebView.dataChartBi)
 				{
 					"[]" -> {
+						val hasDate = aColumn[posColumnX].type == TypeDataQuery.DATE ||
+							aColumn[posColumnX].type == TypeDataQuery.DATE_STRING
 						dataForWebView.dataChartBi = Table.generateDataTable(
-							aRows, aColumn, queryBase.aIndex,true)
+							aRows, aColumn, queryBase.aIndex,true, hasDate)
 					}
 					else -> {}
 				}
