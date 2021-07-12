@@ -142,9 +142,9 @@ class SuggestionHolder(
 				1,
 				ThemeColor.currentColor.pDrawerBorderColor)
 
-			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			layoutParams = LinearLayout.LayoutParams(-2, -2)
 			margin(5f, 5f, 5f)
-			gravity = Gravity.CENTER_HORIZONTAL
+			gravity = Gravity.LEFT
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 			setPadding(15,15,15,15)
 			text = content

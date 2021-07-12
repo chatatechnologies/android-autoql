@@ -12,6 +12,7 @@ object Table
 		aRows: ArrayList<ArrayList<String>>,
 	  aColumns: ArrayList<ColumnQuery>,
 		aIndex: ArrayList<Int>,
+		aRemove: ArrayList<Int>,
 		isDataCenter: Boolean,
 		hasDate: Boolean) : String
 	{
@@ -22,8 +23,10 @@ object Table
 		{
 			val tmpRows = ArrayList<ArrayList<String>>()
 			if (hasDate) tmpRows.addAll(aRows.reversed()) else tmpRows.addAll(aRows)
-			for (aRow in tmpRows)
+			for (index in tmpRows.indices)
 			{
+				if (index in aRemove) continue
+				val aRow = tmpRows[index]
 				var sRow = ""
 				for (indexValue in aIndex)
 				{

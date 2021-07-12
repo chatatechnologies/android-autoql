@@ -557,8 +557,9 @@ object HtmlBuilder
 					"[]" -> {
 						val hasDate = aColumn[posColumnX].type == TypeDataQuery.DATE ||
 							aColumn[posColumnX].type == TypeDataQuery.DATE_STRING
+						val aRemove = indexCategoryEmpty(aRows, aColumn[posColumnX], posColumnX)
 						dataForWebView.dataChartBi = Table.generateDataTable(
-							aRows, aColumn, queryBase.aIndex,true, hasDate)
+							aRows, aColumn, queryBase.aIndex, aRemove, true, hasDate)
 					}
 					else -> {}
 				}

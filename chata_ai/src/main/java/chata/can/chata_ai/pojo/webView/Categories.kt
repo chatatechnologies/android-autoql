@@ -1,10 +1,27 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object Categories
 {
+	fun indexCategoryEmpty(
+		aRows: ArrayList<ArrayList<String>>,
+		column: ColumnQuery,
+		position: Int): ArrayList<Int>
+	{
+		val aIndices = ArrayList<Int>()
+		for (index in aRows.indices)
+		{
+			val aRow = aRows[index]
+			val cellUsed = aRow[position]
+			if (cellUsed.isEmpty())
+				aIndices.add(index)
+		}
+		return aIndices
+	}
+
 	fun buildCategoryByPosition(category: Category): ArrayList<String>
 	{
 		val aStacked = ArrayList<String>()
@@ -15,6 +32,7 @@ object Categories
 			{
 				val aRow = aRows[index]
 				val cellUsed = aRow[position]
+				if (cellUsed.isEmpty()) continue
 				var parsed = if (isFormatted)
 				{
 					cellUsed.formatWithColumn(
