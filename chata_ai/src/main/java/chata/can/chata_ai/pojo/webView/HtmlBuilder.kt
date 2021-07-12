@@ -6,7 +6,6 @@ import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.hasNotValueInColumn
-import kotlin.math.asin
 import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder

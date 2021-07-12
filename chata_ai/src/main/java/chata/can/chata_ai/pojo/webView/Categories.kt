@@ -42,7 +42,7 @@ object Categories
 						aStacked.add(parsed)
 				}
 			}
-			if (isReverse)
+			if (column.type == TypeDataQuery.DATE || column.type == TypeDataQuery.DATE_STRING)
 			{
 				aStacked.reverse()
 			}
