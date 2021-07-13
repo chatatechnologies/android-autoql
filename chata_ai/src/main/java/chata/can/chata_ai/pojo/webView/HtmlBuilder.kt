@@ -193,16 +193,22 @@ object HtmlBuilder
 			var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
 			{
+				val aBaseTri = (0..2).toMutableList()
+				aBaseTri.remove(posColumnX)
+				aBaseTri.remove(posColumnY)
+				val iForTri = aBaseTri[0]
+
 				val column = aColumn[posColumnY]
-				if (column.type == TypeDataQuery.DATE || column.type == TypeDataQuery.DATE_STRING)
+				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
 				{
 					aCatYNotFormat = buildCategoryByPosition(
 						Category(
 							aRows, column, posColumnY, false, hasQuotes = true, allowRepeat = !isTriConfig))
 				}
+				val columnY = aColumn[iForTri]
 				buildCategoryByPosition(
 					Category(
-						aRows, column, posColumnY, true, hasQuotes = true, allowRepeat = !isTriConfig))
+						aRows, columnY, iForTri, true, hasQuotes = true, allowRepeat = !isTriConfig))
 			}
 			else
 			{
@@ -273,16 +279,16 @@ object HtmlBuilder
 				val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
 				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
-				//val mXAxis = queryBase.aXAxis.map { "\"$it\"" }
-				val aCatYTmp = aCatYNotFormat ?: aCatY
-				val mTri = if (posColumnX == 0) Pair(aCatYTmp, aCatX) else Pair(aCatYTmp, aCatY)
+				//val aCatYTmp = aCatYNotFormat ?: aCatY
+				//focus her
+				val tmpCat = if (posColumnX == 0) aCatX else aCatY
 
 				//get aDataTable and aMapPure
 				val pair = TableTriBuilder.generateDataTableTri(
 					aRows,
-					aColumn[posColumnY],
-					mTri.first,
-					mTri.second,
+					aColumn[posColumnY],//countable column
+					aCatY,
+					tmpCat,
 					aNumber.isNotEmpty())
 				val aDataTable = pair.first
 				val aMapPure = pair.second
