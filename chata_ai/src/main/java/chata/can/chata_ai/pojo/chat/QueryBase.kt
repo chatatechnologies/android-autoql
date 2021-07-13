@@ -126,7 +126,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					val jaLevel2 = jaRows.optJSONArray(index)
 					for (index2 in 0 until jaLevel2.length())
 					{
-						val cell = if (jaLevel2.isNull(index2)) ""
+						val cell = if (jaLevel2.isNull(index2)) "null"
 						else
 						{
 							val cellObj = jaLevel2.opt(index2)
