@@ -9,4 +9,4 @@ class Category(
 	val isFormatted: Boolean,
 	val hasQuotes: Boolean,
 	val allowRepeat: Boolean,
-	val isBi: Boolean = false)
+	val aIndicesIgnore: ArrayList<Int> = arrayListOf())

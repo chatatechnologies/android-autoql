@@ -24,11 +24,11 @@ object Categories
 	fun buildCategoryByPosition(category: Category): ArrayList<String>
 	{
 		val aStacked = ArrayList<String>()
-
 		with(category)
 		{
 			for (index in aRows.indices)
 			{
+				if (index in aIndicesIgnore) continue
 				val aRow = aRows[index]
 				val cellUsed = aRow[position]
 				if (cellUsed.isEmpty()) continue
@@ -64,7 +64,6 @@ object Categories
 				aStacked.reverse()
 			}
 		}
-
 		return aStacked
 	}
 

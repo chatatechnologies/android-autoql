@@ -181,14 +181,15 @@ object HtmlBuilder
 
 		//TODO CHECK SUPPORT CASES
 		Categories.run {
+			val aIndicesIgnore = indexCategoryEmpty(aRows, posColumnX)
 			val aCatX = buildCategoryByPosition(
-				Category(aRows, aColumn[posColumnX], posColumnX,
-					true, hasQuotes = true, allowRepeat = !isTriConfig))
+				Category(aRows, aColumn[posColumnX], posColumnX, true,
+					hasQuotes = true, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 			//region xAxis
 			val posTriConfig = if (isTriConfig) posColumnY else posColumnX
 			queryBase.aXAxis = buildCategoryByPosition(
-				Category(aRows, aColumn[posTriConfig], posTriConfig,
-					false, hasQuotes = false, allowRepeat = !isTriConfig))
+				Category(aRows, aColumn[posTriConfig], posTriConfig, false,
+					hasQuotes = false, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 			//endregion
 			var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
@@ -203,36 +204,25 @@ object HtmlBuilder
 				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
 				{
 					aCatYNotFormat = buildCategoryByPosition(
-						Category(
-							aRows, column, posColumnY, false, hasQuotes = true, allowRepeat = !isTriConfig))
+						Category(aRows, column, posColumnY, false, hasQuotes = true,
+							allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 				}
 				val columnY = aColumn[iForTri]
 				buildCategoryByPosition(
-					Category(
-						aRows, columnY, iForTri, true, hasQuotes = true, allowRepeat = !isTriConfig))
+					Category(aRows, columnY, iForTri, true, hasQuotes = true,
+						allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 			}
 			else
 			{
 				ArrayList()
 			}
 
-			//region build data for D3
-//			val sb = StringBuilder()
-//			for (index in 0 until aCatX.count())
-//			{
-//				val name = aCatX[index]
-//				val value = aCatY[index]
-//				sb.append("{name: $name, value: $value},\n")
-//			}
-//			dataD3.data = "[${sb.removeSuffix(",\n")}]"
-			//endregion
-
 			val aCatYS = if (aColumn.size > posColumnY)
 			{
 				//calculate max and min for bi dimensional
 				val tmp = buildCategoryByPosition(
-					Category(aRows, aColumn[posColumnY], posColumnY,
-						true, hasQuotes = true, allowRepeat = !isTriConfig))
+					Category(aRows, aColumn[posColumnY], posColumnY, true,
+						hasQuotes = true, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 				val aInt = tmp.toListInt()
 				if (dataForWebView.max == -1 && dataForWebView.min == -1)
 				{
@@ -247,12 +237,12 @@ object HtmlBuilder
 			else ArrayList()
 
 			queryBase.aXDrillDown = buildCategoryByPosition(
-				Category(aRows, aColumn[posColumnX], posColumnX,
-					false, hasQuotes = false, allowRepeat = true))
+				Category(aRows, aColumn[posColumnX], posColumnX, false,
+					hasQuotes = false, allowRepeat = true, aIndicesIgnore = aIndicesIgnore))
 
 			dataForWebView.drillX = buildCategoryByPosition(
-				Category(aRows, aColumn[posColumnX], posColumnX,
-					false, hasQuotes = true, allowRepeat = true)).toString()
+				Category(aRows, aColumn[posColumnX], posColumnX, false,
+					hasQuotes = true, allowRepeat = true, aIndicesIgnore = aIndicesIgnore)).toString()
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
 				val column = aColumn[posColumnY]
 				buildCategoryByPosition(
@@ -262,12 +252,12 @@ object HtmlBuilder
 						posColumnY,
 						column.type != TypeDataQuery.DATE && column.type != TypeDataQuery.DATE_STRING,
 						hasQuotes = true,
-						allowRepeat = !isTriConfig)).toString()
+						allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore)).toString()
 			} else arrayListOf<String>().toString()
 
 			dataForWebView.drillTableY = if (aColumn.size > posColumnY) {
-				buildCategoryByPosition(Category(aRows, aColumn[posColumnY],
-					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
+				buildCategoryByPosition(Category(aRows, aColumn[posColumnY], posColumnY, true,
+					hasQuotes = true, allowRepeat = isTriConfig, aIndicesIgnore = aIndicesIgnore)).toString()
 			} else arrayListOf<String>().toString()
 
 			if (dataForWebView.catX == "[]") dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
@@ -558,9 +548,8 @@ object HtmlBuilder
 					"[]" -> {
 						val hasDate = aColumn[posColumnX].type == TypeDataQuery.DATE ||
 							aColumn[posColumnX].type == TypeDataQuery.DATE_STRING
-						val aRemove = indexCategoryEmpty(aRows, posColumnX)
 						dataForWebView.dataChartBi = Table.generateDataTable(
-							aRows, aColumn, queryBase.aIndex, aRemove, true, hasDate)
+							aRows, aColumn, queryBase.aIndex, aIndicesIgnore, true, hasDate)
 					}
 					else -> {}
 				}
