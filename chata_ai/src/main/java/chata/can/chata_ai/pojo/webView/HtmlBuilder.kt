@@ -115,11 +115,6 @@ object HtmlBuilder
 				queryBase.addIndices(posColumnX, posColumnY)
 				queryBase.configActions = 4
 
-//				posColumnX = aUncountable.nextSeries()
-//				if (aNumber.isNotEmpty())
-//					posColumnY = aNumber[0]
-//				posColumnX = hasDateIndex(queryBase, posColumnX)
-//				queryBase.addIndices(posColumnX, posColumnY)
 				dataForWebView.isReverseX = true
 				dataForWebView.dataChartBi = Series.getDataSeries(aRows, aColumn, posColumnX, aNumber)
 				val pMM = SearchColumn.getMinMaxColumns(aRows, aNumber)
@@ -127,11 +122,6 @@ object HtmlBuilder
 				dataD3.max = pMM.first
 				dataForWebView.min = pMM.second
 				dataD3.min = pMM.second
-//				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
-//				if (hasDecimals)
-//					queryBase.configActions = 0
-//				else
-//					queryBase.configActions = 4
 			}
 			SupportCase.CASE_6 ->
 			{
@@ -166,7 +156,6 @@ object HtmlBuilder
 					}
 				}
 
-				//posColumnX = hasDateIndex(queryBase, posColumnX)
 				queryBase.addIndices(posColumnX, posColumnY)
 				queryBase.configActions = 4
 			}
@@ -191,7 +180,7 @@ object HtmlBuilder
 				Category(aRows, aColumn[posTriConfig], posTriConfig, false,
 					hasQuotes = false, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 			//endregion
-			var aCatYNotFormat: ArrayList<String> ?= null
+			//var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
 			{
 				val maxIndex = if (isTriConfig) 2 else 1
@@ -200,13 +189,13 @@ object HtmlBuilder
 				aBaseTri.remove(posColumnY)
 				val iForTri = if (aBaseTri.isEmpty()) posColumnY else aBaseTri[0]
 
-				val column = aColumn[posColumnY]
-				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
-				{
-					aCatYNotFormat = buildCategoryByPosition(
-						Category(aRows, column, posColumnY, false, hasQuotes = true,
-							allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
-				}
+//				val column = aColumn[posColumnY]
+//				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
+//				{
+//					aCatYNotFormat = buildCategoryByPosition(
+//						Category(aRows, column, posColumnY, false, hasQuotes = true,
+//							allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
+//				}
 				val columnY = aColumn[iForTri]
 				buildCategoryByPosition(
 					Category(aRows, columnY, iForTri, true, hasQuotes = true,

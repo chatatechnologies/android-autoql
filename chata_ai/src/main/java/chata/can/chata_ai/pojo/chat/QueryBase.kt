@@ -13,7 +13,6 @@ import chata.can.chata_ai.pojo.query.CountColumn
 import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.referenceIdKey
-import chata.can.chata_ai.pojo.webView.D3OnHtml
 import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
@@ -217,13 +216,13 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					2, 3 ->
 					{
 						dataForWebView.xAxis = aColumn.getOrNull(
-							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
+							aIndex[0])?.displayName ?: ""
 						dataD3.xAxis = aColumn.getOrNull(
-							/*if (aColumn.size == 2) 0 else */0)?.displayName ?: ""
+							aIndex[0])?.displayName ?: ""
 						dataForWebView.yAxis = aColumn.getOrNull(
-							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
+							aIndex[1])?.displayName ?: ""
 						dataD3.yAxis = aColumn.getOrNull(
-							/*if (aColumn.size == 2) 1 else */1)?.displayName ?: ""
+							aIndex[1])?.displayName ?: ""
 					}
 					else ->
 					{
