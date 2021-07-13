@@ -70,8 +70,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private val aTmp = arrayListOf<String>()
 	private lateinit var presenter: ChatServicePresenter
 	private var dataMessengerTile = "Data Messenger"
-	var isReleaseAutocomplete = true
-	var statusLogin = false
+	private var isReleaseAutocomplete = true
+	private var statusLogin = false
 	private var canonical = ""
 	private var valueLabel = ""
 
@@ -93,7 +93,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 			//query base for testing
-			val queryDemo = "Number of jobs by province"
+			val queryDemo = "Max 1000 province by total utilization"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot

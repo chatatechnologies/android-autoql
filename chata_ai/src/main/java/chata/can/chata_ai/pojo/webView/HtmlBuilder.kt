@@ -10,26 +10,19 @@ import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
 {
-	private fun hasDateIndex(queryBase: QueryBase, posColumnX: Int): Int
+	private val aCount = arrayListOf(TypeDataQuery.QUANTITY, TypeDataQuery.DATE, TypeDataQuery.DATE_STRING)
+	/*search countable type one by one*/
+	private fun hasCountableIndex(queryBase: QueryBase): Int
 	{
-		var newIndex = posColumnX
-		if (!queryBase.aColumn[posColumnX].type.isDate())
+		for (type in aCount)
 		{
-			val iDate = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE)
-			if (iDate != -1)
+			val tmp = SearchColumn.getTypeColumn(queryBase.aColumn, type)
+			if (tmp != -1)
 			{
-				newIndex = iDate
-			}
-			else
-			{
-				val iDateString = SearchColumn.getTypeColumn(queryBase.aColumn, TypeDataQuery.DATE_STRING)
-				if (iDateString != -1)
-				{
-					newIndex = iDateString
-				}
+				return tmp
 			}
 		}
-		return newIndex
+		return -1
 	}
 
 	fun build(queryBase: QueryBase): Pair<DataForWebView, DataD3>
@@ -80,7 +73,8 @@ object HtmlBuilder
 				posColumnX = aGroupable[0]//[1]
 //				posColumnY = aGroupable[0]
 //				posColumnX = hasDateIndex(queryBase, posColumnX)
-				posColumnY = hasDateIndex(queryBase, posColumnX)
+				val tmp = hasCountableIndex(queryBase)
+				if (tmp != -1) posColumnY = tmp
 				queryBase.addIndices(posColumnX, posColumnY)
 				isTriConfig = true
 				queryBase.configActions = 5
