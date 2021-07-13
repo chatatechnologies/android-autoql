@@ -193,10 +193,11 @@ object HtmlBuilder
 			var aCatYNotFormat: ArrayList<String> ?= null
 			val aCatY = if (aColumn.size > posColumnY)
 			{
-				val aBaseTri = (0..2).toMutableList()
+				val maxIndex = if (isTriConfig) 2 else 1
+				val aBaseTri = (0 .. maxIndex).toMutableList()
 				aBaseTri.remove(posColumnX)
 				aBaseTri.remove(posColumnY)
-				val iForTri = aBaseTri[0]
+				val iForTri = if (aBaseTri.isEmpty()) posColumnY else aBaseTri[0]
 
 				val column = aColumn[posColumnY]
 				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
@@ -269,8 +270,8 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			if (dataForWebView.catX == "[]") dataForWebView.catX = makeCategories(aCatX)//aCatX.toString()
-			dataForWebView.catY = makeCategories(aCatY)
+			if (dataForWebView.catX == "[]") dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
+			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
 
 			if (isTriConfig)
 			{

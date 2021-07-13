@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
+fun String.isNull() = this == "null"
+
 //region new version
 fun String.toDateV2(format: String = "yyyy-MM"): String
 {

@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.isNull
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object Categories
@@ -14,7 +15,7 @@ object Categories
 		{
 			val aRow = aRows[index]
 			val cellUsed = aRow[position]
-			if (cellUsed.isEmpty())
+			if (cellUsed.isNull() || cellUsed.isEmpty())
 				aIndices.add(index)
 		}
 		return aIndices
@@ -67,10 +68,24 @@ object Categories
 		return aStacked
 	}
 
-	fun makeCategories(aCat: ArrayList<String>): String
+	fun makeCategories(aCat: ArrayList<String>, isBi: Boolean): String
 	{
-		return aCat.joinToString(", ", "[", "]") {
-			if (it == "\"null\"") "\"Untiled Category\"" else it
+		val sb = StringBuilder("[")
+		for (category in aCat)
+		{
+			val tmpCat = when (category)
+			{
+				"\"null\"" -> if (isBi) "" else "\"Untiled Category\""
+				else -> category
+			}
+			if (tmpCat.isNotEmpty())
+				sb += "$tmpCat, "
 		}
+		return "${sb.removeSuffix(", ")}]"
+	}
+
+	operator fun StringBuilder.plusAssign(newContent: String)
+	{
+		append(newContent)
 	}
 }
