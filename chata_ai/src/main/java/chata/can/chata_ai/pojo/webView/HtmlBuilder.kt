@@ -269,8 +269,8 @@ object HtmlBuilder
 					posColumnY, true, hasQuotes = true, allowRepeat = isTriConfig)).toString()
 			} else arrayListOf<String>().toString()
 
-			if (dataForWebView.catX == "[]") dataForWebView.catX = aCatX.toString()
-			dataForWebView.catY = aCatY.toString()
+			if (dataForWebView.catX == "[]") dataForWebView.catX = makeCategories(aCatX)//aCatX.toString()
+			dataForWebView.catY = makeCategories(aCatY)
 
 			if (isTriConfig)
 			{
@@ -557,7 +557,7 @@ object HtmlBuilder
 					"[]" -> {
 						val hasDate = aColumn[posColumnX].type == TypeDataQuery.DATE ||
 							aColumn[posColumnX].type == TypeDataQuery.DATE_STRING
-						val aRemove = indexCategoryEmpty(aRows, aColumn[posColumnX], posColumnX)
+						val aRemove = indexCategoryEmpty(aRows, posColumnX)
 						dataForWebView.dataChartBi = Table.generateDataTable(
 							aRows, aColumn, queryBase.aIndex, aRemove, true, hasDate)
 					}

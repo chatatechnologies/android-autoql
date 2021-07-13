@@ -1,14 +1,12 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 
 object Categories
 {
 	fun indexCategoryEmpty(
 		aRows: ArrayList<ArrayList<String>>,
-		column: ColumnQuery,
 		position: Int): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
@@ -67,5 +65,12 @@ object Categories
 		}
 
 		return aStacked
+	}
+
+	fun makeCategories(aCat: ArrayList<String>): String
+	{
+		return aCat.joinToString(", ", "[", "]") {
+			if (it == "\"null\"") "\"Untiled Category\"" else it
+		}
 	}
 }
