@@ -75,8 +75,14 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		finishAffinity()
 	}
 
+	private val aDrawable = arrayListOf(R.drawable.ic_tab_data, R.drawable.ic_tab_dashboard)
 	private fun addTabLayoutEvent()
 	{
+		for (index in 0 until adapter.numPages)
+		{
+			tabLayout.getTabAt(index)?.setIcon(aDrawable[index])
+		}
+
 		(tabLayout.getChildAt(0) as? LinearLayout)?.let { tabStrip ->
 			for (index in 0 until tabStrip.childCount)
 			{
