@@ -8,7 +8,6 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.nullValue
 
 class ColumnAdapter(
 	private val model: BaseModelList<ColumnQuery>,

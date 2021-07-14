@@ -26,7 +26,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 
 open class BaseHolder(
-	private val itemView: View,
+	itemView: View,
 	private val view: ChatAdapterContract? = null,
 	private val chatView: ChatContract.View? = null
 ): Holder(itemView), View.OnClickListener

@@ -64,8 +64,8 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 
 	private var rlSelected: View ?= null
 	private var ivSelected: ImageView ?= null
-	var fragmentManager: FragmentManager ?= null
-	var bubbleData: BubbleData?= null
+	private var fragmentManager: FragmentManager ?= null
+	private var bubbleData: BubbleData?= null
 	private var fragment: Fragment = DataMessengerFragment.newInstance()
 
 	var isVisible = false
@@ -371,7 +371,7 @@ class PagerOptions: RelativeLayout, View.OnClickListener, StatusResponse//, View
 		ivClear.visibility = if (bVisible) View.VISIBLE else View.GONE
 	}
 
-	fun showNotify(bVisible: Boolean)
+	private fun showNotify(bVisible: Boolean)
 	{
 		tvNotification.visibility = if (bVisible) View.VISIBLE else View.GONE
 	}

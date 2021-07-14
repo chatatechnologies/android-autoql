@@ -10,7 +10,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 
-abstract class BaseHolder(private val itemView: View): Holder(itemView)
+abstract class BaseHolder(itemView: View): Holder(itemView)
 {
 	private val ll1 = itemView.findViewById<View>(R.id.ll1) ?: null
 	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle) ?: null

@@ -357,7 +357,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	val visible = View.VISIBLE
+	private val visible = View.VISIBLE
 	val gone = View.GONE
 	override fun initListener()
 	{

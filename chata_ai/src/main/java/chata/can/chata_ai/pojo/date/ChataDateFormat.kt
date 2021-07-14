@@ -1,7 +1,6 @@
 package chata.can.chata_ai.pojo.date
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.SinglentonDrawer.aMonthShorts
 import chata.can.chata_ai.pojo.SinglentonDrawer.mMonthShort
 import java.text.SimpleDateFormat
 import java.util.*

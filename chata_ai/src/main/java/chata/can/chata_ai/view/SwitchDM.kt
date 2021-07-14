@@ -12,10 +12,6 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class SwitchDM: RelativeLayout, View.OnClickListener
 {
-	companion object {
-		const val TEXT_ON = 1
-		const val TEXT_OFF = 0
-	}
 	private var _isActive = false
 	private val aText = arrayOf("Q&A On", "Q&A Off")
 	private lateinit var disableListener: () -> Unit

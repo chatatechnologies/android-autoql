@@ -10,7 +10,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 
-class QueryHolder(view: View, private val isLast: Boolean): Holder(view)
+class QueryHolder(view: View): Holder(view)
 {
 	private var rlParent = view.findViewById<View>(R.id.rlParent)
 	private var tvQueryExplore = view.findViewById<TextView>(R.id.tvQueryExplore)

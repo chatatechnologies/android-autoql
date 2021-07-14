@@ -11,13 +11,3 @@ fun ArrayList<String>.toListInt(): ArrayList<Int>
 	}
 	return aList
 }
-
-fun ArrayList<Int>.nextSeries(): Int
-{
-	return when
-	{
-		this.isEmpty() -> -1
-		this.size > 1 -> this[3]
-		else -> this[0]
-	}
-}

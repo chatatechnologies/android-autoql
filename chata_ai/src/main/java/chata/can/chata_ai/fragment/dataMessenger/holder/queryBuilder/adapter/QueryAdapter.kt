@@ -24,7 +24,7 @@ class QueryAdapter(
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent), viewType == 1)
+		return QueryHolder(layoutInflater.inflate(R.layout.row_query, nullParent))
 	}
 
 	fun checkBefore(position: Int)

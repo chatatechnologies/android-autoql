@@ -81,7 +81,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		finishAffinity()
 	}
 
-	fun Drawable.setColorFilter(color: Int)
+	private fun Drawable.setColorFilter(color: Int)
 	{
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
 		{
