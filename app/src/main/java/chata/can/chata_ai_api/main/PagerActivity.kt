@@ -1,7 +1,11 @@
 package chata.can.chata_ai_api.main
 
 import android.content.Intent
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -77,27 +81,31 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		finishAffinity()
 	}
 
+	fun Drawable.setColorFilter(color: Int)
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+		{
+			colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
+		}
+		else
+		{
+			setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+		}
+	}
+
 	private fun addTabLayoutEvent()
 	{
 		tabLayout.run {
 			setSelectedTabIndicatorColor(getParsedColor(R.color.colorButton))
 			setTabTextColors(
-				getParsedColor(R.color.black), getParsedColor(R.color.colorButton)
-			)
+				getParsedColor(R.color.black), getParsedColor(R.color.colorButton))
 		}
 		for (index in 0 until adapter.numPages)
 		{
 			tabLayout.getTabAt(index)?.setIcon(aDrawable[index])
-			if (index == 0)
-			{
-				tabLayout.getTabAt(index)?.icon?.setColorFilter(
-					getParsedColor(R.color.colorButton), PorterDuff.Mode.SRC_IN)
-			}
-			else
-			{
-				tabLayout.getTabAt(index)?.icon?.setColorFilter(
-					getParsedColor(R.color.black), PorterDuff.Mode.SRC_IN)
-			}
+			val color = if (index == 0) R.color.colorButton
+			else R.color.black
+			tabLayout.getTabAt(index)?.icon?.setColorFilter(getParsedColor(color))
 		}
 		tabLayout.setOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
 			override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -127,7 +135,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
-//			adapter.numPages = 3
 			adapter.numPages = 2
 			View.VISIBLE
 		} else {
