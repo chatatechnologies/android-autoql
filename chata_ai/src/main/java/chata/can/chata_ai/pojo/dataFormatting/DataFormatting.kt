@@ -26,26 +26,23 @@ data class DataFormatting(
 		val aData = value.split("-")
 		if (aData.size > 1)
 		{
-			if (ValidateLocale.isValid(Locale(aData[0], aData[1])))
+			with(SinglentonDrawer)
 			{
-				with(SinglentonDrawer)
-				{
-					localLocale = Locale(aData[0], aData[1])
-					aMonths.clear()
-					aMonthShorts.clear()
-					localLocale?.let { locale ->
-						for (i in 1 .. 12)
-						{
-							val month = ValidateLocale.getMonth(i, locale, "MMMM")
-							val monthShort = ValidateLocale.getMonth(i, locale, "MMM")
-							aMonths.add(month)
-							aMonthShorts.add(monthShort)
-						}
+				localLocale = Locale(aData[0], aData[1])
+				aMonths.clear()
+				aMonthShorts.clear()
+				localLocale?.let { locale ->
+					for (i in 1 .. 12)
+					{
+						val month = ValidateLocale.getMonth(i, locale, "MMMM")
+						val monthShort = ValidateLocale.getMonth(i, locale, "MMM")
+						aMonths.add(month)
+						aMonthShorts.add(monthShort)
 					}
-					languageCode = value
 				}
-				field = value
+				languageCode = value
 			}
+			field = value
 		}
 	}
 

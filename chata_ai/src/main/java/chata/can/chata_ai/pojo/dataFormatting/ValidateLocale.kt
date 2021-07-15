@@ -4,15 +4,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object ValidateLocale {
-	fun isValid(locale: Locale): Boolean
-	{
-		return try {
-			locale.isO3Language != null && locale.isO3Country != null
-		} catch (ex: MissingResourceException) {
-			false
-		}
-	}
-
 	fun getMonth(iMonth: Int, locale: Locale, pattern: String = "MMMM"): String
 	{
 		val formatter = SimpleDateFormat(pattern, locale)
