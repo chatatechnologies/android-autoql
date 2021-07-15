@@ -16,6 +16,7 @@ import android.widget.RelativeLayout
 import androidx.viewpager.widget.ViewPager
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.setOnTabSelectedListener
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -107,21 +108,24 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			else R.color.black
 			tabLayout.getTabAt(index)?.icon?.setColorFilter(getParsedColor(color))
 		}
-		tabLayout.setOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-			override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-			override fun onTabSelected(tab: TabLayout.Tab?)
-			{
-				tab?.icon?.setColorFilter(
-					getParsedColor(R.color.colorButton), PorterDuff.Mode.SRC_IN)
-			}
-
-			override fun onTabUnselected(tab: TabLayout.Tab?)
-			{
-				tab?.icon?.setColorFilter(
-					getParsedColor(R.color.black), PorterDuff.Mode.SRC_IN)
-			}
+		tabLayout.setOnTabSelectedListener({ tab ->
+			tab?.icon?.setColorFilter(getParsedColor(R.color.colorButton))
+		}, { tab ->
+			tab?.icon?.setColorFilter(getParsedColor(R.color.black))
 		})
+//		tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+//			override fun onTabReselected(tab: TabLayout.Tab?) {}
+//
+//			override fun onTabSelected(tab: TabLayout.Tab?)
+//			{
+//				tab?.icon?.setColorFilter(getParsedColor(R.color.colorButton))
+//			}
+//
+//			override fun onTabUnselected(tab: TabLayout.Tab?)
+//			{
+//				tab?.icon?.setColorFilter(getParsedColor(R.color.colorButton))
+//			}
+//		})
 		(tabLayout.getChildAt(0) as? LinearLayout)?.let { tabStrip ->
 			for (index in 0 until tabStrip.childCount)
 			{

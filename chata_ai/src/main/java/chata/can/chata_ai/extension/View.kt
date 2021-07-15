@@ -6,9 +6,11 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
+import chata.can.chata_ai.pojo.base.TabSelected
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import com.google.android.material.tabs.TabLayout
 
 fun EditText.setOnTextChanged(listener: (String) -> Unit)
 {
@@ -30,6 +32,23 @@ fun Spinner.setOnItemSelected(listener: (AdapterView<*>?, View?, Int, Long) -> U
 			listener(parent, view, position, id)
 		}
 	}
+}
+
+fun TabLayout.setOnTabSelectedListener(
+	selected: (TabLayout.Tab?) -> Unit,
+	unSelected: (TabLayout.Tab?) -> Unit)
+{
+	addOnTabSelectedListener(object: TabSelected {
+		override fun onTabSelected(tab: TabLayout.Tab?)
+		{
+			selected(tab)
+		}
+
+		override fun onTabUnselected(tab: TabLayout.Tab?)
+		{
+			unSelected(tab)
+		}
+	})
 }
 
 fun View.backgroundGrayWhite(iCornerRadius: Float = 18f)
