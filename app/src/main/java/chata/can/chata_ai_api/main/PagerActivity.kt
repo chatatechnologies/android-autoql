@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.getParsedColor
@@ -24,16 +23,21 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.fragment.dashboard.DashboardFragment
+import chata.can.chata_ai_api.fragment.main.MainFragment
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class PagerActivity: BaseActivity(R.layout.pager_activity)
 {
 	private lateinit var llParent: RelativeLayout
 	private lateinit var viewPager: ViewPager2
-//	private lateinit var tabLayout: TabLayout
+	private lateinit var tabLayout: TabLayout
 	private lateinit var adapter: SlidePagerAdapter
 	private lateinit var floatingView: AutoQL
-	private val aDrawable = arrayListOf(R.drawable.ic_tab_data, R.drawable.ic_tab_dashboard)
+	private val aDrawable = arrayListOf(
+		Triple(R.drawable.ic_tab_data, "Data Messenger", R.color.colorButton),
+		Triple(R.drawable.ic_tab_dashboard, "Dashboard", R.color.black))
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -45,7 +49,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 	{
 		llParent = findViewById(R.id.llParent)
 		viewPager = findViewById(R.id.viewPager)
-//		tabLayout = findViewById(R.id.tabLayout)
+		tabLayout = findViewById(R.id.tabLayout)
 		floatingView = AutoQL(this).apply {
 			id = R.id.floatingView
 			layoutParams = FrameLayout.LayoutParams(
@@ -65,8 +69,37 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			}
 		}
 
-		adapter = SlidePagerAdapter(this, 1)
+		adapter = SlidePagerAdapter(this, 2)//1
 		viewPager.adapter = adapter
+		TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+			val pData = aDrawable[position]
+			tab.setIcon(pData.first)
+			tab.text = pData.second
+			tab.icon?.setColorFilter(getParsedColor(pData.third))
+		}.attach()
+
+		tabLayout.run {
+			setSelectedTabIndicatorColor(getParsedColor(R.color.colorButton))
+			setTabTextColors(
+				getParsedColor(R.color.black), getParsedColor(R.color.colorButton))
+
+			setOnTabSelectedListener({ tab ->
+				tab?.icon?.setColorFilter(getParsedColor(R.color.colorButton))
+			}, { tab ->
+				tab?.icon?.setColorFilter(getParsedColor(R.color.black))
+			})
+			//region remove long click for each item
+			(getChildAt(0) as? LinearLayout)?.let { tabStrip ->
+				for (index in 0 until tabStrip.childCount)
+				{
+					tabStrip.getChildAt(index).setOnLongClickListener {
+						true
+					}
+				}
+			}
+			//endregion
+		}
+
 		RequestBuilder.initVolleyRequest(this)
 
 		floatingView.setEventClick {

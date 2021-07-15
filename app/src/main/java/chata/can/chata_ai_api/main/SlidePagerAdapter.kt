@@ -19,26 +19,4 @@ class SlidePagerAdapter(fa: FragmentActivity, var numPages: Int)
 			else -> DashboardFragment.newInstance()
 		}
 	}
-
-	//override fun getCount() = numPages
-
-//	override fun getItem(position: Int): Fragment
-//	{
-//		return when(position)
-//		{
-//			0 -> MainFragment.newInstance()
-//			else -> DashboardFragment.newInstance()
-////			else -> InputOutputFragment.newInstance()
-//		}
-//	}
-
-//	override fun getPageTitle(position: Int): CharSequence
-//	{
-//		return when(position)
-//		{
-//			0 -> MainFragment.nameFragment
-//			else -> DashboardFragment.nameFragment
-////			else -> InputOutputFragment.nameFragment
-//		}
-//	}
 }
