@@ -7,8 +7,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -23,8 +21,6 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
-import chata.can.chata_ai_api.fragment.dashboard.DashboardFragment
-import chata.can.chata_ai_api.fragment.main.MainFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -61,7 +57,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		"TOKEN",
 		"PROJECT_ID")
 		llParent.addView(floatingView)
-//		tabLayout.setupWithViewPager(viewPager)
 
 		resources?.let {
 			it.displayMetrics?.let { itMetrics ->
@@ -69,7 +64,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			}
 		}
 
-		adapter = SlidePagerAdapter(this, 2)//1
+		adapter = SlidePagerAdapter(this, 1)
 		viewPager.adapter = adapter
 		TabLayoutMediator(tabLayout, viewPager) { tab, position ->
 			val pData = aDrawable[position]
@@ -129,35 +124,6 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		}
 	}
 
-	private fun addTabLayoutEvent()
-	{
-//		tabLayout.run {
-//			setSelectedTabIndicatorColor(getParsedColor(R.color.colorButton))
-//			setTabTextColors(
-//				getParsedColor(R.color.black), getParsedColor(R.color.colorButton))
-//		}
-//		for (index in 0 until adapter.numPages)
-//		{
-//			tabLayout.getTabAt(index)?.setIcon(aDrawable[index])
-//			val color = if (index == 0) R.color.colorButton
-//			else R.color.black
-//			tabLayout.getTabAt(index)?.icon?.setColorFilter(getParsedColor(color))
-//		}
-//		tabLayout.setOnTabSelectedListener({ tab ->
-//			tab?.icon?.setColorFilter(getParsedColor(R.color.colorButton))
-//		}, { tab ->
-//			tab?.icon?.setColorFilter(getParsedColor(R.color.black))
-//		})
-//		(tabLayout.getChildAt(0) as? LinearLayout)?.let { tabStrip ->
-//			for (index in 0 until tabStrip.childCount)
-//			{
-//				tabStrip.getChildAt(index).setOnLongClickListener {
-//					true
-//				}
-//			}
-//		}
-	}
-
 	var isVisibleTabLayout: Boolean = true
 	set(value) {
 		val visible = if (value) {
@@ -168,10 +134,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			View.GONE
 		}
 		adapter.notifyDataSetChanged()
-		//tabLayout.visibility = visible
-		Handler(Looper.getMainLooper()).postDelayed({
-			addTabLayoutEvent()
-		}, 500)
+		tabLayout.visibility = visible
 		field = value
 	}
 }
