@@ -101,47 +101,51 @@ object TableTriBuilder
 		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
 	}
 
-	fun generateDataTableTri(
-		aRows: ArrayList<ArrayList<String>>,
-		columns: ColumnQuery,
-		aCatX: List<String>,
-		aCatY: List<String>,
-		hasNumber: Boolean
-	): Pair< ArrayList<ArrayList<Any>>, LinkedHashMap<String, String> >
+	class DataTableTri(
+		val aRows: ArrayList<ArrayList<String>>,
+		val columns: ColumnQuery,
+		val aCatX: List<String>,
+		val aCatY: List<String>,
+		val hasNumber: Boolean,
+		val isReverse: Boolean)
+
+	fun generateDataTableTri(dataTableTri: DataTableTri): Pair< ArrayList<ArrayList<Any>>, LinkedHashMap<String, String> >
 	{
-		val aDataTable = ArrayList<ArrayList<Any>>()
-		val mData = LinkedHashMap<String, String>()
+		dataTableTri.run {
+			val aDataTable = ArrayList<ArrayList<Any>>()
+			val mData = LinkedHashMap<String, String>()
 
-		for (aCells in aRows)
-		{
-			val valueX = "\"${aCells[1]}\""
-			var valueY = "\"${aCells[0]}\""
-			val value = aCells[2]
-
-			val iX = aCatX.indexOf(valueX)
-			var iY = aCatY.indexOf(valueY)
-
-			if (iY == -1)
+			for (aCells in aRows)
 			{
-				val cellFirst = aCells[1]
-				valueY = if(cellFirst.isEmpty() || cellFirst == "0" )
-					"\" \""
-				else
+				val valueX = "\"${aCells[1]}\""
+				var valueY = "\"${aCells[0]}\""
+				val value = aCells[2]
+
+				val iX = if (isReverse) aCatY.indexOf(valueX) else aCatX.indexOf(valueX)
+				var iY = if (isReverse) aCatX.indexOf(valueY) else aCatY.indexOf(valueY)
+
+				if (iY == -1)
 				{
-					val dateFormatted = cellFirst.formatWithColumn(columns,
-						currencySymbol = "",
-						commaCharacter = "")
-					"\"${dateFormatted.replace(".", ",")}\""
+					val cellFirst = aCells[1]
+					valueY = if(cellFirst.isEmpty() || cellFirst == "0" )
+						"\" \""
+					else
+					{
+						val dateFormatted = cellFirst.formatWithColumn(columns,
+							currencySymbol = "",
+							commaCharacter = "")
+						"\"${dateFormatted.replace(".", ",")}\""
+					}
+
+					iY = aCatY.indexOf(valueY)
 				}
 
-				iY = aCatY.indexOf(valueY)
+				val dNumber = value.toDoubleNotNull()
+				mData["${iY}_$iX"] = if (hasNumber) "$dNumber" else value
+				val aNewRow = arrayListOf<Any>(iY, iX, dNumber)
+				aDataTable.add(aNewRow)
 			}
-
-			val dNumber = value.toDoubleNotNull()
-			mData["${iY}_$iX"] = if (hasNumber) "$dNumber" else value
-			val aNewRow = arrayListOf<Any>(iY, iX, dNumber)
-			aDataTable.add(aNewRow)
+			return Pair(aDataTable, mData)
 		}
-		return Pair(aDataTable, mData)
 	}
 }

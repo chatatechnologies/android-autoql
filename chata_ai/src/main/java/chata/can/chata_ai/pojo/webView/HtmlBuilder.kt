@@ -260,16 +260,17 @@ object HtmlBuilder
 				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
 				//val aCatYTmp = aCatYNotFormat ?: aCatY
-				//focus her
-				val tmpCat = if (posColumnX == 0) aCatX else aCatY
+				val pCat = if (posColumnX == 0) Triple(aCatY, aCatX, true)
+				else Triple(aCatX, aCatX, false)
 
 				//get aDataTable and aMapPure
-				val pair = TableTriBuilder.generateDataTableTri(
-					aRows,
+				val dataTableTri = TableTriBuilder.DataTableTri(aRows,
 					aColumn[posColumnY],//countable column
-					aCatY,
-					tmpCat,
-					aNumber.isNotEmpty())
+					pCat.second,
+					pCat.first,
+					aNumber.isNotEmpty(),
+					pCat.third)
+				val pair = TableTriBuilder.generateDataTableTri(dataTableTri)
 				val aDataTable = pair.first
 				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()
