@@ -121,8 +121,8 @@ object TableTriBuilder
 				var valueY = "\"${aCells[0]}\""
 				val value = aCells[2]
 
-				val iX = if (isReverse) aCatY.indexOf(valueX) else aCatX.indexOf(valueX)
-				var iY = if (isReverse) aCatX.indexOf(valueY) else aCatY.indexOf(valueY)
+				val iX = if (isReverse) aCatX.indexOf(valueX) else aCatY.indexOf(valueX)
+				var iY = if (isReverse) aCatY.indexOf(valueY) else aCatX.indexOf(valueY)
 
 				if (iY == -1)
 				{

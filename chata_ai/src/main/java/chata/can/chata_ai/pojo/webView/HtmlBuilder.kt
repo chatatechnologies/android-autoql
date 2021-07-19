@@ -263,7 +263,7 @@ object HtmlBuilder
 				val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
 				//val aCatYTmp = aCatYNotFormat ?: aCatY
-				val pCat = if (posColumnX == 0) Triple(aCatY, aCatX, true)
+				val pCat = if (posColumnX == 1) Triple(aCatY, aCatX, true)
 				else Triple(aCatX, aCatX, false)
 
 				//get aDataTable and aMapPure
