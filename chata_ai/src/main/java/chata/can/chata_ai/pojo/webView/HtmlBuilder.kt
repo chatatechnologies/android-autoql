@@ -70,8 +70,11 @@ object HtmlBuilder
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
-				posColumnX = aGroupable[0]//[1]
-//				posColumnY = aGroupable[0]
+				if (aGroupable.isNotEmpty())
+				{
+					val pos = if (aGroupable.size == 2) 1 else 0
+					posColumnX = aGroupable[pos]
+				}
 //				posColumnX = hasDateIndex(queryBase, posColumnX)
 				val tmp = hasCountableIndex(queryBase)
 				if (tmp != -1) posColumnY = tmp
