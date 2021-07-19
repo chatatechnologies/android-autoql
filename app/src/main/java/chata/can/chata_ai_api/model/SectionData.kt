@@ -48,6 +48,7 @@ object SectionData
 		"Authentication" to
 			arrayListOf(
 				//DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL),
 				DemoParameter("", TypeParameter.TOGGLE_QA, value = "false"),
 				DemoParameter("* Project ID", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.etProjectId),
 				DemoParameter("Theme Code", TypeParameter.INPUT, labelId = R.id.hThemeColor, idView = R.id.etThemeColor, isVisible = false),

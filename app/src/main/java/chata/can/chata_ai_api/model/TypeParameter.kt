@@ -5,6 +5,7 @@ enum class TypeParameter
 	TOGGLE,
 	TOGGLE_QA,
 	INPUT,
+	INPUT_MATERIAL,
 	BUTTON,
 	SEGMENT,
 	COLOR

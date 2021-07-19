@@ -76,6 +76,10 @@ class MainRenderPresenter(
 
 				val viewChild = when(demoParam.type)
 				{
+					TypeParameter.INPUT_MATERIAL ->
+					{
+						CustomViews.getTextInput(context, demoParam)
+					}
 					TypeParameter.TOGGLE ->
 					{
 						CustomViews.getSwitch(context, demoParam.value, demoParam.idView)

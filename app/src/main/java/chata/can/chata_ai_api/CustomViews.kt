@@ -17,11 +17,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 import java.util.regex.Pattern
 
@@ -40,6 +43,24 @@ object CustomViews
 		gravity = Gravity.CENTER_HORIZONTAL
 		isChecked = value == "true"
 		id = idView
+	}
+
+	/** MATERIAL **/
+	fun getTextInput(context: Context, demoParam: DemoParameter): TextInputLayout {
+		return TextInputLayout(context,
+			null,
+			R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+		).apply {
+			//layoutParams = getLinearLayoutParams(-1, -2)
+			hint = "Project ID"
+			boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+			setBoxCornerRadii(5f, 5f, 5f, 5f)
+			margin(20.5f, 10.5f, 20.5f, 10.5f)
+			//helperText = "* Required"
+			addView(TextInputEditText(this.context).apply {
+				//layoutParams = getLinearLayoutParams(-1, -2)
+			})
+		}
 	}
 
 	fun getEditText(context: Context, demoParam: DemoParameter) =
