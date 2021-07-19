@@ -173,7 +173,7 @@ object HtmlBuilder
 
 		//TODO CHECK SUPPORT CASES
 		Categories.run {
-			val aIndicesIgnore = indexCategoryEmpty(aRows, posColumnX)
+			val aIndicesIgnore = if (!isTriConfig) indexCategoryEmpty(aRows, posColumnX) else ArrayList()
 			val aCatX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX, true,
 					hasQuotes = true, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
