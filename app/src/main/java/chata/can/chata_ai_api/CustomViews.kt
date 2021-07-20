@@ -20,6 +20,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
@@ -166,9 +167,12 @@ object CustomViews
 	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
 		context.run {
 			TextView(context).apply {
+				val drawable = DrawableBuilder.setGradientDrawable(
+					getParsedColor(R.color.colorButton), 18f)
 				background = CustomColor.getBackgroundDrawable(
 					Color.WHITE,
-					ColorDrawable(getParsedColor(R.color.colorButton)))
+					//ColorDrawable(getParsedColor(R.color.colorButton)))
+					drawable)
 
 				layoutParams = getLinearLayoutParams(-1, 90)
 				margin(20.5f, 10.5f, 20.5f, 10.5f)

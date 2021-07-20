@@ -13,21 +13,20 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 	override fun onCreateView()
 	{
 		findViewById<LinearLayout>(R.id.llMain)?.run {
-			addView(
-				TextInputLayout(context
-				).apply {
-					//layoutParams = getLinearLayoutParams(-1, -2)
-					hint = "Project ID"
-					boxBackgroundColor = getParsedColor(R.color.white)
-					boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
-					//setBoxCornerRadii(5f, 5f, 5f, 5f)
-					//margin(20.5f, 10.5f, 20.5f, 10.5f)
-					//helperText = "* Required"
-					addView(TextInputEditText(this.context).apply {
-						//layoutParams = getLinearLayoutParams(-1, -2)
-					})
-				}
-			)
+//			addView(
+//				TextInputLayout(context).apply {
+//					//layoutParams = getLinearLayoutParams(-1, -2)
+//					hint = "Project ID"
+//					boxBackgroundColor = getParsedColor(R.color.white)
+//					boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+//					//setBoxCornerRadii(5f, 5f, 5f, 5f)
+//					//margin(20.5f, 10.5f, 20.5f, 10.5f)
+//					//helperText = "* Required"
+//					addView(TextInputEditText(this.context).apply {
+//						//layoutParams = getLinearLayoutParams(-1, -2)
+//					})
+//				}
+//			)
 		}
 	}
 }
