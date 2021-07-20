@@ -65,13 +65,44 @@ object CustomViews
 			setHelperTextColor(ColorStateList.valueOf(redColor))
 			addView(TextInputEditText(this.context).apply {
 				id = demoParam.idView
-				setLines(1)
-				setSingleLine()
-				typeface = Typeface.MONOSPACE
+
+				if (demoParam.hint.isNotEmpty())
+				{
+					setLines(1)
+					setSingleLine()
+					imeOptions = EditorInfo.IME_ACTION_DONE
+				}
+
 				if (demoParam.value.isNotEmpty() &&
 					demoParam.value != "true" && demoParam.value != "false")
 				{
 					setText(demoParam.value)
+				}
+
+				when(demoParam.typeInput)
+				{
+					TypeInput.INTEGER -> {
+						inputType = InputType.TYPE_CLASS_NUMBER
+					}
+					TypeInput.EMAIL -> {
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS).or(
+							InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+						)
+					}
+					TypeInput.PASSWORD -> {
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+						{
+							importantForAutofill = View.IMPORTANT_FOR_AUTOFILL_NO
+						}
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_VARIATION_PASSWORD).or(
+							InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+						)
+					}
+					else ->
+					{
+						inputType = InputType.TYPE_CLASS_TEXT.or(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+						typeface = Typeface.MONOSPACE
+					}
 				}
 			})
 		}
