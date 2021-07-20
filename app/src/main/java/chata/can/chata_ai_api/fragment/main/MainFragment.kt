@@ -107,8 +107,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-//		if (BuildConfig.DEBUG)
-		if (false)
+		if (BuildConfig.DEBUG)
+//		if (false)
 		{
 			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"

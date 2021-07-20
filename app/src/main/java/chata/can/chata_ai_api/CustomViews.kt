@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -17,7 +18,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.SwitchCompat
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.SwitchDM
@@ -47,18 +47,21 @@ object CustomViews
 
 	/** MATERIAL **/
 	fun getTextInput(context: Context, demoParam: DemoParameter): TextInputLayout {
-		return TextInputLayout(context,
-			null,
-			R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox
+		return TextInputLayout(context
 		).apply {
-			//layoutParams = getLinearLayoutParams(-1, -2)
-			hint = "Project ID"
+			val white = context.getParsedColor(R.color.white)
+			val redColor = context.getParsedColor(R.color.red_notification)
+
+			layoutParams = getLinearLayoutParams(-1, -2)
+			hint = demoParam.hint
+			boxBackgroundColor = white
 			boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
 			setBoxCornerRadii(5f, 5f, 5f, 5f)
 			margin(20.5f, 10.5f, 20.5f, 10.5f)
-			//helperText = "* Required"
+			helperText = "* required"
+			setHelperTextColor(ColorStateList.valueOf(redColor))
 			addView(TextInputEditText(this.context).apply {
-				//layoutParams = getLinearLayoutParams(-1, -2)
+				id = demoParam.idView
 			})
 		}
 	}

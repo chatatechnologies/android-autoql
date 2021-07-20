@@ -48,15 +48,20 @@ object SectionData
 		"Authentication" to
 			arrayListOf(
 				//DemoParameter("Demo data", TypeParameter.TOGGLE, idView = R.id.swDemoData),
-				DemoParameter("", TypeParameter.INPUT_MATERIAL),
 				DemoParameter("", TypeParameter.TOGGLE_QA, value = "false"),
-				DemoParameter("* Project ID", TypeParameter.INPUT, labelId = R.id.hProjectId, idView = R.id.etProjectId),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Project ID", idView = R.id.etProjectId),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "User Email", idView = R.id.etUserId),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "API key", idView = R.id.etApiKey),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Domain URL", idView = R.id.etDomainUrl),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Username", idView = R.id.etUsername),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Password", idView = R.id.etPassword),
+				//DemoParameter("* Project ID", TypeParameter.INPUT, labelId = R.id.hProjectId),
 				DemoParameter("Theme Code", TypeParameter.INPUT, labelId = R.id.hThemeColor, idView = R.id.etThemeColor, isVisible = false),
-				DemoParameter("* User Email", TypeParameter.INPUT, labelId = R.id.hUserId, idView = R.id.etUserId, typeInput = TypeInput.EMAIL),
-				DemoParameter("* API key", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
-				DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
-				DemoParameter("* Username", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
-				DemoParameter("* Password", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, typeInput = TypeInput.PASSWORD),
+				//DemoParameter("* User Email", TypeParameter.INPUT, labelId = R.id.hUserId, idView = R.id.etUserId, typeInput = TypeInput.EMAIL),
+				//DemoParameter("* API key", TypeParameter.INPUT, labelId = R.id.hApiKey, idView = R.id.etApiKey),
+				//DemoParameter("* Domain URL", TypeParameter.INPUT, labelId = R.id.hDomainUrl, idView = R.id.etDomainUrl),
+				//DemoParameter("* Username", TypeParameter.INPUT, labelId = R.id.hUsername, idView = R.id.etUsername),
+				//DemoParameter("* Password", TypeParameter.INPUT, labelId = R.id.hPassword, idView = R.id.etPassword, typeInput = TypeInput.PASSWORD),
 				DemoParameter("Authenticate", TypeParameter.BUTTON, idView = R.id.btnAuthenticate)
 			),
 		"Customize Widgets" to
