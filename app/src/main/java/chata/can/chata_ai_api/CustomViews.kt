@@ -58,10 +58,19 @@ object CustomViews
 			boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
 			setBoxCornerRadii(5f, 5f, 5f, 5f)
 			margin(20.5f, 10.5f, 20.5f, 10.5f)
-			helperText = "* required"
+			if (demoParam.helperText.isNotEmpty())
+				helperText = demoParam.helperText
 			setHelperTextColor(ColorStateList.valueOf(redColor))
 			addView(TextInputEditText(this.context).apply {
 				id = demoParam.idView
+				setLines(1)
+				setSingleLine()
+				typeface = Typeface.MONOSPACE
+				if (demoParam.value.isNotEmpty() &&
+					demoParam.value != "true" && demoParam.value != "false")
+				{
+					setText(demoParam.value)
+				}
 			})
 		}
 	}
