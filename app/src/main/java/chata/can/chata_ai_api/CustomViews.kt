@@ -47,15 +47,17 @@ object CustomViews
 
 	/** MATERIAL **/
 	fun getTextInput(context: Context, demoParam: DemoParameter): TextInputLayout {
-		return TextInputLayout(context
-		).apply {
-			val white = context.getParsedColor(R.color.white)
+		return TextInputLayout(context).apply {
+			val whiteColor = context.getParsedColor(R.color.white)
+			val blueColor = context.getParsedColor(R.color.blue_chata_circle)
 			val redColor = context.getParsedColor(R.color.red_notification)
 
 			layoutParams = getLinearLayoutParams(-1, -2)
 			hint = demoParam.hint
-			boxBackgroundColor = white
+			boxStrokeColor = blueColor
+			boxBackgroundColor = whiteColor
 			boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+			hintTextColor = ColorStateList.valueOf(blueColor)
 			setBoxCornerRadii(5f, 5f, 5f, 5f)
 			margin(20.5f, 10.5f, 20.5f, 10.5f)
 			if (demoParam.helperText.isNotEmpty())

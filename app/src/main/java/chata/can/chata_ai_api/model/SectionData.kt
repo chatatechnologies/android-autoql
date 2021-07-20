@@ -97,7 +97,7 @@ object SectionData
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Intro Message ", idView = R.id.etIntroMessage),
 				DemoParameter("", TypeParameter.INPUT, hint = "Query Input PlaceHolder", idView = R.id.etQueryPlaceholder),
 				DemoParameter("", TypeParameter.TOGGLE, hint = "Clear All Messages on Close", idView = R.id.swClearMessage),
-				DemoParameter("", TypeParameter.INPUT, "Data Messenger", hint = "Title", idView = R.id.etTitle),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "Data Messenger", hint = "Title", idView = R.id.etTitle),
 
 				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")
 				DemoParameter("This is an array of colors used for the charts.", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
@@ -106,7 +106,7 @@ object SectionData
 				DemoParameter("Dashboard Background Color", TypeParameter.COLOR, "#FAFAFA", idView = R.id.etDashboardColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
 				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
-				DemoParameter("", TypeParameter.INPUT, "10", hint = "Maximum Number of Messages", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "10", hint = "Maximum Number of Messages", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
 				DemoParameter("Enable Explore Queries Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabExploreQueries),
 				DemoParameter("Enable Notifications Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabNotification),
 				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
