@@ -19,14 +19,34 @@
 <!--</RelativeLayout>-->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/llMain"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
-	<Button
-		android:id="@+id/containedButton"
+	<com.google.android.material.button.MaterialButtonToggleGroup
+		android:id="@+id/toggleButton"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="Contained button"/>
+		android:layout_width="wrap_content">
+		<Button
+			android:id="@+id/button1"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textAllCaps="false"
+			android:text="Button 1"
+			style="?attr/materialButtonOutlinedStyle"/>
+		<Button
+			android:id="@+id/button2"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textAllCaps="false"
+			android:text="Button 2"
+			style="?attr/materialButtonOutlinedStyle"/>
+		<Button
+			android:id="@+id/button3"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textAllCaps="false"
+			android:text="Button 3"
+			style="?attr/materialButtonOutlinedStyle"/>
+	</com.google.android.material.button.MaterialButtonToggleGroup>
 </LinearLayout>
