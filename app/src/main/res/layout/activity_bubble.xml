@@ -17,8 +17,8 @@
 <!--		android:layout_height="30dp"-->
 <!--		android:layout_alignBottom="@+id/ill"/>-->
 <!--</RelativeLayout>-->
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:id="@+id/llMain"
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
@@ -26,27 +26,29 @@
 	<com.google.android.material.button.MaterialButtonToggleGroup
 		android:id="@+id/toggleButton"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content">
+		android:layout_width="wrap_content"
+		app:singleSelection="true"
+		app:checkedButton="@id/button2">
 		<Button
 			android:id="@+id/button1"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:textAllCaps="false"
 			android:text="Button 1"
-			style="?attr/materialButtonOutlinedStyle"/>
+			style="@style/ButtonStyle"/>
 		<Button
 			android:id="@+id/button2"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:textAllCaps="false"
 			android:text="Button 2"
-			style="?attr/materialButtonOutlinedStyle"/>
+			style="@style/ButtonStyle"/>
 		<Button
 			android:id="@+id/button3"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:textAllCaps="false"
 			android:text="Button 3"
-			style="?attr/materialButtonOutlinedStyle"/>
+			style="@style/ButtonStyle"/>
 	</com.google.android.material.button.MaterialButtonToggleGroup>
 </LinearLayout>

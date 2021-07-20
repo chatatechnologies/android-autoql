@@ -12,7 +12,7 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 		findViewById<MaterialButtonToggleGroup>(R.id.toggleButton)?.run {
 			addOnButtonCheckedListener { group, checkedId, _ ->
 				group.check(checkedId)
-				if (lastId != 0)
+				if (lastId != 0 && lastId != checkedId)
 				{
 					group.uncheck(lastId)
 				}

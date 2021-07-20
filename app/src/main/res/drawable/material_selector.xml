@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<!--background on button when is checked-->
+	<item
+		android:alpha="0.3"
+		android:color="@color/blue_chata_circle"
+		android:state_checked="true"/>
+	<!--background on button-->
+	<item android:color="@color/white"/>
+</selector>
