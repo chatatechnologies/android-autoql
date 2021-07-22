@@ -168,23 +168,23 @@ object CustomViews
 
 	fun getButton(context: Context, demoParam: DemoParameter, onClickListener: View.OnClickListener) =
 		context.run {
-			TextView(context).apply {
-				val drawable = DrawableBuilder.setGradientDrawable(
-					getParsedColor(R.color.colorButton), 18f)
-				background = CustomColor.getBackgroundDrawable(
-					Color.WHITE,
-					//ColorDrawable(getParsedColor(R.color.colorButton)))
-					drawable)
+			val blue = context.getParsedColor(R.color.blue_chata_circle)
+			val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 
-				layoutParams = getLinearLayoutParams(-1, 90)
+			MaterialButton(context).apply {
+				layoutParams = getLinearLayoutParams(-1, 120)
 				margin(20.5f, 10.5f, 20.5f, 10.5f)
-				gravity = Gravity.CENTER
-				setTextColor(getParsedColor(R.color.textButton))
-				id = demoParam.idView
-				if (id != 0)
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
-					setOnClickListener(onClickListener)
+					stateListAnimator = null
 				}
+				backgroundTintList = ColorStateList.valueOf(alphaColor)
+				setTextColor(blue)
+				strokeColor = ColorStateList.valueOf(blue)
+				strokeWidth = 3
+				id = demoParam.idView
+				isAllCaps = false
+				if (id != 0) setOnClickListener(onClickListener)
 				text = demoParam.label
 			}
 		}
