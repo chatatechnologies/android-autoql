@@ -100,6 +100,10 @@ class MainRenderPresenter(
 					{
 						CustomViews.getSegment(context, demoParam, onClickListener)
 					}
+					TypeParameter.SEGMENT_MATERIAL ->
+					{
+						CustomViews.getSegmentToggle(context, demoParam, onClickListener)
+					}
 					TypeParameter.COLOR ->
 					{
 						if (demoParam.colors.isEmpty())

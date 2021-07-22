@@ -8,5 +8,6 @@ enum class TypeParameter
 	INPUT_MATERIAL,
 	BUTTON,
 	SEGMENT,
+	SEGMENT_MATERIAL,
 	COLOR
 }

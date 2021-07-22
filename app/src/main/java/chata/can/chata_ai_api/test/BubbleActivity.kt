@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai_api.R
 import com.google.android.material.button.MaterialButton
@@ -31,12 +32,14 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 			//region
 			addView(
 				MaterialButtonToggleGroup(this@BubbleActivity).apply {
-					layoutParams = LinearLayout.LayoutParams(-2, -2)
+					layoutParams = LinearLayout.LayoutParams(-1, -2)
+					margin(48f, end = 48f)
 					val ids = ArrayList<Int>()
 					for (i in 1..3)
 					{
 						addView(
 							MaterialButton(this@BubbleActivity).apply {
+								layoutParams = LinearLayout.LayoutParams(0, -2).apply { weight = 1f }
 								val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 
 								val a1 = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())

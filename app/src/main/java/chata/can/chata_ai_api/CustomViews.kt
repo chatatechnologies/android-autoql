@@ -24,6 +24,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
@@ -263,6 +264,16 @@ object CustomViews
 			}
 		}
 		return subView
+	}
+
+	fun getSegmentToggle(
+		context: Context,
+		demoParam: DemoParameter,
+		onClickListener: View.OnClickListener): MaterialButtonToggleGroup
+	{
+		return MaterialButtonToggleGroup(context).apply {
+			
+		}
 	}
 
 	//region new color
