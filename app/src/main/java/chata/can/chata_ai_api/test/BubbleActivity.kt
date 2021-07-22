@@ -40,6 +40,8 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 						addView(
 							MaterialButton(this@BubbleActivity).apply {
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply { weight = 1f }
+								insetBottom = 0
+								insetTop = 0
 								val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 
 								val a1 = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())

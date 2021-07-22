@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.InputFilter
@@ -19,11 +18,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -272,7 +273,39 @@ object CustomViews
 		onClickListener: View.OnClickListener): MaterialButtonToggleGroup
 	{
 		return MaterialButtonToggleGroup(context).apply {
-			
+			val blue = context.getParsedColor(R.color.blue_chata_circle)
+			val white = context.getParsedColor(R.color.white)
+
+			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			setBackgroundColor(Color.GREEN)
+			margin(48f, end = 48f)
+
+			val sizeOptions = demoParam.options.size
+			for (iterator in 0 until sizeOptions)
+			{
+				val option = demoParam.options[iterator]
+				addView(
+					MaterialButton(context).apply {
+						layoutParams = LinearLayout.LayoutParams(0, -2).apply { weight = 1f }
+						insetBottom = 0
+						insetTop = 0
+						val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
+						val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
+						val aColors = intArrayOf(alphaColor, white)
+
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+						{
+							stateListAnimator = null
+						}
+						backgroundTintList = ColorStateList(aStates, aColors)
+						isAllCaps = false
+						setTextColor(blue)
+						strokeColor = ColorStateList.valueOf(blue)
+						strokeWidth = 3
+						text = option.text
+					}
+				)
+			}
 		}
 	}
 
