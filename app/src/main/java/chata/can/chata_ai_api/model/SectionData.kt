@@ -79,7 +79,7 @@ object SectionData
 				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "false", idView = R.id.swBackgroundBehind),
 				DemoParameter("Theme", TypeParameter.SEGMENT_MATERIAL, options = aTheme),
 				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT_MATERIAL, options = aPlacement),
-				DemoParameter("Default Tab", TypeParameter.SEGMENT, options = aTabs),
+				DemoParameter("Default Tab", TypeParameter.SEGMENT_MATERIAL, options = aTabs),
 				//DemoParameter("Currency code", TypeParameter.INPUT, "USD", idView = R.id.etCurrencyCode),
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, "USD", hint = "Currency code", idView = R.id.etCurrencyCode),
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, "en-US", hint = "Language code", idView = R.id.etLanguageCode),

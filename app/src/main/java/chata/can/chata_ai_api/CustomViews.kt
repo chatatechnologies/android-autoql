@@ -277,18 +277,22 @@ object CustomViews
 			val white = context.getParsedColor(R.color.white)
 
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
-			setBackgroundColor(Color.GREEN)
-			margin(48f, end = 48f)
+			margin(12f, end = 12f)
 
 			val sizeOptions = demoParam.options.size
+			var idActive = 0
 			for (iterator in 0 until sizeOptions)
 			{
 				val option = demoParam.options[iterator]
+				if (option.isActive)
+				{
+					idActive = option.idView
+				}
 				addView(
 					MaterialButton(context).apply {
-						layoutParams = LinearLayout.LayoutParams(0, -2).apply { weight = 1f }
-						insetBottom = 0
-						insetTop = 0
+						layoutParams = LinearLayout.LayoutParams(-2, -2).apply { weight = 1f }
+//						insetBottom = 0
+//						insetTop = 0
 						val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 						val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
 						val aColors = intArrayOf(alphaColor, white)
@@ -298,13 +302,24 @@ object CustomViews
 							stateListAnimator = null
 						}
 						backgroundTintList = ColorStateList(aStates, aColors)
+						id = option.idView
 						isAllCaps = false
 						setTextColor(blue)
 						strokeColor = ColorStateList.valueOf(blue)
 						strokeWidth = 3
+						tag = demoParam.label
 						text = option.text
+						//setOnClickListener(onClickListener)
 					}
 				)
+			}
+			check(idActive)
+			//var lastId = this.checkedButtonId
+			addOnButtonCheckedListener { group, checkedId, isChecked ->
+				group.check(checkedId)
+//				if (lastId != checkedId)
+//					group.uncheck(lastId)
+//				lastId = checkedId
 			}
 		}
 	}
