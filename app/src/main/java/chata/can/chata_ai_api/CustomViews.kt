@@ -309,17 +309,22 @@ object CustomViews
 						strokeWidth = 3
 						tag = demoParam.label
 						text = option.text
-						//setOnClickListener(onClickListener)
+						setOnClickListener(onClickListener)
 					}
 				)
 			}
 			check(idActive)
-			//var lastId = this.checkedButtonId
-			addOnButtonCheckedListener { group, checkedId, isChecked ->
-				group.check(checkedId)
-//				if (lastId != checkedId)
-//					group.uncheck(lastId)
-//				lastId = checkedId
+			addOnButtonCheckedListener { group, checkedId, _  ->
+				group.run {
+					val tmp = ArrayList<Int>()
+					tmp.addAll(checkedButtonIds)
+					if (tmp.size > 1)
+					{
+						tmp.remove(checkedId)
+						val unSelect = tmp[0]
+						uncheck(unSelect)
+					}
+				}
 			}
 		}
 	}
