@@ -30,36 +30,48 @@
 		app:singleSelection="true"
 		app:checkedButton="@id/button2">
 		<Button
-			android:insetTop="0dp"
-			android:insetBottom="0dp"
-
 			android:id="@+id/button1"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:layout_width="0dp"
 			android:textAllCaps="false"
 			android:text="Button 1"
+
+			app:icon="@drawable/ic_reload"
+			app:iconGravity="textStart"
+			app:iconPadding="8dp"
+			app:iconSize="16dp"
+			app:iconTint="@color/blue_chata_circle"
+
 			style="@style/ButtonStyle"/>
 		<Button
-			android:insetTop="0dp"
-			android:insetBottom="0dp"
-
 			android:id="@+id/button2"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:layout_width="0dp"
 			android:textAllCaps="false"
 			android:text="Button 2"
+
+			app:icon="@drawable/ic_reload"
+			app:iconGravity="textStart"
+			app:iconPadding="8dp"
+			app:iconSize="16dp"
+			app:iconTint="@color/blue_chata_circle"
+
 			style="@style/ButtonStyle"/>
 		<Button
-			android:insetTop="0dp"
-			android:insetBottom="0dp"
-
 			android:id="@+id/button3"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:layout_width="0dp"
 			android:textAllCaps="false"
+
+			app:icon="@drawable/ic_reload"
+			app:iconGravity="textStart"
+			app:iconPadding="8dp"
+			app:iconSize="16dp"
+			app:iconTint="@color/blue_chata_circle"
+
 			android:text="Button 3"
 			style="@style/ButtonStyle"/>
 	</com.google.android.material.button.MaterialButtonToggleGroup>

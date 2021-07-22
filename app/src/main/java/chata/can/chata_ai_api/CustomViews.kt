@@ -20,7 +20,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.*
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput

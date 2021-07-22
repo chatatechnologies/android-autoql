@@ -4,7 +4,9 @@ import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.base.BaseActivity
@@ -33,15 +35,15 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 			addView(
 				MaterialButtonToggleGroup(this@BubbleActivity).apply {
 					layoutParams = LinearLayout.LayoutParams(-1, -2)
-					margin(48f, end = 48f)
+					margin(12f, end = 12f)
 					val ids = ArrayList<Int>()
 					for (i in 1..3)
 					{
 						addView(
 							MaterialButton(this@BubbleActivity).apply {
 								layoutParams = LinearLayout.LayoutParams(0, -2).apply { weight = 1f }
-								insetBottom = 0
-								insetTop = 0
+//								insetBottom = 0
+//								insetTop = 0
 								val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 
 								val a1 = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
@@ -59,7 +61,15 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 								setTextColor(blue)
 								strokeWidth = 3
 								strokeColor = ColorStateList.valueOf(blue)
-								text = "Button $i"
+								val textButton = "Button $i"
+								text = textButton
+								//region icon
+								icon = ContextCompat.getDrawable(context, R.drawable.ic_reload)
+								iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+								iconPadding = dpToPx(8f)
+								iconSize = dpToPx(16f)
+								iconTint = ColorStateList.valueOf(blue)
+								//endregion
 							}
 						)
 					}
