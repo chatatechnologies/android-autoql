@@ -10,6 +10,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.pojo.base.BaseActivity
+import chata.can.chata_ai_api.ButtonToggleGroup
 import chata.can.chata_ai_api.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.button.MaterialButtonToggleGroup
@@ -33,7 +34,7 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 			val white = getParsedColor(R.color.white)
 			//region
 			addView(
-				MaterialButtonToggleGroup(this@BubbleActivity).apply {
+				ButtonToggleGroup(this@BubbleActivity).apply {
 					layoutParams = LinearLayout.LayoutParams(-1, -2)
 					margin(12f, end = 12f)
 					val ids = ArrayList<Int>()
@@ -61,7 +62,7 @@ class BubbleActivity: BaseActivity(R.layout.activity_bubble)
 								setTextColor(blue)
 								strokeWidth = 3
 								strokeColor = ColorStateList.valueOf(blue)
-								val textButton = "Button $i"
+								val textButton = "Button \n $i Hola"
 								text = textButton
 								//region icon
 								icon = ContextCompat.getDrawable(context, R.drawable.ic_reload)

@@ -9,6 +9,7 @@ import android.os.Build
 import android.text.InputFilter
 import android.text.InputType
 import android.text.Spanned
+import android.text.TextUtils
 import android.util.SparseBooleanArray
 import android.view.Gravity
 import android.view.View
@@ -18,6 +19,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.SwitchDM
@@ -271,7 +273,7 @@ object CustomViews
 		demoParam: DemoParameter,
 		onClickListener: View.OnClickListener): MaterialButtonToggleGroup
 	{
-		return MaterialButtonToggleGroup(context).apply {
+		return ButtonToggleGroup(context).apply {
 			val blue = context.getParsedColor(R.color.blue_chata_circle)
 			val white = context.getParsedColor(R.color.white)
 
@@ -309,6 +311,18 @@ object CustomViews
 						tag = demoParam.label
 						text = option.text
 						setOnClickListener(onClickListener)
+						//region icon
+						if (option.idResource != 0)
+						{
+							icon = ContextCompat.getDrawable(context, option.idResource)
+							iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+							iconPadding = dpToPx(8f)
+							iconSize = dpToPx(16f)
+							iconTint = ColorStateList.valueOf(blue)
+							ellipsize = TextUtils.TruncateAt.END
+							maxLines = 2
+						}
+						//endregion
 					}
 				)
 			}
@@ -317,11 +331,25 @@ object CustomViews
 				group.run {
 					val tmp = ArrayList<Int>()
 					tmp.addAll(checkedButtonIds)
-					if (tmp.size > 1)
+
+					if (demoParam.options[0].idResource != 0)
 					{
-						tmp.remove(checkedId)
-						val unSelect = tmp[0]
-						uncheck(unSelect)
+						tmp.remove(idActive)
+						check(idActive)
+						if (tmp.isNotEmpty())
+						{
+							val unSelect = tmp[0]
+							uncheck(unSelect)
+						}
+					}
+					else
+					{
+						if (tmp.size > 1)
+						{
+							tmp.remove(checkedId)
+							val unSelect = tmp[0]
+							uncheck(unSelect)
+						}
 					}
 				}
 			}

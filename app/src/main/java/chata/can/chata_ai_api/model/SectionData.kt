@@ -60,7 +60,7 @@ object SectionData
 			),
 		"Customize Widgets" to
 			arrayListOf(
-				DemoParameter("", TypeParameter.SEGMENT, options = aCustom),
+				DemoParameter("", TypeParameter.SEGMENT_MATERIAL, options = aCustom),
 			),
 		"AutoQl Api Configuration Options" to
 			arrayListOf(

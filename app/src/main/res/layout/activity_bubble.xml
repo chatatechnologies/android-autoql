@@ -23,6 +23,13 @@
 	android:layout_height="match_parent"
 	android:layout_width="match_parent"
 	android:orientation="vertical">
+
+<!--	<com.google.android.material.button.MaterialButton-->
+<!--		android:layout_width="120dp"-->
+<!--		android:layout_height="wrap_content"-->
+<!--		android:maxLines="2"-->
+<!--		android:text="button with max Lines"/>-->
+
 	<com.google.android.material.button.MaterialButtonToggleGroup
 		android:id="@+id/toggleButton"
 		android:layout_height="wrap_content"
