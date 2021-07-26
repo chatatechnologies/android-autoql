@@ -232,6 +232,11 @@ class WebViewHolder(
 				ivActionHide?.setOnClickListener(this)
 			}
 		}
+		else
+		{
+			llCharts?.visibility = View.GONE
+			rlCharts?.visibility = View.GONE
+		}
 	}
 
 	override fun onClick(v: View?)

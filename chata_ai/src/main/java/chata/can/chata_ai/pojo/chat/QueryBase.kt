@@ -201,6 +201,10 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				val pData = HtmlBuilder.build(this)
 				val dataForWebView = pData.first
 				val dataD3 = pData.second
+				if (configActions == 0)
+				{
+					displayType = "data"
+				}
 				if (displayType != "data")
 				{
 					dataForWebView.type = displayType

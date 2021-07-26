@@ -93,8 +93,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 			//query base for testing
-			val queryDemo = ""
-//			val queryDemo = "Max 1000 province by total utilization"
+			val queryDemo = "all jobs"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot
