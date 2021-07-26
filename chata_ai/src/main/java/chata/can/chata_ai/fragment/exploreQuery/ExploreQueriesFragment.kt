@@ -36,7 +36,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		fun newInstance() = ExploreQueriesFragment().putArgs {
 			putInt("LAYOUT", R.layout.fragment_explore_queries)
 		}
-		//var dataMessengerMethod: (() -> Unit)? = null
 	}
 
 	private lateinit var llParent: LinearLayout
@@ -273,7 +272,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			else
 			{
 				mHandler.postDelayed({
-					ExploreQueriesData.isPendingExecute = false
 					ivSearch.performClick()
 				}, mDelay)
 			}
@@ -282,12 +280,19 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	private fun checkLastData()
 	{
-		if (ExploreQueriesData.lastWord.isNotEmpty())
+		val lastWord = ExploreQueriesData.lastWord
+		if (lastWord.isNotEmpty())
 		{
-			mText = ExploreQueriesData.lastWord
-			mIndex = 0
-			mHandler.removeCallbacks(characterAdder)
-			mHandler.postDelayed(characterAdder, mDelay)
+			if (ExploreQueriesData.animated)
+			{
+				ExploreQueriesData.animated = false
+				mText = lastWord
+				mIndex = 0
+				mHandler.removeCallbacks(characterAdder)
+				mHandler.postDelayed(characterAdder, mDelay)
+			}
+			else
+				etQuery.setText(lastWord)
 		}
 
 		ExploreQueriesData.lastExploreQuery?.let {

@@ -11,6 +11,7 @@
 <!--	android:singleLine="true"-->
 <!--	android:scrollHorizontally="true"-->
 	<TextView
+		android:gravity="center"
 		android:id="@+id/tvQuery"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"

@@ -210,8 +210,8 @@ class QueryBuilderHolder(
 					{
 						if (any.text == "💡See more...")
 						{
-							ExploreQueriesData.isPendingExecute = true
 							ExploreQueriesData.lastWord = wordExplore
+							ExploreQueriesData.animated = true
 							//TODO open DM
 							(pagerActivity as? DMActivity)?.run {
 								this.openTips()
