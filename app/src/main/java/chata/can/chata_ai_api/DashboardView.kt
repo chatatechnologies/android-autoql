@@ -250,6 +250,8 @@ object DashboardView
 	}
 	//endregion
 
+	class WebViewIds(val idWebView: Int, val idLoad: Int, val idOption: Int, val idAlert: Int)
+
 	//region receiver data for generate views for dual holder
 	/**
 	 * view with id main (rlWebView)
@@ -257,19 +259,20 @@ object DashboardView
 	fun getChildWebView(context: Context, newId: Int = R.id.rlWebView): RelativeLayout
 	{
 		val pData = if (newId == R.id.rlWebView)
-			 Triple(R.id.webView, R.id.rlLoad, R.id.ivOption)
-		else Triple(R.id.webView2, R.id.rlLoad2, R.id.ivOption2)
+			WebViewIds(R.id.webView, R.id.rlLoad, R.id.ivOption, R.id.ivAlert)
+		else
+			WebViewIds(R.id.webView2, R.id.rlLoad2, R.id.ivOption2, R.id.ivAlert2)
 
 		return RelativeLayout(context).apply {
 			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
 			id = newId
 			val webView = WebView(context).apply {
 				layoutParams = layoutParams()
-				id = pData.first
+				id = pData.idWebView
 			}
 			val rlLoad = RelativeLayout(context).apply {
 				layoutParams = layoutParams()
-				id = pData.second
+				id = pData.idLoad
 
 				val gifView = KGifView(context).apply {
 					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
@@ -283,13 +286,21 @@ object DashboardView
 			addView(ImageView(context).apply {
 				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 					addRule(RelativeLayout.ALIGN_PARENT_END)
-					addRule(RelativeLayout.ALIGN_BOTTOM, pData.first)
+					addRule(RelativeLayout.ALIGN_BOTTOM, pData.idWebView)
+				}
+				paddingAll(8f)
+				setImageResource(R.drawable.ic_alert)
+				id = pData.idAlert
+			})
+			addView(ImageView(context).apply {
+				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+					addRule(RelativeLayout.ALIGN_BOTTOM, pData.idWebView)
 				}
 				paddingAll(8f)
 				setImageResource(R.drawable.ic_points)
 				setColorFilter(SinglentonDrawer.currentAccent)
 				backgroundWhiteGray()
-				id = pData.third
+				id = pData.idOption
 			})
 		}
 	}

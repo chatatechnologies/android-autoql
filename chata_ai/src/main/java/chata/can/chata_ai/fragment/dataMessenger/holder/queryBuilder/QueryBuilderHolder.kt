@@ -212,7 +212,6 @@ class QueryBuilderHolder(
 						{
 							ExploreQueriesData.lastWord = wordExplore
 							ExploreQueriesData.animated = true
-							//TODO open DM
 							(pagerActivity as? DMActivity)?.run {
 								this.openTips()
 							}

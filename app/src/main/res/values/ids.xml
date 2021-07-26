@@ -4,6 +4,8 @@
 
 	<item name="ivOption" type="id"/>
 	<item name="ivOption2" type="id"/>
+	<item name="ivAlert" type="id"/>
+	<item name="ivAlert2" type="id"/>
 	<item name="ll1" type="id"/>
 	<item name="tvExecute" type="id"/>
 	<item name="iView" type="id"/>

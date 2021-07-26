@@ -78,13 +78,6 @@ class PagerActivity: BaseActivity(R.layout.pager_queries_activity), View.OnClick
 							val introMessage = String.format(introMessageRes, PagerData.customerName)
 							model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
 							model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
-
-							//TODO call method with supportManager
-//							slidePagerAdapter?.getRegisteredFragment(0)?.let { dataMessengerFragment ->
-//								if (dataMessengerFragment is DataMessengerFragment) {
-//									dataMessengerFragment.notifyAdapter()
-//								}
-//							}
 						}
 						.setNegativeButton("Cancel", null).show()
 				}

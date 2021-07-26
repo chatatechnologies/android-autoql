@@ -93,7 +93,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 			//query base for testing
-			val queryDemo = "Max 1000 province by total utilization"
+			val queryDemo = ""
+//			val queryDemo = "Max 1000 province by total utilization"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot
@@ -552,23 +553,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			llm.orientation = LinearLayoutManager.VERTICAL
 			rvChat.layoutManager = llm
 			rvChat.adapter = chatAdapter
-//			rvChat.addOnLayoutChangeListener {
-//				_, _, _, right, _, _, _, _, _ ->
-//				println("right: $right")
-//				if (lastRight == 0)
-//				{
-//					lastRight = right
-//				} else
-//				{
-//					if (lastRight <= right)
-//					{
-//						println("right (enter!): $right")
-//						chatAdapter.notifyDataSetChanged()
-//					}
-//				}
-//			}
-			//todo check for after render
-			//scrollToPosition()
 		}
 	}
 

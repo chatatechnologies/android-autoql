@@ -47,12 +47,14 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 							}
 							(numColumns == 1 && numRows > 1) || numColumns > 1 ->
 							{
+								queryBase.toString()
 								//queryBase.viewDrillDown = view
 							}
 							numColumns == 1 ->
 							{
-								if(queryBase.hasHash)
+								if (queryBase.hasHash)
 								{
+									queryBase.toString()
 									//TODO SHOW HELP
 								}
 								else

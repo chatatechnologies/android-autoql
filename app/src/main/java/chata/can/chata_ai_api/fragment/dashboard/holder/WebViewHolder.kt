@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -30,6 +31,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
 	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption) ?: null
+	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
 	override fun onPaint()
 	{
@@ -68,6 +70,16 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
+		ivAlert?.let {
+			it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
+			{
+				it.setOnClickListener {
+					Log.e("ERROR", "Error for rows")
+				}
+				View.GONE
+			}
+			else View.GONE
+		}
 		ivOption?.setOnClickListener { view ->
 			val theme = if (SinglentonDrawer.themeColor == "dark")
 				R.style.popupMenuStyle2

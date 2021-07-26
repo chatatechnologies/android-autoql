@@ -339,7 +339,6 @@ class WebViewHolder(
 		}
 	}
 
-	//TODO make public
 	override fun callAction(iv: ImageView?)
 	{
 		queryBase?.let { queryBase ->
