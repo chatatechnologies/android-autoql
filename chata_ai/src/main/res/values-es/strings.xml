@@ -39,7 +39,7 @@
 	<string name="apply">Aplicar</string>
 	<string name="visibility">Visibilidad</string>
 	<string name="column_name">Nombre de columna</string>
-	<string name="discover_today">Analicemos sus datos. ¿Qué puedo ayudarte a descubrir hoy?</string>
+	<string name="discover_today">Hola %1$s! Analicemos sus datos. ¿Qué puedo ayudarte a descubrir hoy?</string>
 	<string name="tell_more_about">Cuéntenos más sobre el problema que estás presentando</string>
 	<string name="thank_you_feedback">Gracias por tu retroalimentación</string>
 	<string name="copied_clipboard">La consulta generada se copió correctamente en el portapapeles!</string>

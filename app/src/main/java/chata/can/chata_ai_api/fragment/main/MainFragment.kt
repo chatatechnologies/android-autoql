@@ -14,6 +14,7 @@ import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
 import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai.pojo.ConstantDrawer
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai.service.PollService
@@ -629,6 +630,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				R.id.btnReloadDrawer ->
 				{
 					activity?.run {
+						SinglentonDrawer.mModel.clear()
 //						if (this is PagerActivity)
 //						{
 //							bubbleHandle?.let { bubbleHandle ->

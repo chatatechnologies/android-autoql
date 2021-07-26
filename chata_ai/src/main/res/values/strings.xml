@@ -39,7 +39,7 @@
 	<string name="apply">Apply</string>
 	<string name="visibility">Visibility</string>
 	<string name="column_name">Column Name</string>
-	<string name="discover_today">Let\'s dive into your data. What can I help you discover today?</string>
+	<string name="discover_today">Hi %1$s! Let\'s dive into your data. What can I help you discover today?</string>
 	<string name="tell_more_about">Please tell us more about the problem you are experiencing:</string>
 	<string name="thank_you_feedback">Thank you for your feedback</string>
 	<string name="copied_clipboard">Successfully copied generated query to clipboard!</string>
