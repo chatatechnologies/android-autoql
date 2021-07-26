@@ -107,7 +107,10 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 		setColor()
 		setListener()
 		//Start first fragment
-		openChat()
+		if (AutoQLData.isDataMessenger)
+			openChat()
+		else
+			openTips()
 
 		AutoQLData.run {
 			vBehind.visibility = if (isDarkenBackgroundBehind) View.VISIBLE else View.GONE

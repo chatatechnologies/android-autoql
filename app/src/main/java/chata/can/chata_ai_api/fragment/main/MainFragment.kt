@@ -142,7 +142,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			//servicePresenter.createAuthenticate()
+			servicePresenter.createAuthenticate()
 		}
 		else
 		{
@@ -655,9 +655,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.tvLight, R.id.tvDark ->
 				{
-					(it as? TextView)?.let { tv ->
-						setColorOption(tv.tag as String, tv.id)
-					}
 					mTheme[it.id]?.let { config ->
 						val theme = if (config) "light" else "dark"
 						floatingView.theme = theme
@@ -665,19 +662,13 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				}
 				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
 				{
-					(it as? TextView)?.let { tv ->
-						setColorOption(tv.tag as String, tv.id)
-					}
 					mPlacement[it.id]?.let { placement ->
 						floatingView.placement = placement
 					}
 				}
 				R.id.tvDataMessenger, R.id.tvExploreQueries ->
 				{
-					(it as? TextView)?.let { tv ->
-						setColorOption(tv.tag as String, tv.id)
-						AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
-					}
+					AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
 				}
 				else -> {}
 			}
@@ -799,52 +790,5 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 		}
 		return tmp
-	}
-
-	private fun setColorOption(optionPath: String, idSelected: Int)
-	{
-		mViews[optionPath]?.let {
-			for (index in 0 until it.size())
-			{
-				val key = it.keyAt(index)
-				var isEnabled = it[key]
-				if (isEnabled)
-				{
-					if (key != idSelected)
-					{
-						isEnabled = false
-						it.put(key, isEnabled)
-					}
-				}
-				else
-				{
-					if (key == idSelected)
-					{
-						isEnabled = true
-						it.put(key, isEnabled)
-					}
-				}
-
-				llContainer.findViewById<TextView>(key)?.let {
-					tv ->
-					if (isEnabled)
-					{
-						parentActivity?.let { activity ->
-							tv.setBackgroundColor(activity.getParsedColor(R.color.colorButton))
-						}
-						tv.setTextColor(Color.WHITE)
-					}
-					else
-					{
-						tv.background = GradientDrawable().apply {
-							shape = GradientDrawable.RECTANGLE
-							setColor(Color.WHITE)
-							setStroke(1, Color.GRAY)
-						}
-						tv.setTextColor(Color.BLACK)
-					}
-				}
-			}
-		}
 	}
 }

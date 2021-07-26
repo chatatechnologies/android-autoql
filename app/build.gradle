@@ -29,8 +29,8 @@ android {
 	productFlavors {
 		chata {
 			applicationId "autoql.chata.ai"
-			versionCode 80
-			versionName "1.1.3"
+			versionCode 81
+			versionName "1.1.4"
 		}
 	}
 	compileOptions {
@@ -45,7 +45,7 @@ android {
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	implementation 'androidx.appcompat:appcompat:1.3.0'
+	implementation 'androidx.appcompat:appcompat:1.3.1'
 	implementation 'androidx.recyclerview:recyclerview:1.2.1'
 	implementation 'com.google.android.material:material:1.4.0'
 	implementation 'com.github.angads25:toggle:1.1.0'
