@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.PopupMenu
-import android.widget.RelativeLayout
+import android.widget.*
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
@@ -73,10 +70,10 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 		ivAlert?.let {
 			it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
 			{
-				it.setOnClickListener {
-					Log.e("ERROR", "Error for rows")
+				it.setOnClickListener { view ->
+					Toast.makeText(view.context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
 				}
-				View.GONE
+				View.VISIBLE
 			}
 			else View.GONE
 		}

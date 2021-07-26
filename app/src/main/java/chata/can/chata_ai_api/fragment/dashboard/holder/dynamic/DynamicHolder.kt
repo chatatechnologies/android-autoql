@@ -3,6 +3,7 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
@@ -189,6 +190,12 @@ class DynamicHolder(
 									findViewById<View>(R.id.ivOption2)?.setOnClickListener {
 										openPopupMenu(it, item)
 									}
+									findViewById<View>(R.id.ivAlert)?.let {
+										configAlert(it, item)
+									}
+									findViewById<View>(R.id.ivAlert2)?.let {
+										configAlert(it, item)
+									}
 								}
 								addView(first, childWebView)
 							}
@@ -234,5 +241,23 @@ class DynamicHolder(
 			}
 			show()
 		}
+	}
+
+	private fun configAlert(view: View, item: QueryBase)
+	{
+		view.visibility = if (item.limitRowNum <= item.aRows.size)
+		{
+			view.setOnClickListener {
+				showToast()
+			}
+			View.VISIBLE
+		}
+		else View.GONE
+	}
+
+	private fun showToast()
+	{
+		val context = itemView.context
+		Toast.makeText(context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
 	}
 }
