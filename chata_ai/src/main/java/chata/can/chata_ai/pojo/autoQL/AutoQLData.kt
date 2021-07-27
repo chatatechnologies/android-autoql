@@ -40,6 +40,7 @@ object AutoQLData
 
 	fun notLoginData() = projectId == "" || apiKey == "" || domainUrl == "" || JWT == ""
 
+	var lastName = ""
 	var customerName = ""
 	var title = ""
 	var introMessage = ""

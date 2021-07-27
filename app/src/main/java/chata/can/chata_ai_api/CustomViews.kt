@@ -63,7 +63,7 @@ object CustomViews
 			boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
 			hintTextColor = ColorStateList.valueOf(blueColor)
 			setBoxCornerRadii(5f, 5f, 5f, 5f)
-			margin(20.5f, 10.5f, 20.5f, 10.5f)
+			margin(12f, 10.5f, 12f, 10.5f)
 			if (demoParam.helperText.isNotEmpty())
 				helperText = demoParam.helperText
 			setHelperTextColor(ColorStateList.valueOf(redColor))
@@ -123,7 +123,7 @@ object CustomViews
 					setStroke(3, getParsedColor(R.color.borderEditText))
 				}
 				layoutParams = getLinearLayoutParams(-1, -2)
-				margin(20.5f, 10.5f, 20.5f, 10.5f)
+				margin(12f, 10.5f, 12f, 10.5f)
 				gravity = Gravity.CENTER_HORIZONTAL
 				id = demoParam.idView
 				if (demoParam.value.isNotEmpty() &&
@@ -174,7 +174,7 @@ object CustomViews
 
 			MaterialButton(context).apply {
 				layoutParams = getLinearLayoutParams(-1, 120)
-				margin(20.5f, 10.5f, 20.5f, 10.5f)
+				margin(12f, 10.5f, 12f, 10.5f)
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
 					stateListAnimator = null
@@ -206,7 +206,7 @@ object CustomViews
 						setGravity(Gravity.CENTER)
 				}
 				orientation = LinearLayout.HORIZONTAL
-				margin(20.5f, 10.5f, 20.5f, 10.5f)
+				margin(12f, 10.5f, 12f, 10.5f)
 				for (iterator in 0 until sizeOptions)
 				{
 					val option = demoParam.options[iterator]
@@ -365,7 +365,7 @@ object CustomViews
 		finally
 		{
 			layoutParams = getLinearLayoutParams(-1, 120)
-			margin(20.5f, 10.5f, 20.5f, 10.5f)
+			margin(12f, 10.5f, 12f, 10.5f)
 			gravity = Gravity.CENTER
 			setTextColor(Color.WHITE)
 			setText(valueColor)
@@ -436,7 +436,7 @@ object CustomViews
 					}
 					finally {
 						layoutParams = getLinearLayoutParams(-1, -2)
-						margin(20.5f, 10.5f, 20.5f, 10.5f)
+						margin(12f, 10.5f, 12f, 10.5f)
 						gravity = Gravity.CENTER
 						addColor(valueColor)
 						setText(valueColor)
@@ -465,7 +465,7 @@ object CustomViews
 				finally
 				{
 					layoutParams = getLinearLayoutParams(-1, -2)
-					margin(20.5f, 10.5f, 20.5f, 10.5f)
+					margin(12f, 10.5f, 12f, 10.5f)
 					gravity = Gravity.CENTER
 					id = demoParam.idView
 

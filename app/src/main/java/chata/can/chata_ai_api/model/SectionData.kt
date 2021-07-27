@@ -90,7 +90,7 @@ object SectionData
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "User Display Name", idView = R.id.etCustomerMessage),
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Intro Message ", idView = R.id.etIntroMessage),
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Query Input PlaceHolder", idView = R.id.etQueryPlaceholder),
-				DemoParameter("", TypeParameter.TOGGLE, hint = "Clear All Messages on Close", idView = R.id.swClearMessage),
+				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, hint = "", idView = R.id.swClearMessage),
 				DemoParameter("", TypeParameter.INPUT_MATERIAL, "Data Messenger", hint = "Title", idView = R.id.etTitle),
 
 				//,DemoParameter("Font Family", TypeParameter.INPUT, "sans-serif")

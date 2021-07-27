@@ -232,6 +232,19 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 		//region setDataToDataMessenger
 		fragment.arguments?.let {
 			AutoQLData.run {
+				if (lastName.isNotEmpty() && lastName != customerName)
+				{
+					SinglentonDrawer.mModel.run {
+						get(0)?.let {
+							val introMessageRes = if (introMessage.isNotEmpty())
+								introMessage
+							else getString(R.string.discover_today)
+							val introMessage = String.format(introMessageRes, customerName)
+							it.message = introMessage
+						}
+					}
+				}
+				lastName = customerName
 				it.putString("CUSTOMER_NAME", customerName)
 				it.putString("TITLE", title)
 				it.putString("INTRO_MESSAGE", introMessage)
