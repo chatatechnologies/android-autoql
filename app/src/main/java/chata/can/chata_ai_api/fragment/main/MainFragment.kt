@@ -143,7 +143,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
+			//servicePresenter.createAuthenticate()
 		}
 		else
 		{
