@@ -5,6 +5,5 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorButton">#2593FB</color>
-    <color name="textButton">@android:color/white</color>
     <color name="borderEditText">#C0C0C0</color>
 </resources>

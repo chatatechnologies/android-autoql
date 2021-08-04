@@ -133,6 +133,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			})
 			activity?.let { rvRelatedQueries.layoutManager = LinearLayoutManager(it) }
 			rvRelatedQueries.adapter = adapter
+			rvRelatedQueries.itemAnimator = null
 		}
 	}
 
@@ -181,7 +182,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			rvRelatedQueries.visibility = visible
 			model.clear()
 			model.addAll(aItems)
-			adapter.notifyDataSetChanged()
+			adapter.notifyItemRangeChanged(0, model.countData() - 1)
 			configPager(this)
 		}
 	}
@@ -301,7 +302,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 				rvRelatedQueries.visibility = visible
 				model.clear()
 				model.addAll(it.aItems)
-				adapter.notifyDataSetChanged()
+				adapter.notifyItemRangeChanged(0, model.countData() - 1)
 				configPager(it)
 			}
 		}

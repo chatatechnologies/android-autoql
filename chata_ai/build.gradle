@@ -9,10 +9,8 @@ android {
 		minSdkVersion 17
 		targetSdkVersion 30
 		multiDexEnabled true
-		versionCode 2
-		versionName "0.2"
 
-		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		consumerProguardFiles 'consumer-rules.pro'
 	}
 

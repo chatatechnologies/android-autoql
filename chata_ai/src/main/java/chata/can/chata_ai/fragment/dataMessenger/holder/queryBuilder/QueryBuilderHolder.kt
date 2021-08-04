@@ -229,6 +229,7 @@ class QueryBuilderHolder(
 		}
 		rvQueries?.layoutManager = LinearLayoutManager(pagerActivity)
 		rvQueries?.adapter = queriesAdapter
+		rvQueries?.itemAnimator = null
 	}
 
 	private fun setListQueries()
@@ -240,7 +241,7 @@ class QueryBuilderHolder(
 				modelQueries?.add(OptionData(item, false))
 			}
 		}
-		queriesAdapter?.notifyDataSetChanged()
+		queriesAdapter?.notifyItemRangeChanged(0, modelQueries?.countData() ?: 0 - 1)
 	}
 
 	private val widthParent

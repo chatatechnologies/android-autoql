@@ -103,23 +103,23 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyDataSetChanged()
+			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
 		}
 
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 			model.restartData()
-			chatAdapter.notifyDataSetChanged()
+			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
 		}
 
 		SinglentonDrawer.aLocaleMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyDataSetChanged()
+			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
 		}
 
 		SinglentonDrawer.aCurrencyMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyDataSetChanged()
+			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
 		}
 	}
 
@@ -256,7 +256,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		}
-		chatAdapter.notifyDataSetChanged()
+		chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
 	}
 
 	override fun initViews(view: View)
@@ -552,6 +552,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			llm.orientation = LinearLayoutManager.VERTICAL
 			rvChat.layoutManager = llm
 			rvChat.adapter = chatAdapter
+			rvChat.itemAnimator = null
 		}
 	}
 

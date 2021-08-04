@@ -52,7 +52,7 @@ class CustomAlertDialog(
 	private val buttonChecked = CompoundButton.OnCheckedChangeListener { _, value ->
 		for (position in 0 until model.countData())
 			model[position]?.isVisible = value
-		adapter.notifyDataSetChanged()
+		adapter.notifyItemRangeChanged(0, model.countData() - 1)
 	}
 
 	fun showDialog()
@@ -223,6 +223,7 @@ class CustomAlertDialog(
 			adapter = ColumnAdapter(model, queryBase, this)
 			rvColumn.layoutManager = LinearLayoutManager(context1)
 			rvColumn.adapter = adapter
+			rvColumn.itemAnimator = null
 
 			ivCancel.setOnClickListener(this)
 			btnCancel.setOnClickListener(this)

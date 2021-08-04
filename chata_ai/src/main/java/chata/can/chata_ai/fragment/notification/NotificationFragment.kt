@@ -69,7 +69,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		}
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
-			adapter.notifyDataSetChanged()
+			adapter.notifyItemRangeChanged(0, model.countData() - 1)
 		}
 	}
 
@@ -93,6 +93,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 			}
 			rvNotification.layoutManager = LinearLayoutManager(it)
 			rvNotification.adapter = adapter
+			rvNotification.itemAnimator = null
 		}
 	}
 
@@ -126,7 +127,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		this.totalPages = totalPages
 		model.addAll(aNotification)
 		tvLoading.visibility = View.GONE
-		adapter.notifyDataSetChanged()
+		adapter.notifyItemRangeChanged(0, model.countData() - 1)
 	}
 
 	override fun onDestroy()
