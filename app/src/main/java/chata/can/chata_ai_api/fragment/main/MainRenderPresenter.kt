@@ -108,9 +108,7 @@ class MainRenderPresenter(
 					{
 						if (demoParam.colors.isEmpty())
 						{
-							CustomViews.getColor(context, demoParam) {
-
-							}
+							CustomViews.getColor(context, demoParam) {}
 						}
 						else
 						{

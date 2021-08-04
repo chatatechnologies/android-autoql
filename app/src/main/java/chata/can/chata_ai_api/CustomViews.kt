@@ -22,6 +22,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
@@ -431,7 +432,7 @@ object CustomViews
 					val valueColor = color.value
 					try {
 						val pColor = valueColor.getContrast()
-						setBackgroundColor(pColor.first)
+						background = DrawableBuilder.setGradientDrawable(pColor.first, 5f)
 						setTextColor(pColor.second)
 					}
 					finally {
@@ -459,7 +460,7 @@ object CustomViews
 				try
 				{
 					val pColor = valueColor.getContrast()
-					setBackgroundColor(pColor.first)
+					background = DrawableBuilder.setGradientDrawable(pColor.first, 5f)
 					setTextColor(pColor.second)
 				}
 				finally
