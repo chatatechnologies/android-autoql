@@ -21,7 +21,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.*
@@ -97,7 +96,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 			//query base for testing
-			val queryDemo = "all jobs"
+//			val queryDemo = "all jobs"
+			val queryDemo = ""
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot
@@ -598,13 +598,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	//region permissions
 	private val aPermission = arrayOf(Manifest.permission.RECORD_AUDIO)
-	private val permReqLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+	private val permissionRequiredLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
 		permissions ->
 		val grated = permissions.entries.all { it.value == true }
-		if (grated)
-		{
-			println("Permission grated")
-		}
+		if (grated) println("Permission grated")
 	}
 
 	private fun hasPermission(context: Context, permission: Array<String>): Boolean = permission.all {
@@ -615,20 +612,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private fun promptSpeechInput()
 	{
 		activity?.let {
-			if (hasPermission(it, aPermission))
-			{
-				println("Permission grated")
-			}
-			else
-			{
-				permReqLauncher.launch(aPermission)
-			}
-
-			return@let
-
 			if (SpeechRecognizer.isRecognitionAvailable(it))
 			{
-				if (ContextCompat.checkSelfPermission(it, Manifest.permission.RECORD_AUDIO) != 0)
+				if (hasPermission(it, aPermission))
 				{
 					AlertDialog.Builder(it)
 						.setMessage(R.string.msg_permission_record)
@@ -636,7 +622,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 						.setOnDismissListener {
 							if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
 							{
-								requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
+								permissionRequiredLauncher.launch(aPermission)
 							}
 						}.show()
 				}
@@ -648,14 +634,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 			{
 				AlertDialog.Builder(it)
-					.setMessage("This device does not count an App with speech recognition.")
-					.setNeutralButton("Ok", null)
-					.setOnDismissListener {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-						{
-							requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),801)
-						}
-					}.show()
+					.setMessage(R.string.msg_not_speech)
+					.setNeutralButton("Ok", null).show()
 			}
 		}
 	}

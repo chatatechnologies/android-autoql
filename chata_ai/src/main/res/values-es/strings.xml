@@ -4,6 +4,7 @@
 	<string name="data_messenger">Data Messenger</string>
 
 	<string name="msg_permission_record">Necesitamos acceso a su micrófono para escuchar su consulta.</string>
+	<string name="msg_not_speech">Este dispositivo no cuenta con una aplicación con reconocimiento de voz.</string>
 	<string name="msg_suggestion">Quiero asegurarme de haber entendido su consulta. Querías decir:</string>
 	<string name="msg_full_suggestion">Antes de que pueda intentar encontrar su respuesta, necesito su ayuda para comprender un término que utilizó y que no veo en sus datos. Haga clic en el menú desplegable para ver sugerencias y asegurarme de que obtenga los datos correctos!</string>
 	<string name="run_query">Ejecutar consulta</string>
