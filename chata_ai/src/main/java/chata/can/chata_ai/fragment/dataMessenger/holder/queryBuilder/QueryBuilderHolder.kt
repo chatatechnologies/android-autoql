@@ -77,7 +77,7 @@ class QueryBuilderHolder(
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		//region set content
-		val linkMessage = "Use💡Explore Queries to further explore the possibilities."
+		val linkMessage = pagerActivity.getString(R.string.msg_explore_queries)
 		val spannable = SpannableString(linkMessage)
 		val clickable = object: ClickableSpan()
 		{
@@ -105,7 +105,10 @@ class QueryBuilderHolder(
 				}
 			}
 		}
-		spannable.setSpan(clickable, 5, 20, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+		//region define index start and index end for blue span
+		val index = linkMessage.indexOf("Explore")
+		//endregion
+		spannable.setSpan(clickable, index, index + 15, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 		tvLink?.run {
 			text = spannable
 			movementMethod = LinkMovementMethod.getInstance()

@@ -18,6 +18,7 @@
 	<string name="arrow_left">←</string>
 	<string name="arrow_right">→</string>
 	<string name="you_can_ask_me">Algunas cosas que puedes preguntarme:</string>
+	<string name="msg_explore_queries">" Utilice💡Explore Queries para explorar más a fondo las posibilidades."</string>
 	<string name="the_data_is_incorrect">Los datos son incorrectos</string>
 	<string name="the_data_is_incomplete">Los datos están incompletos</string>
 	<string name="other">Otro…</string>

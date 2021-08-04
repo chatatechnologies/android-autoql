@@ -3,7 +3,6 @@ package chata.can.chata_ai_api.fragment.dashboard.holder
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
