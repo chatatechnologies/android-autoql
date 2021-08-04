@@ -421,6 +421,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun setSpeech(message: String)
 	{
+		setStopRecorder()
 		etQuery.setText(message)
 		etQuery.setSelection(message.length)
 	}
@@ -430,7 +431,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		activity?.let {
 			val circleDrawable = GradientDrawable().apply {
 				shape = GradientDrawable.OVAL
-				setColor(ThemeColor.currentColor.pDrawerAccentColor)
+				setColor(SinglentonDrawer.currentAccent)
 			}
 			ivMicrophone.background = circleDrawable
 		}
@@ -614,7 +615,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		activity?.let {
 			if (SpeechRecognizer.isRecognitionAvailable(it))
 			{
-				if (hasPermission(it, aPermission))
+				if (!hasPermission(it, aPermission))
 				{
 					AlertDialog.Builder(it)
 						.setMessage(R.string.msg_permission_record)
