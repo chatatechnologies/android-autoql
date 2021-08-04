@@ -2,7 +2,9 @@ package chata.can.chata_ai.fragment.dataMessenger
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
@@ -16,7 +18,9 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -592,9 +596,36 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 	}
 
+	//region permissions
+	private val aPermission = arrayOf(Manifest.permission.RECORD_AUDIO)
+	private val permReqLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+		permissions ->
+		val grated = permissions.entries.all { it.value == true }
+		if (grated)
+		{
+			println("Permission grated")
+		}
+	}
+
+	private fun hasPermission(context: Context, permission: Array<String>): Boolean = permission.all {
+		ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+	}
+	//endregion
+
 	private fun promptSpeechInput()
 	{
 		activity?.let {
+			if (hasPermission(it, aPermission))
+			{
+				println("Permission grated")
+			}
+			else
+			{
+				permReqLauncher.launch(aPermission)
+			}
+
+			return@let
+
 			if (SpeechRecognizer.isRecognitionAvailable(it))
 			{
 				if (ContextCompat.checkSelfPermission(it, Manifest.permission.RECORD_AUDIO) != 0)
