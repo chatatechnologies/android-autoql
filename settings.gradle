@@ -1,3 +1,2 @@
-include ':request_native'
 include ':app', ':chata_ai'
 rootProject.name='ApiChata'

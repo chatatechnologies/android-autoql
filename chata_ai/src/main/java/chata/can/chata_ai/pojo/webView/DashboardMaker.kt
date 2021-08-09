@@ -1021,7 +1021,7 @@ function hideTables(idHide, idShow, type2) {
 ${'$'}('#idTableBasic tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
-    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_Basic';
 	${'$'}(this).html(
         '<input id=' + idInput +
         ' type="text" placeholder="filter column..."/>');
