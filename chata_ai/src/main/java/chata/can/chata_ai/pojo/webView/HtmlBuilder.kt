@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
+import chata.can.chata_ai.pojo.isUseD3
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.hasNotValueInColumn
@@ -209,6 +210,17 @@ object HtmlBuilder
 				ArrayList()
 			}
 
+			//region build data for D3
+			val sb = StringBuilder()
+			for (index in 0 until aCatX.count())
+			{
+				val name = aCatX[index]
+				val value = aCatY[index]
+				sb.append("{name: $name, value: $value},\n")
+			}
+			dataD3.data = "[${sb.removeSuffix(",\n")}]"
+			//endregion
+
 			val aCatYS = if (aColumn.size > posColumnY)
 			{
 				//calculate max and min for bi dimensional
@@ -235,6 +247,9 @@ object HtmlBuilder
 			dataForWebView.drillX = buildCategoryByPosition(
 				Category(aRows, aColumn[posColumnX], posColumnX, false,
 					hasQuotes = true, allowRepeat = true, aIndicesIgnore = aIndicesIgnore)).toString()
+			/*D3 variable*/
+			dataD3.drillX = dataForWebView.drillX
+
 			dataForWebView.drillY = if (aColumn.size > posColumnY) {
 				val column = aColumn[posColumnY]
 				buildCategoryByPosition(
@@ -251,8 +266,12 @@ object HtmlBuilder
 				buildCategoryByPosition(Category(aRows, aColumn[posColumnY], posColumnY, true,
 					hasQuotes = true, allowRepeat = isTriConfig, aIndicesIgnore = aIndicesIgnore)).toString()
 			} else arrayListOf<String>().toString()
+			dataD3.drillTableY = dataForWebView.drillTableY
 
-			if (dataForWebView.catX == "[]") dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
+			if (dataForWebView.catX == "[]"){
+				dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
+				dataD3.catX = makeCategories(aCatY, !isTriConfig)
+			}
 			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
 
 			if (isTriConfig)
@@ -476,10 +495,38 @@ object HtmlBuilder
 							}
 						}
 					}
+					if (isUseD3)
+					{
+						//loop data for multi series for D3
+						val sbMultiSeries = StringBuilder()
+						val mDateParsed = LinkedHashMap<String, Int>()
+						for ((key, aValue) in mDataOrder)
+						{
+							val columnDate = aColumn[aDataX[0]]
+							val formattedKey = key.formatWithColumn(columnDate)
+							val parsedKey =
+								mDateParsed[formattedKey]?.let {
+									mDateParsed[formattedKey] = it + 1
+									"${formattedKey}_${it + 1}"
+								} ?: run {
+									mDateParsed[formattedKey] = 1
+									"${formattedKey}_1"
+								}
+
+							var sValues = ""
+							for ((index, value) in aValue.withIndex())
+							{
+								sValues += ", time_$index: $value"
+							}
+							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
+						}
+						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
+					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\"$it\""
 					}
+					dataD3.drillX = dataForWebView.drillX
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
