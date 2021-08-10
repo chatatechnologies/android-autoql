@@ -44,35 +44,72 @@ const TypeEnum = Object.freeze({
   "STACKED_COLUMN": 10,
   "STACKED_AREA": 11,
   "UNKNOWN": 0});
+	
+const TypeManage = Object.freeze({
+  'SELECTABLE': 'SELECTABLE',
+  'PLAIN': 'PLAIN'
+});
 
 var colorPie = $sColors;
 var colorBi = ['$color1'];//Main color for bars
 
 var axisX = '${dataD3.xAxis}';
 var axisY = '${dataD3.yAxis}';
+var nColumns = 0;
 
 //Main data
-var data = ${dataD3.data}
-var maxValue = ${dataD3.max}
-var minValue = ${dataD3.min}
+var dataTmp = [];
+var data = ${dataD3.data};
+var opacityMarked = [];
+var categoriesX = ${dataD3.catX};
+var drillTableY = ${dataD3.drillTableY};
+var drillX = ${dataD3.drillX}
+var limitName = 0;
+var maxValue = ${dataD3.max};
+var minValue = ${dataD3.min};
 //endregion
+
+//REGION max letters in name
+for (const item in data) {
+  var value = data[item].name.length;
+  if (limitName < value) {
+    limitName = value;
+    if (limitName > 10) {
+      limitName = 110;
+      break;
+    } else {
+      limitName *= 10;
+    }
+  }
+}
+//ENDREGION
+
+//REGION get max value
+for (const item in data) {
+  var value = data[item].value;
+  if (maxValue < value) {
+    maxValue = value;
+  }
+}
+//ENDREGION
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
+var digits = digitsCount(maxValue);
+var _plusSingle = digits == 1 ? 10 : 0;
+var _maxValue = (digits * 8) + 35 + _plusSingle;
+var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
+var _left = typeChart == isHorizontal() ? limitName : _maxValue;
 //width dynamic, height dynamic
-var width1 = 0;
-var height = 0;
 var margin = {
   top: 20,
   right: 20,
-  bottom: 72 + 10,//factor count letter by 7
-  left: ((digitsCount(maxValue) - 1) * 10 + 30)//plus 30 for Y axis title
+  bottom: _bottom,
+  left: _left
 };
-//width = width1 - margin.left - margin.right,
 var width = 0;
-//height = height - margin.top - margin.bottom,
 var height = 0;
-//radius = Math.min(width, height) / 2;
+var isAgain = false;
 """
 	}
 }

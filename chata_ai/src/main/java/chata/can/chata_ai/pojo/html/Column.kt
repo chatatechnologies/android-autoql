@@ -32,13 +32,17 @@ function setColumn() {
     .attr('y', function(d) { return y(d.value); })
     .attr('height', function(d) { return height - y(d.value); })
     .on('click', function(_, d) {
-      drillDown(d.value);
+      var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
     });
 
 //the X DATA for axis bar
 svg.append('g')
   .attr('transform', 'translate(0,' + height + ')')
-  .call(d3.axisBottom(x))
+  .call(
+    d3.axisBottom(x)
+    .tickFormat(x =>`${'$'}{getFirst10(x)}`))
   //Remove line on domain for X axis
   .call(g => g.select('.domain').remove())
   //region set opacity for each tick item
@@ -71,6 +75,7 @@ svg.append('g')
   //Remove line on domain for Y axis
   .call(g => g.select('.domain').remove())
   .selectAll('text')
+	.attr('transform', 'translate(0,0)rotate(0)')
   .attr('fill', '#909090');
 
 //Add X axis label:

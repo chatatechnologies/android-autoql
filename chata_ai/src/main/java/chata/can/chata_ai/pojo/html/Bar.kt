@@ -7,10 +7,10 @@ object Bar
 		return """
 function setBar() {
 	var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + margin.bottom + margin.right)
+		.attr('height', height + margin.top + margin.left)
 		.append('g')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
 
 	var x = d3.scaleBand()
 		.range([height, 0])
@@ -31,8 +31,10 @@ function setBar() {
 		.attr('width', function(d) { return y(d.value); })
 		.attr('y', function(d) { return x(d.name); })
 		.attr('height', x.bandwidth())
-		.on('click', function(d) {
-			drillDown(d.value);
+		.on('click', function(_, d) {
+			var index = data.indexOf(d);
+      var value = drillX[index];
+      drillDown(value);
 		});
 
 	svg.append('g')
@@ -50,11 +52,13 @@ function setBar() {
 		//Remove line on domain for X axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
+		.attr('transform', 'translate(10,10)rotate(-45)')
 		.attr('fill', '#909090');
 
 	svg.append('g')
 		.call(
-			d3.axisLeft(x))
+			d3.axisLeft(x)
+      .tickFormat(x =>`${'$'}{getFirst10(x)}`))
 		//region set opacity for each tick item
 		.call(g => g.selectAll('.tick line')
 		.attr('opacity', 0.2))
@@ -62,8 +66,7 @@ function setBar() {
 		//Remove line on domain for Y axis
 		.call(g => g.select('.domain').remove())
 		.selectAll('text')
-		//rotate text
-		.attr('transform', 'translate(-10,-20)rotate(-45)')
+		.attr('transform', 'translate(-10,-25)rotate(-45)')
 		.attr('fill', '#909090');
 
 	//Add X axis label:
@@ -71,7 +74,7 @@ function setBar() {
 		.attr('text-anchor', 'end')
 		.style('font-size', 16)
 		.attr('x', (width / 2) + margin.top)//for center
-		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
+		.attr('y', height + margin.left - 10)//for set on bottom with -10
 		.attr('fill', '#808080')
 		.text(axisY);
 
@@ -80,11 +83,10 @@ function setBar() {
 		.attr('text-anchor', 'end')
 		.style('font-size', 16)
 		.attr('transform', 'rotate(-90)')
-		.attr('y', -margin.left + 20)
+		.attr('y', -margin.bottom + 20)
 		.attr('x', margin.top + (-height / 2))//center Y axis title
 		.attr('fill', '#808080')
 		.text(axisX);
-	}
-"""
+	}"""
 	}
 }

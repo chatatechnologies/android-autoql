@@ -5,7 +5,16 @@ object Functions
 	//region function
 	fun getFunctions(): String
 	{
-		return """
+		return """function getFirst10(string) {
+  var newString = '';
+  if (string.length < 11) {
+    newString = string
+  } else {
+    newString = string.substring(0, 10) + '...';
+  }
+  return newString;
+}
+
 function digitsCount(n) {
 	var count = 0;
 	if ( n >= 1) ++count;
@@ -22,23 +31,38 @@ function angle(d) {
 	return a > 90 ? a - 180 : a;
 }
 
+function isHorizontal(type) {
+  return (type == TypeEnum.BAR);
+}
+
 function clearSvg() {
 	//remove svg
 	d3.select('svg').remove();
 }
 
 function updateSize() {
-  //take ${'$'}(window).height()
-  width = ${'$'}(window).width() - margin.left - margin.right;
-  //take ${'$'}(window).width()
+  if (data.length < 8) {
+    width = ${'$'}(window).width() - margin.left - margin.right;
+  } else {
+    var width1 = ${'$'}(window).width() - margin.left - margin.right;
+    width = (width1 / 8) * data.length;
+  }
   height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }
 
 function updateData(tmpChart, isReload) {
-  console.log(tmpChart);
-	if (typeChart != tmpChart || isReload) {
-	  typeChart = tmpChart;
+	if (isAgain)
+  {
+    isAgain = false;
+  }
+  else
+  {
+    dataTmp = [];
+    dataTmp.push.apply(dataTmp, data);
+    if (typeChart != tmpChart || isReload) {
+      typeChart = tmpChart;
+    }
   }
 
   updateSize();
@@ -48,32 +72,70 @@ function updateData(tmpChart, isReload) {
   } else {
     ${'$'}("table").hide(0);
     clearSvg();
+    data.map(function(a1) {
+      var keys = Object.keys(a1);
+      nColumns = keys.length;
+    });
     switch(typeChart) {
-    case TypeEnum.COLUMN:
-      setColumn();
+      case TypeEnum.COLUMN:
+        if (nColumns == 2) {
+          setColumn();
+        } else {
+          setMultiColumn();
+        }
       break;
-    case TypeEnum.BAR:
-      setBar();
-      break;
-    case TypeEnum.LINE:
-      setLine();
-      break;
-    case TypeEnum.PIE:
-      setDonut();
-      break;
+      case TypeEnum.BAR:
+        if (nColumns == 2) {
+            setBar();
+          } else {
+            setMultiBar();
+          }
+        break;
+      case TypeEnum.LINE:
+        if (nColumns == 2) {
+          setLine();
+        } else {
+          setMultiLine();
+        }
+        break;
+      case TypeEnum.PIE:
+        setDonut();
+        break;
     }
   }	
 }
 
 function drillDown(content) {
 	try {
-		console.log("Good content: " + content);
-		// Android.drillDown(content);
+		Android.boundMethod(content);
 	} catch(err) {
-		console.log("Wrong content: " + content);
+		console.log("Good content: " + content);
 	};
 }
-"""
+
+function modalCategories(type, content) {
+  try {
+		Android.modalCategories(type, content);
+	} catch(err) {
+		console.log(`Good content: ${'$'}{content}; ${'$'}{type}`);
+	};
+}
+
+function getAxisX() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${'$'}{axisX} ${'$'}{extra}`;
+}
+
+function getAxisY() {
+  var extra = '';
+  if (nColumns > 3) {
+    extra = '▼';
+  }
+  return `${'$'}{axisY} ${'$'}{extra}`;
+}"""
 	}
 	//endregion
 }
