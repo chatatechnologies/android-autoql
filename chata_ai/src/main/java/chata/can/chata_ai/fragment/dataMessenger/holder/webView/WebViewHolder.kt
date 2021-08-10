@@ -72,7 +72,6 @@ class WebViewHolder(
 	private var isFilter = false
 
 	private var idViewSelected = 0
-	private var canChangeHeight = false
 
 	private var accentColor = 0
 
@@ -455,7 +454,6 @@ class WebViewHolder(
 					}
 					else -> Pair("", factorHeight)
 				}
-				canChangeHeight = true
 				changeHeightWebView(pData.second)
 				queryBase.showContainer = lastId
 				wbQuery?.run {
@@ -485,14 +483,9 @@ class WebViewHolder(
 			clearCache(true)
 			clearHistory()
 			requestLayout()
-			if (lastId == "#container")
-			{
-				changeHeightWebView(factorHeight)
-			}
-			else
-			{
-				changeHeightWebView(numRows)
-			}
+			val tmp = if (lastId == "#container") factorHeight
+			else numRows
+			changeHeightWebView(tmp)
 			settings.javaScriptEnabled = true
 			queryBase?.let {
 				if (it.hasDrillDown)
@@ -513,11 +506,6 @@ class WebViewHolder(
 				{
 					visibility = visible
 					Handler(Looper.getMainLooper()).postDelayed({
-						//todo show change tables
-						queryBase?.let {
-							println("LAST ID $lastId")
-							//addActionViews(it.configActions)
-						}
 						rlLoad?.visibility = invisible
 					}, 200)
 				}
@@ -532,16 +520,20 @@ class WebViewHolder(
 
 	private fun changeHeightWebView(numRows: Int)
 	{
-		rvParent?.let {
-			var customHeight = it.dpToPx(30f * numRows) + 60
-			if (customHeight > 900)
-			{
-				customHeight = 900
-			}
+		if (queryBase?.canChangeHeight == true)
+		{
+			queryBase?.canChangeHeight = false
+			rvParent?.let {
+				var customHeight = it.dpToPx(30f * numRows) + 60
+				if (customHeight > 900)
+				{
+					customHeight = 900
+				}
 
-			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
-			it.margin(12f, 32f, 12f, 1f)
-			chatView?.scrollToPosition()
+				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+				it.margin(12f, 32f, 12f, 1f)
+				chatView?.scrollToPosition()
+			}
 		}
 	}
 }
