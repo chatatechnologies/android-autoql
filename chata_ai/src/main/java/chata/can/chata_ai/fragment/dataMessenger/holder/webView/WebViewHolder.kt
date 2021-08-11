@@ -364,7 +364,7 @@ class WebViewHolder(
 					R.id.ivPivot -> "#idTableDataPivot"
 					else -> "#container"
 				}
-				//configChangeHeight(config)
+				configChangeHeight(config)
 
 				val pData = when(iv.id)
 				{
@@ -475,7 +475,7 @@ class WebViewHolder(
 					Handler(Looper.getMainLooper()).postDelayed({
 //						loadUrl("javascript:hideTables(${pData.first});")
 						loadUrl("javascript:updateData(${pData.first});")
-					}, 200)
+					}, 100)
 				}
 
 				ivActionHide?.run {
