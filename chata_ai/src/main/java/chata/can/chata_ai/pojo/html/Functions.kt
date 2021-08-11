@@ -66,43 +66,52 @@ function updateData(tmpChart, isReload) {
   }
 
   updateSize();
-  if (tmpChart == TypeEnum.TABLE) {
-    ${'$'}("svg").hide(0);
-    ${'$'}("table").show(0);
-  } else {
-    ${'$'}("table").hide(0);
-    clearSvg();
-    data.map(function(a1) {
-      var keys = Object.keys(a1);
-      nColumns = keys.length;
-    });
-    switch(typeChart) {
-      case TypeEnum.COLUMN:
-        if (nColumns == 2) {
-          setColumn();
-        } else {
-          setMultiColumn();
-        }
+  //region choose table or chart
+  switch (tmpChart) {
+    case TypeEnum.TABLE:
+    case TypeEnum.PIVOT:
+      ${'$'}("svg").hide(0);
+      var aID = tmpChart == TypeEnum.TABLE ? ["idTableBasic", "idTableDataPivot"] : ["idTableDataPivot", "idTableBasic"];
+      ${'$'}(`#${'$'}{aID[0]}`).show(0);
+      ${'$'}(`#${'$'}{aID[1]}`).hide(0);
       break;
-      case TypeEnum.BAR:
-        if (nColumns == 2) {
-            setBar();
+    default:
+      ${'$'}("#idTableBasic").hide(0);
+      ${'$'}("#idTableDataPivot").hide(0);
+      clearSvg();
+      data.map(function(a1) {
+        var keys = Object.keys(a1);
+        nColumns = keys.length;
+      });
+      switch(typeChart) {
+        case TypeEnum.COLUMN:
+          if (nColumns == 2) {
+            setColumn();
           } else {
-            setMultiBar();
+            setMultiColumn();
           }
         break;
-      case TypeEnum.LINE:
-        if (nColumns == 2) {
-          setLine();
-        } else {
-          setMultiLine();
-        }
-        break;
-      case TypeEnum.PIE:
-        setDonut();
-        break;
-    }
-  }	
+        case TypeEnum.BAR:
+          if (nColumns == 2) {
+              setBar();
+            } else {
+              setMultiBar();
+            }
+          break;
+        case TypeEnum.LINE:
+          if (nColumns == 2) {
+            setLine();
+          } else {
+            setMultiLine();
+          }
+          break;
+        case TypeEnum.PIE:
+          setDonut();
+          break;
+      }
+      break;
+  }
+  //endregion
 }
 
 function drillDown(content) {
