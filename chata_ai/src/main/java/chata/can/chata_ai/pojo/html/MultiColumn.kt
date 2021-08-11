@@ -6,11 +6,7 @@ object MultiColumn
 	{
 		return """
 function setMultiColumn() {
-  // append the svg object to the body of the page
-  var svg = d3.select('body').append('svg')
-    .attr('width', width + margin.bottom + margin.right)
-    .attr('height', height + margin.top + margin.left + 50)
-  .append('g')
+  svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
 	var withReduce = width - 100;

@@ -8,7 +8,7 @@ object Functions
 		return """function getFirst10(string) {
   var newString = '';
   if (string.length < 11) {
-    newString = string
+    newString = string;
   } else {
     newString = string.substring(0, 10) + '...';
   }

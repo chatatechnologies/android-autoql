@@ -446,7 +446,8 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#idTableDataPivot"
-						Pair("'$idHide', '#idTableDataPivot', '#idTableDataPivot'", queryBase.rowsPivot)
+//						Pair("'$idHide', '#idTableDataPivot', '#idTableDataPivot'", queryBase.rowsPivot)
+						Pair("TypeEnum.PIVOT", queryBase.rowsPivot)
 					}
 					R.id.ivStackedBar ->
 					{

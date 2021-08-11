@@ -5,7 +5,7 @@ object Filter
 	fun getFilter(): String
 	{
 		return """
-	${'$'}('#idTableBasic tfoot th').each(function () {
+${'$'}('#idTableBasic tfoot th').each(function () {
     var indexInput = ${'$'}(this).index();
     var title = ${'$'}(this).text();
     var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_Basic';
@@ -60,11 +60,8 @@ ${'$'}('#idTableDataPivot tfoot th').each(function () {
 });
 
 function showFilter() {
-	if ( ${'$'}('tfoot').is(':visible') ) {
-		${'$'}('tfoot').css({'display': 'none'});
-	} else {
-		${'$'}('tfoot').css({'display': 'table-header-group'});
-	}
+	var display = ${'$'}('tfoot').is(':visible') ? 'none' : 'table-header-group';
+  ${'$'}('tfoot').css({'display': display});
 }
 
 function adminMulti(id, subgroups) {

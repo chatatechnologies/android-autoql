@@ -5,7 +5,6 @@ object Donut
 	fun getDonut(): String
 	{
 		return """
-//REGION DONUT
 function setDonut() {
   var arc = d3.arc()
     .outerRadius(radius)
@@ -72,7 +71,6 @@ function setDonut() {
 		});
     factorBack += 20;
   }
-}
-//END DONUT"""
+}"""
 	}
 }

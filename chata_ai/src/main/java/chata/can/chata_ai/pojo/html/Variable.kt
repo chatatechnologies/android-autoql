@@ -115,7 +115,6 @@ var margin = {
 };
 var width = 0;
 var height = 0;
-var isAgain = false;
-"""
+var isAgain = false;"""
 	}
 }
