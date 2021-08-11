@@ -25,4 +25,8 @@ class DataD3
 	var isBi = true
 	var isColumn = false
 	var isDashboard = false
+	//region flag control
+	var updateTable = false
+	var updatePivot = false
+	//endregion
 }

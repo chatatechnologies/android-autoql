@@ -210,7 +210,7 @@ class CustomAlertDialog(
 		}
 	}
 
-	fun setColumns()
+	private fun setColumns()
 	{
 		queryBase?.let { queryBase ->
 			var isSelect = true
@@ -282,7 +282,7 @@ class CustomAlertDialog(
 	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		queryBase?.run {
-			lastId = "table"
+			reloadTable = true
 			onlyHTML = true
 			resetData()
 		}

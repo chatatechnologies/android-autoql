@@ -106,7 +106,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var viewDrillDown: DrillDownContract?= null
 	var isLoadingHTML = true
 	var onlyHTML = false
-	var lastId = ""
+	var reloadTable = false
 
 	init {
 		joData?.let {
@@ -212,9 +212,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					dataForWebView.type = displayType
 					dataD3.type = displayType
 				}
-				if (lastId.isNotEmpty())
+				if (reloadTable)
 				{
+					reloadTable = false
 					dataForWebView.updateTable = true
+					dataD3.updateTable = true
 				}
 
 				when(aColumn.size)
