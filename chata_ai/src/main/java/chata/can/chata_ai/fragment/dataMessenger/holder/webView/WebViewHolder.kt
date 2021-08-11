@@ -343,6 +343,11 @@ class WebViewHolder(
 		}
 	}
 
+	private fun configChangeHeight(compareId: String)
+	{
+		queryBase?.canChangeHeight = lastId != compareId
+	}
+
 	override fun callAction(iv: ImageView?)
 	{
 		queryBase?.let { queryBase ->
@@ -352,6 +357,15 @@ class WebViewHolder(
 				{
 					showFilter()
 				}
+				//region can to change the height
+				val config = when(iv.id)
+				{
+					R.id.ivTable -> "#idTableBasic"
+					R.id.ivPivot -> "#idTableDataPivot"
+					else -> "#container"
+				}
+				//configChangeHeight(config)
+
 				val pData = when(iv.id)
 				{
 					R.id.ivTable ->
