@@ -337,6 +337,7 @@ object HtmlBuilder
 								aCatY,
 								nameHeader)
 							dataForWebView.datePivot = tPivot.first
+							dataD3.pivot = tPivot.first
 							dataForWebView.rowsPivot = tPivot.second
 							tPivot.run {
 								if (third.isNotEmpty())
@@ -365,12 +366,14 @@ object HtmlBuilder
 							val pPivot = TableTriBuilder.lineDataPivot(
 								mDataPivot, aColumn[aNumber.first()],aCatY, nameHeader)
 							dataForWebView.datePivot = pPivot.first
+							dataD3.pivot = pPivot.first
 							dataForWebView.rowsPivot = pPivot.second
 						}
 					}
 					else
 					{
 						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
+						dataD3.pivot = dataForWebView.datePivot
 						dataForWebView.rowsPivot = 180
 					}
 				}
@@ -576,6 +579,7 @@ object HtmlBuilder
 						if (first != "" && second != 0)
 						{
 							dataForWebView.datePivot = first
+							dataD3.pivot = first
 							dataForWebView.rowsPivot = second
 							queryBase.configActions = 1
 						}

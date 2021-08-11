@@ -4,6 +4,8 @@ class DataD3
 {
 	var type = "table"
 	var table = ""
+	var pivot = ""
+
 	var data = ""
 
 	var catX = "[]"
@@ -13,8 +15,6 @@ class DataD3
 
 	var drillY = ""
 	var drillTableY = "[]"
-
-	var datePivot: String = ""
 
 	var xAxis = ""
 	var yAxis = ""

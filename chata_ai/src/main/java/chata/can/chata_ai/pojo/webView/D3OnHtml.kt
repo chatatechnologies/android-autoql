@@ -100,6 +100,7 @@ object D3OnHtml
 <body>
 ${getActions()}
 ${dataD3.table}
+${dataD3.pivot}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3)}

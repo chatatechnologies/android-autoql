@@ -18,16 +18,16 @@ object Variable
 			{
 				dataD3.updateTable = false
 				dataD3.updatePivot = false
-				dataD3.datePivot.tableOrPivot()
+				dataD3.pivot.tableOrPivot()
 			}
 			else if (dataD3.isColumn && !dataD3.isDashboard)
 				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
 			else
 				when(dataD3.type)
 				{
-					"table" -> dataD3.datePivot.tableOrPivot()
+					"table" -> dataD3.pivot.tableOrPivot()
 					"pivot_table" -> "#idTableDataPivot"
-					"" -> dataD3.datePivot.tableOrPivot()
+					"" -> dataD3.pivot.tableOrPivot()
 					else -> dataD3.type
 				}
 
