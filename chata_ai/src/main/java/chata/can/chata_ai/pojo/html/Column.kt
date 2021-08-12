@@ -56,46 +56,33 @@ svg.append('g')
   .attr('fill', '#909090')
   .style('text-anchor', 'end');
 
-//the Y DATA for axis bar
-svg.append('g')
-  //Format numbers on axis
-  .call(
-    d3.axisLeft(y)
-    //remove short line for Y axis
-    .tickSize(0)
-    //format data for each number on Y axis
-    .tickFormat(x => `${'$'}{fformat(x)}`))
-  //region set lines by each value for y axis
-  .call(
-    g => g.selectAll('.tick line')
-    .clone()
-    .attr('stroke-opacity', 0.1)
-    .attr('x2', width))
-  //endregion
-  //Remove line on domain for Y axis
-  .call(g => g.select('.domain').remove())
-  .selectAll('text')
-	.attr('transform', 'translate(0,0)rotate(0)')
-  .attr('fill', '#909090');
+	//the Y DATA for axis bar
+	svg.append('g')
+	  //Format numbers on axis
+	  .call(
+	    d3.axisLeft(y)
+	    //remove short line for Y axis
+	    .tickSize(0)
+	    //format data for each number on Y axis
+	    .tickFormat(x => `${'$'}{fformat(x)}`))
+	  //region set lines by each value for y axis
+	  .call(
+	    g => g.selectAll('.tick line')
+	    .clone()
+	    .attr('stroke-opacity', 0.1)
+	    .attr('x2', width))
+	  //endregion
+	  //Remove line on domain for Y axis
+	  .call(g => g.select('.domain').remove())
+	  .selectAll('text')
+		.attr('transform', 'translate(0,0)rotate(0)')
+	  .attr('fill', '#909090');
 
-//Add X axis label:
-svg.append('text')
-  .attr('text-anchor', 'end')
-  .style('font-size', 16)
-  .attr('x', (width / 2) + margin.top)//for center
-  .attr('y', height + margin.bottom - 10)//for set on bottom with -10
-  .attr('fill', '#808080')
-  .text(axisX);
-
-//Y axis label:
-svg.append('text')
-  .attr('text-anchor', 'end')
-  .style('font-size', 16)
-  .attr('transform', 'rotate(-90)')
-  .attr('y', -margin.left + 20)
-  .attr('x', margin.top + (-height / 2))//center Y axis title
-  .attr('fill', '#808080')
-  .text(axisY);
+	//Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 10, '#808080', '', axisX);
+    
+  //Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', '', axisY);
 }
 """
 	}

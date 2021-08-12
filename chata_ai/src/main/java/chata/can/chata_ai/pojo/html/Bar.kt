@@ -68,25 +68,12 @@ function setBar() {
 		.selectAll('text')
 		.attr('transform', 'translate(-10,-25)rotate(-45)')
 		.attr('fill', '#909090');
-
-	//Add X axis label:
-	svg.append('text')
-		.attr('text-anchor', 'end')
-		.style('font-size', 16)
-		.attr('x', (width / 2) + margin.top)//for center
-		.attr('y', height + margin.left - 10)//for set on bottom with -10
-		.attr('fill', '#808080')
-		.text(axisY);
-
-	//Y axis label:
-	svg.append('text')
-		.attr('text-anchor', 'end')
-		.style('font-size', 16)
-		.attr('transform', 'rotate(-90)')
-		.attr('y', -margin.bottom + 20)
-		.attr('x', margin.top + (-height / 2))//center Y axis title
-		.attr('fill', '#808080')
-		.text(axisX);
+	
+	  //Add X axis label:
+	  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left - 10, '#808080', '', axisY);
+	
+	  //Y axis label:
+	  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom + 20, '#808080', '', axisX);
 	}"""
 	}
 }
