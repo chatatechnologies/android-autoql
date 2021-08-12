@@ -151,6 +151,19 @@ function svgMulti() {
 		.attr('width', width + margin.bottom + margin.right)
 		.attr('height', height + margin.top + margin.left + 50);
   return svg;
+}
+
+function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, click) {
+  svg.append('text')
+		.attr('text-anchor', textAnchor)
+		.style('font-size', fontSize)
+    .attr('transform', `rotate(${'$'}{rotate})`)
+		.attr('x', x)//for center
+		.attr('y', y)//for set on bottom with -10
+		.attr('fill', fillColor)
+		.attr('id', id)
+		.text(text)
+    .on('click', click)
 }"""
 	}
 	//endregion

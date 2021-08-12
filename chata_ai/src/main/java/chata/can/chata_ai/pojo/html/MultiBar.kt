@@ -100,31 +100,14 @@ function setMultiBar() {
       });
 			
 	//Add X axis label:
-  svg.append('text')
-		.attr('text-anchor', 'end')
-		.style('font-size', 16)
-		.attr('x', (width / 2) + margin.top)//for center
-		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
-		.attr('fill', '#808080')
-		.attr('id', axisY)
-		.text(getAxisY())
-		.on('click', function () {
-      modalCategories(TypeManage.SELECTABLE, this.id);
-    });
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 10, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.SELECTABLE, this.id);
+  });
 
   //Y axis label:
-  svg.append('text')
-		.attr('text-anchor', 'end')
-		.style('font-size', 16)
-		.attr('transform', 'rotate(-90)')
-		.attr('y', -margin.left - 20)
-		.attr('x', margin.top + (-height / 2))//center Y axis title
-		.attr('fill', '#808080')
-		.attr('id', axisX)
-		.text(getAxisX())
-		.on('click', function () {
-      modalCategories(TypeManage.PLAIN, this.id);
-    });
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left - 20, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.PLAIN, this.id);
+  });
 }"""
 	}
 }
