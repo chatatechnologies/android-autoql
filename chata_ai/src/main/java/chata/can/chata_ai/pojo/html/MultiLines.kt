@@ -6,7 +6,7 @@ object MultiLines
 	{
 		return """
 function setMultiLine() {
-  svgMulti().append('g')
+  var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
   var keys1 = Object.keys(data[0]);

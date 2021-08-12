@@ -6,7 +6,7 @@ object MultiBar
 	{
 		return """
 function setMultiBar() {
-  svgMulti().append('g')
+  var svg = svgMulti().append('g')
 		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
 
   var keys1 = Object.keys(data[0]);

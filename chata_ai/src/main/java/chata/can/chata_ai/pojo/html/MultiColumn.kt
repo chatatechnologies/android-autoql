@@ -6,7 +6,7 @@ object MultiColumn
 	{
 		return """
 function setMultiColumn() {
-  svgMulti().append('g')
+  var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
 	var withReduce = width - 100;

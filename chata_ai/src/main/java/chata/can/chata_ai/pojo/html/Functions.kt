@@ -144,6 +144,13 @@ function getAxisY() {
     extra = '▼';
   }
   return `${'$'}{axisY} ${'$'}{extra}`;
+}
+
+function svgMulti() {
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.bottom + margin.right)
+		.attr('height', height + margin.top + margin.left + 50);
+  return svg;
 }"""
 	}
 	//endregion
