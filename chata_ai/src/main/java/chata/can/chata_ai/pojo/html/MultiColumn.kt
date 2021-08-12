@@ -98,67 +98,67 @@ function setMultiColumn() {
         }
       });
 			
-		//Add X axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('x', (withReduce / 2) + margin.top)//for center
-			.attr('y', height + margin.bottom - 10)//for set on bottom with -10
-			.attr('fill', '#808080')
-			.attr('id', axisX)
-			.text(getAxisX())
-			.on('click', function () {
-        modalCategories(TypeManage.PLAIN, this.id);
-			});
+	//Add X axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('x', (withReduce / 2) + margin.top)//for center
+		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
+		.attr('fill', '#808080')
+		.attr('id', axisX)
+		.text(getAxisX())
+		.on('click', function () {
+      modalCategories(TypeManage.PLAIN, this.id);
+		});
 
-		//Y axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('transform', 'rotate(-90)')
-			.attr('y', -margin.left + 20)
-			.attr('x', margin.top + (-height / 2))//center Y axis title
-			.attr('fill', '#808080')
-			.attr('id', axisY)
-			.text(getAxisY())
-			.on('click', function () {
-        modalCategories(TypeManage.SELECTABLE, this.id);
-			});
+	//Y axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('transform', 'rotate(-90)')
+		.attr('y', -margin.left + 20)
+		.attr('x', margin.top + (-height / 2))//center Y axis title
+		.attr('fill', '#808080')
+		.attr('id', axisY)
+		.text(getAxisY())
+		.on('click', function () {
+      modalCategories(TypeManage.SELECTABLE, this.id);
+		});
 			
-		//variable global
-	  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
-	  var factorBack = margin.top;
-	  for (const index in aCategory)
-	  {
-	    var item = aCategory[index];
-	    svg.append('text')
-	      .style('font-size', 12)
-	      .attr('x', withReduce + margin.right + 10)
-	      .attr('y', factorBack)
-	      .attr('fill', '#808080')
-				.attr('id', `id_${'$'}{index}`)
-	      .text(item)
-				.on('click', function() {
-          var id = this.id;
-          adminMulti(id, subgroups);
-        });
-	
-	    svg.append('circle')
-	      .attr("cx", withReduce + margin.right - 5)
-	      .attr("cy", factorBack - 5)
-	      .attr("r", 5)
-	      .attr("fill", colorPie[index])
-				.attr('id', `idcircle_${'$'}{index}`)
-				.attr('style', function () {
-          return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
-        })
-				.on('click', function() {
-          var id = this.id;
-          adminMulti(id, subgroups);
-        });
-	
-	    factorBack += 20;
-	  }
+	//variable global
+  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
+  var factorBack = margin.top;
+  for (const index in aCategory)
+  {
+    var item = aCategory[index];
+    svg.append('text')
+      .style('font-size', 12)
+      .attr('x', withReduce + margin.right + 10)
+      .attr('y', factorBack)
+      .attr('fill', '#808080')
+			.attr('id', `id_${'$'}{index}`)
+      .text(item)
+			.on('click', function() {
+        var id = this.id;
+        adminMulti(id, subgroups);
+      });
+
+    svg.append('circle')
+      .attr("cx", withReduce + margin.right - 5)
+      .attr("cy", factorBack - 5)
+      .attr("r", 5)
+      .attr("fill", colorPie[index])
+			.attr('id', `idcircle_${'$'}{index}`)
+			.attr('style', function () {
+        return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+      })
+			.on('click', function() {
+        var id = this.id;
+        adminMulti(id, subgroups);
+      });
+
+    factorBack += 20;
+  }
 }"""
 	}
 }

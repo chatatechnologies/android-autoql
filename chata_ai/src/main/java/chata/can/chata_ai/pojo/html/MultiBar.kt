@@ -7,13 +7,13 @@ object MultiBar
 		return """
 function setMultiBar() {
   var svg = svgMulti().append('g')
-		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
+		.attr('transform', `translate(${'$'}{margin.bottom}, ${'$'}{margin.top})`);
 
-  var keys1 = Object.keys(data[0]);
+  var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
-  const groups = data.map(d => d.name);
+  const groups = dataTmp.map(d => d.name);
 
   // Add X axis
   const x = d3.scaleBand()
@@ -76,7 +76,7 @@ function setMultiBar() {
   svg.append('g')
     .selectAll('g')
     // Enter in data = loop group per group
-    .data(data)
+    .data(dataTmp)
     .join('g')
       .attr('transform', d => `translate(0, ${'$'}{x(d.name)})`)
 			.attr('id', function(_,i){ return 'item_' + i;})
@@ -99,32 +99,32 @@ function setMultiBar() {
         }
       });
 			
-		//Add X axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('x', (width / 2) + margin.top)//for center
-			.attr('y', height + margin.bottom - 10)//for set on bottom with -10
-			.attr('fill', '#808080')
-			.attr('id', axisY)
-			.text(getAxisY())
-			.on('click', function () {
-	      modalCategories(TypeManage.SELECTABLE, this.id);
-	    });
+	//Add X axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('x', (width / 2) + margin.top)//for center
+		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
+		.attr('fill', '#808080')
+		.attr('id', axisY)
+		.text(getAxisY())
+		.on('click', function () {
+      modalCategories(TypeManage.SELECTABLE, this.id);
+    });
 
-    //Y axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('transform', 'rotate(-90)')
-			.attr('y', -margin.left - 20)
-			.attr('x', margin.top + (-height / 2))//center Y axis title
-			.attr('fill', '#808080')
-			.attr('id', axisX)
-			.text(getAxisX())
-			.on('click', function () {
-	      modalCategories(TypeManage.PLAIN, this.id);
-	    });
+  //Y axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('transform', 'rotate(-90)')
+		.attr('y', -margin.left - 20)
+		.attr('x', margin.top + (-height / 2))//center Y axis title
+		.attr('fill', '#808080')
+		.attr('id', axisX)
+		.text(getAxisX())
+		.on('click', function () {
+      modalCategories(TypeManage.PLAIN, this.id);
+    });
 }"""
 	}
 }

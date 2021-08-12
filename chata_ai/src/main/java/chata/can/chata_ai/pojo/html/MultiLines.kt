@@ -9,26 +9,26 @@ function setMultiLine() {
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-  var keys1 = Object.keys(data[0]);
-  const allGroups = keys1.slice(1);
+  var keys1 = Object.keys(dataTmp[0]);
+  const subgroups = keys1.slice(1);
   
   // Reformat the data: we need an array of arrays of {x, y} tuples
-  var dataReady = allGroups.map( function(grpName) { // .map allows to do something for each element of the list
+  var dataReady = subgroups.map( function(grpName) { // .map allows to do something for each element of the list
     return {
       name: grpName,
-      values: data.map(function(d) {
+      values: dataTmp.map(function(d) {
         return {subname: d.name, value: +d[grpName]};
       })
     };
   });
 
   var myColor = d3.scaleOrdinal()
-    .domain(allGroups)
+    .domain(subgroups)
     .range(colorPie);
 
     // Add X axis --> it is a date format
   var x = d3.scaleBand()
-    .domain(data.map(function(d) { return d.name; }))
+    .domain(dataTmp.map(function(d) { return d.name; }))
     .range([0, width])
     .padding(1);
 
@@ -114,32 +114,32 @@ function setMultiLine() {
       }
     });
 		
-		//Add X axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('x', (width / 2) + margin.top)//for center
-			.attr('y', height + margin.bottom - 10)//for set on bottom with -10
-			.attr('fill', '#808080')
-			.attr('id', axisX)
-			.text(getAxisX())
-			.on('click', function () {
-        modalCategories(TypeManage.PLAIN, this.id);
-			});
+	//Add X axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('x', (width / 2) + margin.top)//for center
+		.attr('y', height + margin.bottom - 10)//for set on bottom with -10
+		.attr('fill', '#808080')
+		.attr('id', axisX)
+		.text(getAxisX())
+		.on('click', function () {
+      modalCategories(TypeManage.PLAIN, this.id);
+		});
 
-		//Y axis label:
-    svg.append('text')
-			.attr('text-anchor', 'end')
-			.style('font-size', 16)
-			.attr('transform', 'rotate(-90)')
-			.attr('y', -margin.left + 20)
-			.attr('x', margin.top + (-height / 2))//center Y axis title
-			.attr('fill', '#808080')
-			.attr('id', axisY)
-			.text(getAxisY())
-			.on('click', function () {
-        modalCategories(TypeManage.SELECTABLE, this.id);
-			});
+	//Y axis label:
+  svg.append('text')
+		.attr('text-anchor', 'end')
+		.style('font-size', 16)
+		.attr('transform', 'rotate(-90)')
+		.attr('y', -margin.left + 20)
+		.attr('x', margin.top + (-height / 2))//center Y axis title
+		.attr('fill', '#808080')
+		.attr('id', axisY)
+		.text(getAxisY())
+		.on('click', function () {
+      modalCategories(TypeManage.SELECTABLE, this.id);
+		});
 }"""
 	}
 }
