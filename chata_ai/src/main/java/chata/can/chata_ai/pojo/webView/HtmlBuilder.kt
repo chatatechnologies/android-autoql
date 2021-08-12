@@ -533,7 +533,7 @@ object HtmlBuilder
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
-					dataD3.max = min
+					dataD3.max = max
 					//region order data for data:
 					val aDataOrder = ArrayList<ArrayList<String>>()
 					for (index in 0 until aDataY.size)
