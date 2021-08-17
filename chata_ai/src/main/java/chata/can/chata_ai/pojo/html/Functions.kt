@@ -164,6 +164,20 @@ function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, c
 		.attr('id', id)
 		.text(text)
     .on('click', click)
+}
+
+
+function axisMulti(svg, isLeft, xBand, height) {
+  var svg = svg.append("g");
+  if (height !== undefined)
+  {
+    svg = svg.attr('transform', `translate(0,${'$'}{height})`)
+  }
+  var axis = isLeft ? d3.axisLeft(xBand) : d3.axisBottom(xBand);
+  svg.call(
+    axis.tickFormat(x => `${'$'}{x.split('_')[0]}`)
+  )
+  return svg;
 }"""
 	}
 	//endregion

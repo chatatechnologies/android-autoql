@@ -20,11 +20,8 @@ function setMultiBar() {
     .domain(groups)
     .range([height, 0])
     .padding([0.2]);
-  svg.append("g")
-    .call(
-      d3.axisLeft(x)
-        .tickFormat(x => `${'$'}{x.split('_')[0]}`)
-    )
+  var axis = axisMulti(svg, true, x);
+  axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set opacity for each tick item
