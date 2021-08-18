@@ -166,17 +166,16 @@ function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, c
     .on('click', click)
 }
 
-
 function axisMulti(svg, isLeft, xBand, height) {
   var svg = svg.append("g");
   if (height !== undefined)
   {
     svg = svg.attr('transform', `translate(0,${'$'}{height})`)
   }
-  var axis = isLeft ? d3.axisLeft(xBand) : d3.axisBottom(xBand);
-  svg.call(
-    axis.tickFormat(x => `${'$'}{x.split('_')[0]}`)
-  )
+  var axis = isLeft ? 
+    d3.axisLeft(xBand).tickFormat(x => `${'$'}{x.split('_')[0]}`) :
+    d3.axisBottom(xBand).tickFormat(x =>`${'$'}{fformat(x)}`);
+	svg.call(axis);
   return svg;
 }"""
 	}

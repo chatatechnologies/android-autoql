@@ -38,12 +38,8 @@ function setMultiBar() {
     .domain([0, maxValue])
     .range([0, width]);
 
-    svg.append("g")
-    .attr('transform', `translate(0, ${'$'}{height})`)
-    .call(
-      d3.axisBottom(y)
-      .tickFormat(x =>`${'$'}{fformat(x)}`)
-    )
+  axis = axisMulti(svg, false, y, height);
+  axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set lines by each value for y axis
@@ -58,7 +54,7 @@ function setMultiBar() {
     .attr('fill', '#909090')
     .style('text-anchor', 'end');
 
-    // Another scale for subgroup position?
+  // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()
     .domain(subgroups)
     .range([x.bandwidth(), 0])
