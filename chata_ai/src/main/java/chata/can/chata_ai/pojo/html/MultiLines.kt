@@ -32,31 +32,22 @@ function setMultiLine() {
     .range([0, width])
     .padding(1);
 
-  var axis = axisMulti(svg, false, x, 0, height, splitAxis);
-  axis
+  var axis = axisMulti(svg, false, x, height, 10, splitAxis);
+  axis = axis
   //Remove line on domain for X axis
   .call(g => g.select('.domain').remove())
   //region set opacity for each tick item
   .call(
     g => g.selectAll('.tick line')
     .attr('opacity', 0.2))
-  .selectAll('text')
-  //rotate text
-  .attr('transform', 'translate(10,10)rotate(-45)')
-  //Set color each item on X axis
-  .attr('fill', '#909090')
-  .style('text-anchor', 'end');
+  completeAxisMultiple(axis, 15, 10, -45);
 
-    // Add Y axis
+  // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, 3360.0])//maxValue is here
     .range([height, 0]);
-  svg.append("g")
-    .call(
-      d3.axisLeft(y)
-      .tickSize(0)
-      .tickFormat(x => `${'$'}{fformat(x)}`)
-    )
+  var axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+	axis = axis
     .call(
       g => g.selectAll('.tick line')
       .clone()
@@ -65,8 +56,7 @@ function setMultiLine() {
     )
     //Remove line on domain for Y axis
     .call(g => g.select('.domain').remove())
-    .selectAll('text')
-    .attr('fill', '#909090');
+  completeAxisMultiple(axis, 0, 0, 0);
 
     // Add the lines
   var line = d3.line()

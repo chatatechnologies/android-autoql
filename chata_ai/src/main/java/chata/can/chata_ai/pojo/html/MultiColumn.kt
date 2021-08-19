@@ -21,40 +21,29 @@ function setMultiColumn() {
     .domain(groups)
     .range([0, withReduce])
     .padding([0.2]);
-  var axis = axisMulti(svg, false, x, 0, height, splitAxis);
-	axis
+  var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+	axis = axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-    .selectAll('text')
-    //rotate text
-    .attr('transform', 'translate(10,10)rotate(-45)')
-    .attr('fill', '#909090')
-    .style('text-anchor', 'end');
+  completeAxisMultiple(axis, 10, 10, -45);
 
   // Add Y axis
   const y = d3.scaleLinear()
     .domain([0, maxValue])
     .range([ height, 0 ]);
-  svg.append('g')
-    .call(
-      d3.axisLeft(y)
-      //remove short line for Y axis
-      .tickSize(0)
-      .tickFormat(x =>`${'$'}{fformat(x)}`))
+  axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+	axis = axis
     //region set lines by each value for y axis
     .call(
       g => g.selectAll('.tick line')
       .clone()
       .attr('stroke-opacity', 0.1)
       .attr('x2', withReduce))
-    //Remove line on domain for Y axis
-    .call(g => g.select('.domain').remove())
-    .selectAll('text')
-	  .attr('transform', 'translate(0,0)rotate(0)')
-    .attr('fill', '#909090');
+      .call(g => g.select('.domain').remove())
+    completeAxisMultiple(axis, 0, 0, 0);
 
   // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()
