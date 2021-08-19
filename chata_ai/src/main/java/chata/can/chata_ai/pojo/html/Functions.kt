@@ -166,16 +166,25 @@ function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, c
     .on('click', click)
 }
 
-function axisMulti(svg, isLeft, xBand, height) {
+function splitAxis(x) {
+  return `${'$'}{x.split('_')[0]}`;
+}
+
+function formatAxis(y) {
+  return `${'$'}{fformat(y)}`;
+}
+
+function axisMulti(svg, isLeft, xBand, height, formatAxis) {
   var svg = svg.append("g");
   if (height !== undefined)
   {
     svg = svg.attr('transform', `translate(0,${'$'}{height})`)
   }
   var axis = isLeft ? 
-    d3.axisLeft(xBand).tickFormat(x => `${'$'}{x.split('_')[0]}`) :
-    d3.axisBottom(xBand).tickFormat(x =>`${'$'}{fformat(x)}`);
+    d3.axisLeft(xBand).tickFormat(x => formatAxis(x)) :
+    d3.axisBottom(xBand).tickFormat(x => formatAxis(x));
 	svg.call(axis);
+	axis = axis.tickSize(0);
   return svg;
 }"""
 	}
