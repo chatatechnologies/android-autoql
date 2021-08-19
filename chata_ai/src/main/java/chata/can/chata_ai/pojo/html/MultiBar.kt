@@ -20,26 +20,22 @@ function setMultiBar() {
     .domain(groups)
     .range([height, 0])
     .padding([0.2]);
-  var axis = axisMulti(svg, true, x);
-  axis
+  var axis = axisMulti(svg, true, x, 0, 5, splitAxis);
+  axis = axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-    .selectAll('text')
-    //rotate text
-    .attr('transform', 'translate(-10,-25)rotate(-45)')
-    .attr('fill', '#909090')
-    .style('text-anchor', 'end');
+  completeAxisMultiple(axis, -10, -25, -45);
 
     // Add Y axis
   const y = d3.scaleLinear()
     .domain([0, maxValue])
     .range([0, width]);
 
-  axis = axisMulti(svg, false, y, height);
-  axis
+  axis = axisMulti(svg, false, y, height, 0, formatAxis);
+  axis = axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set lines by each value for y axis
@@ -48,11 +44,7 @@ function setMultiBar() {
       .clone()
       .attr('stroke-opacity', 0.1)
       .attr('y2', -height))
-    .selectAll('text')
-    //rotate text
-    .attr('transform', 'translate(10,10)rotate(-45)')
-    .attr('fill', '#909090')
-    .style('text-anchor', 'end');
+  completeAxisMultiple(axis, 10, 10, -45);
 
   // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()

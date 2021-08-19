@@ -21,12 +21,8 @@ function setMultiColumn() {
     .domain(groups)
     .range([0, withReduce])
     .padding([0.2]);
-  svg.append("g")
-    .attr('transform', `translate(0, ${'$'}{height})`)
-    .call(
-      d3.axisBottom(x)
-        .tickFormat(x => `${'$'}{x.split('_')[0]}`)
-    )
+  var axis = axisMulti(svg, false, x, 0, height, splitAxis);
+	axis
     //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
     //region set opacity for each tick item

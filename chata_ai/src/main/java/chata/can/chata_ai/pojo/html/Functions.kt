@@ -174,18 +174,26 @@ function formatAxis(y) {
   return `${'$'}{fformat(y)}`;
 }
 
-function axisMulti(svg, isLeft, xBand, height, formatAxis) {
+function axisMulti(svg, isLeft, xBand, height, _tickSize, formatAxis) {
   var svg = svg.append("g");
   if (height !== undefined)
   {
     svg = svg.attr('transform', `translate(0,${'$'}{height})`)
   }
-  var axis = isLeft ? 
-    d3.axisLeft(xBand).tickFormat(x => formatAxis(x)) :
-    d3.axisBottom(xBand).tickFormat(x => formatAxis(x));
+  var axis = isLeft ? d3.axisLeft(xBand) : d3.axisBottom(xBand);
+  axis = axis.tickSize(_tickSize).tickFormat(x => formatAxis(x));
 	svg.call(axis);
-	axis = axis.tickSize(0);
   return svg;
+}
+
+function completeAxisMultiple(axis, pointX, pointY, rotate) {
+  axis
+    .selectAll('text')
+    //rotate text
+    .attr('transform', `translate(${'$'}{pointX}, ${'$'}{pointY})rotate(${'$'}{rotate})`)
+    //Set color each item on X axis
+    .attr('fill', '#909090')
+    .style('text-anchor', 'end');
 }"""
 	}
 	//endregion
