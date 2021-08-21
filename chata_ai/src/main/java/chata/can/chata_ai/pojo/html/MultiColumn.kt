@@ -99,17 +99,10 @@ function setMultiColumn() {
   for (const index in aCategory)
   {
     var item = aCategory[index];
-    svg.append('text')
-      .style('font-size', 12)
-      .attr('x', withReduce + margin.right + 10)
-      .attr('y', factorBack)
-      .attr('fill', '#808080')
-			.attr('id', `id_${'$'}{index}`)
-      .text(item)
-			.on('click', function() {
-        var id = this.id;
-        adminMulti(id, subgroups);
-      });
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
 
     svg.append('circle')
       .attr("cx", withReduce + margin.right - 5)

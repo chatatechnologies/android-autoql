@@ -9,7 +9,8 @@ function setMultiLine() {
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-  var keys1 = Object.keys(dataTmp[0]);
+  var withReduce = width - 100;
+	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
   
   // Reformat the data: we need an array of arrays of {x, y} tuples
@@ -29,7 +30,7 @@ function setMultiLine() {
     // Add X axis --> it is a date format
   var x = d3.scaleBand()
     .domain(dataTmp.map(function(d) { return d.name; }))
-    .range([0, width])
+    .range([0, withReduce])
     .padding(1);
 
   var axis = axisMulti(svg, false, x, height, 10, splitAxis);
@@ -52,7 +53,7 @@ function setMultiLine() {
       g => g.selectAll('.tick line')
       .clone()
       .attr('stroke-opacity', 0.1)
-      .attr('x2', width)
+      .attr('x2', withReduce)
     )
     //Remove line on domain for Y axis
     .call(g => g.select('.domain').remove())
@@ -101,7 +102,7 @@ function setMultiLine() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 10, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 10, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 
@@ -109,6 +110,35 @@ function setMultiLine() {
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
+	
+	//variable global
+  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
+  var factorBack = margin.top;
+  for (const index in aCategory)
+  {
+    var item = aCategory[index];
+
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    svg.append('circle')
+      .attr("cx", withReduce + margin.right - 5)
+      .attr("cy", factorBack - 5)
+      .attr("r", 5)
+      .attr("fill", colorPie[index])
+      .attr('id', `idcircle_${'$'}{index}`)
+      .attr('style', function () {
+        return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+      })
+      .on('click', function() {
+        var id = this.id;
+        adminMulti(id, subgroups);
+      });
+
+    factorBack += 20;
+  }
 }"""
 	}
 }

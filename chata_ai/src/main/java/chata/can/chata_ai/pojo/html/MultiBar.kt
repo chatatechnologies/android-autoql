@@ -9,7 +9,8 @@ function setMultiBar() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${'$'}{margin.bottom}, ${'$'}{margin.top})`);
 
-  var keys1 = Object.keys(dataTmp[0]);
+  var withReduce = width - 100;
+	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
@@ -32,7 +33,7 @@ function setMultiBar() {
     // Add Y axis
   const y = d3.scaleLinear()
     .domain([0, maxValue])
-    .range([0, width]);
+    .range([0, withReduce]);
 
   axis = axisMulti(svg, false, y, height, 0, formatAxis);
   axis = axis
@@ -85,7 +86,7 @@ function setMultiBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 10, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 10, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
@@ -93,6 +94,35 @@ function setMultiBar() {
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left - 20, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
+	
+	//variable global
+  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
+  var factorBack = margin.top;
+
+  for (const index in aCategory)
+  {
+    var item = aCategory[index];
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    svg.append('circle')
+    .attr("cx", withReduce + margin.right - 5)
+    .attr("cy", factorBack - 5)
+    .attr("r", 5)
+    .attr("fill", colorPie[index])
+    .attr('id', `idcircle_${'$'}{index}`)
+    .attr('style', function () {
+      return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+    })
+    .on('click', function() {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    factorBack += 20;
+  }
 }"""
 	}
 }
