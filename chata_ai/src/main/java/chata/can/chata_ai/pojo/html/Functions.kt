@@ -59,8 +59,11 @@ function updateData(tmpChart, isReload) {
   else
   {
     dataTmp = [];
-    dataTmp.push.apply(dataTmp, data);
-    if (typeChart != tmpChart || isReload) {
+    data.forEach(element => {
+			var copied = Object.assign({}, element);
+			dataTmp.push(copied);
+		});
+		if (typeChart != tmpChart || isReload) {
       typeChart = tmpChart;
     }
   }

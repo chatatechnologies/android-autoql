@@ -68,8 +68,6 @@ function adminMulti(id, subgroups) {
   var words = id.split('_');
   var index = words[1];
   var subGroup = subgroups[index];
-  //
-  console.log(subGroup);
   var exist = opacityMarked.includes(index);
   if (exist) {
     var tmp = -1;
@@ -81,20 +79,17 @@ function adminMulti(id, subgroups) {
       }
     }
     opacityMarked.splice(tmp, 1);
-    console.log('exist on -> ' + tmp);
   }
   else opacityMarked.push(index);
-  console.log('indices->' + opacityMarked);
 
-  // for (position in dataTmp) {
-  //   var element = data[position];
-  //   var copied = Object.assign({}, element);//copy new object
-
-  //   copied[subGroup] = exist ? element[subGroup] : 0;
-  //   dataTmp[position] = copied;
-  // }
-  // isAgain = true;
-  // updateData(typeChart, true);
+  for (position in dataTmp) {
+    var element = data[position];
+		var itEdit = dataTmp[position];
+  
+		itEdit[subGroup] = exist ? element[subGroup] : 0;
+  }
+  isAgain = true;
+  updateData(typeChart, true);
 }
 
 function adminOpacity(id) {
