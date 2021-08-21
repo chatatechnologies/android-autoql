@@ -82,10 +82,10 @@ function updateData(tmpChart, isReload) {
       ${'$'}("#idTableBasic").hide(0);
       ${'$'}("#idTableDataPivot").hide(0);
       clearSvg();
-      data.map(function(a1) {
-        var keys = Object.keys(a1);
-        nColumns = keys.length;
-      });
+      //region set nColumns
+      var keys = Object.keys(data[0]);
+      nColumns = keys.length;
+      //endregion
       switch(typeChart) {
         case TypeEnum.COLUMN:
           if (nColumns == 2) {
