@@ -103,21 +103,14 @@ function setMultiColumn() {
       var id = this.id;
       adminMulti(id, subgroups);
     });
-
-    svg.append('circle')
-      .attr("cx", withReduce + margin.right - 5)
-      .attr("cy", factorBack - 5)
-      .attr("r", 5)
-      .attr("fill", colorPie[index])
-			.attr('id', `idcircle_${'$'}{index}`)
-			.attr('style', function () {
-        return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
-      })
-			.on('click', function() {
-        var id = this.id;
-        adminMulti(id, subgroups);
-      });
-
+    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[index], `idcircle_${'$'}{index}`,
+    function () {
+      return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+    },
+    function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
     factorBack += 20;
   }
 }"""

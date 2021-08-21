@@ -166,7 +166,18 @@ function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, c
 		.attr('fill', fillColor)
 		.attr('id', id)
 		.text(text)
-    .on('click', click)
+    .on('click', click);
+}
+
+function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
+  svg.append('circle')
+    .attr('cx', cx)
+    .attr('cy', cy)
+    .attr('r', r)
+    .attr('fill', fill)
+    .attr('id', id)
+    .attr('style', fStyle)
+    .on('click', fClick);
 }
 
 function splitAxis(x) {
