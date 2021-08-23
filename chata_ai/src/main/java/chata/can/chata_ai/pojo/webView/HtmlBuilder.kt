@@ -527,7 +527,7 @@ object HtmlBuilder
 						}
 						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
 						dataD3.categories = aCategoryMulti.joinToString(",", "[", "]") {
-							"\"$it\""
+							"\'$it\'"
 						}
 					}
 					//fix drillX for multi-series

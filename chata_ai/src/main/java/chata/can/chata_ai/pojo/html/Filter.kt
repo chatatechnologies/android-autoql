@@ -95,19 +95,23 @@ function adminMulti(id, subgroups) {
 function adminOpacity(id) {
   var words = id.split('_');
   var index = words[1];
-  isAgain = true;
-  var item = data[index];
-  var copied = Object.assign({}, item);
 
-  if (opacityMarked.includes(index)) {
-    opacityMarked.splice(0, 1);
-    copied.value = item.value;
-  } else {
-    opacityMarked.push(index);
-    copied.value = 0;
+  var exist = opacityMarked.includes(index);
+  if (exist) {
+    var tmp = -1;
+    for (let _index = 0; _index < opacityMarked.length; _index++) {
+      if (index == opacityMarked[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    opacityMarked.splice(tmp, 1);
   }
-  dataTmp[index] = copied;
-  updateData(typeChart, true);
+  else opacityMarked.push(index);
+
+  console.log('opacityMarked -> ');
+  console.log(opacityMarked);
 }"""
 	}
 }
