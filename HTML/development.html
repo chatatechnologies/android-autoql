@@ -141,24 +141,15 @@ function updateData(tmpChart, isReload) {
   var keys = Object.keys(data[0]);
   nColumns = keys.length;
   //endregion
-
-  // console.log('nColumns -> ' + nColumns);
-  // console.log('Is multiple');
-  // console.log(isMultiple(tmpChart));
-  // console.log('Type for on update');
-  // console.log(tmpChart);
-  var _isMultiple = isMultiple(tmpChart);
-	if ( dataTmp.length && (isAgain || _isMultiple) )
+	var _isMultiple = isMultiple(tmpChart);
+	if (dataTmp.length && (isAgain || _isMultiple))
   {
-    if (_isMultiple) {
+		if (_isMultiple)
       typeChart = tmpChart;
-    }
-		console.log('Update on flag isAgain');
     isAgain = false;
   }
   else
   {
-	  console.log('Update dataTmp');
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
@@ -168,7 +159,6 @@ function updateData(tmpChart, isReload) {
       typeChart = tmpChart;
     }
   }
-	//console.log('---------->');
 
   updateSize();
   //region choose table or chart
@@ -345,10 +335,11 @@ var data = [{name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, tim
 var opacityMarked = [];
 var categoriesX = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other"];
 var drillTableY = [100.00, 240.00, 200.00];
-var drillX = ["1622640651","1610620917","1610620588","1610539486","1610539273"]
+var drillX = ['1622640651','1610620917','1610620588','1610539486','1610539273']
 var limitName = 0;
 var maxValue = 3360;
 var minValue = 0;
+var aCategory = ["Cost","Rate (Cost)","Revenue","Rate (Revenue)","Ticket Total Amount"];
 //endregion
 
 //REGION max letters in name
@@ -376,7 +367,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BAR;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -483,10 +474,7 @@ function setMultiBar() {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 	
-	//variable global
-  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
   var factorBack = margin.top;
-
   for (const index in aCategory)
   {
     var item = aCategory[index];
@@ -593,9 +581,7 @@ function setMultiColumn() {
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
 	});
-			
-	//variable global
-  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
+	
   var factorBack = margin.top;
   for (const index in aCategory)
   {
@@ -722,8 +708,6 @@ function setMultiLine() {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	
-	//variable global
-  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
   var factorBack = margin.top;
   for (const index in aCategory)
   {

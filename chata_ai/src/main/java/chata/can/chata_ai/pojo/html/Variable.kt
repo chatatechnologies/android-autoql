@@ -73,6 +73,7 @@ var drillX = ${dataD3.drillX}
 var limitName = 0;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
+var aCategory = ${dataD3.categories};
 //endregion
 
 //REGION max letters in name

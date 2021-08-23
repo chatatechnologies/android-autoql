@@ -454,12 +454,14 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
+					val aCategoryMulti = ArrayList<String>()
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]
 					val aData = ArrayList< LinkedHashMap<String, Double>>()
 					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
 					for (iItem in aDataY)
 					{
+						aCategoryMulti.add(aColumn[iItem].displayName)
 						val mRow = LinkedHashMap<String, Double>()
 						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
 						for (row in aRows)
@@ -524,10 +526,13 @@ object HtmlBuilder
 							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
 						}
 						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
+						dataD3.categories = aCategoryMulti.joinToString(",", "[", "]") {
+							"\"$it\""
+						}
 					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
-						"\"$it\""
+						"\'$it\'"
 					}
 					dataD3.drillX = dataForWebView.drillX
 					dataForWebView.min = if (min < 0) min else 0

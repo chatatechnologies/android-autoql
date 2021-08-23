@@ -60,20 +60,15 @@ function updateData(tmpChart, isReload) {
   var keys = Object.keys(data[0]);
   nColumns = keys.length;
   //endregion
-
-  console.log('nColumns -> ' + nColumns);
-  console.log('Is multiple');
-  console.log(isMultiple(tmpChart));
-  console.log('Type for on update');
-  console.log(tmpChart);
-	if (isAgain)
+	var _isMultiple = isMultiple(tmpChart);
+	if (dataTmp.length && (isAgain || _isMultiple))
   {
-		console.log('Update on flag isAgain');
+		if (_isMultiple)
+      typeChart = tmpChart;
     isAgain = false;
   }
   else
   {
-	console.log('Update dataTmp');
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
@@ -83,7 +78,6 @@ function updateData(tmpChart, isReload) {
       typeChart = tmpChart;
     }
   }
-	console.log('---------->');
 
   updateSize();
   //region choose table or chart

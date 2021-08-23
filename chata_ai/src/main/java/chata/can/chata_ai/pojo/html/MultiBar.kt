@@ -95,10 +95,7 @@ function setMultiBar() {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 	
-	//variable global
-  var aCategory = ['Cost', 'Rate (Cost)', 'Revenue', 'Rate (Revenue)', 'Ticket Total Amount'];
   var factorBack = margin.top;
-
   for (const index in aCategory)
   {
     var item = aCategory[index];

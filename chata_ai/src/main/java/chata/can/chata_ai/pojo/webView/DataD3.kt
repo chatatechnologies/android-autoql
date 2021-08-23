@@ -19,6 +19,8 @@ class DataD3
 	var xAxis = ""
 	var yAxis = ""
 
+	var categories = "[]"
+
 	var min = -1
 	var max = -1
 
