@@ -97,7 +97,8 @@ function adminOpacity(id) {
   var index = words[1];
 
   var exist = opacityMarked.includes(index);
-  if (exist) {
+  if (exist)
+  {
     var tmp = -1;
     for (let _index = 0; _index < opacityMarked.length; _index++) {
       if (index == opacityMarked[_index])
@@ -106,12 +107,17 @@ function adminOpacity(id) {
         break;
       }
     }
+    var item = data[index];
+    dataTmp[index].value = item.value;
     opacityMarked.splice(tmp, 1);
   }
-  else opacityMarked.push(index);
-
-  console.log('opacityMarked -> ');
-  console.log(opacityMarked);
+  else 
+  {
+    dataTmp[index].value = 0;
+    opacityMarked.push(index);
+  }
+  isAgain = true;
+  updateData(typeChart, true);
 }"""
 	}
 }

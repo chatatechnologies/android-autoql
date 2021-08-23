@@ -44,31 +44,19 @@ function setDonut() {
 		
   for (const index in data) {
     var item = data[index];
-    svg.append('text')
-    .style('font-size', 12)
-    .attr('x', -(maxWidth / 2) - 20)
-    .attr('y', factorBack)
-    .attr('fill', '#808080')
-		.attr('id', `id_${'$'}{index}`)
-    .text(item.name + ': ' + item.value)
-		.on('click', function() {
-			var id = this.id;
+    addText(svg, 'start', 12, 0, -(maxWidth / 2) - 20, factorBack, '#808080', `id_${'$'}{index}`, item.name + ': ' + item.value, function () {
+      var id = this.id;
       adminOpacity(id);
-		});
+    });
 		
-  svg.append('circle')
-    .attr("cx", -(maxWidth / 2) - 30)
-    .attr("cy", factorBack - 5)
-    .attr("r", 5)
-    .attr("fill", colorPie[index])
-		.attr('id', `idcircle_${'$'}{index}`)
-		.attr('style', function () {
-      return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
-    })
-		.on('click', function() {
-			var id = this.id;
-      adminOpacity(id);
-		});
+    addCircle(svg, -(maxWidth / 2) - 30, factorBack - 5, 5, colorPie[index], `idcircle_${'$'}{index}`,
+      function () {
+        return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+      },
+      function () {
+        var id = this.id;
+        adminOpacity(id);
+    });
     factorBack += 20;
   }
 }"""
