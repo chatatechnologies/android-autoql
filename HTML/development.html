@@ -142,19 +142,23 @@ function updateData(tmpChart, isReload) {
   nColumns = keys.length;
   //endregion
 
-  console.log('nColumns -> ' + nColumns);
-  console.log('Is multiple');
-  console.log(isMultiple(tmpChart));
-  console.log('Type for on update');
-  console.log(tmpChart);
-	if (isAgain)
+  // console.log('nColumns -> ' + nColumns);
+  // console.log('Is multiple');
+  // console.log(isMultiple(tmpChart));
+  // console.log('Type for on update');
+  // console.log(tmpChart);
+  var _isMultiple = isMultiple(tmpChart);
+	if ( dataTmp.length && (isAgain || _isMultiple) )
   {
-    console.log('Update on flag isAgain');
+    if (_isMultiple) {
+      typeChart = tmpChart;
+    }
+		console.log('Update on flag isAgain');
     isAgain = false;
   }
   else
   {
-    console.log('Update dataTmp');
+	  console.log('Update dataTmp');
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
@@ -164,7 +168,7 @@ function updateData(tmpChart, isReload) {
       typeChart = tmpChart;
     }
   }
-  console.log('---------->');
+	//console.log('---------->');
 
   updateSize();
   //region choose table or chart
@@ -372,7 +376,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.BAR;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
