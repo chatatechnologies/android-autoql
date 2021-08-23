@@ -42,8 +42,8 @@ function setDonut() {
 		
 	var factorBack = -(maxHeight / 2) - 30;
 		
-  for (const index in data) {
-    var item = data[index];
+  for (const index in dataFormatted) {
+    var item = dataFormatted[index];
     addText(svg, 'start', 12, 0, -(maxWidth / 2) - 20, factorBack, '#808080', `id_${'$'}{index}`, item.name + ': ' + item.value, function () {
       var id = this.id;
       adminOpacity(id);

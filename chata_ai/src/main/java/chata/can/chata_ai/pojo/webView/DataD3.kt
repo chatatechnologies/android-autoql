@@ -7,6 +7,7 @@ class DataD3
 	var pivot = ""
 
 	var data = ""
+	var dataFormatted = ""
 
 	var catX = "[]"
 	var catY = "[]"

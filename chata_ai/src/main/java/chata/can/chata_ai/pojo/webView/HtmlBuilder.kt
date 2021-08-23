@@ -212,13 +212,19 @@ object HtmlBuilder
 
 			//region build data for D3
 			val sb = StringBuilder()
+			val sbFormat = StringBuilder()
 			for (index in 0 until aCatX.count())
 			{
 				val name = aCatX[index]
 				val value = aCatY[index]
 				sb.append("{name: $name, value: $value},\n")
+
+				val column = aColumn[1]
+				val vFormat = value.formatWithColumn(column)
+				sbFormat.append("{name: $name, value: \'$vFormat\'},\n")
 			}
 			dataD3.data = "[${sb.removeSuffix(",\n")}]"
+			dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
 			//endregion
 
 			val aCatYS = if (aColumn.size > posColumnY)
