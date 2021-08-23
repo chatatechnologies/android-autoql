@@ -51,13 +51,29 @@ function updateSize() {
   radius = Math.min(width, height) / 2;
 }
 
+function isMultiple(typeChart) {
+  return nColumns > 3 && (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN || typeChart == TypeEnum.LINE);
+}
+
 function updateData(tmpChart, isReload) {
+  //region set nColumns
+  var keys = Object.keys(data[0]);
+  nColumns = keys.length;
+  //endregion
+
+  console.log('nColumns -> ' + nColumns);
+  console.log('Is multiple');
+  console.log(isMultiple(tmpChart));
+  console.log('Type for on update');
+  console.log(tmpChart);
 	if (isAgain)
   {
+		console.log('Update on flag isAgain');
     isAgain = false;
   }
   else
   {
+	console.log('Update dataTmp');
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
@@ -67,6 +83,7 @@ function updateData(tmpChart, isReload) {
       typeChart = tmpChart;
     }
   }
+	console.log('---------->');
 
   updateSize();
   //region choose table or chart
@@ -82,10 +99,6 @@ function updateData(tmpChart, isReload) {
       ${'$'}("#idTableBasic").hide(0);
       ${'$'}("#idTableDataPivot").hide(0);
       clearSvg();
-      //region set nColumns
-      var keys = Object.keys(data[0]);
-      nColumns = keys.length;
-      //endregion
       switch(typeChart) {
         case TypeEnum.COLUMN:
           if (nColumns == 2) {
