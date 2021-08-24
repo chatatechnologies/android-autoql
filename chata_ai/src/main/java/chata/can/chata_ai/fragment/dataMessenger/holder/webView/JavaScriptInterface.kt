@@ -2,7 +2,10 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
 import android.webkit.JavascriptInterface
+import chata.can.chata_ai.dialog.manageData.ManageDataDialog
+import chata.can.chata_ai.dialog.manageData.TypeColumnData
 import chata.can.chata_ai.extension.toIntNotNull
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -12,11 +15,24 @@ import chata.can.chata_ai.request.drillDown.DrillDownPresenter
 import org.json.JSONObject
 
 class JavaScriptInterface(
+	private val view: View,
 	private val context: Context,
 	private val queryBase: QueryBase,
 	private val chatView: ChatContract.View?)
 {
 	private val presenter = DrillDownPresenter(queryBase, chatView)
+	private val aType = arrayListOf("SELECTABLE", "PLAIN")
+
+	@JavascriptInterface
+	fun modalCategories(type: String, content: String)
+	{
+		if (type in aType)
+		{
+			val eType = if (type == "SELECTABLE") TypeColumnData.SELECTABLE
+			else TypeColumnData.PLAIN
+			ManageDataDialog(view.context, eType, content, queryBase).showDialog()
+		}
+	}
 
 	@JavascriptInterface
 	fun boundMethod(content: String)

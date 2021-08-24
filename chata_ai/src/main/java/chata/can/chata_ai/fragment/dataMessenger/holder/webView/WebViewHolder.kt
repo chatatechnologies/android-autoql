@@ -506,7 +506,7 @@ class WebViewHolder(
 				if (it.hasDrillDown)
 				{
 					addJavascriptInterface(
-						JavaScriptInterface(webView.context, it, chatView), "Android")
+						JavaScriptInterface(webView, webView.context, it, chatView), "Android")
 				}
 			}
 			loadDataWithBaseURL(
