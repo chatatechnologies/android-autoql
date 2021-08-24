@@ -460,6 +460,7 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
+					SearchColumn.getSeriesColumn(queryBase)
 					val aCategoryMulti = ArrayList<String>()
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]

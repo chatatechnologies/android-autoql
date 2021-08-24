@@ -15,7 +15,10 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 
-class FilterColumnHolder(view: View): Holder(view)
+class FilterColumnHolder(
+	view: View,
+	private val adapter: FilterColumnAdapter//variable should to change for View
+): Holder(view)
 {
 	companion object {
 		fun getView(context: Context): RelativeLayout
@@ -62,6 +65,9 @@ class FilterColumnHolder(view: View): Holder(view)
 						it.isChecked = isSelected
 						View.VISIBLE
 					}
+				it.setOnCheckedChangeListener { _, _ -> //compoundButton, isChecked ->
+					adapter.checkGroup(item)
+				}
 			}
 			rlParent?.let {
 				if (isOnlyText && indexColumn != -1)
@@ -74,10 +80,7 @@ class FilterColumnHolder(view: View): Holder(view)
 					if (item.allowClick)
 					{
 						Log.e("Manage", "I can: ${item.indexColumn}")
-					}
-					else
-					{
-						Log.e("Manage", "I cannot")
+						//Here to select with simple dialog
 					}
 				}
 			}
