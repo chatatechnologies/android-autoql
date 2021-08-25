@@ -17,7 +17,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 class FilterColumnHolder(
 	view: View,
-	private val adapter: FilterColumnAdapter//variable should to change for View
+	private val adapterView: FilterColumnView//variable should to change for View
 ): Holder(view)
 {
 	companion object {
@@ -65,8 +65,9 @@ class FilterColumnHolder(
 						it.isChecked = isSelected
 						View.VISIBLE
 					}
-				it.setOnCheckedChangeListener { _, _ -> //compoundButton, isChecked ->
-					adapter.checkGroup(item)
+				it.setOnCheckedChangeListener { _, isChecked ->
+					if (isChecked)
+						adapterView.checkGroup(item)
 				}
 			}
 			rlParent?.let {

@@ -6,8 +6,10 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 
 class FilterColumnAdapter(
-	private val model: BaseModelList<FilterColumn>
-) : BaseAdapter(model)
+	model: BaseModelList<FilterColumn>,
+	private val aCurrency1: ArrayList<FilterColumn>,
+	private val aQuality1: ArrayList<FilterColumn>
+): BaseAdapter(model), FilterColumnView
 {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
@@ -15,9 +17,31 @@ class FilterColumnAdapter(
 		return FilterColumnHolder(view, this)
 	}
 
-	fun checkGroup(filterColumn: FilterColumn)
+	override fun checkGroup(filterColumn: FilterColumn)
 	{
-		val index = model.getData().indexOf(filterColumn)
-		println(index)
+		aCurrency1.find { it == filterColumn }?.let { found ->
+			found.isSelected = true
+			if (aQuality1.any { it.isSelected })
+			{
+				updateList(aQuality1, aCurrency1.size + 2)
+			}
+		} ?: run {
+			aQuality1.find { it == filterColumn }?.let { found ->
+				found.isSelected = true
+				if (aCurrency1.any { it.isSelected })
+				{
+					updateList(aCurrency1, 1)
+				}
+			}
+		}
+	}
+
+	private fun updateList(list: ArrayList<FilterColumn>, startIndex: Int)
+	{
+		for (index in list.indices)
+		{
+			list[index].isSelected = false
+			notifyItemChanged(index + startIndex)
+		}
 	}
 }

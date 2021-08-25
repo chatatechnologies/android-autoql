@@ -90,6 +90,8 @@ class ManageDataDialog(
 
 	private fun setData()
 	{
+		val aCurrency1 = ArrayList<FilterColumn>()
+		val aQuality1 = ArrayList<FilterColumn>()
 		queryBase?.run {
 			if (typeData == TypeColumnData.SELECTABLE)
 			{
@@ -97,12 +99,16 @@ class ManageDataDialog(
 				for (pair in aCurrency)
 				{
 					pair.first
-					model.add(FilterColumn(pair.second.displayName))
+					val fc = FilterColumn(pair.second.displayName)
+					model.add(fc)
+					aCurrency1.add(fc)
 				}
 				model.add(FilterColumn("Quantity", isOnlyText = true))
 				for (pair in aQuality)
 				{
-					model.add(FilterColumn(pair.second.displayName, false))
+					val fc = FilterColumn(pair.second.displayName, false)
+					model.add(fc)
+					aQuality1.add(fc)
 				}
 				btnApply.setOnClickListener { dialog.dismiss() }
 			}
@@ -124,7 +130,7 @@ class ManageDataDialog(
 				btnApply.visibility = View.GONE
 			}
 		}
-		adapter = FilterColumnAdapter(model)
+		adapter = FilterColumnAdapter(model, aCurrency1, aQuality1)
 		rvColumn.layoutManager = LinearLayoutManager(context1)
 		rvColumn.adapter = adapter
 	}
