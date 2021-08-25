@@ -15,7 +15,7 @@ fun getColumns(jaColumns: JSONArray): ArrayList<ColumnQuery>
 		val column = jaColumns.getJSONObject(index)
 		//is login
 		val name =
-			if (!AutoQLData.notLoginData()) column.optString("display_name")
+			if (AutoQLData.wasLoginIn) column.optString("display_name")
 			else column.optString("name")
 		val isGroupable = column.optBoolean("groupable", false)
 		val originalName = column.optString("name", "")

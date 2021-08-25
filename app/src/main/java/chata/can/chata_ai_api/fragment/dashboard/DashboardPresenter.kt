@@ -352,7 +352,7 @@ class DashboardPresenter(
 					}
 					else
 					{
-						val url = if (AutoQLData.notLoginData())
+						val url = if (!AutoQLData.wasLoginIn)
 							"$urlStaging${api1}chata/query"
 						else
 							with(AutoQLData)

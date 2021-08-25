@@ -44,7 +44,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
-		if (!AutoQLData.notLoginData())
+		if (AutoQLData.wasLoginIn)
 		{
 			btnTry.visibility = View.GONE
 			getNotifications()

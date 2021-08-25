@@ -114,7 +114,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
 			etProjectId?.setText(projectId)
-			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo*"
+			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
 //			val apiKey = "AIzaSyA8EomrHDJxkTnc2euI3NOaGDnUGJLCj2c"
 			etApiKey?.setText(apiKey)
 			val domainUrl = "https://spira-staging.chata.io"

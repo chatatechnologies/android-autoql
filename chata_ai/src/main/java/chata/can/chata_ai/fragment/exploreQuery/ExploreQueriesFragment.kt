@@ -359,7 +359,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	private fun setRequestText()
 	{
-		if (!AutoQLData.notLoginData())
+		if (AutoQLData.wasLoginIn)
 		{
 			val query = etQuery.text.toString()
 			if (query.isNotEmpty())

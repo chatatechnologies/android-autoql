@@ -569,7 +569,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			hideKeyboard()
 			etQuery.setText("")
 
-			if (AutoQLData.notLoginData())
+			if (!AutoQLData.wasLoginIn)
 			{
 				addChatMessage(TypeChatView.LEFT_VIEW, getString(R.string.it_looks_like), query)
 			}

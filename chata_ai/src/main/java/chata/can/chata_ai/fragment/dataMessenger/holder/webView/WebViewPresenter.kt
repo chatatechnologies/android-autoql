@@ -21,7 +21,7 @@ class WebViewPresenter(
 {
 	fun putReport(idQuery: String, message: String)
 	{
-		if (!AutoQLData.notLoginData())
+		if (AutoQLData.wasLoginIn)
 		{
 			val url = "${AutoQLData.domainUrl}/autoql/${api1}query/$idQuery?key=${AutoQLData.apiKey}"
 			val header= getAuthorizationJWT()

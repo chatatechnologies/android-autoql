@@ -31,6 +31,7 @@ object AutoQLData
 		domainUrl = ""
 		token = ""
 		JWT = ""
+		wasLoginIn = false
 
 		SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
@@ -39,8 +40,6 @@ object AutoQLData
 	}
 
 	var wasLoginIn = false
-	@Deprecated("You should to use wasLogin", ReplaceWith("wasLoginIn"), DeprecationLevel.WARNING)
-	fun notLoginData() = projectId == "" || apiKey == "" || domainUrl == "" || JWT == ""
 
 	var lastName = ""
 	var customerName = ""

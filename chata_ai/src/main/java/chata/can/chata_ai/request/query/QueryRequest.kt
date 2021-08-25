@@ -22,7 +22,7 @@ object QueryRequest
 			//"debug" to true,
 			"test" to true)
 
-		val url = if (AutoQLData.notLoginData())
+		val url = if (!AutoQLData.wasLoginIn)
 		{
 			mParams["source"] = "data_messenger"
 			mParams["user_id"] = "demo"

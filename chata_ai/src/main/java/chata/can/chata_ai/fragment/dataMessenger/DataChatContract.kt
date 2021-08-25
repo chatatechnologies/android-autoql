@@ -17,7 +17,7 @@ class DataChatContract
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
-		val url = if (AutoQLData.notLoginData())
+		val url = if (!AutoQLData.wasLoginIn)
 		{
 			nameService = "demoAutocomplete"
 			"$urlBase${api1}autocomplete?q=$content&projectid=1&user_id=demo&customer_id=demo"
@@ -49,7 +49,7 @@ class DataChatContract
 		var header: HashMap<String, String> ?= null
 		val nameService: String
 		val queryEncode = URLEncoder.encode(query, "UTF-8").replace("+", " ")
-		val url = if (AutoQLData.notLoginData())
+		val url = if (!AutoQLData.wasLoginIn)
 		{
 			nameService = "safetynet"
 			"$urlBase${api1}safetynet?q=$queryEncode&projectId=1&user_id=demo&customer_id=demo"
