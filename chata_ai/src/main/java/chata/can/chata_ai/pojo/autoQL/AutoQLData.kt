@@ -38,6 +38,8 @@ object AutoQLData
 		ExploreQueriesData.lastExploreQuery = null
 	}
 
+	var wasLoginIn = false
+	@Deprecated("You should to use wasLogin", ReplaceWith("wasLoginIn"), DeprecationLevel.WARNING)
 	fun notLoginData() = projectId == "" || apiKey == "" || domainUrl == "" || JWT == ""
 
 	var lastName = ""

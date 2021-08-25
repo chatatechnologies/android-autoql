@@ -4,6 +4,7 @@ import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilde
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import org.json.JSONArray
 import org.json.JSONObject
@@ -105,6 +106,7 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 							}
 						}
 					}
+					AutoQLData.wasLoginIn = true
 					view.run {
 						changeAuthenticate(true)
 						changeStateAuthenticate()

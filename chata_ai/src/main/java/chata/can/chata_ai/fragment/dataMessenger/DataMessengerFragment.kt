@@ -246,7 +246,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	private fun clearQueriesAndResponses()
 	{
-		statusLogin = !AutoQLData.notLoginData()
+		statusLogin = AutoQLData.wasLoginIn
 		model.clear()
 		val introMessageRes =
 			if (AutoQLData.introMessage.isNotEmpty())
@@ -541,7 +541,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			else
 				getString(R.string.discover_today)
 
-			statusLogin = !AutoQLData.notLoginData()
+			statusLogin = AutoQLData.wasLoginIn
 
 			if (model.countData() == 0)
 			{
