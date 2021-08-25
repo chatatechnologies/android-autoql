@@ -72,6 +72,9 @@ function updateData(tmpChart, isReload) {
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
+			indexIgnore.forEach(index => {
+        delete copied[`time_${'$'}{index}`];
+      });
 			dataTmp.push(copied);
 		});
 		if (typeChart != tmpChart || isReload) {

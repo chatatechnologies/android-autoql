@@ -68,6 +68,7 @@ var dataTmp = [];
 var data = ${dataD3.data};
 var dataFormatted = ${dataD3.dataFormatted};
 var opacityMarked = [];
+var indexIgnore = [];
 var categoriesX = ${dataD3.catX};
 var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX}
