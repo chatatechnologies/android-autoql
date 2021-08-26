@@ -17,18 +17,18 @@ class FilterColumnAdapter(
 		return FilterColumnHolder(view, this)
 	}
 
-	override fun checkGroup(filterColumn: FilterColumn)
+	override fun checkGroup(filterColumn: FilterColumn, isChecked: Boolean)
 	{
 		aCurrency1.find { it == filterColumn }?.let { found ->
-			found.isSelected = true
-			if (aQuality1.any { it.isSelected })
+			found.isSelected = isChecked
+			if (isChecked && aQuality1.any { it.isSelected })
 			{
 				updateList(aQuality1, aCurrency1.size + 2)
 			}
 		} ?: run {
 			aQuality1.find { it == filterColumn }?.let { found ->
-				found.isSelected = true
-				if (aCurrency1.any { it.isSelected })
+				found.isSelected = isChecked
+				if (isChecked && aCurrency1.any { it.isSelected })
 				{
 					updateList(aCurrency1, 1)
 				}

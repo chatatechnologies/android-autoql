@@ -30,6 +30,8 @@ class ManageDataDialog(
 	val model = BaseModelList<FilterColumn>()
 	private lateinit var adapter: FilterColumnAdapter
 	private lateinit var llParent: View
+	private val aCurrency1 = ArrayList<FilterColumn>()
+	private val aQuality1 = ArrayList<FilterColumn>()
 
 	fun showDialog()
 	{
@@ -90,8 +92,6 @@ class ManageDataDialog(
 
 	private fun setData()
 	{
-		val aCurrency1 = ArrayList<FilterColumn>()
-		val aQuality1 = ArrayList<FilterColumn>()
 		queryBase?.run {
 			if (typeData == TypeColumnData.SELECTABLE)
 			{
@@ -110,7 +110,7 @@ class ManageDataDialog(
 					model.add(fc)
 					aQuality1.add(fc)
 				}
-				btnApply.setOnClickListener { dialog.dismiss() }
+				btnApply.setOnClickListener { setCategoriesIgnore() }
 			}
 			else
 			{
@@ -133,6 +133,20 @@ class ManageDataDialog(
 		adapter = FilterColumnAdapter(model, aCurrency1, aQuality1)
 		rvColumn.layoutManager = LinearLayoutManager(context1)
 		rvColumn.adapter = adapter
+	}
+
+	private fun setCategoriesIgnore()
+	{
+		val array = ArrayList<Int>()
+		for (index in aCurrency1.indices)
+		{
+			if (!aCurrency1[index].isSelected)
+			{
+				array.add(index)
+			}
+		}
+		//call method for to send indices
+		toString()
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
