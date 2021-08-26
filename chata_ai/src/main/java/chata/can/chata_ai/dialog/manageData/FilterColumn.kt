@@ -6,3 +6,6 @@ data class FilterColumn(
 	val isOnlyText: Boolean = false,
 	val allowClick: Boolean = false,
 	val indexColumn: Int = -1)
+{
+	var ignoreUpdate = false
+}

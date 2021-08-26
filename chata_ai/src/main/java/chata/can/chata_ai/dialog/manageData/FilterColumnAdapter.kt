@@ -25,6 +25,7 @@ class FilterColumnAdapter(
 			{
 				updateList(aQuality1, aCurrency1.size + 2)
 			}
+			aCurrency1.toString()
 		} ?: run {
 			aQuality1.find { it == filterColumn }?.let { found ->
 				found.isSelected = isChecked
@@ -40,8 +41,12 @@ class FilterColumnAdapter(
 	{
 		for (index in list.indices)
 		{
-			list[index].isSelected = false
+			list[index].run {
+				isSelected = false
+				ignoreUpdate = true
+			}
 			notifyItemChanged(index + startIndex)
 		}
+		list.toString()
 	}
 }

@@ -66,7 +66,10 @@ class FilterColumnHolder(
 						View.VISIBLE
 					}
 				it.setOnCheckedChangeListener { _, isChecked ->
-					adapterView.checkGroup(item, isChecked)
+					if (item.ignoreUpdate)
+						item.ignoreUpdate = false
+					else
+						adapterView.checkGroup(item, isChecked)
 				}
 			}
 			rlParent?.let {
