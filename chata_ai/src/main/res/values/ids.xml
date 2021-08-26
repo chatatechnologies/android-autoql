@@ -86,6 +86,8 @@
 	<item name="rlList" type="id"/>
 	<item name="rvColumn" type="id"/>
 	<item name="tvColumnName" type="id"/>
+	<item name="cbBorder" type="id"/>
+	<item name="cbColumn" type="id"/>
 	<item name="tvVisibility" type="id"/>
 	<item name="cbAll" type="id"/>
 	<item name="llBottom" type="id"/>

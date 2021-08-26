@@ -6,7 +6,7 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 
 class FilterColumnAdapter(
-	model: BaseModelList<FilterColumn>,
+	private val model: BaseModelList<FilterColumn>,
 	private val aCurrency1: ArrayList<FilterColumn>,
 	private val aQuality1: ArrayList<FilterColumn>
 ): BaseAdapter(model), FilterColumnView
@@ -17,31 +17,37 @@ class FilterColumnAdapter(
 		return FilterColumnHolder(view, this)
 	}
 
-	override fun checkGroup(filterColumn: FilterColumn, isChecked: Boolean)
+	override fun checkGroup(filterColumn: FilterColumn)
 	{
 		val indexCurrency = aCurrency1.indexOf(filterColumn)
 		val indexQuality = aQuality1.indexOf(filterColumn)
 		if (indexCurrency != -1)
 		{
 			val found = aCurrency1[indexCurrency]
-			found.isSelected = isChecked
-			if (isChecked && aQuality1.any { it.isSelected })
+			val newValue = !found.isSelected
+			found.isSelected = newValue
+			notifyItemChanged(indexCurrency + 1)
+			if (newValue && aQuality1.any { it.isSelected })
 			{
-				updateList(aQuality1, aCurrency1.size + 2)
+				toString()
+//				updateList(aQuality1, aCurrency1.size + 2)
 			}
-			aCurrency1.toString()
+//			aCurrency1.toString()
 		}
 
 		if (indexQuality != -1)
 		{
 			val found = aQuality1[indexQuality]
-			found.isSelected = isChecked
-			if (isChecked && aCurrency1.any { it.isSelected })
+			val newValue = !found.isSelected
+			found.isSelected = newValue
+			notifyItemChanged(aCurrency1.size + 2)
+			if (newValue && aCurrency1.any { it.isSelected })
 			{
-				updateList(aCurrency1, 1)
+				toString()
+//				updateList(aCurrency1, 1)
 			}
+//			aQuality1.toString()
 		}
-		toString()
 	}
 
 	private fun updateList(list: ArrayList<FilterColumn>, startIndex: Int)
