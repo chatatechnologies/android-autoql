@@ -146,6 +146,7 @@ class ManageDataDialog(
 			}
 		}
 		//call method for to send indices
+		println("array: $array")
 		toString()
 	}
 

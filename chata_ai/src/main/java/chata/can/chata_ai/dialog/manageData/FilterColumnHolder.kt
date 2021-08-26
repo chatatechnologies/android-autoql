@@ -59,18 +59,26 @@ class FilterColumnHolder(
 			tvColumnName?.text = nameColumn
 			cbCheck?.let {
 				it.visibility =
-					if (isOnlyText) View.GONE
+					if (isOnlyText)
+					{
+						it.isChecked = false
+						it.setOnCheckedChangeListener(null)
+						View.GONE
+					}
 					else
 					{
 						it.isChecked = isSelected
+
+						it.setOnCheckedChangeListener { _, isChecked ->
+//					if (item.ignoreUpdate)
+//						item.ignoreUpdate = false
+//					else
+							adapterView.checkGroup(item, isChecked)
+						}
+
 						View.VISIBLE
 					}
-				it.setOnCheckedChangeListener { _, isChecked ->
-					if (item.ignoreUpdate)
-						item.ignoreUpdate = false
-					else
-						adapterView.checkGroup(item, isChecked)
-				}
+
 			}
 			rlParent?.let {
 				if (isOnlyText && indexColumn != -1)

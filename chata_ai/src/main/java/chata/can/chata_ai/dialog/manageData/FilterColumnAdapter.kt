@@ -19,22 +19,29 @@ class FilterColumnAdapter(
 
 	override fun checkGroup(filterColumn: FilterColumn, isChecked: Boolean)
 	{
-		aCurrency1.find { it == filterColumn }?.let { found ->
+		val indexCurrency = aCurrency1.indexOf(filterColumn)
+		val indexQuality = aQuality1.indexOf(filterColumn)
+		if (indexCurrency != -1)
+		{
+			val found = aCurrency1[indexCurrency]
 			found.isSelected = isChecked
 			if (isChecked && aQuality1.any { it.isSelected })
 			{
 				updateList(aQuality1, aCurrency1.size + 2)
 			}
 			aCurrency1.toString()
-		} ?: run {
-			aQuality1.find { it == filterColumn }?.let { found ->
-				found.isSelected = isChecked
-				if (isChecked && aCurrency1.any { it.isSelected })
-				{
-					updateList(aCurrency1, 1)
-				}
+		}
+
+		if (indexQuality != -1)
+		{
+			val found = aQuality1[indexQuality]
+			found.isSelected = isChecked
+			if (isChecked && aCurrency1.any { it.isSelected })
+			{
+				updateList(aCurrency1, 1)
 			}
 		}
+		toString()
 	}
 
 	private fun updateList(list: ArrayList<FilterColumn>, startIndex: Int)
@@ -42,11 +49,11 @@ class FilterColumnAdapter(
 		for (index in list.indices)
 		{
 			list[index].run {
+//				ignoreUpdate = !isSelected
 				isSelected = false
-				ignoreUpdate = true
 			}
 			notifyItemChanged(index + startIndex)
+			println("index updated->${index + startIndex}")
 		}
-		list.toString()
 	}
 }
