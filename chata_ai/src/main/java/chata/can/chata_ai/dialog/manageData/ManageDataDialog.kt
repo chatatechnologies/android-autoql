@@ -147,7 +147,6 @@ class ManageDataDialog(
 		}
 		//call method for to send indices
 		println("array: $array")
-		toString()
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
