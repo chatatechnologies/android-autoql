@@ -150,10 +150,12 @@ function updateData(tmpChart, isReload) {
   }
   else
   {
+    console.log("Reload data")
     dataTmp = [];
     data.forEach(element => {
 			var copied = Object.assign({}, element);
       indexIgnore.forEach(index => {
+        console.log('DELETE');
         delete copied[`time_${index}`];
       });
 			dataTmp.push(copied);
@@ -301,6 +303,24 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
     .style('text-anchor', 'end');
 }
 
+function setMultiCategory(index, isNew) {
+  if (isNew) {
+    indexIgnore.push(index);
+  } else {
+    var tmp = -1;
+    for (let _index = 0; _index < indexIgnore.length; _index++) {
+      if (index == indexIgnore[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    indexIgnore.splice(tmp, 1);
+  }
+  dataTmp = [];
+  updateData(typeChart, true);
+}
+
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
@@ -348,7 +368,7 @@ var dataFormatted = [{name: "Jan 13, 2021", value: '0'},
 {name: "Jan 14, 2021", value: '0'},
 {name: "Jun 2, 2021", value: '0'}];
 var opacityMarked = [];
-var indexIgnore = [0, 4];
+var indexIgnore = [];
 var categoriesX = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other"];
 var drillTableY = [100.00, 240.00, 200.00];
 var drillX = ['1622640651','1610620917','1610620588','1610539486','1610539273']

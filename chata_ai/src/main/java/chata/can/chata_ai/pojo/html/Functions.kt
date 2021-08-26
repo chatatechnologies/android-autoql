@@ -218,6 +218,24 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
     //Set color each item on X axis
     .attr('fill', '#909090')
     .style('text-anchor', 'end');
+}
+
+function setMultiCategory(index, isNew) {
+  if (isNew) {
+    indexIgnore.push(index);
+  } else {
+    var tmp = -1;
+    for (let _index = 0; _index < indexIgnore.length; _index++) {
+      if (index == indexIgnore[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    indexIgnore.splice(tmp, 1);
+  }
+  dataTmp = [];
+  updateData(typeChart, true);
 }"""
 	}
 	//endregion
