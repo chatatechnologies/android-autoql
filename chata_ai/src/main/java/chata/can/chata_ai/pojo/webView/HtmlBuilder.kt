@@ -46,6 +46,7 @@ object HtmlBuilder
 		var posColumnY = 1
 		var aDataX = ArrayList<Int>()
 		var aDataY = ArrayList<Int>()
+		var aSecondary = ArrayList<Int>()
 		var isTriConfig = false
 		//region define data with support Case
 		/**
@@ -131,6 +132,7 @@ object HtmlBuilder
 			{
 				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
+				aSecondary = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.QUANTITY))
 				/*aDate*/
 				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
 				/*aDollar*/
@@ -460,6 +462,13 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
+					//region TODO generate secondary titles data
+					val catTmp = ArrayList<String>()
+					for (index in aSecondary)
+					{
+						catTmp.add(aColumn[index].displayName)
+					}
+
 					SearchColumn.getSeriesColumn(queryBase)
 					val aCategoryMulti = ArrayList<String>()
 					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
