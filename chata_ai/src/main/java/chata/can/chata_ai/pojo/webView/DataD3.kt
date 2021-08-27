@@ -21,6 +21,7 @@ class DataD3
 	var yAxis = ""
 
 	var categories = "[]"
+	var categories2 = "[]"
 
 	var min = -1
 	var max = -1

@@ -76,6 +76,7 @@ var limitName = 0;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
 var aCategory = ${dataD3.categories};
+var aCategory2 = ${dataD3.categories2};
 //endregion
 
 //REGION max letters in name

@@ -220,20 +220,11 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
     .style('text-anchor', 'end');
 }
 
-function setMultiCategory(index, isNew) {
-  if (isNew) {
+function setMultiCategory(aIndex) {
+  indexIgnore = [];
+  aIndex.forEach(index => {
     indexIgnore.push(index);
-  } else {
-    var tmp = -1;
-    for (let _index = 0; _index < indexIgnore.length; _index++) {
-      if (index == indexIgnore[_index])
-      {
-        tmp = _index;
-        break;
-      }
-    }
-    indexIgnore.splice(tmp, 1);
-  }
+  });
   dataTmp = [];
   updateData(typeChart, true);
 }"""

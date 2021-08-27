@@ -223,7 +223,9 @@ object HtmlBuilder
 
 				val column = aColumn[1]
 				val vFormat = value.formatWithColumn(column)
-				sbFormat.append("{name: $name, value: \'$vFormat\'},\n")
+				sbFormat.append("{name: $name")
+				if (vFormat != "0") sbFormat.append(", value: '$vFormat'")
+				sbFormat.append("},\n")
 			}
 			dataD3.data = "[${sb.removeSuffix(",\n")}]"
 			dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
@@ -463,11 +465,12 @@ object HtmlBuilder
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
 					//region TODO generate secondary titles data
-					val catTmp = ArrayList<String>()
+					val aCategoryMulti2 = ArrayList<String>()
 					for (index in aSecondary)
 					{
-						catTmp.add(aColumn[index].displayName)
+						aCategoryMulti2.add(aColumn[index].displayName)
 					}
+					//endregion
 
 					SearchColumn.getSeriesColumn(queryBase)
 					val aCategoryMulti = ArrayList<String>()
@@ -545,6 +548,10 @@ object HtmlBuilder
 						dataD3.categories = aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
+						dataD3.categories2 = aCategoryMulti2.joinToString(",", "[", "]") {
+							"\'$it\'"
+						}
+						dataD3.toString()
 					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
