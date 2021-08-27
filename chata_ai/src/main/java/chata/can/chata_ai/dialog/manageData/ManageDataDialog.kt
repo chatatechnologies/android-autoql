@@ -24,7 +24,7 @@ class ManageDataDialog(
 	private val content: String,
 	private val webView: View,
 	private val queryBase: QueryBase?= null
-)
+): ManageDialogView
 {
 	private lateinit var dialog: AlertDialog
 	private lateinit var btnApply: Button
@@ -132,7 +132,7 @@ class ManageDataDialog(
 				btnApply.visibility = View.GONE
 			}
 		}
-		adapter = FilterColumnAdapter(model, aCurrency1, aQuality1)
+		adapter = FilterColumnAdapter(model, this, aCurrency1, aQuality1)
 		rvColumn.layoutManager = LinearLayoutManager(context1)
 		rvColumn.adapter = adapter
 	}
@@ -152,6 +152,14 @@ class ManageDataDialog(
 				array.add(index)
 		}
 		(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array);")
+	}
+
+	override fun statusApply(isEnable: Boolean)
+	{
+		btnApply.run {
+			isEnabled = isEnable
+			alpha = if(isEnable) 1f else 0.2f
+		}
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =
