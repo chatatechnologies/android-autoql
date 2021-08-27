@@ -39,7 +39,7 @@ class FilterColumnHolder(
 				//endregion
 				//region selection view
 				addView(RelativeLayout(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(18f), dpToPx(18f)).apply {
+					layoutParams = RelativeLayout.LayoutParams(dpToPx(20f), dpToPx(20f)).apply {
 						val blue = context.getParsedColor(R.color.selected_gray)
 						setBackgroundColor(blue)
 						addRule(RelativeLayout.ALIGN_PARENT_END)
@@ -51,18 +51,10 @@ class FilterColumnHolder(
 						id = R.id.cbColumn
 						val gray = context.getParsedColor(R.color.blue_chata_circle)
 						setBackgroundColor(gray)
-						margin(2f, 2f, 2f, 2f)
+						margin(1f, 1f, 1f, 1f)
 					})
 					//endregion
 				})
-				//endregion
-				//region CheckBox
-//				addView(CheckBox(ContextThemeWrapper(context, R.style.checkBoxStyle)).apply {
-//					layoutParams = RelativeLayout.LayoutParams(-2, -2).apply {
-//						addRule(RelativeLayout.ALIGN_PARENT_END)
-//					}
-//					id = R.id.cbCheck
-//				})
 				//endregion
 			}
 		}
@@ -86,7 +78,7 @@ class FilterColumnHolder(
 					if (isSelected) R.color.blue_chata_circle else R.color.selected_gray)
 				it.setBackgroundColor(checkColor)
 				it.setOnClickListener {
-					adapterView.checkGroup(item)
+					adapterView.checkGroup(this)
 				}
 			}
 			rlParent?.let {
