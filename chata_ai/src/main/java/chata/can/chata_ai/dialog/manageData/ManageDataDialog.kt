@@ -138,14 +138,17 @@ class ManageDataDialog(
 	private fun setCategoriesIgnore()
 	{
 		val array = ArrayList<Int>()
-		for (index in aCurrency1.indices)
+		val aSource = when
 		{
-			if (!aCurrency1[index].isSelected)
-			{
-				array.add(index)
-			}
+			aCurrency1.any { it.isSelected } -> aCurrency1
+			aQuality1.any { it.isSelected } -> aQuality1
+			else -> ArrayList()
 		}
-		//call method for to send indices
+		for (index in aSource.indices)
+		{
+			if (!aSource[index].isSelected)
+				array.add(index)
+		}
 		println("array: $array")
 	}
 

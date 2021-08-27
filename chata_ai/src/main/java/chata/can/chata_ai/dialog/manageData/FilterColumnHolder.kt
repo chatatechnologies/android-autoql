@@ -69,7 +69,10 @@ class FilterColumnHolder(
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		(item as? FilterColumn)?.run {
-			tvColumnName?.text = nameColumn
+			tvColumnName?.let {
+				it.text = nameColumn
+				it.paddingAll(left = if (!isOnlyText && !allowClick) 8f else 0f)
+			}
 			cbBorder?.let {
 				it.visibility = if (isOnlyText) View.GONE else View.VISIBLE
 			}
