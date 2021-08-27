@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
@@ -21,6 +22,7 @@ class ManageDataDialog(
 	private val context1: Context,
 	private val typeData: TypeColumnData,
 	private val content: String,
+	private val webView: View,
 	private val queryBase: QueryBase?= null
 )
 {
@@ -149,7 +151,7 @@ class ManageDataDialog(
 			if (!aSource[index].isSelected)
 				array.add(index)
 		}
-		println("array: $array")
+		(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array);")
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =

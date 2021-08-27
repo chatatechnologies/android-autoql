@@ -30,7 +30,7 @@ class JavaScriptInterface(
 		{
 			val eType = if (type == "SELECTABLE") TypeColumnData.SELECTABLE
 			else TypeColumnData.PLAIN
-			ManageDataDialog(view.context, eType, content, queryBase).showDialog()
+			ManageDataDialog(view.context, eType, content, view, queryBase).showDialog()
 		}
 	}
 
