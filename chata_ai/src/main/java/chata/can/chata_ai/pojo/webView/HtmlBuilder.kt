@@ -466,10 +466,10 @@ object HtmlBuilder
 				{
 					//region TODO generate secondary titles data
 					val aCategoryMulti2 = ArrayList<String>()
-					for (index in aSecondary)
-					{
-						aCategoryMulti2.add(aColumn[index].displayName)
-					}
+//					for (index in aSecondary)
+//					{
+//						aCategoryMulti2.add(aColumn[index].displayName)
+//					}
 					//endregion
 
 					SearchColumn.getSeriesColumn(queryBase)
@@ -478,6 +478,74 @@ object HtmlBuilder
 					val indexX = aDataX[0]
 					val aData = ArrayList< LinkedHashMap<String, Double>>()
 					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
+					//region for secondary data
+					for (iItem in aSecondary)
+					{
+						aCategoryMulti2.add(aColumn[iItem].displayName)
+						val mRow = LinkedHashMap<String, Double>()
+						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+						for (row in aRows)
+						{
+							val key = row[indexX]
+							if (key !in aCategoriesX) aCategoriesX.add(key)
+							val value = row[iItem].toDoubleNotNull()
+							mRow[key]?.run {
+								mGroupedRow[key]?.add(row)
+								mRow[key] = this + value
+							} ?: run {
+								mGroupedRow[key] = arrayListOf(row)
+								mRow[key] = value
+							}
+						}
+						aGroupedData.add(mGroupedRow)
+						aData.add(mRow)
+					}
+					//endregion
+					//Map for data
+					val mDataOrder1 = LinkedHashMap<String, ArrayList<String>>()
+					for (mChild in aData)
+					{
+						for ((key, value) in mChild)
+						{
+							val sValue = value.toString()
+							mDataOrder1[key]?.run {
+								this.add(sValue)
+							} ?: run {
+								mDataOrder1[key] = arrayListOf(sValue)
+							}
+						}
+					}
+
+					if (isUseD3)
+					{
+						//loop data for multi series for D3
+						val sbMultiSeries = StringBuilder()
+						val mDateParsed = LinkedHashMap<String, Int>()
+						for ((key, aValue) in mDataOrder1)
+						{
+							val columnDate = aColumn[aDataX[0]]
+							val formattedKey = key.formatWithColumn(columnDate)
+							val parsedKey =
+								mDateParsed[formattedKey]?.let {
+									mDateParsed[formattedKey] = it + 1
+									"${formattedKey}_${it + 1}"
+								} ?: run {
+									mDateParsed[formattedKey] = 1
+									"${formattedKey}_1"
+								}
+
+							var sValues = ""
+							for ((index, value) in aValue.withIndex())
+							{
+								sValues += ", time_$index: $value"
+							}
+							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
+						}
+						sbMultiSeries.toString()
+					}
+
+
+
 					for (iItem in aDataY)
 					{
 						aCategoryMulti.add(aColumn[iItem].displayName)
@@ -551,7 +619,6 @@ object HtmlBuilder
 						dataD3.categories2 = aCategoryMulti2.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
-						dataD3.toString()
 					}
 					//fix drillX for multi-series
 					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
