@@ -6,7 +6,7 @@ import chata.can.chata_ai.pojo.webView.multiData.MultiDataModel
 
 object MultiData
 {
-	fun getMultiData(aSecondary: ArrayList<Int>, aColumn: ArrayList<ColumnQuery>,
+	fun getMultiData(aIndices: ArrayList<Int>, aColumn: ArrayList<ColumnQuery>,
 		aRows: ArrayList<ArrayList<String>>, indexX: Int): MultiDataModel
 	{
 		val aCategoryMulti2 = ArrayList<String>()
@@ -14,7 +14,7 @@ object MultiData
 		val aData = ArrayList< LinkedHashMap<String, Double>>()
 		val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
 
-		for (iItem in aSecondary)
+		for (iItem in aIndices)
 		{
 			aCategoryMulti2.add(aColumn[iItem].displayName)
 			val mRow = LinkedHashMap<String, Double>()
@@ -37,8 +37,14 @@ object MultiData
 		}
 		//Map for data
 		val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+		var max = 0
+		var min = 0
 		for (mChild in aData)
 		{
+			val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+			if (tmpMax > max) max = tmpMax
+			val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+			if (tmpMin < min) min = tmpMin
 			for ((key, value) in mChild)
 			{
 				val sValue = value.toString()
@@ -49,6 +55,6 @@ object MultiData
 				}
 			}
 		}
-		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData)
+		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max)
 	}
 }

@@ -508,14 +508,15 @@ object HtmlBuilder
 //							}
 //						}
 //					}
-					MultiData.getMultiData(aSecondary, aColumn, aRows, indexX)
+
+					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, indexX)
 
 					if (isUseD3)
 					{
 						//loop data for multi series for D3
 						val sbMultiSeries = StringBuilder()
 						val mDateParsed = LinkedHashMap<String, Int>()
-						for ((key, aValue) in mDataOrder1)
+						for ((key, aValue) in multiData2.mDataOrder)
 						{
 							val columnDate = aColumn[aDataX[0]]
 							val formattedKey = key.formatWithColumn(columnDate)
@@ -537,56 +538,55 @@ object HtmlBuilder
 						}
 						sbMultiSeries.toString()
 					}
-
-
-
-					for (iItem in aDataY)
-					{
-						aCategoryMulti.add(aColumn[iItem].displayName)
-						val mRow = LinkedHashMap<String, Double>()
-						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
-						for (row in aRows)
-						{
-							val key = row[indexX]
-							if (key !in aCategoriesX) aCategoriesX.add(key)
-							val value = row[iItem].toDoubleNotNull()
-							mRow[key]?.run {
-								mGroupedRow[key]?.add(row)
-								mRow[key] = this + value
-							} ?: run {
-								mGroupedRow[key] = arrayListOf(row)
-								mRow[key] = value
-							}
-						}
-						aGroupedData.add(mGroupedRow)
-						aData.add(mRow)
-					}
+					//region data currency group
+					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, indexX)
+//					for (iItem in aDataY)
+//					{
+//						aCategoryMulti.add(aColumn[iItem].displayName)
+//						val mRow = LinkedHashMap<String, Double>()
+//						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+//						for (row in aRows)
+//						{
+//							val key = row[indexX]
+//							if (key !in aCategoriesX) aCategoriesX.add(key)
+//							val value = row[iItem].toDoubleNotNull()
+//							mRow[key]?.run {
+//								mGroupedRow[key]?.add(row)
+//								mRow[key] = this + value
+//							} ?: run {
+//								mGroupedRow[key] = arrayListOf(row)
+//								mRow[key] = value
+//							}
+//						}
+//						aGroupedData.add(mGroupedRow)
+//						aData.add(mRow)
+//					}
 					//Map for data
-					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
-					var max = 0
-					var min = 0
-					for (mChild in aData)
-					{
-						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
-						if (tmpMax > max) max = tmpMax
-						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
-						if (tmpMin < min) min = tmpMin
-						for ((key, value) in mChild)
-						{
-							val sValue = value.toString()
-							mDataOrder[key]?.run {
-								this.add(sValue)
-							} ?: run {
-								mDataOrder[key] = arrayListOf(sValue)
-							}
-						}
-					}
+//					val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
+//					var max = 0
+//					var min = 0
+//					for (mChild in aData)
+//					{
+//						val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+//						if (tmpMax > max) max = tmpMax
+//						val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+//						if (tmpMin < min) min = tmpMin
+//						for ((key, value) in mChild)
+//						{
+//							val sValue = value.toString()
+//							mDataOrder[key]?.run {
+//								this.add(sValue)
+//							} ?: run {
+//								mDataOrder[key] = arrayListOf(sValue)
+//							}
+//						}
+//					}
 					if (isUseD3)
 					{
 						//loop data for multi series for D3
 						val sbMultiSeries = StringBuilder()
 						val mDateParsed = LinkedHashMap<String, Int>()
-						for ((key, aValue) in mDataOrder)
+						for ((key, aValue) in multiData.mDataOrder)
 						{
 							val columnDate = aColumn[aDataX[0]]
 							val formattedKey = key.formatWithColumn(columnDate)
@@ -607,18 +607,20 @@ object HtmlBuilder
 							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
 						}
 						dataD3.data = "[${sbMultiSeries.removeSuffix(",\n")}]"
-						dataD3.categories = aCategoryMulti.joinToString(",", "[", "]") {
+						dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
-						dataD3.categories2 = aCategoryMulti2.joinToString(",", "[", "]") {
+						dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
 					}
 					//fix drillX for multi-series
-					dataForWebView.drillX = mDataOrder.keys.toList().joinToString(",", "[", "]") {
+					dataForWebView.drillX = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\'$it\'"
 					}
 					dataD3.drillX = dataForWebView.drillX
+					val min = multiData.min
+					val max = multiData.max
 					dataForWebView.min = if (min < 0) min else 0
 					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
@@ -628,7 +630,7 @@ object HtmlBuilder
 					for (index in 0 until aDataY.size)
 					{
 						val aItem = ArrayList<String>()
-						for ((_, value) in mDataOrder)
+						for ((_, value) in multiData.mDataOrder)
 						{
 							val vString = value[index]
 							aItem.add(vString)
@@ -642,7 +644,7 @@ object HtmlBuilder
 					}
 					//region data drillDown
 					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
-					for (mChild in aGroupedData)
+					for (mChild in multiData.aGroupedData)
 					{
 						for ((key, value) in mChild)
 						{
@@ -656,8 +658,8 @@ object HtmlBuilder
 					queryBase.mDrillDown = mDrillDown
 					queryBase.hasDrillDown = queryBase.mDrillDown != null
 					//endregion
-					if (dataForWebView.isReverseX) aCategoriesX.reverse()
-					dataForWebView.catX = aCategoriesX.map {
+					if (dataForWebView.isReverseX) multiData.aCategoriesX.reverse()
+					dataForWebView.catX = multiData.aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
 				}
