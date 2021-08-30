@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.webView.multiData.MultiDataModel
@@ -58,7 +59,38 @@ object MultiData
 		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max)
 	}
 
-	fun getDataMulti(aDataY: ArrayList<Int>,
+	fun getTimesDataMulti(
+		mDataOrder: LinkedHashMap<String, ArrayList<String>>,
+		aColumn: ArrayList<ColumnQuery>,
+		aDataX: ArrayList<Int>): String
+	{
+		val sbMultiSeries = StringBuilder()
+		val mDateParsed = LinkedHashMap<String, Int>()
+		for ((key, aValue) in mDataOrder)
+		{
+			val columnDate = aColumn[aDataX[0]]
+			val formattedKey = key.formatWithColumn(columnDate)
+			val parsedKey =
+				mDateParsed[formattedKey]?.let {
+					mDateParsed[formattedKey] = it + 1
+					"${formattedKey}_${it + 1}"
+				} ?: run {
+					mDateParsed[formattedKey] = 1
+					"${formattedKey}_1"
+				}
+
+			var sValues = ""
+			for ((index, value) in aValue.withIndex())
+			{
+				sValues += ", time_$index: $value"
+			}
+			sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
+		}
+		return "${sbMultiSeries.removeSuffix(",\n")}"
+	}
+
+	fun getDataChartBiMulti(
+		aDataY: ArrayList<Int>,
 		mDataOrder: LinkedHashMap<String, ArrayList<String>>,
 		isReverse: Boolean): String
 	{

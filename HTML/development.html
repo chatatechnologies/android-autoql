@@ -344,6 +344,11 @@ var data = [{name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, tim
 {name: 'Jan 14, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
 {name: 'Jan 13, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
 {name: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}];
+var data2 = [{name: 'Jun 2, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
+{name: 'Jan 14, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 12.0},
+{name: 'Jan 14, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
+{name: 'Jan 13, 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
+{name: 'Jan 13, 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}];
 var dataFormatted = [{name: "Jan 13, 2021"},
 {name: "Jan 13, 2021"},
 {name: "Jan 13, 2021"},
@@ -365,7 +370,7 @@ var limitName = 0;
 var maxValue = 3360;
 var minValue = 0;
 var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
-var aCategory2 = [];
+var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
 //endregion
 
 //REGION max letters in name
@@ -393,7 +398,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(maxValue);
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
