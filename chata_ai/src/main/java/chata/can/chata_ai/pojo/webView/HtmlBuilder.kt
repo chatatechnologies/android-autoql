@@ -626,22 +626,23 @@ object HtmlBuilder
 					dataForWebView.max = max
 					dataD3.max = max
 					//region order data for data:
-					val aDataOrder = ArrayList<ArrayList<String>>()
-					for (index in 0 until aDataY.size)
-					{
-						val aItem = ArrayList<String>()
-						for ((_, value) in multiData.mDataOrder)
-						{
-							val vString = value[index]
-							aItem.add(vString)
-						}
-						if (dataForWebView.isReverseX) aItem.reverse()
-						aDataOrder.add(aItem)
-					}
-					//endregion
-					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
-						it.joinToString(prefix = "{data: [", postfix = "]}")
-					}
+//					val aDataOrder = ArrayList<ArrayList<String>>()
+//					for (index in 0 until aDataY.size)
+//					{
+//						val aItem = ArrayList<String>()
+//						for ((_, value) in multiData.mDataOrder)
+//						{
+//							val vString = value[index]
+//							aItem.add(vString)
+//						}
+//						if (dataForWebView.isReverseX) aItem.reverse()
+//						aDataOrder.add(aItem)
+//					}
+//					//endregion
+//					dataForWebView.dataChartBi = aDataOrder.joinToString(",\n", "[", "]") {
+//						it.joinToString(prefix = "{data: [", postfix = "]}")
+//					}
+					dataForWebView.dataChartBi = MultiData.getDataMulti(aDataY, multiData.mDataOrder, dataForWebView.isReverseX)
 					//region data drillDown
 					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
 					for (mChild in multiData.aGroupedData)

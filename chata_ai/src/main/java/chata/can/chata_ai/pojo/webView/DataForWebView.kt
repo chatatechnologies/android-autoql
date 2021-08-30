@@ -11,6 +11,7 @@ class DataForWebView(
 	var catYS = "[]"
 	var dataChartBiOnTri = "[]"
 	var dataChartBi = "[]"
+	var dataChartBi2 = "[]"
 	var dataChartBiWithTri = "[]"
 	var drillX = "[]"
 	var drillY = "[]"

@@ -57,4 +57,26 @@ object MultiData
 		}
 		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max)
 	}
+
+	fun getDataMulti(aDataY: ArrayList<Int>,
+		mDataOrder: LinkedHashMap<String, ArrayList<String>>,
+		isReverse: Boolean): String
+	{
+		val aDataOrder = ArrayList<ArrayList<String>>()
+		for (index in 0 until aDataY.size)
+		{
+			val aItem = ArrayList<String>()
+			for ((_, value) in mDataOrder)
+			{
+				val vString = value[index]
+				aItem.add(vString)
+			}
+			if (isReverse)/*if (dataForWebView.isReverseX)*/ aItem.reverse()
+			aDataOrder.add(aItem)
+		}
+		//endregion
+		/*dataForWebView.dataChartBi = */return aDataOrder.joinToString(",\n", "[", "]") {
+			it.joinToString(prefix = "{data: [", postfix = "]}")
+		}
+	}
 }
