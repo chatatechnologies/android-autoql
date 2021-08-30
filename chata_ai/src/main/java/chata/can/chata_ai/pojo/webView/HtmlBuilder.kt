@@ -464,57 +464,51 @@ object HtmlBuilder
 			{
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
-					//region TODO generate secondary titles data
-					val aCategoryMulti2 = ArrayList<String>()
-//					for (index in aSecondary)
-//					{
-//						aCategoryMulti2.add(aColumn[index].displayName)
-//					}
-					//endregion
-
+					//val aCategoryMulti2 = ArrayList<String>()
 					SearchColumn.getSeriesColumn(queryBase)
-					val aCategoryMulti = ArrayList<String>()
-					val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
+					//val aCategoryMulti = ArrayList<String>()
+					//val aCategoriesX = ArrayList<String>()//Remember that data is not formatted
 					val indexX = aDataX[0]
-					val aData = ArrayList< LinkedHashMap<String, Double>>()
-					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
-					//region for secondary data
-					for (iItem in aSecondary)
-					{
-						aCategoryMulti2.add(aColumn[iItem].displayName)
-						val mRow = LinkedHashMap<String, Double>()
-						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
-						for (row in aRows)
-						{
-							val key = row[indexX]
-							if (key !in aCategoriesX) aCategoriesX.add(key)
-							val value = row[iItem].toDoubleNotNull()
-							mRow[key]?.run {
-								mGroupedRow[key]?.add(row)
-								mRow[key] = this + value
-							} ?: run {
-								mGroupedRow[key] = arrayListOf(row)
-								mRow[key] = value
-							}
-						}
-						aGroupedData.add(mGroupedRow)
-						aData.add(mRow)
-					}
-					//endregion
-					//Map for data
-					val mDataOrder1 = LinkedHashMap<String, ArrayList<String>>()
-					for (mChild in aData)
-					{
-						for ((key, value) in mChild)
-						{
-							val sValue = value.toString()
-							mDataOrder1[key]?.run {
-								this.add(sValue)
-							} ?: run {
-								mDataOrder1[key] = arrayListOf(sValue)
-							}
-						}
-					}
+//					val aData = ArrayList< LinkedHashMap<String, Double>>()
+//					val aGroupedData = ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String>/*might transform to array list*/>>>()
+//					//region for secondary data
+//					for (iItem in aSecondary)
+//					{
+//						aCategoryMulti2.add(aColumn[iItem].displayName)
+//						val mRow = LinkedHashMap<String, Double>()
+//						val mGroupedRow = LinkedHashMap<String, ArrayList< ArrayList<String>>>()
+//						for (row in aRows)
+//						{
+//							val key = row[indexX]
+//							if (key !in aCategoriesX) aCategoriesX.add(key)
+//							val value = row[iItem].toDoubleNotNull()
+//							mRow[key]?.run {
+//								mGroupedRow[key]?.add(row)
+//								mRow[key] = this + value
+//							} ?: run {
+//								mGroupedRow[key] = arrayListOf(row)
+//								mRow[key] = value
+//							}
+//						}
+//						aGroupedData.add(mGroupedRow)
+//						aData.add(mRow)
+//					}
+//					//endregion
+//					//Map for data
+//					val mDataOrder1 = LinkedHashMap<String, ArrayList<String>>()
+//					for (mChild in aData)
+//					{
+//						for ((key, value) in mChild)
+//						{
+//							val sValue = value.toString()
+//							mDataOrder1[key]?.run {
+//								this.add(sValue)
+//							} ?: run {
+//								mDataOrder1[key] = arrayListOf(sValue)
+//							}
+//						}
+//					}
+					MultiData.getMultiData(aSecondary, aColumn, aRows, indexX)
 
 					if (isUseD3)
 					{
