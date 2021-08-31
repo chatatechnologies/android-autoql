@@ -70,7 +70,7 @@ function updateData(tmpChart, isReload) {
   else
   {
     dataTmp = [];
-		var aTmp = isCurrency ? data : data2;
+		var aTmp = getDataMulti();
     aTmp.forEach(element => {
 			var copied = Object.assign({}, element);
 			indexIgnore.forEach(index => {

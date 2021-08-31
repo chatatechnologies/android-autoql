@@ -82,8 +82,9 @@ function adminMulti(id, subgroups) {
   }
   else opacityMarked.push(index);
 
-  for (position in dataTmp) {
-    var element = data[position];
+  var aTmp = getDataMulti();
+	for (position in dataTmp) {
+    var element = aTmp[position];
 		var itEdit = dataTmp[position];
   
 		itEdit[subGroup] = exist ? element[subGroup] : 0;
@@ -128,6 +129,10 @@ function getMaxValue()
 function getMinValue()
 {
   return isCurrency ? minValue : minValue2;
+}
+
+function getDataMulti() {
+  return isCurrency ? data : data2;
 }"""
 	}
 }
