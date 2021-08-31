@@ -502,6 +502,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	override fun onDestroy()
 	{
 		super.onDestroy()
+		if (!statusLogin)
+		{
+			model.clear()
+		}
 		SinglentonDrawer.aThemeMethods.remove(nameFragment)
 		ThemeColor.aColorMethods.remove(nameFragment)
 		SinglentonDrawer.aLocaleMethods.remove(nameFragment)
