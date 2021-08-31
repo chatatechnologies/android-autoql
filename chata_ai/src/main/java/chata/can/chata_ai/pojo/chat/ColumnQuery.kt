@@ -8,4 +8,5 @@ data class ColumnQuery(
 	var isVisible: Boolean)
 {
 	var formatDate = ""
+	var isSelected = true
 }

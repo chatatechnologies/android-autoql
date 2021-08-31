@@ -3,6 +3,8 @@ package chata.can.chata_ai.dialog.manageData
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.webkit.WebView
 import android.widget.Button
@@ -100,15 +102,14 @@ class ManageDataDialog(
 				model.add(FilterColumn("Currency", isOnlyText = true))
 				for (pair in aCurrency)
 				{
-					pair.first
-					val fc = FilterColumn(pair.second.displayName)
+					val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
 					model.add(fc)
 					aCurrency1.add(fc)
 				}
 				model.add(FilterColumn("Quantity", isOnlyText = true))
 				for (pair in aQuality)
 				{
-					val fc = FilterColumn(pair.second.displayName, false)
+					val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
 					model.add(fc)
 					aQuality1.add(fc)
 				}
@@ -145,11 +146,25 @@ class ManageDataDialog(
 		{
 			aCurrency1.any { it.isSelected } ->
 			{
+				queryBase?.run {
+					for (index in aCurrency1.indices)
+					{
+						val filterColumn = aCurrency1[index]
+						aCurrency[index].second.isSelected = filterColumn.isSelected
+					}
+				}
 				isCurrency = true
 				aCurrency1
 			}
 			aQuality1.any { it.isSelected } ->
 			{
+				queryBase?.run {
+					for (index in aQuality1.indices)
+					{
+						val filterColumn = aQuality1[index]
+						aQuality[index].second.isSelected = filterColumn.isSelected
+					}
+				}
 				isCurrency = false
 				aQuality1
 			}
@@ -160,7 +175,10 @@ class ManageDataDialog(
 			if (!aSource[index].isSelected)
 				array.add(index)
 		}
-		(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array, $isCurrency);")
+		Handler(Looper.getMainLooper()).postDelayed({
+			(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array, $isCurrency);")
+		}, 100)
+		dialog.dismiss()
 	}
 
 	override fun statusApply(isEnable: Boolean)

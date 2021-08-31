@@ -21,9 +21,21 @@ object SearchColumn
 				val pair = Pair(index, column)
 				when(column.type)
 				{
-					TypeDataQuery.DOLLAR_AMT -> aCurrency.add(pair)
-					TypeDataQuery.QUANTITY -> aQuality.add(pair)
-					TypeDataQuery.STRING, TypeDataQuery.DATE -> aCommon.add(pair)
+					TypeDataQuery.DOLLAR_AMT ->
+					{
+						column.isSelected = true
+						aCurrency.add(pair)
+					}
+					TypeDataQuery.QUANTITY ->
+					{
+						column.isSelected = false
+						aQuality.add(pair)
+					}
+					TypeDataQuery.STRING, TypeDataQuery.DATE ->
+					{
+						column.isSelected = false
+						aCommon.add(pair)
+					}
 					else -> {}
 				}
 			}
