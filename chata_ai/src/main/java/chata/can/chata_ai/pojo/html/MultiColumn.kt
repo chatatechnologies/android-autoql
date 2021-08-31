@@ -32,7 +32,7 @@ function setMultiColumn() {
 
   // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, maxValue])
+    .domain([0, getMaxValue()])
     .range([ height, 0 ]);
   axis = axisMulti(svg, true, y, 0, 0, formatAxis);
 	axis = axis

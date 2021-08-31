@@ -74,8 +74,11 @@ var categoriesX = ${dataD3.catX};
 var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX}
 var limitName = 0;
+var isCurrency = true;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
+var maxValue2 = ${dataD3.max2};
+var minValue2 = ${dataD3.min2};
 var aCategory = ${dataD3.categories};
 var aCategory2 = ${dataD3.categories2};
 //endregion
@@ -98,7 +101,7 @@ for (const item in data) {
 //REGION get max value
 for (const item in data) {
   var value = data[item].value;
-  if (maxValue < value) {
+  if (getMaxValue() < value) {
     maxValue = value;
   }
 }
@@ -106,7 +109,7 @@ for (const item in data) {
 
 //The left margin makes the left border visible
 var typeChart = $typeChart;
-var digits = digitsCount(maxValue);
+var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
 var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;

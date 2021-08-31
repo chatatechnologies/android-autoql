@@ -89,6 +89,22 @@ object MultiData
 		return "${sbMultiSeries.removeSuffix(",\n")}"
 	}
 
+	fun getMaxMin(dataD3: DataD3, multiData: MultiDataModel, isCurrency: Boolean = false)
+	{
+		val min = multiData.min
+		val max = multiData.max
+		if (isCurrency)
+		{
+			dataD3.min2 = if (min < 0) min else 0
+			dataD3.max2 = max
+		}
+		else
+		{
+			dataD3.min = if (min < 0) min else 0
+			dataD3.max = max
+		}
+	}
+
 	fun getDataChartBiMulti(
 		aDataY: ArrayList<Int>,
 		mDataOrder: LinkedHashMap<String, ArrayList<String>>,

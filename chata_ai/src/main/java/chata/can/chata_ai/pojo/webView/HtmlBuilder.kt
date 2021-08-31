@@ -514,12 +514,12 @@ object HtmlBuilder
 						"\'$it\'"
 					}
 					dataD3.drillX = dataForWebView.drillX
+					MultiData.getMaxMin(dataD3, multiData)
+					MultiData.getMaxMin(dataD3, multiData2, true)
 					val min = multiData.min
 					val max = multiData.max
 					dataForWebView.min = if (min < 0) min else 0
-					dataD3.min = if (min < 0) min else 0
 					dataForWebView.max = max
-					dataD3.max = max
 					//region order data for data:
 					dataForWebView.dataChartBi = MultiData.getDataChartBiMulti(aDataY, multiData.mDataOrder, dataForWebView.isReverseX)
 					//region data drillDown

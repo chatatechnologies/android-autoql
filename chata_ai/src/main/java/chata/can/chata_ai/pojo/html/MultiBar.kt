@@ -32,7 +32,7 @@ function setMultiBar() {
 
     // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, maxValue])
+    .domain([0, getMaxValue()])
     .range([0, withReduce]);
 
   axis = axisMulti(svg, false, y, height, 0, formatAxis);

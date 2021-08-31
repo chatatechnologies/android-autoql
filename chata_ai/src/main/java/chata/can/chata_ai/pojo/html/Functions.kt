@@ -70,7 +70,8 @@ function updateData(tmpChart, isReload) {
   else
   {
     dataTmp = [];
-    data.forEach(element => {
+		var aTmp = isCurrency ? data : data2;
+    aTmp.forEach(element => {
 			var copied = Object.assign({}, element);
 			indexIgnore.forEach(index => {
         delete copied[`time_${'$'}{index}`];

@@ -118,6 +118,16 @@ function adminOpacity(id) {
   }
   isAgain = true;
   updateData(typeChart, true);
+}
+
+function getMaxValue()
+{
+  return isCurrency ? maxValue : maxValue2;
+}
+
+function getMinValue()
+{
+  return isCurrency ? minValue : minValue2;
 }"""
 	}
 }

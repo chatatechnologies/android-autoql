@@ -151,7 +151,8 @@ function updateData(tmpChart, isReload) {
   else
   {
     dataTmp = [];
-    data.forEach(element => {
+		var aTmp = isCurrency ? data : data2;
+    aTmp.forEach(element => {
 			var copied = Object.assign({}, element);
 			indexIgnore.forEach(index => {
         delete copied[`time_${index}`];
@@ -367,8 +368,11 @@ var categoriesX = ["Other", "Other", "Other", "Other", "Other", "Other", "Other"
 var drillTableY = [100.00, 240.00, 200.00];
 var drillX = ['1622640651','1610620917','1610620588','1610539486','1610539273']
 var limitName = 0;
+var isCurrency = true;
 var maxValue = 3360;
 var minValue = 0;
+var maxValue2 = 42;
+var minValue2 = 0;
 var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
 var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
 //endregion
@@ -391,7 +395,7 @@ for (const item in data) {
 //REGION get max value
 for (const item in data) {
   var value = data[item].value;
-  if (maxValue < value) {
+  if (getMaxValue() < value) {
     maxValue = value;
   }
 }
@@ -399,7 +403,7 @@ for (const item in data) {
 
 //The left margin makes the left border visible
 var typeChart = TypeEnum.TABLE;
-var digits = digitsCount(maxValue);
+var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
 var _bottom = typeChart == isHorizontal() ? _maxValue : limitName;
@@ -442,7 +446,7 @@ function setMultiBar() {
 
     // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, maxValue])
+    .domain([0, getMaxValue()])
     .range([0, withReduce]);
 
   axis = axisMulti(svg, false, y, height, 0, formatAxis);
@@ -552,7 +556,7 @@ function setMultiColumn() {
 
   // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, maxValue])
+    .domain([0, getMaxValue()])
     .range([ height, 0 ]);
   axis = axisMulti(svg, true, y, 0, 0, formatAxis);
 	axis = axis
@@ -1166,6 +1170,16 @@ function adminOpacity(id) {
   }
   isAgain = true;
   updateData(typeChart, true);
+}
+
+function getMaxValue()
+{
+  return isCurrency ? maxValue : maxValue2;
+}
+
+function getMinValue()
+{
+  return isCurrency ? minValue : minValue2;
 }
 
 $('td').click(function() {
