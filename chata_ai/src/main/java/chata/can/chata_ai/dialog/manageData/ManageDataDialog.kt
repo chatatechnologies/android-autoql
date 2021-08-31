@@ -16,6 +16,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -138,6 +139,18 @@ class ManageDataDialog(
 		rvColumn.adapter = adapter
 	}
 
+	private fun updateFilterColumn(
+		aFilter: ArrayList<FilterColumn>,
+		aCurrency: ArrayList<Pair<Int, ColumnQuery>>)
+	{
+		for (index in aFilter.indices)
+		{
+			val filterColumn = aFilter[index]
+			val filterBase = aCurrency[index].second
+			filterBase.isSelected = filterColumn.isSelected
+		}
+	}
+
 	private fun setCategoriesIgnore()
 	{
 		var isCurrency = true
@@ -146,29 +159,19 @@ class ManageDataDialog(
 		{
 			aCurrency1.any { it.isSelected } ->
 			{
-				queryBase?.run {
-					for (index in aCurrency1.indices)
-					{
-						val filterColumn = aCurrency1[index]
-						aCurrency[index].second.isSelected = filterColumn.isSelected
-					}
-				}
 				isCurrency = true
 				aCurrency1
 			}
 			aQuality1.any { it.isSelected } ->
 			{
-				queryBase?.run {
-					for (index in aQuality1.indices)
-					{
-						val filterColumn = aQuality1[index]
-						aQuality[index].second.isSelected = filterColumn.isSelected
-					}
-				}
 				isCurrency = false
 				aQuality1
 			}
 			else -> ArrayList()
+		}
+		queryBase?.run {
+			updateFilterColumn(aCurrency1, aCurrency)
+			updateFilterColumn(aQuality1, aQuality)
 		}
 		for (index in aSource.indices)
 		{
