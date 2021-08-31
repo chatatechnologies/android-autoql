@@ -90,7 +90,7 @@ class ManageDataDialog(
 			btnApply.run {
 				background = getBackgroundColor(
 					getParsedColor(R.color.blue_chata_circle), getParsedColor(R.color.blue_chata_circle))
-				setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+				setTextColor(getParsedColor(R.color.white))
 			}
 		}
 	}

@@ -5,6 +5,11 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 
+fun View.marginAll(margin: Float)
+{
+	margin(margin, margin, margin, margin)
+}
+
 fun View.margin(
 	start: Float? = null,
 	top: Float? = null,

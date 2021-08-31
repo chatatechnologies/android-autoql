@@ -22,6 +22,7 @@ class Color(
 	var pDrawerBorderColor = 0
 	var pDrawerHoverColor = 0
 	var pDrawerTextColorPrimary = 0
+	var pHighlightColor = 0
 	var pDangerColor = 0
 
 	fun initConfig(context: Context)
@@ -33,6 +34,7 @@ class Color(
 			pDrawerBorderColor = getParsedColor(drawerBorderColor)
 			pDrawerHoverColor = getParsedColor(drawerHoverColor)
 			pDrawerTextColorPrimary = getParsedColor(drawerTextColorPrimary)
+			pHighlightColor = getParsedColor(highlightColor)
 			pDangerColor = getParsedColor(dangerColor)
 		}
 	}
