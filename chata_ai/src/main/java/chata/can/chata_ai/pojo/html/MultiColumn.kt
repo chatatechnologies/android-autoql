@@ -94,6 +94,7 @@ function setMultiColumn() {
 	});
 	
   var factorBack = margin.top;
+	addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
 	var aCategoryTmp = getMultiCategory();
   for (const index in aCategoryTmp)
   {
