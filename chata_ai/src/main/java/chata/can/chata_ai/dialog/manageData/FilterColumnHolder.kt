@@ -1,6 +1,7 @@
 package chata.can.chata_ai.dialog.manageData
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
@@ -17,6 +18,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 
 class FilterColumnHolder(
 	view: View,
+	private val isLast: Int,
 	private val adapterView: FilterColumnView//variable should to change for View
 ): Holder(view)
 {
@@ -29,7 +31,7 @@ class FilterColumnHolder(
 					addRule(RelativeLayout.START_OF, R.id.cbCheck)
 				}
 				id = R.id.rlParent
-				paddingAll(left = 12f, right = 12f)
+				paddingAll(left = 12f, top = 6f, right = 12f)
 				//region TextView
 				addView(TextView(context).apply {
 					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(32f))
@@ -40,7 +42,6 @@ class FilterColumnHolder(
 				//region selection view
 				addView(RelativeLayout(context).apply {
 					layoutParams = RelativeLayout.LayoutParams(dpToPx(28f), dpToPx(28f)).apply {
-
 						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
 					id = R.id.cbBorder
@@ -48,11 +49,18 @@ class FilterColumnHolder(
 					addView(TextView(context).apply {
 						layoutParams = RelativeLayout.LayoutParams(-1, -1)
 						id = R.id.cbColumn
-						marginAll(2f)
+						marginAll(1f)
 					})
 					//endregion
 				})
 				//endregion
+				addView(View(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(0.5f)).apply {
+						addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+					}
+					margin(0f, 4f, 0f, 4f)
+					id = R.id.vBorder
+				})
 			}
 		}
 	}
@@ -61,6 +69,7 @@ class FilterColumnHolder(
 	private val tvColumnName = itemView.findViewById<TextView>(R.id.tvColumnName) ?: null
 	private val cbBorder = itemView.findViewById<View>(R.id.cbBorder) ?: null
 	private val cbColumn = itemView.findViewById<TextView>(R.id.cbColumn) ?: null
+	private val vBorder = itemView.findViewById<View>(R.id.vBorder) ?: null
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
@@ -68,8 +77,6 @@ class FilterColumnHolder(
 			ThemeColor.currentColor.run {
 				rlParent?.let { parent ->
 					val blue = parent.context.getParsedColor(R.color.blue_chata_circle)
-					val white = parent.context.getParsedColor(R.color.white)
-					val black = parent.context.getParsedColor(R.color.black)
 
 					if (isOnlyText && indexColumn != -1)
 						parent.setBackgroundColor(if (isSelected) {
@@ -98,6 +105,14 @@ class FilterColumnHolder(
 						it.setTextColor(color)
 						it.text = nameColumn
 						it.paddingAll(left = if (!isOnlyText && !allowClick) 8f else 0f)
+					}
+
+					vBorder?.let {
+						it.setBackgroundColor(pDrawerTextColorPrimary)
+						it.visibility = if (isOnlyText || isLast == 1)
+							View.GONE
+						else View.VISIBLE
+
 					}
 				}
 			}

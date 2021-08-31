@@ -6,16 +6,36 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 
 class FilterColumnAdapter(
-	model: BaseModelList<FilterColumn>,
+	private val model: BaseModelList<FilterColumn>,
 	private val dialogView: ManageDialogView,
 	private val aCurrency1: ArrayList<FilterColumn>,
 	private val aQuality1: ArrayList<FilterColumn>
 ): BaseAdapter(model), FilterColumnView
 {
+	override fun getItemViewType(position: Int): Int
+	{
+		var viewType = 0
+		val last = aCurrency1.last()
+		val item = model[position]
+		if (item == last)
+		{
+			viewType = 1
+		}
+		else
+		{
+			val last2 = aQuality1.last()
+			if (item == last2)
+			{
+				viewType = 1
+			}
+		}
+		return viewType
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val view = FilterColumnHolder.getView(parent.context)
-		return FilterColumnHolder(view, this)
+		return FilterColumnHolder(view, viewType, this)
 	}
 
 	override fun checkGroup(filterColumn: FilterColumn)
