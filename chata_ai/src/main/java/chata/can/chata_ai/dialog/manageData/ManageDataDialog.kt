@@ -32,7 +32,7 @@ class ManageDataDialog(
 	private lateinit var dialog: AlertDialog
 	private lateinit var btnApply: Button
 	private lateinit var rvColumn: RecyclerView
-	val model = BaseModelList<FilterColumn>()
+	private val model = BaseModelList<FilterColumn>()
 	private lateinit var adapter: FilterColumnAdapter
 	private lateinit var llParent: View
 	private val aCurrency1 = ArrayList<FilterColumn>()

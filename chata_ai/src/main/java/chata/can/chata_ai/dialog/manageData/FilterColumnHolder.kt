@@ -1,8 +1,10 @@
 package chata.can.chata_ai.dialog.manageData
 
 import android.content.Context
+import android.text.Html
 import android.util.Log
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -32,21 +34,21 @@ class FilterColumnHolder(
 				paddingAll(left = 12f, right = 12f)
 				//region TextView
 				addView(TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(24f))
+					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(32f))
 					id = R.id.tvColumnName
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 				})
 				//endregion
 				//region selection view
 				addView(RelativeLayout(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(20f), dpToPx(20f)).apply {
+					layoutParams = RelativeLayout.LayoutParams(dpToPx(28f), dpToPx(28f)).apply {
 						val blue = context.getParsedColor(R.color.selected_gray)
 						setBackgroundColor(blue)
 						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
 					id = R.id.cbBorder
 					//region
-					addView(View(context).apply {
+					addView(TextView(context).apply {
 						layoutParams = RelativeLayout.LayoutParams(-1, -1)
 						id = R.id.cbColumn
 						val gray = context.getParsedColor(R.color.blue_chata_circle)
@@ -63,13 +65,14 @@ class FilterColumnHolder(
 	private val rlParent = itemView.findViewById<View>(R.id.rlParent) ?: null
 	private val tvColumnName = itemView.findViewById<TextView>(R.id.tvColumnName) ?: null
 	private val cbBorder = itemView.findViewById<View>(R.id.cbBorder) ?: null
-	private val cbColumn = itemView.findViewById<View>(R.id.cbColumn) ?: null
-	//private val cbCheck = itemView.findViewById<CheckBox>(R.id.cbCheck) ?: null
+	private val cbColumn = itemView.findViewById<TextView>(R.id.cbColumn) ?: null
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		(item as? FilterColumn)?.run {
 			tvColumnName?.let {
+				//var abc = "\u2713" + nameColumn
+				//it.setText(Html.fromHtml(abc))
 				it.text = nameColumn
 				it.paddingAll(left = if (!isOnlyText && !allowClick) 8f else 0f)
 			}
@@ -77,9 +80,12 @@ class FilterColumnHolder(
 				it.visibility = if (isOnlyText) View.GONE else View.VISIBLE
 			}
 			cbColumn?.let {
-				val checkColor = it.context.getParsedColor(
-					if (isSelected) R.color.blue_chata_circle else R.color.selected_gray)
+				val pData =
+					if (isSelected) Pair(R.color.blue_chata_circle, "\u2713")
+					else Pair(R.color.selected_gray, "")
+				val checkColor = it.context.getParsedColor(pData.first)
 				it.setBackgroundColor(checkColor)
+				it.text = pData.second
 				it.setOnClickListener {
 					adapterView.checkGroup(this)
 				}
@@ -106,6 +112,10 @@ class FilterColumnHolder(
 	{
 		ThemeColor.currentColor.run {
 			tvColumnName?.setTextColor(pDrawerTextColorPrimary)
+		}
+		cbColumn?.let {
+			it.gravity = Gravity.CENTER
+			it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 		}
 	}
 }
