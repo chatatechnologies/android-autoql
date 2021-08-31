@@ -139,11 +139,20 @@ class ManageDataDialog(
 
 	private fun setCategoriesIgnore()
 	{
+		var isCurrency = true
 		val array = ArrayList<Int>()
 		val aSource = when
 		{
-			aCurrency1.any { it.isSelected } -> aCurrency1
-			aQuality1.any { it.isSelected } -> aQuality1
+			aCurrency1.any { it.isSelected } ->
+			{
+				isCurrency = true
+				aCurrency1
+			}
+			aQuality1.any { it.isSelected } ->
+			{
+				isCurrency = false
+				aQuality1
+			}
 			else -> ArrayList()
 		}
 		for (index in aSource.indices)
@@ -151,7 +160,7 @@ class ManageDataDialog(
 			if (!aSource[index].isSelected)
 				array.add(index)
 		}
-		(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array);")
+		(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array, $isCurrency);")
 	}
 
 	override fun statusApply(isEnable: Boolean)

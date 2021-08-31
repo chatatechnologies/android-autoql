@@ -302,11 +302,12 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
     .style('text-anchor', 'end');
 }
 
-function setMultiCategory(aIndex) {
+function setMultiCategory(aIndex, _IsCurrency) {
   indexIgnore = [];
   aIndex.forEach(index => {
     indexIgnore.push(index);
   });
+	isCurrency = _IsCurrency;
   dataTmp = [];
   updateData(typeChart, true);
 }
