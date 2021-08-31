@@ -94,7 +94,7 @@ function setMultiColumn() {
 	});
 	
   var factorBack = margin.top;
-	var aCategoryTmp = isCurrency ? aCategory : aCategory2;
+	var aCategoryTmp = getMultiCategory();
   for (const index in aCategoryTmp)
   {
     var item = aCategoryTmp[index];
@@ -102,7 +102,7 @@ function setMultiColumn() {
       var id = this.id;
       adminMulti(id, subgroups);
     });
-    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[index % colorPie.length], `idcircle_${'$'}{index}`,
+    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
     function () {
       return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
     },

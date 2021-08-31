@@ -131,8 +131,19 @@ function getMinValue()
   return isCurrency ? minValue : minValue2;
 }
 
-function getDataMulti() {
+function getDataMulti()
+{
   return isCurrency ? data : data2;
+}
+
+function getMultiCategory()
+{
+  return isCurrency ? aCategory : aCategory2;
+}
+
+function indexCircle(index)
+{
+  return index % colorPie.length;
 }"""
 	}
 }
