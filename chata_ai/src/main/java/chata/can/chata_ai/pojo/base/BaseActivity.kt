@@ -2,7 +2,9 @@ package chata.can.chata_ai.pojo.base
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -22,11 +24,14 @@ abstract class BaseActivity(private val intRes: Int): AppCompatActivity()
 		if (configuration.fontScale > 1.3f)
 		{
 			configuration.fontScale = 1.3f
-			val metrics = resources.displayMetrics
-			val wm = getSystemService(WINDOW_SERVICE) as WindowManager
-			wm.defaultDisplay.getMetrics(metrics)
-			metrics.scaledDensity = configuration.fontScale * metrics.density
-			baseContext.resources.updateConfiguration(configuration, metrics)
+			baseContext?.run {
+				resources?.displayMetrics?.let {
+					val metrics = it
+					metrics.scaledDensity = configuration.fontScale * it.density
+					createConfigurationContext(configuration)
+					resources.displayMetrics.setTo(metrics)
+				}
+			}
 		}
 	}
 
