@@ -91,13 +91,18 @@ fun String.formatWithColumn(
 		}
 		TypeDataQuery.DATE ->
 		{
-			val format =
+			var format =
 			if (columnQuery.name.contains("month"))
 				SinglentonDrawer.monthYearFormat.replace("Y", "y")
 			else
 				SinglentonDrawer.dayMonthYearFormat.
 				replace("Y", "y").
 				replace("DD", "d")
+
+			if (SinglentonDrawer.localLocale?.language == "es")
+			{
+				format = "d 'de' MMM 'de' yyyy"
+			}
 
 			if (isEmpty() || this == "0")
 				""

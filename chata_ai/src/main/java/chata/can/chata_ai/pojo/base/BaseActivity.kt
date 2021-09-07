@@ -2,10 +2,7 @@ package chata.can.chata_ai.pojo.base
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 
