@@ -11,6 +11,7 @@ import android.text.InputType
 import android.text.Spanned
 import android.text.TextUtils
 import android.util.SparseBooleanArray
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -293,8 +294,6 @@ object CustomViews
 				addView(
 					MaterialButton(context).apply {
 						layoutParams = LinearLayout.LayoutParams(-2, -2).apply { weight = 1f }
-//						insetBottom = 0
-//						insetTop = 0
 						val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 						val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
 						val aColors = intArrayOf(alphaColor, white)
