@@ -40,6 +40,8 @@ object SinglentonDrawer
 	val aLocaleMethods = LinkedHashMap<String, () -> Unit>()
 
 	var aMonths = arrayListOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+	var aMonthsSp = arrayListOf("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
+	var aMonthsSp1 = arrayListOf("ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sep.", "oct.", "nov.", "dic.")
 	var aMonthShorts = arrayListOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec")
 
 	val mMonthShort = hashMapOf(

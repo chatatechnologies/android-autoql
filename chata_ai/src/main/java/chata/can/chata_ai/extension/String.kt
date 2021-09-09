@@ -2,6 +2,8 @@ package chata.can.chata_ai.extension
 
 import android.graphics.Color
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.SinglentonDrawer.aMonthsSp
+import chata.can.chata_ai.pojo.SinglentonDrawer.aMonthsSp1
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.date.ChataDateFormat
@@ -91,6 +93,10 @@ fun String.formatWithColumn(
 		}
 		TypeDataQuery.DATE ->
 		{
+			//region for replace month in spanish
+			var locale = Locale.US
+			var indexMonth = -1
+			//endregion
 			var format =
 			if (columnQuery.name.contains("month"))
 				SinglentonDrawer.monthYearFormat.replace("Y", "y")
@@ -99,9 +105,12 @@ fun String.formatWithColumn(
 				replace("Y", "y").
 				replace("DD", "d")
 
-			if (SinglentonDrawer.localLocale?.language == "es")
-			{
-				format = "d 'de' MMM 'de' yyyy"
+			SinglentonDrawer.localLocale?.let {
+				if (it.language == "es")
+				{
+					locale = Locale("es", "MX")
+					format = "d 'de' MMM 'de' yyyy"
+				}
 			}
 
 			if (isEmpty() || this == "0")
@@ -110,9 +119,15 @@ fun String.formatWithColumn(
 			{
 				val aTmp = split(".")
 				aTmp.firstOrNull()?.toIntOrNull()?.let {
-					val dateFormat = SimpleDateFormat(format, Locale.US)
 					val date = Date(it * 1000L)
-					dateFormat.format(date)
+
+					val sdfSp = SimpleDateFormat("MMM", locale)
+					val monthSp = sdfSp.format(date)
+					val index = aMonthsSp1.indexOf(monthSp)
+
+					val dateFormat = SimpleDateFormat(format, locale)
+
+					dateFormat.format(date).replace(aMonthsSp1[index], aMonthsSp[index])
 				} ?: run { "" }
 			}
 		}
