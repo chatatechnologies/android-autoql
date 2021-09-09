@@ -15,18 +15,13 @@ class FilterColumnAdapter(
 	override fun getItemViewType(position: Int): Int
 	{
 		var viewType = 0
-		val last = aCurrency1.last()
-		val item = model[position]
-		if (item == last)
-		{
-			viewType = 1
-		}
-		else
-		{
-			val last2 = aQuality1.last()
-			if (item == last2)
-			{
-				viewType = 1
+		model[position]?.let { item ->
+			aCurrency1.lastOrNull()?.let {
+				viewType = isFilterColumn(item, it)
+			} ?: run {
+				aQuality1.lastOrNull()?.let {
+					viewType = isFilterColumn(item, it)
+				}
 			}
 		}
 		return viewType
@@ -83,6 +78,8 @@ class FilterColumnAdapter(
 			notifyItemChanged(index + startIndex)
 		}
 	}
+
+	private fun isFilterColumn(item: FilterColumn, compare: FilterColumn) = if (item == compare) 1 else 0
 
 	private fun hasSelected(aList: ArrayList<FilterColumn>) =
 		aList.filter { it.isSelected }.size == 1
