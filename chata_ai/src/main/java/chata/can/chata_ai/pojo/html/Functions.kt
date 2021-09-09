@@ -222,6 +222,7 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
 }
 
 function setMultiCategory(aIndex, _IsCurrency) {
+	axisY = _IsCurrency ? 'Amount' : 'Quantity';
   indexIgnore = [];
   aIndex.forEach(index => {
     indexIgnore.push(index);
