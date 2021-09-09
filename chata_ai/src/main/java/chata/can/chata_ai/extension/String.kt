@@ -120,13 +120,10 @@ fun String.formatWithColumn(
 				val aTmp = split(".")
 				aTmp.firstOrNull()?.toIntOrNull()?.let {
 					val date = Date(it * 1000L)
-
 					val sdfSp = SimpleDateFormat("MMM", locale)
 					val monthSp = sdfSp.format(date)
 					val index = aMonthsSp1.indexOf(monthSp)
-
 					val dateFormat = SimpleDateFormat(format, locale)
-
 					dateFormat.format(date).replace(aMonthsSp1[index], aMonthsSp[index])
 				} ?: run { "" }
 			}
