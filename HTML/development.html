@@ -1207,7 +1207,21 @@ function adminOpacity(id) {
 
 function getMaxValue()
 {
-  return isCurrency ? maxValue : maxValue2;
+  if (indexIgnore.length > 0)
+  {
+    var aTotalIndices = [];
+    var aTmp = isCurrency ? aMax : aMax2;
+    for (index = 0; index < aTmp.length; index++)
+    {
+      if (indexIgnore.includes(index)) continue;
+      var value = aTmp[index];
+      aTotalIndices.push(value);
+    }
+    var maxMath = Math.max.apply(null, aTotalIndices);
+    return maxMath !== 0 ? maxMath : 1;
+  }
+  else
+    return isCurrency ? maxValue : maxValue2;
 }
 
 function getMinValue()
@@ -1227,20 +1241,7 @@ function getMultiCategory()
 
 function indexCircle(index)
 {
-	if (indexIgnore.length > 0)
-  {
-    var aTotalIndices = [];
-    var aTmp = isCurrency ? aMax : aMax2;
-    for (index = 0; index < aTmp.length; index++)
-    {
-      if (indexIgnore.includes(index)) continue;
-      var value = aTmp[index];
-      aTotalIndices.push(value);
-    }
-    return Math.max.apply(null, aTotalIndices);
-  }
-  else
-    return index % colorPie.length;
+  return index % colorPie.length;
 }
 
 $('td').click(function() {
