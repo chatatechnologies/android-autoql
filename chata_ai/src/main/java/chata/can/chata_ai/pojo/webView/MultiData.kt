@@ -39,10 +39,13 @@ object MultiData
 		//Map for data
 		val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
 		var max = 0
+		val aMax = ArrayList<Int>()
 		var min = 0
 		for (mChild in aData)
 		{
 			val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+			//set all max on array
+			aMax.add(tmpMax)
 			if (tmpMax > max) max = tmpMax
 			val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
 			if (tmpMin < min) min = tmpMin
@@ -56,7 +59,7 @@ object MultiData
 				}
 			}
 		}
-		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max)
+		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max, aMax)
 	}
 
 	fun getTimesDataMulti(

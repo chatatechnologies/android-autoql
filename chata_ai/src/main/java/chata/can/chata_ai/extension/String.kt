@@ -124,7 +124,8 @@ fun String.formatWithColumn(
 					val monthSp = sdfSp.format(date)
 					val index = aMonthsSp1.indexOf(monthSp)
 					val dateFormat = SimpleDateFormat(format, locale)
-					dateFormat.format(date).replace(aMonthsSp1[index], aMonthsSp[index])
+					val out = dateFormat.format(date)
+					if (index != -1) out.replace(aMonthsSp1[index], aMonthsSp[index]) else out
 				} ?: run { "" }
 			}
 		}

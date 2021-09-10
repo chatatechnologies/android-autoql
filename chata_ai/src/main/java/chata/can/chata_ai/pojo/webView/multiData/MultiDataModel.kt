@@ -7,5 +7,6 @@ data class MultiDataModel(
 	val aGroupedData: ArrayList<LinkedHashMap<String, ArrayList< ArrayList<String> > > >,
 	val aData: ArrayList< LinkedHashMap<String, Double>>,
 	val min: Int,
-	val max: Int
+	val max: Int,
+	val aMax: ArrayList<Int>
 )
