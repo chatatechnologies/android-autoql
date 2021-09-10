@@ -143,7 +143,20 @@ function getMultiCategory()
 
 function indexCircle(index)
 {
-  return index % colorPie.length;
+	if (indexIgnore.length > 0)
+  {
+    var aTotalIndices = [];
+    var aTmp = isCurrency ? aMax : aMax2;
+    for (index = 0; index < aTmp.length; index++)
+    {
+      if (indexIgnore.includes(index)) continue;
+      var value = aTmp[index];
+      aTotalIndices.push(value);
+    }
+    return Math.max.apply(null, aTotalIndices);
+  }
+  else
+    return index % colorPie.length;
 }"""
 	}
 }

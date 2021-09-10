@@ -100,11 +100,13 @@ object MultiData
 		{
 			dataD3.min2 = if (min < 0) min else 0
 			dataD3.max2 = max
+			dataD3.aMax2 = multiData.aMax
 		}
 		else
 		{
 			dataD3.min = if (min < 0) min else 0
 			dataD3.max = max
+			dataD3.aMax = multiData.aMax
 		}
 	}
 

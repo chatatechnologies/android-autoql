@@ -72,13 +72,15 @@ var opacityMarked = [];
 var indexIgnore = [];
 var categoriesX = ${dataD3.catX};
 var drillTableY = ${dataD3.drillTableY};
-var drillX = ${dataD3.drillX}
+var drillX = ${dataD3.drillX};
 var limitName = 0;
 var isCurrency = true;
 var maxValue = ${dataD3.max};
 var minValue = ${dataD3.min};
 var maxValue2 = ${dataD3.max2};
 var minValue2 = ${dataD3.min2};
+var aMax = ${dataD3.aMax};
+var aMax2 = ${dataD3.aMax2};
 var aCategory = ${dataD3.categories};
 var aCategory2 = ${dataD3.categories2};
 //endregion
