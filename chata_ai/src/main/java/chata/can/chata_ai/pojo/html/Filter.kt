@@ -66,7 +66,7 @@ function showFilter() {
 
 function adminMulti(id, subgroups) {
   var words = id.split('_');
-  var index = words[1];
+  var index = parseInt(words[1]);
   var subGroup = subgroups[index];
   var exist = opacityMarked.includes(index);
   if (exist) {

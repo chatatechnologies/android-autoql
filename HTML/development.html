@@ -409,7 +409,7 @@ for (const item in data) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.LINE;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -1148,7 +1148,7 @@ function showFilter() {
 
 function adminMulti(id, subgroups) {
   var words = id.split('_');
-  var index = words[1];
+  var index = parseInt(words[1]);
   var subGroup = subgroups[index];
   var exist = opacityMarked.includes(index);
   if (exist) {
