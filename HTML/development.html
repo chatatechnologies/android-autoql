@@ -302,8 +302,13 @@ function completeAxisMultiple(axis, pointX, pointY, rotate) {
     .style('text-anchor', 'end');
 }
 
-function setMultiCategory(aIndex, _IsCurrency) {
-	axisY = _IsCurrency ? 'Amount' : 'Quantity';
+function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
+	if (onlyIndex !== undefined) {
+    var aTmp = _IsCurrency ? aCategory : aCategory2;
+    axisY = aTmp[onlyIndex];
+  } else {
+    axisY = _IsCurrency ? 'Amount' : 'Quantity';
+  }
   indexIgnore = [];
   aIndex.forEach(index => {
     indexIgnore.push(index);

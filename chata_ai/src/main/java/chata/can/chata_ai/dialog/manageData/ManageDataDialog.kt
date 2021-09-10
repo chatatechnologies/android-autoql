@@ -155,6 +155,7 @@ class ManageDataDialog(
 	{
 		var isCurrency = true
 		val array = ArrayList<Int>()
+		val arrayOut = ArrayList<Int>()
 		val aSource = when
 		{
 			aCurrency1.any { it.isSelected } ->
@@ -177,9 +178,16 @@ class ManageDataDialog(
 		{
 			if (!aSource[index].isSelected)
 				array.add(index)
+			else
+				arrayOut.add(index)
 		}
+		val hasOnlyOne = if (aSource.size - array.size == 1)
+		{
+			val aMinus = arrayOut.minus(array)
+			", ${aMinus[0]}"
+		} else ""
 		Handler(Looper.getMainLooper()).postDelayed({
-			(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array, $isCurrency);")
+			(webView as? WebView)?.loadUrl("javascript:setMultiCategory($array, $isCurrency$hasOnlyOne);")
 		}, 100)
 		dialog.dismiss()
 	}
