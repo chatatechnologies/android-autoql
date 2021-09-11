@@ -114,16 +114,13 @@ class FilterColumnHolder(
 						else View.VISIBLE
 
 					}
-				}
-			}
 
-			rlParent?.let {
-
-				it.setOnClickListener {
-					if (item.allowClick)
-					{
-						Log.e("Manage", "I can: ${item.indexColumn}")
-						//Here to select with simple dialog
+					parent.setOnClickListener {
+						if (item.allowClick)
+						{
+							Log.e("Manage", "I can: ${item.indexColumn}")
+							//Here to select with simple dialog
+						}
 					}
 				}
 			}

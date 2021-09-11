@@ -542,6 +542,18 @@ object HtmlBuilder
 					dataForWebView.catX = multiData.aCategoriesX.map {
 						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
 					}.toString()
+
+					val aCatCommon = ArrayList<String>()
+					queryBase.aCommon.run {
+						for(index in indices)
+						{
+							val column = get(index).second
+							aCatCommon.add(column.displayName)
+						}
+					}
+					dataD3.catCommon = aCatCommon.joinToString(", ", "[", "]") {
+						"\"$it\""
+					}
 				}
 				val type = aColumn[0].type
 				if (type == TypeDataQuery.DATE_STRING/* && type1 != TypeDataQuery.DOLLAR_AMT*/)

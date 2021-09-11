@@ -83,6 +83,7 @@ var aMax = ${dataD3.aMax};
 var aMax2 = ${dataD3.aMax2};
 var aCategory = ${dataD3.categories};
 var aCategory2 = ${dataD3.categories2};
+var aCommon = ${dataD3.catCommon};
 //endregion
 
 //REGION max letters in name
