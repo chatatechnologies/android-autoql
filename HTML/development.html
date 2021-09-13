@@ -341,47 +341,28 @@ const TypeManage = Object.freeze({
 var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
 var colorBi = ['#26a7e9'];//Main color for bars
 
-var axisX = 'Date Created';
+var axisX = 'Job End Time';
 var axisY = 'Amount';
 var nColumns = 0;
 
 //Main data
 var dataTmp = [];
-var data = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
-{name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
-{name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
-{name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}];
-var data2 = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
-{name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 12.0},
-{name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
-{name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}];
-var dataFormatted = [{name: "13 de Ene de 2021"},
-{name: "13 de Ene de 2021"},
-{name: "13 de Ene de 2021"},
-{name: "13 de Ene de 2021"},
-{name: "13 de Ene de 2021"},
-{name: "13 de Ene de 2021"},
-{name: "14 de Ene de 2021"},
-{name: "14 de Ene de 2021"},
-{name: "14 de Ene de 2021"},
-{name: "14 de Ene de 2021"},
-{name: "14 de Ene de 2021"},
-{name: "2 de Jun de 2021"}];
+var data = [{name: '_1', time_0: 0.0, time_1: 0.0, time_2: 2380.0, time_3: 320.0, time_4: 7300.0}];
+var data2 = [{name: '_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 24.0, time_5: 115.0}];
+var dataFormatted = [];
 var opacityMarked = [];
 var indexIgnore = [];
-var categoriesX = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other"];
-var drillTableY = [100.00, 240.00, 200.00];
-var drillX = ['1622640611','1610620853','1610620407','1610539422','1610539073'];
+var categoriesX = [];
+var drillTableY = [];
+var drillX = ['null'];
 var limitName = 0;
 var isCurrency = true;
-var maxValue = 3360;
+var maxValue = 7300;
 var minValue = 0;
-var maxValue2 = 42;
+var maxValue2 = 115;
 var minValue2 = 0;
-var aMax = [0, 0, 840, 100, 3360];
-var aMax2 = [0, 0, 0, 0, 10, 42];
+var aMax = [0, 0, 2380, 320, 7300];
+var aMax2 = [0, 0, 0, 0, 24, 115];
 var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
 var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
 var aCommon = ["Element", "Item", "Stock Number", "Item Type", "Ticket Division", "Invoice", "Ticket Account", "(Ticket Detail) State", "Ticket Type", "Date Created", "Ticket Description", "Date", "Ticket Type ID", "Job End Time", "Job Start Time"];

@@ -140,7 +140,7 @@ object HtmlBuilder
 
 				when
 				{
-					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
+					aDataX.isNotEmpty() -> posColumnX = aDataX[2]
 					aString.isNotEmpty() ->
 					{
 						posColumnX = if (aString.size == 2)
@@ -465,12 +465,12 @@ object HtmlBuilder
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
 					SearchColumn.getSeriesColumn(queryBase)
-					val indexX = aDataX[1]//[0]
-					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, indexX)
-					val multiData2_19 = MultiData.getMultiData(aSecondary, aColumn, aRows, 19)
-					val multiData2_21 = MultiData.getMultiData(aSecondary, aColumn, aRows, 21)
-					val multiData2_24 = MultiData.getMultiData(aSecondary, aColumn, aRows, 24)
-					val multiData2_25 = MultiData.getMultiData(aSecondary, aColumn, aRows, 25)
+					//val indexX = aDataX[0]//[2]
+					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, posColumnX)
+//					val multiData2_19 = MultiData.getMultiData(aSecondary, aColumn, aRows, 19)
+//					val multiData2_21 = MultiData.getMultiData(aSecondary, aColumn, aRows, 21)
+//					val multiData2_24 = MultiData.getMultiData(aSecondary, aColumn, aRows, 24)
+//					val multiData2_25 = MultiData.getMultiData(aSecondary, aColumn, aRows, 25)
 
 					if (isUseD3)
 					{
@@ -479,7 +479,7 @@ object HtmlBuilder
 						val mDateParsed = LinkedHashMap<String, Int>()
 						for ((key, aValue) in multiData2.mDataOrder)
 						{
-							val columnDate = aColumn[aDataX[0]]
+							val columnDate = aColumn[posColumnX]//aColumn[aDataX[0]]
 							val formattedKey = key.formatWithColumn(columnDate)
 							val parsedKey =
 								mDateParsed[formattedKey]?.let {
@@ -500,7 +500,7 @@ object HtmlBuilder
 						sbMultiSeries.toString()
 					}
 					//region data currency group
-					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, indexX)
+					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, posColumnX)//indexX)
 					if (isUseD3)
 					{
 						//loop data for multi series for D3
