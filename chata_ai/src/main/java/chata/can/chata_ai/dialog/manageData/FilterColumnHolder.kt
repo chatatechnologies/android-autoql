@@ -118,6 +118,8 @@ class FilterColumnHolder(
 					parent.setOnClickListener {
 						if (item.allowClick)
 						{
+							val name = item.nameColumn
+							val indexColumn = item.indexColumn
 							Log.e("Manage", "I can: ${item.indexColumn}")
 							//Here to select with simple dialog
 						}

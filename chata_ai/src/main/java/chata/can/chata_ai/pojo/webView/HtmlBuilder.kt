@@ -465,8 +465,12 @@ object HtmlBuilder
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
 					SearchColumn.getSeriesColumn(queryBase)
-					val indexX = aDataX[0]
+					val indexX = aDataX[1]//[0]
 					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, indexX)
+					val multiData2_19 = MultiData.getMultiData(aSecondary, aColumn, aRows, 19)
+					val multiData2_21 = MultiData.getMultiData(aSecondary, aColumn, aRows, 21)
+					val multiData2_24 = MultiData.getMultiData(aSecondary, aColumn, aRows, 24)
+					val multiData2_25 = MultiData.getMultiData(aSecondary, aColumn, aRows, 25)
 
 					if (isUseD3)
 					{
