@@ -10,3 +10,8 @@ data class MultiDataModel(
 	val max: Int,
 	val aMax: ArrayList<Int>
 )
+{
+	fun getCategoryMulti() = aCategoryMulti.joinToString(",", "[", "]") {
+		"\'$it\'"
+	}
+}

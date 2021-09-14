@@ -138,7 +138,7 @@ function isMultiple(typeChart) {
 
 function updateData(tmpChart, isReload) {
   //region set nColumns
-  var keys = Object.keys(data[0]);
+  var keys = Object.keys(getDataOrMulti()[0]);
   nColumns = keys.length;
   //endregion
 	var _isMultiple = isMultiple(tmpChart);
@@ -348,16 +348,8 @@ var nColumns = 0;
 //Main data
 var indexData = 19;
 var dataTmp = [];
-var data = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
-{name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
-{name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
-{name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}];
-var data2 = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
-{name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 12.0},
-{name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
-{name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}];
+var data = [];
+var data2 = [];
 var aAllData = {'19_1': [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
@@ -409,13 +401,13 @@ var minValue2 = 0;
 var aMax = [0, 0, 840, 100, 3360];
 var aMax2 = [0, 0, 0, 0, 10, 42];
 var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
-var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
+var aCategory2 = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
 var aCommon = ["Element", "Item", "Stock Number", "Item Type", "Ticket Division", "Invoice", "Ticket Account", "(Ticket Detail) State", "Ticket Type", "Date Created", "Ticket Description", "Date", "Ticket Type ID", "Job End Time", "Job Start Time"];
 //endregion
 
 //REGION max letters in name
-for (const item in data) {
-  var value = data[item].name.length;
+for (const item in getDataOrMulti()) {
+  var value = getDataOrMulti()[item].name.length;
   if (limitName < value) {
     limitName = value;
     if (limitName > 10) {
@@ -429,8 +421,8 @@ for (const item in data) {
 //ENDREGION
 
 //REGION get max value
-for (const item in data) {
-  var value = data[item].value;
+for (const item in getDataOrMulti()) {
+  var value = getDataOrMulti()[item].value;
   if (getMaxValue() < value) {
     maxValue = value;
   }
@@ -1219,7 +1211,7 @@ function adminOpacity(id) {
         break;
       }
     }
-    var item = data[index];
+    var item = getDataOrMulti()[index];
     dataTmp[index].value = item.value;
     opacityMarked.splice(tmp, 1);
   }
@@ -1254,6 +1246,11 @@ function getMaxValue()
 function getMinValue()
 {
   return isCurrency ? minValue : minValue2;
+}
+
+function getDataOrMulti()
+{
+  return data.length !== 0 ? data : getDataMulti();
 }
 
 function getDataMulti()

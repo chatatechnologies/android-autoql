@@ -66,7 +66,7 @@ object HtmlBuilder
 //				if (hasDecimals)
 //					queryBase.configActions = 0
 //				else
-					queryBase.configActions = 4
+				queryBase.configActions = 4
 			}
 			SupportCase.CASE_3 ->
 			{
@@ -464,6 +464,7 @@ object HtmlBuilder
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
 					SearchColumn.getSeriesColumn(queryBase)
+					dataD3.indexData = aDataX[0]
 					//region data currency group
 					val mAllData = LinkedHashMap<String, String>()
 					for (index in aDataX)
@@ -472,12 +473,6 @@ object HtmlBuilder
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
 						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
 						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
-						dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
-							"\'$it\'"
-						}
-						dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
-							"\'$it\'"
-						}
 						mAllData["\'${index}_1\'"] = data1
 						mAllData["\'${index}_2\'"] = data2
 					}
@@ -486,22 +481,13 @@ object HtmlBuilder
 						for ((key, value) in mAllData)
 							append("$key: $value,\n")
 						dataD3.aAllData = "${removeSuffix(", ")} }"
+						dataD3.data = "[]"
 					}
 
 					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, aDataX[0])
 					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, aDataX[0])
-
-					//loop data for multi series for D3
-					dataD3.indexData = aDataX[0]
-					dataD3.data = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
-					dataD3.data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
-					dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
-						"\'$it\'"
-					}
-					dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
-						"\'$it\'"
-					}
-
+					dataD3.categories = multiData.getCategoryMulti()
+					dataD3.categories2 = multiData.getCategoryMulti()
 					//fix drillX for multi-series
 					dataForWebView.drillX = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\'$it\'"

@@ -7,8 +7,8 @@ class DataD3
 	var pivot = ""
 
 	var indexData = -1
-	var data = ""
-	var data2 = ""
+	var data = "[]"
+	var data2 = "[]"
 	var aAllData = ""
 	var dataFormatted = ""
 
