@@ -64,12 +64,11 @@ var axisY = '${dataD3.yAxis}';
 var nColumns = 0;
 
 //Main data
+var indexData = ${dataD3.indexData};
 var dataTmp = [];
 var data = ${dataD3.data};
 var data2 = ${dataD3.data2};
-
 var aAllData = ${dataD3.aAllData};
-
 var dataFormatted = ${dataD3.dataFormatted};
 var opacityMarked = [];
 var indexIgnore = [];

@@ -6,6 +6,7 @@ class DataD3
 	var table = ""
 	var pivot = ""
 
+	var indexData = -1
 	var data = ""
 	var data2 = ""
 	var aAllData = ""

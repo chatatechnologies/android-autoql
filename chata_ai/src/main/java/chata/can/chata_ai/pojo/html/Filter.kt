@@ -147,7 +147,8 @@ function getMinValue()
 
 function getDataMulti()
 {
-  return isCurrency ? data : data2;
+  var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+  return aAllData[key];
 }
 
 function getMultiCategory()

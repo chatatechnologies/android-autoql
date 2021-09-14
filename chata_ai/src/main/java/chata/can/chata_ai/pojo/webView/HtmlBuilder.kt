@@ -470,21 +470,21 @@ object HtmlBuilder
 					{
 						val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, index)
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
-						/*dataD3.data*/val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
-						/*dataD3.data2*/ val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
+						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
+						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
 						dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
 						dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
-						mAllData["${index}_1"] = data1
-						mAllData["${index}_2"] = data2
+						mAllData["\'${index}_1\'"] = data1
+						mAllData["\'${index}_2\'"] = data2
 					}
 					//build string builder
 					StringBuilder("{").apply {
 						for ((key, value) in mAllData)
-							append("$key: $value, \n")
+							append("$key: $value,\n")
 						dataD3.aAllData = "${removeSuffix(", ")} }"
 					}
 
@@ -492,6 +492,7 @@ object HtmlBuilder
 					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, aDataX[0])
 
 					//loop data for multi series for D3
+					dataD3.indexData = aDataX[0]
 					dataD3.data = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
 					dataD3.data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
 					dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {

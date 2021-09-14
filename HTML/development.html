@@ -346,6 +346,7 @@ var axisY = 'Amount';
 var nColumns = 0;
 
 //Main data
+var indexData = 19;
 var dataTmp = [];
 var data = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
@@ -357,31 +358,31 @@ var data2 = [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0,
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
 {name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
 {name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}];
-var aAllData = {19_1: [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
+var aAllData = {'19_1': [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
 {name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}], 
-19_2: [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
+{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}],
+'19_2': [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 12.0},
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
 {name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}], 
-21_1: [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
+{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}],
+'21_1': [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 100.0, time_3: 100.0, time_4: 100.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 240.0, time_3: 20.0, time_4: 240.0},
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 840.0, time_3: 80.0, time_4: 3360.0},
 {name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}], 
-21_2: [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
+{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 600.0, time_3: 60.0, time_4: 1800.0}],
+'21_2': [{name: '2 de Jun de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 1.0},
 {name: '14 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 1.0, time_5: 12.0},
 {name: '14 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 42.0},
 {name: '13 de Ene de 2021_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0},
-{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}], 
-24_1: [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 2380.0, time_3: 320.0, time_4: 7300.0}], 
-24_2: [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 24.0, time_5: 115.0}], 
-25_1: [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 2380.0, time_3: 320.0, time_4: 7300.0}], 
-25_2: [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 24.0, time_5: 115.0}], 
- }
+{name: '13 de Ene de 2021_2', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 30.0}],
+'24_1': [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 2380.0, time_3: 320.0, time_4: 7300.0}],
+'24_2': [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 24.0, time_5: 115.0}],
+'25_1': [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 2380.0, time_3: 320.0, time_4: 7300.0}],
+'25_2': [{name: 'Untitled Category_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 24.0, time_5: 115.0}],
+ };
 var dataFormatted = [{name: "13 de Ene de 2021"},
 {name: "13 de Ene de 2021"},
 {name: "13 de Ene de 2021"},
@@ -1257,7 +1258,8 @@ function getMinValue()
 
 function getDataMulti()
 {
-  return isCurrency ? data : data2;
+  var key = `${indexData}_${isCurrency ? 1 : 2}`;
+  return aAllData[key];
 }
 
 function getMultiCategory()
