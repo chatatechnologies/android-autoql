@@ -52,10 +52,11 @@ object MultiData
 			for ((key, value) in mChild)
 			{
 				val sValue = value.toString()
-				mDataOrder[key]?.run {
+				val tmpKey = if (key == "null") "Untitled Category" else key
+				mDataOrder[tmpKey]?.run {
 					this.add(sValue)
 				} ?: run {
-					mDataOrder[key] = arrayListOf(sValue)
+					mDataOrder[tmpKey] = arrayListOf(sValue)
 				}
 			}
 		}
@@ -72,7 +73,8 @@ object MultiData
 		for ((key, aValue) in mDataOrder)
 		{
 			val columnDate = aColumn[aDataX[0]]
-			val formattedKey = key.formatWithColumn(columnDate)
+			var formattedKey = key.formatWithColumn(columnDate)
+			if (formattedKey.isEmpty()) formattedKey = "Untitled Category"
 			val parsedKey =
 				mDateParsed[formattedKey]?.let {
 					mDateParsed[formattedKey] = it + 1
