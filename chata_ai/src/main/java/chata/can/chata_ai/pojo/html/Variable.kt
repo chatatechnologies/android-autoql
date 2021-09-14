@@ -67,6 +67,9 @@ var nColumns = 0;
 var dataTmp = [];
 var data = ${dataD3.data};
 var data2 = ${dataD3.data2};
+
+var aAllData = ${dataD3.aAllData};
+
 var dataFormatted = ${dataD3.dataFormatted};
 var opacityMarked = [];
 var indexIgnore = [];

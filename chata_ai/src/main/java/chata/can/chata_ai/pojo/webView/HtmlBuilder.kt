@@ -3,7 +3,6 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import chata.can.chata_ai.pojo.isUseD3
 import chata.can.chata_ai.pojo.query.SearchColumn
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.script.hasNotValueInColumn
@@ -140,7 +139,7 @@ object HtmlBuilder
 
 				when
 				{
-					aDataX.isNotEmpty() -> posColumnX = aDataX[2]
+					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
 					aString.isNotEmpty() ->
 					{
 						posColumnX = if (aString.size == 2)
@@ -465,54 +464,43 @@ object HtmlBuilder
 				if (aDataX.isNotEmpty() || aDataY.isNotEmpty())
 				{
 					SearchColumn.getSeriesColumn(queryBase)
-					//val indexX = aDataX[0]//[2]
-					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, posColumnX)
-//					val multiData2_19 = MultiData.getMultiData(aSecondary, aColumn, aRows, 19)
-//					val multiData2_21 = MultiData.getMultiData(aSecondary, aColumn, aRows, 21)
-//					val multiData2_24 = MultiData.getMultiData(aSecondary, aColumn, aRows, 24)
-//					val multiData2_25 = MultiData.getMultiData(aSecondary, aColumn, aRows, 25)
-
-					if (isUseD3)
-					{
-						//loop data for multi series for D3
-						val sbMultiSeries = StringBuilder()
-						val mDateParsed = LinkedHashMap<String, Int>()
-						for ((key, aValue) in multiData2.mDataOrder)
-						{
-							val columnDate = aColumn[posColumnX]//aColumn[aDataX[0]]
-							val formattedKey = key.formatWithColumn(columnDate)
-							val parsedKey =
-								mDateParsed[formattedKey]?.let {
-									mDateParsed[formattedKey] = it + 1
-									"${formattedKey}_${it + 1}"
-								} ?: run {
-									mDateParsed[formattedKey] = 1
-									"${formattedKey}_1"
-								}
-
-							var sValues = ""
-							for ((index, value) in aValue.withIndex())
-							{
-								sValues += ", time_$index: $value"
-							}
-							sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
-						}
-						sbMultiSeries.toString()
-					}
 					//region data currency group
-					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, posColumnX)//indexX)
-					if (isUseD3)
+					val mAllData = LinkedHashMap<String, String>()
+					for (index in aDataX)
 					{
-						//loop data for multi series for D3
-						dataD3.data = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
-						dataD3.data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
+						val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, index)
+						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
+						/*dataD3.data*/val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
+						/*dataD3.data2*/ val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
 						dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
 						dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
 							"\'$it\'"
 						}
+						mAllData["${index}_1"] = data1
+						mAllData["${index}_2"] = data2
 					}
+					//build string builder
+					StringBuilder("{").apply {
+						for ((key, value) in mAllData)
+							append("$key: $value, \n")
+						dataD3.aAllData = "${removeSuffix(", ")} }"
+					}
+
+					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, aDataX[0])
+					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, aDataX[0])
+
+					//loop data for multi series for D3
+					dataD3.data = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aDataX)}]"
+					dataD3.data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aDataX)}]"
+					dataD3.categories = multiData.aCategoryMulti.joinToString(",", "[", "]") {
+						"\'$it\'"
+					}
+					dataD3.categories2 = multiData2.aCategoryMulti.joinToString(",", "[", "]") {
+						"\'$it\'"
+					}
+
 					//fix drillX for multi-series
 					dataForWebView.drillX = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\'$it\'"
@@ -544,7 +532,7 @@ object HtmlBuilder
 					//endregion
 					if (dataForWebView.isReverseX) multiData.aCategoriesX.reverse()
 					dataForWebView.catX = multiData.aCategoriesX.map {
-						"\"${it.formatWithColumn(aColumn[posColumnX])}\""
+						"\"${it.formatWithColumn(aColumn[aDataX[0]/*posColumnX*/])}\""
 					}.toString()
 
 					val aCatCommon = ArrayList<String>()
@@ -577,8 +565,8 @@ object HtmlBuilder
 				when (dataForWebView.dataChartBi)
 				{
 					"[]" -> {
-						val hasDate = aColumn[posColumnX].type == TypeDataQuery.DATE ||
-							aColumn[posColumnX].type == TypeDataQuery.DATE_STRING
+						val hasDate = aColumn[aDataX[0]/*posColumnX*/].type == TypeDataQuery.DATE ||
+							aColumn[aDataX[0]/*posColumnX*/].type == TypeDataQuery.DATE_STRING
 						dataForWebView.dataChartBi = Table.generateDataTable(
 							aRows, aColumn, queryBase.aIndex, aIndicesIgnore, true, hasDate)
 					}

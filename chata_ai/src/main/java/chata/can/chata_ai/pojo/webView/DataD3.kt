@@ -8,6 +8,7 @@ class DataD3
 
 	var data = ""
 	var data2 = ""
+	var aAllData = ""
 	var dataFormatted = ""
 
 	var catX = "[]"
