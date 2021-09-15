@@ -70,7 +70,7 @@ function updateData(tmpChart, isReload) {
   else
   {
     dataTmp = [];
-		var aTmp = getDataMulti();
+		var aTmp = getDataOrMulti();
     aTmp.forEach(element => {
 			var copied = Object.assign({}, element);
 			indexIgnore.forEach(index => {
@@ -237,8 +237,10 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
   updateData(typeChart, true);
 }
 
-function setIndexData(index) {
-  indexData = index;
+function setIndexData(indexRoot, indexCommon) {
+  var common = aCommon[indexCommon];
+  axisX = common;
+  indexData = indexRoot;
   dataTmp = [];
   updateData(typeChart, true);
 }"""

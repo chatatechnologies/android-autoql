@@ -9,7 +9,7 @@ class DataD3
 	var indexData = -1
 	var data = "[]"
 	var data2 = "[]"
-	var aAllData = ""
+	var aAllData = "[]"
 	var dataFormatted = ""
 
 	var catX = "[]"
@@ -25,7 +25,7 @@ class DataD3
 
 	var categories = "[]"
 	var categories2 = "[]"
-	var catCommon = ""
+	var catCommon = "[]"
 
 	var min = -1
 	var max = -1
