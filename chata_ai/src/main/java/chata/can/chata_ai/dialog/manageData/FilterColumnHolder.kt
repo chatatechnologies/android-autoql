@@ -1,8 +1,6 @@
 package chata.can.chata_ai.dialog.manageData
 
 import android.content.Context
-import android.graphics.Color
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -117,11 +115,8 @@ class FilterColumnHolder(
 					parent.setOnClickListener {
 						if (item.allowClick)
 						{
-							adapterPosition
-							val name = item.nameColumn
-							val indexColumn = item.indexColumn
-							Log.e("Manage", "$adapterPosition I can: ${item.indexColumn}")
-							//Here to select with simple dialog
+//							adapterView.setIndexData(adapterPosition)
+							adapterView.setIndexData(item.indexColumn, adapterPosition)
 						}
 					}
 				}

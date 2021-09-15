@@ -33,6 +33,11 @@ class FilterColumnAdapter(
 		return FilterColumnHolder(view, viewType, this)
 	}
 
+	override fun setIndexData(indexRoot: Int, indexCommon: Int)
+	{
+		dialogView.setIndexData(indexRoot, indexCommon)
+	}
+
 	override fun checkGroup(filterColumn: FilterColumn)
 	{
 		val indexCurrency = aCurrency1.indexOf(filterColumn)
