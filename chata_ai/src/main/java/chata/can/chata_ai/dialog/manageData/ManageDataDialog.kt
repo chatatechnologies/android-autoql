@@ -118,8 +118,9 @@ class ManageDataDialog(
 			}
 			else
 			{
-				for (pair in aCommon)
+				for (index in aCommon.indices)
 				{
+					val pair = aCommon[index]
 					val isSelected = pair.second.displayName == content
 					model.add(
 						FilterColumn(

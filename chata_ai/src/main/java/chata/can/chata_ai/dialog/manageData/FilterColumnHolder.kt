@@ -114,10 +114,7 @@ class FilterColumnHolder(
 
 					parent.setOnClickListener {
 						if (item.allowClick)
-						{
-//							adapterView.setIndexData(adapterPosition)
 							adapterView.setIndexData(item.indexColumn, adapterPosition)
-						}
 					}
 				}
 			}
