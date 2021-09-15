@@ -57,7 +57,7 @@ function isMultiple(typeChart) {
 
 function updateData(tmpChart, isReload) {
   //region set nColumns
-  var keys = Object.keys(data[0]);
+  var keys = Object.keys(getDataOrMulti()[0]);
   nColumns = keys.length;
   //endregion
 	var _isMultiple = isMultiple(tmpChart);
@@ -233,6 +233,12 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
     indexIgnore.push(index);
   });
 	isCurrency = _IsCurrency;
+  dataTmp = [];
+  updateData(typeChart, true);
+}
+
+function setIndexData(index) {
+  indexData = index;
   dataTmp = [];
   updateData(typeChart, true);
 }"""

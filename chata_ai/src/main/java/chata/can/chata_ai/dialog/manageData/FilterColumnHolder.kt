@@ -112,15 +112,15 @@ class FilterColumnHolder(
 						it.visibility = if (isOnlyText || isLast == 1)
 							View.GONE
 						else View.VISIBLE
-
 					}
 
 					parent.setOnClickListener {
 						if (item.allowClick)
 						{
+							adapterPosition
 							val name = item.nameColumn
 							val indexColumn = item.indexColumn
-							Log.e("Manage", "I can: ${item.indexColumn}")
+							Log.e("Manage", "$adapterPosition I can: ${item.indexColumn}")
 							//Here to select with simple dialog
 						}
 					}

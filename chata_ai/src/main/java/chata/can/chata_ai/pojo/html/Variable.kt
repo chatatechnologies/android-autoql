@@ -89,8 +89,8 @@ var aCommon = ${dataD3.catCommon};
 //endregion
 
 //REGION max letters in name
-for (const item in data) {
-  var value = data[item].name.length;
+for (const item in getDataOrMulti()) {
+  var value = getDataOrMulti()[item].name.length;
   if (limitName < value) {
     limitName = value;
     if (limitName > 10) {
@@ -104,8 +104,8 @@ for (const item in data) {
 //ENDREGION
 
 //REGION get max value
-for (const item in data) {
-  var value = data[item].value;
+for (const item in getDataOrMulti()) {
+  var value = getDataOrMulti()[item].value;
   if (getMaxValue() < value) {
     maxValue = value;
   }

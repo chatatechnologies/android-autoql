@@ -108,7 +108,7 @@ function adminOpacity(id) {
         break;
       }
     }
-    var item = data[index];
+    var item = getDataOrMulti()[index];
     dataTmp[index].value = item.value;
     opacityMarked.splice(tmp, 1);
   }
@@ -143,6 +143,11 @@ function getMaxValue()
 function getMinValue()
 {
   return isCurrency ? minValue : minValue2;
+}
+
+function getDataOrMulti()
+{
+	return data.length !== 0 ? data : getDataMulti();
 }
 
 function getDataMulti()

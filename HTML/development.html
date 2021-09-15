@@ -318,6 +318,12 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
   updateData(typeChart, true);
 }
 
+function setIndexData(index) {
+  indexData = index;
+  dataTmp = [];
+  updateData(typeChart, true);
+}
+
 //region not mutable
 const TypeEnum = Object.freeze({
   "TABLE": 1,
