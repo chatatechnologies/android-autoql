@@ -1314,7 +1314,17 @@ function getMaxValue()
     return maxMath !== 0 ? maxMath : 1;
   }
   else
-    return isCurrency ? maxValue : maxValue2;
+  {
+    var aTotalIndices = [];
+    var key = `${indexData}_${isCurrency ? 1 : 2}`;
+    var aTmp = aMaxData[key];
+    for (let index = 0; index < aTmp.length; index++) {
+      var value = aTmp[index];
+      aTotalIndices.push(value);
+    }
+    var maxMath = Math.max.apply(null, aTotalIndices);
+    return maxMath !== 0 ? maxMath : 1;
+  }
 }
 
 function getMinValue()

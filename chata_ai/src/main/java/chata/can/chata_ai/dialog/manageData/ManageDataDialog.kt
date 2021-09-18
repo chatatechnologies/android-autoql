@@ -196,7 +196,7 @@ class ManageDataDialog(
 	override fun setIndexData(indexRoot: Int, indexCommon: Int)
 	{
 		Handler(Looper.getMainLooper()).postDelayed({
-			(webView as? WebView)?.loadUrl("javascript:setIndexData($indexRoot, $indexCommon)")
+			(webView as? WebView)?.loadUrl("javascript:setIndexData($indexRoot, $indexCommon);")
 		}, 100)
 		dialog.dismiss()
 	}
