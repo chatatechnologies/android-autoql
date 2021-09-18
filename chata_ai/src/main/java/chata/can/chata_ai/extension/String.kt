@@ -95,7 +95,6 @@ fun String.formatWithColumn(
 		{
 			//region for replace month in spanish
 			var locale = Locale.US
-			var indexMonth = -1
 			//endregion
 			var format =
 			if (columnQuery.name.contains("month"))

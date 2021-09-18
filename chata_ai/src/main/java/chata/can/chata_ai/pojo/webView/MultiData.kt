@@ -66,7 +66,7 @@ object MultiData
 	fun getTimesDataMulti(
 		mDataOrder: LinkedHashMap<String, ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>,
-		aDataX: ArrayList<Int>): String
+		aDataX: List<Int>): String
 	{
 		val sbMultiSeries = StringBuilder()
 		val mDateParsed = LinkedHashMap<String, Int>()
