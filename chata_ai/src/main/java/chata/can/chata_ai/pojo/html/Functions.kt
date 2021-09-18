@@ -192,7 +192,7 @@ function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
 }
 
 function splitAxis(x) {
-  return `${'$'}{x.split('_')[0]}`;
+  return `${'$'}{getFirst10(x.split('_')[0])}`;
 }
 
 function formatAxis(y) {

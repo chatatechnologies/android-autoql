@@ -123,32 +123,17 @@ function adminOpacity(id) {
 
 function getMaxValue()
 {
-  if (indexIgnore.length > 0)
+  var aTotalIndices = [];
+  var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+  var aTmp = aMaxData[key];
+  for (index = 0; index < aTmp.length; index++)
   {
-    var aTotalIndices = [];
-		var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
-    var aTmp = aMaxData[key];
-    for (index = 0; index < aTmp.length; index++)
-    {
-      if (indexIgnore.includes(index)) continue;
-      var value = aTmp[index];
-      aTotalIndices.push(value);
-    }
-    var maxMath = Math.max.apply(null, aTotalIndices);
-    return maxMath !== 0 ? maxMath : 1;
+    if (indexIgnore.includes(index)) continue;
+    var value = aTmp[index];
+    aTotalIndices.push(value);
   }
-  else
-    {
-    var aTotalIndices = [];
-    var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
-    var aTmp = aMaxData[key];
-    for (let index = 0; index < aTmp.length; index++) {
-      var value = aTmp[index];
-      aTotalIndices.push(value);
-    }
-    var maxMath = Math.max.apply(null, aTotalIndices);
-    return maxMath !== 0 ? maxMath : 1;
-  }
+  var maxMath = Math.max.apply(null, aTotalIndices);
+  return maxMath !== 0 ? maxMath : 1;
 }
 
 function getMinValue()
