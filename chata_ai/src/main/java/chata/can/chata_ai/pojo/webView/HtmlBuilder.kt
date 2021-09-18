@@ -467,6 +467,7 @@ object HtmlBuilder
 					dataD3.indexData = aDataX[0]
 					//region data currency group
 					val mAllData = LinkedHashMap<String, String>()
+					val mMaxData = LinkedHashMap<String, String>()
 					val aIndexCommon = queryBase.aCommon.map { it.first }
 					for (index in aIndexCommon)
 					{
@@ -474,16 +475,30 @@ object HtmlBuilder
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
 						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn[index])}]"
 						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn[index])}]"
-						mAllData["\'${index}_1\'"] = data1
-						mAllData["\'${index}_2\'"] = data2
+						println("Cat 1: ${multiData.aMax}")
+						println("Cat 2: ${multiData2.aMax}")
+						val index1 = "\'${index}_1\'"
+						val index2 = "\'${index}_2\'"
+						//data
+						mAllData[index1] = data1
+						mAllData[index2] = data2
+						//max
+						mMaxData[index1] = "${multiData.aMax}"
+						mMaxData[index2] = "${multiData2.aMax}"
 					}
-					//build string builder
+					//build data string builder
 					StringBuilder("{").apply {
 						for ((key, value) in mAllData)
 							append("$key: $value,\n")
 						dataD3.aAllData = "${removeSuffix(", ")} }"
-						dataD3.data = "[]"
 					}
+					//build max data builder
+					StringBuilder("{").apply {
+						for ((key, value) in mMaxData)
+							append("$key: $value,\n")
+						dataD3.aMaxData = "${removeSuffix(", ")} }"
+					}
+					dataD3.data = "[]"
 
 					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, aDataX[0])
 					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, aDataX[0])

@@ -126,7 +126,8 @@ function getMaxValue()
   if (indexIgnore.length > 0)
   {
     var aTotalIndices = [];
-    var aTmp = isCurrency ? aMax : aMax2;
+		var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+    var aTmp = aMaxData[key];
     for (index = 0; index < aTmp.length; index++)
     {
       if (indexIgnore.includes(index)) continue;

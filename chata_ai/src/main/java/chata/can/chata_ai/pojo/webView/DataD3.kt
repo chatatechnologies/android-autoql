@@ -10,6 +10,7 @@ class DataD3
 	var data = "[]"
 	var data2 = "[]"
 	var aAllData = "[]"
+	var aMaxData = "[]"
 	var dataFormatted = ""
 
 	var catX = "[]"
