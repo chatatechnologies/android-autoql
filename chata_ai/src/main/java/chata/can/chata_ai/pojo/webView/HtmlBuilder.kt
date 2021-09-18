@@ -475,8 +475,7 @@ object HtmlBuilder
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
 						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn[index])}]"
 						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn[index])}]"
-						println("Cat 1: ${multiData.aMax}")
-						println("Cat 2: ${multiData2.aMax}")
+
 						val index1 = "\'${index}_1\'"
 						val index2 = "\'${index}_2\'"
 						//data

@@ -503,7 +503,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.LINE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -601,7 +601,7 @@ function setMultiBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
@@ -717,7 +717,7 @@ function setMultiColumn() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
 	});
 
@@ -851,7 +851,7 @@ function setMultiLine() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 

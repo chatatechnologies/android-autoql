@@ -84,7 +84,7 @@ function setMultiColumn() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
 	});
 
@@ -100,7 +100,7 @@ function setMultiColumn() {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
     for (var index = 0; index < aCategoryTmp.length; index++)
     {
-      if (!indexIgnore.includes(index)) 
+      if (!indexIgnore.includes(index))
       {
         var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
