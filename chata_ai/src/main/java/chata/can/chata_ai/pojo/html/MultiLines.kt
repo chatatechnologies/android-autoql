@@ -102,7 +102,7 @@ function setMultiLine() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 10, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 

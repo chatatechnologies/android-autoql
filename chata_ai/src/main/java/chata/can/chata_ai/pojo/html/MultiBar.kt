@@ -86,7 +86,7 @@ function setMultiBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 10, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
