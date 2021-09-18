@@ -65,14 +65,13 @@ object MultiData
 
 	fun getTimesDataMulti(
 		mDataOrder: LinkedHashMap<String, ArrayList<String>>,
-		aColumn: ArrayList<ColumnQuery>,
-		aDataX: List<Int>): String
+		columnDate: ColumnQuery): String
 	{
 		val sbMultiSeries = StringBuilder()
 		val mDateParsed = LinkedHashMap<String, Int>()
 		for ((key, aValue) in mDataOrder)
 		{
-			val columnDate = aColumn[aDataX[0]]
+			//val columnDate = aColumn[aDataX[0]]
 			var formattedKey = key.formatWithColumn(columnDate)
 			if (formattedKey.isEmpty()) formattedKey = "Untitled Category"
 			val parsedKey =

@@ -468,12 +468,12 @@ object HtmlBuilder
 					//region data currency group
 					val mAllData = LinkedHashMap<String, String>()
 					val aIndexCommon = queryBase.aCommon.map { it.first }
-					for (index in aIndexCommon)//aDataX)
+					for (index in aIndexCommon)
 					{
 						val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, index)
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
-						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn, aIndexCommon)}]"
-						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn, aIndexCommon)}]"
+						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn[index])}]"
+						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn[index])}]"
 						mAllData["\'${index}_1\'"] = data1
 						mAllData["\'${index}_2\'"] = data2
 					}
