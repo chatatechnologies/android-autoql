@@ -19,6 +19,7 @@ import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
@@ -54,12 +55,8 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 							{
 								aColumn.firstOrNull()?.let { column ->
 									it.setOnClickListener { view ->
-										if (SinglentonDrawer.mIsEnableDrillDown)
-										{
-											DrillDownDialog(view.context, this).show()
-										}
+										showDrillDown(view, this)
 									}
-
 									simpleText.formatWithColumn(column)
 								} ?: ""
 							}
@@ -83,10 +80,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						{
 							aColumn.firstOrNull()?.let { _ ->
 								it.setOnClickListener { view ->
-									if (SinglentonDrawer.mIsEnableDrillDown)
-									{
-										DrillDownDialog(view.context, this).show()
-									}
+									showDrillDown(view, this)
 								}
 							}
 							tvContent.text = contentHTML
@@ -115,6 +109,14 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 					}
 				}
 			}
+		}
+	}
+
+	private fun showDrillDown(view: View, queryBase: QueryBase)
+	{
+		if (SinglentonDrawer.mIsEnableDrillDown)
+		{
+			DrillDownDialog(view.context, queryBase).show()
 		}
 	}
 
