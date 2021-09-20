@@ -7,9 +7,6 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
-import androidx.appcompat.view.ContextThemeWrapper
-import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -78,7 +75,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			else View.GONE
 		}
 		ivOption?.setOnClickListener { view ->
-			buildPopup(view, queryBase.sql)
+			buildPopup(view, listOf(4), queryBase.sql)
 		}
 		changeHeightParent(rlWebView, queryBase)
 		webView?.run {

@@ -5,12 +5,14 @@ import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.pojo.SinglentonDrawer
 
 object PopupMenu
 {
-	fun buildPopup(view: View, sql: String)
+	fun buildPopup(
+		view: View,
+		aConfig: List<Int>,
+		sql: String = "")
 	{
 		val theme = if (SinglentonDrawer.themeColor == "dark")
 			R.style.popupMenuStyle2
@@ -19,13 +21,18 @@ object PopupMenu
 
 		PopupMenu(wrapper, view).run {
 			menu?.run {
-				add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
+				val mData = PopupConfig.mIndexMethod
+				for (index in aConfig)
+				{
+					val oPopup = mData[index]
+					add(index + 1, oPopup.idMenu, index + 1, oPopup.iText).setIcon(oPopup.iDrawable)
+				}
 			}
 			ListPopup.insertMenuItemIcons(view.context, this)
 			setOnMenuItemClickListener { menu ->
 				when(menu.itemId)
 				{
-					R.id.iGenerateSQL -> DisplaySQLDialog(view.context, sql).show()
+					R.id.iGenerateSQL -> PopupConfig.generateSQL(view.context, sql)
 				}
 				true
 			}

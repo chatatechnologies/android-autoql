@@ -41,7 +41,7 @@ object ChildContent {
 			backgroundWhiteGray()
 			setColorFilter(SinglentonDrawer.currentAccent)
 			setOnClickListener { view ->
-				buildPopup(view, sql)
+				buildPopup(view, listOf(4), sql)
 			}
 		}
 	}

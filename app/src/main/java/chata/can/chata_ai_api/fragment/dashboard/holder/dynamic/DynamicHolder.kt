@@ -3,17 +3,12 @@ package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.appcompat.view.ContextThemeWrapper
-import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.listener.OnItemClickListener
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -192,10 +187,10 @@ class DynamicHolder(
 							{
 								childWebView = getChildWebView(first.context, second).apply {
 									findViewById<View>(R.id.ivOption)?.setOnClickListener {
-										buildPopup(it, item.sql)
+										buildPopup(it, listOf(4), item.sql)
 									}
 									findViewById<View>(R.id.ivOption2)?.setOnClickListener {
-										buildPopup(it, item.sql)
+										buildPopup(it, listOf(4), item.sql)
 									}
 									findViewById<View>(R.id.ivAlert)?.let {
 										configAlert(it, item)

@@ -7,13 +7,9 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.appcompat.view.ContextThemeWrapper
-import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.ReportProblemDialog
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
-import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.getParsedColor
@@ -88,7 +84,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						}
 				}
 				ivOption?.setOnClickListener { view ->
-					buildPopup(view, sql)
+					buildPopup(view, listOf(4), sql)
 				}
 			}
 		}
