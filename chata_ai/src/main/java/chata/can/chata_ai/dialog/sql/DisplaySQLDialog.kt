@@ -108,7 +108,7 @@ class DisplaySQLDialog(
 		}
 	}
 
-	private val aKeywords = arrayListOf("select", "from", "where")
+	private val aKeywords = arrayListOf("select", "from", "where", "group")
 	private fun formatterSQL(query: String): String
 	{
 		var iHead = -1
@@ -116,14 +116,23 @@ class DisplaySQLDialog(
 		while (iHead < query.length)
 		{
 			//search white
-			val index = query.indexOf(" ", iHead + 1)
+			var index = query.indexOf(" ", iHead + 1)
 			iHead = if (index != -1)
 			{
+				var prefix = ""
 				val word = query.substring(iHead + 1, index)
-				val extra = if (word in aKeywords) "\n" else ""
+				val extra = if (word in aKeywords)
+				{
+					if (word == "group")
+					{
+						prefix = " by"
+						index += 2
+					}
+					"\n"
+				} else ""
 				sb.append(
-					if (extra.isEmpty()) "\t$word"
-					else "$extra$word$extra")
+					if (extra.isEmpty()) "\t\t$word"
+					else "$extra$word$prefix$extra")
 				index
 			}
 			else
