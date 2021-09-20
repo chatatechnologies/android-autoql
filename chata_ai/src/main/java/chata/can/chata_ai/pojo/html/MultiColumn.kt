@@ -84,7 +84,7 @@ function setMultiColumn() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
 	});
 

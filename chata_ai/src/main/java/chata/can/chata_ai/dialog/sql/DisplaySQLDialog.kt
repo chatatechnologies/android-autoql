@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
@@ -60,6 +61,8 @@ class DisplaySQLDialog(
 					1f,
 					1,
 					pDrawerBorderColor)
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+					btnOk.stateListAnimator = null
 				btnOk.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				btnOk.backgroundTintList = ColorStateList.valueOf(getParsedColor(R.color.blue_chata_circle))
 				btnOk.setTextColor(pDrawerTextColorPrimary)
@@ -153,7 +156,4 @@ class DisplaySQLDialog(
 		}
 		return sb.toString()
 	}
-
-	private fun getBackgroundColor(color: Int, borderColor: Int) =
-		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
 }
