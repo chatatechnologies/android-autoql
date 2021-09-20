@@ -1,6 +1,8 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
+import android.graphics.Color
 import android.view.View
+import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -8,6 +10,9 @@ import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
+import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -53,6 +58,17 @@ class DynamicHolder(
 							val view = lls1.searchView(R.id.tvContent)?: run {
 								val view = getChildContent(lls1.context)
 								addView(lls1, view)
+
+								lls1.addView(
+									ImageView(lls1.context).apply {
+										layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+											addRule(RelativeLayout.ALIGN_PARENT_END)
+											addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+										}
+										paddingAll(8f)
+										setImageResource(R.drawable.ic_points)
+									}
+								)
 								view
 							}
 							ChildContent.onBind(view, dashboard, true)

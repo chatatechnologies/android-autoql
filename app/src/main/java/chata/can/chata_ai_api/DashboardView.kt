@@ -140,20 +140,12 @@ object DashboardView
 	//region row support
 	fun getChildContent(context: Context) =
 		context.run {
-			RelativeLayout(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(-1, -2)
-
-				addView(TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
-					gravity = GRAVITY_CENTER
-					setTextColor(getParsedColor( R.color.black))
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
-					id = R.id.tvContent
-				})
-				addView(ImageView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
-					setImageResource(R.drawable.ic_points)
-				})
+			TextView(context).apply {
+				layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
+				gravity = GRAVITY_CENTER
+				setTextColor(getParsedColor( R.color.black))
+				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				id = R.id.tvContent
 			}
 		}
 
