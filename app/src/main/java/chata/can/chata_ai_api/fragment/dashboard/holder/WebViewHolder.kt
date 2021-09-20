@@ -17,6 +17,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
@@ -77,25 +78,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			else View.GONE
 		}
 		ivOption?.setOnClickListener { view ->
-			val theme = if (SinglentonDrawer.themeColor == "dark")
-				R.style.popupMenuStyle2
-			else R.style.popupMenuStyle1
-			val wrapper = ContextThemeWrapper(view.context, theme)
-
-			PopupMenu(wrapper, view).run {
-				menu?.run {
-					add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
-				}
-				ListPopup.insertMenuItemIcons(view.context, this)
-				setOnMenuItemClickListener { item ->
-					when(item.itemId)
-					{
-						R.id.iGenerateSQL -> DisplaySQLDialog(view.context, queryBase.sql).show()
-					}
-					true
-				}
-				show()
-			}
+			buildPopup(view, queryBase.sql)
 		}
 		changeHeightParent(rlWebView, queryBase)
 		webView?.run {

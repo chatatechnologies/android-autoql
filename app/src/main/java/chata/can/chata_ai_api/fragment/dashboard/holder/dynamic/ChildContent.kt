@@ -9,6 +9,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 
 object ChildContent {
@@ -34,13 +35,13 @@ object ChildContent {
 		}
 	}
 
-	fun onBindOption(iv: ImageView)
+	fun onBindOption(iv: ImageView, sql: String)
 	{
 		iv.run {
 			backgroundWhiteGray()
 			setColorFilter(SinglentonDrawer.currentAccent)
-			setOnClickListener {
-
+			setOnClickListener { view ->
+				buildPopup(view, sql)
 			}
 		}
 	}

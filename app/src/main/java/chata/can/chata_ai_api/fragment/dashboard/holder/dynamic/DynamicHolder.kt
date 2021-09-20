@@ -17,6 +17,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.DashboardView.getChildContent
 import chata.can.chata_ai_api.DashboardView.getChildLoading
 import chata.can.chata_ai_api.DashboardView.getChildSuggestion
@@ -59,7 +60,7 @@ class DynamicHolder(
 								addView(lls1, view)
 								view
 							}
-							setOption(lls1, R.id.ivOption)
+							setOption(lls1, R.id.ivOption, queryBase.sql)
 							ChildContent.onBind(view, dashboard, true)
 						}
 						TypeChatView.SUPPORT ->
@@ -122,7 +123,7 @@ class DynamicHolder(
 								addView(lls2, view)
 								view
 							}
-							setOption(lls2, R.id.ivOption2)
+							setOption(lls2, R.id.ivOption2, queryBase.sql)
 							ChildContent.onBind(view, dashboard, false)
 						}
 						TypeChatView.SUPPORT ->
@@ -191,10 +192,10 @@ class DynamicHolder(
 							{
 								childWebView = getChildWebView(first.context, second).apply {
 									findViewById<View>(R.id.ivOption)?.setOnClickListener {
-										openPopupMenu(it, item)
+										buildPopup(it, item.sql)
 									}
 									findViewById<View>(R.id.ivOption2)?.setOnClickListener {
-										openPopupMenu(it, item)
+										buildPopup(it, item.sql)
 									}
 									findViewById<View>(R.id.ivAlert)?.let {
 										configAlert(it, item)
@@ -226,7 +227,7 @@ class DynamicHolder(
 		}
 	}
 
-	private fun setOption(view: ViewGroup, idRes: Int)
+	private fun setOption(view: ViewGroup, idRes: Int, sql: String)
 	{
 		val iv = ImageView(view.context).apply {
 			layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
@@ -237,31 +238,8 @@ class DynamicHolder(
 			paddingAll(8f)
 			setImageResource(R.drawable.ic_points)
 		}
-		ChildContent.onBindOption(iv)
+		ChildContent.onBindOption(iv, sql)
 		view.addView(iv)
-	}
-
-	private fun openPopupMenu(it: View, item: QueryBase)
-	{
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.popupMenuStyle2
-		else R.style.popupMenuStyle1
-		val wrapper = ContextThemeWrapper(it.context, theme)
-
-		PopupMenu(wrapper, it).run {
-			menu?.run {
-				add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
-			}
-			ListPopup.insertMenuItemIcons(it.context, this)
-			setOnMenuItemClickListener { itemClick ->
-				when(itemClick.itemId)
-				{
-					R.id.iGenerateSQL -> DisplaySQLDialog(it.context, item.sql).show()
-				}
-				true
-			}
-			show()
-		}
 	}
 
 	private fun configAlert(view: View, item: QueryBase)

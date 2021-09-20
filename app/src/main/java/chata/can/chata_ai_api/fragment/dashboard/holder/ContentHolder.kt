@@ -22,6 +22,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 
 class ContentHolder(itemView: View): BaseHolder(itemView)
@@ -87,26 +88,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 						}
 				}
 				ivOption?.setOnClickListener { view ->
-					//region show list
-					val theme = if (SinglentonDrawer.themeColor == "dark")
-						R.style.popupMenuStyle2
-					else R.style.popupMenuStyle1
-					val wrapper = ContextThemeWrapper(view.context, theme)
-
-					PopupMenu(wrapper, view).run {
-						menu?.run {
-							add(4, R.id.iGenerateSQL, 4, R.string.view_generated_sql).setIcon(R.drawable.ic_database)
-						}
-						ListPopup.insertMenuItemIcons(view.context, this)
-						setOnMenuItemClickListener { item ->
-							when(item.itemId)
-							{
-								R.id.iGenerateSQL -> DisplaySQLDialog(view.context, sql).show()
-							}
-							true
-						}
-						show()
-					}
+					buildPopup(view, sql)
 				}
 			}
 		}
