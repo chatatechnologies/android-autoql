@@ -1,8 +1,10 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -28,6 +30,17 @@ object ChildContent {
 						setDataContent(tvContent, queryBase)
 					}
 				}
+			}
+		}
+	}
+
+	fun onBindOption(iv: ImageView)
+	{
+		iv.run {
+			backgroundWhiteGray()
+			setColorFilter(SinglentonDrawer.currentAccent)
+			setOnClickListener {
+
 			}
 		}
 	}

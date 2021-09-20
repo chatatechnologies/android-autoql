@@ -1,7 +1,7 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
-import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
@@ -11,7 +11,6 @@ import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -58,19 +57,9 @@ class DynamicHolder(
 							val view = lls1.searchView(R.id.tvContent)?: run {
 								val view = getChildContent(lls1.context)
 								addView(lls1, view)
-
-								lls1.addView(
-									ImageView(lls1.context).apply {
-										layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
-											addRule(RelativeLayout.ALIGN_PARENT_END)
-											addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-										}
-										paddingAll(8f)
-										setImageResource(R.drawable.ic_points)
-									}
-								)
 								view
 							}
+							setOption(lls1, R.id.ivOption)
 							ChildContent.onBind(view, dashboard, true)
 						}
 						TypeChatView.SUPPORT ->
@@ -133,6 +122,7 @@ class DynamicHolder(
 								addView(lls2, view)
 								view
 							}
+							setOption(lls2, R.id.ivOption2)
 							ChildContent.onBind(view, dashboard, false)
 						}
 						TypeChatView.SUPPORT ->
@@ -234,6 +224,21 @@ class DynamicHolder(
 			removeAllViews()
 			addView(newView)
 		}
+	}
+
+	private fun setOption(view: ViewGroup, idRes: Int)
+	{
+		val iv = ImageView(view.context).apply {
+			layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+				addRule(RelativeLayout.ALIGN_PARENT_END)
+				addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+			}
+			id = idRes
+			paddingAll(8f)
+			setImageResource(R.drawable.ic_points)
+		}
+		ChildContent.onBindOption(iv)
+		view.addView(iv)
 	}
 
 	private fun openPopupMenu(it: View, item: QueryBase)
