@@ -3,6 +3,7 @@ package chata.can.chata_ai.dialog.sql
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Handler
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
@@ -15,6 +16,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
+import com.google.android.material.button.MaterialButton
 
 class DisplaySQLDialog(
 	context: Context,
@@ -27,6 +29,7 @@ class DisplaySQLDialog(
 	private lateinit var vBorder: View
 	private lateinit var etQuery: TextView
 	private lateinit var ivCopy: ImageView
+	private lateinit var btnOk: MaterialButton
 	private lateinit var animationAlert: AnimationAlert
 
 	override fun onCreateView()
@@ -57,6 +60,9 @@ class DisplaySQLDialog(
 					1f,
 					1,
 					pDrawerBorderColor)
+				btnOk.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
+				btnOk.backgroundTintList = ColorStateList.valueOf(getParsedColor(R.color.blue_chata_circle))
+				btnOk.setTextColor(pDrawerTextColorPrimary)
 			}
 		}
 	}
@@ -69,6 +75,7 @@ class DisplaySQLDialog(
 		vBorder = findViewById(R.id.vBorder)
 		etQuery = findViewById(R.id.etQuery)
 		ivCopy = findViewById(R.id.ivCopy)
+		btnOk = findViewById(R.id.btnOk)
 		animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 	}
 
@@ -77,7 +84,7 @@ class DisplaySQLDialog(
 		view?.let {
 			when(it.id)
 			{
-				R.id.ivCancel -> dismiss()
+				R.id.btnOk, R.id.ivCancel -> dismiss()
 				R.id.ivCopy ->
 				{
 					val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -98,6 +105,7 @@ class DisplaySQLDialog(
 
 		ivCancel.setOnClickListener(this)
 		ivCopy.setOnClickListener(this)
+		btnOk.setOnClickListener(this)
 	}
 
 	private fun showAlert()
@@ -145,4 +153,7 @@ class DisplaySQLDialog(
 		}
 		return sb.toString()
 	}
+
+	private fun getBackgroundColor(color: Int, borderColor: Int) =
+		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
 }

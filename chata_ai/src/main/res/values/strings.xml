@@ -51,4 +51,5 @@
 	<string name="not_recognized">display type not recognized</string>
 	<string name="success">Success</string>
 	<string name="msg_explore_queries">Use💡Explore Queries to further explore the possibilities.</string>
+	<string name="ok">Ok</string>
 </resources>
