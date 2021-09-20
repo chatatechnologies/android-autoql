@@ -41,15 +41,12 @@
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:padding="10dp">
-		<ScrollView
-			android:layout_height="match_parent"
-			android:layout_width="match_parent">
-			<TextView
-				android:id="@+id/etQuery"
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:padding="8dp"/>
-		</ScrollView>
+		<TextView
+			android:id="@+id/etQuery"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:padding="8dp"
+			android:scrollbars="vertical"/>
 		<ImageView
 			android:contentDescription="@null"
 			android:id="@+id/ivCopy"

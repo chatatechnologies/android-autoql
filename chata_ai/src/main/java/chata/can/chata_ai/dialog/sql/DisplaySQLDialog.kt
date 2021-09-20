@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -93,6 +94,7 @@ class DisplaySQLDialog(
 	{
 		tvTitle.setText(R.string.generated_sql)
 		etQuery.text = formatterSQL(query)
+		etQuery.movementMethod = ScrollingMovementMethod()
 
 		ivCancel.setOnClickListener(this)
 		ivCopy.setOnClickListener(this)
