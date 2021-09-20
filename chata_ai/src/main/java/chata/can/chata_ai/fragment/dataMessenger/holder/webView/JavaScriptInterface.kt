@@ -104,9 +104,11 @@ class JavaScriptInterface(
 										limitRowNum = values.size + 1
 									}
 									newQueryBase.queryId = queryBase.queryId
-									newQueryBase.resetData()
+									//TODO search problem aCurrency, aQuality, aCommon
+									//this line is the bug
+									//newQueryBase.resetData()
 									(context as? Activity)?.runOnUiThread {
-										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+										//chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
 									}
 								}
 							}
