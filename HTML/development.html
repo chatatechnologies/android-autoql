@@ -519,7 +519,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.LINE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -611,7 +611,8 @@ function setMultiBar() {
         if (aData.length > 0)
         {
           var index = aData[1];
-          var value = `${drillX[index]}_${index}`;
+          var mValue = aDrillData[indexData][index];
+          var value = `${mValue}_${index}`;
           drillDown(value)
         }
       });
@@ -727,7 +728,8 @@ function setMultiColumn() {
         if (aData.length > 0)
         {
           var index = aData[1];
-          var value = `${drillX[index]}_${index}`;
+          var mValue = aDrillData[indexData][index];
+          var value = `${mValue}_${index}`;
           drillDown(value)
         }
       });
@@ -861,7 +863,8 @@ function setMultiLine() {
       if (aData.length > 0)
       {
         var index = aData[1];
-        var value = `${drillX[index]}_${index}`;
+        var mValue = aDrillData[indexData][index];
+        var value = `${mValue}_${index}`;
         drillDown(value);
       }
     });

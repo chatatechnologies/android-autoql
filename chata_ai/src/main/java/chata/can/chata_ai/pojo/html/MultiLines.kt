@@ -90,16 +90,17 @@ function setMultiLine() {
       .attr("cy", function(d) { return y(d.value) } )
       .attr("r", 5)
       .attr("stroke", "white")
-    .on('click', function () {
-      var idParent = this.id;
-      var aData = idParent.split('_');
-      if (aData.length > 0)
-      {
-        var index = aData[1];
-        var value = `${'$'}{drillX[index]}_${'$'}{index}`;
-        drillDown(value);
-      }
-    });
+	    .on('click', function () {
+	      var idParent = this.id;
+	      var aData = idParent.split('_');
+	      if (aData.length > 0)
+	      {
+          var index = aData[1];
+          var mValue = aDrillData[indexData][index];
+          var value = `${'$'}{mValue}_${'$'}{index}`;
+          drillDown(value);
+	      }
+	    });
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {

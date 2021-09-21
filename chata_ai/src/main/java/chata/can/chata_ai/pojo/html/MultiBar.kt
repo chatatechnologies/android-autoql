@@ -80,8 +80,9 @@ function setMultiBar() {
         if (aData.length > 0)
         {
           var index = aData[1];
-          var value = `${'$'}{drillX[index]}_${'$'}{index}`;
-          drillDown(value)
+          var mValue = aDrillData[indexData][index];
+          var value = `${'$'}{mValue}_${'$'}{index}`;
+          drillDown(value);
         }
       });
 			
