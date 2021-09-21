@@ -465,6 +465,22 @@ var indexIgnore = [];
 var categoriesX = ["Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other", "Other"];
 var drillTableY = [100.00, 240.00, 200.00];
 var drillX = ['1622640651','1610620917','1610620588','1610539486','1610539273'];
+var aDrillData = {0: ['Other'],
+3: ['1 Ton and Trailer Paving','Bobcat/Skidsteer Paving','Bobcat/Skidsteer Grading','Bobcat/Skidsteer Concrete','Grader Concrete'],
+4: ['Untitled Category'],
+6: ['Revenue'],
+10: ['????????'],
+11: ['NotInvoiced'],
+16: ['Untitled Category'],
+17: ['Update','Posted','Hold'],
+18: ['Ticket'],
+19: ['1622640651','1610620917','1610620588','1610539486','1610539273'],
+20: ['Untitled Category'],
+21: ['1622640611','1610620853','1610620407','1610539422','1610539073'],
+22: ['Ticket'],
+24: ['Untitled Category'],
+25: ['Untitled Category'],
+ };
 var limitName = 0;
 var isCurrency = true;
 var maxValue = 3360;
@@ -474,7 +490,7 @@ var minValue2 = 0;
 var aMax = [0, 0, 840, 100, 3360];
 var aMax2 = [0, 0, 0, 0, 10, 42];
 var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
-var aCategory2 = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
+var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
 var aCommon = ["Element", "Item", "Stock Number", "Item Type", "Ticket Division", "Invoice", "Ticket Account", "(Ticket Detail) State", "Ticket Type", "Date Created", "Ticket Description", "Date", "Ticket Type ID", "Job End Time", "Job Start Time"];
 //endregion
 
@@ -503,7 +519,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.TABLE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -617,7 +633,7 @@ function setMultiBar() {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
     for (var index = 0; index < aCategoryTmp.length; index++)
     {
-      if (!indexIgnore.includes(index)) 
+      if (!indexIgnore.includes(index))
       {
         var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
@@ -733,7 +749,7 @@ function setMultiColumn() {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
     for (var index = 0; index < aCategoryTmp.length; index++)
     {
-      if (!indexIgnore.includes(index)) 
+      if (!indexIgnore.includes(index))
       {
         var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
@@ -867,7 +883,7 @@ function setMultiLine() {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
     for (var index = 0; index < aCategoryTmp.length; index++)
     {
-      if (!indexIgnore.includes(index)) 
+      if (!indexIgnore.includes(index))
       {
         var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {

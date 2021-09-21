@@ -469,6 +469,7 @@ object HtmlBuilder
 					//region data currency group
 					val mAllData = LinkedHashMap<String, String>()
 					val mMaxData = LinkedHashMap<String, String>()
+					val mDrillData = LinkedHashMap<String, String>()
 					val aIndexCommon = queryBase.aCommon.map { it.first }
 
 					queryBase.mSourceDrill = linkedMapOf()
@@ -478,6 +479,11 @@ object HtmlBuilder
 						val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, index)
 						val data1 = "[${MultiData.getTimesDataMulti(multiData.mDataOrder, aColumn[index])}]"
 						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn[index])}]"
+
+						val drill = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
+							"\'$it\'"
+						}
+						mDrillData["$index"] = drill
 
 						val index1 = "\'${index}_1\'"
 						val index2 = "\'${index}_2\'"
@@ -514,6 +520,11 @@ object HtmlBuilder
 						for ((key, value) in mMaxData)
 							append("$key: $value,\n")
 						dataD3.aMaxData = "${removeSuffix(", ")} }"
+					}
+					StringBuilder("{").apply {
+						for ((key, value) in mDrillData)
+							append("$key: $value,\n")
+						dataD3.drillList = "${removeSuffix(", ")} }"
 					}
 					dataD3.data = "[]"
 

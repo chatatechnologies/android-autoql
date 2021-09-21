@@ -17,6 +17,7 @@ class DataD3
 	var catY = "[]"
 
 	var drillX = ""
+	var drillList = "[]"
 
 	var drillY = ""
 	var drillTableY = "[]"

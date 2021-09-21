@@ -76,6 +76,7 @@ var indexIgnore = [];
 var categoriesX = ${dataD3.catX};
 var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX};
+var aDrillData = ${dataD3.drillList};
 var limitName = 0;
 var isCurrency = true;
 var maxValue = ${dataD3.max};

@@ -254,7 +254,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataD3.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard
-//				contentHTML = DashboardMaker.getHTML(dataForWebView)function adminMulti(id, subgroups) {
+//				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				contentHTML = D3OnHtml.getHtmlTest(dataD3)
 				rowsTable = dataForWebView.rowsTable
 				rowsPivot = dataForWebView.rowsPivot
