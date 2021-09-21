@@ -99,16 +99,20 @@ class JavaScriptInterface(
 
 									val json = JSONObject().put("query", "")
 									val newQueryBase = QueryBase(json).apply {
-										aColumn.addAll(queryBase.aColumn)
+										for (column in queryBase.aColumn)
+										{
+											val tmp = column.copy()
+											aColumn.add(tmp)
+										}
+										//aColumn.addAll(queryBase.aColumn)
 										aRows.addAll(values)
 										limitRowNum = values.size + 1
 									}
 									newQueryBase.queryId = queryBase.queryId
-									//TODO search problem aCurrency, aQuality, aCommon
 									//this line is the bug
-									//newQueryBase.resetData()
+									newQueryBase.resetData()
 									(context as? Activity)?.runOnUiThread {
-										//chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
 									}
 								}
 							}
