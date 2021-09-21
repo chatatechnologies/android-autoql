@@ -39,7 +39,7 @@ class JavaScriptInterface(
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)
 		{
-			if (queryBase.mDrillDown != null)
+			if (queryBase.mSourceDrill.isNotEmpty())
 			{
 				if (queryBase.showContainer != "#container") return
 			}
@@ -93,7 +93,8 @@ class JavaScriptInterface(
 						{
 							val date = this[0]
 							val index = this[1].toIntNotNull()
-							queryBase.mDrillDown?.let { mDrillDown ->
+							//todo set index active for value on bottom multiples
+							queryBase.getSourceDrill()?.let { mDrillDown ->
 								mDrillDown[date]?.let {
 									val values = it[index]
 
@@ -104,7 +105,6 @@ class JavaScriptInterface(
 											val tmp = column.copy()
 											aColumn.add(tmp)
 										}
-										//aColumn.addAll(queryBase.aColumn)
 										aRows.addAll(values)
 										limitRowNum = values.size + 1
 									}

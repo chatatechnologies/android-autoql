@@ -99,7 +99,11 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var rowsPivot = 0
 	lateinit var aXAxis: ArrayList<String>
 	lateinit var aXDrillDown: ArrayList<String>
-	var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> > > ?= null
+	//var mDrillDown: LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> > > ?= null
+	//index -> drill down by each items on string/date values for axisY
+	lateinit var mSourceDrill: LinkedHashMap<Int, LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>> >>>
+	var indexData = -1
+	fun getSourceDrill() = if(mSourceDrill.isNotEmpty()) mSourceDrill[indexData] else linkedMapOf()
 
 	var aCurrency = ArrayList<Pair<Int, ColumnQuery>>()
 	var aQuality = ArrayList<Pair<Int, ColumnQuery>>()

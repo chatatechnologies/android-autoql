@@ -465,10 +465,13 @@ object HtmlBuilder
 				{
 					SearchColumn.getSeriesColumn(queryBase)
 					dataD3.indexData = aDataX[0]
+					queryBase.indexData = aDataX[0]
 					//region data currency group
 					val mAllData = LinkedHashMap<String, String>()
 					val mMaxData = LinkedHashMap<String, String>()
 					val aIndexCommon = queryBase.aCommon.map { it.first }
+
+					queryBase.mSourceDrill = linkedMapOf()
 					for (index in aIndexCommon)
 					{
 						val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, index)
@@ -484,6 +487,21 @@ object HtmlBuilder
 						//max
 						mMaxData[index1] = "${multiData.aMax}"
 						mMaxData[index2] = "${multiData2.aMax}"
+						//region build mDrillDown
+						val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
+						for (mChild in multiData.aGroupedData)
+						{
+							for ((key, value) in mChild)
+							{
+								mDrillDown[key]?.run {
+									this.add(value)
+								} ?: run {
+									mDrillDown[key] = arrayListOf(value)
+								}
+							}
+						}
+						queryBase.mSourceDrill[index] = mDrillDown
+						//endregion
 					}
 					//build data string builder
 					StringBuilder("{").apply {
@@ -502,7 +520,7 @@ object HtmlBuilder
 					val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, aDataX[0])
 					val multiData2 = MultiData.getMultiData(aSecondary, aColumn, aRows, aDataX[0])
 					dataD3.categories = multiData.getCategoryMulti()
-					dataD3.categories2 = multiData.getCategoryMulti()
+					dataD3.categories2 = multiData2.getCategoryMulti()
 					//fix drillX for multi-series
 					dataForWebView.drillX = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
 						"\'$it\'"
@@ -529,8 +547,8 @@ object HtmlBuilder
 							}
 						}
 					}
-					queryBase.mDrillDown = mDrillDown
-					queryBase.hasDrillDown = queryBase.mDrillDown != null
+//					queryBase.mDrillDown = mDrillDown
+					queryBase.hasDrillDown = queryBase.mSourceDrill.isNotEmpty()// queryBase.mDrillDown != null
 					//endregion
 					if (dataForWebView.isReverseX) multiData.aCategoriesX.reverse()
 					dataForWebView.catX = multiData.aCategoriesX.map {
