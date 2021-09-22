@@ -45,6 +45,9 @@
 		text-overflow: ellipsis;
 		border: 0.5px solid #cccccc;
   }
+  span {
+    display: none;
+  }
   /*border for svg*/
   svg {
     border: 1px solid #aaa;
@@ -83,8 +86,8 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_AREA)">STACKED AREA</button> -->
   </div>
 		
-<table id="idTableBasic"><thead><tr><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Nov 2019</td><td>$106,630.75</td></tr><tr><td>Oct 2019</td><td>$104,254.00</td></tr><tr><td>Sep 2019</td><td>$57,326.75</td></tr><tr><td>Ago 2019</td><td>$122,868.00</td></tr><tr><td>May 2019</td><td>$100,500.00</td></tr></tbody></table>
-
+<table id="idTableBasic"><thead><tr><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Jun 2021</td><td>$100.00</td></tr><tr><td>Ene 2021</td><td>$2,280.00</td></tr><tr><td>Nov 2020</td><td>$390.00</td></tr><tr><td>Abr 2020</td><td>$0.00</td></tr><tr><td>Mar 2020</td><td>$0.00</td></tr><tr><td>Nov 2019</td><td>$106,630.75</td></tr><tr><td>Oct 2019</td><td>$104,254.00</td></tr><tr><td>Sep 2019</td><td>$57,326.75</td></tr><tr><td>Ago 2019</td><td>$122,868.00</td></tr><tr><td>May 2019</td><td>$100,500.00</td></tr><tr><td>Jul 2018</td><td>$14,325.00</td></tr><tr><td>Jun 2018</td><td>$12,470.00</td></tr><tr><td>May 2018</td><td>$9,960.00</td></tr><tr><td>Abr 2018</td><td>$3,873.75</td></tr><tr><td>Mar 2018</td><td>$207,591.00</td></tr><tr><td>Feb 2018</td><td>$54,855.00</td></tr><tr><td>Ene 2018</td><td>$139,085.65</td></tr><tr><td>Dic 2017</td><td>$84,052.50</td></tr><tr><td>Nov 2017</td><td>$66,123.81</td></tr><tr><td>Oct 2017</td><td>$5,695.25</td></tr><tr><td>Sep 2017</td><td>$5,000.00</td></tr><tr><td>Ago 2017</td><td>$19,412.00</td></tr><tr><td>Jul 2017</td><td>$21,500.00</td></tr><tr><td>Jun 2017</td><td>$969.00</td></tr><tr><td>May 2017</td><td>$59,298.50</td></tr><tr><td>Abr 2017</td><td>$21,502.02</td></tr><tr><td>Mar 2017</td><td>$22,312.50</td></tr><tr><td>Feb 2017</td><td>$10,884.00</td></tr><tr><td>Ene 2017</td><td>$13,450.75</td></tr><tr><td>Dic 2016</td><td>$5,100.00</td></tr><tr><td>Ago 2016</td><td>$22,137.60</td></tr><tr><td>Jul 2016</td><td>$49,534.50</td></tr><tr><td>Jun 2016</td><td>$20,710.00</td></tr></tbody></table>
+<table id="idTableDataPivot"><thead><tr><th>Month</th><th>2016</th><th>2017</th><th>2018</th><th>2019</th><th>2020</th><th>2021</th></tr></thead><tbody><tr><td>Enero</td><td>$0.00<span>2016-01</span></td><td>$13,450.75<span>2017-01</span></td><td>$139,085.65<span>2018-01</span></td><td>$0.00<span>2019-01</span></td><td>$0.00<span>2020-01</span></td><td>$2,280.00<span>2021-01</span></td></tr><tr><td>Febrero</td><td>$0.00<span>2016-02</span></td><td>$10,884.00<span>2017-02</span></td><td>$54,855.00<span>2018-02</span></td><td>$0.00<span>2019-02</span></td><td>$0.00<span>2020-02</span></td><td>$0.00<span>2021-02</span></td></tr><tr><td>Marzo</td><td>$0.00<span>2016-03</span></td><td>$22,312.50<span>2017-03</span></td><td>$207,591.00<span>2018-03</span></td><td>$0.00<span>2019-03</span></td><td>$0.00<span>2020-03</span></td><td>$0.00<span>2021-03</span></td></tr><tr><td>Abril</td><td>$0.00<span>2016-04</span></td><td>$21,502.02<span>2017-04</span></td><td>$3,873.75<span>2018-04</span></td><td>$0.00<span>2019-04</span></td><td>$0.00<span>2020-04</span></td><td>$0.00<span>2021-04</span></td></tr><tr><td>Mayo</td><td>$0.00<span>2016-05</span></td><td>$59,298.50<span>2017-05</span></td><td>$9,960.00<span>2018-05</span></td><td>$100,500.00<span>2019-05</span></td><td>$0.00<span>2020-05</span></td><td>$0.00<span>2021-05</span></td></tr><tr><td>Junio</td><td>$20,710.00<span>2016-06</span></td><td>$969.00<span>2017-06</span></td><td>$12,470.00<span>2018-06</span></td><td>$0.00<span>2019-06</span></td><td>$0.00<span>2020-06</span></td><td>$100.00<span>2021-06</span></td></tr><tr><td>Julio</td><td>$49,534.50<span>2016-07</span></td><td>$21,500.00<span>2017-07</span></td><td>$14,325.00<span>2018-07</span></td><td>$0.00<span>2019-07</span></td><td>$0.00<span>2020-07</span></td><td>$0.00<span>2021-07</span></td></tr><tr><td>Agosto</td><td>$22,137.60<span>2016-08</span></td><td>$19,412.00<span>2017-08</span></td><td>$0.00<span>2018-08</span></td><td>$122,868.00<span>2019-08</span></td><td>$0.00<span>2020-08</span></td><td>$0.00<span>2021-08</span></td></tr><tr><td>Septiembre</td><td>$0.00<span>2016-09</span></td><td>$5,000.00<span>2017-09</span></td><td>$0.00<span>2018-09</span></td><td>$57,326.75<span>2019-09</span></td><td>$0.00<span>2020-09</span></td><td>$0.00<span>2021-09</span></td></tr><tr><td>Octubre</td><td>$0.00<span>2016-10</span></td><td>$5,695.25<span>2017-10</span></td><td>$0.00<span>2018-10</span></td><td>$104,254.00<span>2019-10</span></td><td>$0.00<span>2020-10</span></td><td>$0.00<span>2021-10</span></td></tr><tr><td>Noviembre</td><td>$0.00<span>2016-11</span></td><td>$66,123.81<span>2017-11</span></td><td>$0.00<span>2018-11</span></td><td>$106,630.75<span>2019-11</span></td><td>$390.00<span>2020-11</span></td><td>$0.00<span>2021-11</span></td></tr><tr><td>Diciembre</td><td>$5,100.00<span>2016-12</span></td><td>$84,052.50<span>2017-12</span></td><td>$0.00<span>2018-12</span></td><td>$0.00<span>2019-12</span></td><td>$0.00<span>2020-12</span></td><td>$0.00<span>2021-12</span></td></tr></tbody></table>
 <script>
 function getFirst10(string) {
   var newString = '';
@@ -356,28 +359,84 @@ var nColumns = 0;
 //Main data
 var indexData = -1;
 var dataTmp = [];
-var data = [{name: "May 2019", value: 106630.75},
-{name: "Ago 2019", value: 104254.00},
-{name: "Sep 2019", value: 57326.75},
-{name: "Oct 2019", value: 122868.00},
-{name: "Nov 2019", value: 100500.00}];
+var data = [{name: "Jun 2016", value: 100.00},
+{name: "Jul 2016", value: 2280.00},
+{name: "Ago 2016", value: 390.00},
+{name: "Dic 2016", value: 0.00},
+{name: "Ene 2017", value: 0.00},
+{name: "Feb 2017", value: 106630.75},
+{name: "Mar 2017", value: 104254.00},
+{name: "Abr 2017", value: 57326.75},
+{name: "May 2017", value: 122868.00},
+{name: "Jun 2017", value: 100500.00},
+{name: "Jul 2017", value: 14325.00},
+{name: "Ago 2017", value: 12470.00},
+{name: "Sep 2017", value: 9960.00},
+{name: "Oct 2017", value: 3873.75},
+{name: "Nov 2017", value: 207591.00},
+{name: "Dic 2017", value: 54855.00},
+{name: "Ene 2018", value: 139085.65},
+{name: "Feb 2018", value: 84052.50},
+{name: "Mar 2018", value: 66123.81},
+{name: "Abr 2018", value: 5695.25},
+{name: "May 2018", value: 5000.00},
+{name: "Jun 2018", value: 19412.00},
+{name: "Jul 2018", value: 21500.00},
+{name: "May 2019", value: 969.00},
+{name: "Ago 2019", value: 59298.50},
+{name: "Sep 2019", value: 21502.02},
+{name: "Oct 2019", value: 22312.50},
+{name: "Nov 2019", value: 10884.00},
+{name: "Mar 2020", value: 13450.75},
+{name: "Abr 2020", value: 5100.00},
+{name: "Nov 2020", value: 22137.60},
+{name: "Ene 2021", value: 49534.50},
+{name: "Jun 2021", value: 20710.00}];
 var data2 = [];
 var aAllData = [];
 var aMaxData = [];
-var dataFormatted = [{name: "May 2019", value: '$106,630.75'},
-{name: "Ago 2019", value: '$104,254.00'},
-{name: "Sep 2019", value: '$57,326.75'},
-{name: "Oct 2019", value: '$122,868.00'},
-{name: "Nov 2019", value: '$100,500.00'}];
+var dataFormatted = [{name: "Jun 2016", value: '$100.00'},
+{name: "Jul 2016", value: '$2,280.00'},
+{name: "Ago 2016", value: '$390.00'},
+{name: "Dic 2016", value: '$0.00'},
+{name: "Ene 2017", value: '$0.00'},
+{name: "Feb 2017", value: '$106,630.75'},
+{name: "Mar 2017", value: '$104,254.00'},
+{name: "Abr 2017", value: '$57,326.75'},
+{name: "May 2017", value: '$122,868.00'},
+{name: "Jun 2017", value: '$100,500.00'},
+{name: "Jul 2017", value: '$14,325.00'},
+{name: "Ago 2017", value: '$12,470.00'},
+{name: "Sep 2017", value: '$9,960.00'},
+{name: "Oct 2017", value: '$3,873.75'},
+{name: "Nov 2017", value: '$207,591.00'},
+{name: "Dic 2017", value: '$54,855.00'},
+{name: "Ene 2018", value: '$139,085.65'},
+{name: "Feb 2018", value: '$84,052.50'},
+{name: "Mar 2018", value: '$66,123.81'},
+{name: "Abr 2018", value: '$5,695.25'},
+{name: "May 2018", value: '$5,000.00'},
+{name: "Jun 2018", value: '$19,412.00'},
+{name: "Jul 2018", value: '$21,500.00'},
+{name: "May 2019", value: '$969.00'},
+{name: "Ago 2019", value: '$59,298.50'},
+{name: "Sep 2019", value: '$21,502.02'},
+{name: "Oct 2019", value: '$22,312.50'},
+{name: "Nov 2019", value: '$10,884.00'},
+{name: "Mar 2020", value: '$13,450.75'},
+{name: "Abr 2020", value: '$5,100.00'},
+{name: "Nov 2020", value: '$22,137.60'},
+{name: "Ene 2021", value: '$49,534.50'},
+{name: "Jun 2021", value: '$20,710.00'}];
 var opacityMarked = [];
 var indexIgnore = [];
-var categoriesX = [106630.75, 104254.00, 57326.75, 122868.00, 100500.00];
-var drillTableY = [106630.75, 104254.00, 57326.75, 122868.00, 100500.00];
-var drillX = ["2019-05", "2019-08", "2019-09", "2019-10", "2019-11"];
+var categoriesX = [100.00, 2280.00, 390.00, 0.00, 0.00, 106630.75, 104254.00, 57326.75, 122868.00, 100500.00, 14325.00, 12470.00, 9960.00, 3873.75, 207591.00, 54855.00, 139085.65, 84052.50, 66123.81, 5695.25, 5000.00, 19412.00, 21500.00, 969.00, 59298.50, 21502.02, 22312.50, 10884.00, 13450.75, 5100.00, 22137.60, 49534.50, 20710.00];
+var drillTableY = [100.00, 2280.00, 390.00, 0.00, 106630.75, 104254.00, 57326.75, 122868.00, 100500.00, 14325.00, 12470.00, 9960.00, 3873.75, 207591.00, 54855.00, 139085.65, 84052.50, 66123.81, 5695.25, 5000.00, 19412.00, 21500.00, 969.00, 59298.50, 21502.02, 22312.50, 10884.00, 13450.75, 5100.00, 22137.60, 49534.50, 20710.00];
+var drillX = ["2016-06", "2016-07", "2016-08", "2016-12", "2017-01", "2017-02", "2017-03", "2017-04", "2017-05", "2017-06", "2017-07", "2017-08", "2017-09", "2017-10", "2017-11", "2017-12", "2018-01", "2018-02", "2018-03", "2018-04", "2018-05", "2018-06", "2018-07", "2019-05", "2019-08", "2019-09", "2019-10", "2019-11", "2020-03", "2020-04", "2020-11", "2021-01", "2021-06"];
 var aDrillData = [];
 var limitName = 0;
 var isCurrency = true;
-var maxValue = 122868;
+var maxValue = 207591;
 var minValue = 0;
 var maxValue2 = -1;
 var minValue2 = -1;
@@ -413,7 +472,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.PIVOT;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;

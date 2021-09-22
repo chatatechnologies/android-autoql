@@ -258,9 +258,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
       text-overflow: ellipsis;
       border: 0.5px solid #cccccc;
     }
-    span {
-        display: none;
-    }
+    /*border for svg*/
     .green{
         color: #2ecc40;
     }

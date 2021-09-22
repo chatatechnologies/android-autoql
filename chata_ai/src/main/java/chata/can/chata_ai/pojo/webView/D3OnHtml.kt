@@ -75,6 +75,9 @@ object D3OnHtml
 		text-overflow: ellipsis;
 		border: 0.5px solid #cccccc;
   }
+  span {
+    display: none;
+  }
   /*border for svg*/
   svg {
     border: 1px solid #aaa;
