@@ -89,6 +89,7 @@ object TableTriBuilder
 				if (cell.isNotEmpty())
 					cell = cell.clearDecimals()
 				cell = cell.formatWithColumn(aColumn)
+				if (cell == "0") cell = ""
 				sbRow.append("<td>$cell</td>")
 			}
 			if (onlyZero)

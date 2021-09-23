@@ -289,13 +289,13 @@ object HtmlBuilder
 
 				//val aCatYTmp = aCatYNotFormat ?: aCatY
 				val pCat = if (posColumnX == 1) Triple(aCatY, aCatX, true)
-				else Triple(aCatX, aCatX, false)
+				else Triple(aCatX, aCatY, false)
 
 				//get aDataTable and aMapPure
 				val dataTableTri = TableTriBuilder.DataTableTri(aRows,
 					aColumn[posColumnY],//countable column
-					pCat.second,
 					pCat.first,
+					pCat.second,
 					aNumber.isNotEmpty(),
 					pCat.third)
 				val pair = TableTriBuilder.generateDataTableTri(dataTableTri)
