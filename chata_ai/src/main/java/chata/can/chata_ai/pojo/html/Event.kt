@@ -12,7 +12,7 @@ ${'$'}('td').click(function() {
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
 	//simple table
-  var index = categoriesX.indexOf(finalText);
+  var index = 0;//TODO _categoriesX_.indexOf(finalText)
   finalText = drillX[index];
   //endregion
   drillDown(finalText);

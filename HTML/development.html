@@ -383,9 +383,9 @@ var aCategory2 = [];
 var aCommon = [];
 //endregion
 //axis X for heatmap
-var myGroups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+var aCatHeatX = ["2016", "2017", "2018", "2019", "2020", "2021"];
 //axis Y for heatmap
-var myVars = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10'];
+var aCatHeatY = ["Bates Trucking", "Northern Alberta", "Southern Alberta", "ABC Truckline", "Louisiana", "Midland, TX", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Texas", "Wyoming - Douglas Yard", "Central Saskatchewan", "Northern BC", "Northern Saskatchewan"];
 
 //REGION max letters in name
 for (const item in getDataOrMulti()) {
@@ -412,7 +412,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.PIVOT;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;

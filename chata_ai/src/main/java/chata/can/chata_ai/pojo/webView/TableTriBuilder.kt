@@ -151,4 +151,18 @@ object TableTriBuilder
 			return Pair(aDataTable, mData)
 		}
 	}
+
+	fun getData3Dimensions(aDataValue: ArrayList< ArrayList<Any> >)
+	{
+		val aRow = ArrayList<String>()
+		for (item in aDataValue)
+		{
+			val posX = item[0]
+			val posY = item[1]
+			val value = item[2]
+			val sRow = "{\'group\':\'${posX}\',\'variable\':\'${posY}\',\'value\': ${value}}"
+			aRow.add(sRow)
+		}
+		aRow.toString()
+	}
 }
