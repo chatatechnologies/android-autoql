@@ -13,8 +13,8 @@ class DataD3
 	var aMaxData = "[]"
 	var dataFormatted = "[]"
 
-	var catX = "[]"
-	var catY = "[]"
+	var catHeatX = "[]"
+	var catHeatY = "[]"
 
 	var drillX = ""
 	var drillList = "[]"

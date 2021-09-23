@@ -73,7 +73,6 @@ var aMaxData = ${dataD3.aMaxData};
 var dataFormatted = ${dataD3.dataFormatted};
 var opacityMarked = [];
 var indexIgnore = [];
-var categoriesX = ${dataD3.catX};
 var drillTableY = ${dataD3.drillTableY};
 var drillX = ${dataD3.drillX};
 var aDrillData = ${dataD3.drillList};
@@ -89,6 +88,10 @@ var aCategory = ${dataD3.categories};
 var aCategory2 = ${dataD3.categories2};
 var aCommon = ${dataD3.catCommon};
 //endregion
+//axis X for heatmap
+var aCatHeatX = ${dataD3.catHeatX};
+//axis Y for heatmap
+var aCatHeatY = ${dataD3.catHeatY};
 
 //REGION max letters in name
 for (const item in getDataOrMulti()) {

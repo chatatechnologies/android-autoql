@@ -276,12 +276,15 @@ object HtmlBuilder
 
 			if (dataForWebView.catX == "[]"){
 				dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
-				dataD3.catX = makeCategories(aCatY, !isTriConfig)
 			}
 			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
 
 			if (isTriConfig)
 			{
+				//region cat for D3 on tridimensionals
+				dataD3.catHeatX = dataForWebView.catY
+				dataD3.catHeatY = dataForWebView.catX
+
 				val aNumber = SearchColumn.getNumberIndices(aColumn, 1)
 				val aString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.STRING), 1, 1)
 				val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)

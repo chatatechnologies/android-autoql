@@ -367,7 +367,6 @@ var aMaxData = [];
 var dataFormatted = [];
 var opacityMarked = [];
 var indexIgnore = [];
-var categoriesX = ["2016", "2017", "2018", "2019", "2020", "2021"];
 var drillTableY = [1, 2, 2, 1, 2, 1, 2, 4, 10, 2, 1, 1, 1, 2, 2, 33, 9, 6, 4, 12, 16, 2, 1, 3, 6, 18, 6, 5, 7, 20, 19, 5, 1, 4, 4, 2, 14, 16, 6, 14, 1, 7, 10, 7];
 var drillX = ["Bates Trucking", "Northern Alberta", "Northern Alberta", "Southern Alberta", "ABC Truckline", "Bates Trucking", "Louisiana", "Midland, TX", "Northern Alberta", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Southern Alberta", "Texas", "Wyoming - Douglas Yard", "ABC Truckline", "Bates Trucking", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Northern BC", "Northern Saskatchewan", "Pecos, TX", "Texas", "ABC Truckline", "Bates Trucking", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Northern BC", "Northern Saskatchewan", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Southern Alberta", "Texas", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Southern Alberta", "Texas"];
 var aDrillData = [];
@@ -383,6 +382,10 @@ var aCategory = [];
 var aCategory2 = [];
 var aCommon = [];
 //endregion
+//axis X for heatmap
+var myGroups = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+//axis Y for heatmap
+var myVars = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10'];
 
 //REGION max letters in name
 for (const item in getDataOrMulti()) {
@@ -1267,7 +1270,7 @@ $('td').click(function() {
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
 	//simple table
-  var index = categoriesX.indexOf(finalText);
+  var index = 0;//TODO _categoriesX_.indexOf(finalText)
   finalText = drillX[index];
   //endregion
   drillDown(finalText);
