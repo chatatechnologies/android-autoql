@@ -73,10 +73,9 @@ object HtmlBuilder
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
 				if (aGroupable.isNotEmpty())
 				{
-					val pos = if (aGroupable.size == 2) 1 else 0
+					val pos = if (aGroupable.size == 2) 0 else 1// 1 else 0
 					posColumnX = aGroupable[pos]
 				}
-//				posColumnX = hasDateIndex(queryBase, posColumnX)
 				val tmp = hasCountableIndex(queryBase)
 				if (tmp != -1) posColumnY = tmp
 				queryBase.addIndices(posColumnX, posColumnY)
@@ -194,13 +193,6 @@ object HtmlBuilder
 				aBaseTri.remove(posColumnY)
 				val iForTri = if (aBaseTri.isEmpty()) posColumnY else aBaseTri[0]
 
-//				val column = aColumn[posColumnY]
-//				if (column.type.isDate() || column.type == TypeDataQuery.QUANTITY)
-//				{
-//					aCatYNotFormat = buildCategoryByPosition(
-//						Category(aRows, column, posColumnY, false, hasQuotes = true,
-//							allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
-//				}
 				val columnY = aColumn[iForTri]
 				buildCategoryByPosition(
 					Category(aRows, columnY, iForTri, true, hasQuotes = true,
@@ -211,24 +203,29 @@ object HtmlBuilder
 				ArrayList()
 			}
 
-			//region build data for D3
-			val sb = StringBuilder()
-			val sbFormat = StringBuilder()
-			for (index in 0 until aCatX.count())
-			{
-				val name = aCatX[index]
-				val value = aCatY[index]
-				sb.append("{name: $name, value: $value},\n")
 
-				val column = aColumn[1]
-				val vFormat = value.formatWithColumn(column)
-				sbFormat.append("{name: $name")
-				if (vFormat != "0") sbFormat.append(", value: '$vFormat'")
-				sbFormat.append("},\n")
+			//TODO edit for 3 cells by row
+			if (!isTriConfig)
+			{
+				//region build data for D3
+				val sb = StringBuilder()
+				val sbFormat = StringBuilder()
+				for (index in 0 until aCatX.count())
+				{
+					val name = aCatX[index]
+					val value = aCatY[index]
+					sb.append("{name: $name, value: $value},\n")
+
+					val column = aColumn[1]
+					val vFormat = value.formatWithColumn(column)
+					sbFormat.append("{name: $name")
+					if (vFormat != "0") sbFormat.append(", value: '$vFormat'")
+					sbFormat.append("},\n")
+				}
+				dataD3.data = "[${sb.removeSuffix(",\n")}]"
+				dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
+				//endregion
 			}
-			dataD3.data = "[${sb.removeSuffix(",\n")}]"
-			dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
-			//endregion
 
 			val aCatYS = if (aColumn.size > posColumnY)
 			{

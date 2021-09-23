@@ -98,10 +98,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			//query base for testing
 //			val queryDemo = "Total revenue this year"
 //			val queryDemo = "Total revenue by month in 2019"
+			val queryDemo = "Jobs by area by year"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
 			//query contains pivot
-			val queryDemo = "total revenue by month"
+//			val queryDemo = "total revenue by month"
 			etQuery.setText(queryDemo)
 		}
 
