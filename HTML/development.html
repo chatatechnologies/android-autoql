@@ -141,7 +141,8 @@ function isMultiple(typeChart) {
 
 function updateData(tmpChart, isReload) {
   //region set nColumns
-  var keys = Object.keys(getDataOrMulti()[0]);
+  var aTmpData = getDataOrMulti();
+  var keys = Object.keys(aTmpData.length !== 0 ?  aTmpData : {'':''});
   nColumns = keys.length;
   //endregion
 	var _isMultiple = isMultiple(tmpChart);
@@ -408,7 +409,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.PIVOT;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -1240,8 +1241,12 @@ function getDataOrMulti()
 
 function getDataMulti()
 {
-  var key = `${indexData}_${isCurrency ? 1 : 2}`;
-  return aAllData[key];
+  if (aAllData.length !== 0)
+  {
+    var key = `${indexData}_${isCurrency ? 1 : 2}`;
+    return aAllData[key];
+  }
+  else return [];
 }
 
 function getMultiCategory()

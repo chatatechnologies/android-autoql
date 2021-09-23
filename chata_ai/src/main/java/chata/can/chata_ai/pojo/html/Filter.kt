@@ -156,8 +156,12 @@ function getDataOrMulti()
 
 function getDataMulti()
 {
-  var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
-  return aAllData[key];
+	if (aAllData.length !== 0)
+	{
+    var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+    return aAllData[key];
+	}
+	else return [];
 }
 
 function getMultiCategory()
