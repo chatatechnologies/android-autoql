@@ -96,6 +96,8 @@ object TableTriBuilder
 				aIndexZero.add(indexY)
 			aRows.add("<tr>$sbRow</tr>")
 		}
+		//region reverse; check when is necessary
+		aRows.reverse()
 		val sbBody = StringBuilder("<tbody>")
 		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
