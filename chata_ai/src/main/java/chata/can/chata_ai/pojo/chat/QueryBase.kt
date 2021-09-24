@@ -7,6 +7,7 @@ import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.extension.enumValueOfOrNull
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.messageKey
 import chata.can.chata_ai.pojo.query.CountColumn
@@ -235,9 +236,24 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 							aIndex[0])?.displayName ?: ""
 						dataD3.xAxis = aColumn.getOrNull(
 							aIndex[0])?.displayName ?: ""
+
+						if (aColumn.size > 2)
+						{
+							var aBase = (0..1).toMutableList()
+							var indexCount = -1
+							for (index in aColumn.indices)
+							{
+								if (aColumn[index].type.isNumber())
+								{
+									indexCount = index
+								}
+							}
+							if (indexCount != -1)
+								aBase.remove(indexCount)
+							aBase.remove(aIndex[0])
+							dataD3.yAxis = aColumn.getOrNull(aBase[0])?.displayName ?: ""
+						}
 						dataForWebView.yAxis = aColumn.getOrNull(
-							aIndex[1])?.displayName ?: ""
-						dataD3.yAxis = aColumn.getOrNull(
 							aIndex[1])?.displayName ?: ""
 					}
 					else ->

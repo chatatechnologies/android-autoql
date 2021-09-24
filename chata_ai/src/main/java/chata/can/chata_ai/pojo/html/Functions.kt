@@ -123,6 +123,9 @@ function updateData(tmpChart, isReload) {
         case TypeEnum.PIE:
           setDonut();
           break;
+				case TypeEnum.HEATMAP:
+					setHeatMap();
+					break;
       }
       break;
   }

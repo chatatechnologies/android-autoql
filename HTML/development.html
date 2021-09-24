@@ -207,9 +207,9 @@ function updateData(tmpChart, isReload) {
         case TypeEnum.PIE:
           setDonut();
           break;
-        case TypeEnum.HEATMAP:
-          setHeatMap();
-          break;
+				case TypeEnum.HEATMAP:
+					setHeatMap();
+					break;
       }
       break;
   }
@@ -357,13 +357,13 @@ var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
 var colorBi = ['#26a7e9'];//Main color for bars
 
 var axisX = 'Area';
-var axisY = 'Number of Jobs';
+var axisY = 'year';
 var nColumns = 0;
 
 //Main data
 var indexData = -1;
 var dataTmp = [];
-var data = [];
+var data = [{'variable':'Bates Trucking','group':'2021','value': 1.0}, {'variable':'Northern Alberta','group':'2021','value': 2.0}, {'variable':'Northern Alberta','group':'2020','value': 2.0}, {'variable':'Southern Alberta','group':'2020','value': 1.0}, {'variable':'ABC Truckline','group':'2019','value': 2.0}, {'variable':'Bates Trucking','group':'2019','value': 1.0}, {'variable':'Louisiana','group':'2019','value': 2.0}, {'variable':'Midland, TX','group':'2019','value': 4.0}, {'variable':'Northern Alberta','group':'2019','value': 10.0}, {'variable':'Pecos, TX','group':'2019','value': 2.0}, {'variable':'Pleasanton, TX','group':'2019','value': 1.0}, {'variable':'Prime Trucking','group':'2019','value': 1.0}, {'variable':'Southern Alberta','group':'2019','value': 1.0}, {'variable':'Texas','group':'2019','value': 2.0}, {'variable':'Wyoming - Douglas Yard','group':'2019','value': 2.0}, {'variable':'ABC Truckline','group':'2018','value': 33.0}, {'variable':'Bates Trucking','group':'2018','value': 9.0}, {'variable':'Central Saskatchewan','group':'2018','value': 6.0}, {'variable':'Louisiana','group':'2018','value': 4.0}, {'variable':'Midland, TX','group':'2018','value': 12.0}, {'variable':'Northern Alberta','group':'2018','value': 16.0}, {'variable':'Northern BC','group':'2018','value': 2.0}, {'variable':'Northern Saskatchewan','group':'2018','value': 1.0}, {'variable':'Pecos, TX','group':'2018','value': 3.0}, {'variable':'Texas','group':'2018','value': 6.0}, {'variable':'ABC Truckline','group':'2017','value': 18.0}, {'variable':'Bates Trucking','group':'2017','value': 6.0}, {'variable':'Central Saskatchewan','group':'2017','value': 5.0}, {'variable':'Louisiana','group':'2017','value': 7.0}, {'variable':'Midland, TX','group':'2017','value': 20.0}, {'variable':'Northern Alberta','group':'2017','value': 19.0}, {'variable':'Northern BC','group':'2017','value': 5.0}, {'variable':'Northern Saskatchewan','group':'2017','value': 1.0}, {'variable':'Pecos, TX','group':'2017','value': 4.0}, {'variable':'Pleasanton, TX','group':'2017','value': 4.0}, {'variable':'Prime Trucking','group':'2017','value': 2.0}, {'variable':'Southern Alberta','group':'2017','value': 14.0}, {'variable':'Texas','group':'2017','value': 16.0}, {'variable':'Central Saskatchewan','group':'2016','value': 6.0}, {'variable':'Louisiana','group':'2016','value': 14.0}, {'variable':'Midland, TX','group':'2016','value': 1.0}, {'variable':'Northern Alberta','group':'2016','value': 7.0}, {'variable':'Southern Alberta','group':'2016','value': 10.0}, {'variable':'Texas','group':'2016','value': 7.0}];
 var data2 = [];
 var aAllData = [];
 var aMaxData = [];
@@ -385,10 +385,6 @@ var aCategory = [];
 var aCategory2 = [];
 var aCommon = [];
 //endregion
-
-//group,variable,value
-var data1 = [{'variable':'Bates Trucking','group':'2021','value': 1.0}, {'variable':'Northern Alberta','group':'2021','value': 2.0}, {'variable':'Northern Alberta','group':'2020','value': 2.0}, {'variable':'Southern Alberta','group':'2020','value': 1.0}, {'variable':'ABC Truckline','group':'2019','value': 2.0}, {'variable':'Bates Trucking','group':'2019','value': 1.0}, {'variable':'Louisiana','group':'2019','value': 2.0}, {'variable':'Midland, TX','group':'2019','value': 4.0}, {'variable':'Northern Alberta','group':'2019','value': 10.0}, {'variable':'Pecos, TX','group':'2019','value': 2.0}, {'variable':'Pleasanton, TX','group':'2019','value': 1.0}, {'variable':'Prime Trucking','group':'2019','value': 1.0}, {'variable':'Southern Alberta','group':'2019','value': 1.0}, {'variable':'Texas','group':'2019','value': 2.0}, {'variable':'Wyoming - Douglas Yard','group':'2019','value': 2.0}, {'variable':'ABC Truckline','group':'2018','value': 33.0}, {'variable':'Bates Trucking','group':'2018','value': 9.0}, {'variable':'Central Saskatchewan','group':'2018','value': 6.0}, {'variable':'Louisiana','group':'2018','value': 4.0}, {'variable':'Midland, TX','group':'2018','value': 12.0}, {'variable':'Northern Alberta','group':'2018','value': 16.0}, {'variable':'Northern BC','group':'2018','value': 2.0}, {'variable':'Northern Saskatchewan','group':'2018','value': 1.0}, {'variable':'Pecos, TX','group':'2018','value': 3.0}, {'variable':'Texas','group':'2018','value': 6.0}, {'variable':'ABC Truckline','group':'2017','value': 18.0}, {'variable':'Bates Trucking','group':'2017','value': 6.0}, {'variable':'Central Saskatchewan','group':'2017','value': 5.0}, {'variable':'Louisiana','group':'2017','value': 7.0}, {'variable':'Midland, TX','group':'2017','value': 20.0}, {'variable':'Northern Alberta','group':'2017','value': 19.0}, {'variable':'Northern BC','group':'2017','value': 5.0}, {'variable':'Northern Saskatchewan','group':'2017','value': 1.0}, {'variable':'Pecos, TX','group':'2017','value': 4.0}, {'variable':'Pleasanton, TX','group':'2017','value': 4.0}, {'variable':'Prime Trucking','group':'2017','value': 2.0}, {'variable':'Southern Alberta','group':'2017','value': 14.0}, {'variable':'Texas','group':'2017','value': 16.0}, {'variable':'Central Saskatchewan','group':'2016','value': 6.0}, {'variable':'Louisiana','group':'2016','value': 14.0}, {'variable':'Midland, TX','group':'2016','value': 1.0}, {'variable':'Northern Alberta','group':'2016','value': 7.0}, {'variable':'Southern Alberta','group':'2016','value': 10.0}, {'variable':'Texas','group':'2016','value': 7.0}];
-
 //axis X for heatmap
 var aCatHeatX = ["2016", "2017", "2018", "2019", "2020", "2021"];
 //axis Y for heatmap
@@ -435,7 +431,6 @@ var margin = {
 var width = 0;
 var height = 0;
 var isAgain = false;
-
 function setHeatMap() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
@@ -473,7 +468,7 @@ function setHeatMap() {
     .domain([1, 33]);//Max value allowed
   svg
     .selectAll()
-    .data(data1, function(d) {return d.group+':'+d.variable;})
+    .data(data, function(d) {return d.group+':'+d.variable;})
     .enter()
     .append('rect')
     .attr('id', function(item, i){ return `item_${item.group}_${item.variable}`;})
@@ -499,6 +494,7 @@ function setHeatMap() {
   //Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom - 85, '#808080', '', 'Area - axisX');  
 }
+
 
 function setMultiBar() {
   var svg = svgMulti().append('g')

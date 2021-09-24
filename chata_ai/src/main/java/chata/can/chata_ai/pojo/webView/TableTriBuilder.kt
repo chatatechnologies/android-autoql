@@ -155,7 +155,7 @@ object TableTriBuilder
 	fun getData3Dimensions(
 		aDataValue: ArrayList< ArrayList<Any> >,
 		aCatX: ArrayList<String>,
-		aCatY: ArrayList<String>)
+		aCatY: ArrayList<String>): String
 	{
 		val aRow = ArrayList<String>()
 		for (item in aDataValue)
@@ -168,6 +168,6 @@ object TableTriBuilder
 			val sRow = "{\'variable\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
 			aRow.add(sRow)
 		}
-		aRow.toString()
+		return "$aRow"
 	}
 }
