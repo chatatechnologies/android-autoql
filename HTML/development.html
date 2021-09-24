@@ -385,6 +385,10 @@ var aCategory = [];
 var aCategory2 = [];
 var aCommon = [];
 //endregion
+
+//group,variable,value
+var data1 = [{'variable':'Bates Trucking','group':'2021','value': 1.0}, {'variable':'Northern Alberta','group':'2021','value': 2.0}, {'variable':'Northern Alberta','group':'2020','value': 2.0}, {'variable':'Southern Alberta','group':'2020','value': 1.0}, {'variable':'ABC Truckline','group':'2019','value': 2.0}, {'variable':'Bates Trucking','group':'2019','value': 1.0}, {'variable':'Louisiana','group':'2019','value': 2.0}, {'variable':'Midland, TX','group':'2019','value': 4.0}, {'variable':'Northern Alberta','group':'2019','value': 10.0}, {'variable':'Pecos, TX','group':'2019','value': 2.0}, {'variable':'Pleasanton, TX','group':'2019','value': 1.0}, {'variable':'Prime Trucking','group':'2019','value': 1.0}, {'variable':'Southern Alberta','group':'2019','value': 1.0}, {'variable':'Texas','group':'2019','value': 2.0}, {'variable':'Wyoming - Douglas Yard','group':'2019','value': 2.0}, {'variable':'ABC Truckline','group':'2018','value': 33.0}, {'variable':'Bates Trucking','group':'2018','value': 9.0}, {'variable':'Central Saskatchewan','group':'2018','value': 6.0}, {'variable':'Louisiana','group':'2018','value': 4.0}, {'variable':'Midland, TX','group':'2018','value': 12.0}, {'variable':'Northern Alberta','group':'2018','value': 16.0}, {'variable':'Northern BC','group':'2018','value': 2.0}, {'variable':'Northern Saskatchewan','group':'2018','value': 1.0}, {'variable':'Pecos, TX','group':'2018','value': 3.0}, {'variable':'Texas','group':'2018','value': 6.0}, {'variable':'ABC Truckline','group':'2017','value': 18.0}, {'variable':'Bates Trucking','group':'2017','value': 6.0}, {'variable':'Central Saskatchewan','group':'2017','value': 5.0}, {'variable':'Louisiana','group':'2017','value': 7.0}, {'variable':'Midland, TX','group':'2017','value': 20.0}, {'variable':'Northern Alberta','group':'2017','value': 19.0}, {'variable':'Northern BC','group':'2017','value': 5.0}, {'variable':'Northern Saskatchewan','group':'2017','value': 1.0}, {'variable':'Pecos, TX','group':'2017','value': 4.0}, {'variable':'Pleasanton, TX','group':'2017','value': 4.0}, {'variable':'Prime Trucking','group':'2017','value': 2.0}, {'variable':'Southern Alberta','group':'2017','value': 14.0}, {'variable':'Texas','group':'2017','value': 16.0}, {'variable':'Central Saskatchewan','group':'2016','value': 6.0}, {'variable':'Louisiana','group':'2016','value': 14.0}, {'variable':'Midland, TX','group':'2016','value': 1.0}, {'variable':'Northern Alberta','group':'2016','value': 7.0}, {'variable':'Southern Alberta','group':'2016','value': 10.0}, {'variable':'Texas','group':'2016','value': 7.0}];
+
 //axis X for heatmap
 var aCatHeatX = ["2016", "2017", "2018", "2019", "2020", "2021"];
 //axis Y for heatmap
@@ -433,20 +437,12 @@ var height = 0;
 var isAgain = false;
 
 function setHeatMap() {
-  console.log('left');
   var svg = svgMulti().append('g')
-		.attr('transform', `translate(${margin.left + 30}, ${margin.top})`);
-
-  //group,variable,value
-  var data1 = [{'variable':'Bates Trucking','group':'2021','value': 1.0}, {'variable':'Northern Alberta','group':'2021','value': 2.0}, {'variable':'Northern Alberta','group':'2020','value': 2.0}, {'variable':'Southern Alberta','group':'2020','value': 1.0}, {'variable':'ABC Truckline','group':'2019','value': 2.0}, {'variable':'Bates Trucking','group':'2019','value': 1.0}, {'variable':'Louisiana','group':'2019','value': 2.0}, {'variable':'Midland, TX','group':'2019','value': 4.0}, {'variable':'Northern Alberta','group':'2019','value': 10.0}, {'variable':'Pecos, TX','group':'2019','value': 2.0}, {'variable':'Pleasanton, TX','group':'2019','value': 1.0}, {'variable':'Prime Trucking','group':'2019','value': 1.0}, {'variable':'Southern Alberta','group':'2019','value': 1.0}, {'variable':'Texas','group':'2019','value': 2.0}, {'variable':'Wyoming - Douglas Yard','group':'2019','value': 2.0}, {'variable':'ABC Truckline','group':'2018','value': 33.0}, {'variable':'Bates Trucking','group':'2018','value': 9.0}, {'variable':'Central Saskatchewan','group':'2018','value': 6.0}, {'variable':'Louisiana','group':'2018','value': 4.0}, {'variable':'Midland, TX','group':'2018','value': 12.0}, {'variable':'Northern Alberta','group':'2018','value': 16.0}, {'variable':'Northern BC','group':'2018','value': 2.0}, {'variable':'Northern Saskatchewan','group':'2018','value': 1.0}, {'variable':'Pecos, TX','group':'2018','value': 3.0}, {'variable':'Texas','group':'2018','value': 6.0}, {'variable':'ABC Truckline','group':'2017','value': 18.0}, {'variable':'Bates Trucking','group':'2017','value': 6.0}, {'variable':'Central Saskatchewan','group':'2017','value': 5.0}, {'variable':'Louisiana','group':'2017','value': 7.0}, {'variable':'Midland, TX','group':'2017','value': 20.0}, {'variable':'Northern Alberta','group':'2017','value': 19.0}, {'variable':'Northern BC','group':'2017','value': 5.0}, {'variable':'Northern Saskatchewan','group':'2017','value': 1.0}, {'variable':'Pecos, TX','group':'2017','value': 4.0}, {'variable':'Pleasanton, TX','group':'2017','value': 4.0}, {'variable':'Prime Trucking','group':'2017','value': 2.0}, {'variable':'Southern Alberta','group':'2017','value': 14.0}, {'variable':'Texas','group':'2017','value': 16.0}, {'variable':'Central Saskatchewan','group':'2016','value': 6.0}, {'variable':'Louisiana','group':'2016','value': 14.0}, {'variable':'Midland, TX','group':'2016','value': 1.0}, {'variable':'Northern Alberta','group':'2016','value': 7.0}, {'variable':'Southern Alberta','group':'2016','value': 10.0}, {'variable':'Texas','group':'2016','value': 7.0}];
-  //axis X for heatmap
-  var myGroups1 = ['2016', '2017', '2018', '2019', '2020', '2021'];
-  //axis Y for heatmap
-  var myVars1 = ['Bates Trucking', 'Northern Alberta', 'Southern Alberta', 'ABC Truckline', 'Louisiana', 'Midland, TX', 'Pecos, TX', 'Pleasanton, TX', 'Prime Trucking', 'Texas', 'Wyoming - Douglas Yard', 'Central Saskatchewan', 'Northern BC', 'Northern Saskatchewan'];
+		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
 
   var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain(myGroups1)
+    .domain(aCatHeatX)
     .padding(0.01);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
@@ -460,17 +456,17 @@ function setHeatMap() {
 
   var y = d3.scaleBand()
     .range([ height, 0 ])
-    .domain(myVars1)
+    .domain(aCatHeatY)
     .padding(0.01);
   svg.append("g")
     .call(
       d3.axisLeft(y)
       .tickSize(0)
       .tickFormat(x =>`${getFirst10(x)}`))
-      //Remove line on domain for Y axis
-      .call(g => g.select('.domain').remove())
-      .selectAll('text')
-      .attr('fill', '#909090');
+    //Remove line on domain for Y axis
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+    .attr('fill', '#909090');
   
   var myColor = d3.scaleLinear()
     .range(["#3B3F46", '#26A7DF'])
@@ -496,6 +492,12 @@ function setHeatMap() {
         var variable = aData[2];
       }
     });
+
+  //Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', 'year - axisY');
+  
+  //Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom - 85, '#808080', '', 'Area - axisX');  
 }
 
 function setMultiBar() {
