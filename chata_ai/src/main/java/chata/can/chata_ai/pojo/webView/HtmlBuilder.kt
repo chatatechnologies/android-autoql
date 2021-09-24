@@ -305,7 +305,7 @@ object HtmlBuilder
 
 
 				val pair = TableTriBuilder.generateDataTableTri(dataTableTri)
-				getData3Dimensions(pair.first)
+				getData3Dimensions(pair.first, aCatX, aCatY)
 				val aDataTable = pair.first
 				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()

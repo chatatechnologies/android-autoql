@@ -152,15 +152,20 @@ object TableTriBuilder
 		}
 	}
 
-	fun getData3Dimensions(aDataValue: ArrayList< ArrayList<Any> >)
+	fun getData3Dimensions(
+		aDataValue: ArrayList< ArrayList<Any> >,
+		aCatX: ArrayList<String>,
+		aCatY: ArrayList<String>)
 	{
 		val aRow = ArrayList<String>()
 		for (item in aDataValue)
 		{
-			val posX = item[0]
-			val posY = item[1]
-			val value = item[2]
-			val sRow = "{\'group\':\'${posX}\',\'variable\':\'${posY}\',\'value\': ${value}}"
+			val posX = item[0] as Int
+			val posY = item[1] as Int
+			val value = item[2] as Double
+			val valueX = aCatX[posX]
+			val valueY = aCatY[posY]
+			val sRow = "{\'variable\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
 			aRow.add(sRow)
 		}
 		aRow.toString()
