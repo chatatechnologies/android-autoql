@@ -433,8 +433,9 @@ var height = 0;
 var isAgain = false;
 
 function setHeatMap() {
+  console.log('left');
   var svg = svgMulti().append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${margin.left + 30}, ${margin.top})`);
 
   //group,variable,value
   var data1 = [{'variable':'Bates Trucking','group':'2021','value': 1.0}, {'variable':'Northern Alberta','group':'2021','value': 2.0}, {'variable':'Northern Alberta','group':'2020','value': 2.0}, {'variable':'Southern Alberta','group':'2020','value': 1.0}, {'variable':'ABC Truckline','group':'2019','value': 2.0}, {'variable':'Bates Trucking','group':'2019','value': 1.0}, {'variable':'Louisiana','group':'2019','value': 2.0}, {'variable':'Midland, TX','group':'2019','value': 4.0}, {'variable':'Northern Alberta','group':'2019','value': 10.0}, {'variable':'Pecos, TX','group':'2019','value': 2.0}, {'variable':'Pleasanton, TX','group':'2019','value': 1.0}, {'variable':'Prime Trucking','group':'2019','value': 1.0}, {'variable':'Southern Alberta','group':'2019','value': 1.0}, {'variable':'Texas','group':'2019','value': 2.0}, {'variable':'Wyoming - Douglas Yard','group':'2019','value': 2.0}, {'variable':'ABC Truckline','group':'2018','value': 33.0}, {'variable':'Bates Trucking','group':'2018','value': 9.0}, {'variable':'Central Saskatchewan','group':'2018','value': 6.0}, {'variable':'Louisiana','group':'2018','value': 4.0}, {'variable':'Midland, TX','group':'2018','value': 12.0}, {'variable':'Northern Alberta','group':'2018','value': 16.0}, {'variable':'Northern BC','group':'2018','value': 2.0}, {'variable':'Northern Saskatchewan','group':'2018','value': 1.0}, {'variable':'Pecos, TX','group':'2018','value': 3.0}, {'variable':'Texas','group':'2018','value': 6.0}, {'variable':'ABC Truckline','group':'2017','value': 18.0}, {'variable':'Bates Trucking','group':'2017','value': 6.0}, {'variable':'Central Saskatchewan','group':'2017','value': 5.0}, {'variable':'Louisiana','group':'2017','value': 7.0}, {'variable':'Midland, TX','group':'2017','value': 20.0}, {'variable':'Northern Alberta','group':'2017','value': 19.0}, {'variable':'Northern BC','group':'2017','value': 5.0}, {'variable':'Northern Saskatchewan','group':'2017','value': 1.0}, {'variable':'Pecos, TX','group':'2017','value': 4.0}, {'variable':'Pleasanton, TX','group':'2017','value': 4.0}, {'variable':'Prime Trucking','group':'2017','value': 2.0}, {'variable':'Southern Alberta','group':'2017','value': 14.0}, {'variable':'Texas','group':'2017','value': 16.0}, {'variable':'Central Saskatchewan','group':'2016','value': 6.0}, {'variable':'Louisiana','group':'2016','value': 14.0}, {'variable':'Midland, TX','group':'2016','value': 1.0}, {'variable':'Northern Alberta','group':'2016','value': 7.0}, {'variable':'Southern Alberta','group':'2016','value': 10.0}, {'variable':'Texas','group':'2016','value': 7.0}];
@@ -449,7 +450,13 @@ function setHeatMap() {
     .padding(0.01);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
-    .call(d3.axisBottom(x));
+    .call(
+      d3.axisBottom(x)
+      .tickSize(0))
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+    .attr('transform', 'translate(0, 10)')
+    .attr('fill', '#909090');;
 
   var y = d3.scaleBand()
     .range([ height, 0 ])
@@ -458,8 +465,8 @@ function setHeatMap() {
   svg.append("g")
     .call(
       d3.axisLeft(y)
+      .tickSize(0)
       .tickFormat(x =>`${getFirst10(x)}`))
-      .call(g => g.selectAll('.tick line'))
       //Remove line on domain for Y axis
       .call(g => g.select('.domain').remove())
       .selectAll('text')
