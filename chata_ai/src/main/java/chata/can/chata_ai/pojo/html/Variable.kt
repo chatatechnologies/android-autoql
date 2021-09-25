@@ -10,7 +10,7 @@ object Variable
 		return if (isEmpty()) "TypeEnum.TABLE" else "#idTableDataPivot"
 	}
 
-	fun getVariables(dataD3: DataD3): String
+	fun getVariables(dataD3: DataD3, backgroundColor: String): String
 	{
 
 		val typeChart =
@@ -56,6 +56,7 @@ const TypeManage = Object.freeze({
   'PLAIN': 'PLAIN'
 });
 
+var backgroundColor = '$backgroundColor';
 var colorPie = $sColors;
 var colorBi = ['$color1'];//Main color for bars
 

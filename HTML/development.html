@@ -353,6 +353,7 @@ const TypeManage = Object.freeze({
   'PLAIN': 'PLAIN'
 });
 
+var backgroundColor = '#3b3f46';
 var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
 var colorBi = ['#26a7e9'];//Main color for bars
 
@@ -464,8 +465,8 @@ function setHeatMap() {
     .attr('fill', '#909090');
   
   var myColor = d3.scaleLinear()
-    .range(["#3B3F46", '#26A7DF'])
-    .domain([1, 33]);//Max value allowed
+    .range([backgroundColor, colorBi[0]])
+    .domain([1, maxValue]);
   svg
     .selectAll()
     .data(data, function(d) {return d.group+':'+d.name;})
@@ -489,10 +490,10 @@ function setHeatMap() {
     });
 
   //Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', 'year - axisY');
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
   
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', 'Area - axisX');
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
 }
 
 

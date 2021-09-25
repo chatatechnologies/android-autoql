@@ -37,8 +37,8 @@ object Heatmap
     .attr('fill', '#909090');
   
   var myColor = d3.scaleLinear()
-    .range(["#3B3F46", '#26A7DF'])
-    .domain([1, 33]);//Max value allowed
+    .range([backgroundColor, colorBi[0]])
+    .domain([1, maxValue]);
   svg
     .selectAll()
     .data(data, function(d) {return d.group+':'+d.name;})
@@ -62,10 +62,10 @@ object Heatmap
     });
 
   //Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', 'year - axisY');
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
   
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', 'Area - axisX');
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
 }
 """
 	}

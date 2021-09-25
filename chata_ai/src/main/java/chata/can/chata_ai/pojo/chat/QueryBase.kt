@@ -239,7 +239,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 
 						if (aColumn.size > 2)
 						{
-							var aBase = (0..1).toMutableList()
+							val aBase = (0..1).toMutableList()
 							var indexCount = -1
 							for (index in aColumn.indices)
 							{
