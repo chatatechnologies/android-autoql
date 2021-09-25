@@ -41,12 +41,12 @@ object Heatmap
     .domain([1, 33]);//Max value allowed
   svg
     .selectAll()
-    .data(data, function(d) {return d.group+':'+d.variable;})
+    .data(data, function(d) {return d.group+':'+d.name;})
     .enter()
     .append('rect')
-    .attr('id', function(item, i){ return `item_${'$'}{item.group}_${'$'}{item.variable}`;})
+    .attr('id', function(item, i){ return `item_${'$'}{item.group}_${'$'}{item.name}`;})
     .attr('x', function(d) { return x(d.group) })
-    .attr('y', function(d) { return y(d.variable) })
+    .attr('y', function(d) { return y(d.name) })
     .attr('width', x.bandwidth() )
     .attr('height', y.bandwidth() )
     .style('fill', function(d) { return myColor(d.value)} )
@@ -57,7 +57,7 @@ object Heatmap
       if (aData.length > 0)
       {
         var group = aData[1];
-        var variable = aData[2];
+        var name = aData[2];//before variable
       }
     });
 
@@ -65,7 +65,7 @@ object Heatmap
   addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', 'year - axisY');
   
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom - 85, '#808080', '', 'Area - axisX');  
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', 'Area - axisX');
 }
 """
 	}

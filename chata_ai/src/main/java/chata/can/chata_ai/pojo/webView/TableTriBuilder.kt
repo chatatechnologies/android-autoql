@@ -165,7 +165,7 @@ object TableTriBuilder
 			val value = item[2] as Double
 			val valueX = aCatX[posX]
 			val valueY = aCatY[posY]
-			val sRow = "{\'variable\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
+			val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
 			aRow.add(sRow)
 		}
 		return "$aRow"

@@ -253,8 +253,12 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 							aBase.remove(aIndex[0])
 							dataD3.yAxis = aColumn.getOrNull(aBase[0])?.displayName ?: ""
 						}
-						dataForWebView.yAxis = aColumn.getOrNull(
-							aIndex[1])?.displayName ?: ""
+						else
+						{
+							dataForWebView.yAxis = aColumn.getOrNull(
+								aIndex[1])?.displayName ?: ""
+							dataD3.yAxis = dataForWebView.yAxis
+						}
 					}
 					else ->
 					{
