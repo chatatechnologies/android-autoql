@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://unpkg.com/sticky-table-headers"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/broken-axis.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+</head>
+<body>
+<style type="text/css">
+    body, table, th{
+        background: #3b3f46!important;
+        color: #ffffff!important;
+    }
+    table {
+        padding-top: 0px!important;
+    }
+    th {
+        position: sticky;
+        top: 0px;
+        z-index: 10;
+        padding: 10px 3px 5px 3px;
+    }
+    table {
+        display: table;
+        min-width: 100%;
+        white-space: nowrap;
+        border-collapse: separate;
+        border-spacing: 0px!important;
+        border-color: grey;
+    }
+    table {
+        font-size: 16px;
+    }
+    tr td:first-child {
+        text-align: center;
+    }
+    td {
+        padding: 3px;
+        text-align: center!important;
+    }
+    td, th {
+      font-size: 16px;
+      max-width: 200px;
+      white-space: nowrap;
+      width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 0.5px solid #cccccc;
+    }
+    /*border for svg*/
+    .green{
+        color: #2ecc40;
+    }
+    .red {
+        color: red;
+    }
+    .highcharts-credits,.highcharts-button-symbol, .highcharts-exporting-group {
+        display: none;
+    }
+    .highcharts-background{
+        fill: #3b3f46!important;
+    }
+    .splitView{
+        position: relative;
+    }
+		tfoot {
+        /*display: table-header-group;*/
+				display: none;
+    }
+		.empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: #ffffff!important;
+    }
+    .alert-icon {
+      font-size: 20px;
+      color: #ffffff!important;
+    }
+</style>
+<div class="splitView">
+<div id='container' class='container'></div>
+    <table id="idTableDataPivot"><thead><tr><th>year</th><th>Bates Trucking</th><th>Northern Alberta</th><th>Southern Alberta</th><th>ABC Truckline</th><th>Louisiana</th><th>Midland, TX</th><th>Pecos, TX</th><th>Pleasanton, TX</th><th>Prime Trucking</th><th>Texas</th><th>Wyoming - Douglas Yard</th><th>Central Saskatchewan</th><th>Northern BC</th><th>Northern Saskatchewan</th></tr></thead><tfoot><tr><th>year</th><th>Bates Trucking</th><th>Northern Alberta</th><th>Southern Alberta</th><th>ABC Truckline</th><th>Louisiana</th><th>Midland, TX</th><th>Pecos, TX</th><th>Pleasanton, TX</th><th>Prime Trucking</th><th>Texas</th><th>Wyoming - Douglas Yard</th><th>Central Saskatchewan</th><th>Northern BC</th><th>Northern Saskatchewan</th></tr></tfoot><tbody><tr><td>2021</td><td>1</td><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2020</td><td></td><td>2</td><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2019</td><td>1</td><td>10</td><td>1</td><td>2</td><td>2</td><td>4</td><td>2</td><td>1</td><td>1</td><td>2</td><td>2</td><td></td><td></td><td></td></tr><tr><td>2018</td><td>9</td><td>16</td><td></td><td>33</td><td>4</td><td>12</td><td>3</td><td></td><td></td><td>6</td><td></td><td>6</td><td>2</td><td>1</td></tr><tr><td>2017</td><td>6</td><td>19</td><td>14</td><td>18</td><td>7</td><td>20</td><td>4</td><td>4</td><td>2</td><td>16</td><td></td><td>5</td><td>5</td><td>1</td></tr><tr><td>2016</td><td></td><td>7</td><td>10</td><td></td><td>14</td><td>1</td><td></td><td></td><td></td><td>7</td><td></td><td>6</td><td></td><td></td></tr></tbody></table>
+    <table id="idTableBasic"><thead><tr><th>Area</th><th>year</th><th>Number of Jobs</th></tr></thead><tfoot><tr><th>Area</th><th>year</th><th>Number of Jobs</th></tr></tfoot><tbody><tr><td>Bates Trucking</td><td>2021</td><td>1</td></tr><tr><td>Northern Alberta</td><td>2021</td><td>2</td></tr><tr><td>Northern Alberta</td><td>2020</td><td>2</td></tr><tr><td>Southern Alberta</td><td>2020</td><td>1</td></tr><tr><td>ABC Truckline</td><td>2019</td><td>2</td></tr><tr><td>Bates Trucking</td><td>2019</td><td>1</td></tr><tr><td>Louisiana</td><td>2019</td><td>2</td></tr><tr><td>Midland, TX</td><td>2019</td><td>4</td></tr><tr><td>Northern Alberta</td><td>2019</td><td>10</td></tr><tr><td>Pecos, TX</td><td>2019</td><td>2</td></tr><tr><td>Pleasanton, TX</td><td>2019</td><td>1</td></tr><tr><td>Prime Trucking</td><td>2019</td><td>1</td></tr><tr><td>Southern Alberta</td><td>2019</td><td>1</td></tr><tr><td>Texas</td><td>2019</td><td>2</td></tr><tr><td>Wyoming - Douglas Yard</td><td>2019</td><td>2</td></tr><tr><td>ABC Truckline</td><td>2018</td><td>33</td></tr><tr><td>Bates Trucking</td><td>2018</td><td>9</td></tr><tr><td>Central Saskatchewan</td><td>2018</td><td>6</td></tr><tr><td>Louisiana</td><td>2018</td><td>4</td></tr><tr><td>Midland, TX</td><td>2018</td><td>12</td></tr><tr><td>Northern Alberta</td><td>2018</td><td>16</td></tr><tr><td>Northern BC</td><td>2018</td><td>2</td></tr><tr><td>Northern Saskatchewan</td><td>2018</td><td>1</td></tr><tr><td>Pecos, TX</td><td>2018</td><td>3</td></tr><tr><td>Texas</td><td>2018</td><td>6</td></tr><tr><td>ABC Truckline</td><td>2017</td><td>18</td></tr><tr><td>Bates Trucking</td><td>2017</td><td>6</td></tr><tr><td>Central Saskatchewan</td><td>2017</td><td>5</td></tr><tr><td>Louisiana</td><td>2017</td><td>7</td></tr><tr><td>Midland, TX</td><td>2017</td><td>20</td></tr><tr><td>Northern Alberta</td><td>2017</td><td>19</td></tr><tr><td>Northern BC</td><td>2017</td><td>5</td></tr><tr><td>Northern Saskatchewan</td><td>2017</td><td>1</td></tr><tr><td>Pecos, TX</td><td>2017</td><td>4</td></tr><tr><td>Pleasanton, TX</td><td>2017</td><td>4</td></tr><tr><td>Prime Trucking</td><td>2017</td><td>2</td></tr><tr><td>Southern Alberta</td><td>2017</td><td>14</td></tr><tr><td>Texas</td><td>2017</td><td>16</td></tr><tr><td>Central Saskatchewan</td><td>2016</td><td>6</td></tr><tr><td>Louisiana</td><td>2016</td><td>14</td></tr><tr><td>Midland, TX</td><td>2016</td><td>1</td></tr><tr><td>Northern Alberta</td><td>2016</td><td>7</td></tr><tr><td>Southern Alberta</td><td>2016</td><td>10</td></tr><tr><td>Texas</td><td>2016</td><td>7</td></tr></tbody></table>
+</div>
+<script>
+    var type = '#idTableBasic';//stacked_column
+    var xAxis = 'Area';
+    var yAxis = '';
+		
+    var dataChartBi = [{data: [1.0, 0.0, 1.0, 9.0, 6.0, 0.0]},
+{data: [2.0, 2.0, 10.0, 16.0, 19.0, 7.0]},
+{data: [0.0, 1.0, 1.0, 0.0, 14.0, 10.0]},
+{data: [0.0, 0.0, 2.0, 33.0, 18.0, 0.0]},
+{data: [0.0, 0.0, 2.0, 4.0, 7.0, 14.0]},
+{data: [0.0, 0.0, 4.0, 12.0, 20.0, 1.0]},
+{data: [0.0, 0.0, 2.0, 3.0, 4.0, 0.0]},
+{data: [0.0, 0.0, 1.0, 0.0, 4.0, 0.0]},
+{data: [0.0, 0.0, 1.0, 0.0, 2.0, 0.0]},
+{data: [0.0, 0.0, 2.0, 6.0, 16.0, 7.0]},
+{data: [0.0, 0.0, 2.0, 0.0, 0.0, 0.0]},
+{data: [0.0, 0.0, 0.0, 6.0, 5.0, 6.0]},
+{data: [0.0, 0.0, 0.0, 2.0, 5.0, 0.0]},
+{data: [0.0, 0.0, 0.0, 1.0, 1.0, 0.0]}];
+    var datachartTri = [[0, 5, 1.0], [1, 5, 2.0], [1, 4, 2.0], [2, 4, 1.0], [3, 3, 2.0], [0, 3, 1.0], [4, 3, 2.0], [5, 3, 4.0], [1, 3, 10.0], [6, 3, 2.0], [7, 3, 1.0], [8, 3, 1.0], [2, 3, 1.0], [9, 3, 2.0], [10, 3, 2.0], [3, 2, 33.0], [0, 2, 9.0], [11, 2, 6.0], [4, 2, 4.0], [5, 2, 12.0], [1, 2, 16.0], [12, 2, 2.0], [13, 2, 1.0], [6, 2, 3.0], [9, 2, 6.0], [3, 1, 18.0], [0, 1, 6.0], [11, 1, 5.0], [4, 1, 7.0], [5, 1, 20.0], [1, 1, 19.0], [12, 1, 5.0], [13, 1, 1.0], [6, 1, 4.0], [7, 1, 4.0], [8, 1, 2.0], [2, 1, 14.0], [9, 1, 16.0], [11, 0, 6.0], [4, 0, 14.0], [5, 0, 1.0], [1, 0, 7.0], [2, 0, 10.0], [9, 0, 7.0]];
+		
+    var dataChartLine = [{"data":[0,6,9,1,0,1],"name":"Bates Trucking"}, {"data":[7,19,16,10,2,2],"name":"Northern Alberta"}, {"data":[10,14,0,1,1,0],"name":"Southern Alberta"}, {"data":[0,18,33,2,0,0],"name":"ABC Truckline"}, {"data":[14,7,4,2,0,0],"name":"Louisiana"}, {"data":[1,20,12,4,0,0],"name":"Midland, TX"}, {"data":[0,4,3,2,0,0],"name":"Pecos, TX"}, {"data":[0,4,0,1,0,0],"name":"Pleasanton, TX"}, {"data":[0,2,0,1,0,0],"name":"Prime Trucking"}, {"data":[7,16,6,2,0,0],"name":"Texas"}, {"data":[0,0,0,2,0,0],"name":"Wyoming - Douglas Yard"}, {"data":[6,5,6,0,0,0],"name":"Central Saskatchewan"}, {"data":[0,5,2,0,0,0],"name":"Northern BC"}, {"data":[0,1,1,0,0,0],"name":"Northern Saskatchewan"}];
+		var categoriesX = ["Bates Trucking", "Northern Alberta", "Southern Alberta", "ABC Truckline", "Louisiana", "Midland, TX", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Texas", "Wyoming - Douglas Yard", "Central Saskatchewan", "Northern BC", "Northern Saskatchewan"];
+		var categoriesY = ["2016", "2017", "2018", "2019", "2020", "2021"];
+		
+    var drillX = ["Bates Trucking", "Northern Alberta", "Northern Alberta", "Southern Alberta", "ABC Truckline", "Bates Trucking", "Louisiana", "Midland, TX", "Northern Alberta", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Southern Alberta", "Texas", "Wyoming - Douglas Yard", "ABC Truckline", "Bates Trucking", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Northern BC", "Northern Saskatchewan", "Pecos, TX", "Texas", "ABC Truckline", "Bates Trucking", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Northern BC", "Northern Saskatchewan", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Southern Alberta", "Texas", "Central Saskatchewan", "Louisiana", "Midland, TX", "Northern Alberta", "Southern Alberta", "Texas"];
+    var drillY = [1, 2, 4, 10, 33, 9, 6, 12, 16, 3, 18, 5, 7, 20, 19, 14];
+		
+    //array source target
+    var drillTableY = [1, 2, 2, 1, 2, 1, 2, 4, 10, 2, 1, 1, 1, 2, 2, 33, 9, 6, 4, 12, 16, 2, 1, 3, 6, 18, 6, 5, 7, 20, 19, 5, 1, 4, 4, 2, 14, 16, 6, 14, 1, 7, 10, 7];
+    var drillSpecial = [1, 2, 4, 10, 33, 9, 6, 12, 16, 3, 18, 5, 7, 20, 19, 14];
+    var colorAxis = "#ffffff";
+    var colorFill = "#3b3f46";
+		var color1 = "#26a7e9";
+		var actual = "";
+		var colors = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
+		var chart;
+		var colorGhost = 'rgba(0,0,0,0)';
+		var styleTooltip = {color: '#fff', display: 'none'}
+		var subTitle = { text:'' }
+		var yAxisTitle = {
+        title: {
+            text: yAxis,
+            style: {
+                    color: colorAxis
+            }
+        }
+      }
+    var xAxisStyle = { color: colorAxis };
+    var defaultChart =
+      {
+        chart: {
+          backgroundColor: colorGhost,
+          fill: colorGhost,
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "column"
+        },
+        title: subTitle,
+        subTitle: subTitle,
+        xAxis: {
+          gridLineWidth: 0,
+          categories: categoriesX,
+          labels: {
+		        rotation: -60,
+		        style: {
+		            color: colorAxis,
+		             fontSize:'16px'
+		        },
+		        formatter: function(){
+		         return formatterLabel(this.value);
+		        }
+		       },
+          title: {
+            text: xAxis,
+            style: {
+                    color: colorAxis
+                }
+          }
+        },
+        yAxis: {
+          gridLineWidth: 0,
+          labels: {
+            style: {
+                color: colorAxis,
+                fontSize:'16px'
+            }
+          },
+          title: yAxisTitle
+        },
+        colorAxis: {
+          reversed: false,
+          min: 0,
+          minColor: '#FFFFFF',
+          maxColor: '#26a7df'
+        },
+        showInLegend: true,
+        legend: false,
+        dataLabels: {
+          enabled: false
+        },
+        tooltip: {
+          backgroundColor: colorGhost,
+          style: styleTooltip,
+          formatter: function () {
+            if (dataChartBi.length > 0){
+                 drillDown(drillX[this.point.x])
+            } else{
+                 drillDown(drillX[this.point.y]);
+            }
+            return "";
+          }
+        },
+        plotOptions: {
+          pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false,
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          },
+            showInLegend: true
+          }
+        },
+        colors: colors,
+        series: [0]
+      };
+            $('td').click(function() {
+            triTypeTable = datachartTri.length > 0;
+            var $this = $(this);
+            var row = $this.closest('tr').index();
+            var column = $this.closest('td').index();
+            var firstColumn = $this.closest('tr');
+            var finalText = firstColumn[0].firstChild.innerText;
+            var strDate = firstColumn[0].children[1].innerText;
+            if (type == "#idTableDataPivot" ){
+                finalText = firstColumn[0].children[column].children[0].innerText;
+            } else if (type == "idTableDatePivot" ) {
+                finalText = $this[0].childNodes[0].id
+            } else if ((type == "#idTableBasic" && triTypeTable) || (type == "idTableBasic" && triTypeTable) ) {
+              console.log('1')
+                finalText += "_"+drillTableY[row];
+            } else {
+                var index = categoriesX.indexOf(finalText)
+                finalText = drillX[index]
+            }
+            //var d = new Date( Date.parse('2017 2') );
+           drillDown( finalText );
+    });
+		function formatterLabel(value) {
+      if (value.length > 7) {
+        return value.slice(0, 7) + "...";
+      }
+     return value;
+    }
+    function drillDown(position){
+        try {
+            Android.boundMethod(position);
+        } catch(err) {
+            console.log(position);
+        };
+    }
+    function changeGraphic(graphic) {
+       if (graphic == "idTableBasic" || graphic == "idTableDataPivot" || graphic == "idTableDatePivot"){
+           typeTable()
+       }
+       else{
+           typeChart(graphic)
+       }
+    }
+    function typeTable(){
+       //$('#container').hide(400);
+    }
+    function finalSize(invert){
+        var defaultWidth = "100%";
+        var defaultHeight = "90%";
+        var dynamicWidthSize = ""+categoriesX.length * 10+"%";
+        var widthSize = categoriesX.length <= 10 ? defaultWidth : dynamicWidthSize;
+        var dynamicHeightSize = ""+categoriesY.length * 10+"%";
+        var heightSize = categoriesY.length <= 10 ? defaultHeight : dynamicHeightSize;
+        var heightSizeFinal = invert ? heightSize : defaultHeight;
+        $('.container, #container').css({ "width": widthSize, "position": "relative","height":heightSizeFinal, "z-index": "0" });
+    }
+    function typeChart(graphic){
+       var inverted = graphic == "column" || graphic == "line" ? false : true;
+       switch (graphic)
+       {
+           case "pie":
+                pieType();
+                break;
+           case "line":
+                lineType();
+               break;
+           case "word_cloud":
+               cloudType();
+               break;
+           case "column":
+           case "bar":
+                biType(graphic,inverted);
+                break;
+           case "contrast_bar":
+           case "contrast_line":
+           case "contrast_column":
+               biType3(graphic,inverted);
+                break;
+           case "forecasting":
+           case "status_forecasting":
+               foresType(graphic);
+               break;
+           case "bubble":
+           case "heatmap":
+                triType(graphic);
+                break;
+           case "stacked_bar":
+                stackedType(true);
+                break;
+           case "stacked_column":
+                stackedType(false);
+                break;
+           case "stacked_area":
+           case "stacked_line":
+                stackedArea();
+                break;
+        }
+    }
+            function pieType(){
+       $('.container, #container').css({ "width": "99%", "position": "relative","height":"80%", "z-index": "0" });
+       var newCategory = categoriesX;
+       var chartBiSeries = {
+        chart: {
+          backgroundColor: colorGhost,
+          fill: colorGhost,
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "pie",
+          inverted: false
+        },
+        title: subTitle,
+        subTitle: subTitle,
+        xAxis: {
+          gridLineWidth: 0,
+          categories: categoriesX,
+          labels: {
+		        rotation: -60,
+		        style: {
+		            color: colorAxis,
+		             fontSize:'16px'
+		        },
+		        formatter: function(){
+		         return formatterLabel(this.value);
+		        }
+		       },
+          title: {
+            text: xAxis,
+            style: {
+                    color: colorAxis
+                }
+          }
+        },
+        yAxis: {
+          gridLineWidth: 0,
+          labels: {
+            style: {
+                color: colorAxis,
+                fontSize:'16px'
+            }
+          },
+          title: yAxisTitle
+        },
+        colorAxis: {
+          reversed: false,
+          min: 0,
+          minColor: '#FFFFFF',
+          maxColor: '#26a7df'
+        },
+        showInLegend: true,
+        legend: false,
+        dataLabels: {
+          enabled: false
+        },
+        tooltip: {
+          backgroundColor: colorGhost,
+          style: styleTooltip,
+          formatter: function () {
+            if (dataChartBi.length > 0){
+                 drillDown(drillX[this.point.x])
+            } else{
+                 drillDown(drillX[this.point.y]);
+            }
+            return "";
+          }
+        },
+        plotOptions: {
+          pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: false,
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          },
+            showInLegend: true
+          }
+        },
+        colors: colors
+      };
+
+       chart.destroy()
+      if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+      } else {
+        var dataPie = Array.of(dataChartBi[0]);
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataPie
+
+        chart = Highcharts.chart('container', chartBiSeries);
+      }
+    }
+    function lineType(){
+        finalSize(false);
+        if (dataChartBi.length > 0){
+            biType("line",false);
+        }else{
+            chart.destroy();
+                chart = Highcharts.chart('container', {
+                    colors: colors,
+                    title: subTitle,
+                    subTitle: subTitle,
+                    yAxis: {
+                        title: {
+                            text: yAxis
+                        },
+                        labels: {
+                           style: {
+                               color: colorAxis,
+                           }
+                         },
+                    },
+                    legend: {
+                               itemStyle: {
+                                   color: colorAxis,
+                                   fontWeight: 'bold'
+                               }
+                           },
+                    xAxis: {
+                        categories: categoriesX,
+                        legend:{
+                            step:1
+                        },
+                        labels: {
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:'16px'
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
+                        title: {
+                            text: xAxis,
+                            style: {
+                               color: colorAxis,
+                               fontSize:'16px'
+                           }
+                        }
+                    },
+                    chart: {
+                        type: "line"
+                    },
+                    series: dataChartLine,
+                    tooltip: {
+                        formatter: function () {
+                            var position = categoriesY.indexOf(this.series.name);
+                            drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
+                            return "";
+                        }
+                    },
+                });
+                
+        }
+    }
+function biType(type,inverted) {
+    var newCategory = categoriesX;
+		if (datachartTri.length > 0) {
+      newCategory = categoriesY
+    }
+    var chartBiSeries = {
+        chart: {
+            type: type,
+            inverted: inverted
+        },
+        xAxis: {
+            gridLineWidth: 0,
+            categories: newCategory,
+            labels: {
+                rotation: -60,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                },
+                formatter: function() {
+                    return formatterLabel(this.value);
+                }
+            },
+            title: {
+                text: xAxis
+            }
+        },
+        yAxis: {
+            gridLineWidth: 0,
+            //min: 0, TODO
+            //max: 33, TODO
+            title: {
+                text: yAxis,
+                style: {
+                    color: colorAxis,
+                    fontSize:'16px'
+                }
+            }
+        },
+        tooltip: {
+            backgroundColor: colorGhost,
+            style: styleTooltip,
+            formatter: function () {
+                var colorIndex = this.colorIndex;
+                var x = this.point.x;
+                var suffix = "";
+                if (! (dataChartBi[0] instanceof Array)) {
+                    suffix = "_" + colorIndex;
+                }
+                drillDown(drillX[x] + suffix);
+                return "";
+            }
+        }
+    };
+    if (categoriesX.length == 1 && newCategory[0] === "") {
+        var newCategory = categoriesY;
+    }
+    finalSize(inverted);
+    chart.destroy();
+    if (dataChartBi[0] instanceof Array) {
+        chart = Highcharts.chart('container', defaultChart);
+        chartBiSeries.series = {
+            colorByPoint: false,
+            name: newCategory,
+            data: dataChartBi
+        }
+        chart.update(chartBiSeries);
+    } else {
+        chartBiSeries.title = subTitle
+        chartBiSeries.subTitle = subTitle
+        chartBiSeries.showInLegend = true
+        chartBiSeries.legend = false
+        chartBiSeries.colors = colors
+        chartBiSeries.series = dataChartBi
+
+        chart = Highcharts.chart('container', chartBiSeries);
+    }
+}
+    function biType3(type,inverted){
+        finalSize(inverted);
+        typeFinal = type.replace("contrast_", "");
+        chart.destroy()
+                chart = Highcharts.chart('container', {
+                    chart: {
+                        type: typeFinal
+                    },
+                    colors: colors,
+                    xAxis: {
+                         gridLineWidth: 0,
+                         categories: categoriesX,
+                         labels: {
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:'16px'
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
+                         title: {
+                           text: xAxis
+                         }
+                       },
+                    series: dataChartLine
+                });
+    }
+            function triType(type){
+        finalSize(false);
+        chart.destroy();
+                chart = Highcharts.chart('container', {
+                    chart: {
+                        type: type,
+                        inverted: true
+                    },
+                    title: subTitle,
+                    subTitle: subTitle,
+                    xAxis: {
+											min: 0,
+                        gridLineWidth: 0,
+                        categories: categoriesX,
+                        labels: {
+									        rotation: -60,
+									        style: {
+									            color: colorAxis,
+									             fontSize:'16px'
+									        },
+									        formatter: function(){
+									         return formatterLabel(this.value);
+									        }
+									       },
+                        title: {
+                            text: xAxis
+                        }
+                    },
+                    yAxis: {
+                        min: 0,
+                        gridLineWidth: 0,
+                        categories: categoriesY,
+                        title: {
+                            text: yAxis
+                        },
+                        labels: {
+                           style: {
+                               color: colorAxis
+                           }
+                         },
+                    },
+                    colorAxis: {
+                        reversed: false,
+                        min: 0,
+                        minColor: colorFill,
+                        maxColor: colors[0]
+                    },
+                    legend: {
+                        align: 'right',
+                        layout: 'vertical',
+                        margin: 0,
+                        reversed: false,
+                        verticalAlign: 'middle'
+                    },
+                    tooltip: {
+                        backgroundColor: colorGhost,
+                         style: styleTooltip,
+                        formatter: function () {
+                             drillDown(""+categoriesX[this.point.x]+"_"+drillY[this.point.y])
+                            return "";
+                        }
+                    },
+                    series: [{
+                            colorByPoint: false,
+                            dataLabels: {
+                                enabled: false
+                            },
+                            data: datachartTri
+                   }]
+                });
+    }
+    
+    function stackedType(invert){
+        finalSize(invert);
+        var rotation = invert ? 10 : 40
+        chart.destroy();
+        chart = Highcharts.chart('container', {
+            chart: {
+                type: 'column',
+                inverted: invert
+            },
+            title: subTitle,
+            subTitle: subTitle,
+            yAxis: {
+                title: {
+                    text: yAxis
+                },
+                labels: {
+                    style: {
+                        color: colorAxis,
+                    }
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            xAxis: {
+                tickInterval: 1,
+                breaks: [{
+                    from: -1,
+                    to: -1,
+                    breakSize: 1
+                }],
+                categories: categoriesY,
+                labels: {
+                    rotation: -60,
+                    style: {
+                        color: colorAxis,
+                        fontSize:'16px'
+                    },
+                    formatter: function(){
+                        return formatterLabel(this.value);
+                    }
+                },
+                title: {
+                    text: xAxis
+                }
+            },
+            dataLabels: {
+                enabled: false,
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            },
+            tooltip: {
+                backgroundColor: colorGhost,
+                style: styleTooltip,
+                formatter: function () {
+                    var position = categoriesY.indexOf(this.series.name);
+                    drillDown(""+drillX[this.point.x]+"_"+drillY[position]);
+                    return "";
+                }
+            },
+            colors: colors,
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            series: dataChartLine
+        });
+    }
+function stackedArea(){
+    
+    var rotation = 40
+    chart.destroy();
+            chart = Highcharts.chart('container', {
+                chart: {
+                    type: "area",
+                    inverted: false
+                },
+                title: subTitle,
+                subTitle: subTitle,
+                yAxis: {
+                    title: {
+                        text: yAxis
+                    },
+                    labels: {
+                       style: {
+                           color: colorAxis,
+                       }
+                     },
+                },
+                legend: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: categoriesX,
+                    labels: {
+							        rotation: -60,
+							        style: {
+							            color: colorAxis,
+							             fontSize:'16px'
+							        },
+							        formatter: function(){
+							         return formatterLabel(this.value);
+							        }
+							       },
+                    title: {
+                        text: xAxis
+                    }
+                },
+                dataLabels: {
+                    enabled: false,
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                tooltip: {
+                     backgroundColor: colorGhost,
+                     style: styleTooltip,
+                     formatter: function () {
+                         var position = categoriesY.indexOf(this.series.name);
+                         console.log(position);
+                         drillDown(""+categoriesX[this.point.x]+"_"+drillY[position]);
+                       return "";
+                     }
+                   },
+                colors: [colors[0]],
+                plotOptions: {
+                    column: {
+                        stacking: 'normal'
+                    }
+                },
+                series: dataChartLine
+            });
+}
+startScript();
+function startScript() {
+    chart = Highcharts.chart('container', defaultChart);
+}
+hideAll();
+function hideAll(){
+    $('table').css({ "width": "100%", "position": "relative","height":"90%", "z-index": "0" });
+    $( "#idTableBasic, #idTableDataPivot, #idTableDatePivot, #container" ).hide();
+    if (type == "#idTableBasic" || type == "#idTableDataPivot" || type == "#idTableDatePivot"){
+        $(""+type+"").show()
+    } else{
+        $("#container").show()
+        changeGraphic(type);
+        if (false){
+            $( "#idTableBasic").show()
+        }
+    }
+}
+function hideTables(idHide, idShow, type2) {
+    if (idHide != idShow){
+      $( idHide ).hide(0);
+      $( idShow ).show(0);
+    }
+    //$( idShow ).show("slow");
+    type = type2;
+    changeGraphic(type2);
+}
+$('#idTableBasic tfoot th').each(function () {
+    var indexInput = $(this).index();
+    var title = $(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_Basic';
+	$(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="filter column..."/>');
+
+    $("#" + idInput).on('input', function () {
+        var filter = $(this).val().toUpperCase();
+        var table = document.getElementById("idTableBasic");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+$('#idTableDataPivot tfoot th').each(function () {
+    var indexInput = $(this).index();
+    var title = $(this).text();
+    var idInput = title.replace(' ', '_').replace('(', '_').replace(')', '_').replace('&', '_') + '_DataPivot';
+	$(this).html(
+        '<input id=' + idInput +
+        ' type="text" placeholder="Search on ' + title + '"/>');
+
+    $("#" + idInput).on('input', function () {
+        var filter = $(this).val().toUpperCase();
+        var table = document.getElementById("idTableDataPivot");
+        var tr = table.getElementsByTagName("tr");
+
+        for (index = 0; index < tr.length; index++) {
+            td = tr[index].getElementsByTagName("td")[indexInput];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+            }
+        }
+    });
+});
+function showFilter() {
+	if ( $('tfoot').is(':visible') ) {
+		$('tfoot').css({'display': 'none'});
+	} else {
+		$('tfoot').css({'display': 'table-header-group'});
+	}
+}
+</script>
+</body>
+</html>
