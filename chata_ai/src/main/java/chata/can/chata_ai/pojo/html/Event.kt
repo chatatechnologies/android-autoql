@@ -12,7 +12,10 @@ ${'$'}('td').click(function() {
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
   var index = aCategoryX.indexOf(finalText);
-  finalText = drillX[index];
+  if (typeChart == TypeEnum.TABLE && nColumns == 3)
+    finalText += `_${'$'}{drillTableY[row]}`;
+  else
+    finalText = drillX[index];
   drillDown(finalText);
 });"""
 	}

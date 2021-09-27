@@ -1341,7 +1341,8 @@ $('td').click(function() {
   var index = aCategoryX.indexOf(finalText);
   if (typeChart == TypeEnum.TABLE && nColumns == 3)
   {
-    finalText += `_${drillTableY[row]}`;
+    var secondCell = firstColumn[0].children[1].innerText;
+    finalText += `_${secondCell}`;
   }
   else
     finalText = drillX[index];
