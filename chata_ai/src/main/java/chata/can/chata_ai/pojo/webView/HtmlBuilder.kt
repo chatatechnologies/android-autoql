@@ -477,7 +477,7 @@ object HtmlBuilder
 					val mDrillData = LinkedHashMap<String, String>()
 					val aIndexCommon = queryBase.aCommon.map { it.first }
 
-					queryBase.mSourceDrill = linkedMapOf()
+					queryBase.mSourceDrill.clear()
 					for (index in aIndexCommon)
 					{
 						val multiData = MultiData.getMultiData(aDataY, aColumn, aRows, index)
