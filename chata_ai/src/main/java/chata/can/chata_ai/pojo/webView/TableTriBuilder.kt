@@ -153,21 +153,34 @@ object TableTriBuilder
 	}
 
 	fun getData3Dimensions(
+		mData: LinkedHashMap<String, String>,
 		aDataValue: ArrayList< ArrayList<Any> >,
 		aCatX: ArrayList<String>,
 		aCatY: ArrayList<String>): String
 	{
 		val aRow = ArrayList<String>()
-		for (item in aDataValue)
+		for (posX in aCatX.indices)
 		{
-			val posX = item[0] as Int
-			val posY = item[1] as Int
-			val value = item[2] as Double
-			val valueX = aCatX[posX]
-			val valueY = aCatY[posY]
-			val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
-			aRow.add(sRow)
+			for (posY in aCatY.indices)
+			{
+				val cell = mData["${posX}_$posY"] ?: run { "0.0" }
+				val valueX = aCatX[posX]
+				val valueY = aCatY[posY]
+				val value = cell.toDoubleNotNull()
+				val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
+				aRow.add(sRow)
+			}
 		}
+//		for (item in aDataValue)
+//		{
+//			val posX = item[0] as Int
+//			val posY = item[1] as Int
+//			val value = item[2] as Double
+//			val valueX = aCatX[posX]
+//			val valueY = aCatY[posY]
+//			val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
+//			aRow.add(sRow)
+//		}
 		return "$aRow"
 	}
 }

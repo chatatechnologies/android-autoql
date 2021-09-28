@@ -370,7 +370,7 @@ class WebViewHolder(
 				{
 					R.id.ivTable ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#idTableBasic"
 //						Pair("'$idHide', '#idTableBasic', ''", queryBase.rowsTable)
 						Pair("TypeEnum.TABLE", queryBase.rowsTable)
@@ -425,7 +425,7 @@ class WebViewHolder(
 					}
 					R.id.ivPie ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#container"
 //						Pair("'$idHide', '#container', 'pie'", factorHeight)
 						Pair("TypeEnum.PIE", factorHeight)
@@ -438,14 +438,14 @@ class WebViewHolder(
 					}
 					R.id.ivHeat ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#container"
 						//Pair("'$idHide', '#container', 'heatmap'", factorHeight)
 						Pair("TypeEnum.HEATMAP", factorHeight)
 					}
 					R.id.ivPivot ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#idTableDataPivot"
 //						Pair("'$idHide', '#idTableDataPivot', '#idTableDataPivot'", queryBase.rowsPivot)
 						Pair("TypeEnum.PIVOT", queryBase.rowsPivot)
