@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.webView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.html.Actions.getActions
 import chata.can.chata_ai.pojo.html.Bar.getBar
+import chata.can.chata_ai.pojo.html.Bubble.getBubble
 import chata.can.chata_ai.pojo.html.Column.getColumn
 import chata.can.chata_ai.pojo.html.Donut.getDonut
 import chata.can.chata_ai.pojo.html.Event.getEvents
@@ -108,6 +109,7 @@ ${dataD3.pivot}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3, backgroundColor)}
+${getBubble()}
 ${getHeatmap()}
 ${getMultiBar()}
 ${getMultiColumn()}

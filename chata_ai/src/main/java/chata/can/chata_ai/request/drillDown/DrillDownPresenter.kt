@@ -60,14 +60,6 @@ class DrillDownPresenter(
 						}
 					}
 				}
-//				for (index in queryBase.aIndex)
-//				{
-//					val column = queryBase.aColumn[index]
-//					if (column.isGroupable)
-//					{
-//						aColumns.add(hashMapOf("name" to column.name, "value" to aValues[iterator++]))
-//					}
-//				}
 				mParams["translation"] = "include"
 				mParams["test"] = true
 				mParams["columns"] = aColumns

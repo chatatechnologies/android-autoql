@@ -38,7 +38,7 @@ object Heatmap
   
   var myColor = d3.scaleLinear()
     .range([backgroundColor, colorBi[0]])
-    .domain([1, maxValue]);
+    .domain([0, maxValue]);
   svg
     .selectAll()
     .data(data, function(d) {return d.group+':'+d.name;})
