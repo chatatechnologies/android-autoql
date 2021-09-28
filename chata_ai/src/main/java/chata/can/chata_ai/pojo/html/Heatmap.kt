@@ -44,7 +44,7 @@ object Heatmap
     .data(data, function(d) {return d.group+':'+d.name;})
     .enter()
     .append('rect')
-    .attr('id', function(item, i){ return `item_${'$'}{item.group}_${'$'}{item.name}`;})
+    .attr('id', function(item, i){ return `${'$'}{item.name}_${'$'}{item.group}`;})
     .attr('x', function(d) { return x(d.group) })
     .attr('y', function(d) { return y(d.name) })
     .attr('width', x.bandwidth() )
@@ -52,13 +52,7 @@ object Heatmap
     .style('fill', function(d) { return myColor(d.value)} )
     .on('click', function(d) {
       var idParent = this.id;
-      console.log(idParent);
-      var aData = idParent.split('_');
-      if (aData.length > 0)
-      {
-        var group = aData[1];
-        var name = aData[2];//before variable
-      }
+			drillDown(idParent);
     });
 
   //Add X axis label:
