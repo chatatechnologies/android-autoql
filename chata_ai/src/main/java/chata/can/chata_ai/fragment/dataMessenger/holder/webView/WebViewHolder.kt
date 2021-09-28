@@ -440,7 +440,8 @@ class WebViewHolder(
 					{
 						val idHide = lastId
 						lastId = "#container"
-						Pair("'$idHide', '#container', 'heatmap'", factorHeight)
+						//Pair("'$idHide', '#container', 'heatmap'", factorHeight)
+						Pair("TypeEnum.HEATMAP", factorHeight)
 					}
 					R.id.ivPivot ->
 					{
