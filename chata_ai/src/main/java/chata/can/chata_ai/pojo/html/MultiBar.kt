@@ -4,8 +4,7 @@ object MultiBar
 {
 	fun getMultiBar(): String
 	{
-		return """
-function setMultiBar() {
+		return """function setMultiBar() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${'$'}{margin.bottom}, ${'$'}{margin.top})`);
 
@@ -122,6 +121,7 @@ function setMultiBar() {
       }
     }
   }
-}"""
+}
+"""
 	}
 }

@@ -4,8 +4,7 @@ object MultiLines
 {
 	fun getMultiLine(): String
 	{
-		return """
-function setMultiLine() {
+		return """function setMultiLine() {
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
@@ -138,6 +137,7 @@ function setMultiLine() {
       }
     }
   }
-}"""
+}
+"""
 	}
 }

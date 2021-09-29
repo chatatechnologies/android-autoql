@@ -4,8 +4,7 @@ object Column
 {
 	fun getColumn(): String
 	{
-		return """
-function setColumn() {
+		return """function setColumn() {
   var svg = d3.select('body').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)

@@ -4,8 +4,7 @@ object MultiColumn
 {
 	fun getMultiColumn(): String
 	{
-		return """
-function setMultiColumn() {
+		return """function setMultiColumn() {
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
@@ -120,6 +119,7 @@ function setMultiColumn() {
       }
     }
   }
-}"""
+}
+"""
 	}
 }

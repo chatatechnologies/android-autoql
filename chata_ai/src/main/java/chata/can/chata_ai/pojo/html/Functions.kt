@@ -126,6 +126,9 @@ function updateData(tmpChart, isReload) {
 				case TypeEnum.HEATMAP:
 					setHeatMap();
 					break;
+				case TypeEnum.BUBBLE:
+          setBubble();
+          break;
       }
       break;
   }

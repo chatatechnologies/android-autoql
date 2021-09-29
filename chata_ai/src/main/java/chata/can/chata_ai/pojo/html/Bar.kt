@@ -4,8 +4,7 @@ object Bar
 {
 	fun getBar(): String
 	{
-		return """
-function setBar() {
+		return """function setBar() {
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.bottom + margin.right)
 		.attr('height', height + margin.top + margin.left)
@@ -74,6 +73,7 @@ function setBar() {
 	
 	  //Y axis label:
 	  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom + 20, '#808080', '', axisX);
-	}"""
+	}
+"""
 	}
 }

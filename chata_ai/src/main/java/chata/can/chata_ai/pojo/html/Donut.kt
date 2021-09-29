@@ -4,8 +4,7 @@ object Donut
 {
 	fun getDonut(): String
 	{
-		return """
-function setDonut() {
+		return """function setDonut() {
   var arc = d3.arc()
     .outerRadius(radius)
 		.innerRadius(radius * 0.5);
@@ -59,6 +58,7 @@ function setDonut() {
     });
     factorBack += 20;
   }
-}"""
+}
+"""
 	}
 }
