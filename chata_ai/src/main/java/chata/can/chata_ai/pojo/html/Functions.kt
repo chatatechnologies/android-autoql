@@ -41,11 +41,14 @@ function clearSvg() {
 }
 
 function updateSize() {
-  if (data.length > 8) {
-    width = ${'$'}(window).width() - margin.left - margin.right;
-  } else {
-    var width1 = ${'$'}(window).width() - margin.left - margin.right;
-    width = (width1 / 8) * data.length;
+  switch (typeChart) {
+    case 3:
+      var width1 = ${'$'}(window).width() - margin.left - margin.right;
+      width = (width1 * 1.5);
+      break;
+    default:
+      width = ${'$'}(window).width() - margin.left - margin.right;
+      break;
   }
   height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
