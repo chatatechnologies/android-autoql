@@ -125,16 +125,15 @@ function clearSvg() {
 }
 
 function updateSize() {
-  console.log(typeChart);
   switch (typeChart) {
-    case 3:
-      console.log('Thin chart')
+    case TypeEnum.COLUMN:
+    case TypeEnum.BAR:
+    //case 5:doubt
+    case TypeEnum.PIE:
       var width1 = $(window).width() - margin.left - margin.right;
       width = (width1 * 1.5);
       break;
-  
     default:
-      console.log('FAT chart')
       width = $(window).width() - margin.left - margin.right;
       break;
   }
@@ -435,7 +434,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.PIE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;

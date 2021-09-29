@@ -41,8 +41,12 @@ function clearSvg() {
 }
 
 function updateSize() {
+  console.log(typeChart)
   switch (typeChart) {
-    case 3:
+    case TypeEnum.COLUMN:
+    case TypeEnum.BAR:
+    //case 5:doubt
+    case TypeEnum.PIE:
       var width1 = ${'$'}(window).width() - margin.left - margin.right;
       width = (width1 * 1.5);
       break;
