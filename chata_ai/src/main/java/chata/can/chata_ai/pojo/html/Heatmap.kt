@@ -20,7 +20,7 @@ object Heatmap
     .call(g => g.select('.domain').remove())
     .selectAll('text')
     .attr('transform', 'translate(0, 10)')
-    .attr('fill', '#909090');;
+    .attr('fill', '#909090');
 
   var y = d3.scaleBand()
     .range([ height, 0 ])

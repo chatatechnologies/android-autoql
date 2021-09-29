@@ -16,6 +16,11 @@ object Bubble
     .attr('transform', 'translate(0,' + height + ')')
     .call(
       d3.axisBottom(x));
+      .tickSize(0))
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+    .attr('transform', 'translate(0, 10)')
+    .attr('fill', '#909090');
   
   var y = d3.scaleBand()
     .range([ height, 0 ])
@@ -23,6 +28,12 @@ object Bubble
   svg.append("g")
     .call(
     d3.axisLeft(y))
+      .tickSize(0)
+      .tickFormat(x =>`${'$'}{getFirst10(x)}`))
+    //Remove line on domain for Y axis
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+      .attr('fill', '#909090');
 
   // Add dots
   svg.append('g')

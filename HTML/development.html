@@ -420,7 +420,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.HEATMAP;
+var typeChart = TypeEnum.BUBBLE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -447,14 +447,25 @@ function setBubble() {
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .call(
-      d3.axisBottom(x));
+      d3.axisBottom(x)
+      .tickSize(0))
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+    .attr('transform', 'translate(0, 10)')
+    .attr('fill', '#909090');
   
   var y = d3.scaleBand()
     .range([ height, 0 ])
     .domain(aCatHeatY)
   svg.append("g")
     .call(
-    d3.axisLeft(y))
+      d3.axisLeft(y)
+      .tickSize(0)
+      .tickFormat(x =>`${getFirst10(x)}`))
+    //Remove line on domain for Y axis
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+      .attr('fill', '#909090');
 
   // Add dots
   svg.append('g')
@@ -492,7 +503,7 @@ function setHeatMap() {
     .call(g => g.select('.domain').remove())
     .selectAll('text')
     .attr('transform', 'translate(0, 10)')
-    .attr('fill', '#909090');;
+    .attr('fill', '#909090');
 
   var y = d3.scaleBand()
     .range([ height, 0 ])
