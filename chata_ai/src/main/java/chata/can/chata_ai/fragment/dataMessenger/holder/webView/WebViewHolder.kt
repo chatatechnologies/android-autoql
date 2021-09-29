@@ -432,9 +432,10 @@ class WebViewHolder(
 					}
 					R.id.ivBubble ->
 					{
-						val idHide = lastId
+						//val idHide = lastId
 						lastId = "#container"
-						Pair("'$idHide', '#container', 'bubble'", factorHeight)
+						//Pair("'$idHide', '#container', 'bubble'", factorHeight)
+						Pair("TypeEnum.BUBBLE", factorHeight)
 					}
 					R.id.ivHeat ->
 					{

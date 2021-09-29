@@ -125,7 +125,7 @@ function clearSvg() {
 }
 
 function updateSize() {
-  if (data.length < 8) {
+  if (data.length > 8) {
     width = $(window).width() - margin.left - margin.right;
   } else {
     var width1 = $(window).width() - margin.left - margin.right;

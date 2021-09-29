@@ -15,7 +15,7 @@ object Bubble
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .call(
-      d3.axisBottom(x));
+      d3.axisBottom(x)
       .tickSize(0))
     .call(g => g.select('.domain').remove())
     .selectAll('text')
@@ -27,7 +27,7 @@ object Bubble
     .domain(aCatHeatY)
   svg.append("g")
     .call(
-    d3.axisLeft(y))
+      d3.axisLeft(y)
       .tickSize(0)
       .tickFormat(x =>`${'$'}{getFirst10(x)}`))
     //Remove line on domain for Y axis
