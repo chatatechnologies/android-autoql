@@ -1430,6 +1430,7 @@ $('td').click(function() {
         finalText += `_${secondCell}`;
         break;
       case TypeEnum.PIVOT:
+        if (column == 0) return;
         var secondCell = aCategoryX[column - 1];
         finalText = `${secondCell}_${finalText}`;
         break;  

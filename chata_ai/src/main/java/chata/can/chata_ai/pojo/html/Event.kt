@@ -12,10 +12,20 @@ ${'$'}('td').click(function() {
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
   var index = aCategoryX.indexOf(finalText);
-	if (typeChart == TypeEnum.TABLE && nColumns == 3)
-	{
-		var secondCell = firstColumn[0].children[1].innerText;
-    finalText += `_${'$'}{secondCell}`;
+	if (nColumns == 3) {
+    switch (typeChart) {
+      case TypeEnum.TABLE:
+        var secondCell = firstColumn[0].children[1].innerText;
+        finalText += `_${'$'}{secondCell}`;
+        break;
+      case TypeEnum.PIVOT:
+        if (column == 0) return;
+        var secondCell = aCategoryX[column - 1];
+        finalText = `${'$'}{secondCell}_${'$'}{finalText}`;
+        break;  
+      default:
+        break;
+    }
 	}
   else
     finalText = drillX[index];
