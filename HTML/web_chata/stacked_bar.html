@@ -67,21 +67,22 @@
     .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
 
   var stackedData = d3.stack().keys(subgroups)(data);
+  console.log(stackedData);
 
   // Show the bars
-  // svg.append('g')
-  //   .selectAll('g')
-  //   // Enter in the stack data = loop key per key = group per group
-  //   .data(stackedData)
-  //   .enter().append('g')
-  //   .attr('fill', function(d) { return color(d.key); })
-  //   .selectAll('rect')
-  //   // enter a second time = loop subgroup per subgroup to add all rectangles
-  //   .data(function(d) { return d; })
-  //   .enter().append('rect')
+  svg.append('g')
+    .selectAll('g')
+    // Enter in the stack data = loop key per key = group per group
+    .data(stackedData)
+    .enter().append('g')
+    .attr('fill', function(d) { return color(d.key); })
+    .selectAll('rect')
+    // enter a second time = loop subgroup per subgroup to add all rectangles
+    .data(function(d) { return d; })
+    .enter().append('rect')
   //     .attr('x', function(d) { return x(d.data.group); })
-  //     .attr('height', function(d) { return y(d[0]) - y(d[1]); })
   //     .attr('y', function(d) { return y(d[1]); })
+  //     .attr('height', function(d) { return y(d[0]) - y(d[1]); })
   //     .attr('width', x.bandwidth())
   //     .on('click', function(_, d) {
   //       var subgroupName = d3.select(this.parentNode).datum().key;

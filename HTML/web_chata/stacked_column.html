@@ -66,6 +66,7 @@
     .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
 
   var stackedData = d3.stack().keys(subgroups)(data);
+  console.log(stackedData);
 
   // Show the bars
   svg.append('g')
