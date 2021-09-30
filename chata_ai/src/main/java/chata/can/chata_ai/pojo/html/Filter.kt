@@ -144,6 +144,24 @@ function getMaxValue()
   }
 }
 
+function getMinDomain() {
+  var minDomain = 0;
+  if (minValue2 === -1) {
+    var values = [];
+    for (let index = 0; index < data.length; index++) {
+      const item = data[index];
+      values.push(item.value);
+    }
+    var minimum = Math.min.apply(Math, values);
+    var residue = minimum % 5000;
+    minimum =  minimum - residue;
+    if (minimum > 0) {
+      minDomain = minimum;
+    }
+  }
+  return minDomain;
+}
+
 function getMinValue()
 {
   return isCurrency ? minValue : minValue2;

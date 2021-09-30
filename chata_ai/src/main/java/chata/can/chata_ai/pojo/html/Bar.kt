@@ -16,24 +16,9 @@ object Bar
 		.padding(0.1);
 	var y = d3.scaleLinear()
 		.range([0, width]);
-		
-  var minDomain = 0;
-  if (minValue2 === -1) {
-    var values = [];
-    for (let index = 0; index < data.length; index++) {
-      const item = data[index];
-      values.push(item.value);
-    }
-    var minimum = Math.min.apply(Math, values);
-    var residue = minimum % 5000;
-    minimum =  minimum - residue;
-    if (minimum > 0) {
-      minDomain = minimum;
-    }
-  }
 
 	x.domain(data.map(function(d) { return d.name; }));
-	y.domain([minDomain, d3.max(data, function(d) { return d.value; })]);
+	y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
 
 	svg.selectAll()
 		.data(data)

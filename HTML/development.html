@@ -446,7 +446,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BAR;
+var typeChart = TypeEnum.LINE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -955,25 +955,8 @@ function setBar() {
 	var y = d3.scaleLinear()
 		.range([0, width]);
 
-  //region min local
-  var minDomain = 0;
-  if (minValue2 === -1) {
-    var values = [];
-    for (let index = 0; index < data.length; index++) {
-      const item = data[index];
-      values.push(item.value);
-    }
-    var minimum = Math.min.apply(Math, values);
-    var residue = minimum % 5000;
-    minimum =  minimum - residue;
-    if (minimum > 0) {
-      minDomain = minimum;
-    }
-  }
-  //endregion
-
 	x.domain(data.map(function(d) { return d.name; }));
-	y.domain([minDomain, d3.max(data, function(d) { return d.value; })]);
+	y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
 
 	svg.selectAll()
 		.data(data)
@@ -1044,7 +1027,7 @@ function setColumn() {
     .range([height, 0]);
 
   x.domain(data.map(function(d) { return d.name; }));
-  y.domain([0, d3.max(data, function(d) { return d.value; })]);
+  y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
 
   svg.selectAll()
     .data(data)
@@ -1126,7 +1109,7 @@ function setLine() {
     // create the X axis
     xScaleBand.domain(data.map(function(d) { return d.name; }));
     // create the Y axis
-    yScale.domain([0, d3.max(data, function(d) { return d.value }) ]);
+    yScale.domain([getMinDomain(), d3.max(data, function(d) { return d.value }) ]);
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -1390,6 +1373,24 @@ function getMaxValue()
   {
     return maxValue;
   }
+}
+
+function getMinDomain() {
+  var minDomain = 0;
+  if (minValue2 === -1) {
+    var values = [];
+    for (let index = 0; index < data.length; index++) {
+      const item = data[index];
+      values.push(item.value);
+    }
+    var minimum = Math.min.apply(Math, values);
+    var residue = minimum % 5000;
+    minimum =  minimum - residue;
+    if (minimum > 0) {
+      minDomain = minimum;
+    }
+  }
+  return minDomain;
 }
 
 function getMinValue()

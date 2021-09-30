@@ -18,7 +18,7 @@ object Column
     .range([height, 0]);
 
   x.domain(data.map(function(d) { return d.name; }));
-  y.domain([0, d3.max(data, function(d) { return d.value; })]);
+  y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
 
   svg.selectAll()
     .data(data)

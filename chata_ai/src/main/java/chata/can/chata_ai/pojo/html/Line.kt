@@ -20,7 +20,7 @@ object Line
     // create the X axis
     xScaleBand.domain(data.map(function(d) { return d.name; }));
     // create the Y axis
-    yScale.domain([0, d3.max(data, function(d) { return d.value }) ]);
+    yScale.domain([getMinDomain(), d3.max(data, function(d) { return d.value }) ]);
 
     svg.append("g")
       .attr("transform", "translate(0," + height + ")")
