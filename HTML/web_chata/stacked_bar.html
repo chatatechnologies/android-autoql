@@ -47,15 +47,16 @@
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)
-    .range([0, width]);
+    .range([0, height])
+    .padding(0.01);
    svg.append('g')
-  //   .attr('transform', 'translate(0,' + height + ')')
-     .call(d3.axisLeft(x));
+     .call(d3.axisLeft(x))
+     
 
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, 60])
-    .range([0, height]);
+    .range([0, width]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .call(d3.axisBottom(y));
