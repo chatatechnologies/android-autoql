@@ -8,9 +8,9 @@
 </head>
 <body>
   <script>
-    var margin = {top: 10, right: 30, bottom: 20, left: 50},
+    var margin = {top: 10, right: 30, bottom: 40, left: 50},
     width = 640 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 520 - margin.top - margin.bottom;
 
   var svg = d3.select('body')
     .append('svg')
@@ -51,7 +51,15 @@
     .padding(0.2);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
-    .call(d3.axisBottom(x).tickSizeOuter(0));
+    .call(
+      d3.axisBottom(x)
+      .tickSize(7)
+      .tickSizeOuter(0)
+    )
+    //set color for domain and ticks
+    .style("color", '#909090')
+    .selectAll('text')
+      .attr('transform', 'translate(0, 5)');
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -66,7 +74,6 @@
     .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
 
   var stackedData = d3.stack().keys(subgroups)(data);
-  console.log(stackedData);
 
   // Show the bars
   svg.append('g')
