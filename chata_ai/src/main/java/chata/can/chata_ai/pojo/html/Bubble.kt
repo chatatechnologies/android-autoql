@@ -51,7 +51,7 @@ object Bubble
     .attr('stroke', '#26a7e9')
     .on('click', function(_) {
       var idParent = this.id;
-      console.log(idParent);
+      drillDown(idParent);
     });
 }
 """

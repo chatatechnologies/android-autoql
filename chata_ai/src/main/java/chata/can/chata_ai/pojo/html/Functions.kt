@@ -41,21 +41,32 @@ function clearSvg() {
 }
 
 function updateSize() {
-  console.log(typeChart)
-  switch (typeChart) {
-    case TypeEnum.COLUMN:
-    case TypeEnum.BAR:
-    //case 5:doubt
-    case TypeEnum.PIE:
-      var width1 = ${'$'}(window).width() - margin.left - margin.right;
+  if (typeChart === TypeEnum.LINE) {
+    if (nColumns === 2) {
+      var width1 = getWidthMargin();
       width = (width1 * 1.5);
-      break;
-    default:
-      width = ${'$'}(window).width() - margin.left - margin.right;
-      break;
+    } else {
+      width = getWidthMargin();
+    }
+  } else {
+    switch (typeChart) {
+      case TypeEnum.COLUMN:
+      case TypeEnum.BAR:
+      case TypeEnum.PIE:
+        var width1 = getWidthMargin();
+        width = (width1 * 1.5);
+        break;
+      default:
+        width = getWidthMargin();
+        break;
+    }
   }
   height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
+}
+
+function getWidthMargin() {
+  return ${'$'}(window).width() - margin.left - margin.right;
 }
 
 function isMultiple(typeChart) {

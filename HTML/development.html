@@ -86,7 +86,7 @@
     <!-- <button class="button" onclick="updateData(TypeEnum.STACKED_AREA)">STACKED AREA</button> -->
   </div>
 		
-<table id="idTableBasic"><thead><tr><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Nov 2019</td><td>$106,630.75</td></tr><tr><td>Oct 2019</td><td>$104,254.00</td></tr><tr><td>Sep 2019</td><td>$57,326.75</td></tr><tr><td>Ago 2019</td><td>$122,868.00</td></tr><tr><td>May 2019</td><td>$100,500.00</td></tr></tbody></table>
+<table id="idTableBasic"><thead><tr><th>Month</th><th>Total Revenue</th></tr></thead><tfoot><tr><th>Month</th><th>Total Revenue</th></tr></tfoot><tbody><tr><td>Nov 2019</td><td>$106,630.75</td></tr><tr><td>Oct 2019</td><td>$104,254.00</td></tr><tr><td>Sept 2019</td><td>$57,326.75</td></tr><tr><td>Aug 2019</td><td>$122,868.00</td></tr><tr><td>May 2019</td><td>$100,500.00</td></tr></tbody></table>
 
 <script>
 function getFirst10(string) {
@@ -125,20 +125,32 @@ function clearSvg() {
 }
 
 function updateSize() {
-  switch (typeChart) {
-    case TypeEnum.COLUMN:
-    case TypeEnum.BAR:
-    //case 5:doubt
-    case TypeEnum.PIE:
-      var width1 = $(window).width() - margin.left - margin.right;
+  if (typeChart === TypeEnum.LINE) {
+    if (nColumns === 2) {
+      var width1 = getWidthMargin();
       width = (width1 * 1.5);
-      break;
-    default:
-      width = $(window).width() - margin.left - margin.right;
-      break;
+    } else {
+      width = getWidthMargin();
+    }
+  } else {
+    switch (typeChart) {
+      case TypeEnum.COLUMN:
+      case TypeEnum.BAR:
+      case TypeEnum.PIE:
+        var width1 = getWidthMargin();
+        width = (width1 * 1.5);
+        break;
+      default:
+        width = getWidthMargin();
+        break;
+    }
   }
   height = $(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
+}
+
+function getWidthMargin() {
+  return $(window).width() - margin.left - margin.right;
 }
 
 function isMultiple(typeChart) {
@@ -374,17 +386,17 @@ var nColumns = 0;
 var indexData = -1;
 var dataTmp = [];
 var data = [{name: "May 2019", value: 106630.75},
-{name: "Ago 2019", value: 104254.00},
-{name: "Sep 2019", value: 57326.75},
+{name: "Aug 2019", value: 104254.00},
+{name: "Sept 2019", value: 57326.75},
 {name: "Oct 2019", value: 122868.00},
 {name: "Nov 2019", value: 100500.00}];
-var aCategoryX = ["May 2019", "Ago 2019", "Sep 2019", "Oct 2019", "Nov 2019"];
+var aCategoryX = ["May 2019", "Aug 2019", "Sept 2019", "Oct 2019", "Nov 2019"];
 var data2 = [];
 var aAllData = [];
 var aMaxData = [];
 var dataFormatted = [{name: "May 2019", value: '$106,630.75'},
-{name: "Ago 2019", value: '$104,254.00'},
-{name: "Sep 2019", value: '$57,326.75'},
+{name: "Aug 2019", value: '$104,254.00'},
+{name: "Sept 2019", value: '$57,326.75'},
 {name: "Oct 2019", value: '$122,868.00'},
 {name: "Nov 2019", value: '$100,500.00'}];
 var opacityMarked = [];
@@ -434,7 +446,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.PIE;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -497,7 +509,7 @@ function setBubble() {
     .attr('stroke', '#26a7e9')
     .on('click', function(_) {
       var idParent = this.id;
-      console.log(idParent);
+      drillDown(idParent);
     });
 }
 
