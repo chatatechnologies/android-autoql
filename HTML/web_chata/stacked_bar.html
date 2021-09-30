@@ -49,8 +49,12 @@
     .domain(groups)
     .range([0, height])
     .padding(0.2);
-   svg.append('g')
-     .call(d3.axisLeft(x))
+  svg.append('g')
+    .call(d3.axisLeft(x)
+      .tickSize(7)
+      .tickSizeOuter(0))
+  //set color for domain and ticks
+    .style("color", '#909090');
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -58,12 +62,24 @@
     .range([0, width]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
-    .call(d3.axisBottom(y));
+    .call(
+      d3.axisBottom(y)
+      .tickSize(0))
+    .call(
+			g => g.selectAll('.tick line')
+			.clone()
+			.attr('stroke-opacity', 0.1)
+			.attr('y2', -height))
+    //Remove line on domain for Y axis
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+      .attr('fill', '#909090');;
 
   // color palette = one color per subgroup
+  var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
+    .range(colorPie);
     
   var stackedData = d3.stack().keys(subgroups)(data);
 
