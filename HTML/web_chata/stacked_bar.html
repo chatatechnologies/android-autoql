@@ -48,10 +48,9 @@
   var x = d3.scaleBand()
     .domain(groups)
     .range([0, height])
-    .padding(0.01);
+    .padding(0.2);
    svg.append('g')
      .call(d3.axisLeft(x))
-     
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -65,9 +64,8 @@
   var color = d3.scaleOrdinal()
     .domain(subgroups)
     .range(['#355c7d', '#6c5b7b', '#c06c84', '#f67280', '#f8b195']);
-
+    
   var stackedData = d3.stack().keys(subgroups)(data);
-  console.log(stackedData);
 
   // Show the bars
   svg.append('g')
@@ -80,15 +78,15 @@
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
     .enter().append('rect')
-  //     .attr('x', function(d) { return x(d.data.group); })
-  //     .attr('y', function(d) { return y(d[1]); })
-  //     .attr('height', function(d) { return y(d[0]) - y(d[1]); })
-  //     .attr('width', x.bandwidth())
-  //     .on('click', function(_, d) {
-  //       var subgroupName = d3.select(this.parentNode).datum().key;
-  //       var subgroupValue = d.data[subgroupName];
-  //       console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
-  //     });
+      .attr('x', function(d) { return y(d[0]); })
+      .attr('height', x.bandwidth())
+      .attr('y', function(d) { return x(d.data.group); })
+      .attr('width', function(d) { return y(d[1]) - y(d[0]); })
+      .on('click', function(_, d) {
+        var subgroupName = d3.select(this.parentNode).datum().key;
+        var subgroupValue = d.data[subgroupName];
+        console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
+      });
   </script>
 </body>
 </html>

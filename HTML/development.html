@@ -446,7 +446,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.LINE;
+var typeChart = TypeEnum.BAR;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -1384,7 +1384,7 @@ function getMinDomain() {
       values.push(item.value);
     }
     var minimum = Math.min.apply(Math, values);
-    var residue = minimum % 5000;
+    var residue = minimum % 10000;
     minimum =  minimum - residue;
     if (minimum > 0) {
       minDomain = minimum;

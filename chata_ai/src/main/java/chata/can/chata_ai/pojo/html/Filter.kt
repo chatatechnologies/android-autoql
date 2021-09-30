@@ -153,7 +153,7 @@ function getMinDomain() {
       values.push(item.value);
     }
     var minimum = Math.min.apply(Math, values);
-    var residue = minimum % 5000;
+    var residue = minimum % 10000;
     minimum =  minimum - residue;
     if (minimum > 0) {
       minDomain = minimum;
