@@ -53,6 +53,12 @@ object Bubble
       var idParent = this.id;
       drillDown(idParent);
     });
+		
+	//Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
+	
+	//Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
 }
 """
 	}

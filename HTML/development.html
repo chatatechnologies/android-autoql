@@ -438,7 +438,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.PIVOT;
+var typeChart = TypeEnum.BUBBLE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -503,6 +503,12 @@ function setBubble() {
       var idParent = this.id;
       drillDown(idParent);
     });
+
+  //Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
+
+  //Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
 }
 
 function setHeatMap() {
