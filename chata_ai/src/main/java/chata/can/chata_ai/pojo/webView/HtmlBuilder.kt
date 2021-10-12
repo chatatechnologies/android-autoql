@@ -204,7 +204,6 @@ object HtmlBuilder
 				ArrayList()
 			}
 
-
 			//TODO edit for 3 cells by row
 			if (!isTriConfig)
 			{

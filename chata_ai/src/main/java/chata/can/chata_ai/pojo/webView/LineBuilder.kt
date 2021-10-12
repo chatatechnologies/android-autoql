@@ -9,6 +9,19 @@ object LineBuilder
 		aCatX: List<String>,
 		aCatY: List<String>): ArrayList<String>
 	{
+		for((indexY, category) in aCatY.withIndex())
+		{
+			val group = "group: '$category', "
+			val aByGroup = ArrayList<Double>()
+			for (indexX in aCatX.indices)
+			{
+				aMapData["${indexX}_$indexY"]?.let {
+					it.toDoubleOrNull()?.let { num -> aByGroup.add(num) }
+				} ?: run { aByGroup.add(0.0) }
+			}
+			aByGroup.toString()
+		}
+
 		val aChartLine = ArrayList<String>()
 		for((index1_, category) in aCatX.withIndex())
 		{

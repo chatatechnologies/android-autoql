@@ -20,7 +20,7 @@
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   var data = [
-    {group: 'banana', Nitrogen: 12, normal: 1, stress: 13},
+    {group: 'banana', Nitrogen: 12, normal: 0, stress: 13},
     {group: 'poacee', Nitrogen: 6, normal: 6, stress: 33},
     {group: 'sorgho', Nitrogen: 11, normal: 28, stress: 12},
     {group: 'triticum', Nitrogen: 19, normal: 6, stress: 1},
@@ -63,7 +63,7 @@
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 60])
+    .domain([0, 60])//range us major value for values sums
     .range([ height, 0 ]);
   svg.append('g')
     .call(
@@ -98,7 +98,9 @@
     .selectAll('rect')
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
-    .enter().append('rect')
+    .enter()
+    .append('rect')
+    .attr('id', function(item, i) { console.log(item); return `${1}`;})
       .attr('x', function(d) { return x(d.data.group); })
       .attr('height', function(d) { return y(d[0]) - y(d[1]); })
       .attr('y', function(d) { return y(d[1]); })
