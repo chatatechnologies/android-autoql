@@ -392,8 +392,9 @@ object HtmlBuilder
 				}
 
 				val pChartLine = LineBuilder.generateDataChartLine(aMapPure, aCatX, aCatY)
-				dataForWebView.catYS = pChartLine.second.toString()
+				dataForWebView.catYS = ""
 				dataD3.data = pChartLine.first
+				dataD3.max = pChartLine.second
 				queryBase.isTri = true
 				dataForWebView.isBi = false
 

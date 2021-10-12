@@ -7,11 +7,13 @@ object LineBuilder
 	fun generateDataChartLine(
 		aMapData: LinkedHashMap<String, String>,
 		aCatX: List<String>,
-		aCatY: List<String>): Pair<String, ArrayList<String>>
+		aCatY: List<String>): Pair<String, Int>
 	{
 		val aChartLine = ArrayList<String>()
+		var max = 0.0
 		for((indexY, category) in aCatY.withIndex())
 		{
+			var maxItem = 0.0
 			val group = "group: '$category',"
 			val aByGroup = ArrayList<String>()
 			for ((indexX, categoryX) in aCatX.withIndex())
@@ -19,8 +21,10 @@ object LineBuilder
 				val value = aMapData["${indexX}_$indexY"]?.let {
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
+				maxItem += value
 				aByGroup.add("\'$categoryX\': ${"$value".clearDecimals()}")
 			}
+			if (max < maxItem) max = maxItem
 			val item = "$group ${aByGroup.joinToString(",", "", "")}"
 			aChartLine.add(item)
 		}
@@ -39,8 +43,8 @@ object LineBuilder
 //			val item = "{\"data\":$sData,\"name\":$category}"
 //			aChartLine.add(item)
 //		}
-		val forD3 = aChartLine.joinToString(",", "[", "]") { "{$it}\n" }
+		val forD3 = aChartLine.joinToString(",\n", "[", "]") { "{$it}" }
 			.replace("\"", "")
-		return Pair(forD3, aChartLine)
+		return Pair(forD3, max.toInt())
 	}
 }
