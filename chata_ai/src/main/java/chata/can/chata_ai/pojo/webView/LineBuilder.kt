@@ -7,36 +7,40 @@ object LineBuilder
 	fun generateDataChartLine(
 		aMapData: LinkedHashMap<String, String>,
 		aCatX: List<String>,
-		aCatY: List<String>): ArrayList<String>
+		aCatY: List<String>): Pair<String, ArrayList<String>>
 	{
+		val aChartLine = ArrayList<String>()
 		for((indexY, category) in aCatY.withIndex())
 		{
-			val group = "group: '$category', "
-			val aByGroup = ArrayList<Double>()
-			for (indexX in aCatX.indices)
+			val group = "group: '$category',"
+			val aByGroup = ArrayList<String>()
+			for ((indexX, categoryX) in aCatX.withIndex())
 			{
-				aMapData["${indexX}_$indexY"]?.let {
-					it.toDoubleOrNull()?.let { num -> aByGroup.add(num) }
-				} ?: run { aByGroup.add(0.0) }
+				val value = aMapData["${indexX}_$indexY"]?.let {
+					it.toDoubleOrNull() ?: run { 0.0 }
+				} ?: run { 0.0 }
+				aByGroup.add("\'$categoryX\': ${"$value".clearDecimals()}")
 			}
-			aByGroup.toString()
-		}
-
-		val aChartLine = ArrayList<String>()
-		for((index1_, category) in aCatX.withIndex())
-		{
-			val aEachY = ArrayList<Double>()
-			for (index2 in aCatY.indices)
-			{
-				aMapData["${index1_}_$index2"]?.let {
-					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
-				} ?: run { aEachY.add(0.0) }
-			}
-			val sData = aEachY.joinTo(StringBuilder("["), postfix = "]", separator = ",") {
-				"$it".clearDecimals() }
-			val item = "{\"data\":$sData,\"name\":$category}"
+			val item = "$group ${aByGroup.joinToString(",", "", "")}"
 			aChartLine.add(item)
 		}
-		return aChartLine
+//		val aChartLine = ArrayList<String>()
+//		for((index1_, category) in aCatX.withIndex())
+//		{
+//			val aEachY = ArrayList<Double>()
+//			for (index2 in aCatY.indices)
+//			{
+//				aMapData["${index1_}_$index2"]?.let {
+//					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
+//				} ?: run { aEachY.add(0.0) }
+//			}
+//			val sData = aEachY.joinTo(StringBuilder("["), postfix = "]", separator = ",") {
+//				"$it".clearDecimals() }
+//			val item = "{\"data\":$sData,\"name\":$category}"
+//			aChartLine.add(item)
+//		}
+		val forD3 = aChartLine.joinToString(",", "[", "]") { "{$it}\n" }
+			.replace("\"", "")
+		return Pair(forD3, aChartLine)
 	}
 }

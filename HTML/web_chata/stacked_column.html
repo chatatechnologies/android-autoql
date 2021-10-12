@@ -19,12 +19,20 @@
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  var data = [
-    {group: 'banana', Nitrogen: 12, normal: 0, stress: 13},
-    {group: 'poacee', Nitrogen: 6, normal: 6, stress: 33},
-    {group: 'sorgho', Nitrogen: 11, normal: 28, stress: 12},
-    {group: 'triticum', Nitrogen: 19, normal: 6, stress: 1},
+  var data1 = [
+    {group: 'banana', Nitrogen: 12, normal: 0, 'stress 1': 13},
+    {group: 'poacee', Nitrogen: 6, normal: 6, 'stress 1': 33},
+    {group: 'sorgho', Nitrogen: 11, normal: 28, 'stress 1': 12},
+    {group: 'triticum', Nitrogen: 19, normal: 6, 'stress 1': 1},
   ];
+
+  var data = [{group: '2016', 'Bates Trucking': 0,'Northern Alberta': 7,'Southern Alberta': 10,'ABC Truckline': 0,'Louisiana': 14,'Midland, TX': 1,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 7,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 0,'Northern Saskatchewan': 0}
+,{group: '2017', 'Bates Trucking': 6,'Northern Alberta': 19,'Southern Alberta': 14,'ABC Truckline': 18,'Louisiana': 7,'Midland, TX': 20,'Pecos, TX': 4,'Pleasanton, TX': 4,'Prime Trucking': 2,'Texas': 16,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 5,'Northern BC': 5,'Northern Saskatchewan': 1}
+,{group: '2018', 'Bates Trucking': 9,'Northern Alberta': 16,'Southern Alberta': 0,'ABC Truckline': 33,'Louisiana': 4,'Midland, TX': 12,'Pecos, TX': 3,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 6,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 2,'Northern Saskatchewan': 1}
+,{group: '2019', 'Bates Trucking': 1,'Northern Alberta': 10,'Southern Alberta': 1,'ABC Truckline': 2,'Louisiana': 2,'Midland, TX': 4,'Pecos, TX': 2,'Pleasanton, TX': 1,'Prime Trucking': 1,'Texas': 2,'Wyoming - Douglas Yard': 2,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}
+,{group: '2020', 'Bates Trucking': 0,'Northern Alberta': 2,'Southern Alberta': 1,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}
+,{group: '2021', 'Bates Trucking': 1,'Northern Alberta': 2,'Southern Alberta': 0,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}
+];
 
   //region rewrite
   var subgroups = [];
