@@ -9,6 +9,7 @@ class DataD3
 	var indexData = -1
 	var data = "[]"
 	var data2 = "[]"
+	var dataStacked = "[]"
 	var aCategoryX = "[]"
 	var aAllData = "[]"
 	var aMaxData = "[]"
