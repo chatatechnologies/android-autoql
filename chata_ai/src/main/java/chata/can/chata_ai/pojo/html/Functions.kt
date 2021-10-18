@@ -147,6 +147,9 @@ function updateData(tmpChart, isReload) {
 				case TypeEnum.BUBBLE:
           setBubble();
           break;
+        case TypeEnum.STACKED_BAR:
+          setStackedBar();
+          break;
 				case TypeEnum.STACKED_COLUMN:
 					setStackedColumn();
 					break;

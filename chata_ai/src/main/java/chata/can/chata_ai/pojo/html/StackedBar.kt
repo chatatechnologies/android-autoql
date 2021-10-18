@@ -1,14 +1,14 @@
 package chata.can.chata_ai.pojo.html
 
-object StackedColumn
+object StackedBar
 {
-	fun getStackedColumn(): String
+	fun getStackedBar(): String
 	{
-		return """function setStackedColumn() {
+		return """function setStackedBar() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
 
-  //region rewrite
+    //region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -29,45 +29,40 @@ object StackedColumn
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)
-    .range([0, width])
+    .range([0, height])
     .padding(0.2);
   svg.append('g')
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(
-      d3.axisBottom(x)
+    .call(d3.axisLeft(x)
       .tickSize(7)
-      .tickSizeOuter(0)
-    )
-    //set color for domain and ticks
-    .style("color", '#909090')
-    .selectAll('text')
-      .attr('transform', 'translate(0, 5)');
+      .tickSizeOuter(0))
+  //set color for domain and ticks
+    .style("color", '#909090');
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 130])//range us major value for values sums
-    .range([ height, 0 ]);
+    .domain([0, 130])
+    .range([0, width]);
   svg.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
     .call(
-      d3.axisLeft(y)
+      d3.axisBottom(y)
       .tickSize(0))
-  //Remove line on domain for Y axis
-  .call(g => g.select('.domain').remove())
-  //region set lines by each value for y axis
-  .call(
-	    g => g.selectAll('.tick line')
-	    .clone()
-	    .attr('stroke-opacity', 0.1)
-	    .attr('x2', width))
-  .selectAll('text')
-    .attr('fill', '#909090');
+    .call(
+			g => g.selectAll('.tick line')
+			.clone()
+			.attr('stroke-opacity', 0.1)
+			.attr('y2', -height))
+    //Remove line on domain for Y axis
+    .call(g => g.select('.domain').remove())
+    .selectAll('text')
+      .attr('fill', '#909090');;
 
   // color palette = one color per subgroup
   var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
     .domain(subgroups)
     .range(colorPie);
-
+    
   var stackedData = d3.stack().keys(subgroups)(aStacked);
 
   // Show the bars
@@ -80,19 +75,16 @@ object StackedColumn
     .selectAll('rect')
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
-    .enter()
-    .append('rect')
-    .attr('id', function(item, _) { return `${'$'}{item.data.name}`;})
-    .attr('x', function(d) { return x(d.data.name); })
-    .attr('height', function(d) { return y(d[0]) - y(d[1]); })
-    .attr('y', function(d) { return y(d[1]); })
-    .attr('width', x.bandwidth())
-    .on('click', function(_, d) {
-      var idParent = this.id;
-      var subgroupName = d3.select(this.parentNode).datum().key;
-      var subgroupValue = d.data[subgroupName];
-      drillDown(subgroupName + '_' + idParent);
-    });
+    .enter().append('rect')
+      .attr('x', function(d) { return y(d[0]); })
+      .attr('height', x.bandwidth())
+      .attr('y', function(d) { return x(d.data.name); })
+      .attr('width', function(d) { return y(d[1]) - y(d[0]); })
+      .on('click', function(_, d) {
+        var subgroupName = d3.select(this.parentNode).datum().key;
+        var subgroupValue = d.data[subgroupName];
+        console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
+      });
 }
 """
 	}
