@@ -8,7 +8,8 @@ object StackedColumn
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
 
-  //region rewrite
+  var withReduce = width - 100;
+	//region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -29,7 +30,7 @@ object StackedColumn
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)
-    .range([0, width])
+    .range([0, withReduce])
     .padding(0.2);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
@@ -58,7 +59,7 @@ object StackedColumn
 	    g => g.selectAll('.tick line')
 	    .clone()
 	    .attr('stroke-opacity', 0.1)
-	    .attr('x2', width))
+	    .attr('x2', withReduce))
   .selectAll('text')
     .attr('fill', '#909090');
 

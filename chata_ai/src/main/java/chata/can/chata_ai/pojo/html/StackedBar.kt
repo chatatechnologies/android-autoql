@@ -8,7 +8,8 @@ object StackedBar
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
 
-    //region rewrite
+	var withReduce = width - 100;
+	//region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -41,7 +42,7 @@ object StackedBar
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, 130])
-    .range([0, width]);
+    .range([0, withReduce]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .call(
@@ -87,7 +88,7 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisX);
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', axisX);
 	
 	//Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisY);

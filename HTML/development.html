@@ -470,7 +470,8 @@ function setStackedBar() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
 
-    //region rewrite
+  var withReduce = width - 100;
+  //region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -503,7 +504,7 @@ function setStackedBar() {
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, 130])
-    .range([0, width]);
+    .range([0, withReduce]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .call(
@@ -549,7 +550,7 @@ function setStackedBar() {
       });
 
   //Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisX);
+  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.left, '#808080', '', axisX);
 	
 	//Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisY);
@@ -582,6 +583,7 @@ function setStackedColumn() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
 
+  var withReduce = width - 100;
   //region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
@@ -603,7 +605,7 @@ function setStackedColumn() {
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)
-    .range([0, width])
+    .range([0, withReduce])
     .padding(0.2);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
@@ -632,7 +634,7 @@ function setStackedColumn() {
 	    g => g.selectAll('.tick line')
 	    .clone()
 	    .attr('stroke-opacity', 0.1)
-	    .attr('x2', width))
+	    .attr('x2', withReduce))
   .selectAll('text')
     .attr('fill', '#909090');
 
