@@ -96,10 +96,10 @@ object StackedColumn
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', getAxisY());
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisX());
 
   var withReduce = width - 100;
   var factorBack = margin.top;

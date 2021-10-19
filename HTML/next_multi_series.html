@@ -985,6 +985,7 @@ function setMultiBar() {
   var withReduce = width - 100;
 	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
+  console.log(subgroups);
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);

@@ -69,6 +69,7 @@ var indexData = ${dataD3.indexData};
 var dataTmp = [];
 var data = ${dataD3.data};
 var aStacked = ${dataD3.dataStacked};
+var aStackedTmp = ${dataD3.dataStacked};
 var aCategoryX = ${dataD3.aCategoryX};
 var data2 = ${dataD3.data2};
 var aAllData = ${dataD3.aAllData};
