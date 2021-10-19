@@ -177,7 +177,7 @@ function modalCategories(type, content) {
 
 function getAxisX() {
   var extra = '';
-  if (nColumns > 3) {
+  if (nColumns > 2) {
     extra = '▼';
   }
   return `${'$'}{axisX} ${'$'}{extra}`;
@@ -185,7 +185,7 @@ function getAxisX() {
 
 function getAxisY() {
   var extra = '';
-  if (nColumns > 3) {
+  if (nColumns > 2) {
     extra = '▼';
   }
   return `${'$'}{axisY} ${'$'}{extra}`;

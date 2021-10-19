@@ -85,6 +85,35 @@ object StackedBar
         var subgroupValue = d.data[subgroupName];
         console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
       });
+			
+	//Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisX);
+	
+	//Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisY);
+
+  var withReduce = width - 100;
+  var factorBack = margin.top;
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX());
+  for (var index = 0; index < aCategoryX.length; index++) {
+    var item = aCategoryX[index];
+
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
+    function () {
+      return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+    },
+    function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    factorBack += 20;
+  }
 }
 """
 	}
