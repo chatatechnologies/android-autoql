@@ -450,7 +450,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.BUBBLE;
+var typeChart = TypeEnum.STACKED_BAR;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -547,6 +547,26 @@ function setStackedBar() {
         var subgroupValue = d.data[subgroupName];
         console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
       });
+
+  //Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisX);
+	
+	//Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisY);
+
+  var withReduce = width - 100;
+  var factorBack = margin.top;
+  for (var index = 0; index < aCategoryX.length; index++) {
+    var item = aCategoryX[index];
+    console.log(item);
+
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+      var id = this.id;
+      adminMulti(id, subgroups);
+    });
+
+    factorBack += 20;
+  }
 }
 
 function setStackedColumn() {
@@ -638,6 +658,12 @@ function setStackedColumn() {
       var subgroupValue = d.data[subgroupName];
       drillDown(subgroupName + '_' + idParent);
     });
+
+  //Add X axis label:
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
+	
+	//Y axis label:
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
 }
 
 function setBubble() {
