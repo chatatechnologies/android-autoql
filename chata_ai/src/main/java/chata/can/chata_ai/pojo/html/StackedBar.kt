@@ -101,7 +101,7 @@ object StackedBar
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
@@ -110,38 +110,7 @@ object StackedBar
     },
     function () {
       var id = this.id;
-      // adminMulti(id, subgroups);
-      //#region control opacity
-      var words = id.split('_');
-      var index = parseInt(words[1]);
-      var subGroup = subgroups[index];
-      var exist = opacityMarked.includes(index);
-      if (exist) {
-        var tmp = -1;
-        for (let _index = 0; _index < opacityMarked.length; _index++) {
-          if (index == opacityMarked[_index])
-          {
-            tmp = _index;
-            break;
-          }
-        }
-        opacityMarked.splice(tmp, 1);
-      }
-      else opacityMarked.push(index);
-      
-      //#endregion
-      //#region set value original or zero
-      var sub = aCategoryX[index];
-      console.log(sub);
-      for (var index = 0; index < aStacked.length; index++) {
-        var element = aStacked[index];
-        var edit = aStacked[index];
-
-        edit[sub] = exist ? element[sub] : 0;
-      }
-      //#endregion
-      isAgain = true;
-      updateData(typeChart, true);
+      adminStacked(id, subgroups);
     });
 
     factorBack += 20;

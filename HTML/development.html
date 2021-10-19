@@ -398,6 +398,12 @@ var aStacked = [{name: '2016', 'Bates Trucking': 0,'Northern Alberta': 7,'Southe
 {name: '2019', 'Bates Trucking': 1,'Northern Alberta': 10,'Southern Alberta': 1,'ABC Truckline': 2,'Louisiana': 2,'Midland, TX': 4,'Pecos, TX': 2,'Pleasanton, TX': 1,'Prime Trucking': 1,'Texas': 2,'Wyoming - Douglas Yard': 2,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2020', 'Bates Trucking': 0,'Northern Alberta': 2,'Southern Alberta': 1,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2021', 'Bates Trucking': 1,'Northern Alberta': 2,'Southern Alberta': 0,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}];
+var aStackedTmp = [{name: '2016', 'Bates Trucking': 0,'Northern Alberta': 7,'Southern Alberta': 10,'ABC Truckline': 0,'Louisiana': 14,'Midland, TX': 1,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 7,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 0,'Northern Saskatchewan': 0},
+{name: '2017', 'Bates Trucking': 6,'Northern Alberta': 19,'Southern Alberta': 14,'ABC Truckline': 18,'Louisiana': 7,'Midland, TX': 20,'Pecos, TX': 4,'Pleasanton, TX': 4,'Prime Trucking': 2,'Texas': 16,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 5,'Northern BC': 5,'Northern Saskatchewan': 1},
+{name: '2018', 'Bates Trucking': 9,'Northern Alberta': 16,'Southern Alberta': 0,'ABC Truckline': 33,'Louisiana': 4,'Midland, TX': 12,'Pecos, TX': 3,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 6,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 2,'Northern Saskatchewan': 1},
+{name: '2019', 'Bates Trucking': 1,'Northern Alberta': 10,'Southern Alberta': 1,'ABC Truckline': 2,'Louisiana': 2,'Midland, TX': 4,'Pecos, TX': 2,'Pleasanton, TX': 1,'Prime Trucking': 1,'Texas': 2,'Wyoming - Douglas Yard': 2,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
+{name: '2020', 'Bates Trucking': 0,'Northern Alberta': 2,'Southern Alberta': 1,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
+{name: '2021', 'Bates Trucking': 1,'Northern Alberta': 2,'Southern Alberta': 0,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}];
 var aCategoryX = ["Bates Trucking", "Northern Alberta", "Southern Alberta", "ABC Truckline", "Louisiana", "Midland, TX", "Pecos, TX", "Pleasanton, TX", "Prime Trucking", "Texas", "Wyoming - Douglas Yard", "Central Saskatchewan", "Northern BC", "Northern Saskatchewan"];
 var data2 = [];
 var aAllData = [];
@@ -450,7 +456,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.STACKED_BAR;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -466,12 +472,13 @@ var margin = {
 var width = 0;
 var height = 0;
 var isAgain = false;
+
 function setStackedBar() {
   var svg = svgMulti().append('g')
 		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
 
-  var withReduce = width - 100;
-  //region rewrite
+	var withReduce = width - 100;
+	//region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -548,9 +555,9 @@ function setStackedBar() {
         var subgroupValue = d.data[subgroupName];
         console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
       });
-
-  //Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + margin.top, height + margin.left, '#808080', '', getAxisX());
+			
+	//Add X axis label:
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', getAxisX());
 	
 	//Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisY());
@@ -563,7 +570,7 @@ function setStackedBar() {
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -572,38 +579,7 @@ function setStackedBar() {
     },
     function () {
       var id = this.id;
-      // adminMulti(id, subgroups);
-      //#region control opacity
-      var words = id.split('_');
-      var index = parseInt(words[1]);
-      var subGroup = subgroups[index];
-      var exist = opacityMarked.includes(index);
-      if (exist) {
-        var tmp = -1;
-        for (let _index = 0; _index < opacityMarked.length; _index++) {
-          if (index == opacityMarked[_index])
-          {
-            tmp = _index;
-            break;
-          }
-        }
-        opacityMarked.splice(tmp, 1);
-      }
-      else opacityMarked.push(index);
-      
-      //#endregion
-      //#region set value original or zero
-      var sub = aCategoryX[index];
-      console.log(sub);
-      for (var index = 0; index < aStacked.length; index++) {
-        var element = aStacked[index];
-        var edit = aStacked[index];
-
-        edit[sub] = exist ? element[sub] : 0;
-      }
-      //#endregion
-      isAgain = true;
-      updateData(typeChart, true);
+      adminStacked(id, subgroups);
     });
 
     factorBack += 20;
@@ -615,7 +591,7 @@ function setStackedColumn() {
 		.attr('transform', `translate(${margin.left + 60}, ${margin.top})`);
 
   var withReduce = width - 100;
-  //region rewrite
+	//region rewrite
   var subgroups = [];
   aStacked.map(function(a1) {
     var keys1 = Object.keys(a1);
@@ -700,8 +676,8 @@ function setStackedColumn() {
       var subgroupValue = d.data[subgroupName];
       drillDown(subgroupName + '_' + idParent);
     });
-
-  //Add X axis label:
+		
+	//Add X axis label:
   addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', getAxisY());
 	
 	//Y axis label:
@@ -715,7 +691,7 @@ function setStackedColumn() {
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -724,7 +700,7 @@ function setStackedColumn() {
     },
     function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     factorBack += 20;
@@ -1595,6 +1571,37 @@ function adminMulti(id, subgroups) {
   
 		itEdit[subGroup] = exist ? element[subGroup] : 0;
   }
+  isAgain = true;
+  updateData(typeChart, true);
+}
+
+function adminStacked(id, subgroups) {
+  //#region control opacity
+  var words = id.split('_');
+  var index = parseInt(words[1]);
+  var subGroup = subgroups[index];
+  var exist = opacityMarked.includes(index);
+  if (exist) {
+    var tmp = -1;
+    for (let _index = 0; _index < opacityMarked.length; _index++) {
+      if (index == opacityMarked[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    opacityMarked.splice(tmp, 1);
+  }
+  else opacityMarked.push(index);
+  //#endregion
+  //#region set value original or zero
+  var sub = aCategoryX[index];
+  for (var index = 0; index < aStacked.length; index++) {
+    var element = aStackedTmp[index];
+    var edit = aStacked[index];
+    edit[sub] = exist ? element[sub] : 0;
+  }
+  //#endregion
   isAgain = true;
   updateData(typeChart, true);
 }

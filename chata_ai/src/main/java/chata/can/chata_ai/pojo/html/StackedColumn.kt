@@ -109,7 +109,7 @@ object StackedColumn
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
@@ -118,7 +118,7 @@ object StackedColumn
     },
     function () {
       var id = this.id;
-      adminMulti(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     factorBack += 20;

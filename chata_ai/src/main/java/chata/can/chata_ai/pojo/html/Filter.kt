@@ -93,6 +93,37 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
+function adminStacked(id, subgroups) {
+  //#region control opacity
+  var words = id.split('_');
+  var index = parseInt(words[1]);
+  var subGroup = subgroups[index];
+  var exist = opacityMarked.includes(index);
+  if (exist) {
+    var tmp = -1;
+    for (let _index = 0; _index < opacityMarked.length; _index++) {
+      if (index == opacityMarked[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    opacityMarked.splice(tmp, 1);
+  }
+  else opacityMarked.push(index);
+  //#endregion
+  //#region set value original or zero
+  var sub = aCategoryX[index];
+  for (var index = 0; index < aStacked.length; index++) {
+    var element = aStackedTmp[index];
+    var edit = aStacked[index];
+    edit[sub] = exist ? element[sub] : 0;
+  }
+  //#endregion
+  isAgain = true;
+  updateData(typeChart, true);
+}
+
 function adminOpacity(id) {
   var words = id.split('_');
   var index = words[1];
