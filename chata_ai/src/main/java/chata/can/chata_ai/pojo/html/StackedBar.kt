@@ -91,7 +91,9 @@ object StackedBar
   addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', getAxisX());
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisY());
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisY(), function () {
+    modalData();
+  });
 
   var withReduce = width - 100;
   var factorBack = margin.top;

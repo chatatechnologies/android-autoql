@@ -35,6 +35,12 @@ class JavaScriptInterface(
 	}
 
 	@JavascriptInterface
+	fun modalData()
+	{
+		toString()
+	}
+
+	@JavascriptInterface
 	fun boundMethod(content: String)
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)
