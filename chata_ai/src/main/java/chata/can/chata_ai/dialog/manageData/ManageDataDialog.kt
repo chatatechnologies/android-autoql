@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ColumnQuery
@@ -98,41 +99,67 @@ class ManageDataDialog(
 	private fun setData()
 	{
 		queryBase?.run {
-			if (typeData == TypeColumnData.SELECTABLE)
+			when(typeData)
 			{
-				model.add(FilterColumn("Currency", isOnlyText = true))
-				for (pair in aCurrency)
+				TypeColumnData.CATEGORIES ->
 				{
-					val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
-					model.add(fc)
-					aCurrency1.add(fc)
+
 				}
-				model.add(FilterColumn("Quantity", isOnlyText = true))
-				for (pair in aQuality)
+				TypeColumnData.DATA ->
 				{
-					val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
-					model.add(fc)
-					aQuality1.add(fc)
+					toString()
+
+					for (column in this.aColumn)
+					{
+						if (!column.type.isNumber())
+						{
+							model.add(
+								FilterColumn(
+									column.displayName,
+									false,
+									isOnlyText = true,
+									allowClick = true
+								)
+							)
+						}
+					}
 				}
-				btnApply.setOnClickListener { setCategoriesIgnore() }
-			}
-			else
-			{
-				for (index in aCommon.indices)
+				TypeColumnData.PLAIN ->
 				{
-					val pair = aCommon[index]
-					val isSelected = pair.second.displayName == content
-					model.add(
-						FilterColumn(
-							pair.second.displayName,
-							isSelected,
-							isOnlyText = true,
-							allowClick = true,
-							indexColumn = pair.first
+					for (index in aCommon.indices)
+					{
+						val pair = aCommon[index]
+						val isSelected = pair.second.displayName == content
+						model.add(
+							FilterColumn(
+								pair.second.displayName,
+								isSelected,
+								isOnlyText = true,
+								allowClick = true,
+								indexColumn = pair.first
+							)
 						)
-					)
+					}
+					btnApply.visibility = View.GONE
 				}
-				btnApply.visibility = View.GONE
+				TypeColumnData.SELECTABLE ->
+				{
+					model.add(FilterColumn("Currency", isOnlyText = true))
+					for (pair in aCurrency)
+					{
+						val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
+						model.add(fc)
+						aCurrency1.add(fc)
+					}
+					model.add(FilterColumn("Quantity", isOnlyText = true))
+					for (pair in aQuality)
+					{
+						val fc = FilterColumn(pair.second.displayName, pair.second.isSelected)
+						model.add(fc)
+						aQuality1.add(fc)
+					}
+					btnApply.setOnClickListener { setCategoriesIgnore() }
+				}
 			}
 		}
 		adapter = FilterColumnAdapter(model, this, aCurrency1, aQuality1)

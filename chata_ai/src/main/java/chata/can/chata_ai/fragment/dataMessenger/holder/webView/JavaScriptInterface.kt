@@ -22,7 +22,6 @@ class JavaScriptInterface(
 {
 	private val presenter = DrillDownPresenter(queryBase, chatView)
 	private val aType = arrayListOf("CATEGORIES", "DATA", "PLAIN", "SELECTABLE")
-	private val mType = mapOf("CATEGORIES" to 1)
 
 	@JavascriptInterface
 	fun modalCategories(type: String, content: String)
