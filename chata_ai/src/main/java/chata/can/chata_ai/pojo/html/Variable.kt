@@ -52,6 +52,8 @@ const TypeEnum = Object.freeze({
   "UNKNOWN": 0});
 	
 const TypeManage = Object.freeze({
+	'CATEGORIES': 'CATEGORIES',
+	'DATA': 'DATA',
   'SELECTABLE': 'SELECTABLE',
   'PLAIN': 'PLAIN'
 });

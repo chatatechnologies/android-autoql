@@ -175,14 +175,6 @@ function modalCategories(type, content) {
 	};
 }
 
-function modalData() {
-  try {
-    Android.modalData();
-  } catch (err) {
-    console.log(`Good content: modalData()`);
-  }
-}
-
 function getAxisX() {
   var extra = '';
   if (nColumns > 2) {

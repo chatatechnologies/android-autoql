@@ -21,23 +21,24 @@ class JavaScriptInterface(
 	private val chatView: ChatContract.View?)
 {
 	private val presenter = DrillDownPresenter(queryBase, chatView)
-	private val aType = arrayListOf("SELECTABLE", "PLAIN")
+	private val aType = arrayListOf("CATEGORIES", "DATA", "PLAIN", "SELECTABLE")
+	private val mType = mapOf("CATEGORIES" to 1)
 
 	@JavascriptInterface
 	fun modalCategories(type: String, content: String)
 	{
 		if (type in aType)
 		{
-			val eType = if (type == "SELECTABLE") TypeColumnData.SELECTABLE
-			else TypeColumnData.PLAIN
+			val eType = when(type)
+			{
+				"CATEGORIES" -> TypeColumnData.CATEGORIES
+				"DATA" -> TypeColumnData.DATA
+				"PLAIN" -> TypeColumnData.PLAIN
+				"SELECTABLE" -> TypeColumnData.SELECTABLE
+				else -> TypeColumnData.CATEGORIES
+			}
 			ManageDataDialog(view.context, eType, content, view, queryBase).showDialog()
 		}
-	}
-
-	@JavascriptInterface
-	fun modalData()
-	{
-		toString()
 	}
 
 	@JavascriptInterface

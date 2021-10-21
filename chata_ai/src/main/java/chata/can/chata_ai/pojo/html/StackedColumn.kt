@@ -97,15 +97,19 @@ object StackedColumn
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', getAxisY(), function () {
-    modalData();
+    modalCategories(TypeManage.DATA);
   });
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisX());
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisX(), function () {
+    modalCategories(TypeManage.CATEGORIES);
+  });
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX());
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX(), function () {
+    modalCategories(TypeManage.DATA);
+  });
   for (var index = 0; index < aCategoryX.length; index++) {
     var item = aCategoryX[index];
 
