@@ -103,13 +103,21 @@ class ManageDataDialog(
 			{
 				TypeColumnData.CATEGORIES ->
 				{
-
+					for (cat in aCategoryX)
+					{
+						model.add(
+							FilterColumn(
+								cat,
+								true,
+								isOnlyText = true,
+								allowClick = true
+							)
+						)
+					}
 				}
 				TypeColumnData.DATA ->
 				{
-					toString()
-
-					for (column in this.aColumn)
+					for (column in aColumn)
 					{
 						if (!column.type.isNumber())
 						{
@@ -123,6 +131,7 @@ class ManageDataDialog(
 							)
 						}
 					}
+					btnApply.visibility = View.GONE
 				}
 				TypeColumnData.PLAIN ->
 				{

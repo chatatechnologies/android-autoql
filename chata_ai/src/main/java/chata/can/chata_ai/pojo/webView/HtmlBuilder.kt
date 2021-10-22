@@ -274,9 +274,16 @@ object HtmlBuilder
 			} else arrayListOf<String>().toString()
 			dataD3.drillTableY = dataForWebView.drillTableY
 
-			if (dataForWebView.catX == "[]"){
+			if (dataForWebView.catX == "[]")
+			{
 				dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
 				dataD3.aCategoryX = dataForWebView.catX
+			}
+			if (isTriConfig)
+			{
+				queryBase.aCategoryX = buildCategoryByPosition(
+					Category(aRows, aColumn[posColumnX], posColumnX, true,
+						hasQuotes = false, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
 			}
 			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
 
