@@ -106,12 +106,7 @@ class ManageDataDialog(
 					for (cat in aCategoryX)
 					{
 						model.add(
-							FilterColumn(
-								cat,
-								true,
-								isOnlyText = true,
-								allowClick = true
-							)
+							FilterColumn(cat,true)
 						)
 					}
 				}
