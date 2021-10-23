@@ -119,16 +119,19 @@ class ManageDataDialog(
 				}
 				TypeColumnData.DATA ->
 				{
-					for (column in aColumn)
+					for (index in aColumn.indices)
 					{
+						val column = aColumn[index]
 						if (!column.type.isNumber())
 						{
+							val isSelected = column.displayName == content
 							model.add(
 								FilterColumn(
 									column.displayName,
-									false,
+									isSelected,
 									isOnlyText = true,
-									allowClick = true
+									allowClick = true,
+									index
 								)
 							)
 						}
