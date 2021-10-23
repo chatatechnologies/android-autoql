@@ -103,6 +103,13 @@ class ManageDataDialog(
 			{
 				TypeColumnData.CATEGORIES ->
 				{
+					//region search title
+					var title = ""
+					aColumn.firstNotNullOf {
+						title = it.displayName
+					}
+					//endregion
+					model.add(FilterColumn(title, isOnlyText = true))
 					for (cat in aCategoryX)
 					{
 						model.add(

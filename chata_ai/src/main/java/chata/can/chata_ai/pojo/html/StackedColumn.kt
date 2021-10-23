@@ -96,8 +96,8 @@ object StackedColumn
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', getAxisY(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
 	
 	//Y axis label:

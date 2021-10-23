@@ -458,7 +458,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.STACKED_BAR;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -686,8 +686,8 @@ function setStackedColumn() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', getAxisY(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
 	
 	//Y axis label:
