@@ -88,7 +88,7 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', getAxisX(), function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', axisMiddles, function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 	

@@ -101,7 +101,7 @@ object StackedColumn
   });
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisX(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisMiddle, function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 

@@ -26,6 +26,7 @@ class DataD3
 
 	var xAxis = ""
 	var yAxis = ""
+	var middleAxis = ""
 
 	var categories = "[]"
 	var categories2 = "[]"

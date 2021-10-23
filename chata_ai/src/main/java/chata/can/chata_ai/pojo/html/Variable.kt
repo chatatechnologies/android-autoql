@@ -63,6 +63,7 @@ var colorBi = ['$color1'];//Main color for bars
 
 var axisX = '${dataD3.xAxis}';
 var axisY = '${dataD3.yAxis}';
+var axisMiddle = '${dataD3.middleAxis}';
 var nColumns = 0;
 
 //Main data
