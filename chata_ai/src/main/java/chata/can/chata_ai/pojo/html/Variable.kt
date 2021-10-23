@@ -12,7 +12,6 @@ object Variable
 
 	fun getVariables(dataD3: DataD3, backgroundColor: String): String
 	{
-
 		val typeChart =
 			if (dataD3.updateTable || dataD3.updatePivot)
 			{
@@ -21,7 +20,7 @@ object Variable
 				dataD3.pivot.tableOrPivot()
 			}
 			else if (dataD3.isColumn && !dataD3.isDashboard)
-				if (dataD3.isBi) "TypeEnum.COLUMN" else "stacked_column"
+				if (dataD3.isBi) "TypeEnum.COLUMN" else "TypeEnum.STACKED_COLUMN"
 			else
 				when(dataD3.type)
 				{

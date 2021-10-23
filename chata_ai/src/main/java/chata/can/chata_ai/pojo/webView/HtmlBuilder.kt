@@ -81,6 +81,7 @@ object HtmlBuilder
 				if (tmp != -1) posColumnY = tmp
 				queryBase.addIndices(posColumnX, posColumnY)
 				isTriConfig = true
+				dataD3.isBi = false
 				queryBase.configActions = 5
 			}
 			SupportCase.CASE_5 ->
