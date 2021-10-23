@@ -564,14 +564,14 @@ function setStackedBar() {
   });
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', getAxisY(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
     var item = aCategoryX[index];
@@ -697,8 +697,8 @@ function setStackedColumn() {
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
     var item = aCategoryX[index];

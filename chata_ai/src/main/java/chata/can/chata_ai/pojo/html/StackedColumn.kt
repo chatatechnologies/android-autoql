@@ -107,8 +107,8 @@ object StackedColumn
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', getAxisX(), function () {
-    modalCategories(TypeManage.DATA);
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
     var item = aCategoryX[index];
