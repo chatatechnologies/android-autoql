@@ -116,6 +116,9 @@ class ManageDataDialog(
 							FilterColumn(cat,true)
 						)
 					}
+					btnApply.setOnClickListener {
+						setDataStacked("[0]")
+					}
 				}
 				TypeColumnData.DATA ->
 				{
@@ -172,7 +175,9 @@ class ManageDataDialog(
 						model.add(fc)
 						aQuality1.add(fc)
 					}
-					btnApply.setOnClickListener { setCategoriesIgnore() }
+					btnApply.setOnClickListener {
+						setCategoriesIgnore()
+					}
 				}
 			}
 		}
@@ -249,6 +254,14 @@ class ManageDataDialog(
 			isEnabled = isEnable
 			alpha = if(isEnable) 1f else 0.2f
 		}
+	}
+
+	override fun setDataStacked(aIndex: String)
+	{
+		Handler(Looper.getMainLooper()).postDelayed({
+			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex);")
+		}, 100)
+		dialog.dismiss()
 	}
 
 	private fun getBackgroundColor(color: Int, borderColor: Int) =

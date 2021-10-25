@@ -93,6 +93,10 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
+function callAdminStacked(id) {
+  adminStacked(id, subgroups);
+}
+
 function adminStacked(id, subgroups) {
   //#region control opacity
   var words = id.split('_');

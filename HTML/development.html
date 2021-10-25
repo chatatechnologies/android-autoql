@@ -560,7 +560,7 @@ function setStackedBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', axisMiddles, function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 	
@@ -692,7 +692,7 @@ function setStackedColumn() {
   });
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisMiddle, function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
@@ -706,7 +706,8 @@ function setStackedColumn() {
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
-      adminStacked(id, subgroups);
+      console.log(subgroups);
+      //adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -715,7 +716,8 @@ function setStackedColumn() {
     },
     function () {
       var id = this.id;
-      adminStacked(id, subgroups);
+      console.log(subgroups);
+      //adminStacked(id, subgroups);
     });
 
     factorBack += 20;
@@ -1588,6 +1590,14 @@ function adminMulti(id, subgroups) {
   }
   isAgain = true;
   updateData(typeChart, true);
+}
+
+function callAdminStacked(aIndex) {
+  console.log(aIndex);
+  // for (let index = 0; index < aIndex.length; index++) {
+  //   const element = aIndex[index];
+  //   adminStacked(element, subgroups);
+  // }
 }
 
 function adminStacked(id, subgroups) {
