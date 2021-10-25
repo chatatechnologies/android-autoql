@@ -117,7 +117,7 @@ class ManageDataDialog(
 						)
 					}
 					btnApply.setOnClickListener {
-						setDataStacked("[0]")
+						setDataStacked()
 					}
 				}
 				TypeColumnData.DATA ->
@@ -256,8 +256,19 @@ class ManageDataDialog(
 		}
 	}
 
-	override fun setDataStacked(aIndex: String)
+	private fun setDataStacked()
 	{
+		val aIndex = ArrayList<Int>()
+		for (index in 0 until model.countData())
+		{
+			model[index]?.let {
+				if (!it.isSelected)
+				{
+					aIndex.add(index)
+				}
+			}
+		}
+		aIndex.toString()
 		Handler(Looper.getMainLooper()).postDelayed({
 			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex);")
 		}, 100)

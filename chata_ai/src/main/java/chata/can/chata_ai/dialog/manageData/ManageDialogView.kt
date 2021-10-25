@@ -4,5 +4,4 @@ interface ManageDialogView
 {
 	fun setIndexData(indexRoot: Int, indexCommon: Int)
 	fun statusApply(isEnable: Boolean)
-	fun setDataStacked(aIndex: String)
 }
