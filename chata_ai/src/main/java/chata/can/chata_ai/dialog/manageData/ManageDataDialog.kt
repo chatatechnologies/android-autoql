@@ -105,15 +105,12 @@ class ManageDataDialog(
 				TypeColumnData.CATEGORIES ->
 				{
 					//region search title
-					var title = ""
-					aColumn.firstNotNullOf {
-						title = it.displayName
-					}
+					val title = aColumn.getOrNull(0)?.displayName ?: ""
 					//endregion
 					model.add(FilterColumn(title, isOnlyText = true))
-					for (cat in aCategoryX)
+					for (cat in aCategory)
 					{
-						val fc = FilterColumn(cat,true)
+						val fc = FilterColumn(cat.nameColumn,cat.isSelected)
 						model.add(fc)
 						aCategory1.add(fc)
 					}
@@ -260,10 +257,12 @@ class ManageDataDialog(
 	private fun setDataStacked()
 	{
 		val aIndex = ArrayList<Int>()
-		for (index in 0 until model.countData())
-		{
-			model[index]?.let {
-				if (!it.isSelected)
+		queryBase?.let { queryBase ->
+			for (index in aCategory1.indices)
+			{
+				val cat = aCategory1[index]
+				queryBase.aCategory[index].isSelected = cat.isSelected
+				if (!cat.isSelected)
 				{
 					aIndex.add(index)
 				}

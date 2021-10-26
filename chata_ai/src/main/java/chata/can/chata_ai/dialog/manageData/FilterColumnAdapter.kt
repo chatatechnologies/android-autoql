@@ -48,9 +48,8 @@ class FilterColumnAdapter(
 		{
 			val found = aCurrency1[indexCurrency]
 			val newValue = !found.isSelected
-			if (hasSelected(aCurrency1) && !newValue) //return
-				dialogView.statusApply(false)
-			else dialogView.statusApply(true)
+			val isEnable = !(hasSelected(aCurrency1) && !newValue)
+			dialogView.statusApply(isEnable)
 			found.isSelected = newValue
 			notifyItemChanged(indexCurrency + 1)
 			if (newValue && aQuality1.any { it.isSelected })
@@ -63,9 +62,8 @@ class FilterColumnAdapter(
 		{
 			val found = aQuality1[indexQuality]
 			val newValue = !found.isSelected
-			if (hasSelected(aQuality1) && !newValue) // return
-				dialogView.statusApply(false)
-			else dialogView.statusApply(true)
+			val isEnable = !(hasSelected(aQuality1) && !newValue)
+			dialogView.statusApply(isEnable)
 			found.isSelected = newValue
 			notifyItemChanged(indexQuality + aCurrency1.size + 2)
 			if (newValue && aCurrency1.any { it.isSelected })
