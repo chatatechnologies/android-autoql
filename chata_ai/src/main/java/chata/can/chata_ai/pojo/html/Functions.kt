@@ -175,6 +175,14 @@ function modalCategories(type, content) {
 	};
 }
 
+function updateSelected(index, value) {
+  try {
+    Android.updateSelected();
+  } catch (err) {
+    console.log(`Good content: ${'$'}{value}; ${'$'}{index}`);
+  }
+}
+
 function getAxisX() {
   var extra = '';
   if (nColumns > 2) {

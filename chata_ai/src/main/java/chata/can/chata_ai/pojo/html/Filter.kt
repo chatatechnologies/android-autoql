@@ -124,16 +124,19 @@ function controlStacked(id, subgroups) {
     }
     opacityMarked.splice(tmp, 1);
   }
-  else opacityMarked.push(index);
+  else {
+    opacityMarked.push(index);
+  }
   //#endregion
   //#region set value original or zero
   var sub = aCategoryX[index];
-  for (var index = 0; index < aStacked.length; index++) {
-    var element = aStackedTmp[index];
-    var edit = aStacked[index];
+  for (var index1 = 0; index1 < aStacked.length; index1++) {
+    var element = aStackedTmp[index1];
+    var edit = aStacked[index1];
     edit[sub] = exist ? element[sub] : 0;
   }
   //#endregion
+	updateSelected(index, exist);
 }
 
 function adminOpacity(id) {
