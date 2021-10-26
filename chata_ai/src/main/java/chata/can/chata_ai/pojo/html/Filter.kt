@@ -104,7 +104,7 @@ function callAdminStacked(aIndex, subgroups) {
 
 function adminStacked(id, subgroups) {
   var words = id.split('_');
-  controlStacked(id, subgroups);
+  controlStacked(words[1], subgroups);
   isAgain = true;
   updateData(typeChart, true);
 }
