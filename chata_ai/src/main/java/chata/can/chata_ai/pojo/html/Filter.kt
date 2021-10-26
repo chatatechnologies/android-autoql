@@ -93,8 +93,11 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
-function callAdminStacked(id) {
-  adminStacked(id, subgroups);
+function callAdminStacked(aIndex) {
+  // for (let index = 0; index < aIndex.length; index++) {
+  //   const element = aIndex[index];
+  //   adminStacked(element, subgroups);
+  // }
 }
 
 function adminStacked(id, subgroups) {

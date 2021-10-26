@@ -9,7 +9,8 @@ class FilterColumnAdapter(
 	private val model: BaseModelList<FilterColumn>,
 	private val dialogView: ManageDialogView,
 	private val aCurrency1: ArrayList<FilterColumn>,
-	private val aQuality1: ArrayList<FilterColumn>
+	private val aQuality1: ArrayList<FilterColumn>,
+	private val aCategory: ArrayList<FilterColumn>
 ): BaseAdapter(model), FilterColumnView
 {
 	override fun getItemViewType(position: Int): Int
@@ -42,6 +43,7 @@ class FilterColumnAdapter(
 	{
 		val indexCurrency = aCurrency1.indexOf(filterColumn)
 		val indexQuality = aQuality1.indexOf(filterColumn)
+		val indexCategory = aCategory.indexOf(filterColumn)
 		if (indexCurrency != -1)
 		{
 			val found = aCurrency1[indexCurrency]
@@ -70,6 +72,15 @@ class FilterColumnAdapter(
 			{
 				updateList(aCurrency1, 1)
 			}
+		}
+
+		if (indexCategory != -1)
+		{
+			val found = aCategory[indexCategory]
+			val newValue = !found.isSelected
+
+			found.isSelected = newValue
+			notifyItemChanged(indexCategory + 1)
 		}
 	}
 

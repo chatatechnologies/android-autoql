@@ -38,6 +38,7 @@ class ManageDataDialog(
 	private lateinit var llParent: View
 	private val aCurrency1 = ArrayList<FilterColumn>()
 	private val aQuality1 = ArrayList<FilterColumn>()
+	private val aCategory1 = ArrayList<FilterColumn>()
 
 	fun showDialog()
 	{
@@ -112,9 +113,9 @@ class ManageDataDialog(
 					model.add(FilterColumn(title, isOnlyText = true))
 					for (cat in aCategoryX)
 					{
-						model.add(
-							FilterColumn(cat,true)
-						)
+						val fc = FilterColumn(cat,true)
+						model.add(fc)
+						aCategory1.add(fc)
 					}
 					btnApply.setOnClickListener {
 						setDataStacked()
@@ -181,7 +182,7 @@ class ManageDataDialog(
 				}
 			}
 		}
-		adapter = FilterColumnAdapter(model, this, aCurrency1, aQuality1)
+		adapter = FilterColumnAdapter(model, this, aCurrency1, aQuality1, aCategory1)
 		rvColumn.layoutManager = LinearLayoutManager(context1)
 		rvColumn.adapter = adapter
 	}
@@ -268,7 +269,6 @@ class ManageDataDialog(
 				}
 			}
 		}
-		aIndex.toString()
 		Handler(Looper.getMainLooper()).postDelayed({
 			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex);")
 		}, 100)
