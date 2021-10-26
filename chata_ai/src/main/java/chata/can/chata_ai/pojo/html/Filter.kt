@@ -94,9 +94,16 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex, subgroups) {
-  for (let index = 0; index < aIndex.length; index++) {
-    const element = aIndex[index];
-    controlStacked(element, subgroups);
+  if (aIndex.length > 0) {
+    for (let index = 0; index < aIndex.length; index++) {
+      const element = aIndex[index];
+      controlStacked(element, subgroups);
+    }
+  } else {
+    for (let index1 = 0; index1 < opacityMarked.length; index1++) {
+      const element = opacityMarked[index1];
+      controlStacked(element, subgroups);
+    }
   }
   isAgain = true;
   updateData(typeChart, true);
@@ -111,7 +118,6 @@ function adminStacked(id, subgroups) {
 
 function controlStacked(id, subgroups) {
   var index = parseInt(id);
-  var subGroup = subgroups[index];
   var exist = opacityMarked.includes(index);
   if (exist) {
     var tmp = -1;
