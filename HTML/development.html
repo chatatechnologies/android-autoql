@@ -706,8 +706,7 @@ function setStackedColumn() {
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
-      console.log(subgroups);
-      //adminStacked(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -716,8 +715,7 @@ function setStackedColumn() {
     },
     function () {
       var id = this.id;
-      console.log(subgroups);
-      //adminStacked(id, subgroups);
+      adminStacked(id, subgroups);
     });
 
     factorBack += 20;
@@ -1592,11 +1590,11 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
-function callAdminStacked(aIndex) {
-  // for (let index = 0; index < aIndex.length; index++) {
-  //   const element = aIndex[index];
-  //   adminStacked(element, subgroups);
-  // }
+function callAdminStacked(aIndex, subgroups) {
+  for (let index = 0; index < aIndex.length; index++) {
+    const element = aIndex[index];
+    adminStacked('1_' + element, subgroups);
+  }
 }
 
 function adminStacked(id, subgroups) {

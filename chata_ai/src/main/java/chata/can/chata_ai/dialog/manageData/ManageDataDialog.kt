@@ -257,6 +257,7 @@ class ManageDataDialog(
 	private fun setDataStacked()
 	{
 		val aIndex = ArrayList<Int>()
+		var sCat = ""
 		queryBase?.let { queryBase ->
 			for (index in aCategory1.indices)
 			{
@@ -267,9 +268,10 @@ class ManageDataDialog(
 					aIndex.add(index)
 				}
 			}
+			sCat = aCategory1.joinToString(",", "[", "]"){ "\"${it.nameColumn}\"" }
 		}
 		Handler(Looper.getMainLooper()).postDelayed({
-			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex);")
+			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex, $sCat);")
 		}, 100)
 		dialog.dismiss()
 	}
