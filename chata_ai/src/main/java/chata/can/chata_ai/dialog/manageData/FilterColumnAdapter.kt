@@ -78,6 +78,8 @@ class FilterColumnAdapter(
 		{
 			val found = aCategory[indexCategory]
 			val newValue = !found.isSelected
+			val isEnable = !(hasSelected(aQuality1) && !newValue)
+			dialogView.statusApply(isEnable)
 
 			found.isSelected = newValue
 			notifyItemChanged(indexCategory + 1)

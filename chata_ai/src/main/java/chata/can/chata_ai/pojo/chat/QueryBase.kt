@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo.chat
 import chata.can.chata_ai.Executor
 import chata.can.chata_ai.fragment.dataMessenger.presenter.PresenterContract
 import chata.can.chata_ai.dialog.DrillDownContract
+import chata.can.chata_ai.dialog.manageData.FilterColumn
 import chata.can.chata_ai.holder.HolderContract
 import chata.can.chata_ai.pojo.webView.HtmlBuilder
 import chata.can.chata_ai.extension.enumValueOfOrNull
@@ -108,6 +109,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var aQuality = ArrayList<Pair<Int, ColumnQuery>>()
 	var aCommon = ArrayList<Pair<Int, ColumnQuery>>()
 	var aCategoryX = ArrayList<String>()
+	var aCategory = ArrayList<FilterColumn>()
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null

@@ -1,5 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.dialog.manageData.FilterColumn
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
@@ -290,6 +291,11 @@ object HtmlBuilder
 
 			if (isTriConfig)
 			{
+				for (index in queryBase.aCategoryX.indices)
+				{
+					val cat = queryBase.aCategoryX[index]
+					queryBase.aCategory.add(FilterColumn(cat, true))
+				}
 				//region cat for D3 on tridimensionals
 				dataD3.catHeatX = dataForWebView.catY
 				dataD3.catHeatY = dataForWebView.catX
