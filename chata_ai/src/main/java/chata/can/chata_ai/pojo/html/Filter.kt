@@ -136,7 +136,7 @@ function controlStacked(id, subgroups) {
     edit[sub] = exist ? element[sub] : 0;
   }
   //#endregion
-	updateSelected(index, exist);
+	updateSelected(`${'$'}{index}_${'$'}{exist}`);
 }
 
 function adminOpacity(id) {

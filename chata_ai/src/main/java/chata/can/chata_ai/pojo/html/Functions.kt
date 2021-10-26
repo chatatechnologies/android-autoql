@@ -161,7 +161,7 @@ function updateData(tmpChart, isReload) {
 
 function drillDown(content) {
 	try {
-		Android.boundMethod(content);
+		Android.drillDown(content);
 	} catch(err) {
 		console.log("Good content: " + content);
 	};
@@ -175,11 +175,11 @@ function modalCategories(type, content) {
 	};
 }
 
-function updateSelected(index, value) {
+function updateSelected(index_value) {
   try {
-    Android.updateSelected();
+    Android.updateSelected(index_value);
   } catch (err) {
-    console.log(`Good content: ${'$'}{value}; ${'$'}{index}`);
+    console.log(`Good content: ${'$'}{index_value}`);
   }
 }
 

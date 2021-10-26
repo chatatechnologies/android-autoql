@@ -41,7 +41,26 @@ class JavaScriptInterface(
 	}
 
 	@JavascriptInterface
-	fun boundMethod(content: String)
+	fun updateSelected(indexValue: String)
+	{
+		val aData = indexValue.split("_")
+		if (aData.size > 1)
+		{
+			val sIndex = aData[0]
+			val sValue = aData[1]
+			val index = sIndex.toIntOrNull() ?: -1
+			val value = sValue.toBoolean()
+			if (index != -1)
+			{
+				queryBase.run {
+					aCategory[index].isSelected = value
+				}
+			}
+		}
+	}
+
+	@JavascriptInterface
+	fun drillDown(content: String)
 	{
 		if (SinglentonDrawer.mIsEnableDrillDown)
 		{
