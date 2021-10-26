@@ -93,17 +93,24 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
-function callAdminStacked(aIndex) {
-  // for (let index = 0; index < aIndex.length; index++) {
-  //   const element = aIndex[index];
-  //   adminStacked(element, subgroups);
-  // }
+function callAdminStacked(aIndex, subgroups) {
+  for (let index = 0; index < aIndex.length; index++) {
+    const element = aIndex[index];
+    controlStacked(element, subgroups);
+  }
+  isAgain = true;
+  updateData(typeChart, true);
 }
 
 function adminStacked(id, subgroups) {
-  //#region control opacity
   var words = id.split('_');
-  var index = parseInt(words[1]);
+  controlStacked(id, subgroups);
+  isAgain = true;
+  updateData(typeChart, true);
+}
+
+function controlStacked(id, subgroups) {
+  var index = parseInt(id);
   var subGroup = subgroups[index];
   var exist = opacityMarked.includes(index);
   if (exist) {
@@ -127,8 +134,6 @@ function adminStacked(id, subgroups) {
     edit[sub] = exist ? element[sub] : 0;
   }
   //#endregion
-  isAgain = true;
-  updateData(typeChart, true);
 }
 
 function adminOpacity(id) {
