@@ -11,7 +11,8 @@ object StackedBar
 	var withReduce = width - 100;
 	//region rewrite
   var subgroups = [];
-  aStacked.map(function(a1) {
+	var stackedData = getStackedData();
+  stackedData.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
       if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
@@ -21,7 +22,7 @@ object StackedBar
   });
   //endregion
   var groups = [];
-  aStacked.map(function(item) {
+  stackedData.map(function(item) {
     var vGroup = item.name;
     if (groups.indexOf(vGroup) === -1) {
       groups.push(vGroup);
@@ -64,7 +65,7 @@ object StackedBar
     .domain(subgroups)
     .range(colorPie);
     
-  var stackedData = d3.stack().keys(subgroups)(aStacked);
+  var stackedData = d3.stack().keys(subgroups)(stackedData);
 
   // Show the bars
   svg.append('g')
@@ -105,9 +106,9 @@ object StackedBar
   addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < aCategoryX.length; index++) {
+  for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
-    var item = aCategoryX[index];
+    var item = getCategoriesStack()[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
       var id = this.id;

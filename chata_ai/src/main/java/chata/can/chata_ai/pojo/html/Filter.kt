@@ -136,7 +136,7 @@ function controlStacked(id, subgroups) {
   }
   //#endregion
   //#region set value original or zero
-  var sub = aCategoryX[index];
+  var sub = getCategoriesStack()[index];
   for (var index1 = 0; index1 < aStacked.length; index1++) {
     var element = aStackedTmp[index1];
     var edit = aStacked[index1];
@@ -243,6 +243,11 @@ function setOtherStacked()
   axisY = tmp;
   isAgain = true;
   updateData(typeChart, true);
+}
+
+function getCategoriesStack()
+{
+  return isCurrency ? aCatHeatY : aCatHeatX;
 }
 
 function getStackedData()

@@ -481,7 +481,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.STACKED_BAR;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -505,7 +505,8 @@ function setStackedBar() {
 	var withReduce = width - 100;
 	//region rewrite
   var subgroups = [];
-  aStacked.map(function(a1) {
+  var stackedData = getStackedData();
+  stackedData.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
       if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
@@ -515,7 +516,7 @@ function setStackedBar() {
   });
   //endregion
   var groups = [];
-  aStacked.map(function(item) {
+  stackedData.map(function(item) {
     var vGroup = item.name;
     if (groups.indexOf(vGroup) === -1) {
       groups.push(vGroup);
@@ -558,7 +559,7 @@ function setStackedBar() {
     .domain(subgroups)
     .range(colorPie);
     
-  var stackedData = d3.stack().keys(subgroups)(aStacked);
+  var stackedData = d3.stack().keys(subgroups)(stackedData);
 
   // Show the bars
   svg.append('g')
@@ -599,9 +600,9 @@ function setStackedBar() {
   addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < aCategoryX.length; index++) {
+  for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
-    var item = aCategoryX[index];
+    var item = getCategoriesStack()[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
@@ -728,9 +729,9 @@ function setStackedColumn() {
   addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < aCategoryX.length; index++) {
+  for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
-    var item = aCategoryX[index];
+    var item = getCategoriesStack()[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
@@ -1661,7 +1662,7 @@ function controlStacked(id, subgroups) {
   }
   //#endregion
   //#region set value original or zero
-  var sub = aCategoryX[index];
+  var sub = getCategoriesStack()[index];
   for (var index1 = 0; index1 < aStacked.length; index1++) {
     var element = aStackedTmp[index1];
     var edit = aStacked[index1];
@@ -1768,6 +1769,10 @@ function setOtherStacked()
   axisY = tmp;
   isAgain = true;
   updateData(typeChart, true);
+}
+
+function getCategoriesStack() {
+  return isCurrency ? aCatHeatY : aCatHeatX;
 }
 
 function getStackedData()

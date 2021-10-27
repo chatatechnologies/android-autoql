@@ -111,9 +111,9 @@ object StackedColumn
   addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < aCategoryX.length; index++) {
+  for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
-    var item = aCategoryX[index];
+    var item = getCategoriesStack()[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
       var id = this.id;
