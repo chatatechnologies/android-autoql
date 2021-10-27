@@ -583,6 +583,7 @@ function setStackedBar() {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
+		if (indexIgnore.includes(index)) continue;
     var item = aCategoryX[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
@@ -710,6 +711,7 @@ function setStackedColumn() {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
+		if (indexIgnore.includes(index)) continue;
     var item = aCategoryX[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
@@ -1599,6 +1601,7 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex, subgroups) {
+	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
       const element = aIndex[index];

@@ -94,6 +94,7 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex, subgroups) {
+	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
       const element = aIndex[index];

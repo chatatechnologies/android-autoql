@@ -103,6 +103,7 @@ object StackedBar
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < aCategoryX.length; index++) {
+		if (indexIgnore.includes(index)) continue;
     var item = aCategoryX[index];
 
     addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
