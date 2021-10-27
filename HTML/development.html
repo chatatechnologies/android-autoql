@@ -409,6 +409,20 @@ var aStacked = [{name: '2016', 'Bates Trucking': 0,'Northern Alberta': 7,'Southe
 {name: '2019', 'Bates Trucking': 1,'Northern Alberta': 10,'Southern Alberta': 1,'ABC Truckline': 2,'Louisiana': 2,'Midland, TX': 4,'Pecos, TX': 2,'Pleasanton, TX': 1,'Prime Trucking': 1,'Texas': 2,'Wyoming - Douglas Yard': 2,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2020', 'Bates Trucking': 0,'Northern Alberta': 2,'Southern Alberta': 1,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2021', 'Bates Trucking': 1,'Northern Alberta': 2,'Southern Alberta': 0,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}];
+var aStacked2 = [{name: 'Bates Trucking', '2016': 0,'2017': 6,'2018': 9,'2019': 1,'2020': 0,'2021': 1},
+{name: 'Northern Alberta', '2016': 7,'2017': 19,'2018': 16,'2019': 10,'2020': 2,'2021': 2},
+{name: 'Southern Alberta', '2016': 10,'2017': 14,'2018': 0,'2019': 1,'2020': 1,'2021': 0},
+{name: 'ABC Truckline', '2016': 0,'2017': 18,'2018': 33,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Louisiana', '2016': 14,'2017': 7,'2018': 4,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Midland, TX', '2016': 1,'2017': 20,'2018': 12,'2019': 4,'2020': 0,'2021': 0},
+{name: 'Pecos, TX', '2016': 0,'2017': 4,'2018': 3,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Pleasanton, TX', '2016': 0,'2017': 4,'2018': 0,'2019': 1,'2020': 0,'2021': 0},
+{name: 'Prime Trucking', '2016': 0,'2017': 2,'2018': 0,'2019': 1,'2020': 0,'2021': 0},
+{name: 'Texas', '2016': 7,'2017': 16,'2018': 6,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Wyoming - Douglas Yard', '2016': 0,'2017': 0,'2018': 0,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Central Saskatchewan', '2016': 6,'2017': 5,'2018': 6,'2019': 0,'2020': 0,'2021': 0},
+{name: 'Northern BC', '2016': 0,'2017': 5,'2018': 2,'2019': 0,'2020': 0,'2021': 0},
+{name: 'Northern Saskatchewan', '2016': 0,'2017': 1,'2018': 1,'2019': 0,'2020': 0,'2021': 0}];
 var aStackedTmp = [{name: '2016', 'Bates Trucking': 0,'Northern Alberta': 7,'Southern Alberta': 10,'ABC Truckline': 0,'Louisiana': 14,'Midland, TX': 1,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 7,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2017', 'Bates Trucking': 6,'Northern Alberta': 19,'Southern Alberta': 14,'ABC Truckline': 18,'Louisiana': 7,'Midland, TX': 20,'Pecos, TX': 4,'Pleasanton, TX': 4,'Prime Trucking': 2,'Texas': 16,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 5,'Northern BC': 5,'Northern Saskatchewan': 1},
 {name: '2018', 'Bates Trucking': 9,'Northern Alberta': 16,'Southern Alberta': 0,'ABC Truckline': 33,'Louisiana': 4,'Midland, TX': 12,'Pecos, TX': 3,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 6,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 6,'Northern BC': 2,'Northern Saskatchewan': 1},
@@ -429,7 +443,7 @@ var limitName = 0;
 var isCurrency = true;
 var maxValue = 121;
 var minValue = 0;
-var maxValue2 = -1;
+var maxValue2 = 56;
 var minValue2 = -1;
 var aMax = [];
 var aMax2 = [];
@@ -467,7 +481,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.PIVOT;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -557,14 +571,14 @@ function setStackedBar() {
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
     .enter()
-    .append('rect')
-    .attr('id', function(item, _) { return `${item.data.name}`;})
+		.append('rect')
+			.attr('id', function(item, _) { return `${item.data.name}`;})
       .attr('x', function(d) { return y(d[0]); })
       .attr('height', x.bandwidth())
       .attr('y', function(d) { return x(d.data.name); })
       .attr('width', function(d) { return y(d[1]) - y(d[0]); })
       .on('click', function(_, d) {
-        var idParent = this.id;
+				var idParent = this.id;
         var subgroupName = d3.select(this.parentNode).datum().key;
         var subgroupValue = d.data[subgroupName];
         drillDown(subgroupName + '_' + idParent);
@@ -614,7 +628,8 @@ function setStackedColumn() {
   var withReduce = width - 100;
 	//region rewrite
   var subgroups = [];
-  aStacked.map(function(a1) {
+	var stackedData = getStackedData();
+  stackedData.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
       if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
@@ -624,7 +639,7 @@ function setStackedColumn() {
   });
   //endregion
   var groups = [];
-  aStacked.map(function(item) {
+  stackedData.map(function(item) {
     var vGroup = item.name;
     if (groups.indexOf(vGroup) === -1) {
       groups.push(vGroup);
@@ -672,7 +687,7 @@ function setStackedColumn() {
     .domain(subgroups)
     .range(colorPie);
 
-  var stackedData = d3.stack().keys(subgroups)(aStacked);
+  var stackedData = d3.stack().keys(subgroups)(stackedData);
 
   // Show the bars
   svg.append('g')
@@ -1743,6 +1758,21 @@ function getDataMulti()
     return aAllData[key];
 	}
 	else return [];
+}
+
+function setOtherStacked()
+{
+  isCurrency = !isCurrency;
+  var tmp = axisX;
+  axisX = axisY;
+  axisY = tmp;
+  isAgain = true;
+  updateData(typeChart, true);
+}
+
+function getStackedData()
+{
+  return isCurrency ? aStacked : aStacked2;
 }
 
 function getMultiCategory()

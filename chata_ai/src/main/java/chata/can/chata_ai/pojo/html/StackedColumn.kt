@@ -11,7 +11,8 @@ object StackedColumn
   var withReduce = width - 100;
 	//region rewrite
   var subgroups = [];
-  aStacked.map(function(a1) {
+	var stackedData = getStackedData();
+  stackedData.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
       if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
@@ -21,7 +22,7 @@ object StackedColumn
   });
   //endregion
   var groups = [];
-  aStacked.map(function(item) {
+  stackedData.map(function(item) {
     var vGroup = item.name;
     if (groups.indexOf(vGroup) === -1) {
       groups.push(vGroup);
@@ -69,7 +70,7 @@ object StackedColumn
     .domain(subgroups)
     .range(colorPie);
 
-  var stackedData = d3.stack().keys(subgroups)(aStacked);
+  var stackedData = d3.stack().keys(subgroups)(stackedData);
 
   // Show the bars
   svg.append('g')

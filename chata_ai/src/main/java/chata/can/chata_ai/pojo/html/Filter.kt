@@ -235,6 +235,21 @@ function getDataMulti()
 	else return [];
 }
 
+function setOtherStacked()
+{
+  isCurrency = !isCurrency;
+  var tmp = axisX;
+  axisX = axisY;
+  axisY = tmp;
+  isAgain = true;
+  updateData(typeChart, true);
+}
+
+function getStackedData()
+{
+  return isCurrency ? aStacked : aStacked2;
+}
+
 function getMultiCategory()
 {
   return isCurrency ? aCategory : aCategory2;
