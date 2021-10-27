@@ -76,15 +76,18 @@ object StackedBar
     .selectAll('rect')
     // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(function(d) { return d; })
-    .enter().append('rect')
+    .enter()
+		.append('rect')
+			.attr('id', function(item, _) { return `${'$'}{item.data.name}`;})
       .attr('x', function(d) { return y(d[0]); })
       .attr('height', x.bandwidth())
       .attr('y', function(d) { return x(d.data.name); })
       .attr('width', function(d) { return y(d[1]) - y(d[0]); })
       .on('click', function(_, d) {
+				var idParent = this.id;
         var subgroupName = d3.select(this.parentNode).datum().key;
         var subgroupValue = d.data[subgroupName];
-        console.log('group: ' + subgroupName + ', value: ' + subgroupValue);
+        drillDown(subgroupName + '_' + idParent);
       });
 			
 	//Add X axis label:
