@@ -41,7 +41,7 @@ object StackedBar
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 130])
+    .domain([0, maxValue])
     .range([0, withReduce]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')

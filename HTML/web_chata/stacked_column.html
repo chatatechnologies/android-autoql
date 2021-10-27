@@ -38,6 +38,20 @@
 {name: '2019', 'Bates Trucking': 1,'Northern Alberta': 10,'Southern Alberta': 1,'ABC Truckline': 2,'Louisiana': 2,'Midland, TX': 4,'Pecos, TX': 2,'Pleasanton, TX': 1,'Prime Trucking': 1,'Texas': 2,'Wyoming - Douglas Yard': 2,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2020', 'Bates Trucking': 0,'Northern Alberta': 2,'Southern Alberta': 1,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0},
 {name: '2021', 'Bates Trucking': 1,'Northern Alberta': 2,'Southern Alberta': 0,'ABC Truckline': 0,'Louisiana': 0,'Midland, TX': 0,'Pecos, TX': 0,'Pleasanton, TX': 0,'Prime Trucking': 0,'Texas': 0,'Wyoming - Douglas Yard': 0,'Central Saskatchewan': 0,'Northern BC': 0,'Northern Saskatchewan': 0}];
+  var data = [{name: 'Bates Trucking', '2016': 0,'2017': 6,'2018': 9,'2019': 1,'2020': 0,'2021': 1},
+{name: 'Northern Alberta', '2016': 7,'2017': 19,'2018': 16,'2019': 10,'2020': 2,'2021': 2},
+{name: 'Southern Alberta', '2016': 10,'2017': 14,'2018': 0,'2019': 1,'2020': 1,'2021': 0},
+{name: 'ABC Truckline', '2016': 0,'2017': 18,'2018': 33,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Louisiana', '2016': 14,'2017': 7,'2018': 4,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Midland, TX', '2016': 1,'2017': 20,'2018': 12,'2019': 4,'2020': 0,'2021': 0},
+{name: 'Pecos, TX', '2016': 0,'2017': 4,'2018': 3,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Pleasanton, TX', '2016': 0,'2017': 4,'2018': 0,'2019': 1,'2020': 0,'2021': 0},
+{name: 'Prime Trucking', '2016': 0,'2017': 2,'2018': 0,'2019': 1,'2020': 0,'2021': 0},
+{name: 'Texas', '2016': 7,'2017': 16,'2018': 6,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Wyoming - Douglas Yard', '2016': 0,'2017': 0,'2018': 0,'2019': 2,'2020': 0,'2021': 0},
+{name: 'Central Saskatchewan', '2016': 6,'2017': 5,'2018': 6,'2019': 0,'2020': 0,'2021': 0},
+{name: 'Northern BC', '2016': 0,'2017': 5,'2018': 2,'2019': 0,'2020': 0,'2021': 0},
+{name: 'Northern Saskatchewan', '2016': 0,'2017': 1,'2018': 1,'2019': 0,'2020': 0,'2021': 0}]
 
   //region rewrite
   var subgroups = [];
@@ -49,8 +63,6 @@
       }
     });
   });
-  console.log('Data for left axis');
-  console.log(subgroups);
   //endregion
   var groups = [];
   data.map(function(item) {
@@ -59,11 +71,9 @@
       groups.push(vGroup);
     }
   });
-  console.log('Data for bottom axis');
-  console.log(groups);
   // Add X axis
   var x = d3.scaleBand()
-    .domain(subgroups)//.domain(groups)
+    .domain(groups)
     .range([0, width])
     .padding(0.2);
   svg.append('g')
@@ -76,8 +86,7 @@
     //set color for domain and ticks
     .style("color", '#909090')
     .selectAll('text')
-    //rotate only text
-      .attr('transform', 'translate(-30, 25)rotate(-45)');
+      .attr('transform', 'translate(0, 5)');
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -101,15 +110,10 @@
   // color palette = one color per subgroup
   var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
-    .domain(subgroups)//.domain(subgroups)
+    .domain(subgroups)
     .range(colorPie);
 
   var stackedData = d3.stack().keys(subgroups)(data);
-  var stackedData1 = d3.stack().keys(groups)(data);
-  console.log('subgroups for chart');
-  console.log(stackedData);
-  console.log('groups for chart');
-  console.log(stackedData1);
 
   // Show the bars
   svg.append('g')

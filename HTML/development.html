@@ -467,7 +467,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.PIVOT;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -521,7 +521,7 @@ function setStackedBar() {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 130])
+    .domain([0, maxValue])
     .range([0, withReduce]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')
@@ -649,7 +649,7 @@ function setStackedColumn() {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 130])//range us major value for values sums
+    .domain([0, maxValue])//range us major value for values sums
     .range([ height, 0 ]);
   svg.append('g')
     .call(

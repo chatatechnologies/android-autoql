@@ -46,7 +46,7 @@ object StackedColumn
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 130])//range us major value for values sums
+    .domain([0, maxValue])//range us major value for values sums
     .range([ height, 0 ]);
   svg.append('g')
     .call(

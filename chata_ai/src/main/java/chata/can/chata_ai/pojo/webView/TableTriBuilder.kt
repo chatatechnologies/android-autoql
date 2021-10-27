@@ -154,7 +154,7 @@ object TableTriBuilder
 
 	fun getData3Dimensions(
 		mData: LinkedHashMap<String, String>,
-		aDataValue: ArrayList< ArrayList<Any> >,
+		//aDataValue: ArrayList< ArrayList<Any> >,
 		aCatX: ArrayList<String>,
 		aCatY: ArrayList<String>): String
 	{

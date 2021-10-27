@@ -319,7 +319,7 @@ object HtmlBuilder
 
 
 				val pair = TableTriBuilder.generateDataTableTri(dataTableTri)
-				dataD3.data = getData3Dimensions(pair.second, pair.first, aCatX, aCatY)
+				dataD3.data = getData3Dimensions(pair.second, /*pair.first,*/ aCatX, aCatY)
 				val aDataTable = pair.first
 				val aMapPure = pair.second
 				dataForWebView.dataChartBi = aDataTable.toString()
@@ -406,9 +406,26 @@ object HtmlBuilder
 				}
 
 				val pChartLine = LineBuilder.generateDataChartLine(aMapPure, aCatX, aCatY)
+				val pStacked1 = pChartLine.first
+				if (pStacked1.first is String)
+				{
+					dataD3.dataStacked = pStacked1.first as? String ?: ""
+				}
+				if (pStacked1.second is Int)
+				{
+					dataD3.max = pStacked1.second as? Int ?: 0
+				}
+				val pStacked2 = pChartLine.second
+				if (pStacked2.first is String)
+				{
+					dataD3.dataStacked2 = pStacked2.first as? String ?: ""
+				}
+				if (pStacked2.second is Int)
+				{
+					dataD3.max2 = pStacked2.second as? Int ?: 0
+				}
+
 				dataForWebView.catYS = ""
-				dataD3.dataStacked = pChartLine.first
-				dataD3.max = pChartLine.second
 				queryBase.isTri = true
 				dataForWebView.isBi = false
 

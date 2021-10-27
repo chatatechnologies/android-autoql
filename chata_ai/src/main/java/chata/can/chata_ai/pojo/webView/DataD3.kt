@@ -10,6 +10,7 @@ class DataD3
 	var data = "[]"
 	var data2 = "[]"
 	var dataStacked = "[]"
+	var dataStacked2 = "[]"
 	var aCategoryX = "[]"
 	var aAllData = "[]"
 	var aMaxData = "[]"
