@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://d3js.org/d3.v6.js"></script>
   <title></title>
+  <style>
+    body{
+		background: #3b3f46!important;
+		color: #ffffff!important;
+  }
+  </style>
 </head>
 <body>
   <script>
     var margin = {top: 10, right: 30, bottom: 40, left: 50},
-    width = 640 - margin.left - margin.right,
-    height = 520 - margin.top - margin.bottom;
+    width =  1280 - margin.left - margin.right,
+    height = 780 - margin.top - margin.bottom;
 
   var svg = d3.select('body')
     .append('svg')
@@ -43,6 +49,8 @@
       }
     });
   });
+  console.log('Data for left axis');
+  console.log(subgroups);
   //endregion
   var groups = [];
   data.map(function(item) {
@@ -51,9 +59,11 @@
       groups.push(vGroup);
     }
   });
+  console.log('Data for bottom axis');
+  console.log(groups);
   // Add X axis
   var x = d3.scaleBand()
-    .domain(groups)
+    .domain(subgroups)//.domain(groups)
     .range([0, width])
     .padding(0.2);
   svg.append('g')
@@ -66,7 +76,8 @@
     //set color for domain and ticks
     .style("color", '#909090')
     .selectAll('text')
-      .attr('transform', 'translate(0, 5)');
+    //rotate only text
+      .attr('transform', 'translate(-30, 25)rotate(-45)');
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -90,10 +101,15 @@
   // color palette = one color per subgroup
   var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
-    .domain(subgroups)
+    .domain(subgroups)//.domain(subgroups)
     .range(colorPie);
 
   var stackedData = d3.stack().keys(subgroups)(data);
+  var stackedData1 = d3.stack().keys(groups)(data);
+  console.log('subgroups for chart');
+  console.log(stackedData);
+  console.log('groups for chart');
+  console.log(stackedData1);
 
   // Show the bars
   svg.append('g')
@@ -107,7 +123,7 @@
     .data(function(d) { return d; })
     .enter()
     .append('rect')
-    .attr('id', function(item, i) { console.log(item); return `${1}`;})
+    .attr('id', function(item, i) { return `${1}`;})
       .attr('x', function(d) { return x(d.data.name); })
       .attr('height', function(d) { return y(d[0]) - y(d[1]); })
       .attr('y', function(d) { return y(d[1]); })
