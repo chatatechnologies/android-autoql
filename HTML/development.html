@@ -481,7 +481,7 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-var typeChart = TypeEnum.STACKED_BAR;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 8) + 35 + _plusSingle;
@@ -505,7 +505,7 @@ function setStackedBar() {
 	var withReduce = width - 100;
 	//region rewrite
   var subgroups = [];
-  var stackedData = getStackedData();
+	var stackedData = getStackedData();
   stackedData.map(function(a1) {
     var keys1 = Object.keys(a1);
     keys1.map(function(b1) {
@@ -657,11 +657,12 @@ function setStackedColumn() {
       d3.axisBottom(x)
       .tickSize(7)
       .tickSizeOuter(0)
+			.tickFormat(x =>`${getFirst10(x)}`)
     )
     //set color for domain and ticks
     .style("color", '#909090')
     .selectAll('text')
-      .attr('transform', 'translate(0, 5)');
+      .attr('transform', d => getCategoriesStack()[0].length > 10 ? `translate(0, 5)rotate(0)` : `translate(-35, 30)rotate(-45)`);
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -715,7 +716,7 @@ function setStackedColumn() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 	
@@ -1771,7 +1772,8 @@ function setOtherStacked()
   updateData(typeChart, true);
 }
 
-function getCategoriesStack() {
+function getCategoriesStack()
+{
   return isCurrency ? aCatHeatY : aCatHeatX;
 }
 

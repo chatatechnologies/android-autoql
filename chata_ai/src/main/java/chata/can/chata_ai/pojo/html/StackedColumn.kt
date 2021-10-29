@@ -39,11 +39,12 @@ object StackedColumn
       d3.axisBottom(x)
       .tickSize(7)
       .tickSizeOuter(0)
+			.tickFormat(x =>`${'$'}{getFirst10(x)}`)
     )
     //set color for domain and ticks
     .style("color", '#909090')
     .selectAll('text')
-      .attr('transform', 'translate(0, 5)');
+      .attr('transform', d => getCategoriesStack()[0].length > 10 ? `translate(0, 5)rotate(0)` : `translate(-35, 30)rotate(-45)`);
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -97,7 +98,7 @@ object StackedColumn
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 	
