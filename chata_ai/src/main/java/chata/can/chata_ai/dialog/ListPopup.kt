@@ -36,9 +36,9 @@ object ListPopup
 		PopupMenu(wrapper, view).run {
 			menu?.run {
 				val aData = ConfigActions.pBiTriConfig
-				for (index in aData.indices)
+				for ((index, data) in aData.withIndex())
 				{
-					aData[index].run {
+					data.run {
 						if (viewExclude != first)
 							add(index, first, index, third).setIcon(second)
 					}

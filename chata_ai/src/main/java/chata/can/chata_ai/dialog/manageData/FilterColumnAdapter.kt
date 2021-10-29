@@ -86,11 +86,9 @@ class FilterColumnAdapter(
 
 	private fun updateList(list: ArrayList<FilterColumn>, startIndex: Int)
 	{
-		for (index in list.indices)
+		for ((index, item) in list.withIndex())
 		{
-			list[index].run {
-				isSelected = false
-			}
+			item.isSelected = false
 			notifyItemChanged(index + startIndex)
 		}
 	}

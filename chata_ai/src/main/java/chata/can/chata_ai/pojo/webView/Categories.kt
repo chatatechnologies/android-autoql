@@ -11,9 +11,8 @@ object Categories
 		position: Int): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
-		for (index in aRows.indices)
+		for ((index, aRow) in aRows.withIndex())
 		{
-			val aRow = aRows[index]
 			val cellUsed = aRow[position]
 			if (cellUsed.isNull() || cellUsed.isEmpty())
 				aIndices.add(index)

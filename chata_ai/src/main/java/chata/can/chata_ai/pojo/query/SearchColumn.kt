@@ -15,9 +15,8 @@ object SearchColumn
 			aCurrency.clear()
 			aQuality.clear()
 			aCommon.clear()
-			for (index in aColumn.indices)
+			for ((index, column) in aColumn.withIndex())
 			{
-				val column = aColumn[index]
 				val pair = Pair(index, column)
 				when(column.type)
 				{

@@ -291,9 +291,8 @@ object HtmlBuilder
 
 			if (isTriConfig)
 			{
-				for (index in queryBase.aCategoryX.indices)
+				for (cat in queryBase.aCategoryX)
 				{
-					val cat = queryBase.aCategoryX[index]
 					queryBase.aCategory.add(FilterColumn(cat, true))
 				}
 				//region cat for D3 on tridimensionals

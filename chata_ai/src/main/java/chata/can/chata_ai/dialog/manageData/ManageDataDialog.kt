@@ -120,9 +120,8 @@ class ManageDataDialog(
 				}
 				TypeColumnData.DATA ->
 				{
-					for (index in aColumn.indices)
+					for ((index, column) in aColumn.withIndex())
 					{
-						val column = aColumn[index]
 						if (!column.type.isNumber())
 						{
 							val isSelected = column.displayName == content
@@ -141,9 +140,8 @@ class ManageDataDialog(
 				}
 				TypeColumnData.PLAIN ->
 				{
-					for (index in aCommon.indices)
+					for (pair in aCommon)
 					{
-						val pair = aCommon[index]
 						val isSelected = pair.second.displayName == content
 						model.add(
 							FilterColumn(
@@ -188,9 +186,8 @@ class ManageDataDialog(
 		aFilter: ArrayList<FilterColumn>,
 		aCurrency: ArrayList<Pair<Int, ColumnQuery>>)
 	{
-		for (index in aFilter.indices)
+		for ((index, filterColumn) in aFilter.withIndex())
 		{
-			val filterColumn = aFilter[index]
 			val filterBase = aCurrency[index].second
 			filterBase.isSelected = filterColumn.isSelected
 		}
@@ -219,9 +216,9 @@ class ManageDataDialog(
 			updateFilterColumn(aCurrency1, aCurrency)
 			updateFilterColumn(aQuality1, aQuality)
 		}
-		for (index in aSource.indices)
+		for ((index, item) in aSource.withIndex())
 		{
-			if (!aSource[index].isSelected)
+			if (!item.isSelected)
 				array.add(index)
 			else
 				arrayOut.add(index)
@@ -259,9 +256,8 @@ class ManageDataDialog(
 		val aIndex = ArrayList<Int>()
 		var sCat = ""
 		queryBase?.let { queryBase ->
-			for (index in aCategory1.indices)
+			for ((index, cat) in aCategory1.withIndex())
 			{
-				val cat = aCategory1[index]
 				queryBase.aCategory[index].isSelected = cat.isSelected
 				if (!cat.isSelected)
 				{

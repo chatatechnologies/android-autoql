@@ -424,9 +424,8 @@ object CustomViews
 			subView.layoutParams = getLinearLayoutParams(-1, -2)
 			subView.orientation = LinearLayout.VERTICAL
 
-			for (indexColor in demoParam.colors.indices)
+			for ((indexColor, color) in demoParam.colors.withIndex())
 			{
-				val color = demoParam.colors[indexColor]
 				subView.addView(EditText(context).apply {
 					val valueColor = color.value
 					try {

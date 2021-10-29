@@ -85,7 +85,7 @@ object ConfigActions
 		Triple(R.id.ivHeat, R.drawable.ic_heat, "Heatmap"),
 		Triple(R.id.ivBubble, R.drawable.ic_bubble, "Bubble Chart"),
 		Triple(R.id.ivStackedColumn, R.drawable.ic_stacked_column, "Stacked Column Chart"),
-		Triple(R.id.ivStackedBar, R.drawable.ic_stacked_bar, "Stacked Bar Chart"),
-		Triple(R.id.ivStackedArea, R.drawable.ic_stacked_area, "Stacked Area Chart")
+		Triple(R.id.ivStackedBar, R.drawable.ic_stacked_bar, "Stacked Bar Chart")
+		//,Triple(R.id.ivStackedArea, R.drawable.ic_stacked_area, "Stacked Area Chart")
 	)
 }

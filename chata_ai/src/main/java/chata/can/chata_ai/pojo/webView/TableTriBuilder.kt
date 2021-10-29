@@ -36,9 +36,8 @@ object TableTriBuilder
 			"<thead><tr><th>$nameHeader</th><th></th></tr></thead>")
 
 		val sbBody = StringBuilder("<tbody>")
-		for (index1 in aCatX.indices)
+		for ((index1, cell1) in aCatX.withIndex())
 		{
-			val cell1 = aCatX[index1]
 			var value = mDataPivot["0_${index1}"] ?: ""
 			if (value.isNotEmpty())
 				value = value.clearDecimals()
@@ -74,10 +73,9 @@ object TableTriBuilder
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
 
-		for (indexY in aCatY.indices)
+		for ((indexY, categoryY) in aCatY.withIndex())
 		{
 			var onlyZero = true
-			val categoryY = aCatY[indexY]
 			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
 			for (indexX in aCatX.indices)
 			{
@@ -159,13 +157,11 @@ object TableTriBuilder
 		aCatY: ArrayList<String>): String
 	{
 		val aRow = ArrayList<String>()
-		for (posX in aCatX.indices)
+		for ((posX, valueX) in aCatX.withIndex())
 		{
-			for (posY in aCatY.indices)
+			for ((posY, valueY) in aCatY.withIndex())
 			{
 				val cell = mData["${posX}_$posY"] ?: run { "0.0" }
-				val valueX = aCatX[posX]
-				val valueY = aCatY[posY]
 				val value = cell.toDoubleNotNull()
 				val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
 				aRow.add(sRow)

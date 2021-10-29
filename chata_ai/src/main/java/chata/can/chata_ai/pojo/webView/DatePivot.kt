@@ -165,9 +165,8 @@ object DatePivot
 			//region body table
 			val bodyTable = StringBuilder("<tbody>")
 			val aMonths = SinglentonDrawer.aMonths
-			for (index in aMonths.indices)
+			for ((index, month) in aMonths.withIndex())
 			{
-				val month = aMonths[index]
 				val indexS = if ((index + 1) < 10) "0${index + 1}" else "${index + 1}"
 				val sRow = StringBuilder("<td>$month</td>")
 				var isNotHasZero = false
