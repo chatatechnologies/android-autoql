@@ -385,11 +385,12 @@ class WebViewHolder(
 						{
 							if (queryBase.isTri && !queryBase.isTriInBi)
 							{
-								Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
+								//Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
+								Pair("TypeEnum.BAR", factorHeight)
 							}
 							else
 							{
-//								Pair("'$idHide', '#container', 'bar'", factorHeight)
+								//Pair("'$idHide', '#container', 'bar'", factorHeight)
 								Pair("TypeEnum.BAR", factorHeight)
 							}
 						}
@@ -404,7 +405,8 @@ class WebViewHolder(
 						{
 							if (queryBase.isTri && !queryBase.isTriInBi)
 							{
-								Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
+								//Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
+								Pair("TypeEnum.COLUMN", factorHeight)
 							}
 							else
 							{

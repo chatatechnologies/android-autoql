@@ -1766,7 +1766,21 @@ function getDataMulti()
 
 function getStackedMax()
 {
-  return isCurrency ? maxValue : maxValue2;
+  var sumTop = 0;
+  var aStacked = getStackedData();
+  var aCat = getCategoriesStack();
+  for (var index1 = 0; index1 < aStacked.length; index1++)
+  {
+    var sum = 0;
+    const iStacked = aStacked[index1];
+    for (var index2 = 0; index2 < aCat.length; index2++)
+    {
+      const iCat = aCat[index2];
+      sum += iStacked[iCat];
+    }
+    if (sumTop < sum) sumTop = sum;
+  }
+  return sumTop;
 }
 
 function setOtherStacked()
