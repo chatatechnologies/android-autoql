@@ -36,13 +36,15 @@ object StackedBar
   svg.append('g')
     .call(d3.axisLeft(x)
       .tickSize(7)
-      .tickSizeOuter(0))
+      .tickSizeOuter(0)
+			.tickFormat(x =>`${'$'}{getFirst10(x)}`)
+		)
   //set color for domain and ticks
     .style("color", '#909090');
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, maxValue])
+    .domain([0, getStackedMax()])
     .range([0, withReduce]);
   svg.append('g')
     .attr('transform', 'translate(0,' + height + ')')

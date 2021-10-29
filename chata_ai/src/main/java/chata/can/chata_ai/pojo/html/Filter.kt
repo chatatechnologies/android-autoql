@@ -235,6 +235,11 @@ function getDataMulti()
 	else return [];
 }
 
+function getStackedMax()
+{
+  return isCurrency ? maxValue : maxValue2;
+}
+
 function setOtherStacked()
 {
   isCurrency = !isCurrency;
