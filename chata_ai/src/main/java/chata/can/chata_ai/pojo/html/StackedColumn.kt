@@ -98,12 +98,12 @@ object StackedColumn
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 	
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisMiddle + '▼', function () {
+  addText(svg, 'end', 14, -90, margin.top - (height / 2), 0  -margin.bottom + 4, '#808080', '', `${'$'}{axisMiddle} ▼`, function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 

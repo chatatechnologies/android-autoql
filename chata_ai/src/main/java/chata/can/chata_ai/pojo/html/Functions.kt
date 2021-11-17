@@ -61,6 +61,11 @@ function updateSize() {
         break;
     }
   }
+	console.log( "height" );
+  console.log( ${'$'}(window).height() );
+  console.log( "width" );
+  console.log( ${'$'}(window).width() );
+	
   height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }

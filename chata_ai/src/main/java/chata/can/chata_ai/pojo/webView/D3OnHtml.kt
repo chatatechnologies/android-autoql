@@ -41,7 +41,7 @@ object D3OnHtml
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <title></title>
 <style>
-	body, table, th{
+	body, table, th {
 		background: $backgroundColor!important;
 		color: $textColor!important;
   }

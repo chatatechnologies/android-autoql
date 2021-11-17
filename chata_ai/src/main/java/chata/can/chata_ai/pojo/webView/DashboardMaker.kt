@@ -218,7 +218,7 @@ ${if (isBi) "" else "<script src=\"https://code.highcharts.com/highcharts-more.j
 </head>
 <body>
 <style type="text/css">
-    body, table, th{
+    body, table, th {
         background: $backgroundColor!important;
         color: $textColor!important;
     }
