@@ -41,32 +41,36 @@ function clearSvg() {
 }
 
 function updateSize() {
+  var height1 = ${'$'}(window).height() - margin.top - margin.bottom;
+  var width1 = getWidthMargin();
+
   if (typeChart === TypeEnum.LINE) {
     if (nColumns === 2) {
       var width1 = getWidthMargin();
-      width = (width1 * 1.5);
+      width = (width1 * 2.5);
+      height = height1;
     } else {
       width = getWidthMargin();
+      height = height1;
     }
   } else {
     switch (typeChart) {
-      case TypeEnum.COLUMN:
       case TypeEnum.BAR:
+        width = width1;
+        height = height1 * 2.5;
+        break;
+      case TypeEnum.COLUMN:
         var width1 = getWidthMargin();
         width = (width1 * 2.5);
+        height = height1;
         break;
-			case TypeEnum.PIE:
+      case TypeEnum.PIE:
       default:
         width = getWidthMargin();
+        height = height1;
         break;
     }
   }
-	console.log( "height" );
-  console.log( ${'$'}(window).height() );
-  console.log( "width" );
-  console.log( ${'$'}(window).width() );
-	
-  height = ${'$'}(window).height() - margin.top - margin.bottom;
   radius = Math.min(width, height) / 2;
 }
 
