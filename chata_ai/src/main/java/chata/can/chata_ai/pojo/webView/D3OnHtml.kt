@@ -1,7 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.html.Actions.getActions
 import chata.can.chata_ai.pojo.html.Bar.getBar
 import chata.can.chata_ai.pojo.html.Bubble.getBubble
 import chata.can.chata_ai.pojo.html.Column.getColumn
@@ -41,58 +40,58 @@ object D3OnHtml
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <title></title>
 <style>
-	body, table, th {
+	* {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    border: none;
+  }
+  body, table, th {
 		background: $backgroundColor!important;
 		color: $textColor!important;
   }
-	table {
-		padding-top: 0px!important;
-	}
-	th {
-		position: sticky;
-		top: 0px;
-		z-index: 10;
-		padding: 10px 3px 5px 3px;
-	}
-	table {
-		font-size: 16px;
-		display: table;
-		min-width: 100%;
-		white-space: nowrap;
-		border-collapse: separate;
-		border-spacing: 0px!important;
-		border-color: grey;
-	}
-	tr td:first-child {
-		text-align: center;
-	}
-	td {
-		padding: 3px;
-		text-align: center!important;
+  table {
+    padding-top: 0px!important;
   }
-	td, th {
-		font-size: 16px;
-		max-width: 200px;
-		white-space: nowrap;
-		width: 50px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		border: 0.5px solid #cccccc;
+  th {
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    padding: 10px 3px 5px 3px;
   }
-  span {
-    display: none;
+  table {
+    font-size: 16px;
+    display: table;
+    min-width: 100%;
+    white-space: nowrap;
+    border-collapse: separate;
+    border-spacing: 0px!important;
+    border-color: grey;
+  }
+  tr td:first-child {
+    text-align: center;
+  }
+  td {
+    padding: 3px;
+    text-align: center!important;
+  }
+  td, th {
+    font-size: 16px;
+    max-width: 200px;
+    white-space: nowrap;
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 0.5px solid #cccccc;
   }
   /*border for svg*/
   svg {
-    border: 1px solid #aaa;
-    /*width: 100%;
-    position: relative;
-    height: 100%;
-    z-index: 0;*/
+    border: none;
   }
-	tfoot {
+  tfoot {
     /*display: table-header-group;*/
-		display: none;
+    display: none;
   }
   .button {
     border: none;
@@ -105,7 +104,6 @@ object D3OnHtml
 </style>
 </head>
 <body>
-${getActions()}
 ${dataD3.table}
 ${dataD3.pivot}
 <script>

@@ -52,10 +52,10 @@ function updateSize() {
     switch (typeChart) {
       case TypeEnum.COLUMN:
       case TypeEnum.BAR:
-      case TypeEnum.PIE:
         var width1 = getWidthMargin();
-        width = (width1 * 1.5);
+        width = (width1 * 2.5);
         break;
+			case TypeEnum.PIE:
       default:
         width = getWidthMargin();
         break;
