@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class BaseRequest
+public class BaseRequest1
 {
 	public void getBaseUrl() {
 
