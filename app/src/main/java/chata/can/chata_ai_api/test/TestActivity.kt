@@ -1,25 +1,20 @@
 package chata.can.chata_ai_api.test
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import java.text.SimpleDateFormat
-import java.util.*
+import chata.can.request_native.BaseRequest
 
 class TestActivity: AppCompatActivity()
 {
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		val locale = Locale("es", "MX")
 
-		for (index in 1 until 13)
-		{
-			val stringDate = "$index"
-			val dateFormat = SimpleDateFormat("MM", locale)
-			val date = dateFormat.parse(stringDate) ?: Date(0L)
-			val dateFormat1 = SimpleDateFormat("MMM", locale)
-			val month = dateFormat1.format(date)
-			print("Month spanish: $month")
-		}
+		setContentView(TextView(this).apply {
+			text = "Test Activity"
+		})
+
+		BaseRequest().getBaseUrl()
 	}
 }

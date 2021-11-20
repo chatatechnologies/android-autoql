@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.github.angads25:toggle:1.1.0'
     implementation project(':chata_ai')
+    implementation project(':request_native')
 
     implementation platform('com.google.firebase:firebase-bom:26.4.0')
     implementation 'com.google.firebase:firebase-crashlytics-ktx'

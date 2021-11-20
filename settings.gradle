@@ -1,2 +1,2 @@
-include ':app', ':chata_ai'
+include ':app', ':chata_ai', 'request_native'
 rootProject.name='ApiChata'
