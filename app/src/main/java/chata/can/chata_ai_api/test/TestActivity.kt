@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import chata.can.request_native.BaseRequest
-import chata.can.request_native.BaseRequest1
 
 class TestActivity: AppCompatActivity()
 {
@@ -16,6 +15,6 @@ class TestActivity: AppCompatActivity()
 			text = "Test Activity"
 		})
 
-		BaseRequest.getBaseRequest()
+		BaseRequest().getBaseRequest()
 	}
 }
