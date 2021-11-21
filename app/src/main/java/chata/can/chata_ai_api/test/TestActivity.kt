@@ -17,15 +17,29 @@ class TestActivity: AppCompatActivity()
 			text = "Test Activity"
 		})
 
+//		region request POST (login)
 		val parameters = HashMap<String, Any>()
 		parameters["username"] = "admin"
 		parameters["password"] = "admin123"
 
 		val requestData = RequestData(
-			RequestMethod.GET,
+			RequestMethod.POST,
 			"https://backend-staging.chata.io/api/v1/login",
-			parameters
+			parameters = parameters
 		)
-		BaseRequest().getBaseRequest(requestData)
+		//BaseRequest().getBaseRequest(requestData)
+//		endregion
+//		region request GET JWT
+		val url1 = "https://backend-staging.chata.io/api/v1/jwt?" +
+			"display_name=carlos@rinro.com.mx" +
+			"&project_id=spira-demo3"
+		val header1 = hashMapOf("Authorization" to "8e1b3ad8-d551-4bdf-8423-dcaf9d77d466")
+		val requestData1 = RequestData(
+			RequestMethod.GET,
+			url1
+		)
+		BaseRequest().getBaseRequest(requestData1)
+//		endregion
+
 	}
 }
