@@ -1,49 +1,60 @@
 package chata.can.request_native
 
 import chata.can.chata_ai.Executor
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 
 class BaseRequest
 {
-	fun getBaseRequest()
+	fun getBaseRequest(requestData: RequestData)
 	{
+		var responseCode = 0
+		val response = StringBuilder()
+
 		Executor({
 			//get url
 //			val sURL = "https://carlos-buruel-ortiz.000webhostapp.com/mensaje.json"
 			//post url
-			val sURL = "https://backend-staging.chata.io/api/v1/login"
-			val url = URL(sURL)
-
-			val parameters = HashMap<String, Any>()
-			parameters["username"] = "admin"
-			parameters["password"] = "admin123"
+//			val sURL = "https://backend-staging.chata.io/api/v1/login"
+			val url = URL(requestData.url)
 
 			val connection = url.openConnection() as HttpURLConnection
 //			connection.requestMethod = "${RequestMethod.GET}"
-			connection.requestMethod = "${RequestMethod.POST}"
+//			connection.requestMethod = "${RequestMethod.POST}"
+			connection.requestMethod = "${requestData.requestType}"
 			connection.doOutput = true
 
 			val writer = DataOutputStream(connection.outputStream)
-			writer.writeBytes(ParameterStringBuilder.getParamsString(parameters))
+			requestData.parameters?.let {
+				writer.writeBytes(ParameterStringBuilder.getParamsString(it))
+			}
 			writer.flush()
 
-			val reader =  BufferedReader(InputStreamReader(connection.inputStream))
+			responseCode = connection.responseCode
 
-			val sContent = StringBuilder()
+			val reader = BufferedReader(
+				InputStreamReader(
+					if (responseCode > 299)
+						connection.errorStream
+					else
+						connection.inputStream)
+			)
+
 			reader.forEachLine { line ->
-				sContent.append(line)
-				println("line -> $line")
+				response.append(line)
 			}
 
 			writer.close()
-			sContent.toString()
+			connection.disconnect()
 		},{
-			println("Finish")
+			val json = JSONObject()
+			json.put("CODE", responseCode)
+			json.put("RESPONSE", response)
+			println(json)
 		}).execute()
 	}
 }
