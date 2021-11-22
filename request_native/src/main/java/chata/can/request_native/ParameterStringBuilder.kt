@@ -21,16 +21,19 @@ object ParameterStringBuilder
 	}
 
 	//region encodeJSON with Map
-	fun encodeJSON(map: HashMap<String, *>)
+	val encode = ArrayList<String>()
+	fun encodeJSON(map: HashMap<*, *>)
 	{
+		encode.add("{")
 		for((key, value) in map)
 		{
-			encodeSubJSON(map, key, value)
+			encodeSubJSON(encode, map, "$key", value)
 		}
-		"End"
+		encode.add("}")
+		"$encode"
 	}
 
-	fun encodeSubJSON(map: HashMap<String, *>, key: String, value: Any)
+	private fun encodeSubJSON(encode: ArrayList<String>, map: HashMap<*, *>, key: String, value: Any)
 	{
 		when(value)
 		{
@@ -39,29 +42,25 @@ object ParameterStringBuilder
 			is Boolean,
 			is Double ->
 			{
-				"Native"
+				encode.add("$key:$value,")
 			}
 
-			is List<*> ->
+			is ArrayList<*> ->
 			{
-				"List"
-				val list = value as List<Any>
-				for (value in list)
+				for (value1 in value)
 				{
-					encodeSubJSON(map, key, value)
+					encodeSubJSON(encode, map, key, value1)
 				}
 			}
 
 			is HashMap<*, *> ->
 			{
-				"Map"
-				val subMap = value as HashMap<String, *>
-				encodeJSON(subMap)
+				encodeJSON(value)
 			}
 
 			else ->
 			{
-				"no recognized"
+				encode.add("null")
 			}
 		}
 	}

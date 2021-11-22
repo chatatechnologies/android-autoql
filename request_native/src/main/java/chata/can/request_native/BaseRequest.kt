@@ -40,7 +40,7 @@ class BaseRequest
 					requestData.parameters?.let {
 						ParameterStringBuilder.encodeJSON(it)
 
-						writer.writeBytes(ParameterStringBuilder.getParamJSON(it))
+						//writer.writeBytes(ParameterStringBuilder.getParamJSON(it))
 					}
 					writer.flush()
 					writer.close()
