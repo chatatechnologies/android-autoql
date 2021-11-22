@@ -35,20 +35,10 @@ class BaseRequest
 
 				if (requestData.requestType == RequestMethod.PUT)
 				{
-					val tmp = "{\n" +
-						"    \"columns\": [\n" +
-						"        {\n" +
-						"            \"name\": \"format(t_TicketHeader.th_TicketDate, 'yyyy-MM')\",\n" +
-						"            \"is_visible\": false\n" +
-						"        },\n" +
-						"        {\n" +
-						"            \"name\": \"sum(coalesce(t_TicketDetail.td_OrderAmount, 0))\",\n" +
-						"            \"is_visible\": false\n" +
-						"        }\n" +
-						"    ]\n" +
-						"}"
 					val writer = DataOutputStream(connection.outputStream)
-					writer.writeBytes(tmp)
+					requestData.parameters?.let {
+						writer.writeBytes(ParameterStringBuilder.getParamJSON(it))
+					}
 					writer.flush()
 					writer.close()
 				}
