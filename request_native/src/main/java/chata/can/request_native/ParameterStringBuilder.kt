@@ -21,19 +21,20 @@ object ParameterStringBuilder
 	}
 
 	//region encodeJSON with Map
-	val encode = ArrayList<String>()
+	private val encoded = StringBuilder()
 	fun encodeJSON(map: HashMap<*, *>)
 	{
-		encode.add("{")
+		encoded.append("{")
 		for((key, value) in map)
 		{
-			encodeSubJSON(encode, map, "$key", value)
+			encodeSubJSON(map, "$key", value)
 		}
-		encode.add("}")
-		"$encode"
+		clearComma()
+		encoded.append("}")
+		"$encoded"
 	}
 
-	private fun encodeSubJSON(encode: ArrayList<String>, map: HashMap<*, *>, key: String, value: Any)
+	private fun encodeSubJSON(map: HashMap<*, *>, key: String, value: Any)
 	{
 		when(value)
 		{
@@ -42,15 +43,20 @@ object ParameterStringBuilder
 			is Boolean,
 			is Double ->
 			{
-				encode.add("$key:$value,")
+				val tmp = if (value is String) "\"$value\"" else value
+				encoded.append("\"$key\":$tmp,")
 			}
 
 			is ArrayList<*> ->
 			{
+				encoded.append("\"$key\" :[")
 				for (value1 in value)
 				{
-					encodeSubJSON(encode, map, key, value1)
+					encodeSubJSON(map, key, value1)
+					encoded.append(",")
 				}
+				clearComma()
+				encoded.append("]")
 			}
 
 			is HashMap<*, *> ->
@@ -60,77 +66,19 @@ object ParameterStringBuilder
 
 			else ->
 			{
-				encode.add("null")
+				encoded.append("null")
+			}
+		}
+	}
+
+	private fun clearComma()
+	{
+		encoded.lastOrNull()?.let {
+			if (it == ',')
+			{
+				encoded.deleteCharAt(encoded.length - 1)
 			}
 		}
 	}
 	//endregion
-
-	fun getParamJSON(mParams: HashMap<*,*>): String
-	{
-		val root = StringBuilder()
-		for ((key, value) in mParams)
-		{
-			when(value)
-			{
-				is ArrayList<*> ->
-				{
-					val pairNodeArray = StringBuilder("{\"$key\": [")
-					//region loop for all nodes included
-					for (node in value)
-					{
-						when(node)
-						{
-							is HashMap<*,*> ->
-							{
-								val pairNodeMap = StringBuilder("{")
-								for ((key1, node1) in node)
-								{
-									when(node1)
-									{
-										is ArrayList<*> ->
-										{
-											//
-										}
-										//node is String
-										else ->
-										{
-											val nodeParsed = when(node1)
-											{
-												is String -> "\"$node1\""
-												else -> node1
-											}
-											pairNodeMap.append("\"$key1\":$nodeParsed")
-										}
-									}
-									pairNodeMap.append(",")
-								}
-								pairNodeMap.deleteAt(pairNodeMap.length - 1)
-								pairNodeMap.append("}")
-
-								pairNodeArray.append(pairNodeMap)
-							}
-							else ->
-							{
-
-							}
-						}
-						pairNodeArray.append(",")
-					}
-
-					pairNodeArray.deleteAt(pairNodeArray.length - 1)
-					pairNodeArray.append("]}")
-					//endregion
-					root.append(pairNodeArray)
-				}
-				else ->
-				{
-
-				}
-			}
-			//add key for node name
-			toString()
-		}
-		return "$root"
-	}
 }

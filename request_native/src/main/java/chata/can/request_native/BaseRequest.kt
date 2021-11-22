@@ -39,8 +39,6 @@ class BaseRequest
 					val writer = DataOutputStream(connection.outputStream)
 					requestData.parameters?.let {
 						ParameterStringBuilder.encodeJSON(it)
-
-						//writer.writeBytes(ParameterStringBuilder.getParamJSON(it))
 					}
 					writer.flush()
 					writer.close()
