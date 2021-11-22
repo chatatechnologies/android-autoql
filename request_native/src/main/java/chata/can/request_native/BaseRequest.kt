@@ -2,9 +2,7 @@ package chata.can.request_native
 
 import chata.can.chata_ai.Executor
 import org.json.JSONObject
-import java.io.BufferedReader
 import java.io.DataOutputStream
-import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -12,8 +10,7 @@ class BaseRequest
 {
 	fun getBaseRequest(requestData: RequestData)
 	{
-		var responseCode = 0
-		val response = StringBuilder()
+		var pairResponse: PairResponse ?= null
 
 		Executor({
 			try {
@@ -24,47 +21,31 @@ class BaseRequest
 				val url = URL(requestData.url)
 
 				val connection = url.openConnection() as HttpURLConnection
-//			connection.requestMethod = "${RequestMethod.GET}"
-//			connection.requestMethod = "${RequestMethod.POST}"
-				connection.requestMethod = "GET"
+				connection.requestMethod = "${requestData.requestType}"
 
+				requestData.header?.let { RequestProperty.setProperties(connection, it) }
 
+				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestType)
 
-				connection.doOutput = false
-
-//				val writer = DataOutputStream(connection.outputStream)
-//				requestData.parameters?.let {
-//					writer.writeBytes(ParameterStringBuilder.getParamsString(it))
-//				}
-//				writer.flush()
-//				writer.close()
-
-
-				connection.connect()
-
-				responseCode = connection.responseCode
-
-				val reader = BufferedReader(
-					InputStreamReader(
-						if (responseCode > 299)
-							connection.errorStream
-						else
-							connection.inputStream)
-				)
-
-				reader.forEachLine { line ->
-					response.append(line)
+				if (requestData.requestType == RequestMethod.POST)
+				{
+					val writer = DataOutputStream(connection.outputStream)
+					requestData.parameters?.let {
+						writer.writeBytes(ParameterStringBuilder.getParamsString(it))
+					}
+					writer.flush()
+					writer.close()
 				}
 
-				connection.disconnect()
+				pairResponse = BuildBody.getResponse(connection)
 			} catch (ex: Exception)
 			{
 				ex.printStackTrace()
 			}
 		},{
 			val json = JSONObject()
-			json.put("CODE", responseCode)
-			json.put("RESPONSE", response)
+			json.put("CODE", pairResponse?.responseCode ?: 0)
+			json.put("RESPONSE", pairResponse?.responseBody ?: "")
 			println(json)
 		}).execute()
 	}
