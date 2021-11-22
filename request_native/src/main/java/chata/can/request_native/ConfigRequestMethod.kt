@@ -8,6 +8,7 @@ object ConfigRequestMethod
 		{
 			RequestMethod.GET -> false
 			RequestMethod.POST -> true
+			RequestMethod.PUT -> true
 		}
 	}
 }

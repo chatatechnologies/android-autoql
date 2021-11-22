@@ -14,7 +14,7 @@ class BaseRequest
 
 		Executor({
 			try {
-				//			get url
+//			get url
 //			val sURL = "https://carlos-buruel-ortiz.000webhostapp.com/mensaje.json"
 //			post url
 //			val sURL = "https://backend-staging.chata.io/api/v1/login"
@@ -27,7 +27,7 @@ class BaseRequest
 
 				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestType)
 
-				if (requestData.requestType == RequestMethod.POST)
+				if (requestData.requestType == RequestMethod.POST || requestData.requestType == RequestMethod.PUT)
 				{
 					val writer = DataOutputStream(connection.outputStream)
 					requestData.parameters?.let {
