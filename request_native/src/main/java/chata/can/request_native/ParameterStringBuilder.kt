@@ -22,7 +22,7 @@ object ParameterStringBuilder
 
 	//region encodeJSON with Map
 	private val encoded = StringBuilder()
-	fun encodeJSON(map: HashMap<*, *>)
+	fun encodeJSON(map: HashMap<*, *>): String
 	{
 		encoded.append("{")
 		for((key, value) in map)
@@ -31,7 +31,7 @@ object ParameterStringBuilder
 		}
 		clearComma()
 		encoded.append("}")
-		"$encoded"
+		return "$encoded"
 	}
 
 	private fun encodeSubJSON(map: HashMap<*, *>, key: String, value: Any)

@@ -2,7 +2,6 @@ package chata.can.request_native
 
 import chata.can.chata_ai.Executor
 import org.json.JSONObject
-import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -17,32 +16,13 @@ class BaseRequest
 				val url = URL(requestData.url)
 
 				val connection = url.openConnection() as HttpURLConnection
-				connection.requestMethod = "${requestData.requestType}"
+				connection.requestMethod = "${requestData.requestMethod}"
 
 				requestData.header?.let { RequestProperty.setProperties(connection, it) }
 
-				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestType)
+				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestMethod)
 
-				if (requestData.requestType == RequestMethod.POST)
-				{
-					val writer = DataOutputStream(connection.outputStream)
-					requestData.parameters?.let {
-						writer.writeBytes(ParameterStringBuilder.getParamsString(it))
-					}
-					writer.flush()
-					writer.close()
-				}
-
-				if (requestData.requestType == RequestMethod.PUT)
-				{
-
-					val writer = DataOutputStream(connection.outputStream)
-					requestData.parameters?.let {
-						ParameterStringBuilder.encodeJSON(it)
-					}
-					writer.flush()
-					writer.close()
-				}
+				ManageBody.sendBody(connection, requestData)
 
 				pairResponse = BuildBody.getResponse(connection)
 			} catch (ex: Exception)
