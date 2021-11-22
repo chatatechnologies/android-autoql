@@ -5,9 +5,9 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
-class BaseRequest
+class BaseRequest(private val requestData: RequestData, private val listener: StatusResponse)
 {
-	fun getBaseRequest(requestData: RequestData)
+	fun execute()
 	{
 		var pairResponse: PairResponse ?= null
 
@@ -30,10 +30,21 @@ class BaseRequest
 				ex.printStackTrace()
 			}
 		},{
-			val json = JSONObject()
-			json.put("CODE", pairResponse?.responseCode ?: 0)
-			json.put("RESPONSE", pairResponse?.responseBody ?: "")
-			println(json)
+			val responseCode = pairResponse?.responseCode ?: 0
+			val json = JSONObject().apply {
+				put("CODE", responseCode)
+				put("RESPONSE", pairResponse?.responseBody ?: "")
+			}
+			//region POST response
+			requestData.dataHolder?.let {
+				for ((key, value) in it)
+					json.put(key, value)
+			}
+			//endregion
+			if (responseCode > 299)
+				listener.onSuccess(json)
+			else
+				listener.onFailure(json)
 		}).execute()
 	}
 }

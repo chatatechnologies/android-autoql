@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import chata.can.request_native.BaseRequest
 import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
+import org.json.JSONArray
 import org.json.JSONObject
 
 class TestActivity: AppCompatActivity()
@@ -28,7 +30,22 @@ class TestActivity: AppCompatActivity()
 			"https://backend-staging.chata.io/api/v1/login",
 			parameters = parameters
 		)
-//		BaseRequest().getBaseRequest(requestData)
+
+		BaseRequest(
+			requestData,
+			listener = object : StatusResponse
+			{
+				override fun onFailure(jsonObject: JSONObject?)
+				{
+					toString()
+				}
+
+				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					toString()
+				}
+			}
+		).execute()
 //		endregion
 //		region request GET (JWT)
 		val url1 = "https://backend-staging.chata.io/api/v1/jwt?" +
@@ -40,6 +57,7 @@ class TestActivity: AppCompatActivity()
 			url1,
 			header1
 		)
+
 //		BaseRequest().getBaseRequest(requestData1)
 //		endregion
 //		region request GET (related query)
@@ -99,6 +117,6 @@ class TestActivity: AppCompatActivity()
 			header4,
 			mParams
 		)
-		BaseRequest().getBaseRequest(requestData4)
+//		BaseRequest().getBaseRequest(requestData4)
 	}
 }
