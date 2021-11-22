@@ -14,10 +14,6 @@ class BaseRequest
 
 		Executor({
 			try {
-//			get url
-//			val sURL = "https://carlos-buruel-ortiz.000webhostapp.com/mensaje.json"
-//			post url
-//			val sURL = "https://backend-staging.chata.io/api/v1/login"
 				val url = URL(requestData.url)
 
 				val connection = url.openConnection() as HttpURLConnection
@@ -27,12 +23,32 @@ class BaseRequest
 
 				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestType)
 
-				if (requestData.requestType == RequestMethod.POST || requestData.requestType == RequestMethod.PUT)
+				if (requestData.requestType == RequestMethod.POST)
 				{
 					val writer = DataOutputStream(connection.outputStream)
 					requestData.parameters?.let {
 						writer.writeBytes(ParameterStringBuilder.getParamsString(it))
 					}
+					writer.flush()
+					writer.close()
+				}
+
+				if (requestData.requestType == RequestMethod.PUT)
+				{
+					val tmp = "{\n" +
+						"    \"columns\": [\n" +
+						"        {\n" +
+						"            \"name\": \"format(t_TicketHeader.th_TicketDate, 'yyyy-MM')\",\n" +
+						"            \"is_visible\": false\n" +
+						"        },\n" +
+						"        {\n" +
+						"            \"name\": \"sum(coalesce(t_TicketDetail.td_OrderAmount, 0))\",\n" +
+						"            \"is_visible\": false\n" +
+						"        }\n" +
+						"    ]\n" +
+						"}"
+					val writer = DataOutputStream(connection.outputStream)
+					writer.writeBytes(tmp)
 					writer.flush()
 					writer.close()
 				}

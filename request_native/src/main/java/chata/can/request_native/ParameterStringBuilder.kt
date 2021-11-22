@@ -19,4 +19,9 @@ object ParameterStringBuilder
 		val out = result.toString()
 		return if (out.isNotEmpty()) out.substring(0, out.length - 1) else out
 	}
+
+	fun getParamJSON()
+	{
+
+	}
 }

@@ -11,9 +11,8 @@ object BuildBody
 	 */
 	fun getResponse(connection: HttpURLConnection): PairResponse
 	{
-		var responseCode = 0
 		val responseBody = StringBuilder()
-		responseCode = connection.responseCode
+		val responseCode = connection.responseCode
 
 		val bufferedReader = BufferedReader(
 			InputStreamReader(
