@@ -82,11 +82,12 @@ class TestActivity: AppCompatActivity()
 
 		val mColumn1 = hashMapOf<String, Any>(
 			"name" to "format(t_TicketHeader.th_TicketDate, 'yyyy-MM')",
-			"is_visible" to false)
+			"is_visible" to true
+		)
 		aColumns.add(mColumn1)
 		val mColumn2 = hashMapOf<String, Any>(
 			"name" to "sum(coalesce(t_TicketDetail.td_OrderAmount, 0))",
-			"is_visible" to false
+			"is_visible" to true
 		)
 		aColumns.add(mColumn2)
 		mParams["columns"] = aColumns

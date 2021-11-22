@@ -35,8 +35,11 @@ class BaseRequest
 
 				if (requestData.requestType == RequestMethod.PUT)
 				{
+
 					val writer = DataOutputStream(connection.outputStream)
 					requestData.parameters?.let {
+						ParameterStringBuilder.encodeJSON(it)
+
 						writer.writeBytes(ParameterStringBuilder.getParamJSON(it))
 					}
 					writer.flush()
