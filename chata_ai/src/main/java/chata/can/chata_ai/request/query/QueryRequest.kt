@@ -2,10 +2,8 @@ package chata.can.chata_ai.request.query
 
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.request_native.*
-import com.android.volley.Request
 import java.net.URLEncoder
 
 object QueryRequest

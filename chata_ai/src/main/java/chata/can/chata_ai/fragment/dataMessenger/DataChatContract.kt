@@ -3,17 +3,16 @@ package chata.can.chata_ai.fragment.dataMessenger
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.pojo.urlBase
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
 import java.net.URLEncoder
 
 class DataChatContract
 {
-	fun getAutocomplete(content: String, listener : StatusResponse)
+	fun getAutocomplete(content: String, listener : chata.can.request_native.StatusResponse)
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
@@ -34,17 +33,23 @@ class DataChatContract
 				"$domainUrl/autoql/${api1}query/autocomplete?text=$content&key=$apiKey"
 			}
 		}
-
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			typeJSON,
-			headers = header,
-			infoHolder = hashMapOf("nameService" to nameService, "url" to url),
-			listener = listener)
+			header,
+			dataHolder = hashMapOf("nameService" to nameService, "url" to url)
+		)
+		BaseRequest(requestData, listener).execute()
+//		callStringRequest(
+//			Request.Method.GET,
+//			url,
+//			typeJSON,
+//			headers = header,
+//			infoHolder = hashMapOf("nameService" to nameService, "url" to url),
+//			listener = listener)
 	}
 
-	fun callSafetyNet(query: String, listener: StatusResponse)
+	fun callSafetyNet(query: String, listener: chata.can.request_native.StatusResponse)
 	{
 		var header: HashMap<String, String> ?= null
 		val nameService: String
@@ -66,13 +71,12 @@ class DataChatContract
 				"$domainUrl/autoql/${api1}query/validate?text=$queryEncode&key=$apiKey"
 			}
 		}
-
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			typeJSON,
-			headers = header,
-			infoHolder = hashMapOf("nameService" to nameService),
-			listener = listener)
+			header,
+			dataHolder = hashMapOf("nameService" to nameService)
+		)
+		BaseRequest(requestData, listener).execute()
 	}
 }

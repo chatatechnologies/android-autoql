@@ -148,26 +148,9 @@ class ChatServicePresenter(
 				{
 					when(jsonObject.optString("nameService"))
 					{
-						"demoAutocomplete" ->
-						{
-							makeMatches(jsonObject)
-						}
-						"autocomplete" ->
-						{
-							jsonObject.getJSONData()?.let {
-								makeMatches(it)
-							}
-						}
-						"safetynet" ->
-						{
-							makeSuggestion(jsonObject, "full_suggestion", "query")
-						}
-						"validate" ->
-						{
-							jsonObject.getJSONData()?.let { data ->
-								makeSuggestion(data, "replacements", "text")
-							}
-						}
+
+
+
 						"callRelatedQueries" ->
 						{
 							jsonObject.optJSONObject("data")?.let {
@@ -199,63 +182,6 @@ class ChatServicePresenter(
 						}
 					}
 				}
-				jsonObject.has(referenceIdKey) ->
-				{
-//					ChatComponent(jsonObject)
-					val queryBase = QueryBase(jsonObject)
-					val typeView = when(queryBase.displayType)
-					{
-						"suggestion" ->
-						{
-							if (SinglentonDrawer.mIsEnableSuggestion)
-							{
-								val query = jsonObject.optString("query")
-								queryBase.message = query
-								TypeChatView.SUGGESTION_VIEW
-							}
-							else
-							{
-								queryBase.message = "${queryBase.displayType} not supported"
-								TypeChatView.LEFT_VIEW
-							}
-						}
-						dataKey ->
-						{
-							val numColumns = queryBase.numColumns
-							val numRows = queryBase.aRows.size
-							when
-							{
-								numRows == 0 -> TypeChatView.LEFT_VIEW
-								numColumns == 1 && numRows > 1 ->
-								{
-									queryBase.viewPresenter = this
-									queryBase.typeView = TypeChatView.WEB_VIEW
-									TypeChatView.WEB_VIEW
-								}
-								numColumns > 1 ->
-								{
-									queryBase.viewPresenter = this
-									queryBase.typeView = TypeChatView.WEB_VIEW
-									TypeChatView.WEB_VIEW
-								}
-								numColumns == 1 ->
-								{
-									if(queryBase.hasHash)
-										TypeChatView.HELP_VIEW
-									else
-										TypeChatView.LEFT_VIEW
-								}
-								else -> TypeChatView.LEFT_VIEW
-							}
-						}
-						else -> TypeChatView.LEFT_VIEW
-					}
-					if (queryBase.viewPresenter == null)
-					{
-						isLoading(false)
-						addNewChat(typeView, queryBase)
-					}
-				}
 				else ->
 				{
 
@@ -275,6 +201,32 @@ class ChatServicePresenter(
 		val joResponse = JSONObject(response)
 		when
 		{
+			jsonObject.has("nameService") ->
+			{
+				when(jsonObject.optString("nameService"))
+				{
+					"demoAutocomplete" ->
+					{
+						makeMatches(joResponse)
+					}
+					"autocomplete" ->
+					{
+						joResponse.getJSONData()?.let {
+							makeMatches(it)
+						}
+					}
+					"safetynet" ->
+					{
+						makeSuggestion(joResponse, "full_suggestion", "query")
+					}
+					"validate" ->
+					{
+						joResponse.getJSONData()?.let { data ->
+							makeSuggestion(data, "replacements", "text")
+						}
+					}
+				}
+			}
 			joResponse.has(referenceIdKey) ->
 			{
 				val queryBase = QueryBase(joResponse)
