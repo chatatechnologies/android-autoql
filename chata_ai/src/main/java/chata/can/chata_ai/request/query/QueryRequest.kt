@@ -11,6 +11,9 @@ import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
 import com.android.volley.Request
 import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.DataOutputStream
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
@@ -73,10 +76,33 @@ object QueryRequest
 			val oURL = URL(url)
 			val connection = oURL.openConnection() as HttpURLConnection
 			connection.requestMethod = "POST"
+
+			connection.setRequestProperty("Authorization", "Bearer ${AutoQLData.JWT}")
+			connection.setRequestProperty("accept-language", "es-Us")
+			connection.setRequestProperty("Content-Type", "application/json")
+
 			connection.doOutput = true
 
+			val writer = DataOutputStream(connection.outputStream)
+			writer.writeBytes("{\"text\": \"Total revenue by month in 2019\"}")
+			writer.flush()
+			writer.close()
+
 			val responseCode = connection.responseCode
-			responseCode.toString()
+
+			val bufferedReader = BufferedReader(
+				InputStreamReader(
+					if (responseCode > 299)
+						connection.errorStream
+					else
+						connection.inputStream)
+			)
+
+			val responseBody = StringBuilder()
+			bufferedReader.forEachLine { line ->
+				responseBody.append(line)
+			}
+			connection.disconnect()
 		},{
 
 		}).execute()
