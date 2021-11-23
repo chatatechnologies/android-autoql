@@ -44,4 +44,5 @@ dependencies {
 	implementation platform('com.google.firebase:firebase-bom:26.4.0')
 	implementation 'com.google.firebase:firebase-crashlytics-ktx'
 	implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation project(path: ':request_native')
 }

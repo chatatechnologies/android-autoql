@@ -6,7 +6,11 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.getMainURL
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
 import com.android.volley.Request
+import org.json.JSONObject
 
 object Authentication
 {
@@ -17,20 +21,29 @@ object Authentication
 	 * @param password for login (admin123)
 	 * @param listener Listener for catch response
 	 */
-	fun callLogin(username: String, password: String, listener: StatusResponse)
+	fun callLogin(username: String, password: String, listener: chata.can.request_native.StatusResponse)
 	{
 		val url = "${getMainURL()}${api1}login"
 
-		val mParams = hashMapOf(
+		val mParams = hashMapOf<String, Any>(
 			"username" to username,
 			"password" to password)
 
-		callStringRequest(
-			Request.Method.POST,
+		val requestData = RequestData(
+			RequestMethod.POST,
 			url,
 			parameters = mParams,
-			infoHolder = hashMapOf("nameService" to "callLogin"),
-			listener = listener)
+			dataHolder = hashMapOf("nameService" to "callLogin")
+		)
+
+		BaseRequest(requestData, listener = listener).execute()
+
+//		callStringRequest(
+//			Request.Method.POST,
+//			url,
+//			parameters = mParams,
+//			infoHolder = hashMapOf("nameService" to "callLogin"),
+//			listener = listener)
 	}
 
 	/**

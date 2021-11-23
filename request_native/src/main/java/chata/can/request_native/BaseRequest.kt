@@ -1,6 +1,5 @@
 package chata.can.request_native
 
-import chata.can.chata_ai.Executor
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
@@ -42,9 +41,9 @@ class BaseRequest(private val requestData: RequestData, private val listener: St
 			}
 			//endregion
 			if (responseCode > 299)
-				listener.onSuccess(json)
+				listener.onFailureResponse(json)
 			else
-				listener.onFailure(json)
+				listener.onSuccessResponse(json)
 		}).execute()
 	}
 }

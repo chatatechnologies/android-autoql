@@ -4,12 +4,12 @@ import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilde
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
-import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-class MainServicePresenter(private val view: MainContract): StatusResponse
+class MainServicePresenter(private val view: MainContract): StatusResponse,
+	chata.can.request_native.StatusResponse
 {
 	fun createAuthenticate()
 	{
@@ -36,6 +36,32 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 	fun callTopics()
 	{
 		Authentication.callTopics(this)
+	}
+
+	override fun onFailureResponse(jsonObject: JSONObject)
+	{
+		with(view)
+		{
+			isEnableLogin(true)
+			//showError(errorCode, errorService)
+			showAlert("Invalid Credentials", R.drawable.ic_error)
+		}
+	}
+
+	override fun onSuccessResponse(jsonObject: JSONObject)
+	{
+		when(jsonObject.optString("nameService"))
+		{
+			"callLogin" ->
+			{
+				val token = jsonObject.optString("RESPONSE")
+				AutoQLData.token = token
+			}
+			else ->
+			{
+
+			}
+		}
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
