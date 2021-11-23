@@ -4,13 +4,10 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.getMainURL
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.request_native.BaseRequest
 import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
-import com.android.volley.Request
-import org.json.JSONObject
+import chata.can.request_native.StatusResponse
 
 object Authentication
 {
@@ -21,29 +18,19 @@ object Authentication
 	 * @param password for login (admin123)
 	 * @param listener Listener for catch response
 	 */
-	fun callLogin(username: String, password: String, listener: chata.can.request_native.StatusResponse)
+	fun callLogin(username: String, password: String, listener: StatusResponse)
 	{
 		val url = "${getMainURL()}${api1}login"
-
 		val mParams = hashMapOf<String, Any>(
 			"username" to username,
 			"password" to password)
-
 		val requestData = RequestData(
 			RequestMethod.POST,
 			url,
 			parameters = mParams,
 			dataHolder = hashMapOf("nameService" to "callLogin")
 		)
-
-		BaseRequest(requestData, listener = listener).execute()
-
-//		callStringRequest(
-//			Request.Method.POST,
-//			url,
-//			parameters = mParams,
-//			infoHolder = hashMapOf("nameService" to "callLogin"),
-//			listener = listener)
+		BaseRequest(requestData, listener).execute()
 	}
 
 	/**
@@ -59,13 +46,13 @@ object Authentication
 		listener: StatusResponse)
 	{
 		val url = "${getMainURL()}${api1}jwt?display_name=$userId&project_id=$projectId"
-		val mAuthorization = hashMapOf("Authorization" to "Bearer $beaverToken")
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			headers = mAuthorization,
-			infoHolder = hashMapOf("nameService" to "callJWL"),
-			listener = listener)
+			header = hashMapOf("Authorization" to "Bearer $beaverToken"),
+			dataHolder = hashMapOf("nameService" to "callJWL")
+		)
+		BaseRequest(requestData, listener).execute()
 	}
 
 	fun callRelatedQuery(listener: StatusResponse)
@@ -73,14 +60,13 @@ object Authentication
 		val url = "${AutoQLData.domainUrl}/autoql/${api1}query/related-queries?key=${AutoQLData.apiKey}&search=test"
 		val header = getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
-
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			headers = header,
-			infoHolder = hashMapOf("nameService" to "callRelatedQuery"),
-			listener = listener
+			header,
+			dataHolder = hashMapOf("nameService" to "callRelatedQuery")
 		)
+		BaseRequest(requestData, listener).execute()
 	}
 
 	fun callTopics(listener: StatusResponse)
@@ -90,13 +76,12 @@ object Authentication
 		val header = getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
 		header["Integrator-Domain"] = AutoQLData.domainUrl
-
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			headers = header,
-			infoHolder = hashMapOf("nameService" to "callTopics"),
-			listener = listener
+			header,
+			dataHolder = hashMapOf("nameService" to "callTopics")
 		)
+		BaseRequest(requestData, listener).execute()
 	}
 }
