@@ -191,7 +191,7 @@ class DashboardPresenter(
 
 	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-
+		jsonObject.toString()
 	}
 
 	override fun onSuccessResponse(jsonObject: JSONObject)

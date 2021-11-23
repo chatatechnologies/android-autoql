@@ -14,7 +14,7 @@ import org.json.JSONObject
 
 class ChatServicePresenter(
 	private val context: Context,
-	private var view: ChatContract.View?) : StatusResponse,
+	private var view: ChatContract.View?) : StatusResponse, chata.can.request_native.StatusResponse,
 	PresenterContract
 {
 	private var lastQuery = ""
@@ -260,6 +260,80 @@ class ChatServicePresenter(
 				{
 
 				}
+			}
+		}
+	}
+
+	override fun onFailureResponse(jsonObject: JSONObject)
+	{
+		jsonObject.toString()
+	}
+
+	override fun onSuccessResponse(jsonObject: JSONObject)
+	{
+		val response = jsonObject.optString("RESPONSE")
+		val joResponse = JSONObject(response)
+		when
+		{
+			joResponse.has(referenceIdKey) ->
+			{
+				val queryBase = QueryBase(joResponse)
+				val typeView = when(queryBase.displayType)
+				{
+					"suggestion" ->
+					{
+						if (SinglentonDrawer.mIsEnableSuggestion)
+						{
+							val query = joResponse.optString("query")
+							queryBase.message = query
+							TypeChatView.SUGGESTION_VIEW
+						}
+						else
+						{
+							queryBase.message = "${queryBase.displayType} not supported"
+							TypeChatView.LEFT_VIEW
+						}
+					}
+					dataKey ->
+					{
+						val numColumns = queryBase.numColumns
+						val numRows = queryBase.aRows.size
+						when
+						{
+							numRows == 0 -> TypeChatView.LEFT_VIEW
+							numColumns == 1 && numRows > 1 ->
+							{
+								queryBase.viewPresenter = this
+								queryBase.typeView = TypeChatView.WEB_VIEW
+								TypeChatView.WEB_VIEW
+							}
+							numColumns > 1 ->
+							{
+								queryBase.viewPresenter = this
+								queryBase.typeView = TypeChatView.WEB_VIEW
+								TypeChatView.WEB_VIEW
+							}
+							numColumns == 1 ->
+							{
+								if(queryBase.hasHash)
+									TypeChatView.HELP_VIEW
+								else
+									TypeChatView.LEFT_VIEW
+							}
+							else -> TypeChatView.LEFT_VIEW
+						}
+					}
+					else -> TypeChatView.LEFT_VIEW
+				}
+				if (queryBase.viewPresenter == null)
+				{
+					isLoading(false)
+					addNewChat(typeView, queryBase)
+				}
+			}
+			else ->
+			{
+				toString()
 			}
 		}
 	}
