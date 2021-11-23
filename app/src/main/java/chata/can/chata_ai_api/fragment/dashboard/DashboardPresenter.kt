@@ -10,204 +10,180 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.urlStaging
 import chata.can.chata_ai.request.query.QueryRequest
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.concurrent.ConcurrentHashMap
 
 class DashboardPresenter(
-	private val view: DashboardContract): StatusResponse, chata.can.request_native.StatusResponse
+	private val view: DashboardContract): chata.can.request_native.StatusResponse
 {
 	private var mModel: BaseModelList<Dashboard> ?= null
 	private var queryReset = false
 
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-		if (jsonObject != null)
+		when(jsonObject.optString("nameService") ?: "")
 		{
-			when(jsonObject.optString("nameService") ?: "")
+			"getDashboardQueries" ->
 			{
-				"getDashboardQueries" ->
-				{
-					if (queryReset) return
-					val response = jsonObject.optString("RESPONSE") ?: ""
-					val joCurrent = JSONObject(response)
+				if (queryReset) return
+				val response = jsonObject.optString("RESPONSE") ?: ""
+				val joCurrent = JSONObject(response)
 
-					try {
-						val query = jsonObject.optString("query") ?: ""
-						val title = jsonObject.optString("title") ?: ""
-						val key = jsonObject.optString("key") ?: ""
-						val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-						//region scope for call related queries
-						val code = jsonObject.optInt("CODE")
-						val referenceId = joCurrent.optString("reference_id") ?: ""
-						var queryId = ""
-						joCurrent.optJSONObject("data")?.let { joData ->
-							queryId = joData.optString("query_id")
-						}
-						val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431" || referenceId == "1.1.420"
-						if (code == 400 && isSuggestion)
-						{
-							//region skipQuery
-							var displayType = ""
-							mModel?.run {
-								val index = indexOfFirst { it.key == key }
-								if (index != -1)
-								{
-									this[index]?.let { dashboard ->
-										displayType = dashboard.displayType
-									}
-								}
-							}
-							//endregion
-							val mData = hashMapOf<String, Any>(
-								"typeSuggestion" to displayType,
-								"query" to query,
-								"query_id" to queryId,
-								"title" to title,
-								"key" to key,
-								"isSecondaryQuery" to isSecondaryQuery)
-							val words = query.split(" ")
-								.joinTo(StringBuilder(), separator = ",").toString()
-							QueryRequest.callRelatedQueries(words, this, mData)
-						}
-						//endregion
-						else
-						{
-							mModel?.run {
-								val index = this.indexOfFirst { it.key == key }
-								if (index != -1)
-								{
-									this[index]?.let { dashboard ->
-										val queryBase = QueryBase(joCurrent).apply {
-											isDashboard = true
-											typeView = TypeChatView.SUPPORT
-										}
-										if (isSecondaryQuery)
-											dashboard.queryBase2 = queryBase
-										else
-											dashboard.queryBase = queryBase
-										notifyQueryByIndex(index)
-									}
-								}
-							}
-						}
-
-					}
-					catch (e: Exception){ }
-				}
-			}
-		}
-	}
-
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
-	{
-		if (jsonObject != null)
-		{
-			when(jsonObject.optString("nameService") ?: "")
-			{
-				"callRelatedQueries" ->
-				{
+				try {
+					val query = jsonObject.optString("query") ?: ""
+					val title = jsonObject.optString("title") ?: ""
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-
-					//region build json for suggestion
-					jsonObject.optJSONObject("data")?.let { joData ->
-						joData.optJSONArray("items")?.let { jaItems ->
-							val json = JSONObject().apply {
-								put("query", "")
-								put("typeSuggestion", jsonObject.optString("typeSuggestion", ""))
-							}
-							val queryBase = QueryBase(json).apply {
-								isDashboard = true
-								for (index in 0 until jaItems.length())
-								{
-									val item = jaItems.opt(index).toString()
-									aRows.add(arrayListOf(item))
-								}
-							}
-							queryBase.typeView = TypeChatView.SUGGESTION_VIEW
-
-							val model = getCurrentDashboard()
-							val index = model.indexOfFirst { it.key == key }
-
+					//region scope for call related queries
+					val code = jsonObject.optInt("CODE")
+					val referenceId = joCurrent.optString("reference_id") ?: ""
+					var queryId = ""
+					joCurrent.optJSONObject("data")?.let { joData ->
+						queryId = joData.optString("query_id")
+					}
+					val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431" || referenceId == "1.1.420"
+					if (code == 400 && isSuggestion)
+					{
+						//region skipQuery
+						var displayType = ""
+						mModel?.run {
+							val index = indexOfFirst { it.key == key }
 							if (index != -1)
 							{
-								model[index]?.let { dashboard ->
+								this[index]?.let { dashboard ->
+									displayType = dashboard.displayType
+								}
+							}
+						}
+						//endregion
+						val mData = hashMapOf<String, Any>(
+							"typeSuggestion" to displayType,
+							"query" to query,
+							"query_id" to queryId,
+							"title" to title,
+							"key" to key,
+							"isSecondaryQuery" to isSecondaryQuery)
+						val words = query.split(" ")
+							.joinTo(StringBuilder(), separator = ",").toString()
+						//QueryRequest.callRelatedQueries(words, this, mData)
+					}
+					//endregion
+					else
+					{
+						mModel?.run {
+							val index = this.indexOfFirst { it.key == key }
+							if (index != -1)
+							{
+								this[index]?.let { dashboard ->
+									val queryBase = QueryBase(joCurrent).apply {
+										isDashboard = true
+										typeView = TypeChatView.SUPPORT
+									}
 									if (isSecondaryQuery)
 										dashboard.queryBase2 = queryBase
 									else
 										dashboard.queryBase = queryBase
-
 									notifyQueryByIndex(index)
 								}
 							}
 						}
 					}
-					//endregion
-				}
-				"getDashboardQueries" ->
-				{
-					val key = jsonObject.optString("key") ?: ""
-					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-					mModel?.run {
-						val index = indexOfFirst { it.key == key }
-						if (index != -1)
-						{
-							this[index]?.let { dashboard ->
-								val queryBase = QueryBase(jsonObject).apply {
-									isDashboard = true
-									configQueryBase(dashboard, this, isSecondaryQuery)
-								}
-								if (isSecondaryQuery)
-									dashboard.queryBase2 = queryBase
-								else
-								{
-									dashboard.queryBase = queryBase
-									if (dashboard.secondQuery.isEmpty() && dashboard.splitView)
-									{
-										dashboard.queryBase2 = QueryBase(jsonObject).apply {
-											isDashboard = true
-											this.isSecondaryQuery = true
-											configQueryBase(dashboard, this, true)
-										}
-									}
-								}
-								notifyQueryByIndex(index)
-							}
-						}
-					}
-				}
-				else ->
-				{
 
 				}
+				catch (e: Exception){ }
 			}
 		}
 	}
 
-	override fun onFailureResponse(jsonObject: JSONObject)
-	{
-		jsonObject.toString()
-	}
-
 	override fun onSuccessResponse(jsonObject: JSONObject)
 	{
+		val response = jsonObject.optString("RESPONSE")
+		val joResponse = JSONObject(response)
 		when(jsonObject.optString("nameService"))
 		{
 			"getDashboard" ->
 			{
 				try {
-					val response = jsonObject.optString("RESPONSE")
-					val joResponse = JSONObject(response)
 					setDashboard(joResponse)
 				} catch (ex: Exception)
 				{
 					ex.printStackTrace()
 				}
+			}
+			"getDashboardQueries" ->
+			{
+				val key = jsonObject.optString("key") ?: ""
+				val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+				mModel?.run {
+					val index = indexOfFirst { it.key == key }
+					if (index != -1)
+					{
+						this[index]?.let { dashboard ->
+							val queryBase = QueryBase(joResponse).apply {
+								isDashboard = true
+								configQueryBase(dashboard, this, isSecondaryQuery)
+							}
+							if (isSecondaryQuery)
+								dashboard.queryBase2 = queryBase
+							else
+							{
+								dashboard.queryBase = queryBase
+								if (dashboard.secondQuery.isEmpty() && dashboard.splitView)
+								{
+									dashboard.queryBase2 = QueryBase(joResponse).apply {
+										isDashboard = true
+										this.isSecondaryQuery = true
+										configQueryBase(dashboard, this, true)
+									}
+								}
+							}
+							notifyQueryByIndex(index)
+						}
+					}
+				}
+			}
+			"callRelatedQueries" ->
+			{
+				val key = jsonObject.optString("key") ?: ""
+				val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
+
+				//region build json for suggestion
+				jsonObject.optJSONObject("data")?.let { joData ->
+					joData.optJSONArray("items")?.let { jaItems ->
+						val json = JSONObject().apply {
+							put("query", "")
+							put("typeSuggestion", jsonObject.optString("typeSuggestion", ""))
+						}
+						val queryBase = QueryBase(json).apply {
+							isDashboard = true
+							for (index in 0 until jaItems.length())
+							{
+								val item = jaItems.opt(index).toString()
+								aRows.add(arrayListOf(item))
+							}
+						}
+						queryBase.typeView = TypeChatView.SUGGESTION_VIEW
+
+						val model = getCurrentDashboard()
+						val index = model.indexOfFirst { it.key == key }
+
+						if (index != -1)
+						{
+							model[index]?.let { dashboard ->
+								if (isSecondaryQuery)
+									dashboard.queryBase2 = queryBase
+								else
+									dashboard.queryBase = queryBase
+
+								notifyQueryByIndex(index)
+							}
+						}
+					}
+				}
+				//endregion
 			}
 		}
 	}

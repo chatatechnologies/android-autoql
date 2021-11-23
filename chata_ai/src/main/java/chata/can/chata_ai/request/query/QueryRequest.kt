@@ -3,18 +3,16 @@ package chata.can.chata_ai.request.query
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.request_native.*
 import com.android.volley.Request
-import org.json.JSONObject
 import java.net.URLEncoder
 
 object QueryRequest
 {
 	fun callQuery(
 		query: String,
-		listener1: chata.can.request_native.StatusResponse,
+		listener: StatusResponse,
 		source: String,
 		infoHolder: HashMap<String, Any> ?= null)
 	{
@@ -70,7 +68,7 @@ object QueryRequest
 			mParams,
 			infoHolder
 		)
-		BaseRequest(requestData, listener1).execute()
+		BaseRequest(requestData, listener).execute()
 	}
 
 	fun callRelatedQueries(
@@ -89,13 +87,13 @@ object QueryRequest
 			val header = getAuthorizationJWT()
 			header["accept-language"] = SinglentonDrawer.languageCode
 
-			callStringRequest(
-				Request.Method.GET,
-				url,
-				typeJSON,
-				headers = header,
-				infoHolder = mData,
-				listener = listener)
+//			callStringRequest(
+//				Request.Method.GET,
+//				url,
+//				typeJSON,
+//				headers = header,
+//				infoHolder = mData,
+//				listener = listener)
 		}
 	}
 }
