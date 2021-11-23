@@ -19,7 +19,7 @@ import org.json.JSONObject
 import java.util.concurrent.ConcurrentHashMap
 
 class DashboardPresenter(
-	private val view: DashboardContract): StatusResponse
+	private val view: DashboardContract): StatusResponse, chata.can.request_native.StatusResponse
 {
 	private var mModel: BaseModelList<Dashboard> ?= null
 	private var queryReset = false
@@ -188,6 +188,29 @@ class DashboardPresenter(
 				else ->
 				{
 
+				}
+			}
+		}
+	}
+
+	override fun onFailureResponse(jsonObject: JSONObject)
+	{
+
+	}
+
+	override fun onSuccessResponse(jsonObject: JSONObject)
+	{
+		when(jsonObject.optString("nameService"))
+		{
+			"getDashboard" ->
+			{
+				try {
+					val response = jsonObject.optString("RESPONSE")
+					val joResponse = JSONObject(response)
+					setDashboard(joResponse)
+				} catch (ex: Exception)
+				{
+					ex.printStackTrace()
 				}
 			}
 		}
