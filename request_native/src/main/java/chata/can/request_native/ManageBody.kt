@@ -17,9 +17,6 @@ object ManageBody
 					} ?: run {
 						ParameterStringBuilder.getParamsString(parameter)
 					}
-//					val bodyRequest = if (requestMethod == RequestMethod.POST)
-//						ParameterStringBuilder.getParamsString(parameter)
-//					else ParameterStringBuilder.encodeJSON(parameter)
 					writer.writeBytes(bodyRequest)
 				}
 				writer.flush()

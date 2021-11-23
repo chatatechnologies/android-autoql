@@ -6,9 +6,7 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import chata.can.request_native.BaseRequest
-import chata.can.request_native.RequestData
-import chata.can.request_native.RequestMethod
+import chata.can.request_native.*
 import com.android.volley.Request
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -71,62 +69,67 @@ object QueryRequest
 			}
 		}
 
+
+
 		//region request post for query
-		Executor({
-			val oURL = URL(url)
-			val connection = oURL.openConnection() as HttpURLConnection
-			connection.requestMethod = "POST"
-
-			connection.setRequestProperty("Authorization", "Bearer ${AutoQLData.JWT}")
-			connection.setRequestProperty("accept-language", "es-Us")
-			connection.setRequestProperty("Content-Type", "application/json")
-
-			connection.doOutput = true
-
-			val writer = DataOutputStream(connection.outputStream)
-			writer.writeBytes("{\"text\": \"Total revenue by month in 2019\"}")
-			writer.flush()
-			writer.close()
-
-			val responseCode = connection.responseCode
-
-			val bufferedReader = BufferedReader(
-				InputStreamReader(
-					if (responseCode > 299)
-						connection.errorStream
-					else
-						connection.inputStream)
-			)
-
-			val responseBody = StringBuilder()
-			bufferedReader.forEachLine { line ->
-				responseBody.append(line)
-			}
-			connection.disconnect()
-		},{
-
-		}).execute()
-		//endregion
-
-//		val requestData = RequestData(
-//			RequestMethod.POST,
-//			url,
-//			header,
-//			mParams,
-//			infoHolder
-//		)
-//		BaseRequest(requestData, object :chata.can.request_native.StatusResponse
-//		{
-//			override fun onFailureResponse(jsonObject: JSONObject)
-//			{
-//				jsonObject.toString()
+//		Executor({
+//			val oURL = URL(url)
+//			val connection = oURL.openConnection() as HttpURLConnection
+//			connection.requestMethod = "${RequestMethod.POST}"
+//
+//			header?.let {
+//				for ((key, value) in it)
+//				{
+//					connection.setRequestProperty(key, value)
+//				}
 //			}
 //
-//			override fun onSuccessResponse(jsonObject: JSONObject)
-//			{
-//				jsonObject.toString()
+//			connection.doOutput = ConfigRequestMethod.getDoOutput(RequestMethod.POST)
+//
+//			val writer = DataOutputStream(connection.outputStream)
+//			writer.writeBytes(ParameterStringBuilder.encodeJSON(mParams))
+//			writer.flush()
+//			writer.close()
+//
+//			val responseCode = connection.responseCode
+//
+//			val bufferedReader = BufferedReader(
+//				InputStreamReader(
+//					if (responseCode > 299)
+//						connection.errorStream
+//					else
+//						connection.inputStream)
+//			)
+//
+//			val responseBody = StringBuilder()
+//			bufferedReader.forEachLine { line ->
+//				responseBody.append(line)
 //			}
+//			connection.disconnect()
+//		},{
+//
 //		}).execute()
+		//endregion
+
+		val requestData = RequestData(
+			RequestMethod.POST,
+			url,
+			header,
+			mParams,
+			infoHolder
+		)
+		BaseRequest(requestData, object :chata.can.request_native.StatusResponse
+		{
+			override fun onFailureResponse(jsonObject: JSONObject)
+			{
+				jsonObject.toString()
+			}
+
+			override fun onSuccessResponse(jsonObject: JSONObject)
+			{
+				jsonObject.toString()
+			}
+		}).execute()
 //		callStringRequest(
 //			Request.Method.POST,
 //			url,
