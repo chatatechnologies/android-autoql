@@ -73,7 +73,9 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 			}
 			"callTopics" ->
 			{
-				jsonObject.optJSONArray("items")?.let { jaItems ->
+				val response = jsonObject.optString("RESPONSE")
+				val joResponse = JSONObject(response)
+				joResponse.optJSONArray("items")?.let { jaItems ->
 					val aMainData = QueryBuilderData.aMainData
 					aMainData.clear()
 					val mMainQuery = QueryBuilderData.mMainQuery

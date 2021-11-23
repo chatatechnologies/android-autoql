@@ -181,10 +181,6 @@ class DashboardPresenter(
 						}
 					}
 				}
-				"getDashboard" ->
-				{
-					setDashboard(jsonObject)
-				}
 				else ->
 				{
 

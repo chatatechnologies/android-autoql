@@ -5,7 +5,11 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
 import com.android.volley.Request
+import org.json.JSONObject
 import java.net.URLEncoder
 
 object QueryRequest
@@ -60,14 +64,33 @@ object QueryRequest
 			}
 		}
 
-		callStringRequest(
-			Request.Method.POST,
+		val requestData = RequestData(
+			RequestMethod.POST,
 			url,
-			typeJSON,
-			headers = header,
-			parametersAny = mParams,
-			infoHolder = infoHolder,
-			listener = listener)
+			header,
+			mParams,
+			infoHolder
+		)
+		BaseRequest(requestData, object :chata.can.request_native.StatusResponse
+		{
+			override fun onFailureResponse(jsonObject: JSONObject)
+			{
+				jsonObject.toString()
+			}
+
+			override fun onSuccessResponse(jsonObject: JSONObject)
+			{
+				jsonObject.toString()
+			}
+		}).execute()
+//		callStringRequest(
+//			Request.Method.POST,
+//			url,
+//			typeJSON,
+//			headers = header,
+//			parametersAny = mParams,
+//			infoHolder = infoHolder,
+//			listener = listener)
 	}
 
 	fun callRelatedQueries(
