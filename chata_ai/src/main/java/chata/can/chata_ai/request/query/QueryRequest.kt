@@ -1,5 +1,6 @@
 package chata.can.chata_ai.request.query
 
+import chata.can.chata_ai.Executor
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
@@ -10,6 +11,8 @@ import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
 import com.android.volley.Request
 import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.URL
 import java.net.URLEncoder
 
 object QueryRequest
@@ -40,6 +43,7 @@ object QueryRequest
 				header = getAuthorizationJWT()
 				header?.let {
 					it["accept-language"] = SinglentonDrawer.languageCode
+					it["Content-Type"] = "application/json"
 				}
 				mParams["source"] = source
 				mParams["translation"] = "include"
@@ -64,25 +68,39 @@ object QueryRequest
 			}
 		}
 
-		val requestData = RequestData(
-			RequestMethod.POST,
-			url,
-			header,
-			mParams,
-			infoHolder
-		)
-		BaseRequest(requestData, object :chata.can.request_native.StatusResponse
-		{
-			override fun onFailureResponse(jsonObject: JSONObject)
-			{
-				jsonObject.toString()
-			}
+		//region request post for query
+		Executor({
+			val oURL = URL(url)
+			val connection = oURL.openConnection() as HttpURLConnection
+			connection.requestMethod = "POST"
+			connection.doOutput = true
 
-			override fun onSuccessResponse(jsonObject: JSONObject)
-			{
-				jsonObject.toString()
-			}
+			val responseCode = connection.responseCode
+			responseCode.toString()
+		},{
+
 		}).execute()
+		//endregion
+
+//		val requestData = RequestData(
+//			RequestMethod.POST,
+//			url,
+//			header,
+//			mParams,
+//			infoHolder
+//		)
+//		BaseRequest(requestData, object :chata.can.request_native.StatusResponse
+//		{
+//			override fun onFailureResponse(jsonObject: JSONObject)
+//			{
+//				jsonObject.toString()
+//			}
+//
+//			override fun onSuccessResponse(jsonObject: JSONObject)
+//			{
+//				jsonObject.toString()
+//			}
+//		}).execute()
 //		callStringRequest(
 //			Request.Method.POST,
 //			url,

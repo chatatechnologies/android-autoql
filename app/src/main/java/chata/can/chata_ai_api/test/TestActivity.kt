@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.test
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class TestActivity: AppCompatActivity()
@@ -8,10 +9,9 @@ class TestActivity: AppCompatActivity()
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-//
-//		setContentView(TextView(this).apply {
-//			text = "Test Activity"
-//		})
+		setContentView(TextView(this).apply {
+			text = "Test Activity"
+		})
 //
 ////		region request POST (login)
 //		val parameters = HashMap<String, Any>()

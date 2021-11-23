@@ -11,10 +11,15 @@ object ManageBody
 			if (requestMethod == RequestMethod.POST || requestMethod == RequestMethod.PUT)
 			{
 				val writer = DataOutputStream(connection.outputStream)
-				parameters?.let {
-					val bodyRequest = if (requestMethod == RequestMethod.POST)
-						ParameterStringBuilder.getParamsString(it)
-					else ParameterStringBuilder.encodeJSON(it)
+				parameters?.let { parameter ->
+					val bodyRequest = this.header?.get("Content-Type")?.let {
+						ParameterStringBuilder.encodeJSON(parameter)
+					} ?: run {
+						ParameterStringBuilder.getParamsString(parameter)
+					}
+//					val bodyRequest = if (requestMethod == RequestMethod.POST)
+//						ParameterStringBuilder.getParamsString(parameter)
+//					else ParameterStringBuilder.encodeJSON(parameter)
 					writer.writeBytes(bodyRequest)
 				}
 				writer.flush()
