@@ -22,20 +22,19 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
 class CustomAlertDialog(
 	private val context1: Context,
 	private val queryBase: QueryBase?
-	): View.OnClickListener, ColumnChanges.AllColumn, StatusResponse
-{
+	): View.OnClickListener, ColumnChanges.AllColumn, StatusResponse {
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
 	private lateinit var tvColumnName: TextView
@@ -246,6 +245,7 @@ class CustomAlertDialog(
 							val url = "${AutoQLData.domainUrl}/autoql/${api1}query/column-visibility?key=${AutoQLData.apiKey}"
 							val header = Authentication.getAuthorizationJWT()
 							header["accept-language"] = SinglentonDrawer.languageCode
+							header["Content-Type"] = "application/json"
 							val mParams = hashMapOf<String, Any>()
 							val aColumns = ArrayList< HashMap<String, Any> >()
 							for (column in it.aColumn)
@@ -254,14 +254,13 @@ class CustomAlertDialog(
 								aColumns.add(mColumn)
 							}
 							mParams["columns"] = aColumns
-							RequestBuilder.callStringRequest(
-								Request.Method.PUT,
+							val requestData = RequestData(
+								RequestMethod.PUT,
 								url,
-								typeJSON,
-								headers = header,
-								parametersAny = mParams,
-								listener = this
+								header,
+								mParams
 							)
+							BaseRequest(requestData, this).execute()
 						}
 					}
 					dialog.dismiss()
@@ -277,9 +276,12 @@ class CustomAlertDialog(
 		cbAll.setOnCheckedChangeListener(buttonChecked)
 	}
 
-	override fun onFailure(jsonObject: JSONObject?) {}
+	private fun getBackgroundColor(color: Int, borderColor: Int) =
+		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onFailureResponse(jsonObject: JSONObject) { }
+
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		queryBase?.run {
 			reloadTable = true
@@ -287,7 +289,4 @@ class CustomAlertDialog(
 			resetData()
 		}
 	}
-
-	private fun getBackgroundColor(color: Int, borderColor: Int) =
-		DrawableBuilder.setGradientDrawable(color, 12f, 3, borderColor)
 }

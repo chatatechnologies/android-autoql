@@ -5,19 +5,17 @@ import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
 import chata.can.request_native.BaseRequest
 import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
-import com.android.volley.Request
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
 class DrillDownPresenter(
 	private val queryBase: QueryBase,
-	private val chatView: ChatContract.View?): StatusResponse, chata.can.request_native.StatusResponse
+	private val chatView: ChatContract.View?): StatusResponse
 {
 	fun postDrillDown(valueInRow: String = "")
 	{
@@ -76,19 +74,7 @@ class DrillDownPresenter(
 			header,
 			mParams
 		)
-		BaseRequest(requestData, object: chata.can.request_native.StatusResponse
-		{
-			override fun onFailureResponse(jsonObject: JSONObject)
-			{
-				jsonObject.toString()
-			}
-
-			override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
-			{
-				jsonObject.toString()
-			}
-		}).execute()
-
+		BaseRequest(requestData, this).execute()
 //		callStringRequest(
 //			Request.Method.POST,
 //			url,
@@ -104,16 +90,6 @@ class DrillDownPresenter(
 	}
 
 	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
-	{
-		jsonObject.toString()
-	}
-
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-		jsonObject.toString()
-	}
-
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if (jsonObject != null)
 		{
