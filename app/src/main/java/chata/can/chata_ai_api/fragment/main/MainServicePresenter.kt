@@ -5,6 +5,7 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.request.authentication.Authentication
 import chata.can.chata_ai_api.R
 import chata.can.request_native.StatusResponse
+import org.json.JSONArray
 import org.json.JSONObject
 
 class MainServicePresenter(private val view: MainContract): StatusResponse
@@ -46,65 +47,68 @@ class MainServicePresenter(private val view: MainContract): StatusResponse
 		}
 	}
 
-	override fun onSuccessResponse(jsonObject: JSONObject)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		when(jsonObject.optString("nameService"))
+		if (jsonObject != null)
 		{
-			"callLogin" ->
+			when(jsonObject.optString("nameService"))
 			{
-				val token = jsonObject.optString("RESPONSE")
-				AutoQLData.token = token
-				view.callJWt()
-			}
-			"callJWL" ->
-			{
-				val jwt = jsonObject.optString("RESPONSE") ?: ""
-				AutoQLData.JWT = jwt
-				view.callRelated()
-				view.initPollService()
-			}
-			"callRelatedQuery" ->
-			{
-				with(view)
+				"callLogin" ->
 				{
-					savePersistentData()
-					callTopics()
+					val token = jsonObject.optString("RESPONSE")
+					AutoQLData.token = token
+					view.callJWt()
 				}
-			}
-			"callTopics" ->
-			{
-				val response = jsonObject.optString("RESPONSE")
-				val joResponse = JSONObject(response)
-				joResponse.optJSONArray("items")?.let { jaItems ->
-					val aMainData = QueryBuilderData.aMainData
-					aMainData.clear()
-					val mMainQuery = QueryBuilderData.mMainQuery
-					mMainQuery.clear()
-
-					for (index in 0 until jaItems.length())
+				"callJWL" ->
+				{
+					val jwt = jsonObject.optString("RESPONSE") ?: ""
+					AutoQLData.JWT = jwt
+					view.callRelated()
+					view.initPollService()
+				}
+				"callRelatedQuery" ->
+				{
+					with(view)
 					{
-						val json = jaItems.optJSONObject(index)
-						val topic = json.optString("topic", "")
-						aMainData.add(topic)
-
-						json.optJSONArray("queries")?.let { jaQueries ->
-							val aData = ArrayList<String>()
-							for (index2 in 0 until jaQueries.length())
-							{
-								val query = jaQueries.optString(index2) ?: ""
-								aData.add(query)
-							}
-							aData.add("💡See more...")
-							mMainQuery[topic] = aData
-						}
+						savePersistentData()
+						callTopics()
 					}
 				}
-				AutoQLData.wasLoginIn = true
-				view.run {
-					changeAuthenticate(true)
-					changeStateAuthenticate()
-					isEnableLogin(true)
-					showAlert("Login Successful", R.drawable.ic_done)
+				"callTopics" ->
+				{
+					val response = jsonObject.optString("RESPONSE")
+					val joResponse = JSONObject(response)
+					joResponse.optJSONArray("items")?.let { jaItems ->
+						val aMainData = QueryBuilderData.aMainData
+						aMainData.clear()
+						val mMainQuery = QueryBuilderData.mMainQuery
+						mMainQuery.clear()
+
+						for (index in 0 until jaItems.length())
+						{
+							val json = jaItems.optJSONObject(index)
+							val topic = json.optString("topic", "")
+							aMainData.add(topic)
+
+							json.optJSONArray("queries")?.let { jaQueries ->
+								val aData = ArrayList<String>()
+								for (index2 in 0 until jaQueries.length())
+								{
+									val query = jaQueries.optString(index2) ?: ""
+									aData.add(query)
+								}
+								aData.add("💡See more...")
+								mMainQuery[topic] = aData
+							}
+						}
+					}
+					AutoQLData.wasLoginIn = true
+					view.run {
+						changeAuthenticate(true)
+						changeStateAuthenticate()
+						isEnableLogin(true)
+						showAlert("Login Successful", R.drawable.ic_done)
+					}
 				}
 			}
 		}

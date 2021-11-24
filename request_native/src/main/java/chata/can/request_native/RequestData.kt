@@ -8,3 +8,6 @@ data class RequestData(
 	//reference for response
 	val dataHolder: HashMap<String, Any> ?= null
 )
+{
+	fun getHolder() = dataHolder ?: HashMap<String, Any>()
+}

@@ -195,97 +195,100 @@ class ChatServicePresenter(
 		jsonObject.toString()
 	}
 
-	override fun onSuccessResponse(jsonObject: JSONObject)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		val response = jsonObject.optString("RESPONSE")
-		val joResponse = JSONObject(response)
-		when
+		if (jsonObject != null)
 		{
-			jsonObject.has("nameService") ->
+			val response = jsonObject.optString("RESPONSE")
+			val joResponse = JSONObject(response)
+			when
 			{
-				when(jsonObject.optString("nameService"))
+				jsonObject.has("nameService") ->
 				{
-					"demoAutocomplete" ->
+					when(jsonObject.optString("nameService"))
 					{
-						makeMatches(joResponse)
-					}
-					"autocomplete" ->
-					{
-						joResponse.getJSONData()?.let {
-							makeMatches(it)
+						"demoAutocomplete" ->
+						{
+							makeMatches(joResponse)
 						}
-					}
-					"safetynet" ->
-					{
-						makeSuggestion(joResponse, "full_suggestion", "query")
-					}
-					"validate" ->
-					{
-						joResponse.getJSONData()?.let { data ->
-							makeSuggestion(data, "replacements", "text")
+						"autocomplete" ->
+						{
+							joResponse.getJSONData()?.let {
+								makeMatches(it)
+							}
+						}
+						"safetynet" ->
+						{
+							makeSuggestion(joResponse, "full_suggestion", "query")
+						}
+						"validate" ->
+						{
+							joResponse.getJSONData()?.let { data ->
+								makeSuggestion(data, "replacements", "text")
+							}
 						}
 					}
 				}
-			}
-			joResponse.has(referenceIdKey) ->
-			{
-				val queryBase = QueryBase(joResponse)
-				val typeView = when(queryBase.displayType)
+				joResponse.has(referenceIdKey) ->
 				{
-					"suggestion" ->
+					val queryBase = QueryBase(joResponse)
+					val typeView = when(queryBase.displayType)
 					{
-						if (SinglentonDrawer.mIsEnableSuggestion)
+						"suggestion" ->
 						{
-							val query = joResponse.optString("query")
-							queryBase.message = query
-							TypeChatView.SUGGESTION_VIEW
+							if (SinglentonDrawer.mIsEnableSuggestion)
+							{
+								val query = joResponse.optString("query")
+								queryBase.message = query
+								TypeChatView.SUGGESTION_VIEW
+							}
+							else
+							{
+								queryBase.message = "${queryBase.displayType} not supported"
+								TypeChatView.LEFT_VIEW
+							}
 						}
-						else
+						dataKey ->
 						{
-							queryBase.message = "${queryBase.displayType} not supported"
-							TypeChatView.LEFT_VIEW
+							val numColumns = queryBase.numColumns
+							val numRows = queryBase.aRows.size
+							when
+							{
+								numRows == 0 -> TypeChatView.LEFT_VIEW
+								numColumns == 1 && numRows > 1 ->
+								{
+									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
+								}
+								numColumns > 1 ->
+								{
+									queryBase.viewPresenter = this
+									queryBase.typeView = TypeChatView.WEB_VIEW
+									TypeChatView.WEB_VIEW
+								}
+								numColumns == 1 ->
+								{
+									if(queryBase.hasHash)
+										TypeChatView.HELP_VIEW
+									else
+										TypeChatView.LEFT_VIEW
+								}
+								else -> TypeChatView.LEFT_VIEW
+							}
 						}
+						else -> TypeChatView.LEFT_VIEW
 					}
-					dataKey ->
+					if (queryBase.viewPresenter == null)
 					{
-						val numColumns = queryBase.numColumns
-						val numRows = queryBase.aRows.size
-						when
-						{
-							numRows == 0 -> TypeChatView.LEFT_VIEW
-							numColumns == 1 && numRows > 1 ->
-							{
-								queryBase.viewPresenter = this
-								queryBase.typeView = TypeChatView.WEB_VIEW
-								TypeChatView.WEB_VIEW
-							}
-							numColumns > 1 ->
-							{
-								queryBase.viewPresenter = this
-								queryBase.typeView = TypeChatView.WEB_VIEW
-								TypeChatView.WEB_VIEW
-							}
-							numColumns == 1 ->
-							{
-								if(queryBase.hasHash)
-									TypeChatView.HELP_VIEW
-								else
-									TypeChatView.LEFT_VIEW
-							}
-							else -> TypeChatView.LEFT_VIEW
-						}
+						isLoading(false)
+						addNewChat(typeView, queryBase)
 					}
-					else -> TypeChatView.LEFT_VIEW
 				}
-				if (queryBase.viewPresenter == null)
+				else ->
 				{
-					isLoading(false)
-					addNewChat(typeView, queryBase)
+					toString()
 				}
-			}
-			else ->
-			{
-				toString()
 			}
 		}
 	}
