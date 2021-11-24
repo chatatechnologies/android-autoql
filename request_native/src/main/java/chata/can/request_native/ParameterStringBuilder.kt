@@ -71,6 +71,7 @@ object ParameterStringBuilder
 				}
 				clearComma(keyEncode)
 				encoded.append("]")
+				encoded.append(",")
 			}
 
 			is HashMap<*, *> ->

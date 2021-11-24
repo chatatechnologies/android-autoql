@@ -32,7 +32,7 @@ object QueryRequest
 			with(AutoQLData)
 			{
 				header = getAuthorizationJWT()
-				header?.let {
+								header?.let {
 					it["accept-language"] = SinglentonDrawer.languageCode
 					it["Content-Type"] = "application/json"
 				}

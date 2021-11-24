@@ -8,13 +8,16 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
 import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
 import com.android.volley.Request
 import org.json.JSONArray
 import org.json.JSONObject
 
 class DrillDownPresenter(
 	private val queryBase: QueryBase,
-	private val chatView: ChatContract.View?): StatusResponse
+	private val chatView: ChatContract.View?): StatusResponse, chata.can.request_native.StatusResponse
 {
 	fun postDrillDown(valueInRow: String = "")
 	{
@@ -43,6 +46,7 @@ class DrillDownPresenter(
 				header = getAuthorizationJWT()
 				header?.let {
 					it["accept-language"] = SinglentonDrawer.languageCode
+					it["Content-Type"] = "application/json"
 				}
 
 				val aValues = valueInRow.split("_")
@@ -66,14 +70,42 @@ class DrillDownPresenter(
 				"$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
 			}
 		}
-
-		callStringRequest(
-			Request.Method.POST,
+		val requestData = RequestData(
+			RequestMethod.POST,
 			url,
-			typeJSON,
-			headers = header,
-			parametersAny = mParams,
-			listener = this)
+			header,
+			mParams
+		)
+		BaseRequest(requestData, object: chata.can.request_native.StatusResponse
+		{
+			override fun onFailureResponse(jsonObject: JSONObject)
+			{
+				jsonObject.toString()
+			}
+
+			override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
+			{
+				jsonObject.toString()
+			}
+		}).execute()
+
+//		callStringRequest(
+//			Request.Method.POST,
+//			url,
+//			typeJSON,
+//			headers = header,
+//			parametersAny = mParams,
+//			listener = this)
+	}
+
+	override fun onFailureResponse(jsonObject: JSONObject)
+	{
+		jsonObject.toString()
+	}
+
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	{
+		jsonObject.toString()
 	}
 
 	override fun onFailure(jsonObject: JSONObject?)
