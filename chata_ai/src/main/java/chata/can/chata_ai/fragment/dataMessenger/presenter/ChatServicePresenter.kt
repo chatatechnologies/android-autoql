@@ -6,7 +6,6 @@ import chata.can.chata_ai.fragment.dataMessenger.DataChatContract
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.chat.*
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.Network
 import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
@@ -14,7 +13,7 @@ import org.json.JSONObject
 
 class ChatServicePresenter(
 	private val context: Context,
-	private var view: ChatContract.View?) : StatusResponse, chata.can.request_native.StatusResponse,
+	private var view: ChatContract.View?) : chata.can.request_native.StatusResponse,
 	PresenterContract
 {
 	private var lastQuery = ""
@@ -57,70 +56,6 @@ class ChatServicePresenter(
 		QueryRequest.callRelatedQueries(query, this, mData)
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
-	{
-		if (jsonObject != null)
-		{
-			when(jsonObject.optString("nameService"))
-			{
-
-
-			}
-		}
-	}
-
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
-	{
-		if (jsonObject != null)
-		{
-			when
-			{
-				jsonObject.has("nameService") ->
-				{
-					when(jsonObject.optString("nameService"))
-					{
-
-
-
-						"callRelatedQueries" ->
-						{
-							jsonObject.optJSONObject("data")?.let {
-								joData ->
-								joData.optJSONArray("items")?.let {
-									jaItems ->
-									val json = JSONObject().put("query", "")
-									val queryBase = QueryBase(json).apply {
-										val queryId = jsonObject.optString("query_id")
-										this.queryId = queryId
-										for (index in 0 until jaItems.length())
-										{
-											val item = jaItems.opt(index).toString()
-											aRows.add(arrayListOf(item))
-										}
-									}
-									queryBase.message = jsonObject.optString("message", "") ?: ""
-									//val query = jsonObject.optString("query", "")
-									isLoading(false)
-									view?.run {
-										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
-									}
-								}
-							}
-						}
-						else ->
-						{
-
-						}
-					}
-				}
-				else ->
-				{
-
-				}
-			}
-		}
-	}
-
 	override fun onFailureResponse(jsonObject: JSONObject)
 	{
 		when(jsonObject.optString("nameService"))
@@ -140,11 +75,9 @@ class ChatServicePresenter(
 					{
 						if (SinglentonDrawer.mIsEnableSuggestion)
 						{
-							val response = jsonObject.optString("RESPONSE", "")
 							var queryId = ""
 							try {
-								val joResponse = JSONObject(response)
-								joResponse.optJSONObject("data")?.let { joData ->
+								jsonObject.optJSONObject("data")?.let { joData ->
 									queryId = joData.optString("query_id")
 								}
 							} catch (ex: Exception) {}
@@ -222,6 +155,31 @@ class ChatServicePresenter(
 						{
 							jsonObject.getJSONData()?.let { data ->
 								makeSuggestion(data, "replacements", "text")
+							}
+						}
+						"callRelatedQueries" ->
+						{
+							jsonObject.optJSONObject("data")?.let {
+								joData ->
+								joData.optJSONArray("items")?.let {
+									jaItems ->
+									val json = JSONObject().put("query", "")
+									val queryBase = QueryBase(json).apply {
+										val queryId = jsonObject.optString("query_id")
+										this.queryId = queryId
+										for (index in 0 until jaItems.length())
+										{
+											val item = jaItems.opt(index).toString()
+											aRows.add(arrayListOf(item))
+										}
+									}
+									queryBase.message = jsonObject.optString("message", "") ?: ""
+									//val query = jsonObject.optString("query", "")
+									isLoading(false)
+									view?.run {
+										addNewChat(TypeChatView.SUGGESTION_VIEW, queryBase)
+									}
+								}
 							}
 						}
 					}

@@ -22,6 +22,9 @@ object ParameterStringBuilder
 
 	//region encodeJSON with Map
 	private val encoded = StringBuilder()
+
+	fun clearEncode() = encoded.clear()
+
 	fun encodeJSON(map: HashMap<*, *>): String
 	{
 		encoded.append("{")

@@ -84,7 +84,13 @@ object QueryRequest
 
 			val header = getAuthorizationJWT()
 			header["accept-language"] = SinglentonDrawer.languageCode
-
+			val requestData = RequestData(
+				RequestMethod.GET,
+				url,
+				header,
+				dataHolder = mData
+			)
+			BaseRequest(requestData, listener).execute()
 //			callStringRequest(
 //				Request.Method.GET,
 //				url,

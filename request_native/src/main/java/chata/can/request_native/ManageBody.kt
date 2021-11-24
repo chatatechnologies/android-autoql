@@ -13,6 +13,7 @@ object ManageBody
 				val writer = DataOutputStream(connection.outputStream)
 				parameters?.let { parameter ->
 					val bodyRequest = this.header?.get("Content-Type")?.let {
+						ParameterStringBuilder.clearEncode()
 						ParameterStringBuilder.encodeJSON(parameter)
 					} ?: run {
 						ParameterStringBuilder.getParamsString(parameter)
