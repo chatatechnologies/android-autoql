@@ -35,41 +35,30 @@ class BaseRequest(private val requestData: RequestData, private val listener: St
 			val responseCode = pairResponse?.responseCode ?: 0
 			val response = pairResponse?.responseBody ?: ""
 
-			try {
-				val jsonObject = JSONObject(response).apply {
+			val json = try {
+				JSONObject(response).apply {
 					addDataHolder(requestData.getHolder())
 				}
-				listener.onSuccessResponse(jsonObject)
 			} catch (ex: Exception)
 			{
 				try {
 					val jsonArray = JSONArray(response)
 					listener.onSuccessResponse(jsonArray = jsonArray)
+					JSONObject().put("array", jsonArray)
 				} catch (ex: Exception)
 				{
-					with(JSONObject())
-					{
+					JSONObject().apply {
 						put("RESPONSE", response)
 						addDataHolder(requestData.getHolder())
-						listener.onSuccessResponse(this)
 					}
 				}
 			}
 
-//			val json = JSONObject().apply {
-//				put("CODE", responseCode)
-//				put("RESPONSE", pairResponse?.responseBody ?: "")
-//			}
-//			//region POST response
-//			requestData.dataHolder?.let {
-//				for ((key, value) in it)
-//					json.put(key, value)
-//			}
-//			//endregion
-//			if (responseCode > 299)
-//				listener.onFailureResponse(json)
-//			else
-//				listener.onSuccessResponse(json)
+			json.addDataHolder(requestData.getHolder())
+			if (responseCode > 299)
+				listener.onFailureResponse(json)
+			else
+				listener.onSuccessResponse(json)
 		}).execute()
 	}
 

@@ -30,9 +30,6 @@ class DashboardPresenter(
 			"getDashboardQueries" ->
 			{
 				if (queryReset) return
-				val response = jsonObject.optString("RESPONSE") ?: ""
-				val joCurrent = JSONObject(response)
-
 				try {
 					val query = jsonObject.optString("query") ?: ""
 					val title = jsonObject.optString("title") ?: ""
@@ -40,9 +37,9 @@ class DashboardPresenter(
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
 					//region scope for call related queries
 					val code = jsonObject.optInt("CODE")
-					val referenceId = joCurrent.optString("reference_id") ?: ""
+					val referenceId = jsonObject.optString("reference_id") ?: ""
 					var queryId = ""
-					joCurrent.optJSONObject("data")?.let { joData ->
+					jsonObject.optJSONObject("data")?.let { joData ->
 						queryId = joData.optString("query_id")
 					}
 					val isSuggestion = referenceId == "1.1.430" || referenceId == "1.1.431" || referenceId == "1.1.420"
@@ -79,7 +76,7 @@ class DashboardPresenter(
 							if (index != -1)
 							{
 								this[index]?.let { dashboard ->
-									val queryBase = QueryBase(joCurrent).apply {
+									val queryBase = QueryBase(jsonObject).apply {
 										isDashboard = true
 										typeView = TypeChatView.SUPPORT
 									}
