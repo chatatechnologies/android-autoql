@@ -36,7 +36,9 @@ class BaseRequest(private val requestData: RequestData, private val listener: St
 			val response = pairResponse?.responseBody ?: ""
 
 			try {
-				val jsonObject = JSONObject(response)
+				val jsonObject = JSONObject(response).apply {
+					addDataHolder(requestData.getHolder())
+				}
 				listener.onSuccessResponse(jsonObject)
 			} catch (ex: Exception)
 			{

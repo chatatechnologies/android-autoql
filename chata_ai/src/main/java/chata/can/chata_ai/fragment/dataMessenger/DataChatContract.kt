@@ -40,13 +40,6 @@ class DataChatContract
 			dataHolder = hashMapOf("nameService" to nameService, "url" to url)
 		)
 		BaseRequest(requestData, listener).execute()
-//		callStringRequest(
-//			Request.Method.GET,
-//			url,
-//			typeJSON,
-//			headers = header,
-//			infoHolder = hashMapOf("nameService" to nameService, "url" to url),
-//			listener = listener)
 	}
 
 	fun callSafetyNet(query: String, listener: chata.can.request_native.StatusResponse)

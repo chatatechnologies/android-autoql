@@ -103,14 +103,12 @@ class DashboardPresenter(
 	{
 		if (jsonObject != null)
 		{
-			val response = jsonObject.optString("RESPONSE")
-			val joResponse = JSONObject(response)
 			when(jsonObject.optString("nameService"))
 			{
 				"getDashboard" ->
 				{
 					try {
-						setDashboard(joResponse)
+						setDashboard(jsonObject)
 					} catch (ex: Exception)
 					{
 						ex.printStackTrace()
@@ -125,7 +123,7 @@ class DashboardPresenter(
 						if (index != -1)
 						{
 							this[index]?.let { dashboard ->
-								val queryBase = QueryBase(joResponse).apply {
+								val queryBase = QueryBase(jsonObject).apply {
 									isDashboard = true
 									configQueryBase(dashboard, this, isSecondaryQuery)
 								}
@@ -136,7 +134,7 @@ class DashboardPresenter(
 									dashboard.queryBase = queryBase
 									if (dashboard.secondQuery.isEmpty() && dashboard.splitView)
 									{
-										dashboard.queryBase2 = QueryBase(joResponse).apply {
+										dashboard.queryBase2 = QueryBase(jsonObject).apply {
 											isDashboard = true
 											this.isSecondaryQuery = true
 											configQueryBase(dashboard, this, true)

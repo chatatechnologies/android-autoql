@@ -199,8 +199,6 @@ class ChatServicePresenter(
 	{
 		if (jsonObject != null)
 		{
-			val response = jsonObject.optString("RESPONSE")
-			val joResponse = JSONObject(response)
 			when
 			{
 				jsonObject.has("nameService") ->
@@ -209,36 +207,36 @@ class ChatServicePresenter(
 					{
 						"demoAutocomplete" ->
 						{
-							makeMatches(joResponse)
+							makeMatches(jsonObject)
 						}
 						"autocomplete" ->
 						{
-							joResponse.getJSONData()?.let {
+							jsonObject.getJSONData()?.let {
 								makeMatches(it)
 							}
 						}
 						"safetynet" ->
 						{
-							makeSuggestion(joResponse, "full_suggestion", "query")
+							makeSuggestion(jsonObject, "full_suggestion", "query")
 						}
 						"validate" ->
 						{
-							joResponse.getJSONData()?.let { data ->
+							jsonObject.getJSONData()?.let { data ->
 								makeSuggestion(data, "replacements", "text")
 							}
 						}
 					}
 				}
-				joResponse.has(referenceIdKey) ->
+				jsonObject.has(referenceIdKey) ->
 				{
-					val queryBase = QueryBase(joResponse)
+					val queryBase = QueryBase(jsonObject)
 					val typeView = when(queryBase.displayType)
 					{
 						"suggestion" ->
 						{
 							if (SinglentonDrawer.mIsEnableSuggestion)
 							{
-								val query = joResponse.optString("query")
+								val query = jsonObject.optString("query")
 								queryBase.message = query
 								TypeChatView.SUGGESTION_VIEW
 							}
