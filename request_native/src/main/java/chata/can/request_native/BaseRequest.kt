@@ -5,7 +5,10 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 
-class BaseRequest(private val requestData: RequestData, private val listener: StatusResponse)
+class BaseRequest(
+	private val requestData: RequestData,
+  private val listener: StatusResponse,
+	private val reference: String = "query")
 {
 	fun execute()
 	{
@@ -22,7 +25,7 @@ class BaseRequest(private val requestData: RequestData, private val listener: St
 
 				connection.doOutput = ConfigRequestMethod.getDoOutput(requestData.requestMethod)
 
-				ManageBody.sendBody(connection, requestData)
+				ManageBody.sendBody(connection, requestData, reference)
 
 				pairResponse = BuildBody.getResponse(connection)
 			}

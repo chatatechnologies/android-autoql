@@ -5,7 +5,7 @@ import java.net.HttpURLConnection
 
 object ManageBody
 {
-	fun sendBody(connection: HttpURLConnection, requestData: RequestData)
+	fun sendBody(connection: HttpURLConnection, requestData: RequestData, reference: String)
 	{
 		requestData.run {
 			if (requestMethod == RequestMethod.POST || requestMethod == RequestMethod.PUT)
@@ -13,8 +13,7 @@ object ManageBody
 				val writer = DataOutputStream(connection.outputStream)
 				parameters?.let { parameter ->
 					val bodyRequest = this.header?.get("Content-Type")?.let {
-						ParameterStringBuilder.clearEncode()
-						ParameterStringBuilder.encodeJSON(parameter)
+						ParameterStringBuilder.getParamsJSON(reference, parameter)
 					} ?: run {
 						ParameterStringBuilder.getParamsString(parameter)
 					}

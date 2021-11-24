@@ -21,24 +21,35 @@ object ParameterStringBuilder
 	}
 
 	//region encodeJSON with Map
-	private val encoded = StringBuilder()
+	private val mEncode = HashMap<String, StringBuilder>()
 
-	fun clearEncode() = encoded.clear()
+	private fun getEncode(keyEncode: String) = mEncode[keyEncode] ?: StringBuilder()
 
-	fun encodeJSON(map: HashMap<*, *>): String
+	fun getParamsJSON(key: String, map: HashMap<*, *>): String
 	{
+		mEncode[key] = StringBuilder()
+		encodeJSON(key, map)
+		val string = "${mEncode[key]}"
+		mEncode.remove(key)
+		return string
+	}
+
+	private fun encodeJSON(keyEncode: String, map: HashMap<*, *>): String
+	{
+		val encoded = getEncode(keyEncode)
 		encoded.append("{")
 		for((key, value) in map)
 		{
-			encodeSubJSON(map, "$key", value)
+			encodeSubJSON(keyEncode, map, "$key", value)
 		}
-		clearComma()
+		clearComma(keyEncode)
 		encoded.append("}")
 		return "$encoded"
 	}
 
-	private fun encodeSubJSON(map: HashMap<*, *>, key: String, value: Any)
+	private fun encodeSubJSON(keyEncode: String, map: HashMap<*, *>, key: String, value: Any)
 	{
+		val encoded = getEncode(keyEncode)
 		when(value)
 		{
 			is String,
@@ -55,16 +66,16 @@ object ParameterStringBuilder
 				encoded.append("\"$key\" :[")
 				for (value1 in value)
 				{
-					encodeSubJSON(map, key, value1)
+					encodeSubJSON(keyEncode, map, key, value1)
 					encoded.append(",")
 				}
-				clearComma()
+				clearComma(keyEncode)
 				encoded.append("]")
 			}
 
 			is HashMap<*, *> ->
 			{
-				encodeJSON(value)
+				encodeJSON(keyEncode, value)
 			}
 
 			else ->
@@ -74,8 +85,9 @@ object ParameterStringBuilder
 		}
 	}
 
-	private fun clearComma()
+	private fun clearComma(keyEncode: String)
 	{
+		val encoded = getEncode(keyEncode)
 		encoded.lastOrNull()?.let {
 			if (it == ',')
 			{
