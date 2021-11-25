@@ -4,6 +4,7 @@ import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.model.StringContainer
+import chata.can.chata_ai.pojo.query.SearchColumn
 
 object TableHtmlBuilder
 {
@@ -33,13 +34,14 @@ object TableHtmlBuilder
 					footTable.append("<th>$cellHead</th>")
 				}
 			}
-			headTable.append("</tr></thead>")
 			footTable.append("</tr></tfoot>")
+			headTable.append("</tr></thead>")
 			//endregion
 
 			var numRows = 1
 			//region create body table with id idTableBasic
 			val bodyTable = StringBuilder("<tbody>")
+			val aRowsTR = ArrayList<String>()
 			for (aRow in aRows)
 			{
 				if (numRows >= limitRow)
@@ -62,8 +64,15 @@ object TableHtmlBuilder
 						sRow.append("<td>$valueRow</td>")
 				}
 				numRows++
-				bodyTable.append("<tr>$sRow</tr>")
+				//bodyTable.append("<tr>$sRow</tr>")
+				aRowsTR.add("<tr>$sRow</tr>")
 			}
+
+			if (SearchColumn.isDateColumn(aColumn))
+				aRowsTR.reverse()
+
+			for (row in aRowsTR)
+				bodyTable.append(row)
 
 			bodyTable.append("</tbody>")
 			//endregion

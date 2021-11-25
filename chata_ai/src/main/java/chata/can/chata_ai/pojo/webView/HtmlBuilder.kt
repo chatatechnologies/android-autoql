@@ -29,15 +29,14 @@ object HtmlBuilder
 
 	fun build(queryBase: QueryBase): Pair<DataForWebView, DataD3>
 	{
+		val dataForWebView = DataForWebView()
+		val dataD3 = DataD3()
+		orderRowDate(queryBase)
+
 		val aRows = queryBase.aRows
 		val aColumn = queryBase.aColumn
 		val limitRow = queryBase.limitRowNum
 		//region container for webView
-		val dataForWebView = DataForWebView()
-		val dataD3 = DataD3()
-
-		orderRowDate(queryBase)
-
 		val pData = TableHtmlBuilder.buildTable(aRows, aColumn, limitRow)
 		dataForWebView.table = pData.first
 		dataD3.table = pData.first

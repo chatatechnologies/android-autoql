@@ -75,6 +75,17 @@ object SearchColumn
 		return position
 	}
 
+	fun isDateColumn(aColumns: ArrayList<ColumnQuery>): Boolean
+	{
+		val posD = getTypeColumn(aColumns, TypeDataQuery.DATE)
+		if (posD == -1)
+		{
+			val posDS = getTypeColumn(aColumns, TypeDataQuery.DATE_STRING)
+			return posDS != -1
+		}
+		return true
+	}
+
 	fun getUncountableIndices(aColumns: ArrayList<ColumnQuery>): ArrayList<Int>
 	{
 		val aIndices = ArrayList<Int>()
