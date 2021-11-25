@@ -93,6 +93,11 @@ object D3OnHtml
     /*display: table-header-group;*/
     display: none;
   }
+	.empty-state {
+    text-align: center;
+    font-family: '-apple-system','HelveticaNeue';
+    color: $textColor!important;
+  }
   .button {
     border: none;
     color: white;

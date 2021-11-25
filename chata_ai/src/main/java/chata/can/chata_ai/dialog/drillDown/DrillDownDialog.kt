@@ -97,12 +97,46 @@ class DrillDownDialog(
 		}
 	}
 
-	private fun getMessageError(message: String) = """<div id='idTableBasic' class="empty-state">
-	<span class="alert-icon">&#9888</span>
-	<p>
-		$message
-	</p>
-</div>"""
+	private fun getMessageError(message: String): String
+	{
+		var backgroundColor: String
+		var textColor: String
+		with(ThemeColor.currentColor)
+		{
+			backgroundColor = "#" + Integer.toHexString(
+				pDrawerBackgroundColor and 0x00ffffff)
+			textColor = "#" + Integer.toHexString(
+				pDrawerTextColorPrimary and 0x00ffffff)
+		}
+
+		return """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+<title></title>
+<style>
+	* {
+    margin: 0;
+    padding: 0;
+  }
+	body {
+		background: $backgroundColor!important;
+		color: $textColor!important;
+  }
+	.empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: $textColor!important;
+    }
+</style>
+<body>		
+		<div id='idTableBasic' class="empty-state">
+			<span class="alert-icon">&#9888</span>
+			<p>$message</p>
+		</div>
+</html>"""
+	}
 
 	private fun setData()
 	{
