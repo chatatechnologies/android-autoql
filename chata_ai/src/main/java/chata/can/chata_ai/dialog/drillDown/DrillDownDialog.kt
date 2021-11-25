@@ -60,7 +60,24 @@ class DrillDownDialog(
 	{
 		if (queryBase.contentHTML.isEmpty())
 		{
-			queryBase.viewDrillDown = this@DrillDownDialog
+			if (queryBase.displayType == "")
+			{
+				wbDrillDown.run {
+					settings.javaScriptEnabled = true
+					clearCache(true)
+					loadDataWithBaseURL(null, getMessageError(queryBase.message), "text/html", "UTF-8", null)
+					webViewClient = object: WebViewClient()
+					{
+						override fun onPageFinished(view: WebView?, url: String?)
+						{
+							ivLoad.visibility = View.GONE
+							wbDrillDown.visibility = View.VISIBLE
+						}
+					}
+				}
+			}
+			else
+				queryBase.viewDrillDown = this@DrillDownDialog
 		}
 		else
 		{
@@ -79,6 +96,13 @@ class DrillDownDialog(
 			}
 		}
 	}
+
+	private fun getMessageError(message: String) = """<div id='idTableBasic' class="empty-state">
+	<span class="alert-icon">&#9888</span>
+	<p>
+		$message
+	</p>
+</div>"""
 
 	private fun setData()
 	{

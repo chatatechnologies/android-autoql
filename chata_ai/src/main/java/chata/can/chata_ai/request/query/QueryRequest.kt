@@ -91,13 +91,6 @@ object QueryRequest
 				dataHolder = mData
 			)
 			BaseRequest(requestData, listener).execute()
-//			callStringRequest(
-//				Request.Method.GET,
-//				url,
-//				typeJSON,
-//				headers = header,
-//				infoHolder = mData,
-//				listener = listener)
 		}
 	}
 }

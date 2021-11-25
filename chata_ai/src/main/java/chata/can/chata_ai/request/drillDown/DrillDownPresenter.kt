@@ -75,13 +75,6 @@ class DrillDownPresenter(
 			mParams
 		)
 		BaseRequest(requestData, this).execute()
-//		callStringRequest(
-//			Request.Method.POST,
-//			url,
-//			typeJSON,
-//			headers = header,
-//			parametersAny = mParams,
-//			listener = this)
 	}
 
 	override fun onFailureResponse(jsonObject: JSONObject)

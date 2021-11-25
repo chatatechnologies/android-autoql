@@ -4,24 +4,22 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.authentication.Authentication
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
 class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 {
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-		jsonObject?.let {
-//			view.showText("Unable to find data.", 16f)
-			showInternalServiceError()
-		}
+		showInternalServiceError()
 	}
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
 			jsonObject.optJSONObject("query_result")?.let { joQueryResult ->
@@ -82,11 +80,10 @@ class RuleQueryPresenter(private val view: NotificationContract): StatusResponse
 		val header = Authentication.getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
 		header["Integrator-Domain"] = AutoQLData.domainUrl
-		RequestBuilder.callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			typeJSON,
-			header,
-			listener = this)
+			header)
+		BaseRequest(requestData, this).execute()
 	}
 }

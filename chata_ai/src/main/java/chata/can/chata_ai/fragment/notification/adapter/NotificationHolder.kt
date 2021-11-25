@@ -139,7 +139,7 @@ class NotificationHolder(
 				1 -> "Yesterday $hour"
 				else ->
 				{
-					val format = SimpleDateFormat("MMMM dd°, yyyy", Locale.US)
+					val format = SimpleDateFormat("MMMM d°, yyyy", Locale.US)
 					format.format(recordDate) + " at $hour"
 				}
 			}
