@@ -5,11 +5,11 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
-import chata.can.chata_ai.pojo.request.RequestBuilder
-import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -18,18 +18,14 @@ class TwiceDrillPresenter(
 	private val queryBase: QueryBase
 ): StatusResponse
 {
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-//		if (jsonObject != null)
-//		{
-//
-//		}
+		jsonObject.toString()
 	}
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		if (jsonObject != null)
-		{
+		jsonObject?.let {
 			val queryBase = QueryBase(jsonObject)
 			//queryBase.hasDrillDown = false
 			contract.loadDrillDown(queryBase)
@@ -41,8 +37,10 @@ class TwiceDrillPresenter(
 		val queryId = queryBase.queryId
 		with(AutoQLData)
 		{
-			val header = getAuthorizationJWT()
-			header["accept-language"] = SinglentonDrawer.languageCode
+			val header = getAuthorizationJWT().apply {
+				put("accept-language", SinglentonDrawer.languageCode)
+				put("Content-Type", "application/json")
+			}
 
 			val aColumn = arrayListOf<HashMap<String, String>>()
 			when (queryBase.aColumn.size)
@@ -64,14 +62,21 @@ class TwiceDrillPresenter(
 				"translation" to "include")
 
 			val url = "$domainUrl/autoql/${api1}query/${queryId}/drilldown?key=$apiKey"
-			RequestBuilder.callStringRequest(
-				Request.Method.POST,
+			val requestData = RequestData(
+				RequestMethod.POST,
 				url,
-				typeJSON,
-				headers = header,
-				parametersAny = mParams,
-				listener = this@TwiceDrillPresenter
+				header,
+				mParams
 			)
+			BaseRequest(requestData, this@TwiceDrillPresenter).execute()
+//			RequestBuilder.callStringRequest(
+//				Request.Method.POST,
+//				url,
+//				typeJSON,
+//				headers = header,
+//				parametersAny = mParams,
+//				listener = this@TwiceDrillPresenter
+//			)
 		}
 	}
 }

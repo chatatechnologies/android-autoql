@@ -7,11 +7,11 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.messageKey
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -24,31 +24,32 @@ class WebViewPresenter(
 		if (AutoQLData.wasLoginIn)
 		{
 			val url = "${AutoQLData.domainUrl}/autoql/${api1}query/$idQuery?key=${AutoQLData.apiKey}"
-			val header= getAuthorizationJWT()
-			header["accept-language"] = SinglentonDrawer.languageCode
+			val header= getAuthorizationJWT().apply {
+				put("accept-language", SinglentonDrawer.languageCode)
+				put("Content-Type", "application/json")
+			}
 
 			val mParams = hashMapOf<String, Any>("is_correct" to false)
 			if (message.isNotEmpty())
 			{
 				mParams["message"] = message
 			}
-
-			callStringRequest(
-				Request.Method.PUT,
+			val requestData = RequestData(
+				RequestMethod.PUT,
 				url,
-				typeJSON,
-				headers = header,
-				parametersAny = mParams,
-				listener = this)
+				header,
+				mParams
+			)
+			BaseRequest(requestData, this).execute()
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-
+		jsonObject.toString()
 	}
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if (jsonObject != null)
 		{

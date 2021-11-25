@@ -10,7 +10,8 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 class JavascriptInterface(private val context: Context, private val queryBase: QueryBase)
 {
 	@JavascriptInterface
-	fun boundMethod(content: String)
+//	boundMethod
+	fun drillDown(content: String)
 	{
 		queryBase.run {
 			if (SinglentonDrawer.mIsEnableDrillDown)
@@ -21,27 +22,27 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 					{
 						if (isTri)
 						{
-							drillForTri(content, queryBase)
+							drillForTri(content)
 						}
 						else
 						{
-							drillForBi(content, queryBase)
+							drillForBi(content)
 						}
 					}
 					"bar", "column", "pie" ->
 					{
-						drillForBi(content, queryBase)
+						drillForBi(content)
 					}
 					"heatmap", "bubble", "stacked_bar", "stacked_column", "stacked_line" ->
 					{
-						drillForTri(content, queryBase)
+						drillForTri(content)
 					}
 				}
 			}
 		}
 	}
 
-	private fun drillForBi(content: String, queryBase: QueryBase)
+	private fun drillForBi(content: String)
 	{
 		queryBase.run {
 			val indexX = aXAxis.indexOf(content)
@@ -55,7 +56,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 		}
 	}
 
-	private fun drillForTri(content: String, queryBase: QueryBase)
+	private fun drillForTri(content: String)
 	{
 		queryBase.run {
 			val aValues = content.split("_")

@@ -144,7 +144,7 @@ class SuggestionHolder(
 
 			layoutParams = LinearLayout.LayoutParams(-2, -2)
 			margin(5f, 5f, 5f)
-			gravity = Gravity.LEFT
+			gravity = Gravity.START
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
 			setPadding(15,15,15,15)
 			text = content

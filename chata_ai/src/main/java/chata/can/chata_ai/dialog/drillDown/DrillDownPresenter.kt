@@ -55,7 +55,7 @@ class DrillDownPresenter(
 				put("Content-Type", "application/json")
 			}
 			val mParams = hashMapOf<String, Any>(
-				"columns1" to ArrayList<String>(),
+				"columns" to ArrayList<String>(),
 				"test" to true,
 				"translation" to "include")
 

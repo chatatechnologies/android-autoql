@@ -5,11 +5,11 @@ import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.dataKey
 import chata.can.chata_ai.pojo.explore.ExploreQuery
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URLEncoder
@@ -17,9 +17,9 @@ import java.net.URLEncoder
 class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusResponse
 {
 	var currentQuery = ""
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
-		if(jsonObject != null)
+		if (jsonObject != null)
 		{
 			when(jsonObject.optString("nameService"))
 			{
@@ -84,14 +84,12 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-		jsonObject?.let {
-			when(jsonObject.optString("nameService"))
-			{
-				"validate" -> getRelatedQueries()
-				else -> {}
-			}
+		when(jsonObject.optString("nameService"))
+		{
+			"validate" -> getRelatedQueries()
+			else -> {}
 		}
 	}
 
@@ -102,14 +100,13 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 			val header = getAuthorizationJWT()
 			header["accept-language"] = SinglentonDrawer.languageCode
 			val url = "$domainUrl/autoql/${api1}query/validate?text=$query&key=$apiKey"
-
-			callStringRequest(
-				Request.Method.GET,
+			val requestData = RequestData(
+				RequestMethod.GET,
 				url,
-				typeJSON,
-				headers = header,
-				infoHolder = hashMapOf("nameService" to "validate"),
-				listener = this@ExploreQueriesPresenter)
+				header,
+				dataHolder = hashMapOf("nameService" to "validate")
+			)
+			BaseRequest(requestData, this@ExploreQueriesPresenter).execute()
 		}
 	}
 
@@ -124,13 +121,13 @@ class ExploreQueriesPresenter(private val view: ExploreQueriesContract): StatusR
 			val currentQueryEncode = URLEncoder.encode(currentQuery, "UTF-8").replace("+", " ")
 			val url = "$domainUrl/autoql/${api1}query/related-queries?key=$apiKey" +
 				"&search=$currentQueryEncode&page_size=$pageSize&page=$page"
-			callStringRequest(
-				Request.Method.GET,
+			val requestData = RequestData(
+				RequestMethod.GET,
 				url,
-				typeJSON,
-				headers = header,
-				infoHolder = hashMapOf("nameService" to "related-queries"),
-				listener = this@ExploreQueriesPresenter)
+				header,
+				dataHolder = hashMapOf("nameService" to "related-queries")
+			)
+			BaseRequest(requestData, this@ExploreQueriesPresenter).execute()
 		}
 	}
 }

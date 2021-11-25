@@ -5,24 +5,22 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData.apiKey
 import chata.can.chata_ai.pojo.autoQL.AutoQLData.domainUrl
-import chata.can.chata_ai.pojo.request.RequestBuilder.callStringRequest
-import chata.can.chata_ai.pojo.request.StatusResponse
-import chata.can.chata_ai.pojo.typeJSON
 import chata.can.chata_ai.request.authentication.Authentication
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.Request
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
 class NotificationPresenter(private val view: NotificationContract): StatusResponse
 {
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-		jsonObject?.toString()
 		view.showNotifications(0, arrayListOf())
 	}
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		if (jsonObject != null)
 		{
@@ -57,18 +55,17 @@ class NotificationPresenter(private val view: NotificationContract): StatusRespo
 	fun getNotifications(offset: Int = 0, limit: Int = 10)
 	{
 		val url = "$domainUrl/autoql/${api1}data-alerts/notifications?key=${apiKey}&offset=$offset&limit=$limit"
-		val retryPolicy = DefaultRetryPolicy(
-			DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-			0,
-			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+//		val retryPolicy = DefaultRetryPolicy(
+//			DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+//			0,
+//			DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 		val header = Authentication.getAuthorizationJWT()
 		header["accept-language"] = SinglentonDrawer.languageCode
-		callStringRequest(
-			Request.Method.GET,
+		val requestData = RequestData(
+			RequestMethod.GET,
 			url,
-			typeJSON,
-			headers = header,
-			retryPolicy = retryPolicy,
-			listener = this)
+			header
+		)
+		BaseRequest(requestData, this).execute()
 	}
 }
