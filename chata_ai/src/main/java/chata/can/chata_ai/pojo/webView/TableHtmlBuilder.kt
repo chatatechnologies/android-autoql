@@ -53,7 +53,7 @@ object TableHtmlBuilder
 					val column = aColumn[index]
 					val valueRow = if (column.isVisible)
 					{
-						if (cell.isNotEmpty())
+						if (cell.isNotEmpty() && cell != "null")
 							cell.formatWithColumn(column)
 						else ""
 					}
@@ -64,7 +64,6 @@ object TableHtmlBuilder
 						sRow.append("<td>$valueRow</td>")
 				}
 				numRows++
-				//bodyTable.append("<tr>$sRow</tr>")
 				aRowsTR.add("<tr>$sRow</tr>")
 			}
 
