@@ -21,25 +21,16 @@ fun setOrderRowByDate(queryBase: QueryBase)
 				val aRowDate = rowDate.split("-")
 				if (aRowDate.isNotEmpty())
 				{
-					if (aRowDate.size == 1)
-					{
-						aRowDate.toString()
-					}
 					val year = aRowDate[0].toIntNotNull()
 					val month =
-					if (aRowDate.size > 1)
-						aRowDate[1].toIntNotNull() - 1
-					else 1
+						if (aRowDate.size > 1)
+							aRowDate[1].toIntNotNull() - 1
+						else 1
 					calendar.set(year, month, 1, 0, 0)
 					aDates.add(Pair(row, calendar.time))
 				}
 			}
-			val aNewRows = aDates.sortedByDescending { it.second }
-			aRows.run {
-				clear()
-				for (row in aNewRows)
-					add(row.first)
-			}
+
 		}
 		else
 		{
@@ -53,13 +44,14 @@ fun setOrderRowByDate(queryBase: QueryBase)
 					calendar.timeInMillis = (rowDate.toLongOrNull() ?: 0L) * 1000
 					aDates.add(Pair(row, calendar.time))
 				}
-				val aNewRows = aDates.sortedByDescending { it.second }
-				aRows.run {
-					clear()
-					for (row in aNewRows)
-						add(row.first)
-				}
 			}
+		}
+
+		val aNewRows = aDates.sortedBy { it.second }
+		aRows.run {
+			clear()
+			for (row in aNewRows)
+				add(row.first)
 		}
 	}
 }
