@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.request.Poll
+import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -31,16 +31,14 @@ class PollService: JobIntentService(), StatusResponse
 		}
 	}
 
-	override fun onFailure(jsonObject: JSONObject?)
+	override fun onFailureResponse(jsonObject: JSONObject)
 	{
-		jsonObject?.let {
-			val intent = Intent(NOTIFICATION)
-			intent.putExtra(DATA, "{}")
-			sendBroadcast(intent)
-		}
+		val intent = Intent(NOTIFICATION)
+		intent.putExtra(DATA, "{}")
+		sendBroadcast(intent)
 	}
 
-	override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+	override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 	{
 		jsonObject?.let {
 			it.optJSONObject("data")?.let { joData ->

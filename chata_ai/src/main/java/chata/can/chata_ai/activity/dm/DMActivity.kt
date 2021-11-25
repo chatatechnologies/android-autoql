@@ -25,11 +25,11 @@ import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.request.StatusResponse
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
+import chata.can.request_native.StatusResponse
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONArray
 import org.json.JSONObject
@@ -147,9 +147,8 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 				R.id.llMenu, R.id.ivClose -> closeActivity()
 				R.id.rlChat, R.id.rlTips, R.id.rlNotify ->
 				{
-					if (rlSelected != null)
-					{
-						if (rlSelected!!.id != _view.id)
+					rlSelected?.let {
+						if (it.id != _view.id)
 						{
 							when(_view.id)
 							{
@@ -167,6 +166,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 						}
 					}
 				}
+				else -> {}
 			}
 		}
 	}
@@ -291,9 +291,9 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	{
 		if (tvNotification.visibility == View.VISIBLE)
 			Poll.callShowNotification(object: StatusResponse {
-				override fun onFailure(jsonObject: JSONObject?) { jsonObject?.let {} }
+				override fun onFailureResponse(jsonObject: JSONObject) {}
 
-				override fun onSuccess(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 				{
 					jsonObject?.let {
 						val message = it.optString("message") ?: ""
