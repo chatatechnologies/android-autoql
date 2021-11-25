@@ -59,6 +59,12 @@ class JavaScriptInterface(
 		}
 	}
 
+	private fun isSplitContent(content: String): Pair<Boolean, List<String>>
+	{
+		val list = content.split("_")
+		return Pair(list.size > 1, list)
+	}
+
 	@JavascriptInterface
 	fun drillDown(content: String)
 	{
@@ -67,81 +73,81 @@ class JavaScriptInterface(
 			if (queryBase.mSourceDrill.isNotEmpty() && queryBase.showContainer != "#container")
 				return
 			val sizeColumn = queryBase.aColumn.size
-			var newContent = content
-			when(sizeColumn)
+			var newContent = ""
+
+			if (content.contains("_"))
 			{
-				2 ->
-				{
-					if (content.contains("_"))
+				when(sizeColumn){
+					2 ->
 					{
-						val aPositions = content.split("_")
-						if (aPositions.size > 1)
+						val pair = isSplitContent(content)
+						if (pair.first)
 						{
-							aPositions[0].toIntOrNull()?.let {
+							pair.second[0].toIntOrNull()?.let {
 								val aRows = queryBase.aRows
 								newContent = aRows[it][0]
 								postDrillDown(newContent)
 							}
 						}
 					}
-					else
+					3 ->
 					{
-						val index = queryBase.aXAxis.indexOf(newContent)
-						newContent = if (index != -1)
+						if (content.contains("_"))
 						{
-							queryBase.aXDrillDown[index]
-						}
-						else
-						{
-							"undefined"
-						}
-						postDrillDown(newContent)
-					}
-				}
-				3 ->
-				{
-					if (content.contains("_"))
-					{
-						val aPositions = content.split("_")
-						if (aPositions.size > 1)
-						{
-							postDrillDown(newContent)
+							val aPositions = content.split("_")
+							if (aPositions.size > 1)
+							{
+								postDrillDown(newContent)
+							}
 						}
 					}
-				}
-				else ->
-				{
-					content.split("_").run {
-						if (this.size > 1)
-						{
-							val date = this[0]
-							val index = this[1].toIntNotNull()
-							//todo set index active for value on bottom multiples
-							queryBase.getSourceDrill()?.let { mDrillDown ->
-								mDrillDown[date]?.let {
-									val values = it[index]
+					else ->
+					{
+						content.split("_").run {
+							if (this.size > 1)
+							{
+								val date = this[0]
+								val index = this[1].toIntNotNull()
+								//todo set index active for value on bottom multiples
+								queryBase.getSourceDrill()?.let { mDrillDown ->
+									mDrillDown[date]?.let {
+										val values = it[index]
 
-									val json = JSONObject().put("query", "")
-									val newQueryBase = QueryBase(json).apply {
-										for (column in queryBase.aColumn)
-										{
-											val tmp = column.copy()
-											aColumn.add(tmp)
+										val json = JSONObject().put("query", "")
+										val newQueryBase = QueryBase(json).apply {
+											for (column in queryBase.aColumn)
+											{
+												val tmp = column.copy()
+												aColumn.add(tmp)
+											}
+											aRows.addAll(values)
+											limitRowNum = values.size + 1
 										}
-										aRows.addAll(values)
-										limitRowNum = values.size + 1
-									}
-									newQueryBase.queryId = queryBase.queryId
-									//this line is the bug
-									newQueryBase.resetData()
-									(context as? Activity)?.runOnUiThread {
-										chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+										newQueryBase.queryId = queryBase.queryId
+										//this line is the bug
+										newQueryBase.resetData()
+										(context as? Activity)?.runOnUiThread {
+											chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+										}
 									}
 								}
 							}
 						}
 					}
 				}
+			}
+			else
+			{
+				val index = queryBase.aXAxis.indexOf(newContent)
+				newContent = if (index != -1)
+				{
+					queryBase.aXDrillDown[index]
+				}
+				else
+				{
+					"undefined"
+				}
+				postDrillDown(newContent)
 			}
 		}
 	}

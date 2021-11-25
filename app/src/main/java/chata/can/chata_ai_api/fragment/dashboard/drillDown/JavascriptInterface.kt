@@ -10,7 +10,6 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 class JavascriptInterface(private val context: Context, private val queryBase: QueryBase)
 {
 	@JavascriptInterface
-//	boundMethod
 	fun drillDown(content: String)
 	{
 		queryBase.run {

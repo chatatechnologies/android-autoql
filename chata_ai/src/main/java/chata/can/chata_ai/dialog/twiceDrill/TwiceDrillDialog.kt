@@ -179,7 +179,7 @@ class TwiceDrillDialog(
 			addJavascriptInterface(object
 			{
 				@JavascriptInterface
-				fun boundMethod(content: String)
+				fun drillDown(content: String)
 				{
 					queryBase.run {
 						when(displayType)

@@ -69,14 +69,6 @@ class TwiceDrillPresenter(
 				mParams
 			)
 			BaseRequest(requestData, this@TwiceDrillPresenter).execute()
-//			RequestBuilder.callStringRequest(
-//				Request.Method.POST,
-//				url,
-//				typeJSON,
-//				headers = header,
-//				parametersAny = mParams,
-//				listener = this@TwiceDrillPresenter
-//			)
 		}
 	}
 }
