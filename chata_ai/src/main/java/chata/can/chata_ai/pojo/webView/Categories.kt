@@ -33,10 +33,7 @@ object Categories
 				if (cellUsed.isEmpty()) continue
 				var parsed = if (isFormatted)
 				{
-					cellUsed.formatWithColumn(
-						column,
-						currencySymbol = "",
-					commaCharacter = "")
+					cellUsed.formatWithColumn(column, currencySymbol = "", commaCharacter = "")
 				}
 				else cellUsed
 
@@ -57,10 +54,6 @@ object Categories
 					if (parsed !in aStacked)
 						aStacked.add(parsed)
 				}
-			}
-			if (column.type == TypeDataQuery.DATE || column.type == TypeDataQuery.DATE_STRING)
-			{
-				aStacked.reverse()
 			}
 		}
 		return aStacked
