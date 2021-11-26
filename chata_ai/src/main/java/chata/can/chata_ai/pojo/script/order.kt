@@ -46,12 +46,14 @@ fun setOrderRowByDate(queryBase: QueryBase)
 				}
 			}
 		}
-
-		val aNewRows = aDates.sortedBy { it.second }
-		aRows.run {
-			clear()
-			for (row in aNewRows)
-				add(row.first)
+		if (aDates.isNotEmpty())
+		{
+			val aNewRows = aDates.sortedBy { it.second }
+			aRows.run {
+				clear()
+				for (row in aNewRows)
+					add(row.first)
+			}
 		}
 	}
 }

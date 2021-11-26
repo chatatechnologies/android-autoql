@@ -123,7 +123,12 @@ class DynamicHolder(
 						}
 						TypeChatView.SUPPORT ->
 						{
-							toString()
+							val view = lls2.searchView(R.id.tvContent)?: run {
+								val view = getChildContent(lls2.context)
+								addView(lls2, view)
+								view
+							}
+							ChildSupport.onBind(view, dashboard, false)
 						}
 						TypeChatView.SUGGESTION_VIEW ->
 						{
