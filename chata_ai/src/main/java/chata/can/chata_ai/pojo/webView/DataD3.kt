@@ -22,7 +22,6 @@ class DataD3
 	var drillX = ""
 	var drillList = "[]"
 
-	var drillY = ""
 	var drillTableY = "[]"
 
 	var xAxis = ""

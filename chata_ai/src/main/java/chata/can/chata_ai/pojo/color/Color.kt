@@ -12,7 +12,7 @@ class Color(
 	private val drawerHoverColor: Int,
 	val drawerTextColorPrimary: Int,
 	val drawerTextColorPlaceholder: Int,
-	val highlightColor: Int,
+	private val highlightColor: Int,
 	private val dangerColor: Int
 )
 {
@@ -20,7 +20,7 @@ class Color(
 	var pDrawerBackgroundColor = 0
 	var pDrawerColorSecondary = 0
 	var pDrawerBorderColor = 0
-	var pDrawerHoverColor = 0
+	private var pDrawerHoverColor = 0
 	var pDrawerTextColorPrimary = 0
 	var pHighlightColor = 0
 	var pDangerColor = 0

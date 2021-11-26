@@ -11,7 +11,6 @@ import android.text.InputType
 import android.text.Spanned
 import android.text.TextUtils
 import android.util.SparseBooleanArray
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo

@@ -15,6 +15,4 @@ const val urlChataIOProd = "https://backend-staging.chata.io/"
 //const val urlChataIOProd = "https://backend.chata.io/"
 const val api1 = "api/v1/"
 
-const val typeJSON = "application/json"
-
 fun getMainURL() = if (BuildConfig.DEBUG && !BuildConfig.isDevProd) urlChataIODev else urlChataIOProd

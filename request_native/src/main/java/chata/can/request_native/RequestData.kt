@@ -9,5 +9,5 @@ data class RequestData(
 	val dataHolder: HashMap<String, Any> ?= null
 )
 {
-	fun getHolder() = dataHolder ?: HashMap<String, Any>()
+	fun getHolder() = dataHolder ?: HashMap()
 }

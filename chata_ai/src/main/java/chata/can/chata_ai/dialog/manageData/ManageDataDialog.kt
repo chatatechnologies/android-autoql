@@ -225,7 +225,7 @@ class ManageDataDialog(
 		}
 		val hasOnlyOne = if (aSource.size - array.size == 1)
 		{
-			val aMinus = arrayOut.minus(array)
+			val aMinus = arrayOut.minus(array.toSet())
 			", ${aMinus[0]}"
 		} else ""
 		Handler(Looper.getMainLooper()).postDelayed({

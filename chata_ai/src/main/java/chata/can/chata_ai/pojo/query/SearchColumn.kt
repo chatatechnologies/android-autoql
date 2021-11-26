@@ -152,25 +152,4 @@ object SearchColumn
 		val min = (aInt.minOrNull() ?: 0.0) - 100.0
 		return Pair(max.toInt() + 1, min.toInt() - 1)
 	}
-
-	fun hasDecimals(
-		aRows: ArrayList<ArrayList<String>>,
-		indexCheck: Int): Boolean
-	{
-		var isDecimal = true
-		for (row in aRows)
-		{
-			if (indexCheck < row.size)
-			{
-				row[indexCheck].let { string ->
-					string.toDoubleOrNull()?.let {
-						isDecimal = (it % 1.0) != 0.0
-					} ?: run {
-						isDecimal = false
-					}
-				}
-			}
-		}
-		return isDecimal
-	}
 }

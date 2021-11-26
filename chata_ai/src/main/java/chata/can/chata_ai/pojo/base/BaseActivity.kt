@@ -33,12 +33,4 @@ abstract class BaseActivity(private val intRes: Int): AppCompatActivity()
 	}
 
 	abstract fun onCreateView()
-
-	fun hideKeyboard()
-	{
-		currentFocus?.let {
-			val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-			imm.hideSoftInputFromWindow(it.windowToken, 0)
-		}
-	}
 }

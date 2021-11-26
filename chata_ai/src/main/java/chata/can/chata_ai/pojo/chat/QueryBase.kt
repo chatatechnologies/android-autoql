@@ -16,7 +16,6 @@ import chata.can.chata_ai.pojo.query.RulesHtml
 import chata.can.chata_ai.pojo.query.SupportCase
 import chata.can.chata_ai.pojo.referenceIdKey
 import chata.can.chata_ai.pojo.webView.D3OnHtml
-import chata.can.chata_ai.pojo.webView.DashboardMaker
 import org.json.JSONObject
 
 data class QueryBase(val json: JSONObject): SimpleQuery(json)
