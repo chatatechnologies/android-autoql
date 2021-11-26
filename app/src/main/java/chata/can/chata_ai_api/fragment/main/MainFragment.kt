@@ -149,25 +149,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			//servicePresenter.createAuthenticate()
-
-			val requestData = RequestData(
-				RequestMethod.GET,
-				"https://carlos-buruel-ortiz.000webhostapp.com/cereales/delay.php"
-			)
-			BaseRequest(requestData, object: StatusResponse
-			{
-				override fun onFailureResponse(jsonObject: JSONObject)
-				{
-					jsonObject.toString()
-				}
-
-				override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
-				{
-					jsonObject.toString()
-				}
-			}).execute()
-
+			servicePresenter.createAuthenticate()
 		}
 		else
 		{

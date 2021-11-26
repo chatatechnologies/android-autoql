@@ -12,7 +12,8 @@ object QueryRequest
 		query: String,
 		listener: StatusResponse,
 		source: String,
-		infoHolder: HashMap<String, Any> ?= null)
+		infoHolder: HashMap<String, Any> ?= null,
+		keyReference: String = "")
 	{
 		var header: HashMap<String, String> ?= null
 		val mParams = hashMapOf<String, Any>(
@@ -31,10 +32,9 @@ object QueryRequest
 		{
 			with(AutoQLData)
 			{
-				header = getAuthorizationJWT()
-								header?.let {
-					it["accept-language"] = SinglentonDrawer.languageCode
-					it["Content-Type"] = "application/json"
+				header = getAuthorizationJWT().apply {
+					put("accept-language", SinglentonDrawer.languageCode)
+					put("Content-Type", "application/json")
 				}
 				mParams["source"] = source
 				mParams["translation"] = "include"
@@ -66,7 +66,7 @@ object QueryRequest
 			mParams,
 			infoHolder
 		)
-		BaseRequest(requestData, listener).execute()
+		BaseRequest(requestData, listener, keyReference).execute()
 	}
 
 	fun callRelatedQueries(

@@ -62,7 +62,9 @@ class BaseRequest(
 
 			json.addDataHolder(requestData.getHolder())
 			if (responseCode > 299)
-				listener.onFailureResponse(json)
+			{
+				listener.onFailureResponse(json.put("CODE", responseCode))
+			}
 			else
 				listener.onSuccessResponse(json)
 		}).execute()

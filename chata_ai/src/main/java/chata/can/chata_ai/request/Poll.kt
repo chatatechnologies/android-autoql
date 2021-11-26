@@ -12,6 +12,7 @@ object Poll
 {
 	fun callPoll(listener: StatusResponse)
 	{
+		return
 		val url = "${AutoQLData.domainUrl}/autoql/${api1}data-alerts/notifications/summary/" +
 			"poll?key=${AutoQLData.apiKey}&unacknowledged=0"
 		val header = hashMapOf(
@@ -27,6 +28,7 @@ object Poll
 
 	fun callShowNotification(listener: StatusResponse)
 	{
+		return
 		val url = "${AutoQLData.domainUrl}/autoql/${api1}data-alerts/notifications?key=${AutoQLData.apiKey}"
 		val header = hashMapOf(
 			"Authorization" to "Bearer ${AutoQLData.JWT}",

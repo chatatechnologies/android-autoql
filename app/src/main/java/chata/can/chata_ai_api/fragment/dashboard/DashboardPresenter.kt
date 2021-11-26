@@ -66,7 +66,7 @@ class DashboardPresenter(
 							"isSecondaryQuery" to isSecondaryQuery)
 						val words = query.split(" ")
 							.joinTo(StringBuilder(), separator = ",").toString()
-						//QueryRequest.callRelatedQueries(words, this, mData)
+						QueryRequest.callRelatedQueries(words, this, mData)
 					}
 					//endregion
 					else
@@ -242,7 +242,7 @@ class DashboardPresenter(
 										val secondDisplayType = optString("secondDisplayType", "")
 										val secondQuery = optString("secondQuery", "")
 										dashboard.secondDisplayType = secondDisplayType
-										dashboard.secondQuery = secondQuery
+										dashboard.secondQuery = if (secondQuery.isEmpty()) query else secondQuery
 									}
 									optJSONArray("queryValidationSelections")?.let {
 										it.optJSONObject(0)?.let { qvs ->
@@ -332,7 +332,7 @@ class DashboardPresenter(
 	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
-			for (index in 0 until 4)// this.countData())
+			for (index in 0 until 3)//this.countData())
 			{
 				this[index]?.let { dashboard ->
 					dashboard.isWaitingData = toClearQuery
@@ -406,14 +406,16 @@ class DashboardPresenter(
 		if (query.isNotEmpty())
 		{
 			val mInfoHolder = getDataQuery(dashboard,false)
-			QueryRequest.callQuery(query, this, "dashboards.user", mInfoHolder)
+			QueryRequest.callQuery(query, this, "dashboards.user", mInfoHolder,
+				dashboard.key + "_1")
 		}
 		val secondQuery = dashboard.secondQuery
 		if (secondQuery.isNotEmpty())
 		{
 			dashboard.isWaitingData2 = true
 			val mInfoHolder = getDataQuery(dashboard,true)
-			QueryRequest.callQuery(secondQuery, this, "dashboards.user", mInfoHolder)
+			QueryRequest.callQuery(secondQuery, this, "dashboards.user", mInfoHolder,
+				dashboard.key+ "_2")
 		}
 	}
 }
