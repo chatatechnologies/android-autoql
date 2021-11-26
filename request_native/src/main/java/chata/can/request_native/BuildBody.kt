@@ -12,9 +12,8 @@ object BuildBody
 	fun getResponse(connection: HttpURLConnection): PairResponse
 	{
 		val responseBody = StringBuilder()
-		var responseCode = 0
 		try {
-			responseCode = connection.responseCode
+			val responseCode = connection.responseCode
 
 			val bufferedReader = BufferedReader(
 				InputStreamReader(
@@ -28,12 +27,13 @@ object BuildBody
 				responseBody.append(line)
 			}
 			connection.disconnect()
+
+			return PairResponse(responseCode, "$responseBody")
 		}
 		catch (ex: Exception)
 		{
 			ex.printStackTrace()
+			return PairResponse(504, "Timeout error")
 		}
-
-		return PairResponse(responseCode, "$responseBody")
 	}
 }

@@ -24,6 +24,12 @@ import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
+import chata.can.request_native.BaseRequest
+import chata.can.request_native.RequestData
+import chata.can.request_native.RequestMethod
+import chata.can.request_native.StatusResponse
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -143,7 +149,25 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
+			//servicePresenter.createAuthenticate()
+
+			val requestData = RequestData(
+				RequestMethod.GET,
+				"https://carlos-buruel-ortiz.000webhostapp.com/cereales/delay.php"
+			)
+			BaseRequest(requestData, object: StatusResponse
+			{
+				override fun onFailureResponse(jsonObject: JSONObject)
+				{
+					jsonObject.toString()
+				}
+
+				override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
+				{
+					jsonObject.toString()
+				}
+			}).execute()
+
 		}
 		else
 		{
