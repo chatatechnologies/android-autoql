@@ -319,7 +319,6 @@ class DashboardPresenter(
 				}
 			}
 		}
-
 	}
 
 	fun getDashboards()

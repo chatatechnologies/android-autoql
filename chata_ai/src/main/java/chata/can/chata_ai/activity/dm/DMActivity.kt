@@ -268,9 +268,11 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun showNotification(unacknowledged: Int)
 	{
-		tvNotification.visibility = if (unacknowledged != 0)
+		val pair = if (unacknowledged > 99) Pair(9, "+") else Pair(unacknowledged, "")
+		tvNotification.visibility = if (pair.first != 0)
 		{
-			tvNotification.text = "$unacknowledged"
+			val out = "${pair.first}${pair.second}"
+			tvNotification.text = out
 			View.VISIBLE
 		}
 		else
@@ -291,7 +293,9 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	{
 		if (tvNotification.visibility == View.VISIBLE)
 			Poll.callShowNotification(object: StatusResponse {
-				override fun onFailureResponse(jsonObject: JSONObject) {}
+				override fun onFailureResponse(jsonObject: JSONObject) {
+					jsonObject.toString()
+				}
 
 				override fun onSuccessResponse(jsonObject: JSONObject?, jsonArray: JSONArray?)
 				{
