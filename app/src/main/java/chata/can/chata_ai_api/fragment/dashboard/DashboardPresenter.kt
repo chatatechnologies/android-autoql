@@ -64,9 +64,7 @@ class DashboardPresenter(
 							"title" to title,
 							"key" to key,
 							"isSecondaryQuery" to isSecondaryQuery)
-						val words = query.split(" ")
-							.joinTo(StringBuilder(), separator = ",").toString()
-						QueryRequest.callRelatedQueries(words, this, mData)
+						QueryRequest.callRelatedQueries(query, this, mData)
 					}
 					//endregion
 					else
@@ -332,7 +330,7 @@ class DashboardPresenter(
 	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
-			for (index in 0 until this.countData())
+			for (index in 2 until 3)//0 until this.countData())
 			{
 				this[index]?.let { dashboard ->
 					dashboard.isWaitingData = toClearQuery

@@ -47,12 +47,10 @@ class ChatServicePresenter(
 
 	private fun getRelatedQueries(query: String, message: String, queryId: String)
 	{
-		//val words = query.split(" ").joinTo(StringBuilder(), separator = ",").toString()
 		val mData = hashMapOf<String, Any>(
 			"query" to query,
 			"message" to message,
 			"query_id" to queryId)
-//QueryRequest.callRelatedQueries(words, this, mData)
 		QueryRequest.callRelatedQueries(query, this, mData)
 	}
 
