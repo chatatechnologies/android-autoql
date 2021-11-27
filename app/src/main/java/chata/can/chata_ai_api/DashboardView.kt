@@ -141,7 +141,8 @@ object DashboardView
 	fun getChildContent(context: Context) =
 		context.run {
 			TextView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(80f))
+				layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+				minimumHeight = dpToPx(80f)
 				gravity = GRAVITY_CENTER
 				setTextColor(getParsedColor( R.color.black))
 				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
