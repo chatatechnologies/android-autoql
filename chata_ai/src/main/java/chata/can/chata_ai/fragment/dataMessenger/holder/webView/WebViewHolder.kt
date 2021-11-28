@@ -303,7 +303,7 @@ class WebViewHolder(
 		{
 			simpleQuery.onlyHTML = false
 			wbQuery?.let { wbQuery ->
-				loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
+				loadDataForWebView(wbQuery, simpleQuery)
 			}
 		}
 		else
@@ -326,19 +326,8 @@ class WebViewHolder(
 			{
 				rlLoad?.visibility = visible
 				wbQuery?.let { wbQuery ->
-					loadDataForWebView(wbQuery, simpleQuery.contentHTML, simpleQuery.rowsTable)
+					loadDataForWebView(wbQuery, simpleQuery)
 				}
-			}
-			ivAlert?.let { ivAlert ->
-				ivAlert.visibility = if (
-				//simpleQuery.hasDrillDown &&
-					simpleQuery.limitRowNum <= simpleQuery.aRows.size)
-				{
-					ivAlert.setOnClickListener {
-						chatView?.showToast()
-					}
-					View.VISIBLE
-				} else View.GONE
 			}
 		}
 	}
@@ -455,14 +444,14 @@ class WebViewHolder(
 					}
 					R.id.ivStackedBar ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#container"
 //						Pair("'$idHide', '#container', 'stacked_bar'", factorHeight)
 						Pair("TypeEnum.STACKED_BAR", queryBase.rowsPivot)
 					}
 					R.id.ivStackedColumn ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#container"
 //						Pair("'$idHide', '#container', 'stacked_column'", factorHeight)
 						Pair("TypeEnum.STACKED_COLUMN", queryBase.rowsPivot)
@@ -496,45 +485,58 @@ class WebViewHolder(
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
-	private fun loadDataForWebView(webView: WebView, data: String, numRows: Int)
+	private fun loadDataForWebView(webView: WebView, queryBase: QueryBase)
 	{
-		with(webView)
-		{
-			rlLoad?.visibility = visible
-			clearCache(true)
-			clearHistory()
-			requestLayout()
-			val tmp = if (lastId == "#container") factorHeight
-			else numRows
-			changeHeightWebView(tmp)
-			settings.javaScriptEnabled = true
-			queryBase?.let {
-				if (it.hasDrillDown)
+		queryBase.run {
+			with(webView)
+			{
+				rlLoad?.visibility = visible
+				clearCache(true)
+				clearHistory()
+				requestLayout()
+				val tmp = if (lastId == "#container") factorHeight
+				else this@run.rowsTable
+				changeHeightWebView(tmp)
+				settings.javaScriptEnabled = true
+				if (this@run.hasDrillDown)
 				{
 					addJavascriptInterface(
-						JavaScriptInterface(webView, webView.context, it, chatView), "Android")
+						JavaScriptInterface(webView, webView.context, this@run, chatView), "Android")
 				}
-			}
-			loadDataWithBaseURL(
-				null,
-				data,
-				"text/html",
-				"UTF-8",
-				null)
-			webViewClient = object: WebViewClient()
-			{
-				override fun onPageFinished(view: WebView?, url: String?)
+				loadDataWithBaseURL(
+					null,
+					this@run.contentHTML,
+					"text/html",
+					"UTF-8",
+					null)
+				webViewClient = object: WebViewClient()
 				{
-					visibility = visible
-					Handler(Looper.getMainLooper()).postDelayed({
-						rlLoad?.visibility = invisible
-					}, 200)
-				}
-			}
+					override fun onPageFinished(view: WebView?, url: String?)
+					{
+						visibility = visible
 
-			setOnTouchListener { view, _ ->
-				view.parent.requestDisallowInterceptTouchEvent(true)
-				false
+						Handler(Looper.getMainLooper()).postDelayed({
+							rlLoad?.visibility = invisible
+
+							ivAlert?.let { ivAlert ->
+								ivAlert.visibility = if (
+								//simpleQuery.hasDrillDown &&
+									this@run.limitRowNum <= this@run.aRows.size)
+								{
+									ivAlert.setOnClickListener {
+										chatView?.showToast()
+									}
+									View.VISIBLE
+								} else View.GONE
+							}
+						}, 200)
+					}
+				}
+
+				setOnTouchListener { view, _ ->
+					view.parent.requestDisallowInterceptTouchEvent(true)
+					false
+				}
 			}
 		}
 	}

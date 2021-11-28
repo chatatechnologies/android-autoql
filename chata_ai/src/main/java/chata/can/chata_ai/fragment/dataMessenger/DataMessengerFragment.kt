@@ -101,7 +101,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "Total tickets by month"
 //	val queryDemo = "total revenue by month last year"
 //			val queryDemo = "Total revenue by resource in 2017"
-	val queryDemo = "number of estimates for 2019"
+	val queryDemo = "all tickets"
 //			val queryDemo = "Jobs by area by year"
 			//query not contains pivot
 //			val queryDemo = "Total revenue this year"
