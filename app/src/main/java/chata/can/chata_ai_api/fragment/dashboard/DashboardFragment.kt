@@ -10,6 +10,7 @@ import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setOnItemSelected
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -56,6 +57,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			rvDashboard = findViewById(R.id.rvDashboard)
 			tvEmptyDashboard = findViewById(R.id.tvEmptyDashboard)
 		}
+		setResources()
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
 			setColors()
@@ -207,6 +209,16 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun notifyQueryAtIndex(index: Int)
 	{
 		gridAdapter.notifyItemChanged(index)
+	}
+
+	private fun setResources()
+	{
+		StringContainer.run {
+			columnHidden = getString(R.string.column_hidden)
+			errorId = getString(R.string.errorId)
+			notRecognized = getString(R.string.not_recognized)
+			success = getString(R.string.success)
+		}
 	}
 
 	private fun loadDashboard()

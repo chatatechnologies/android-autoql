@@ -64,16 +64,6 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
-		ivAlert?.let {
-			it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
-			{
-				it.setOnClickListener { view ->
-					Toast.makeText(view.context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
-				}
-				View.VISIBLE
-			}
-			else View.GONE
-		}
 		ivOption?.setOnClickListener { view ->
 			buildPopup(view, listOf(4), queryBase.sql)
 		}
@@ -95,6 +85,20 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
 					webView.visibility = View.VISIBLE
+
+					ivAlert?.let {
+						it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
+						{
+							it.setOnClickListener { view ->
+								Toast.makeText(view.context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
+							}
+							View.VISIBLE
+						}
+						else View.GONE
+					}
+
+					ivOption?.visibility = View.VISIBLE
+
 					Handler(Looper.getMainLooper()).postDelayed({
 						rlLoad?.visibility = View.GONE
 					}, 200)

@@ -28,7 +28,7 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 			item.queryBase?.run {
 				if (referenceId != "1.1.430")
 				{
-					message = "$message\n${StringContainer.errorId} $referenceId"
+					message = "$message\n\n${StringContainer.errorId} $referenceId"
 				}
 				tvContent?.text = message
 			}

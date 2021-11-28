@@ -292,6 +292,7 @@ object DashboardView
 				paddingAll(8f)
 				setImageResource(R.drawable.ic_alert)
 				id = pData.idAlert
+				visibility = View.GONE
 			})
 			addView(ImageView(context).apply {
 				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
@@ -302,6 +303,7 @@ object DashboardView
 				setColorFilter(SinglentonDrawer.currentAccent)
 				backgroundWhiteGray()
 				id = pData.idOption
+				visibility = View.GONE
 			})
 		}
 	}
