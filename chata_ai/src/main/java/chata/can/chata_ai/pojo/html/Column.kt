@@ -74,14 +74,14 @@ svg.append('g')
 	  //Remove line on domain for Y axis
 	  .call(g => g.select('.domain').remove())
 	  .selectAll('text')
-		.attr('transform', 'translate(-7,0)rotate(0)')
+		.attr('transform', 'translate(0,-8)rotate(-45)')  
 	  .attr('fill', '#909090');
 
 	//Add X axis label:
-  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.bottom - 5, '#808080', '', axisX);
+  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 20, '#808080', '', axisX);
     
   //Y axis label:
-  addText(svg, 'end', 14, -90, margin.top - (height / 2), -margin.left + 20, '#808080', '', axisY);
+  addText(svg, 'end', 14, -90, margin.top - (height / 2), -margin.left + 15, '#808080', '', axisY);
 }
 """
 	}

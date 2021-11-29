@@ -73,10 +73,6 @@ object Bar
 	
 	  //Y axis label:
 	  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', '', axisX);
-		console.log('top ->' + margin.top);
-	  console.log('left ->' + margin.left);
-	  console.log('right ->' + margin.right);
-	  console.log('bottom ->' + margin.bottom);
 	}
 """
 	}
