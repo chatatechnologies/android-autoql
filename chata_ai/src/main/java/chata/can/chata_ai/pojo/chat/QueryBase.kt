@@ -228,52 +228,60 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 					dataD3.updateTable = true
 				}
 
-				when(aColumn.size)
+				if (aIndex.isNotEmpty())
 				{
-					2, 3 ->
+					when(aColumn.size)
 					{
-						dataForWebView.xAxis = aColumn.getOrNull(
-							aIndex[0])?.displayName ?: ""
-						dataD3.xAxis = aColumn.getOrNull(
-							aIndex[0])?.displayName ?: ""
-
-						if (aColumn.size > 2)
+						2, 3 ->
 						{
-							val aBase = (0..1).toMutableList()
-							var indexCount = -1
-							for (index in aColumn.indices)
+							if (aIndex.isEmpty())
 							{
-								if (aColumn[index].type.isNumber())
-								{
-									indexCount = index
-								}
+								toString()
 							}
-							if (indexCount != -1)
-								aBase.remove(indexCount)
-							aBase.remove(aIndex[0])
-							dataD3.yAxis = aColumn.getOrNull(aBase[0])?.displayName ?: ""
-							dataD3.middleAxis = aColumn.getOrNull(indexCount)?.displayName ?: ""
+							dataForWebView.xAxis = aColumn.getOrNull(
+								aIndex[0])?.displayName ?: ""
+							dataD3.xAxis = aColumn.getOrNull(
+								aIndex[0])?.displayName ?: ""
+
+							if (aColumn.size > 2)
+							{
+								val aBase = (0..1).toMutableList()
+								var indexCount = -1
+								for (index in aColumn.indices)
+								{
+									if (aColumn[index].type.isNumber())
+									{
+										indexCount = index
+									}
+								}
+								if (indexCount != -1)
+									aBase.remove(indexCount)
+								aBase.remove(aIndex[0])
+								dataD3.yAxis = aColumn.getOrNull(aBase[0])?.displayName ?: ""
+								dataD3.middleAxis = aColumn.getOrNull(indexCount)?.displayName ?: ""
+							}
+							else
+							{
+								dataForWebView.yAxis = aColumn.getOrNull(
+									aIndex[1])?.displayName ?: ""
+								dataD3.yAxis = dataForWebView.yAxis
+								dataD3.middleAxis = aColumn.getOrNull(
+									aIndex[1])?.displayName ?: ""
+							}
 						}
-						else
+						else ->
 						{
-							dataForWebView.yAxis = aColumn.getOrNull(
-								aIndex[1])?.displayName ?: ""
-							dataD3.yAxis = dataForWebView.yAxis
-							dataD3.middleAxis = aColumn.getOrNull(
-								aIndex[1])?.displayName ?: ""
-						}
-					}
-					else ->
-					{
-						if (aIndex.isNotEmpty())
-						{
-							dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
-							dataD3.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
-							dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
-							dataD3.yAxis = "Amount"
+							if (aIndex.isNotEmpty())
+							{
+								dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+								dataD3.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
+								dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
+								dataD3.yAxis = "Amount"
+							}
 						}
 					}
 				}
+
 				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataD3.isColumn = if (configActions == 0) false else isGroupable
 				dataForWebView.isDashboard = isDashboard

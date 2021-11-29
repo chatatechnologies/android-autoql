@@ -302,20 +302,20 @@ class DashboardPresenter(
 
 						val newType = when(queryBase.displayType)
 						{
+							"bar" -> "BAR"
+							"column" -> "COLUMN"
+							"heatmap" -> "HEATMAP"
+							"line" -> "LINE"
+							"stacked_column" -> "STACKED_COLUMN"
 							"stacked_line" -> "STACKED_AREA"
 							else -> "TABLE"
 						}
 						queryBase.displayType = "TypeEnum.$newType"
 //						"TABLE"
 //						"PIVOT"
-//						"COLUMN"
-//						"BAR"
-//						"LINE"
 //						"PIE"
-//						"HEATMAP"
 //						"BUBBLE"
 //						"STACKED_BAR"
-//						"STACKED_COLUMN"
 						TypeChatView.WEB_VIEW
 					}
 					else -> TypeChatView.LEFT_VIEW
@@ -346,7 +346,7 @@ class DashboardPresenter(
 	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
-			for (index in 9 until 10) /*0 until this.countData())*/
+			for (index in /*9 until 10)*/0 until this.countData())
 			{
 				this[index]?.let { dashboard ->
 					dashboard.isWaitingData = toClearQuery
