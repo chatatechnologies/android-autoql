@@ -99,13 +99,11 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "Total revenue by job type last year"//new multi series
 	//Suggestion
 //			val queryDemo = "Total tickets by month"
-//	val queryDemo = "total revenue by month last year"
-//			val queryDemo = "Total revenue by resource in 2017"
 
 			//example tri dimensional
 //			val queryDemo = "Jobs by area by year"
 	//No case
-			val queryDemo = "Number of jobs by province"
+			val queryDemo = "total revenue by month last year"
 			etQuery.setText(queryDemo)
 		}
 

@@ -41,6 +41,9 @@ function clearSvg() {
 }
 
 function updateSize() {
+	console.log('height -> ' + ${'$'}(window).height());
+  console.log('width -> ' + ${'$'}(window).width());
+
 	var _bottom = (isHorizontal() ? _maxValue : limitName) + marginAxis;
 	var _left = (isHorizontal() ? limitName : _maxValue) + marginAxis;
 

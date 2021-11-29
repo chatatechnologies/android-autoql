@@ -18,6 +18,7 @@ import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
+/*For Dashboard*/
 class WebViewHolder(itemView: View): BaseHolder(itemView)
 {
 	private val iView = itemView.findViewById<View>(R.id.iView) ?: null

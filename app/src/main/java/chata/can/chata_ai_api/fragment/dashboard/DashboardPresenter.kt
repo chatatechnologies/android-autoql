@@ -346,7 +346,7 @@ class DashboardPresenter(
 	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
 		mModel?.run {
-			for (index in /*9 until 10)*/0 until this.countData())
+			for (index in 3 until 4)/*0 until this.countData())*/
 			{
 				this[index]?.let { dashboard ->
 					dashboard.isWaitingData = toClearQuery

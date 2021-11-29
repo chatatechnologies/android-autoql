@@ -28,6 +28,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import java.util.*
 
+/*For Data Messenger*/
 class WebViewHolder(
 	itemView: View,
 	private val adapterView: ChatAdapterContract?,
