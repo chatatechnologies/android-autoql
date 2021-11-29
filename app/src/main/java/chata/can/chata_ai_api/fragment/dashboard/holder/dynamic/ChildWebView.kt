@@ -34,7 +34,7 @@ object ChildWebView {
 	private fun setDataWebView(rlLoad: View?, webView: WebView?, queryBase: QueryBase, rlWebView: RelativeLayout)
 	{
 		rlLoad?.visibility = View.VISIBLE
-		changeHeightParent(rlWebView, queryBase.rowsTable)
+		changeHeightParent(rlWebView, queryBase)
 		webView?.run {
 			clearCache(true)
 			clearHistory()
@@ -61,18 +61,18 @@ object ChildWebView {
 		}
 	}
 
-	private fun changeHeightParent(rlWebView: RelativeLayout, numRows: Int)
+	private fun changeHeightParent(rlWebView: RelativeLayout, queryBase: QueryBase)
 	{
-//		val lastNum = when(this@WebViewHolder.lastId)
-//		{
-//			"#idTableBasic" -> rowsTable
-//			"#idTableDataPivot" -> rowsPivot
-//			"#container" -> factorHeight
-//			else -> 0
-//		}
+		val lastNum = when(queryBase.displayType)
+		{
+			"#idTableBasic" -> queryBase.rowsTable
+			"#idTableDataPivot" -> queryBase.rowsPivot
+			else -> 180
+		}
+
+		queryBase.rowsTable
 		rlWebView.let {
-			//val tmpRows = if (numRows == 0) 180 else numRows
-			val tmpRows = 180
+			val tmpRows = if (lastNum == 0) 180 else lastNum
 			var customHeight = it.dpToPx(30f * tmpRows) + 60
 			if (customHeight > 900)
 			{
