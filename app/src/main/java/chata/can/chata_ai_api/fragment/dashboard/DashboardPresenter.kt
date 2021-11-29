@@ -302,20 +302,20 @@ class DashboardPresenter(
 
 						val newType = when(queryBase.displayType)
 						{
+							"table" -> "TABLE"
 							"bar" -> "BAR"
 							"column" -> "COLUMN"
+							"pie" -> "PIE"
 							"heatmap" -> "HEATMAP"
+							"bubble" -> "BUBBLE"
 							"line" -> "LINE"
+							"pivot_table" -> "PIVOT"
+							"stacked_bar" -> "STACKED_BAR"
 							"stacked_column" -> "STACKED_COLUMN"
 							"stacked_line" -> "STACKED_AREA"
 							else -> "TABLE"
 						}
 						queryBase.displayType = "TypeEnum.$newType"
-//						"TABLE"
-//						"PIVOT"
-//						"PIE"
-//						"BUBBLE"
-//						"STACKED_BAR"
 						TypeChatView.WEB_VIEW
 					}
 					else -> TypeChatView.LEFT_VIEW
