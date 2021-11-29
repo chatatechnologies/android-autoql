@@ -31,8 +31,8 @@ function angle(d) {
 	return a > 90 ? a - 180 : a;
 }
 
-function isHorizontal(type) {
-  return (type == TypeEnum.BAR);
+function isHorizontal() {
+  return typeChart == TypeEnum.BAR;
 }
 
 function clearSvg() {
@@ -41,6 +41,12 @@ function clearSvg() {
 }
 
 function updateSize() {
+	var _bottom = (isHorizontal() ? _maxValue : limitName) + marginAxis;
+	var _left = (isHorizontal() ? limitName : _maxValue) + marginAxis;
+
+	margin.left = _left;
+	margin.bottom = _bottom;
+
   var height1 = ${'$'}(window).height() - margin.top - margin.bottom;
   var width1 = getWidthMargin();
 

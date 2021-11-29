@@ -6,10 +6,10 @@ object Bar
 	{
 		return """function setBar() {
 	var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.bottom + margin.right)
-		.attr('height', height + margin.top + margin.left)
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
-		.attr('transform', 'translate(' + margin.bottom + ',' + margin.top + ')');
+		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 	var x = d3.scaleBand()
 		.range([height, 0])
@@ -69,10 +69,14 @@ object Bar
 		.attr('fill', '#909090');
 	
 	  //Add X axis label:
-	  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left - 10, '#808080', '', axisY);
+	  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 20, '#808080', '', axisY);
 	
 	  //Y axis label:
-	  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom + 20, '#808080', '', axisX);
+	  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', '', axisX);
+		console.log('top ->' + margin.top);
+	  console.log('left ->' + margin.left);
+	  console.log('right ->' + margin.right);
+	  console.log('bottom ->' + margin.bottom);
 	}
 """
 	}
