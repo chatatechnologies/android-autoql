@@ -12,7 +12,7 @@ import chata.can.chata_ai.pojo.script.setOrderRowByDate as orderRowDate
 
 object HtmlBuilder
 {
-	private val aCount = arrayListOf(TypeDataQuery.QUANTITY, TypeDataQuery.DATE, TypeDataQuery.DATE_STRING)
+	private val aCount = arrayListOf(TypeDataQuery.QUANTITY, TypeDataQuery.DOLLAR_AMT/*, TypeDataQuery.DATE, TypeDataQuery.DATE_STRING*/)
 	/*search countable type one by one*/
 	private fun hasCountableIndex(queryBase: QueryBase): Int
 	{
