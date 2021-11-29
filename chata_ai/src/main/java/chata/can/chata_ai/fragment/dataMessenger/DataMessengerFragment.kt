@@ -103,7 +103,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			//example tri dimensional
 //			val queryDemo = "Jobs by area by year"
 	//No case
-			val queryDemo = "total revenue by month last year"
+			val queryDemo = "All show me for what total revenue by item code for each year for"
 			etQuery.setText(queryDemo)
 		}
 
