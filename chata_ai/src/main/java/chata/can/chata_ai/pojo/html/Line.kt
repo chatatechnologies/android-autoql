@@ -54,6 +54,7 @@ object Line
       //Remove line on domain for Y axis
       .call(g => g.select('.domain').remove())
       .selectAll('text')
+			.attr('transform', 'translate(10,10)rotate(-45)')
       .attr('fill', '#909090');
 
     // Updata the line
@@ -85,7 +86,7 @@ object Line
 	    });
 			
 		//Add X axis label:
-    addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 10, '#808080', '', axisX);
+    addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 5, '#808080', '', axisX);
     //Y axis label:
     addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', '', axisY);
 	}

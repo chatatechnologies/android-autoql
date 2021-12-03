@@ -125,11 +125,11 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //The left margin makes the left border visible
-const marginAxis = 15;
+const marginAxis = 0;
 var typeChart = $typeChart;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
-var _maxValue = (digits * 12) + _plusSingle;
+var _maxValue = (digits * 10) + _plusSingle;
 var _bottom = (isHorizontal() ? _maxValue : limitName) + marginAxis;
 var _left = (isHorizontal() ? limitName : _maxValue) + marginAxis;
 //width dynamic, height dynamic

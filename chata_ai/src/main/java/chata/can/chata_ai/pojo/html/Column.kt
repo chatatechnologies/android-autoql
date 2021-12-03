@@ -78,7 +78,7 @@ svg.append('g')
 	  .attr('fill', '#909090');
 
 	//Add X axis label:
-  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 20, '#808080', '', axisX);
+  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 25, '#808080', '', axisX);
     
   //Y axis label:
   addText(svg, 'end', 14, -90, margin.top - (height / 2), -margin.left + 15, '#808080', '', axisY);
