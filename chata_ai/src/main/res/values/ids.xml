@@ -94,4 +94,9 @@
 	<item name="btnCancel" type="id"/>
 	<item name="btnApply" type="id"/>
 	<!-- endregion -->
+
+	<!--	region Row columns-->
+	<item name="cbCheck" type="id"/>
+<!--	too tvColumnName-->
+	<!--	endregion-->
 </resources>

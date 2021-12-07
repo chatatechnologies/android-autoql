@@ -99,7 +99,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "Total revenue by job type last year"//new multi series
 	//Suggestion
 //			val queryDemo = "Total tickets by month"
-			val queryDemo = "Total revenue by month in 2019"
+//			val queryDemo = "Total revenue by month in 2019"
+			val queryDemo = ""
 
 			//example tri dimensional
 //			val queryDemo = "Jobs by area by year"
@@ -185,7 +186,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		setTouchListener()
 
 		activity?.let { fragmentActivity ->
-			adapterAutoComplete = AutoCompleteAdapter(fragmentActivity, R.layout.row_spinner)
+//			adapterAutoComplete = AutoCompleteAdapter(fragmentActivity, R.layout.row_spinner)
+			adapterAutoComplete = AutoCompleteAdapter(fragmentActivity)
 			etQuery.threshold = 1
 			etQuery.setAdapter(adapterAutoComplete)
 			fragmentActivity.findViewById<ImageView>(R.id.ivClear)?.setOnClickListener {

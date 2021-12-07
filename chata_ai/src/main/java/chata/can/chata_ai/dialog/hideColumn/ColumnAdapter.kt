@@ -1,9 +1,14 @@
 package chata.can.chata_ai.dialog.hideColumn
 
-import android.view.LayoutInflater
+import android.content.Context
+import android.util.TypedValue
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.RelativeLayout
+import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.adapter.BaseAdapter
+import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ColumnQuery
@@ -15,11 +20,54 @@ class ColumnAdapter(
 	private val view: ColumnChanges.AllColumn
 ): BaseAdapter(model), ColumnChanges.SingleColumn
 {
+	private lateinit var tvColumnName: TextView
+	private lateinit var cbCheck: CheckBox
+
+	private fun getColumn(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			layoutParams = ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT)
+
+			//region inner child
+			addView(RelativeLayout(context).apply {
+				layoutParams = RelativeLayout.LayoutParams(
+					RelativeLayout.LayoutParams.MATCH_PARENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT)
+				margin(12f, end = 12f)
+
+				tvColumnName = TextView(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.MATCH_PARENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+						addRule(RelativeLayout.START_OF, R.id.cbCheck)
+					}
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					id = R.id.tvColumnName
+				}
+				addView(tvColumnName)
+
+				cbCheck = CheckBox(context).apply {
+					layoutParams = RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+						addRule(RelativeLayout.END_OF)
+					}
+					id = R.id.cbCheck
+				}
+				addView(cbCheck)
+			})
+			//endregion
+		}
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
-		val layoutInflater = LayoutInflater.from(parent.context)
+//		val layoutInflater = LayoutInflater.from(parent.context)
+//		return ColumnHolder(layoutInflater.inflate(R.layout.row_column, parent, false), this)
 		return ColumnHolder(
-			layoutInflater.inflate(R.layout.row_column, parent, false), this)
+			getColumn(parent.context), this)
 	}
 
 	override fun changeVisible(position: Int, value: Boolean)

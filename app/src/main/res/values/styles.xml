@@ -13,10 +13,4 @@
 	<style name="CustomTextAppearance" parent="TextAppearance.Design.Tab">
 		<item name="textAllCaps">false</item>
 	</style>
-	<!--Button Style-->
-	<style name="ButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
-		<item name="backgroundTint">@drawable/material_selector</item>
-		<item name="strokeColor">@color/blue_chata_circle</item>
-		<item name="android:textColor">@color/blue_chata_circle</item>
-	</style>
 </resources>

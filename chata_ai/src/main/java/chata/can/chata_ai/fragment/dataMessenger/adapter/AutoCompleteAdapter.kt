@@ -3,22 +3,20 @@ package chata.can.chata_ai.fragment.dataMessenger.adapter
 import android.content.Context
 import android.graphics.Color
 import android.text.TextUtils
-import android.view.LayoutInflater
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
-import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.nullValue
 
-class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>(context, resource)
+class AutoCompleteAdapter(context: Context): ArrayAdapter<String>(context, 0)
 {
 	private val aData = ArrayList<String>()
 
-	fun getText(context: Context): TextView
+	private fun getTextView(context: Context): TextView
 	{
 		return TextView(context).apply {
 			layoutParams = ViewGroup.LayoutParams(
@@ -28,16 +26,15 @@ class AutoCompleteAdapter(context: Context, resource: Int): ArrayAdapter<String>
 			isSingleLine = true
 			textAlignment = View.TEXT_ALIGNMENT_INHERIT
 			ellipsize = TextUtils.TruncateAt.MARQUEE
-			paddingAll(6f)
-
+			paddingAll(left = 20f, top = 4f, right = 14f, bottom = 4f)
 			id = android.R.id.text1
+			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 		}
 	}
 
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup): View
 	{
-		val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.row_spinner, nullValue)
-//		val view = convertView ?: getText(context)
+		val view = convertView ?: getTextView(context)
 		view.findViewById<TextView>(android.R.id.text1).run {
 			text = getItem(position)
 			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
