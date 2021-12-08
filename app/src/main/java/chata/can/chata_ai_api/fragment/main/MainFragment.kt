@@ -24,12 +24,6 @@ import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.main.PagerActivity
-import chata.can.request_native.BaseRequest
-import chata.can.request_native.RequestData
-import chata.can.request_native.RequestMethod
-import chata.can.request_native.StatusResponse
-import org.json.JSONArray
-import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 

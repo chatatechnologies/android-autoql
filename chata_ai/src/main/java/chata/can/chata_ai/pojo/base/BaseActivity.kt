@@ -1,9 +1,7 @@
 package chata.can.chata_ai.pojo.base
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class BaseActivity(private val intRes: Int): AppCompatActivity()

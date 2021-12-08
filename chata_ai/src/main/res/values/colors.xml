@@ -12,22 +12,22 @@
 	<color name="accent_color_1">#28A8E0</color>
 	<color name="background_color_primary_1">#FFF</color>
 	<color name="background_color_secondary_1">#F1F3F5</color>
-	<color name="background_color_tertiary_1">#CCCCCC</color>
+<!--	<color name="background_color_tertiary_1">#CCCCCC</color>-->
 	<color name="border_color_1">#E6E6E6</color>
 	<color name="hover_color_1">#ECECEC</color>
 	<color name="text_color_primary_1">#5D5D5D</color>
-	<color name="text_color_placeholder_1">#00000036</color>
+<!--	<color name="text_color_placeholder_1">#00000036</color>-->
 	<color name="highlight_color_1">#000</color>
 	<color name="danger_color_1">#CA0B00</color>
 
 	<color name="accent_color_2">#193A48</color>
 	<color name="background_color_primary_2">#3B3F46</color>
 	<color name="background_color_secondary_2">#20252A</color>
-	<color name="background_color_tertiary_2">#292929</color>
+<!--	<color name="background_color_tertiary_2">#292929</color>-->
 	<color name="border_color_2">#53565c</color>
 	<color name="hover_color_2">#4A4F56</color>
 	<color name="text_color_primary_2">#FFF</color>
-	<color name="text_color_placeholder_2">#FFFFFF9c</color>
+<!--	<color name="text_color_placeholder_2">#FFFFFF9c</color>-->
 	<color name="highlight_color_2">#FFF</color>
 	<color name="danger_color_2">#FF584e</color>
 

@@ -11,20 +11,6 @@ import kotlin.collections.LinkedHashMap
 
 object DatePivot
 {
-	private fun dateWithFormat(dateLong: Int): String
-	{
-		return try
-		{
-			val dateFormat = SimpleDateFormat("MMMM_yyyy", Locale.US)
-			val date = Date(dateLong * 1000L)
-			dateFormat.format(date)
-		}
-		catch (e: Exception)
-		{
-			"No date"
-		}
-	}
-
 	fun buildDateString(
 		aRows: ArrayList<ArrayList<String>>,
 		aColumn: ArrayList<ColumnQuery>

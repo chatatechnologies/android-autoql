@@ -7,11 +7,9 @@ class Color(
 	private val drawerAccentColor: Int,
 	val drawerBackgroundColor: Int,
 	val drawerColorSecondary: Int,
-	val backgroundColorTertiary: Int,
 	val drawerBorderColor: Int,
 	private val drawerHoverColor: Int,
 	val drawerTextColorPrimary: Int,
-	val drawerTextColorPlaceholder: Int,
 	private val highlightColor: Int,
 	private val dangerColor: Int
 )
