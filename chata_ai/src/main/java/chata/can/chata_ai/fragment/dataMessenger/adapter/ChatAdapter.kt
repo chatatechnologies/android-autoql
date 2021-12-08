@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewHolder
 import chata.can.chata_ai.adapter.BaseAdapter
+import chata.can.chata_ai.adapter.BaseRow
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.*
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderHolder
@@ -81,7 +82,11 @@ class ChatAdapter(
 					pagerActivity,
 					view)
 			}
-			else -> BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
+			else ->
+			{
+//				BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
+				BaseHolder(BaseRow.getRowBase(parent.context), this, view)
+			}
 		}
 	}
 
