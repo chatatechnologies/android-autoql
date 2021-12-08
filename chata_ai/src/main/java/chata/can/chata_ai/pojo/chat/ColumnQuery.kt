@@ -7,6 +7,5 @@ data class ColumnQuery(
 	val displayName: String = "",
 	var isVisible: Boolean)
 {
-	var formatDate = ""
 	var isSelected = true
 }
