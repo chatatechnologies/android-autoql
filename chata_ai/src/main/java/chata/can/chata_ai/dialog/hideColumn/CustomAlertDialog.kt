@@ -130,6 +130,7 @@ class CustomAlertDialog(
 							0, LinearLayout.LayoutParams.WRAP_CONTENT
 						).apply { weight = 1f }
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+						setTypeface(typeface, Typeface.BOLD)
 						text = context1.getString(R.string.column_name)
 						id = R.id.tvColumnName
 					}
@@ -140,6 +141,7 @@ class CustomAlertDialog(
 						).apply { weight = 1f }
 						gravity = Gravity.END
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+						setTypeface(typeface, Typeface.BOLD)
 						text = context1.getString(R.string.visibility)
 						id = R.id.tvVisibility
 					}

@@ -1,11 +1,13 @@
 package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.extension.margin
@@ -43,16 +45,16 @@ class ColumnAdapter(
 						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
 						addRule(RelativeLayout.START_OF, R.id.cbCheck)
 					}
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 					id = R.id.tvColumnName
 				}
 				addView(tvColumnName)
 
-				cbCheck = CheckBox(context).apply {
+				cbCheck = CheckBox(ContextThemeWrapper(context, R.style.checkBoxStyle)).apply {
 					layoutParams = RelativeLayout.LayoutParams(
 						RelativeLayout.LayoutParams.WRAP_CONTENT,
 						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
-						addRule(RelativeLayout.END_OF)
+						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
 					id = R.id.cbCheck
 				}
@@ -64,10 +66,7 @@ class ColumnAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
-//		val layoutInflater = LayoutInflater.from(parent.context)
-//		return ColumnHolder(layoutInflater.inflate(R.layout.row_column, parent, false), this)
-		return ColumnHolder(
-			getColumn(parent.context), this)
+		return ColumnHolder(getColumn(parent.context), this)
 	}
 
 	override fun changeVisible(position: Int, value: Boolean)
