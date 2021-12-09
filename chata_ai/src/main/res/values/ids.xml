@@ -99,4 +99,9 @@
 	<item name="cbCheck" type="id"/>
 <!--	too tvColumnName-->
 	<!--	endregion-->
+
+<!--	region base row-->
+	<item name="llMainBase" type="id"/>
+	<item name="rvContent" type="id"/>
+<!--	endregion-->
 </resources>

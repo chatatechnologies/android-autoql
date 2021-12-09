@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.dpToPx
@@ -70,11 +71,11 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 		}
-//		if (BuildConfig.DEBUG)
-//		{
-//			val query = ""
-//			etQuery.setText(query)
-//		}
+		if (BuildConfig.DEBUG)
+		{
+			val query = "revenue"
+			etQuery.setText(query)
+		}
 	}
 
 	override fun initListener()
