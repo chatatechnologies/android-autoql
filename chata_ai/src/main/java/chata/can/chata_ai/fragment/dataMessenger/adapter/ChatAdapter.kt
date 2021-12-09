@@ -84,7 +84,6 @@ class ChatAdapter(
 			}
 			else ->
 			{
-//				BaseHolder(layoutInflater.inflate(R.layout.row_base, nullValue), this, view)
 				BaseHolder(BaseRow.getRowBase(parent.context), this, view)
 			}
 		}
