@@ -97,11 +97,19 @@
 
 	<!--	region Row columns-->
 	<item name="cbCheck" type="id"/>
-<!--	too tvColumnName-->
+	<!--	too tvColumnName-->
 	<!--	endregion-->
 
-<!--	region base row-->
+	<!--	region base row-->
 	<item name="llMainBase" type="id"/>
 	<item name="rvContent" type="id"/>
-<!--	endregion-->
+	<!--	endregion-->
+	<!--	region row query base-->
+	<item name="llQueries" type="id"/>
+	<item name="ivBackExplore" type="id"/>
+	<item name="tvCurrentExplore" type="id"/>
+	<item name="rvQueries" type="id"/>
+	<item name="rvExplore" type="id"/>
+	<item name="tvLink" type="id"/>
+	<!--	endregion-->
 </resources>
