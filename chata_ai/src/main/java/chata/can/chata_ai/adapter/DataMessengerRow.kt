@@ -172,8 +172,10 @@ object DataMessengerRow
 				//endregion
 				//region rlDelete
 				addView(getRelativeLayout(context).apply {
-					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
-					margin(5f)
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
+						addRule(RelativeLayout.ALIGN_PARENT_END)
+					}
+					marginAll(5f)
 					id = R.id.rlDelete
 					//region ivReport
 					addView(ImageView(context).apply {
