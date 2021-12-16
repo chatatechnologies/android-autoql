@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -16,13 +15,15 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.marginAll
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.view.container.LayoutParams.MATCH_PARENT_WRAP_CONTENT
+import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParam
 
 object DataMessengerRow
 {
 	fun getRowQueryBuilder(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = ViewGroup.LayoutParams(-1, -2)
+			layoutParams = getViewGroupLayoutParam(MATCH_PARENT_WRAP_CONTENT)
 			//region main container
 			addView(RelativeLayout(context).apply {
 				layoutParams = RelativeLayout.LayoutParams(-1, -2)

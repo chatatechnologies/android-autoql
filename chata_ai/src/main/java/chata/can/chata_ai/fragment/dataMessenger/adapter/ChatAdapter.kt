@@ -79,7 +79,6 @@ class ChatAdapter(
 			TypeChatView.QUERY_BUILDER ->
 			{
 				QueryBuilderHolder(
-//					layoutInflater.inflate(R.layout.row_query_builder, nullValue),
 					DataMessengerRow.getRowQueryBuilder(parent.context),
 					pagerActivity,
 					view)
