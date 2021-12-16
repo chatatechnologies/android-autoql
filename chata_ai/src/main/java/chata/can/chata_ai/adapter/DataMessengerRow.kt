@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -15,26 +16,25 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.marginAll
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.view.container.Layout.getLinearLayout
-import chata.can.chata_ai.view.container.Layout.getRelativeLayout
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
+import chata.can.chata_ai.view.gif.KGifView
 
 object DataMessengerRow
 {
 	fun getRowQueryBuilder(context: Context): RelativeLayout
 	{
-		return getRelativeLayout(context).apply {
+		return RelativeLayout(context).apply {
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			//region main container
-			addView(getRelativeLayout(context).apply {
+			addView(RelativeLayout(context).apply {
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				margin(end = 50f)
 
 				//region llContent
-				addView(getLinearLayout(context).apply {
+				addView(LinearLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 					marginAll(5f)
 					orientation = LinearLayout.VERTICAL
@@ -48,10 +48,10 @@ object DataMessengerRow
 					})
 					//endregion
 					//region llQueries & rvExplore
-					addView(getRelativeLayout(context).apply {
+					addView(RelativeLayout(context).apply {
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 						//region llQueries
-						addView(getLinearLayout(context).apply {
+						addView(LinearLayout(context).apply {
 							layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 							margin(2f, 0f, 2f)
 							orientation = LinearLayout.HORIZONTAL
@@ -73,7 +73,7 @@ object DataMessengerRow
 							//endregion
 
 							//region current explore
-							addView(getLinearLayout(context).apply {
+							addView(LinearLayout(context).apply {
 								layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 								orientation = LinearLayout.VERTICAL
 
@@ -125,10 +125,10 @@ object DataMessengerRow
 
 	fun getRowSuggestion(context: Context): RelativeLayout
 	{
-		return getRelativeLayout(context).apply {
+		return RelativeLayout(context).apply {
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			//region rvContentTop
-			addView(getRelativeLayout(context).apply {
+			addView(RelativeLayout(context).apply {
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				id = R.id.rvContentTop
 				//region tvContentTop
@@ -142,12 +142,12 @@ object DataMessengerRow
 			})
 			//endregion
 			//region bottom container
-			addView(getRelativeLayout(context).apply {
+			addView(RelativeLayout(context).apply {
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 					addRule(RelativeLayout.BELOW, R.id.rvContentTop)
 				}
 				//region llContent
-				addView(getLinearLayout(context).apply {
+				addView(LinearLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 					margin(top = 28f)
 					paddingAll(5f)
@@ -161,7 +161,7 @@ object DataMessengerRow
 					})
 					//endregion
 					//region llSuggestion
-					addView(getLinearLayout(context).apply {
+					addView(LinearLayout(context).apply {
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 						paddingAll(5f)
 						orientation = LinearLayout.VERTICAL
@@ -171,7 +171,7 @@ object DataMessengerRow
 				})
 				//endregion
 				//region rlDelete
-				addView(getRelativeLayout(context).apply {
+				addView(RelativeLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
 						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
@@ -196,6 +196,81 @@ object DataMessengerRow
 					})
 					//endregion
 				})
+				//endregion
+			})
+			//endregion
+		}
+	}
+
+	fun getRowWebView(context: Context): RelativeLayout
+	{
+		return RelativeLayout(context).apply {
+			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+			//region rvContentTop
+			addView(RelativeLayout(context).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+				margin(5f)
+				id = R.id.rvContentTop
+				//region tvContentTop
+				addView(TextView(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
+						addRule(RelativeLayout.ALIGN_PARENT_END)
+					}
+					paddingAll(8f)
+					id = R.id.tvContentTop
+				})
+				//endregion
+			})
+			//endregion
+			//region bottom container
+			addView(RelativeLayout(context).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+					addRule(RelativeLayout.BELOW, R.id.rvContentTop)
+				}
+				//region rvParent
+				addView(RelativeLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(-1, dpToPx(300f))
+					margin(12f, 24f, 12f)
+					id = R.id.rvParent
+					//region wbQuery
+					addView(WebView(context).apply {
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+						marginAll(5f)
+					})
+					//endregion
+					//region rlLoad
+					addView(RelativeLayout(context).apply {
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+						//region KGifView
+						addView(KGifView(context).apply {
+							layoutParams = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f)).apply {
+								addRule(RelativeLayout.CENTER_IN_PARENT)
+							}
+						})
+						//endregion
+					})
+					//endregion
+					//region ivAlert
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
+							addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+							addRule(RelativeLayout.ALIGN_PARENT_END)
+						}
+						visibility = View.GONE
+						setImageResource(R.drawable.ic_alert)
+						id = R.id.ivAlert
+					})
+					//endregion
+				})
+				//endregion
+				//region HorizontalScrollView
+
+				//endregion
+				//region rlCharts
+
+				//endregion
+				//region rlDelete
+
 				//endregion
 			})
 			//endregion

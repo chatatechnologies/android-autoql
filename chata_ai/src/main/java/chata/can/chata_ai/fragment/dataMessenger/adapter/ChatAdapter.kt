@@ -60,10 +60,7 @@ class ChatAdapter(
 			TypeChatView.SUGGESTION_VIEW ->
 			{
 				SuggestionHolder(
-					DataMessengerRow.getRowSuggestion(parent.context),
-//						layoutInflater.inflate(R.layout.row_suggestion, nullValue),
-					this,
-					view)
+					DataMessengerRow.getRowSuggestion(parent.context),this, view)
 			}
 			TypeChatView.FULL_SUGGESTION_VIEW ->
 			{
