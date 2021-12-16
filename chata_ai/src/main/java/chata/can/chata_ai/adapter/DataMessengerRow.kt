@@ -6,10 +6,7 @@ import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
@@ -202,6 +199,20 @@ object DataMessengerRow
 		}
 	}
 
+	private val aCharts = arrayListOf(
+		Pair(R.id.ivTable, R.drawable.ic_table),
+		Pair(R.id.ivPivot, R.drawable.ic_table_data),
+		Pair(R.id.ivColumn, R.drawable.ic_column),
+		Pair(R.id.ivBar, R.drawable.ic_bar),
+		Pair(R.id.ivLine, R.drawable.ic_line),
+		Pair(R.id.ivPie, R.drawable.ic_pie),
+		Pair(R.id.ivHeat, R.drawable.ic_heat),
+		Pair(R.id.ivBubble, R.drawable.ic_bubble),
+		Pair(R.id.ivStackedBar, R.drawable.ic_stacked_bar),
+		Pair(R.id.ivStackedColumn, R.drawable.ic_stacked_column),
+		Pair(R.id.ivStackedArea, R.drawable.ic_stacked_area),
+	)
+
 	fun getRowWebView(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
@@ -236,11 +247,13 @@ object DataMessengerRow
 					addView(WebView(context).apply {
 						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 						marginAll(5f)
+						id = R.id.wbQuery
 					})
 					//endregion
 					//region rlLoad
 					addView(RelativeLayout(context).apply {
 						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+						id = R.id.rlLoad
 						//region KGifView
 						addView(KGifView(context).apply {
 							layoutParams = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f)).apply {
@@ -264,13 +277,60 @@ object DataMessengerRow
 				})
 				//endregion
 				//region HorizontalScrollView
+				addView(HorizontalScrollView(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
+					//region llCharts
+					addView(LinearLayout(context).apply {
+						layoutParams = FrameLayout.LayoutParams(-2, -2)
+						orientation = LinearLayout.HORIZONTAL
+						marginAll(5f)
+						id = R.id.llCharts
 
+						for (pair in aCharts)
+						{
+							addView(ImageView(context).apply {
+								layoutParams = getLinearLayoutParams(dpToPx(40f), dpToPx(40f))
+								paddingAll(4f)
+								setImageResource(pair.second)
+								visibility = View.GONE
+								id = pair.first
+							})
+						}
+					})
+					//endregion
+				})
 				//endregion
 				//region rlCharts
-
+				addView(RelativeLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
+					marginAll(5f)
+					id = R.id.rlCharts
+					//region ivCharts
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f))
+						paddingAll(8f)
+						setImageResource(R.drawable.ic_charts)
+						id = R.id.ivCharts
+					})
+					//endregion
+				})
 				//endregion
 				//region rlDelete
-
+				addView(RelativeLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
+						addRule(RelativeLayout.ALIGN_PARENT_END)
+					}
+					marginAll(5f)
+					id = R.id.rlDelete
+					//region ImageView
+					addView(ImageView(context).apply {
+						layoutParams = 	getRelativeLayoutParams(dpToPx(40f), dpToPx(40f))
+						paddingAll(8f)
+						setImageResource(R.drawable.ic_points)
+						id = R.id.ivPoints
+					})
+					//endregion
+				})
 				//endregion
 			})
 			//endregion

@@ -55,7 +55,8 @@ class ChatAdapter(
 			TypeChatView.WEB_VIEW ->
 			{
 				WebViewHolder(
-					layoutInflater.inflate(R.layout.row_webview, nullValue), this, view)
+					DataMessengerRow.getRowWebView(parent.context),
+					this, view)
 			}
 			TypeChatView.SUGGESTION_VIEW ->
 			{

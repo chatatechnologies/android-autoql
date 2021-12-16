@@ -111,5 +111,33 @@
 	<item name="rvQueries" type="id"/>
 	<item name="rvExplore" type="id"/>
 	<item name="tvLink" type="id"/>
+	<item name="ivReport" type="id"/>
+	<!--	endregion-->
+	<!--	region suggestion-->
+	<item name="llSuggestion" type="id"/>
+	<!--	endregion-->
+	<!--	region row web view-->
+	<item name="rvContentTop" type="id"/>
+	<item name="tvContentTop" type="id"/>
+	<item name="rvParent" type="id"/>
+	<item name="wbQuery" type="id"/>
+	<item name="rlLoad" type="id"/>
+	<item name="ivAlert" type="id"/>
+	<item name="llCharts" type="id"/>
+	<item name="ivTable" type="id"/>
+	<item name="ivPivot" type="id"/>
+	<item name="ivColumn" type="id"/>
+	<item name="ivBar" type="id"/>
+	<item name="ivLine" type="id"/>
+	<item name="ivPie" type="id"/>
+	<item name="ivHeat" type="id"/>
+	<item name="ivBubble" type="id"/>
+	<item name="ivStackedBar" type="id"/>
+	<item name="ivStackedColumn" type="id"/>
+	<item name="ivStackedArea" type="id"/>
+	<item name="rlCharts" type="id"/>
+	<item name="ivCharts" type="id"/>
+	<item name="rlDelete" type="id"/>
+	<item name="ivPoints" type="id"/>
 	<!--	endregion-->
 </resources>
