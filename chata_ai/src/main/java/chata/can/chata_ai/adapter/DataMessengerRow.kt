@@ -122,4 +122,81 @@ object DataMessengerRow
 			//endregion
 		}
 	}
+
+	fun getRowSuggestion(context: Context): RelativeLayout
+	{
+		return getRelativeLayout(context).apply {
+			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+			//region rvContentTop
+			addView(getRelativeLayout(context).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+				id = R.id.rvContentTop
+				//region tvContentTop
+				addView(TextView(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
+					marginAll(5f)
+					paddingAll(8f)
+					id = R.id.tvContentTop
+				})
+				//endregion
+			})
+			//endregion
+			//region bottom container
+			addView(getRelativeLayout(context).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+					addRule(RelativeLayout.BELOW, R.id.rvContentTop)
+				}
+				//region llContent
+				addView(getLinearLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+					margin(top = 28f)
+					paddingAll(5f)
+					orientation = LinearLayout.VERTICAL
+					id = R.id.llContent
+					//region tvContent
+					addView(TextView(context).apply {
+						layoutParams = getLinearLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
+						margin(5f)
+						id = R.id.tvContent
+					})
+					//endregion
+					//region llSuggestion
+					addView(getLinearLayout(context).apply {
+						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+						paddingAll(5f)
+						orientation = LinearLayout.VERTICAL
+						id = R.id.llSuggestion
+					})
+					//endregion
+				})
+				//endregion
+				//region rlDelete
+				addView(getRelativeLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
+					margin(5f)
+					id = R.id.rlDelete
+					//region ivReport
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f))
+						paddingAll(4f)
+						setImageResource(R.drawable.ic_report)
+						id = R.id.ivReport
+					})
+					//endregion
+					//region ivDelete
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f)).apply {
+							addRule(RelativeLayout.END_OF, R.id.ivReport)
+						}
+						paddingAll(4f)
+						setImageResource(R.drawable.ic_delete)
+						id = R.id.ivDelete
+					})
+					//endregion
+				})
+				//endregion
+			})
+			//endregion
+		}
+	}
 }
