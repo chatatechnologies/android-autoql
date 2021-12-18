@@ -140,4 +140,20 @@
 	<item name="rlDelete" type="id"/>
 	<item name="ivPoints" type="id"/>
 	<!--	endregion-->
+
+	<!--	Activity-->
+	<!--	region Design DM Activity-->
+	<item name="vBehind" type="id"/>
+	<item name="llMenu" type="id"/>
+	<item name="rlChat" type="id"/>
+	<item name="ivChat" type="id"/>
+	<item name="rlTips" type="id"/>
+	<item name="ivTips" type="id"/>
+	<item name="rlNotify" type="id"/>
+	<item name="ivNotify" type="id"/>
+	<item name="tvNotification" type="id"/>
+	<item name="rlLocal" type="id"/>
+	<item name="ivClose" type="id"/>
+	<item name="frmLocal" type="id"/>
+	<!--	endregion-->
 </resources>

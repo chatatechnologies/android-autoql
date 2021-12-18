@@ -5,14 +5,13 @@ import android.graphics.Color
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -91,10 +90,65 @@ object DmDesign
 				})
 				//endregion
 			})
-
 			//endregion
 			//region rlLocal
-
+			addView(RelativeLayout(context).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+				isClickable = true
+				isFocusable = true
+				id = R.id.rlLocal
+				//region toolbar
+				addView(RelativeLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(-1, dpToPx(56f))
+					setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
+					id = R.id.toolbar
+					//region ivClose
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(36f), dpToPx(36f)).apply {
+							addRule(RelativeLayout.CENTER_VERTICAL)
+						}
+						margin(6f)
+						paddingAll(5f)
+						setImageResource(R.drawable.ic_cancel)
+						id = R.id.ivClose
+					})
+					//endregion
+					//region tvTitle
+					addView(TextView(context).apply {
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+							addRule(RelativeLayout.CENTER_VERTICAL)
+							addRule(RelativeLayout.END_OF, R.id.ivClose)
+							addRule(RelativeLayout.START_OF, R.id.ivClear)
+						}
+						gravity = Gravity.CENTER
+						setTextColor(Color.WHITE)
+						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						id = R.id.tvTitle
+					})
+					//endregion
+					//region ivClear
+					addView(ImageView(context).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(36f), dpToPx(36f)).apply {
+							addRule(RelativeLayout.ALIGN_PARENT_END)
+							addRule(RelativeLayout.CENTER_VERTICAL)
+						}
+						margin(end = 6f)
+						id = R.id.ivClear
+						setImageResource(R.drawable.ic_delete)
+					})
+					//endregion
+				})
+				//endregion
+				//region frmLocal
+				addView(FrameLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY).apply {
+						addRule(RelativeLayout.BELOW, R.id.toolbar)
+					}
+					setBackgroundColor(Color.WHITE)
+						id = R.id.frmLocal
+				})
+				//endregion
+			})
 			//endregion
 		}
 	}
