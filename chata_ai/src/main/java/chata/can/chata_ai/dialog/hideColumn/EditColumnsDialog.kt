@@ -49,7 +49,7 @@ class EditColumnsDialog(
 	private val buttonChecked = CompoundButton.OnCheckedChangeListener { _, value ->
 		for (position in 0 until model.countData())
 			model[position]?.isVisible = value
-		adapter.notifyItemRangeChanged(0, model.countData() - 1)
+		adapter.notifyItemRangeChanged(0, model.countData())
 	}
 
 	fun showDialog()
