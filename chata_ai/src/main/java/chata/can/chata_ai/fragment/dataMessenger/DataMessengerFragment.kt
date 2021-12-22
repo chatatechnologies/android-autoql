@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
@@ -44,9 +43,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 {
 	companion object {
 		const val nameFragment = "Data Messenger"
-		fun newInstance() = DataMessengerFragment().putArgs {
-			//putInt("LAYOUT", R.layout.fragment_data_messenger)
-		}
 		var queryToTyping = ""
 	}
 
@@ -73,6 +69,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private var statusLogin = false
 	private var canonical = ""
 	private var valueLabel = ""
+
+	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View
+	{
+		val view = DataMessenger.getDesign(requireActivity())
+		onRenderViews(view)
+		return view
+	}
 
 	override fun onRenderViews(view: View)
 	{
@@ -270,22 +273,6 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		}
 		chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
-	}
-
-	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View?
-	{
-		if (context == null)
-		{
-			println("It is empty")
-		}
-		if (activity == null)
-		{
-			println("It is empty")
-		}
-
-		val view = DataMessenger.getDesign(requireActivity())
-		onRenderViews(view)
-		return view
 	}
 
 	override fun initViews(view: View)

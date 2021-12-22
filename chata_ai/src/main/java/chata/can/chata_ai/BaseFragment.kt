@@ -18,12 +18,10 @@ abstract class BaseFragment: Fragment()
 		container: ViewGroup?,
 		savedInstanceState: Bundle?): View?
 	{
-		return arguments?.let {
-			activity?.let { activity ->
-				parentActivity = activity
-			}
-			setView(inflater, container)
-		} ?: run { null }
+		activity?.let { activity ->
+			parentActivity = activity
+		}
+		return setView(inflater, container)
 	}
 
 	open fun setView(inflater: LayoutInflater, container: ViewGroup?): View?

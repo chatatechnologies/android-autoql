@@ -228,7 +228,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	fun openChat()
 	{
 		changeColor(rlChat, ivChat)
-		fragment = DataMessengerFragment.newInstance()
+		fragment = DataMessengerFragment()//DataMessengerFragment.newInstance()
 		visibleClear(true)
 		//region setDataToDataMessenger
 		fragment.arguments?.let {
