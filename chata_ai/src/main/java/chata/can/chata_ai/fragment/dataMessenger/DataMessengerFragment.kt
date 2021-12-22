@@ -45,7 +45,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	companion object {
 		const val nameFragment = "Data Messenger"
 		fun newInstance() = DataMessengerFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_data_messenger)
+			//putInt("LAYOUT", R.layout.fragment_data_messenger)
 		}
 		var queryToTyping = ""
 	}
@@ -274,11 +274,18 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View?
 	{
-		return activity?.let {
-			val view = DataMessenger.getDesign(it)
-			onRenderViews(view)
-			view
-		}  ?: run { super.setView(inflater, container) }
+		if (context == null)
+		{
+			println("It is empty")
+		}
+		if (activity == null)
+		{
+			println("It is empty")
+		}
+
+		val view = DataMessenger.getDesign(requireActivity())
+		onRenderViews(view)
+		return view
 	}
 
 	override fun initViews(view: View)

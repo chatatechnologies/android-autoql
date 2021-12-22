@@ -95,29 +95,21 @@ object RequestBuilder
 			{
 				requestQueue?.cancelAll(urlRequest)
 				val json = JSONObject()
-				if (it is UnknownHostException)
+				if (it.networkResponse == null)
 				{
 					json.put("CODE", 500)
-					json.put("CONTENT", "UnknownHostException")
+					json.put("CONTENT", "networkResponse is empty")
 				}
 				else
 				{
-					if (it.networkResponse == null)
-					{
-						json.put("CODE", 500)
-						json.put("CONTENT", "networkResponse is empty")
-					}
-					else
-					{
-						val statusCode = it.networkResponse.statusCode
-						val aResponse = it.networkResponse.data ?: byteArrayOf(0)
-						val response = String(aResponse)
-						/**
-						 * DEFINE MESSAGE IN @param json
-						 */
-						json.put("CODE", statusCode)
-						json.put("RESPONSE", response)
-					}
+					val statusCode = it.networkResponse.statusCode
+					val aResponse = it.networkResponse.data ?: byteArrayOf(0)
+					val response = String(aResponse)
+					/**
+					 * DEFINE MESSAGE IN @param json
+					 */
+					json.put("CODE", statusCode)
+					json.put("RESPONSE", response)
 				}
 				addInfoHolder(json)
 				listener.onFailure(json)

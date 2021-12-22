@@ -156,4 +156,12 @@
 	<item name="ivClose" type="id"/>
 	<item name="frmLocal" type="id"/>
 	<!--	endregion-->
+	<!--	Fragment-->
+	<!--	region Data Messenger-->
+	<item name="tvMsg" type="id"/>
+	<item name="rvChat" type="id"/>
+	<item name="gifView" type="id"/>
+	<item name="ivRun" type="id"/>
+	<item name="ivMicrophone" type="id"/>
+	<!--	endregion-->
 </resources>
