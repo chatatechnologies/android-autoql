@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
@@ -190,12 +191,20 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					R.style.AlertDialogCustom2
 				else R.style.AlertDialogCustom1
 				val wrapper = ContextThemeWrapper(fragmentActivity, theme)
-				AlertDialog.Builder(wrapper)
+				val dialog = AlertDialog.Builder(wrapper)
 					.setMessage("Clear all queries & responses?")
 					.setPositiveButton("Clear") { _, _ ->
 						clearQueriesAndResponses()
 					}
-					.setNegativeButton("Cancel", null).show()
+					.setNegativeButton("Cancel", null)
+					.show()
+					dialog.apply {
+						val color = context.getParsedColor(
+							if (SinglentonDrawer.themeColor == "dark") R.color.text_color_primary_2
+							else R.color.text_color_primary_1)
+						getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
+						getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
+					}
 			}
 		}
 		etQuery.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
