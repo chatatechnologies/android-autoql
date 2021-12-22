@@ -22,6 +22,13 @@ abstract class BaseFragment: Fragment()
 			activity?.let { activity ->
 				parentActivity = activity
 			}
+			setView(inflater, container)
+		} ?: run { null }
+	}
+
+	open fun setView(inflater: LayoutInflater, container: ViewGroup?): View?
+	{
+		return arguments?.let {
 			val iLayout = it.getInt("LAYOUT", 0)
 			val view = inflater.inflate(iLayout, container, false)
 			onRenderViews(view)

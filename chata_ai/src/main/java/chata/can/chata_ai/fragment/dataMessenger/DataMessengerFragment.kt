@@ -11,13 +11,8 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.view.ContextThemeWrapper
-import android.view.MotionEvent
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -266,6 +261,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		}
 		chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+	}
+
+	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View?
+	{
+		return activity?.let {
+			val view = DataMessenger.getDesign(it)
+			onRenderViews(view)
+			view
+		}  ?: run { super.setView(inflater, container) }
 	}
 
 	override fun initViews(view: View)

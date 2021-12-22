@@ -2,6 +2,7 @@ package chata.can.chata_ai.fragment.dataMessenger
 
 import android.content.Context
 import android.graphics.Color
+import android.text.InputType
 import android.util.TypedValue
 import android.view.View
 import android.widget.*
@@ -16,6 +17,7 @@ import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
 import chata.can.chata_ai.view.gif.KGifView
+import chata.can.chata_ai.view.typing.TypingAutoComplete
 
 object DataMessenger
 {
@@ -74,6 +76,28 @@ object DataMessenger
 				addView(RelativeLayout(context).apply {
 					layoutParams = getLinearLayoutParams(-1, dpToPx(40f))
 					margin(5f, 7f, 5f)
+					//region etQuery
+					addView(TypingAutoComplete(context).apply {
+						hint = context.getString(R.string.ask_me_anything)
+						id = R.id.etQuery
+						inputType = InputType.TYPE_CLASS_TEXT
+						layoutParams = getRelativeLayoutParams(-1, -1).apply {
+							addRule(RelativeLayout.START_OF, R.id.ivMicrophone)
+						}
+						paddingAll(10f, right = 10f)
+					})
+					//endregion
+					//region ImageView
+					addView(ImageView(context).apply {
+						id = R.id.ivMicrophone
+						layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f)).apply {
+							addRule(RelativeLayout.ALIGN_PARENT_END)
+						}
+						margin(10f)
+						setImageResource(R.drawable.ic_microphone)
+						paddingAll(10f)
+					})
+					//endregion
 				})
 				//endregion
 			})
