@@ -11,10 +11,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.api1
@@ -24,6 +21,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.request_native.BaseRequest
 import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
@@ -31,7 +29,7 @@ import chata.can.request_native.StatusResponse
 import org.json.JSONArray
 import org.json.JSONObject
 
-class CustomAlertDialog(
+class EditColumnsDialog(
 	private val context1: Context,
 	private val queryBase: QueryBase?
 	): View.OnClickListener, ColumnChanges.AllColumn, StatusResponse {
@@ -91,6 +89,7 @@ class CustomAlertDialog(
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
 					setImageResource(R.drawable.ic_cancel)
+					marginAll(5f)
 					id = R.id.ivCancel
 				}
 				addView(ivCancel)
@@ -163,6 +162,7 @@ class CustomAlertDialog(
 			//endregion
 			//region bottom actions
 			val llBottom = LinearLayout(context1).apply {
+				paddingAll(top = 8f)
 				layoutParams = LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.MATCH_PARENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT).apply { weight = 0f }
@@ -170,12 +170,16 @@ class CustomAlertDialog(
 				gravity = Gravity.BOTTOM or Gravity.END
 				id = R.id.llBottom
 				btnCancel = Button(context1).apply {
+					layoutParams = getLinearLayoutParams(-2, dpToPx(40f))
+					margin(end = 10f)
 					setText(R.string.cancel)
 					isAllCaps = false
 					id = R.id.btnCancel
 				}
 				addView(btnCancel)
 				btnApply = Button(context1).apply {
+					layoutParams = getLinearLayoutParams(-2, dpToPx(40f))
+					margin(end = 10f)
 					setText(R.string.apply)
 					isAllCaps = false
 					id = R.id.btnApply

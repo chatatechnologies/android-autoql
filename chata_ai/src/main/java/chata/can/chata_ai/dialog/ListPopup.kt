@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.graphics.drawable.DrawableCompat
 import chata.can.chata_ai.R
-import chata.can.chata_ai.dialog.hideColumn.CustomAlertDialog
+import chata.can.chata_ai.dialog.hideColumn.EditColumnsDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
@@ -98,7 +98,7 @@ object ListPopup
 					{
 						R.id.iColumn ->
 						{
-							CustomAlertDialog(view.context, queryBase).showDialog()
+							EditColumnsDialog(view.context, queryBase).showDialog()
 						}
 						R.id.iFilterTable ->
 						{
