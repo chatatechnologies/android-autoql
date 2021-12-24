@@ -85,6 +85,7 @@ object DmDesign
 						margin(top = 8f, end = 8f)
 						setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
 						id = R.id.tvNotification
+						visibility = View.GONE
 					})
 					//endregion
 				})

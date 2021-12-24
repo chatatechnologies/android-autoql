@@ -76,7 +76,6 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-//		setContentView(R.layout.activity_pager_options)
 		setContentView(DmDesign.getDesign(this))
 		vBehind = findViewById(R.id.vBehind)
 		llMenu = findViewById(R.id.llMenu)
@@ -228,7 +227,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	fun openChat()
 	{
 		changeColor(rlChat, ivChat)
-		fragment = DataMessengerFragment()//DataMessengerFragment.newInstance()
+		fragment = DataMessengerFragment()
 		visibleClear(true)
 		//region setDataToDataMessenger
 		fragment.arguments?.let {
