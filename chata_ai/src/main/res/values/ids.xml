@@ -164,4 +164,17 @@
 	<item name="ivRun" type="id"/>
 	<item name="ivMicrophone" type="id"/>
 	<!--	endregion-->
+	<!--	region Explore queries-->
+	<item name="llQuery" type="id"/>
+	<item name="ivSearch" type="id"/>
+	<item name="rvRelatedQueries" type="id"/>
+	<item name="rlGif" type="id"/>
+	<item name="tvMsg2" type="id"/>
+	<item name="llPager" type="id"/>
+	<item name="tvPrevious" type="id"/>
+	<item name="tvFirstPage" type="id"/>
+	<item name="tvCenterPage" type="id"/>
+	<item name="tvLastPage" type="id"/>
+	<item name="tvNext" type="id"/>
+	<!--	endregion-->
 </resources>

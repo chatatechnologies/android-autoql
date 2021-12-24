@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
@@ -71,10 +72,13 @@ object ExploreQueries
 				layoutParams = getLinearLayoutParams(-1, 0).apply { weight = 1f }
 				orientation = LinearLayout.VERTICAL
 				//region rvRelatedQueries
-				addView(RecyclerView(context).apply {
+				val contextThemeWrapper = ContextThemeWrapper(context, R.style.ScrollbarRecyclerview)
+				addView(RecyclerView(contextThemeWrapper).apply {
 					getLinearLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 					visibility = View.GONE
 					id = R.id.rvRelatedQueries
+					isVerticalScrollBarEnabled = true
+					isHorizontalScrollBarEnabled = true
 				})
 				//endregion
 				//region rlGif

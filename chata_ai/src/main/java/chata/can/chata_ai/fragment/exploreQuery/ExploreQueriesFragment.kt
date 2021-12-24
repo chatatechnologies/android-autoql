@@ -35,7 +35,6 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 {
 	companion object {
 		const val nameFragment = "Explore Queries"
-//			putInt("LAYOUT", R.layout.fragment_explore_queries)
 	}
 
 	private lateinit var llParent: LinearLayout

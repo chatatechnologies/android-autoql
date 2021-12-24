@@ -38,4 +38,8 @@
 		<item name="colorAccent">@color/accent_color_1</item>
 		<item name="android:textColorSecondary">@color/selected_gray</item>
 	</style>
+
+	<style name="ScrollbarRecyclerview" parent="android:Widget">
+		<item name="android:scrollbars">vertical</item>
+	</style>
 </resources>
