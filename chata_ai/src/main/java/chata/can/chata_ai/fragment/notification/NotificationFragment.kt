@@ -3,7 +3,9 @@ package chata.can.chata_ai.fragment.notification
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,9 +26,6 @@ class NotificationFragment: BaseFragment(), NotificationContract
 {
 	companion object {
 		const val nameFragment = "Notifications"
-		fun newInstance() = NotificationFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_notifications)
-		}
 	}
 
 	private lateinit var llParent: View
@@ -40,6 +39,13 @@ class NotificationFragment: BaseFragment(), NotificationContract
 	private lateinit var presenter: NotificationPresenter
 	private var totalPages = 0
 	private var countPages = 1
+
+	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View
+	{
+		val view = NotificationDesign.getDesign(requireActivity())
+		onRenderViews(view)
+		return view
+	}
 
 	override fun onRenderViews(view: View)
 	{

@@ -159,7 +159,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 									changeColor(rlNotify, ivNotify)
 									visibleClear(false)
 									showNotification()
-									fragment = NotificationFragment.newInstance()
+									fragment = NotificationFragment()
 									putFragment(NotificationFragment.nameFragment)
 								}
 							}
