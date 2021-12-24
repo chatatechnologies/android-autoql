@@ -12,7 +12,6 @@
 		android:id="@+id/llQuery"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:orientation="horizontal"
 		android:padding="8dp">
 		<ImageView
 			android:contentDescription="@null"
