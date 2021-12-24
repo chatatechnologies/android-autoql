@@ -3,7 +3,9 @@ package chata.can.chata_ai.fragment.exploreQuery
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -26,7 +28,6 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.explore.ExploreQuery
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.putArgs
 import kotlin.math.abs
 import kotlin.math.log10
 
@@ -34,9 +35,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 {
 	companion object {
 		const val nameFragment = "Explore Queries"
-		fun newInstance() = ExploreQueriesFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_explore_queries)
-		}
+//			putInt("LAYOUT", R.layout.fragment_explore_queries)
 	}
 
 	private lateinit var llParent: LinearLayout
@@ -63,6 +62,13 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 	private var numItems = 0
 	private var currentPage = 0
 	private var pageSize = 0
+
+	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View
+	{
+		val view = ExploreQueries.getDesign(requireActivity())
+		onRenderViews(view)
+		return view
+	}
 
 	override fun onRenderViews(view: View)
 	{
@@ -183,6 +189,10 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			rvRelatedQueries.visibility = visible
 			model.clear()
 			model.addAll(aItems)
+			val iView = if (aItems.size > 0) View.GONE
+			else View.VISIBLE
+			tvMsg1.visibility = iView
+			tvMsg2.visibility = iView
 			adapter.notifyItemRangeChanged(0, model.countData() - 1)
 			configPager(this)
 		}

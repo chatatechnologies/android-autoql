@@ -262,7 +262,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	{
 		changeColor(rlTips, ivTips)
 		visibleClear(false)
-		fragment = ExploreQueriesFragment.newInstance()
+		fragment = ExploreQueriesFragment()
 		putFragment(ExploreQueriesFragment.nameFragment)
 	}
 
