@@ -6,12 +6,14 @@ import android.webkit.WebView
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,17 +58,22 @@ class NotificationHolder(
 				if (notification.state == "DISMISSED")
 				{
 					tvTitle.setTextColor(gray)
-					iView.visibility = View.INVISIBLE
+					//iView.visibility = View.INVISIBLE
 				}
 				else
 				{
 					tvTitle.setTextColor(blue)
-					iView.visibility = View.VISIBLE
+					//iView.visibility = View.VISIBLE
 				}
 				//unicode for calendar
 				val sDate = "\uD83D\uDCC5 ${toDate(notification.createdAt)}"
 				tvTitle.text = notification.title
-				tvBody.text = notification.message
+				tvBody.visibility = if (notification.message.isNotEmpty())
+				{
+					tvBody.text = notification.message
+					View.VISIBLE
+				}
+				else View.GONE
 				tvDate.text = sDate
 				tvQuery.text = notification.query.replaceFirstChar {
 					if (it.isLowerCase()) it.titlecase(
@@ -91,6 +98,7 @@ class NotificationHolder(
 					tvContent.setTextColor(gray)
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
+					iView.layoutParams = getRelativeLayoutParams(dpToPx(4f), ivTop.measuredHeight)
 					iView.background = DrawableBuilder.setGradientDrawable(
 						blue,
 						aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))

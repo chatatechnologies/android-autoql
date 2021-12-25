@@ -1,6 +1,7 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
@@ -34,12 +35,14 @@ object NotificationView
 				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				//region iView
 				addView(View(context).apply {
+					minimumHeight = 0
+					layoutParams = getRelativeLayoutParams(dpToPx(40f), -1)
 					id = R.id.iView
-					layoutParams = getRelativeLayoutParams(dpToPx(4f), -1)
 				})
 				//endregion
 				//region ivTop
 				addView(LinearLayout(context).apply {
+					setBackgroundColor(Color.RED)
 					id = R.id.ivTop
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 						addRule(RelativeLayout.END_OF, R.id.iView)
