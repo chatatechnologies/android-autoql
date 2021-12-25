@@ -17,6 +17,9 @@ class OptionAdapter(
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		val layoutInflater = LayoutInflater.from(parent.context)
-		return OptionHolder(layoutInflater.inflate(R.layout.row_option, nullParent))
+		return OptionHolder(
+			layoutInflater.inflate(R.layout.row_option, nullParent)
+
+		)
 	}
 }

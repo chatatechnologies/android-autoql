@@ -155,6 +155,8 @@
 	<item name="rlLocal" type="id"/>
 	<item name="ivClose" type="id"/>
 	<item name="frmLocal" type="id"/>
+	<item name="toolbar" type="id"/>
+	<item name="ivClear" type="id"/>
 	<!--	endregion-->
 	<!--	Fragment-->
 	<!--	region Data Messenger-->

@@ -8,7 +8,7 @@ object LayoutParams {
 	const val MATCH_PARENT_ONLY = 1
 	const val WRAP_CONTENT_ONLY = 2
 	const val MATCH_PARENT_WRAP_CONTENT = 12
-	const val WRAP_CONTENT_MATCH_PARENT = 21
+	private const val WRAP_CONTENT_MATCH_PARENT = 21
 
 	private fun getConfigSize(configSize: Int): Pair<Int, Int>
 	{

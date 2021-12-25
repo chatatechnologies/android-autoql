@@ -11,10 +11,6 @@
 	<application>
 		<activity
 			android:hardwareAccelerated="false"
-			android:name=".activity.pager.PagerActivity"/>
-
-		<activity
-			android:hardwareAccelerated="false"
 			android:name=".activity.dm.DMActivity"
 			android:theme="@style/Theme.AppCompat.Translucent"/>
 	</application>
