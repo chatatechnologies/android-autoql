@@ -1,9 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import chata.can.chata_ai.Constant.nullParent
-import chata.can.chata_ai.R
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -16,10 +13,9 @@ class OptionAdapter(
 {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
-		val layoutInflater = LayoutInflater.from(parent.context)
 		return OptionHolder(
-			layoutInflater.inflate(R.layout.row_option, nullParent)
-
+			//layoutInflater.inflate(R.layout.row_option, nullParent)
+			OptionDesign.getRowOption(parent.context)
 		)
 	}
 }

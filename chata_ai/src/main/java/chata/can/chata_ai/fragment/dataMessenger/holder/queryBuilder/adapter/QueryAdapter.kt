@@ -21,6 +21,7 @@ class QueryAdapter(
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
 		return QueryHolder(
+			//layoutInflater.inflate(R.layout.row_query, nullParent)
 				QueryDesign.getRowQuery(parent.context)
 		)
 	}

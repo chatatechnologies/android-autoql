@@ -194,4 +194,12 @@
 	<item name="rlBottom" type="id"/>
 	<item name="tvQuery" type="id"/>
 	<!--  endregion -->
+	<!--  region option design  -->
+	<item name="tvQueryRoot" type="id"/>
+	<item name="ivForwardExplore" type="id"/>
+	<!--  endregion -->
+	<!--  region tvQueryExplore -->
+	<item name="tvQueryExplore" type="id"/>
+	<item name="ivPlay" type="id"/>
+	<!--  endregion -->
 </resources>
