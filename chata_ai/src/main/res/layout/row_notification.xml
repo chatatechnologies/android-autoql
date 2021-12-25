@@ -51,7 +51,6 @@
 			android:layout_toEndOf="@id/iView"
 			android:layout_width="match_parent"
 			android:orientation="vertical"
-			android:visibility="visible"
 			tools:ignore="WebViewLayout">
 			<View
 				android:background="@color/selected_gray"

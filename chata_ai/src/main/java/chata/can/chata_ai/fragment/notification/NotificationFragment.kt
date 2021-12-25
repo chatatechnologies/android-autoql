@@ -20,7 +20,6 @@ import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.putArgs
 
 class NotificationFragment: BaseFragment(), NotificationContract
 {

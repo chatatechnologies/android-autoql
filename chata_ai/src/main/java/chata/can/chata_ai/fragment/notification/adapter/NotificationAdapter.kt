@@ -1,14 +1,11 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import chata.can.chata_ai.R
 import chata.can.chata_ai.fragment.notification.NotificationContract
 import chata.can.chata_ai.fragment.notification.OnBottomReachedListener
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
-import chata.can.chata_ai.pojo.nullValue
 
 class NotificationAdapter(
 	private val model: BaseModelList<*>,
@@ -37,8 +34,10 @@ class NotificationAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
 	{
-		val layoutInflater = LayoutInflater.from(parent.context)
+		NotificationView.getRowNotification(parent.context)
+		//val layoutInflater = LayoutInflater.from(parent.context)
 		return NotificationHolder(
-			layoutInflater.inflate(R.layout.row_notification, nullValue), view)
+			//layoutInflater.inflate(R.layout.row_notification, nullValue), view)
+			NotificationView.getRowNotification(parent.context), view)
 	}
 }
