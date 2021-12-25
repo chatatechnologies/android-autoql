@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
+import android.graphics.Color
 import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
@@ -55,16 +56,20 @@ class NotificationHolder(
 						presenter.getRuleQuery(notification.id)
 					}
 				}
-				if (notification.state == "DISMISSED")
+				val color = if (notification.state == "DISMISSED")
 				{
 					tvTitle.setTextColor(gray)
-					//iView.visibility = View.INVISIBLE
+					Color.TRANSPARENT
 				}
 				else
 				{
 					tvTitle.setTextColor(blue)
-					//iView.visibility = View.VISIBLE
+					blue
 				}
+
+				iView.background = DrawableBuilder.setGradientDrawable(
+					color,
+					aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))
 				//unicode for calendar
 				val sDate = "\uD83D\uDCC5 ${toDate(notification.createdAt)}"
 				tvTitle.text = notification.title
@@ -99,9 +104,6 @@ class NotificationHolder(
 					rlParent.background =
 						DrawableBuilder.setGradientDrawable(white,18f,0, gray)
 					iView.layoutParams = getRelativeLayoutParams(dpToPx(4f), ivTop.measuredHeight)
-					iView.background = DrawableBuilder.setGradientDrawable(
-						blue,
-						aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f))
 				}
 			}
 		}
@@ -122,9 +124,11 @@ class NotificationHolder(
 		tvContent.run {
 			visibility = View.VISIBLE
 			setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
-			tvContent.text = if (intRes != 0) context.getString(intRes) else text
+			setText(if (intRes != 0) context.getString(intRes) else text)
 		}
 		view.showItem(adapterPosition)
+		iView.layoutParams = getRelativeLayoutParams(
+			iView.context.dpToPx(4f), rlParent.measuredHeight)
 	}
 
 	private fun setBottomVisibility(notification: Notification)

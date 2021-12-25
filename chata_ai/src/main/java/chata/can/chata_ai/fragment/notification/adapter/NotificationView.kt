@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.Gravity
@@ -12,9 +11,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -24,6 +23,7 @@ import chata.can.chata_ai.view.gif.KGifView
 object NotificationView
 {
 	fun getRowNotification(context: Context): LinearLayout {
+		val selectedGray = ThemeColor.currentColor.pDrawerTextColorPrimary
 		return LinearLayout(context).apply {
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			clipToPadding = false
@@ -36,13 +36,12 @@ object NotificationView
 				//region iView
 				addView(View(context).apply {
 					minimumHeight = 0
-					layoutParams = getRelativeLayoutParams(dpToPx(40f), -1)
+					layoutParams = getRelativeLayoutParams(dpToPx(4f), -1)
 					id = R.id.iView
 				})
 				//endregion
 				//region ivTop
 				addView(LinearLayout(context).apply {
-					setBackgroundColor(Color.RED)
 					id = R.id.ivTop
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 						addRule(RelativeLayout.END_OF, R.id.iView)
@@ -82,8 +81,8 @@ object NotificationView
 					orientation = LinearLayout.VERTICAL
 					//region View
 					addView(View(context).apply {
-						setBackgroundColor(context.getParsedColor(R.color.selected_gray))
-						layoutParams = getLinearLayoutParams(-1, dpToPx(0.1f))
+						setBackgroundColor(selectedGray)
+						layoutParams = getLinearLayoutParams(-1, dpToPx(0.2f))
 						margin(top = 8f, bottom = 8f)
 					})
 					//endregion
@@ -98,8 +97,8 @@ object NotificationView
 					//endregion
 					//region View
 					addView(View(context).apply {
-						setBackgroundColor(context.getParsedColor(R.color.selected_gray))
-						layoutParams = getLinearLayoutParams(-1, dpToPx(0.1f))
+						setBackgroundColor(selectedGray)
+						layoutParams = getLinearLayoutParams(-1, dpToPx(0.2f))
 						margin(24f, 4f, 24f)
 					})
 					//endregion
@@ -114,23 +113,23 @@ object NotificationView
 							}
 						})
 						//endregion
-						//region tvContent
-						addView(TextView(context).apply {
-							gravity = Gravity.CENTER
-							id = R.id.tvContent
-							layoutParams = getLinearLayoutParams(-1, dpToPx(200f))
-							visibility = View.GONE
-							margin(22f, end = 22f)
-							setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
-						})
-						//endregion
-						//region wbQuery
-						addView(WebView(context).apply {
-							id = R.id.wbQuery
-							layoutParams = getLinearLayoutParams(-1, dpToPx(200f))
-							visibility = View.GONE
-						})
-						//endregion
+					})
+					//endregion
+					//region tvContent
+					addView(TextView(context).apply {
+						gravity = Gravity.CENTER
+						id = R.id.tvContent
+						layoutParams = getLinearLayoutParams(-1, dpToPx(200f))
+						visibility = View.GONE
+						margin(16f, end = 16f)
+						setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
+					})
+					//endregion
+					//region wbQuery
+					addView(WebView(context).apply {
+						id = R.id.wbQuery
+						layoutParams = getLinearLayoutParams(-1, dpToPx(200f))
+						visibility = View.GONE
 					})
 					//endregion
 				})
