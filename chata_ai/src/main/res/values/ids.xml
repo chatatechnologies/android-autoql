@@ -184,4 +184,12 @@
 	<item name="btnTry" type="id"/>
 	<item name="rvNotification" type="id"/>
 	<!--  endregion -->
+	<!--  region row notification -->
+	<item name="iView" type="id"/>
+	<item name="ivTop" type="id"/>
+	<item name="tvBody" type="id"/>
+	<item name="tvDate" type="id"/>
+	<item name="rlBottom" type="id"/>
+	<item name="tvQuery" type="id"/>
+	<!--  endregion -->
 </resources>

@@ -52,9 +52,10 @@ class NotificationHolder(
 					notification.isVisible = rlBottom.visibility == View.GONE
 					setBottomVisibility(notification)
 					if (notification.isVisible)
-					{
 						presenter.getRuleQuery(notification.id)
-					}
+					else
+						iView.layoutParams = getRelativeLayoutParams(
+							iView.context.dpToPx(4f), ivTop.measuredHeight)
 				}
 				val color = if (notification.state == "DISMISSED")
 				{
