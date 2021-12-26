@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -30,10 +31,12 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 		}
 		with(ThemeColor.currentColor)
 		{
-			ll1.context?.let {
-				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
-				tvExecute.setTextColor(pDrawerTextColorPrimary)
-			}
+			ll1?.backgroundWhiteGray()
+//			ll1.context?.let {
+//				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
+//				tvExecute.setTextColor(pDrawerTextColorPrimary)
+//			}
+			tvExecute.setTextColor(pDrawerTextColorPrimary)
 		}
 
 		tvExecute.setTypeface(tvExecute.typeface, Typeface.ITALIC)
