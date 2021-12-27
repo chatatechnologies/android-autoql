@@ -56,7 +56,9 @@ object DisplaySqlDesign
 			//region vBorder
 			addView(View(context).apply {
 				id = R.id.vBorder
-				layoutParams = getRelativeLayoutParams(-1, dpToPx(1f))
+				layoutParams = getRelativeLayoutParams(-1, dpToPx(1f)).apply {
+					addRule(RelativeLayout.BELOW, R.id.rlTitle)
+				}
 			})
 			//endregion
 			//region body RelativeLayout
@@ -68,7 +70,7 @@ object DisplaySqlDesign
 				marginAll(5f)
 				paddingAll(10f)
 				//region etQuery
-				addView(EditText(context).apply {
+				addView(TextView(context).apply {
 					id = R.id.etQuery
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 					paddingAll(8f)
@@ -96,7 +98,7 @@ object DisplaySqlDesign
 					addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
 					addRule(RelativeLayout.ALIGN_PARENT_END)
 				}
-				margin(8f)
+				margin(end = 8f, bottom = 8f)
 				isAllCaps = false
 				text = resources.getString(R.string.ok)
 			})
