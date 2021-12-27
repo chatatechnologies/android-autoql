@@ -96,9 +96,9 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			//query base for testing
 //			val queryDemo = "Total revenue by job type last year"//new multi series
+			val queryDemo = "Total revenue by month in 2019"
 	//Suggestion
 //			val queryDemo = "Total tickets by month"
-			val queryDemo = "total hours utilization for equipment by month in 2017 for hydrovac"
 //			val queryDemo = "number of tickets for 2019"
 
 			//example tri dimensional

@@ -3,13 +3,16 @@ package chata.can.chata_ai.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 
 abstract class BaseDialog(
 	context: Context,
 	private val intRest: Int,
-	private val isFull: Boolean = true): Dialog(context)
+	private val isFull: Boolean = true
+): Dialog(context)
 {
+
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
@@ -18,6 +21,11 @@ abstract class BaseDialog(
 		window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
 			if (isFull) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT)
 		onCreateView()
+	}
+
+	open fun setView(getView: (Context) -> View)
+	{
+		setContentView(getView(context))
 	}
 
 	open fun onCreateView()

@@ -32,10 +32,6 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 		with(ThemeColor.currentColor)
 		{
 			ll1?.backgroundWhiteGray()
-//			ll1.context?.let {
-//				ll1.background =  DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
-//				tvExecute.setTextColor(pDrawerTextColorPrimary)
-//			}
 			tvExecute.setTextColor(pDrawerTextColorPrimary)
 		}
 
