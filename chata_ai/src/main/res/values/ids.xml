@@ -202,4 +202,11 @@
 	<item name="tvQueryExplore" type="id"/>
 	<item name="ivPlay" type="id"/>
 	<!--  endregion -->
+	<!--  region Dialog  -->
+	<item name="iView1" type="id"/>
+	<item name="tvMessage" type="id"/>
+	<item name="etMessage" type="id"/>
+	<item name="iView2" type="id"/>
+	<item name="btnReport" type="id"/>
+	<!--  endregion -->
 </resources>

@@ -5,27 +5,28 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 
 abstract class BaseDialog(
 	context: Context,
-	private val intRest: Int,
-	private val isFull: Boolean = true
+	private val intRest: Int = 0,
+	private val isFull: Boolean = true,
+	private var rootView: View ?= null
 ): Dialog(context)
 {
-
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
 		setCanceledOnTouchOutside(false)
-		setContentView(intRest)
+		rootView?.let {
+			setContentView(it)
+		} ?: run {
+			setContentView(intRest)
+		}
+
 		window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
 			if (isFull) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT)
 		onCreateView()
-	}
-
-	open fun setView(getView: (Context) -> View)
-	{
-		setContentView(getView(context))
 	}
 
 	open fun onCreateView()
