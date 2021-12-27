@@ -209,4 +209,16 @@
 	<item name="iView2" type="id"/>
 	<item name="btnReport" type="id"/>
 	<!--  endregion -->
+	<!--  Display Sql -->
+	<item name="btnOk" type="id"/>
+	<item name="etQuery" type="id"/>
+	<item name="ivCopy" type="id"/>
+	<item name="rlAlert" type="id"/>
+	<item name="llAlert" type="id"/>
+	<item name="tvAlert" type="id"/>
+	<!--  endregion -->
+	<!--  region progress dialog  -->
+	<item name="pb" type="id"/>
+	<item name="tv" type="id"/>
+	<!--  endregion -->
 </resources>

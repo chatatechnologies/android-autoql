@@ -1,23 +1,66 @@
 package chata.can.chata_ai.view
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.marginAll
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
 
 object ProgressWait
 {
 	private var dialog: AlertDialog ?= null
 
+	private fun getDesign(context: Context): RelativeLayout {
+		return RelativeLayout(context).apply {
+			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+			setBackgroundColor(Color.TRANSPARENT)
+			addView(TableRow(context).apply {
+				setBackgroundColor(Color.WHITE)
+				layoutParams = getRelativeLayoutParams(-2, dpToPx(64f)).apply {
+					addRule(RelativeLayout.CENTER_IN_PARENT)
+				}
+				marginAll(30f)
+				//region ProgressBar
+				addView(ProgressBar(context, null, android.R.attr.progressBarStyle).apply {
+					id = R.id.pb
+					layoutParams = TableRow.LayoutParams(-2, -1)
+					margin(10f, end = 10f)
+				})
+				//endregion
+				//region TextView
+				addView(TextView(context).apply {
+					gravity = Gravity.CENTER or Gravity.START
+					id = R.id.tv
+					layoutParams = TableRow.LayoutParams(-1, -1)
+					setTextColor(Color.WHITE)
+					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+					visibility = View.GONE
+				})
+				//endregion
+			})
+		}
+	}
+
 	fun showProgressDialog(context: Context, message: String): AlertDialog?
 	{
 		dialog?.dismiss()
 		val dialogBuilder = AlertDialog.Builder(context)
-		val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-		val dialogView = inflater.inflate(R.layout.dialog_progress, nullParent).apply {
+		val dialogView = getDesign(context)/*inflater.inflate(R.layout.dialog_progress, nullParent)*/.apply {
 			findViewById<TextView>(R.id.tv)?.run {
 				text = message
 			}

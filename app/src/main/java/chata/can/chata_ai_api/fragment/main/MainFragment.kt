@@ -144,6 +144,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
 			servicePresenter.createAuthenticate()
+			showDialog()
 		}
 		else
 		{
