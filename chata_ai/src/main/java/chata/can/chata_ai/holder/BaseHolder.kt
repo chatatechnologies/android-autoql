@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.dialog.ReportProblemDialog
+import chata.can.chata_ai.dialog.reportProblem.ReportProblemDialog
 import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract

@@ -22,7 +22,10 @@ import com.google.android.material.button.MaterialButton
 class DisplaySQLDialog(
 	context: Context,
 	private val query: String
-): BaseDialog(context, R.layout.dialog_display_sql), View.OnClickListener
+): BaseDialog(context,
+	rootView = DisplaySqlDesign.getDesign(context)
+	//R.layout.dialog_display_sql
+), View.OnClickListener
 {
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView

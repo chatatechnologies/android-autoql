@@ -1,16 +1,16 @@
-package chata.can.chata_ai.dialog
+package chata.can.chata_ai.dialog.reportProblem
 
 import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.*
 import chata.can.chata_ai.R
+import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
 
 class ReportProblemDialog(
 	context: Context,

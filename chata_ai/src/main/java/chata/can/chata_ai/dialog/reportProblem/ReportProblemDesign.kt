@@ -1,4 +1,4 @@
-package chata.can.chata_ai.dialog
+package chata.can.chata_ai.dialog.reportProblem
 
 import android.content.Context
 import android.graphics.Typeface

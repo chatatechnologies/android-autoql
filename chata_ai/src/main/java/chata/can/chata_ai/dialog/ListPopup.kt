@@ -12,6 +12,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.hideColumn.EditColumnsDialog
 import chata.can.chata_ai.dialog.listPopup.DataPopup
+import chata.can.chata_ai.dialog.reportProblem.ReportProblemDialog
 import chata.can.chata_ai.dialog.sql.DisplaySQLDialog
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.holder.webView.ConfigActions

@@ -8,7 +8,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import chata.can.chata_ai.dialog.ReportProblemDialog
+import chata.can.chata_ai.dialog.reportProblem.ReportProblemDialog
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.formatWithColumn
