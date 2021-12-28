@@ -59,57 +59,27 @@ class JavaScriptInterface(
 		}
 	}
 
-	private fun isSplitContent(content: String): Pair<Boolean, List<String>>
-	{
-		val list = content.split("_")
-		return Pair(list.size > 1, list)
-	}
-
 	@JavascriptInterface
 	fun drillDown(content: String)
 	{
-		if (SinglentonDrawer.mIsEnableDrillDown)
-		{
-			if (queryBase.mSourceDrill.isNotEmpty() && queryBase.showContainer != "#container")
-				return
-			val sizeColumn = queryBase.aColumn.size
-			var newContent = ""
-
-			if (content.contains("_"))
+		queryBase.run {
+			if (SinglentonDrawer.mIsEnableDrillDown)
 			{
-				when(sizeColumn){
-					2 ->
-					{
-						val pair = isSplitContent(content)
-						if (pair.first)
-						{
-							pair.second[0].toIntOrNull()?.let {
-								val aRows = queryBase.aRows
-								newContent = aRows[it][0]
-								postDrillDown(newContent)
-							}
-						}
-					}
-					3 ->
-					{
-						if (content.contains("_"))
-						{
-							val aPositions = content.split("_")
-							if (aPositions.size > 1)
-							{
-								postDrillDown(newContent)
-							}
-						}
-					}
+				if (mSourceDrill.isNotEmpty() && showContainer != "#container") return
+
+				when(aColumn.size)
+				{
+					2 -> drillForBi(content)
+					3 -> drillForTri(content)
 					else ->
 					{
-						content.split("_").run {
-							if (this.size > 1)
+						containForList(content).run {
+							if (first)
 							{
-								val date = this[0]
-								val index = this[1].toIntNotNull()
+								val date = second[0]
+								val index = second[1].toIntNotNull()
 								//todo set index active for value on bottom multiples
-								queryBase.getSourceDrill()?.let { mDrillDown ->
+								getSourceDrill()?.let { mDrillDown ->
 									mDrillDown[date]?.let {
 										val values = it[index]
 
@@ -136,28 +106,127 @@ class JavaScriptInterface(
 					}
 				}
 			}
-			else
+		}
+	}
+
+	private fun drillForBi(content: String)
+	{
+		queryBase.run {
+			val index = aXAxis.indexOf(content)
+			val value = if (index != -1)
 			{
-				if (newContent.isEmpty()) newContent = content
-				val index = queryBase.aXAxis.indexOf(newContent)
-				newContent = if (index != -1)
+				aXDrillDown[index]
+			}
+			else "undefined"
+			postDrillDown(value)
+		}
+	}
+
+	private fun drillForTri(content: String)
+	{
+		queryBase.run {
+			containForList(content).run {
+				if (first)
 				{
-					queryBase.aXDrillDown[index]
+					if (second.isNotEmpty())
+					{
+						drillForBi(second[0])
+					}
 				}
-				else
-				{
-					"undefined"
-				}
-				postDrillDown(newContent)
 			}
 		}
 	}
 
-	private fun postDrillDown(newContent: String)
+	private fun containForList(content: String, character: String = "_"): Pair<Boolean, List<String>>
+	{
+		return if (content.contains(character)) Pair(true, content.split(character))
+		else Pair(false, listOf())
+	}
+
+	private fun postDrillDown(content: String)
 	{
 		(context as? Activity)?.runOnUiThread {
 			chatView?.isLoading(true)
 		}
-		presenter.postDrillDown(if (newContent.isEmpty()) "null" else newContent)
+		presenter.postDrillDown(if (content.isEmpty()) "null" else content)
 	}
+
+	/*
+	* var newContent = ""
+
+				if (content.contains("_"))
+				{
+					when(sizeColumn){
+						2 ->
+						{
+							val pair = isSplitContent(content)
+							if (pair.first)
+							{
+								pair.second[0].toIntOrNull()?.let {
+									val aRows = queryBase.aRows
+									newContent = aRows[it][0]
+									postDrillDown(newContent)
+								}
+							}
+						}
+						3 ->
+						{
+							if (content.contains("_"))
+							{
+								val aPositions = content.split("_")
+								if (aPositions.size > 1)
+								{
+									postDrillDown(newContent)
+								}
+							}
+						}
+						else ->
+						{
+							content.split("_").run {
+								if (this.size > 1)
+								{
+									val date = this[0]
+									val index = this[1].toIntNotNull()
+									//todo set index active for value on bottom multiples
+									queryBase.getSourceDrill()?.let { mDrillDown ->
+										mDrillDown[date]?.let {
+											val values = it[index]
+
+											val json = JSONObject().put("query", "")
+											val newQueryBase = QueryBase(json).apply {
+												for (column in queryBase.aColumn)
+												{
+													val tmp = column.copy()
+													aColumn.add(tmp)
+												}
+												aRows.addAll(values)
+												limitRowNum = values.size + 1
+											}
+											newQueryBase.queryId = queryBase.queryId
+											//this line is the bug
+											newQueryBase.resetData()
+											(context as? Activity)?.runOnUiThread {
+												chatView?.addNewChat(TypeChatView.WEB_VIEW, newQueryBase)
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					if (newContent.isEmpty()) newContent = content
+					val index = queryBase.aXAxis.indexOf(newContent)
+					newContent = if (index != -1)
+					{
+						queryBase.aXDrillDown[index]
+					}
+					else
+					{
+						"undefined"
+					}
+					postDrillDown(newContent)
+				}*/
 }

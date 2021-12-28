@@ -17,7 +17,7 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 			{
 				when(displayType)
 				{
-					"line" ->
+					"TypeEnum.LINE" ->
 					{
 						if (isTri)
 						{
