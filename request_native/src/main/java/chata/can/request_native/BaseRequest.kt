@@ -21,8 +21,9 @@ class BaseRequest(
 				val connection = url.openConnection() as HttpURLConnection
 				connection.requestMethod = "${requestData.requestMethod}"
 
-				connection.readTimeout = 20000//10 seconds
-				connection.connectTimeout = 20000
+				connection.readTimeout = 60000//10 seconds
+				connection.connectTimeout = 6000
+				connection.setChunkedStreamingMode(0)
 
 				requestData.header?.let { RequestProperty.setProperties(connection, it) }
 

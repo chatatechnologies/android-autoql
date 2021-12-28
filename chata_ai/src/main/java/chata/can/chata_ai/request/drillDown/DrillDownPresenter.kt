@@ -6,10 +6,7 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.request.authentication.Authentication.getAuthorizationJWT
-import chata.can.request_native.BaseRequest
-import chata.can.request_native.RequestData
-import chata.can.request_native.RequestMethod
-import chata.can.request_native.StatusResponse
+import chata.can.request_native.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -20,7 +17,7 @@ class DrillDownPresenter(
 	fun postDrillDown(valueInRow: String = "")
 	{
 		var header: HashMap<String, String> ?= null
-		val mParams = hashMapOf<String, Any>()
+		val mParams: HashMap<String, Any> = hashMapOf()
 
 		val url = if (!AutoQLData.wasLoginIn)
 		{
