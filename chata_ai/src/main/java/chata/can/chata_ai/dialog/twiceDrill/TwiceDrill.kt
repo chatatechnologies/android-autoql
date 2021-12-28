@@ -1,21 +1,22 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.Guideline
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.GuideLine
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
+import chata.can.chata_ai.view.gif.KGifView
 
 object TwiceDrill
 {
@@ -90,12 +91,62 @@ object TwiceDrill
 				addView(RelativeLayout(context).apply {
 					id = R.id.rlDrillDown1
 					marginAll(4f)
-
+					//region wbDrillDown1
+					addView(WebView(context).apply {
+						id = R.id.wbDrillDown1
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+						isVerticalScrollBarEnabled = false
+						isHorizontalFadingEdgeEnabled = false
+					})
+					//endregion
+					//region ivLoad1
+					addView(RelativeLayout(context).apply {
+						id = R.id.ivLoad1
+						getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+					})
+					//endregion
 				})
-				val set = ConstraintSet()
-				set.clone(this)
-				set.connect()
-				set.applyTo(this)
+				//endregion
+				//region rlHide
+				addView(RelativeLayout(context).apply {
+					id = R.id.rlHide
+					marginAll(4f)
+					//region ivHide}
+					addView(ImageView(context).apply {
+						setBackgroundColor(Color.WHITE)
+						id = R.id.ivHide
+						layoutParams = getRelativeLayoutParams(dpToPx(56f), -1).apply {
+							addRule(RelativeLayout.ALIGN_PARENT_END)
+						}
+						setImageResource(R.drawable.ic_hide_chart)
+					})
+					//endregion
+				})
+				//endregion
+				//region rlDrillDown2
+				addView(RelativeLayout(context).apply {
+					id = R.id.rlDrillDown2
+					marginAll(4f)
+					//region wbDrillDown2
+					addView(WebView(context).apply {
+						id = R.id.wbDrillDown2
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+					})
+					//endregion
+					//region ivLoad2
+					addView(RelativeLayout(context).apply {
+						id = R.id.ivLoad2
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+						//region KGifView
+						addView(KGifView(context).apply {
+							layoutParams = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f)).apply {
+								addRule(RelativeLayout.CENTER_IN_PARENT)
+							}
+						})
+						//endregion
+					})
+					//endregion
+				})
 				//endregion
 			})
 			//endregion

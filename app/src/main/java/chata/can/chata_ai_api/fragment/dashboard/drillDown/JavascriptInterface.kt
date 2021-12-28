@@ -28,11 +28,11 @@ class JavascriptInterface(private val context: Context, private val queryBase: Q
 							drillForBi(content)
 						}
 					}
-					"bar", "column", "pie" ->
+					"TypeEnum.BAR", "TypeEnum.COLUMN", "TypeEnum.PIE" ->
 					{
 						drillForBi(content)
 					}
-					"heatmap", "bubble", "stacked_bar", "stacked_column", "stacked_line" ->
+					"TypeEnum.HEATMAP", "TypeEnum.BUBBLE", "TypeEnum.STACKED_BAR", "TypeEnum.STACKED_COLUMN", "stacked_line" ->
 					{
 						drillForTri(content)
 					}

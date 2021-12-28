@@ -3,16 +3,13 @@ package chata.can.chata_ai.view
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.TypedValue
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import chata.can.chata_ai.Constant.nullParent
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
@@ -61,7 +58,7 @@ object ProgressWait
 	{
 		dialog?.dismiss()
 		val dialogBuilder = AlertDialog.Builder(context)
-		val dialogView = getDesign(context)/*inflater.inflate(R.layout.dialog_progress, nullParent)*/.apply {
+		val dialogView = getDesign(context).apply {
 			findViewById<TextView>(R.id.tv)?.run {
 				text = message
 			}
@@ -70,7 +67,7 @@ object ProgressWait
 		dialogBuilder.setView(dialogView)
 		dialogBuilder.setCancelable(false)
 		dialog = dialogBuilder.create().apply {
-			window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+			window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 			show()
 		}
 		return dialog

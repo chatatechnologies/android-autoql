@@ -138,22 +138,4 @@
 		</RelativeLayout>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--	<RelativeLayout-->
-<!--		android:layout_below="@id/rlTitle"-->
-<!--		android:layout_margin="5dp"-->
-<!--		android:layout_height="match_parent"-->
-<!--		android:layout_width="match_parent"-->
-<!--		android:padding="10dp">-->
-<!--		<chata.can.chata_ai.view.gif.KGifView-->
-<!--			android:layout_centerInParent="true"-->
-<!--			android:id="@+id/ivLoad"-->
-<!--			android:layout_height="160dp"-->
-<!--			android:layout_width="160dp"/>-->
-<!--		<WebView-->
-<!--			android:id="@+id/wbDrillDown"-->
-<!--			android:layout_height="match_parent"-->
-<!--			android:layout_width="match_parent"-->
-<!--			android:visibility="gone"/>-->
-<!--	</RelativeLayout>-->
 </RelativeLayout>
