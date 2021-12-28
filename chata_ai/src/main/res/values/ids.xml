@@ -221,4 +221,8 @@
 	<item name="pb" type="id"/>
 	<item name="tv" type="id"/>
 	<!--  endregion -->
+	<!--	region drill down dialog-->
+	<item name="ivLoad" type="id"/>
+	<item name="wbDrillDown" type="id"/>
+	<!--	endregion-->
 </resources>

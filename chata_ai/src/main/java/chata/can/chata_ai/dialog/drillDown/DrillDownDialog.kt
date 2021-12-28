@@ -18,7 +18,7 @@ import chata.can.chata_ai.view.gif.KGifView
 class DrillDownDialog(
 	context: Context,
 	private val queryBase: QueryBase)
-	: BaseDialog(context, R.layout.dialog_drill_down),
+	: BaseDialog(context, rootView = DrillDown.getDesign(context)),
 	DrillDownContract
 {
 	private lateinit var rlParent: View
