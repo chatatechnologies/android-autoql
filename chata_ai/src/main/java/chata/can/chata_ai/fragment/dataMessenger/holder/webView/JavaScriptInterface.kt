@@ -138,6 +138,7 @@ class JavaScriptInterface(
 			}
 			else
 			{
+				if (newContent.isEmpty()) newContent = content
 				val index = queryBase.aXAxis.indexOf(newContent)
 				newContent = if (index != -1)
 				{
