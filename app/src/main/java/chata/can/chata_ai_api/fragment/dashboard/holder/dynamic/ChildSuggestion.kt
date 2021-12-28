@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -86,7 +87,7 @@ object ChildSuggestion {
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			textSize(16f)
 			setPadding(15,15,15,15)
 			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			text = content

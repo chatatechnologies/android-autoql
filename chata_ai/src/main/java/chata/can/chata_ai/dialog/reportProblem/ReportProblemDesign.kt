@@ -9,10 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.marginAll
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.container.LayoutParams
 
 object ReportProblemDesign
@@ -36,7 +33,7 @@ object ReportProblemDesign
 						addRule(RelativeLayout.CENTER_IN_PARENT)
 					}
 					setTypeface(typeface, Typeface.BOLD)
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+					textSize(16f)
 				})
 				//endregion
 				//region ivCancel

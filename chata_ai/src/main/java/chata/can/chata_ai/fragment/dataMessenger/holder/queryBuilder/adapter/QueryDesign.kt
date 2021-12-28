@@ -11,6 +11,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.view.container.LayoutParams
 
 object QueryDesign {
@@ -28,7 +29,7 @@ object QueryDesign {
 					addRule(RelativeLayout.CENTER_IN_PARENT)
 					addRule(RelativeLayout.START_OF, R.id.ivPlay)
 				}
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 			})
 			//endregion
 			//region ivPlay

@@ -10,6 +10,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ColumnQuery
@@ -34,7 +35,7 @@ class ColumnAdapter(
 				layoutParams = RelativeLayout.LayoutParams(-1, -2).apply {
 					addRule(RelativeLayout.START_OF, R.id.cbCheck)
 				}
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 				id = R.id.tvColumnName
 			}
 			addView(tvColumnName)

@@ -135,7 +135,7 @@ class SuggestionHolder(
 			layoutParams = LinearLayout.LayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			textSize(16f)
 			setPadding(15,15,15,15)
 			text = content
 			setTextColor(drawerColorPrimary)

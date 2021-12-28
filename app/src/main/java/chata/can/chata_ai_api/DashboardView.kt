@@ -48,7 +48,7 @@ object DashboardView
 					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 					setTextColor(SinglentonDrawer.currentAccent)
 					setTypeface(typeface, Typeface.BOLD)
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+					textSize(18f)
 					id = R.id.tvTitle
 				}
 				val view = View(context).apply {
@@ -145,7 +145,7 @@ object DashboardView
 				minimumHeight = dpToPx(80f)
 				gravity = GRAVITY_CENTER
 				setTextColor(getParsedColor( R.color.black))
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 				id = R.id.tvContent
 			}
 		}
@@ -184,7 +184,7 @@ object DashboardView
 			val tvContent = TextView(context).apply {
 				layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
 				margin(5f, 5f, 5f, 5f)
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 				id = R.id.tvContent
 			}
 			val llSuggestion = getLinearLayoutBase(context).apply {

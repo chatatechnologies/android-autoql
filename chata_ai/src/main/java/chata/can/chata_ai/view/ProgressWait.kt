@@ -17,6 +17,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.marginAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
@@ -48,7 +49,7 @@ object ProgressWait
 					id = R.id.tv
 					layoutParams = TableRow.LayoutParams(-1, -1)
 					setTextColor(Color.WHITE)
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+					textSize(18f)
 					visibility = View.GONE
 				})
 				//endregion

@@ -10,6 +10,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter
@@ -28,7 +29,7 @@ class SpinnerTextView: RelativeLayout
 			gravity = Gravity.CENTER
 			highlightColor = Color.TRANSPARENT
 			layoutParams = LayoutParams(-1, -2)
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			textSize(16f)
 			viewTreeObserver?.addOnGlobalLayoutListener(object: OnGlobalLayoutListener
 			{
 				override fun onGlobalLayout()

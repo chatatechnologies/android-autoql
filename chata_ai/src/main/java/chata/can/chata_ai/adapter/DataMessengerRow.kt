@@ -9,10 +9,7 @@ import android.webkit.WebView
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.marginAll
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -77,7 +74,7 @@ object DataMessengerRow
 								//region tvCurrentExplore
 								addView(TextView(context).apply {
 									layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-									setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+									textSize(16f)
 									setTypeface(typeface, Typeface.BOLD)
 									id = R.id.tvCurrentExplore
 								})

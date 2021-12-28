@@ -8,10 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -83,7 +80,7 @@ object DmDesign
 						}
 						gravity = Gravity.CENTER
 						margin(top = 8f, end = 8f)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 11f)
+						textSize(11f)
 						id = R.id.tvNotification
 						visibility = View.GONE
 					})
@@ -123,7 +120,7 @@ object DmDesign
 						}
 						gravity = Gravity.CENTER
 						setTextColor(Color.WHITE)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						textSize(18f)
 						id = R.id.tvTitle
 					})
 					//endregion

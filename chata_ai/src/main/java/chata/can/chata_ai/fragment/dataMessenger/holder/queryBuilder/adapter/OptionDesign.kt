@@ -9,6 +9,7 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
@@ -28,7 +29,7 @@ object OptionDesign
 					addRule(RelativeLayout.CENTER_HORIZONTAL)
 					addRule(RelativeLayout.START_OF, R.id.ivForwardExplore)
 				}
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 			})
 			//endregion
 			//region ivForwardExplore

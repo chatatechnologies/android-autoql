@@ -62,7 +62,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 				margin(4f)
 				paddingAll(left = 21f, right = 21f, top = 3f, bottom = 3f)
 				setTextColor(context.getParsedColor(R.color.white))
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+				textSize(18f)
 				text = aText[1]
 			}
 			addView(_tv)

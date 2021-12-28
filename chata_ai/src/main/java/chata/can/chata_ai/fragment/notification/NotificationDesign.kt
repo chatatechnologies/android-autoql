@@ -10,6 +10,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -43,7 +44,7 @@ object NotificationDesign
 					layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 					margin(16f, end = 16f)
 					text = resources.getString(R.string.loading)
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					textSize(14f)
 				})
 				//endregion
 				//region btnTry
@@ -63,7 +64,7 @@ object NotificationDesign
 					layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 					margin(top = 4f)
 					text = resources.getString(R.string.stay_tuned)
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+					textSize(14f)
 					visibility = View.GONE
 				})
 				//endregion

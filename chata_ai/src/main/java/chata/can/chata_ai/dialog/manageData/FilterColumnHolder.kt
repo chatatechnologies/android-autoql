@@ -34,7 +34,7 @@ class FilterColumnHolder(
 				addView(TextView(context).apply {
 					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(32f))
 					id = R.id.tvColumnName
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+					textSize(16f)
 				})
 				//endregion
 				//region selection view
@@ -125,7 +125,7 @@ class FilterColumnHolder(
 	{
 		cbColumn?.let {
 			it.gravity = Gravity.CENTER
-			it.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+			it.textSize(18f)
 		}
 	}
 }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
@@ -124,7 +125,7 @@ class NotificationHolder(
 		rlLoad.visibility = View.GONE
 		tvContent.run {
 			visibility = View.VISIBLE
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+			textSize(textSize)
 			setText(if (intRes != 0) context.getString(intRes) else text)
 		}
 		view.showItem(adapterPosition)

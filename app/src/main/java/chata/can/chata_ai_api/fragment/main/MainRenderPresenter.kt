@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.model.DataMessengerAdmin
 import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.model.SectionData
@@ -30,7 +31,7 @@ class MainRenderPresenter(
 			{
 				layoutParams = LinearLayout.LayoutParams(-1, -2)
 				gravity = Gravity.CENTER_HORIZONTAL
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 				setTypeface(typeface, Typeface.BOLD)
 				text = header
 				llContainer.addView(this)
@@ -67,7 +68,7 @@ class MainRenderPresenter(
 						{
 							id = demoParam.labelId
 						}
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						textSize(18f)
 						visibility = if (demoParam.isVisible) View.VISIBLE else View.GONE
 						llContainer.addView(this)
 					}

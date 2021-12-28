@@ -9,16 +9,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
-import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.getStringResources
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.SuggestionPresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -145,7 +142,7 @@ class SuggestionHolder(
 			layoutParams = LinearLayout.LayoutParams(-2, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.START
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+			textSize(18f)
 			setPadding(15,15,15,15)
 			text = content
 			if (isSuggestion)

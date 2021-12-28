@@ -8,10 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -66,7 +63,7 @@ object DataMessenger
 						}
 						id = R.id.tvMsg
 						setTextColor(context.getParsedColor(R.color.chata_drawer_hover_color_dark))
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+						textSize(12f)
 						text = context.getString(R.string.msg_run_autoql)
 					})
 					//endregion

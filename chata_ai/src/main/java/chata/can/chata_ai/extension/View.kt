@@ -1,16 +1,23 @@
 package chata.can.chata_ai.extension
 
 import android.animation.ObjectAnimator
+import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import chata.can.chata_ai.pojo.base.ItemSelectedListener
 import chata.can.chata_ai.pojo.base.TabSelected
 import chata.can.chata_ai.pojo.base.TextChanged
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import com.google.android.material.tabs.TabLayout
+
+fun TextView.textSize(size: Float)
+{
+	setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
+}
 
 fun EditText.setOnTextChanged(listener: (String) -> Unit)
 {

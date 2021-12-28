@@ -12,6 +12,7 @@ import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
@@ -32,7 +33,7 @@ class ExploreQueriesAdapter(model: BaseModelList<*>, listener: OnItemClickListen
 			addView(TextView(context).apply {
 				layoutParams = RelativeLayout.LayoutParams(-1, -2)
 				gravity = Gravity.CENTER
-				setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+				textSize(16f)
 				paddingAll(8f)
 				id = R.id.tvQuery
 			})

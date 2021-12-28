@@ -13,6 +13,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
@@ -52,21 +53,21 @@ object NotificationView
 					addView(TextView(context).apply {
 						id = R.id.tvTitle
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+						textSize(18f)
 					})
 					//endregion
 					//region tvBody
 					addView(TextView(context).apply {
 						id = R.id.tvBody
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+						textSize(16f)
 					})
 					//endregion
 					//region tvDate
 					addView(TextView(context).apply {
 						id = R.id.tvDate
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+						textSize(14f)
 					})
 					//endregion
 				})
@@ -91,7 +92,7 @@ object NotificationView
 						gravity = Gravity.CENTER
 						id = R.id.tvQuery
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+						textSize(16f)
 						setTypeface(typeface, Typeface.BOLD)
 					})
 					//endregion
@@ -122,7 +123,7 @@ object NotificationView
 						layoutParams = getLinearLayoutParams(-1, dpToPx(200f))
 						visibility = View.GONE
 						margin(16f, end = 16f)
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
+						textSize(22f)
 					})
 					//endregion
 					//region wbQuery

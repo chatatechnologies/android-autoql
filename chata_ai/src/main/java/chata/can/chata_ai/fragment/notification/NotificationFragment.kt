@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.model.BaseModelList
@@ -123,7 +124,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		iv1.visibility = View.VISIBLE
 		tvMsg1.visibility = View.VISIBLE
 		val msgEmpty = getString(R.string.empty_notification)
-		tvLoading.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+		tvLoading.textSize(18f)
 		tvLoading.text = msgEmpty
 	}
 	else

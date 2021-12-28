@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 class AutoCompleteAdapter(context: Context): ArrayAdapter<String>(context, 0)
@@ -28,7 +29,7 @@ class AutoCompleteAdapter(context: Context): ArrayAdapter<String>(context, 0)
 			ellipsize = TextUtils.TruncateAt.MARQUEE
 			paddingAll(left = 20f, top = 4f, right = 14f, bottom = 4f)
 			id = android.R.id.text1
-			setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+			textSize(16f)
 		}
 	}
 

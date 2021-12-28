@@ -16,6 +16,7 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -128,7 +129,7 @@ object ExploreQueries
 					id = R.id.tvPrevious
 					layoutParams = getLinearLayoutParams(0, -2).apply { weight = 1f }
 					gravity = Gravity.CENTER
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
+					textSize(32f)
 					setTypeface(typeface, Typeface.BOLD)
 					text = resources.getString(R.string.arrow_left)
 				})
@@ -144,7 +145,7 @@ object ExploreQueries
 							addRule(RelativeLayout.CENTER_IN_PARENT)
 						}
 						gravity = Gravity.CENTER
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+						textSize(20f)
 						setTypeface(typeface, Typeface.BOLD)
 					})
 					//endregion
@@ -160,7 +161,7 @@ object ExploreQueries
 							addRule(RelativeLayout.CENTER_IN_PARENT)
 						}
 						gravity = Gravity.CENTER
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+						textSize(20f)
 						setTypeface(typeface, Typeface.BOLD)
 					})
 					//endregion
@@ -176,7 +177,7 @@ object ExploreQueries
 							addRule(RelativeLayout.CENTER_IN_PARENT)
 						}
 						gravity = Gravity.CENTER
-						setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
+						textSize(20f)
 						setTypeface(typeface, Typeface.BOLD)
 					})
 					//endregion
@@ -187,7 +188,7 @@ object ExploreQueries
 					id = R.id.tvNext
 					layoutParams = getLinearLayoutParams(0, -2).apply { weight = 1f }
 					gravity = Gravity.CENTER
-					setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
+					textSize(32f)
 					setTypeface(typeface, Typeface.BOLD)
 					text = resources.getString(R.string.arrow_right)
 				})
