@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.view.GuideLine
@@ -70,19 +71,19 @@ object TwiceDrill
 					addRule(RelativeLayout.BELOW, R.id.vBorder)
 				}
 				//region guide
-				val guide = GuideLine.getGuideLine(context, R.id.guide, ConstraintLayout.LayoutParams.VERTICAL).apply {
+				val guide = GuideLine.getGuideLine(context, R.id.guide, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
 					setGuidelinePercent(0.47f)
 				}
 				addView(guide)
 				//endregion
 				//region guide1
-				val guide1 = GuideLine.getGuideLine(context, R.id.guide1, ConstraintLayout.LayoutParams.VERTICAL).apply {
+				val guide1 = GuideLine.getGuideLine(context, R.id.guide1, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
 					setGuidelinePercent(0.53f)
 				}
 				addView(guide1)
 				//endregion
 				//region guideHide
-				val guideHide = GuideLine.getGuideLine(context, R.id.guideHide, ConstraintLayout.LayoutParams.VERTICAL).apply {
+				val guideHide = GuideLine.getGuideLine(context, R.id.guideHide, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
 					setGuidelinePercent(0.06f)
 				}
 				addView(guideHide)
@@ -147,6 +148,15 @@ object TwiceDrill
 					})
 					//endregion
 				})
+
+				val set = ConstraintSet()
+				set.clone(this)
+				set.connect(R.id.rlDrillDown2, ConstraintSet.TOP, R.id.guide1, ConstraintSet.TOP)
+				set.connect(R.id.rlDrillDown2, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+				set.connect(R.id.rlDrillDown2, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
+				set.connect(R.id.rlDrillDown2, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+				set.applyTo(this)
+
 				//endregion
 			})
 			//endregion
