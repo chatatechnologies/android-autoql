@@ -76,7 +76,8 @@ class JavaScriptInterface(
 						containForList(content).run {
 							if (first)
 							{
-								val date = second[0]
+								val dateTmp = second[0]
+								val date = if (dateTmp == "Untitled Category") "null" else second[0]
 								val index = second[1].toIntNotNull()
 								//todo set index active for value on bottom multiples
 								getSourceDrill()?.let { mDrillDown ->
