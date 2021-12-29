@@ -26,7 +26,9 @@ class TwiceDrillDialog(
 	private val queryBase: QueryBase,
 	private var value1: String,
 	private var value2: String = ""
-): BaseDialog(context, isFull = false, rootView = TwiceDrill.getDesign(context)
+): BaseDialog(context, isFull = false,
+//	intRest = R.layout.dialog_twice_drill_down
+	rootView = TwiceDrill.getDesign(context)
 ), View.OnClickListener, DrillDownContract
 {
 	private lateinit var rlParent: View

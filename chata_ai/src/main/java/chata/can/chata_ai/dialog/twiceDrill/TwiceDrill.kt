@@ -71,27 +71,21 @@ object TwiceDrill
 					addRule(RelativeLayout.BELOW, R.id.vBorder)
 				}
 				//region guide
-				val guide = GuideLine.getGuideLine(context, R.id.guide, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
-					setGuidelinePercent(0.47f)
-				}
+				val guide = GuideLine.getGuideLine(context, R.id.guide, ConstraintLayout.LayoutParams.HORIZONTAL, 0.47f)
 				addView(guide)
 				//endregion
 				//region guide1
-				val guide1 = GuideLine.getGuideLine(context, R.id.guide1, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
-					setGuidelinePercent(0.53f)
-				}
+				val guide1 = GuideLine.getGuideLine(context, R.id.guide1, ConstraintLayout.LayoutParams.HORIZONTAL, 0.53f)
 				addView(guide1)
 				//endregion
 				//region guideHide
-				val guideHide = GuideLine.getGuideLine(context, R.id.guideHide, ConstraintLayout.LayoutParams.HORIZONTAL).apply {
-					setGuidelinePercent(0.06f)
-				}
+				val guideHide = GuideLine.getGuideLine(context, R.id.guideHide, ConstraintLayout.LayoutParams.HORIZONTAL, 0.06f)
 				addView(guideHide)
 				//endregion
 				//region rlDrillDown1
 				addView(RelativeLayout(context).apply {
+					setBackgroundColor(Color.RED)
 					id = R.id.rlDrillDown1
-					marginAll(4f)
 					//region wbDrillDown1
 					addView(WebView(context).apply {
 						id = R.id.wbDrillDown1
@@ -111,8 +105,7 @@ object TwiceDrill
 				//region rlHide
 				addView(RelativeLayout(context).apply {
 					id = R.id.rlHide
-					marginAll(4f)
-					//region ivHide}
+					//region ivHide
 					addView(ImageView(context).apply {
 						setBackgroundColor(Color.WHITE)
 						id = R.id.ivHide
@@ -127,7 +120,6 @@ object TwiceDrill
 				//region rlDrillDown2
 				addView(RelativeLayout(context).apply {
 					id = R.id.rlDrillDown2
-					marginAll(4f)
 					//region wbDrillDown2
 					addView(WebView(context).apply {
 						id = R.id.wbDrillDown2
@@ -147,16 +139,29 @@ object TwiceDrill
 						//endregion
 					})
 					//endregion
+					visibility = View.GONE
 				})
 
-				val set = ConstraintSet()
-				set.clone(this)
-				set.connect(R.id.rlDrillDown2, ConstraintSet.TOP, R.id.guide1, ConstraintSet.TOP)
-				set.connect(R.id.rlDrillDown2, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
-				set.connect(R.id.rlDrillDown2, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
-				set.connect(R.id.rlDrillDown2, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-				set.applyTo(this)
+				val setRlDrillDown1 = ConstraintSet()
+				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
+				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.BOTTOM, R.id.guide, ConstraintSet.BOTTOM)
+				setRlDrillDown1.applyTo(this)
 
+				val setRlHide = ConstraintSet()
+				setRlHide.connect(R.id.rlHide, ConstraintSet.TOP, R.id.guide, ConstraintSet.TOP)
+				setRlHide.connect(R.id.rlHide, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+				setRlHide.connect(R.id.rlHide, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
+				setRlHide.connect(R.id.rlHide, ConstraintSet.BOTTOM, R.id.guide1, ConstraintSet.BOTTOM)
+				setRlHide.applyTo(this)
+
+				val setRlDrillDown2 = ConstraintSet()
+				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.TOP, R.id.guide1, ConstraintSet.TOP)
+				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
+				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+				setRlDrillDown2.applyTo(this)
 				//endregion
 			})
 			//endregion

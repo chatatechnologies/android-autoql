@@ -6,12 +6,13 @@ import androidx.constraintlayout.widget.Guideline
 
 object GuideLine
 {
-	fun getGuideLine(context: Context, iId: Int, iOrientation: Int): Guideline
+	fun getGuideLine(context: Context, iId: Int, iOrientation: Int, percent: Float): Guideline
 	{
 		return Guideline(context).apply {
 			id = iId
 			val params = ConstraintLayout.LayoutParams(-2, -2).apply {
 				orientation = iOrientation
+				guidePercent = percent
 			}
 			layoutParams = params
 		}
