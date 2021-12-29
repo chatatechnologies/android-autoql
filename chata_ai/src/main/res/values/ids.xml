@@ -225,4 +225,17 @@
 	<item name="ivLoad" type="id"/>
 	<item name="wbDrillDown" type="id"/>
 	<!--	endregion-->
+	<!--	region twice drill down-->
+	<item name="guide" type="id"/>
+	<item name="guide1" type="id"/>
+	<item name="guideHide" type="id"/>
+	<item name="rlDrillDown1" type="id"/>
+	<item name="wbDrillDown1" type="id"/>
+	<item name="ivLoad1" type="id"/>
+	<item name="rlHide" type="id"/>
+	<item name="ivHide" type="id"/>
+	<item name="rlDrillDown2" type="id"/>
+	<item name="wbDrillDown2" type="id"/>
+	<item name="ivLoad2" type="id"/>
+	<!--	endregion-->
 </resources>

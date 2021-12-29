@@ -1,7 +1,6 @@
 package chata.can.chata_ai.dialog.twiceDrill
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
@@ -84,8 +83,8 @@ object TwiceDrill
 				//endregion
 				//region rlDrillDown1
 				addView(RelativeLayout(context).apply {
-					setBackgroundColor(Color.RED)
 					id = R.id.rlDrillDown1
+					paddingAll(4f)
 					//region wbDrillDown1
 					addView(WebView(context).apply {
 						id = R.id.wbDrillDown1
@@ -107,11 +106,11 @@ object TwiceDrill
 					id = R.id.rlHide
 					//region ivHide
 					addView(ImageView(context).apply {
-						setBackgroundColor(Color.WHITE)
 						id = R.id.ivHide
 						layoutParams = getRelativeLayoutParams(dpToPx(56f), -1).apply {
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
+						marginAll(4f)
 						setImageResource(R.drawable.ic_hide_chart)
 					})
 					//endregion
@@ -120,6 +119,7 @@ object TwiceDrill
 				//region rlDrillDown2
 				addView(RelativeLayout(context).apply {
 					id = R.id.rlDrillDown2
+					paddingAll(4f)
 					//region wbDrillDown2
 					addView(WebView(context).apply {
 						id = R.id.wbDrillDown2
@@ -139,32 +139,32 @@ object TwiceDrill
 						//endregion
 					})
 					//endregion
-					visibility = View.GONE
 				})
 
-				val setRlDrillDown1 = ConstraintSet()
-				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
-				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
-				setRlDrillDown1.connect(R.id.rlDrillDown1, ConstraintSet.BOTTOM, R.id.guide, ConstraintSet.BOTTOM)
-				setRlDrillDown1.applyTo(this)
-
-				val setRlHide = ConstraintSet()
-				setRlHide.connect(R.id.rlHide, ConstraintSet.TOP, R.id.guide, ConstraintSet.TOP)
-				setRlHide.connect(R.id.rlHide, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
-				setRlHide.connect(R.id.rlHide, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
-				setRlHide.connect(R.id.rlHide, ConstraintSet.BOTTOM, R.id.guide1, ConstraintSet.BOTTOM)
-				setRlHide.applyTo(this)
-
-				val setRlDrillDown2 = ConstraintSet()
-				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.TOP, R.id.guide1, ConstraintSet.TOP)
-				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
-				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT)
-				setRlDrillDown2.connect(R.id.rlDrillDown2, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-				setRlDrillDown2.applyTo(this)
-				//endregion
+				setConstraintData(this, R.id.rlDrillDown1, ConstraintData(idBottom = R.id.guide))
+				setConstraintData(this, R.id.rlHide, ConstraintData(idTop = R.id.guide, idBottom = R.id.guide1))
+				setConstraintData(this, R.id.rlDrillDown2, ConstraintData(idTop = R.id.guide1))
 			})
 			//endregion
+		}
+	}
+
+	private data class ConstraintData(
+		val idTop: Int = ConstraintSet.PARENT_ID,
+		val idLeft: Int = ConstraintSet.PARENT_ID,
+		val idRight: Int = ConstraintSet.PARENT_ID,
+		val idBottom: Int = ConstraintSet.PARENT_ID
+	)
+	private fun setConstraintData(constraintLayout: ConstraintLayout, idSource: Int, reference: ConstraintData)
+	{
+		ConstraintSet().run {
+			reference.run {
+				connect(idSource, ConstraintSet.TOP, idTop, ConstraintSet.TOP)
+				connect(idSource, ConstraintSet.LEFT, idLeft, ConstraintSet.LEFT)
+				connect(idSource, ConstraintSet.RIGHT, idRight, ConstraintSet.RIGHT)
+				connect(idSource, ConstraintSet.BOTTOM, idBottom, ConstraintSet.BOTTOM)
+			}
+			applyTo(constraintLayout)
 		}
 	}
 }
