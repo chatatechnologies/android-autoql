@@ -63,7 +63,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 			setColors()
 			if (::gridAdapter.isInitialized)
 			{
-				gridAdapter.notifyItemRangeChanged(0, mModel.countData() - 1)
+				gridAdapter.notifyItemRangeChanged(0, mModel.countData())
 			}
 		}
 	}
@@ -127,7 +127,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		{
 			isQueryClean = true
 			presenter.resetDashboards(false)
-			gridAdapter.notifyItemRangeChanged(0, mModel.countData() - 1)
+			gridAdapter.notifyItemRangeChanged(0, mModel.countData())
 		}
 	}
 
@@ -193,7 +193,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 						val model = SinglentonDashboard.getCurrentDashboard()
 						mModel.clear()
 						mModel.addAll(model.getData())
-						gridAdapter.notifyItemRangeChanged(0, mModel.countData() - 1)
+						gridAdapter.notifyItemRangeChanged(0, mModel.countData())
 
 						configDashboard()
 					}

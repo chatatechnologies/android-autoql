@@ -133,7 +133,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 			adapter.numPages = 1
 			View.GONE
 		}
-		adapter.notifyItemRangeChanged(0, adapter.numPages - 1)
+		adapter.notifyItemRangeChanged(0, adapter.numPages)
 		tabLayout.visibility = visible
 		field = value
 	}

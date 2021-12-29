@@ -192,7 +192,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 			else View.VISIBLE
 			tvMsg1.visibility = iView
 			tvMsg2.visibility = iView
-			adapter.notifyItemRangeChanged(0, model.countData() - 1)
+			adapter.notifyItemRangeChanged(0, model.countData())
 			configPager(this)
 		}
 	}
@@ -312,7 +312,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 				rvRelatedQueries.visibility = visible
 				model.clear()
 				model.addAll(it.aItems)
-				adapter.notifyItemRangeChanged(0, model.countData() - 1)
+				adapter.notifyItemRangeChanged(0, model.countData())
 				configPager(it)
 			}
 		}

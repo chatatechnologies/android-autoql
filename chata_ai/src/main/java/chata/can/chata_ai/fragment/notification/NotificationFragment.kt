@@ -75,7 +75,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		}
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
-			adapter.notifyItemRangeChanged(0, model.countData() - 1)
+			adapter.notifyItemRangeChanged(0, model.countData())
 		}
 	}
 
@@ -133,7 +133,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 		this.totalPages = totalPages
 		model.addAll(aNotification)
 		tvLoading.visibility = View.GONE
-		adapter.notifyItemRangeChanged(0, model.countData() - 1)
+		adapter.notifyItemRangeChanged(0, model.countData())
 	}
 
 	override fun onDestroy()

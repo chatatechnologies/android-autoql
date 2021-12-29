@@ -244,7 +244,7 @@ class QueryBuilderHolder(
 				modelQueries?.add(OptionData(item, false))
 			}
 		}
-		queriesAdapter?.notifyItemRangeChanged(0, modelQueries?.countData() ?: 0 - 1)
+		queriesAdapter?.notifyItemRangeChanged(0, modelQueries?.countData() ?: 0)
 	}
 
 	private val widthParent

@@ -110,23 +110,23 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+			notifyAdapter()
 		}
 
 		ThemeColor.aColorMethods[nameFragment] = {
 			setColors()
 			model.restartData()
-			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+			notifyAdapter()
 		}
 
 		SinglentonDrawer.aLocaleMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+			notifyAdapter()
 		}
 
 		SinglentonDrawer.aCurrencyMethods[nameFragment] = {
 			model.restartData()
-			chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+			notifyAdapter()
 		}
 	}
 
@@ -272,7 +272,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 			model.add(ChatData(TypeChatView.QUERY_BUILDER, ""))
 		}
-		chatAdapter.notifyItemRangeChanged(0, model.countData() - 1)
+		chatAdapter.notifyItemRangeChanged(0, model.countData())
 	}
 
 	override fun initViews(view: View)
@@ -687,5 +687,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private fun setSession(chatData: ChatData)
 	{
 		chatData.simpleQuery?.isSession = statusLogin
+	}
+
+	private fun notifyAdapter()
+	{
+		chatAdapter.notifyItemRangeChanged(0, model.countData())
 	}
 }
