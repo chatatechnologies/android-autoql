@@ -186,7 +186,7 @@ class TwiceDrillDialog(
 					queryBase.run {
 						when(displayType)
 						{
-							"line" ->
+							"TypeEnum.LINE" ->
 							{
 								if (isTri)
 								{
@@ -197,11 +197,11 @@ class TwiceDrillDialog(
 									drillForBi(content, queryBase)
 								}
 							}
-							"bar", "column", "pie" ->
+							"TypeEnum.BAR", "TypeEnum.COLUMN", "TypeEnum.PIE" ->
 							{
 								drillForBi(content, queryBase)
 							}
-							"heatmap", "bubble", "stacked_bar", "stacked_column", "stacked_line" ->
+							"TypeEnum.HEATMAP", "TypeEnum.BUBBLE", "TypeEnum.STACKED_BAR", "TypeEnum.STACKED_COLUMN", "stacked_line" ->
 							{
 								drillForTri(content, queryBase)
 							}
@@ -216,7 +216,11 @@ class TwiceDrillDialog(
 						if (indexX != -1)
 						{
 							value1 = aXDrillDown[indexX]
-							presenter.getQueryDrillDown(value1)
+
+							//presenter.getQueryDrillDown(value1)
+							Handler(Looper.getMainLooper()).postDelayed({
+								ivLoad2.visibility = View.VISIBLE
+							}, 200)
 						}
 					}
 				}
