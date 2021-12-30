@@ -94,8 +94,8 @@ class TwiceDrillDialog(
 	@SuppressLint("SetJavaScriptEnabled")
 	override fun loadDrillDown(queryBase: QueryBase)
 	{
-		ivLoad2.visibility = View.VISIBLE
-		wbDrillDown2.visibility = View.GONE
+		updateView(ivLoad2, View.VISIBLE)
+		updateView(wbDrillDown2, View.GONE)
 
 		if (queryBase.contentHTML.isEmpty())
 		{
@@ -111,10 +111,8 @@ class TwiceDrillDialog(
 				{
 					override fun onPageFinished(view: WebView?, url: String?)
 					{
-						wbDrillDown2.visibility = View.VISIBLE
-						Handler(Looper.getMainLooper()).postDelayed({
-							ivLoad2.visibility = View.GONE
-						}, 200)
+						updateView(wbDrillDown2, View.VISIBLE)
+						updateView(ivLoad2, View.GONE)
 					}
 				}
 			}
@@ -131,14 +129,14 @@ class TwiceDrillDialog(
 				{
 					val tIds = if (rlDrillDown1.visibility == View.VISIBLE)
 					{
-						rlDrillDown1.visibility = View.GONE
+						updateView(rlDrillDown1, View.GONE)
 						val pCenter = Pair(ConstraintSet.PARENT_ID, guideHide.id)
 						val pBottom = Pair(guideHide.id, guide1.id)
 						Triple(pCenter, pBottom, 180f)
 					}
 					else
 					{
-						rlDrillDown1.visibility = View.VISIBLE
+						updateView(rlDrillDown1, View.VISIBLE)
 						val pCenter = Pair(guide.id, guide1.id)
 						val pBottom = Pair(guide1.id, ConstraintSet.PARENT_ID)
 						Triple(pCenter, pBottom, 0f)
@@ -217,10 +215,10 @@ class TwiceDrillDialog(
 						{
 							value1 = aXDrillDown[indexX]
 
-							//presenter.getQueryDrillDown(value1)
-							Handler(Looper.getMainLooper()).postDelayed({
-								ivLoad2.visibility = View.VISIBLE
-							}, 200)
+							updateView(ivLoad2, View.VISIBLE)
+							updateView(wbDrillDown2, View.GONE)
+
+							presenter.getQueryDrillDown(value1)
 						}
 					}
 				}
@@ -247,12 +245,22 @@ class TwiceDrillDialog(
 			{
 				override fun onPageFinished(view: WebView?, url: String?)
 				{
-					wbDrillDown1.visibility = View.VISIBLE
-					Handler(Looper.getMainLooper()).postDelayed({
-						ivLoad1.visibility = View.GONE
-					}, 200)
+					updateView(wbDrillDown1, View.VISIBLE)
+					updateView(ivLoad1, View.GONE)
 				}
 			}
 		}
+	}
+
+	/**
+	 * update visibility view for constraint layout
+	 * @param view
+	 * @param status (GONE, VISIBLE, INVISIBLE)
+	 */
+	private fun updateView(view: View, status: Int)
+	{
+		Handler(Looper.getMainLooper()).postDelayed({
+			view.visibility = status
+		}, 200)
 	}
 }
