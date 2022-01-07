@@ -3,7 +3,6 @@ package chata.can.chata_ai.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
 import android.widget.*
@@ -235,10 +234,30 @@ object DataMessengerRow
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 					addRule(RelativeLayout.BELOW, R.id.rvContentTop)
 				}
+
+				addView(LinearLayout(context).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+					id = R.id.llParent
+					orientation = LinearLayout.VERTICAL
+
+					addView(RelativeLayout(context).apply {
+						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+					})
+
+					//region interpreted as content
+					addView(TextView(context).apply {
+						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+						setBackgroundColor(Color.RED)
+						textSize(12f)
+						id = R.id.tvInterpreter
+					})
+					//endregion
+				})
+
 				//region rvParent
 				addView(RelativeLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(-1, dpToPx(300f))
-					margin(12f, 24f, 12f)
+
 					id = R.id.rvParent
 					//region wbQuery
 					addView(WebView(context).apply {
@@ -273,6 +292,7 @@ object DataMessengerRow
 					//endregion
 				})
 				//endregion
+
 				//region HorizontalScrollView
 				addView(HorizontalScrollView(context).apply {
 					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)

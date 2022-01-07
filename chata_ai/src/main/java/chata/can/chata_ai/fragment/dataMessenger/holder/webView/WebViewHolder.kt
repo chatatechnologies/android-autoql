@@ -43,6 +43,8 @@ class WebViewHolder(
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
 	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
+	private val tvInterpreter = itemView.findViewById<TextView>(R.id.tvInterpreter) ?: null
+
 	private val rlCharts = itemView.findViewById<View>(R.id.rlCharts) ?: null
 	private val ivCharts = itemView.findViewById<ImageView>(R.id.ivCharts) ?: null
 	private val llCharts = itemView.findViewById<View>(R.id.llCharts) ?: null
@@ -330,6 +332,8 @@ class WebViewHolder(
 					loadDataForWebView(wbQuery, simpleQuery)
 				}
 			}
+			val interpreter = "Interpreted as: ${simpleQuery.interpretation}"
+			tvInterpreter?.text = interpreter
 		}
 	}
 

@@ -119,9 +119,11 @@
 	<!--	region row web view-->
 	<item name="rvContentTop" type="id"/>
 	<item name="tvContentTop" type="id"/>
+	<item name="llParent" type="id"/>
 	<item name="rvParent" type="id"/>
 	<item name="wbQuery" type="id"/>
 	<item name="rlLoad" type="id"/>
+	<item name="tvInterpreter" type="id" />
 	<item name="ivAlert" type="id"/>
 	<item name="llCharts" type="id"/>
 	<item name="ivTable" type="id"/>

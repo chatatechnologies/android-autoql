@@ -30,7 +30,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var queryId = ""
 	var displayType = ""
 	var showContainer = ""
-	private var interpretation = ""
+	var interpretation = ""
 	var limitRowNum = 0
 
 	var supportCase: SupportCase ?= null
