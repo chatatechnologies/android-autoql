@@ -1,8 +1,6 @@
 package chata.can.chata_ai.extension
 
 import android.animation.ObjectAnimator
-import android.os.Build
-import android.text.Html
 import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
@@ -19,15 +17,6 @@ import com.google.android.material.tabs.TabLayout
 fun TextView.textSize(size: Float)
 {
 	setTextSize(TypedValue.COMPLEX_UNIT_SP, size)
-}
-
-@Suppress("deprecation")
-fun TextView.fromHtml(content: String)
-{
-	text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-		Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY)
-	else
-		Html.fromHtml(content)
 }
 
 fun EditText.setOnTextChanged(listener: (String) -> Unit)

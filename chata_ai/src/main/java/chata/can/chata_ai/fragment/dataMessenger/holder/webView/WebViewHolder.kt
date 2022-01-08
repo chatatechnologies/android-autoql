@@ -332,9 +332,9 @@ class WebViewHolder(
 					loadDataForWebView(wbQuery, simpleQuery)
 				}
 			}
-			val interpreter = "<b>Interpreted as:</b> ${simpleQuery.interpretation}"
-			tvInterpreter?.let { Interpretation.setUnderLine(simpleQuery.interpretation, it) }
-//			tvInterpreter?.fromHtml(interpreter)
+			tvInterpreter?.let {
+				Interpretation.setUnderLine("Interpreted as: ${simpleQuery.interpretation}", it)
+			}
 		}
 	}
 
