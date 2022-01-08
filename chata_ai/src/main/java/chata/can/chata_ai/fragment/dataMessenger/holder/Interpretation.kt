@@ -16,21 +16,26 @@ object Interpretation {
 	fun setUnderLine(text: String, tvSource: TextView)
 	{
 		//region define range for underline
-		val limiter = '\''
-		val ssBuilder = SpannableString(text)
+		val quote = '\''
+		val stringBuilder = StringBuilder()
 		val pScope = ArrayList<Pair<Int, Int>>()
 		var index = 0
-		while(index < text.length)
+		while (index < text.length)
 		{
-			if (text[index] == limiter)
+			val letter = text[index]
+			if (text[index] == quote)
 			{
-				pScope.add(Pair(index, index + 3))
+				pScope.add(Pair(stringBuilder.length, stringBuilder.length + 1))
+				stringBuilder.append(text[index + 1])
 				index += 3
 			}
-			else
+			else {
 				index++
+				stringBuilder.append(letter)
+			}
 		}
 		//endregion
+		val ssBuilder = SpannableString(stringBuilder)
 		//region bold style
 		ssBuilder.setSpan(
 			StyleSpan(Typeface.BOLD),
