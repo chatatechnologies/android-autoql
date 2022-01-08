@@ -45,19 +45,19 @@ object BaseRow
 				gravity = Gravity.END
 				margin(end = 50f)
 				id = R.id.llMainBase
-//				region actions
+				//region actions
 				addView(RelativeLayout(context).apply {
 					layoutParams = RelativeLayout.LayoutParams(-2, -2)
 					margin(start = 5f, end = 5f)
-//					region report button
+					//region report button
 					addView(ImageView(context).apply {
 						layoutParams = RelativeLayout.LayoutParams(dpToPx(40f), dpToPx(40f))
 						paddingAll(4f)
 						id = R.id.ivReport
 						setImageResource(R.drawable.ic_report)
 					})
-//					endregion
-//					region delete button
+					//endregion
+					//region delete button
 					addView(ImageView(context).apply {
 						layoutParams = RelativeLayout.LayoutParams(dpToPx(40f), dpToPx(40f)).apply {
 							addRule(RelativeLayout.END_OF, R.id.ivReport)
@@ -66,8 +66,8 @@ object BaseRow
 						id = R.id.ivDelete
 						setImageResource(R.drawable.ic_delete)
 					})
-//					endregion
-//					region options
+					//endregion
+					//region options
 					addView(ImageView(context).apply {
 						layoutParams = RelativeLayout.LayoutParams(dpToPx(40f), dpToPx(40f)).apply {
 							addRule(RelativeLayout.END_OF, R.id.ivDelete)
@@ -76,12 +76,12 @@ object BaseRow
 						id = R.id.ivPoints
 						setImageResource(R.drawable.ic_points)
 					})
-//					endregion
+					//endregion
 					id = R.id.rlDelete
 				})
-//				endregion
+				//endregion
 
-//				region content
+				//region content
 				addView(RelativeLayout(context).apply {
 					layoutParams = RelativeLayout.LayoutParams(-2, -2)
 					paddingAll(left = 4f, right = 4f)
@@ -93,7 +93,7 @@ object BaseRow
 					})
 					id = R.id.rvContent
 				})
-//				endregion
+				//endregion
 			})
 			//endregion
 		}
