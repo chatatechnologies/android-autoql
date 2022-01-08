@@ -3,12 +3,13 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
+import android.text.Html
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
@@ -38,6 +39,7 @@ class WebViewHolder(
 	private val rvContentTop: View = itemView.findViewById(R.id.rvContentTop)
 	private val tvContentTop: TextView = itemView.findViewById(R.id.tvContentTop)
 
+	private val llParent = itemView.findViewById<LinearLayout>(R.id.llParent) ?: null
 	private val rvParent = itemView.findViewById<View>(R.id.rvParent) ?: null
 	private val wbQuery = itemView.findViewById<WebView>(R.id.wbQuery) ?: null
 	private var rlLoad = itemView.findViewById<View>(R.id.rlLoad) ?: null
@@ -107,9 +109,10 @@ class WebViewHolder(
 
 		ivPoints?.setOnClickListener(this)
 
+		llParent?.backgroundGrayWhite()
 		rvParent?.let {
 			parent ->
-			parent.backgroundGrayWhite()
+//			parent.backgroundGrayWhite()
 			val animation = AnimationUtils.loadAnimation(parent.context, R.anim.scale)
 			parent.startAnimation(animation)
 		}
@@ -332,8 +335,8 @@ class WebViewHolder(
 					loadDataForWebView(wbQuery, simpleQuery)
 				}
 			}
-			val interpreter = "Interpreted as: ${simpleQuery.interpretation}"
-			tvInterpreter?.text = interpreter
+			val interpreter = "<b>Interpreted as:</b> ${simpleQuery.interpretation}"
+			tvInterpreter?.text = Html.fromHtml(interpreter)
 		}
 	}
 
@@ -558,7 +561,7 @@ class WebViewHolder(
 					customHeight = 900
 				}
 
-				it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+				it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
 				it.margin(12f, 32f, 12f, 1f)
 				chatView?.scrollToPosition()
 			}

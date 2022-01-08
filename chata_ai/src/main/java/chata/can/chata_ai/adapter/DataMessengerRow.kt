@@ -3,6 +3,7 @@ package chata.can.chata_ai.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.view.Gravity
 import android.view.View
 import android.webkit.WebView
 import android.widget.*
@@ -237,61 +238,58 @@ object DataMessengerRow
 
 				addView(LinearLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+					margin(12f, 24f, 12f)
 					id = R.id.llParent
 					orientation = LinearLayout.VERTICAL
 
+					//region rvParent
 					addView(RelativeLayout(context).apply {
-						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+						layoutParams = getLinearLayoutParams(-1, dpToPx(300f))
+
+						id = R.id.rvParent
+						//region wbQuery
+						addView(WebView(context).apply {
+							layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+							marginAll(5f)
+							id = R.id.wbQuery
+						})
+						//endregion
+						//region rlLoad
+						addView(RelativeLayout(context).apply {
+							layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
+							id = R.id.rlLoad
+							//region KGifView
+							addView(KGifView(context).apply {
+								layoutParams = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f)).apply {
+									addRule(RelativeLayout.CENTER_IN_PARENT)
+								}
+							})
+							//endregion
+						})
+						//endregion
+						//region ivAlert
+						addView(ImageView(context).apply {
+							layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
+								addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+								addRule(RelativeLayout.ALIGN_PARENT_END)
+							}
+							visibility = View.GONE
+							setImageResource(R.drawable.ic_alert)
+							id = R.id.ivAlert
+						})
+						//endregion
 					})
+					//endregion
 
 					//region interpreted as content
 					addView(TextView(context).apply {
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-						setBackgroundColor(Color.RED)
+						paddingAll(8f, 0f, 8f, 8f)
 						textSize(12f)
 						id = R.id.tvInterpreter
 					})
 					//endregion
 				})
-
-				//region rvParent
-				addView(RelativeLayout(context).apply {
-					layoutParams = getRelativeLayoutParams(-1, dpToPx(300f))
-
-					id = R.id.rvParent
-					//region wbQuery
-					addView(WebView(context).apply {
-						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
-						marginAll(5f)
-						id = R.id.wbQuery
-					})
-					//endregion
-					//region rlLoad
-					addView(RelativeLayout(context).apply {
-						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
-						id = R.id.rlLoad
-						//region KGifView
-						addView(KGifView(context).apply {
-							layoutParams = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f)).apply {
-								addRule(RelativeLayout.CENTER_IN_PARENT)
-							}
-						})
-						//endregion
-					})
-					//endregion
-					//region ivAlert
-					addView(ImageView(context).apply {
-						layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
-							addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-							addRule(RelativeLayout.ALIGN_PARENT_END)
-						}
-						visibility = View.GONE
-						setImageResource(R.drawable.ic_alert)
-						id = R.id.ivAlert
-					})
-					//endregion
-				})
-				//endregion
 
 				//region HorizontalScrollView
 				addView(HorizontalScrollView(context).apply {
