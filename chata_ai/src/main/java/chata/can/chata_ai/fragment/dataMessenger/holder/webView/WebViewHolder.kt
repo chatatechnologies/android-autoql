@@ -3,7 +3,6 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.webView
 import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
-import android.text.Html
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.webkit.WebView
@@ -14,12 +13,10 @@ import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.dialog.listPopup.DataPopup
-import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.extension.margin
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.fragment.dataMessenger.holder.Interpretation
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -336,7 +333,8 @@ class WebViewHolder(
 				}
 			}
 			val interpreter = "<b>Interpreted as:</b> ${simpleQuery.interpretation}"
-			tvInterpreter?.text = Html.fromHtml(interpreter)
+			tvInterpreter?.let { Interpretation.setUnderLine(simpleQuery.interpretation, it) }
+//			tvInterpreter?.fromHtml(interpreter)
 		}
 	}
 
