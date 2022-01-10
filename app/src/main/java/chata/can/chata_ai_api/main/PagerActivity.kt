@@ -48,8 +48,7 @@ class PagerActivity: BaseActivity(R.layout.pager_activity)
 		tabLayout = findViewById(R.id.tabLayout)
 		floatingView = AutoQL(this).apply {
 			id = R.id.floatingView
-			layoutParams = FrameLayout.LayoutParams(
-				FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+			layoutParams = FrameLayout.LayoutParams(-1, -1)
 		}
 		floatingView.setDataMessenger(
 		"API_KEY",

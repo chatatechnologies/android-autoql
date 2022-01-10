@@ -21,11 +21,6 @@ object DashboardView
 
 	private const val GRAVITY_CENTER = 17
 
-	private fun layoutParams(): RelativeLayout.LayoutParams
-	{
-		return getRelativeLayoutParams(MATCH_PARENT, MATCH_PARENT)
-	}
-
 	private fun getLinearLayoutBase(context: Context): LinearLayout
 	{
 		return LinearLayout(context).apply {
@@ -269,11 +264,11 @@ object DashboardView
 			layoutParams = getRelativeLayoutParams(MATCH_PARENT, dpToPx(240f))
 			id = newId
 			val webView = WebView(context).apply {
-				layoutParams = layoutParams()
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 				id = pData.idWebView
 			}
 			val rlLoad = RelativeLayout(context).apply {
-				layoutParams = layoutParams()
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 				id = pData.idLoad
 
 				val gifView = KGifView(context).apply {

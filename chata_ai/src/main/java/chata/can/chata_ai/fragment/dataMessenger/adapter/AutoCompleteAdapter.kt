@@ -20,9 +20,7 @@ class AutoCompleteAdapter(context: Context): ArrayAdapter<String>(context, 0)
 	private fun getTextView(context: Context): TextView
 	{
 		return TextView(context).apply {
-			layoutParams = ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT)
+			layoutParams = ViewGroup.LayoutParams(-1, -2)
 			setBackgroundColor(Color.TRANSPARENT)
 			isSingleLine = true
 			textAlignment = View.TEXT_ALIGNMENT_INHERIT
