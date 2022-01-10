@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
@@ -134,7 +135,7 @@ class WebViewHolder(itemView: View): BaseHolder(itemView)
 			{
 				customHeight = 900
 			}
-			it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
+			it.layoutParams = getLinearLayoutParams(-1, customHeight)
 		}
 	}
 }

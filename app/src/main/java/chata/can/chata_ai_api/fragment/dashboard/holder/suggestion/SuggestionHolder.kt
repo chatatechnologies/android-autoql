@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.suggestion
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -12,6 +11,9 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
@@ -63,7 +65,7 @@ class SuggestionHolder(
 					val context = llSuggestion.context
 					llSuggestion.addView(
 						RelativeLayout(context).apply {
-							layoutParams = LinearLayout.LayoutParams(-1, -2)
+							layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 							background = DrawableBuilder.setGradientDrawable(
 								ThemeColor.currentColor.pDrawerBackgroundColor,
 								3f,
@@ -72,7 +74,7 @@ class SuggestionHolder(
 							paddingAll(8f, 4f, 8f, 4f)
 							//region view hidden
 							spSuggestion = Spinner(context).apply {
-								layoutParams = RelativeLayout.LayoutParams(-1,-2)
+								layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 								val aItem = rows.map { it[0] }
 								adapter = SuggestionAdapter(context, aItem)
 								setSelection(0, false)
@@ -87,7 +89,7 @@ class SuggestionHolder(
 							//view on Right
 							addView(
 								ImageView(context).apply {
-									layoutParams = RelativeLayout.LayoutParams(dpToPx(24f), dpToPx(24f)).apply {
+									layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
 										addRule(RelativeLayout.CENTER_VERTICAL)
 										addRule(RelativeLayout.ALIGN_PARENT_END)
 									}
@@ -101,7 +103,7 @@ class SuggestionHolder(
 							)
 							//region front text
 							tvSuggestion = TextView(context).apply {
-								layoutParams = RelativeLayout.LayoutParams(-1,-2).apply {
+								layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 									addRule(RelativeLayout.CENTER_VERTICAL)
 									addRule(RelativeLayout.START_OF, R.id.ivAction)
 								}
@@ -132,7 +134,7 @@ class SuggestionHolder(
 	{
 		return TextView(context).apply {
 			backgroundWhiteGray()
-			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
 			textSize(16f)

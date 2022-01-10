@@ -12,6 +12,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.DashboardView.getChildContent
 import chata.can.chata_ai_api.DashboardView.getChildLoading
@@ -230,7 +231,7 @@ class DynamicHolder(
 	private fun setOption(view: ViewGroup, idRes: Int, sql: String)
 	{
 		val iv = ImageView(view.context).apply {
-			layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+			layoutParams = getRelativeLayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 				addRule(RelativeLayout.ALIGN_PARENT_END)
 				addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
 			}

@@ -14,6 +14,7 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 
@@ -84,7 +85,7 @@ object ChildSuggestion {
 				18f,
 				1, ThemeColor.currentColor.pDrawerBorderColor)
 
-			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			layoutParams = getLinearLayoutParams(-1, -2)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.CENTER_HORIZONTAL
 			textSize(16f)

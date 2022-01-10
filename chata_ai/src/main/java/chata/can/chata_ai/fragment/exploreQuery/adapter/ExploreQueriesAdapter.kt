@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.exploreQuery.adapter
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,9 @@ import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
 
 class ExploreQueriesAdapter(model: BaseModelList<*>, listener: OnItemClickListener)
 	: BaseAdapter(model, listener)
@@ -28,17 +30,17 @@ class ExploreQueriesAdapter(model: BaseModelList<*>, listener: OnItemClickListen
 	private fun getRowExploreQueries(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = ViewGroup.LayoutParams(-1, -2)
+			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			paddingAll(left = 16f, right = 16f)
 			addView(TextView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(-1, -2)
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				gravity = Gravity.CENTER
 				textSize(16f)
 				paddingAll(8f)
 				id = R.id.tvQuery
 			})
 			addView(View(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(0.5f)).apply {
+				layoutParams = getRelativeLayoutParams(-1, dpToPx(0.5f)).apply {
 					addRule(RelativeLayout.BELOW, R.id.tvQuery)
 				}
 				setBackgroundColor(context.getParsedColor(android.R.color.darker_gray))

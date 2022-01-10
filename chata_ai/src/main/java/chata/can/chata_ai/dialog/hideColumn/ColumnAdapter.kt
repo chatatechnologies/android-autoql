@@ -1,7 +1,6 @@
 package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RelativeLayout
@@ -15,6 +14,9 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getViewGroupLayoutParams
 
 class ColumnAdapter(
 	private val model: BaseModelList<ColumnQuery>,
@@ -28,11 +30,11 @@ class ColumnAdapter(
 	private fun getColumn(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = ViewGroup.LayoutParams(-1, -2)
+			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			paddingAll(left = 12f, right = 12f)
 
 			tvColumnName = TextView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(-1, -2).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 					addRule(RelativeLayout.START_OF, R.id.cbCheck)
 				}
 				textSize(16f)
@@ -41,7 +43,7 @@ class ColumnAdapter(
 			addView(tvColumnName)
 
 			cbCheck = CheckBox(ContextThemeWrapper(context, R.style.checkBoxStyle)).apply {
-				layoutParams = RelativeLayout.LayoutParams(-2, -2).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
 					addRule(RelativeLayout.ALIGN_PARENT_END)
 				}
 				id = R.id.cbCheck

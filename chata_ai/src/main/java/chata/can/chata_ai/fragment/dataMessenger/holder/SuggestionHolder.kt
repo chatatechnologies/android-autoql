@@ -19,6 +19,8 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.fragment.dataMessenger.SuggestionPresenter
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 
 class SuggestionHolder(
 	itemView: View,
@@ -139,7 +141,7 @@ class SuggestionHolder(
 				1,
 				ThemeColor.currentColor.pDrawerBorderColor)
 
-			layoutParams = LinearLayout.LayoutParams(-2, -2)
+			layoutParams = getLinearLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
 			margin(5f, 5f, 5f)
 			gravity = Gravity.START
 			textSize(18f)

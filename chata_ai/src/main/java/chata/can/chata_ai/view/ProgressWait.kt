@@ -36,7 +36,7 @@ object ProgressWait
 				//region ProgressBar
 				addView(ProgressBar(context, null, android.R.attr.progressBarStyle).apply {
 					id = R.id.pb
-					layoutParams = TableRow.LayoutParams(-2, -1)
+					layoutParams = TableRow.LayoutParams(LayoutParams.WRAP_CONTENT_MATCH_PARENT)
 					margin(10f, end = 10f)
 				})
 				//endregion
@@ -44,7 +44,7 @@ object ProgressWait
 				addView(TextView(context).apply {
 					gravity = Gravity.CENTER or Gravity.START
 					id = R.id.tv
-					layoutParams = TableRow.LayoutParams(-1, -1)
+					layoutParams = TableRow.LayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 					setTextColor(Color.WHITE)
 					textSize(18f)
 					visibility = View.GONE

@@ -6,13 +6,14 @@ import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.model.DataMessengerAdmin
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
@@ -29,7 +30,7 @@ class MainRenderPresenter(
 			//region header
 			with(TextView(context))
 			{
-				layoutParams = LinearLayout.LayoutParams(-1, -2)
+				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				gravity = Gravity.CENTER_HORIZONTAL
 				textSize(16f)
 				setTypeface(typeface, Typeface.BOLD)
@@ -45,7 +46,7 @@ class MainRenderPresenter(
 					//region label
 					with(TextView(context))
 					{
-						layoutParams = LinearLayout.LayoutParams(-1, -2)
+						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 						gravity = Gravity.CENTER_HORIZONTAL
 //						text = demoParam.label
 						//region check * character

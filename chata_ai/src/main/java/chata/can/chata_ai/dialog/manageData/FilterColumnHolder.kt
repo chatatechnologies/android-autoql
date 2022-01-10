@@ -1,7 +1,6 @@
 package chata.can.chata_ai.dialog.manageData
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.RelativeLayout
@@ -13,6 +12,8 @@ import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 
 class FilterColumnHolder(
 	view: View,
@@ -24,7 +25,7 @@ class FilterColumnHolder(
 		fun getView(context: Context): RelativeLayout
 		{
 			return RelativeLayout(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(-1, -2).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 					addRule(RelativeLayout.CENTER_VERTICAL)
 					addRule(RelativeLayout.START_OF, R.id.cbCheck)
 				}
@@ -32,20 +33,20 @@ class FilterColumnHolder(
 				paddingAll(left = 12f, top = 6f, right = 12f)
 				//region TextView
 				addView(TextView(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(32f))
+					layoutParams = getRelativeLayoutParams(-1, dpToPx(32f))
 					id = R.id.tvColumnName
 					textSize(16f)
 				})
 				//endregion
 				//region selection view
 				addView(RelativeLayout(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(28f), dpToPx(28f)).apply {
+					layoutParams = getRelativeLayoutParams(dpToPx(28f), dpToPx(28f)).apply {
 						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
 					id = R.id.cbBorder
 					//region
 					addView(TextView(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(-1, -1)
+						layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_ONLY)
 						id = R.id.cbColumn
 						marginAll(1f)
 					})
@@ -53,7 +54,7 @@ class FilterColumnHolder(
 				})
 				//endregion
 				addView(View(context).apply {
-					layoutParams = RelativeLayout.LayoutParams(-1, dpToPx(0.5f)).apply {
+					layoutParams = getRelativeLayoutParams(-1, dpToPx(0.5f)).apply {
 						addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
 					}
 					margin(0f, 4f, 0f, 4f)

@@ -24,6 +24,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import java.util.*
 
 /*For Data Messenger*/
@@ -559,7 +560,7 @@ class WebViewHolder(
 					customHeight = 900
 				}
 
-				it.layoutParams = LinearLayout.LayoutParams(-1, customHeight)
+				it.layoutParams = getLinearLayoutParams(-1, customHeight)
 				it.margin(12f, 32f, 12f, 1f)
 				chatView?.scrollToPosition()
 			}

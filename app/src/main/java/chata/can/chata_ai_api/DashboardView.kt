@@ -2,7 +2,6 @@ package chata.can.chata_ai_api
 
 import android.content.Context
 import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
@@ -11,24 +10,26 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai.view.gif.KGifView
 
 object DashboardView
 {
 	private const val MATCH_PARENT = -1
-	private const val WRAP_CONTENT = -2
 
 	private const val GRAVITY_CENTER = 17
 
 	private fun layoutParams(): RelativeLayout.LayoutParams
 	{
-		return RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+		return getRelativeLayoutParams(MATCH_PARENT, MATCH_PARENT)
 	}
 
 	private fun getLinearLayoutBase(context: Context): LinearLayout
 	{
 		return LinearLayout(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+			layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			orientation = LinearLayout.VERTICAL
 		}
 	}
@@ -36,7 +37,7 @@ object DashboardView
 	private fun getRelativeLayoutBase(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+			layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 		}
 	}
 
@@ -45,14 +46,14 @@ object DashboardView
 		return getLinearLayoutBase(context).apply {
 			context.run {
 				val tvTitle = TextView(this).apply {
-					layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+					layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 					setTextColor(SinglentonDrawer.currentAccent)
 					setTypeface(typeface, Typeface.BOLD)
 					textSize(18f)
 					id = R.id.tvTitle
 				}
 				val view = View(context).apply {
-					layoutParams = LinearLayout.LayoutParams(dpToPx(100f), dpToPx(1f))
+					layoutParams = getLinearLayoutParams(dpToPx(100f), dpToPx(1f))
 					setBackgroundColor(getParsedColor(R.color.short_line_dashboard))
 					margin(bottom = 5f, top = 5f)
 				}
@@ -65,7 +66,7 @@ object DashboardView
 	fun getExecute(context: Context, idView: Int): TextView
 	{
 		return TextView(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			layoutParams = getRelativeLayoutParams(MATCH_PARENT, dpToPx(180f))
 			gravity = GRAVITY_CENTER
 			val message = context.getString(R.string.execute_run_dashboard)
 			text = message
@@ -86,7 +87,7 @@ object DashboardView
 					val llHeader = getHeaderDashboard(context)
 					val tvExecute = getExecute(context, R.id.tvExecute)
 					val iView = View(context).apply {
-						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+						layoutParams = getLinearLayoutParams(MATCH_PARENT, dpToPx(1f))
 						setBackgroundColor(getParsedColor(R.color.selected_gray))
 						margin(start = 4f, end = 4f)
 						id = R.id.iView
@@ -107,11 +108,11 @@ object DashboardView
 	fun getChildLoading(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(180f))
+			layoutParams = getRelativeLayoutParams(MATCH_PARENT, dpToPx(180f))
 			id = R.id.rlLoad
 
 			val gifView = KGifView(context).apply {
-				val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+				val layoutParams1 = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f))
 				layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
 				layoutParams = layoutParams1
 			}
@@ -141,7 +142,7 @@ object DashboardView
 	fun getChildContent(context: Context) =
 		context.run {
 			TextView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				minimumHeight = dpToPx(80f)
 				gravity = GRAVITY_CENTER
 				setTextColor(getParsedColor( R.color.black))
@@ -182,7 +183,7 @@ object DashboardView
 			id = R.id.llMainSuggestion
 
 			val tvContent = TextView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+				layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
 				margin(5f, 5f, 5f, 5f)
 				textSize(16f)
 				id = R.id.tvContent
@@ -230,7 +231,7 @@ object DashboardView
 					}
 
 					val iView = View(context).apply {
-						layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dpToPx(1f))
+						layoutParams = getLinearLayoutParams(MATCH_PARENT, dpToPx(1f))
 						setBackgroundColor(getParsedColor(R.color.separator_dashboard))
 						margin(bottom = 6f, top = 6f)
 						id = R.id.iView
@@ -265,7 +266,7 @@ object DashboardView
 			WebViewIds(R.id.webView2, R.id.rlLoad2, R.id.ivOption2, R.id.ivAlert2)
 
 		return RelativeLayout(context).apply {
-			layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, dpToPx(240f))
+			layoutParams = getRelativeLayoutParams(MATCH_PARENT, dpToPx(240f))
 			id = newId
 			val webView = WebView(context).apply {
 				layoutParams = layoutParams()
@@ -276,7 +277,7 @@ object DashboardView
 				id = pData.idLoad
 
 				val gifView = KGifView(context).apply {
-					val layoutParams1 = RelativeLayout.LayoutParams(dpToPx(80f), dpToPx(80f))
+					val layoutParams1 = getRelativeLayoutParams(dpToPx(80f), dpToPx(80f))
 					layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT)
 					layoutParams = layoutParams1
 				}
@@ -285,7 +286,7 @@ object DashboardView
 			addView(webView)
 			addView(rlLoad)
 			addView(ImageView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+				layoutParams = getRelativeLayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 					addRule(RelativeLayout.ALIGN_PARENT_END)
 					addRule(RelativeLayout.ALIGN_BOTTOM, pData.idWebView)
 				}
@@ -295,7 +296,7 @@ object DashboardView
 				visibility = View.GONE
 			})
 			addView(ImageView(context).apply {
-				layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+				layoutParams = getRelativeLayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 					addRule(RelativeLayout.ALIGN_BOTTOM, pData.idWebView)
 				}
 				paddingAll(8f)
@@ -327,7 +328,7 @@ object DashboardView
 	}
 
 	private fun getPointsAction(context: Context) = ImageView(context).apply {
-		layoutParams = RelativeLayout.LayoutParams(dpToPx(42f), dpToPx(42f)).apply {
+		layoutParams = getRelativeLayoutParams(dpToPx(42f), dpToPx(42f)).apply {
 			addRule(RelativeLayout.ALIGN_PARENT_END)
 			addRule(RelativeLayout.ALIGN_BOTTOM, R.id.ll1)
 		}

@@ -7,6 +7,7 @@ import android.webkit.WebViewClient
 import android.widget.RelativeLayout
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 object ChildWebView {
@@ -78,7 +79,7 @@ object ChildWebView {
 			{
 				customHeight = 900
 			}
-			it.layoutParams = RelativeLayout.LayoutParams(-1, customHeight)
+			it.layoutParams = getRelativeLayoutParams(-1, customHeight)
 		}
 	}
 }

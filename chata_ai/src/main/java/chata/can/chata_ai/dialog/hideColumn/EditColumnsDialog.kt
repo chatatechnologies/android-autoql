@@ -2,7 +2,6 @@ package chata.can.chata_ai.dialog.hideColumn
 
 import android.content.Context
 import android.graphics.Typeface
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -21,7 +20,9 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.authentication.Authentication
+import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.request_native.BaseRequest
 import chata.can.request_native.RequestData
 import chata.can.request_native.RequestMethod
@@ -55,23 +56,17 @@ class EditColumnsDialog(
 	fun showDialog()
 	{
 		rlParent = LinearLayout(context1).apply {
-			layoutParams = LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT)
+			layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			orientation = LinearLayout.VERTICAL
 			id = R.id.rlParent
 			paddingAll(8f)
 			//region RelativeLayout
 			val rlTitle = RelativeLayout(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				id = R.id.rlTitle
 				//region Title
 				tvTitle = TextView(context1).apply {
-					layoutParams = RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.MATCH_PARENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 						addRule(RelativeLayout.CENTER_IN_PARENT)
 					}
 					gravity = Gravity.CENTER
@@ -84,7 +79,7 @@ class EditColumnsDialog(
 				//endregion
 				//region close dialog
 				ivCancel = ImageView(context1).apply {
-					layoutParams = RelativeLayout.LayoutParams(dpToPx(24f), dpToPx(24f))
+					layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f))
 						.apply {
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
@@ -99,16 +94,12 @@ class EditColumnsDialog(
 			//endregion
 			//region top menu
 			val rlList = RelativeLayout(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT)
+				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				margin(12f, end = 12f)
 				id = R.id.rlList
 				//all checkBox
 				cbAll = CheckBox(ContextThemeWrapper(context1, R.style.checkBoxStyle)).apply {
-					layoutParams = RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.WRAP_CONTENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT)
+					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
 						.apply {
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
@@ -117,17 +108,13 @@ class EditColumnsDialog(
 				addView(cbAll)
 				//endregion
 				addView(LinearLayout(context1).apply {
-					layoutParams = RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.MATCH_PARENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT).apply {
+					layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 						addRule(RelativeLayout.CENTER_VERTICAL)
 						addRule(RelativeLayout.START_OF, R.id.cbAll)
 					}
 					orientation = LinearLayout.HORIZONTAL
 					tvColumnName = TextView(context1).apply {
-						layoutParams = LinearLayout.LayoutParams(
-							0, LinearLayout.LayoutParams.WRAP_CONTENT
-						).apply { weight = 1f }
+						layoutParams = getLinearLayoutParams(0, -2).apply { weight = 1f }
 						textSize(16f)
 						setTypeface(typeface, Typeface.BOLD)
 						text = context1.getString(R.string.column_name)
@@ -135,9 +122,7 @@ class EditColumnsDialog(
 					}
 					addView(tvColumnName)
 					tvVisibility = TextView(context1).apply {
-						layoutParams = LinearLayout.LayoutParams(
-							0, LinearLayout.LayoutParams.WRAP_CONTENT
-						).apply { weight = 1f }
+						layoutParams = getLinearLayoutParams(0, -2).apply { weight = 1f }
 						gravity = Gravity.END
 						textSize(16f)
 						setTypeface(typeface, Typeface.BOLD)
@@ -151,9 +136,7 @@ class EditColumnsDialog(
 			//endregion
 			//region RecyclerView
 			rvColumn = RecyclerView(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					0).apply {
+				layoutParams = getLinearLayoutParams(-1, 0).apply {
 						weight = 1f
 					}
 				id = R.id.rvColumn
@@ -163,9 +146,7 @@ class EditColumnsDialog(
 			//region bottom actions
 			val llBottom = LinearLayout(context1).apply {
 				paddingAll(top = 8f)
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT).apply { weight = 0f }
+				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply { weight = 0f }
 				orientation = LinearLayout.HORIZONTAL
 				gravity = Gravity.BOTTOM or Gravity.END
 				id = R.id.llBottom

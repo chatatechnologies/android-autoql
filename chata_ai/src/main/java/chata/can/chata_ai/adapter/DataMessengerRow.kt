@@ -3,7 +3,6 @@ package chata.can.chata_ai.adapter
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.view.Gravity
 import android.view.View
 import android.webkit.WebView
 import android.widget.*
@@ -35,7 +34,7 @@ object DataMessengerRow
 					layoutParams = getLinearLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
 					paddingAll(left = 4f, right = 4f)
 					addView(TextView(context).apply {
-						layoutParams = RelativeLayout.LayoutParams(-2, -2)
+						layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
 						margin(1f)
 						paddingAll(8f)
 						id = R.id.tvContent

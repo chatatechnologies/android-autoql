@@ -21,6 +21,8 @@ import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.view.container.LayoutParams
+import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 
 class ManageDataDialog(
 	private val context1: Context,
@@ -43,9 +45,8 @@ class ManageDataDialog(
 	fun showDialog()
 	{
 		llParent = LinearLayout(context1).apply {
-			layoutParams = LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT)
+			layoutParams = getLinearLayoutParams(
+				LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			ThemeColor.currentColor.run {
 				background = DrawableBuilder.setGradientDrawable(pDrawerBackgroundColor, 18f)
 			}
@@ -53,9 +54,7 @@ class ManageDataDialog(
 			id = R.id.rlParent
 			paddingAll(4f)
 			rvColumn = RecyclerView(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					0).apply {
+				layoutParams = getLinearLayoutParams(-1,0).apply {
 					weight = 1f
 				}
 				id = R.id.rvColumn
@@ -63,9 +62,7 @@ class ManageDataDialog(
 			addView(rvColumn)
 
 			btnApply = Button(context1).apply {
-				layoutParams = LinearLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
 					weight = 0f
 				}
 				id = R.id.btnApply

@@ -24,6 +24,7 @@ import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SwitchDM
+import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai_api.model.DemoParameter
 import chata.can.chata_ai_api.model.TypeInput
@@ -279,7 +280,7 @@ object CustomViews
 			val blue = context.getParsedColor(R.color.blue_chata_circle)
 			val white = context.getParsedColor(R.color.white)
 
-			layoutParams = LinearLayout.LayoutParams(-1, -2)
+			layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			margin(12f, end = 12f)
 
 			val sizeOptions = demoParam.options.size
@@ -293,7 +294,7 @@ object CustomViews
 				}
 				addView(
 					MaterialButton(context).apply {
-						layoutParams = LinearLayout.LayoutParams(-2, -2).apply { weight = 1f }
+						layoutParams = getLinearLayoutParams(-2, -2).apply { weight = 1f }
 						val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 						val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
 						val aColors = intArrayOf(alphaColor, white)
