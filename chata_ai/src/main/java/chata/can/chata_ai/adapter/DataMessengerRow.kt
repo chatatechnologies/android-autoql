@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.*
+import chata.can.chata_ai.fragment.dataMessenger.holder.ComponentHolder
 import chata.can.chata_ai.view.container.LayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
@@ -150,20 +151,7 @@ object DataMessengerRow
 	{
 		return RelativeLayout(context).apply {
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-			//region rvContentTop
-			addView(RelativeLayout(context).apply {
-				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-				id = R.id.rvContentTop
-				//region tvContentTop
-				addView(TextView(context).apply {
-					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
-					marginAll(5f)
-					paddingAll(8f)
-					id = R.id.tvContentTop
-				})
-				//endregion
-			})
-			//endregion
+			addView(ComponentHolder.getTopContainer(context))
 			//region bottom container
 			addView(RelativeLayout(context).apply {
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
@@ -243,22 +231,9 @@ object DataMessengerRow
 	{
 		return RelativeLayout(context).apply {
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-			//region rvContentTop
-			addView(RelativeLayout(context).apply {
-				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-				margin(5f)
-				id = R.id.rvContentTop
-				//region tvContentTop
-				addView(TextView(context).apply {
-					layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
-						addRule(RelativeLayout.ALIGN_PARENT_END)
-					}
-					paddingAll(8f)
-					id = R.id.tvContentTop
-				})
-				//endregion
-			})
-			//endregion
+
+			addView(ComponentHolder.getTopContainer(context))
+
 			//region bottom container
 			addView(RelativeLayout(context).apply {
 				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
