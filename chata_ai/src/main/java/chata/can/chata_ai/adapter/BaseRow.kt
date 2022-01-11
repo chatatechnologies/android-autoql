@@ -1,6 +1,7 @@
 package chata.can.chata_ai.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -24,7 +25,7 @@ object BaseRow
 			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			//region top container
 			addView(RelativeLayout(context).apply {
-				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+				layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY).apply {
 					addRule(RelativeLayout.ALIGN_PARENT_END)
 				}
 				paddingAll(left = 50f)
