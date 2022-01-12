@@ -4,12 +4,11 @@ plugins {
 }
 
 android {
-	compileSdkVersion 31
-	buildToolsVersion "31.0.0"
+	compileSdk 31
 
 	defaultConfig {
-		minSdkVersion 17
-		targetSdkVersion 31
+		minSdk 17
+		targetSdk 32
 		multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -23,8 +22,8 @@ android {
 		}
 	}
 	compileOptions {
-		sourceCompatibility 1.8
-		targetCompatibility 1.8
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
 	}
 	kotlinOptions {
 		jvmTarget = '1.8'

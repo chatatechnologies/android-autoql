@@ -1,7 +1,6 @@
 package chata.can.chata_ai.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.LinearLayout

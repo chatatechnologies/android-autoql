@@ -94,19 +94,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			//query base for testing
-//			val queryDemo = "Total revenue by job type last year"//new multi series
-//			val queryDemo = "Total revenue by month in 2019"
-	//Suggestion
-//			val queryDemo = "Total tickets by month"
-//			val queryDemo = "number of tickets for 2019"
-
-			//example tri dimensional
-			val queryDemo = "Total revenue by month in 2019"
-//			val queryDemo = "Jobs by area by customer"
-//			val queryDemo = "Total Revenue for 2019"
-	//No case
-//			val queryDemo = "All show me for what total revenue by item code for each year for"
+			val queryDemo = "all sales"
 			etQuery.setText(queryDemo)
 		}
 
