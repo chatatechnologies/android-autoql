@@ -69,6 +69,15 @@ object HtmlBuilder
 //				else
 				queryBase.configActions = 4
 			}
+			SupportCase.CASE_2 ->
+			{
+				queryBase.aColumn.run {
+					posColumnX = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DATE)
+					posColumnY = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DOLLAR_AMT)
+					queryBase.addIndices(posColumnX, posColumnY)
+					queryBase.configActions = 2
+				}
+			}
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)

@@ -42,13 +42,15 @@ class RulesHtml(
 						//Case 5; bar, line, column, pie
 						if (countString > 0 && numberColumns() > 0)
 						{
-							if (isUseOnlyNumber())
+							when
 							{
-								case = SupportCase.CASE_5
-							}
-							else if (repeatNumber3())
-							{
-								case = SupportCase.CASE_6
+								isUseOnlyNumber() -> case = SupportCase.CASE_5
+								repeatNumber3() -> case = SupportCase.CASE_6
+								else ->
+								{
+									if (countDate > 0 && countDollarAMT > 0)
+										case = SupportCase.CASE_2
+								}
 							}
 						}
 					}
