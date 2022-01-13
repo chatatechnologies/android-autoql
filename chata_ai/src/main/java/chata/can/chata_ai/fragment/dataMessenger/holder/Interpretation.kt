@@ -23,7 +23,8 @@ object Interpretation {
 		while (index < text.length)
 		{
 			val letter = text[index]
-			if (text[index] == quote)
+			val nextLetter = if (index + 2 < text.length) text[index + 2] else ' '
+			if (letter == quote && nextLetter == quote)
 			{
 				pScope.add(Pair(stringBuilder.length, stringBuilder.length + 1))
 				stringBuilder.append(text[index + 1])
