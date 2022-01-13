@@ -62,7 +62,7 @@ function updateSize() {
   } else {
     switch (typeChart) {
       case TypeEnum.BAR:
-        width = width1;
+        width = width1 * 2;
         if (nColumns == 2) {
           height = (height1 * 2.5);
         } else {
