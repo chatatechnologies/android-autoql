@@ -63,11 +63,18 @@ function updateSize() {
     switch (typeChart) {
       case TypeEnum.BAR:
         width = width1;
-        height = height1 * 2.5;
+        if (nColumns == 2) {
+          height = (height1 * 2.5);
+        } else {
+          height = height1;
+        }
         break;
       case TypeEnum.COLUMN:
-        var width1 = getWidthMargin();
-        width = (width1 * 2.5);
+        if (nColumns == 2) {
+          width = (width1 * 2.5);
+        } else {
+          width = width1;
+        }
         height = height1;
         break;
       case TypeEnum.PIE:
