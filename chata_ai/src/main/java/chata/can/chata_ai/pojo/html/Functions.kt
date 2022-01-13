@@ -89,6 +89,9 @@ function isMultiple(typeChart) {
 }
 
 function updateData(tmpChart, isReload) {
+	//console.log("height " + ${'$'}(window).height());
+  //console.log("width " + ${'$'}(window).width());
+	
   //region set nColumns
 	var aTmpData = getDataOrMulti();
   var keys = Object.keys(aTmpData.length !== 0 ?  aTmpData[0] : {'':''});

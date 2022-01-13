@@ -5,10 +5,11 @@ object MultiColumn
 	fun getMultiColumn(): String
 	{
 		return """function setMultiColumn() {
+	margin.left = margin.left + 5;
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-	var withReduce = width - 100;
+	var withReduce = width - 80;
   var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
 
@@ -27,7 +28,7 @@ object MultiColumn
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-  completeAxisMultiple(axis, 10, 10, -45);
+    completeAxisMultiple(axis, 10, 10, -45);
 
   // Add Y axis
   const y = d3.scaleLinear()
@@ -89,7 +90,7 @@ object MultiColumn
 	});
 
 	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
 	});
 	

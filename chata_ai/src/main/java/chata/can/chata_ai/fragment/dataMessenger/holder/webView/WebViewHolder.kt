@@ -334,7 +334,13 @@ class WebViewHolder(
 				}
 			}
 			tvInterpreter?.let {
-				Interpretation.setUnderLine("Interpreted as: ${simpleQuery.interpretation}", it)
+				it.visibility = if (simpleQuery.interpretation.isEmpty()) View.GONE
+				else
+				{
+					Interpretation.setUnderLine("Interpreted as: ${simpleQuery.interpretation}", it)
+					View.VISIBLE
+				}
+
 			}
 		}
 	}
