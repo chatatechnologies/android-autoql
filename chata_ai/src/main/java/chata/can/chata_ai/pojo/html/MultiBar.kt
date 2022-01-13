@@ -5,9 +5,13 @@ object MultiBar
 	fun getMultiBar(): String
 	{
 		return """function setMultiBar() {
-  var svg = svgMulti().append('g')
-		.attr('transform', `translate(${'$'}{margin.bottom}, ${'$'}{margin.top})`);
-
+	margin.left = margin.left - 20;
+	var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom + 10)
+		.append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+  
   var withReduce = width - 100;
 	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
@@ -86,12 +90,12 @@ object MultiBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 5, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left - 20, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 	
