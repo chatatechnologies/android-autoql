@@ -69,15 +69,17 @@ object HtmlBuilder
 //				else
 				queryBase.configActions = 4
 			}
-//			SupportCase.CASE_2 ->
-//			{
-//				queryBase.aColumn.run {
-//					posColumnX = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DATE)
-//					posColumnY = SearchColumn.getTypeColumn(aColumn, TypeDataQuery.DOLLAR_AMT)
-//					queryBase.addIndices(posColumnX, posColumnY)
-//					queryBase.configActions = 2
-//				}
-//			}
+			SupportCase.CASE_2 ->
+			{
+				/*aDate*/
+				val aDate = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))
+				/*aDollar*/
+				val aDollar = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))
+				posColumnX = aDate[0]
+				posColumnY = aDollar[0]
+				queryBase.addIndices(posColumnX, posColumnY)
+				queryBase.configActions = 2
+			}
 			SupportCase.CASE_3 ->
 			{
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
@@ -93,7 +95,7 @@ object HtmlBuilder
 				dataD3.isBi = false
 				queryBase.configActions = 5
 			}
-			SupportCase.CASE_2, SupportCase.CASE_5 ->
+			SupportCase.CASE_5 ->
 			{
 				val aUncountable = SearchColumn.getUncountableIndices(queryBase.aColumn)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn)

@@ -16,6 +16,7 @@ object ConfigActions
 		R.id.ivPie)
 
 	/**
+	 * CASE_2
 	 * configActions = 2
 	 */
 	val triReduceConfig = arrayListOf(
