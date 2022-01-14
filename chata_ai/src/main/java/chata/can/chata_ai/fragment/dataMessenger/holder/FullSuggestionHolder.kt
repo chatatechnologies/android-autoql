@@ -13,10 +13,9 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SuggestionContinuous
-import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
-import com.google.android.flexbox.FlexboxLayout
 
 class FullSuggestionHolder(
 	itemView: View,
@@ -25,7 +24,7 @@ class FullSuggestionHolder(
 ): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
-	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
+//	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
@@ -38,7 +37,7 @@ class FullSuggestionHolder(
 			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
-			val queryDrawable = DrawableBuilder.setGradientDrawable(ThemeColor.currentColor.pDrawerAccentColor,18f)
+			val queryDrawable = DrawableBuilder.setGradientDrawable(SinglentonDrawer.currentAccent,18f)
 			background = queryDrawable
 
 			val animationTop = AnimationUtils.loadAnimation(context, R.anim.scale)
@@ -61,7 +60,7 @@ class FullSuggestionHolder(
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
 
-		stvContent.setWindowManager()
+//		stvContent.setWindowManager()
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -83,30 +82,14 @@ class FullSuggestionHolder(
 //					stvContent.setText(simpleQuery.aSuggestion)
 					suggestionContinuous.setText(simpleQuery.aSuggestion)
 
-					//region flexboxLayout
-//					(0..5).forEach { iterator ->
-//						flexboxLayout.addView(
-//							TextView(context).apply {
-//								layoutParams = FlexboxLayout.LayoutParams(-2, -2)
-//								backgroundWhiteGray()
-//								paddingAll(8f)
-//								marginAll(4f)
-//								setTextColor(context.getParsedColor(R.color.blue_chata_circle))
-//								val text = "Test $iterator"
-//								setText(text)
-//							}
-//						)
-//					}
-					//endregion
-
 					rlRunQuery.setOnClickListener {
-						val query = stvContent.text
-						val canonical = stvContent.canonical
-						val valueLabel = stvContent.valueLabel
-						if (query.isNotEmpty())
-						{
-							view.runTyping(query, canonical, valueLabel)
-						}
+						val query = suggestionContinuous.text// stvContent.text
+//						val canonical = stvContent.canonical
+//						val valueLabel = stvContent.valueLabel
+//						if (query.isNotEmpty())
+//						{
+//							view.runTyping(query, canonical, valueLabel)
+//						}
 					}
 				}
 			}
