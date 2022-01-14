@@ -46,12 +46,9 @@
 <!--				android:layout_width="match_parent"-->
 <!--				android:padding="5dp"/>-->
 			<chata.can.chata_ai.view.SuggestionContinuous
-				xmlns:app="http://schemas.android.com/apk/res-auto"
-				android:id="@+id/flexboxLayout"
+				android:id="@+id/suggestionContinuous"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				app:flexWrap="wrap"
-				app:justifyContent="center"/>
+				android:layout_width="match_parent"/>
 			<LinearLayout
 				android:gravity="center"
 				android:id="@+id/rlRunQuery"

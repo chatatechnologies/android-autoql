@@ -29,7 +29,7 @@ class FullSuggestionHolder(
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
 
-	private val suggestionContinuous = itemView.findViewById<SuggestionContinuous>(R.id.flexboxLayout)
+	private val suggestionContinuous = itemView.findViewById<SuggestionContinuous>(R.id.suggestionContinuous)
 
 	override fun onPaint()
 	{

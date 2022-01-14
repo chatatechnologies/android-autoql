@@ -5,12 +5,10 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
-import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
