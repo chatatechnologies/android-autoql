@@ -143,8 +143,6 @@ class SpinnerTextView: RelativeLayout
 				}
 				setText(span)
 				movementMethod = LinkMovementMethod.getInstance()
-
-				backgroundWhiteGray()
 			}
 		}
 	}

@@ -5,9 +5,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import chata.can.chata_ai.R
+import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.fragment.dataMessenger.ChatContract
-import chata.can.chata_ai.extension.backgroundGrayWhite
-import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.holder.BaseHolder
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.chat.ChatData
@@ -16,6 +15,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.SpinnerTextView
+import com.google.android.flexbox.FlexboxLayout
 
 class FullSuggestionHolder(
 	itemView: View,
@@ -28,6 +28,8 @@ class FullSuggestionHolder(
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
+
+	private val flexboxLayout = itemView.findViewById<FlexboxLayout>(R.id.flexboxLayout)
 
 	override fun onPaint()
 	{
@@ -78,6 +80,21 @@ class FullSuggestionHolder(
 					}
 
 					stvContent.setText(simpleQuery.aSuggestion)
+					//region flexboxLayout
+					(0..5).forEach { iterator ->
+						flexboxLayout.addView(
+							TextView(context).apply {
+								layoutParams = FlexboxLayout.LayoutParams(-2, -2)
+								backgroundWhiteGray()
+								paddingAll(8f)
+								marginAll(4f)
+								setTextColor(context.getParsedColor(R.color.blue_chata_circle))
+								val text = "Test $iterator"
+								setText(text)
+							}
+						)
+					}
+					//endregion
 
 					rlRunQuery.setOnClickListener {
 						val query = stvContent.text

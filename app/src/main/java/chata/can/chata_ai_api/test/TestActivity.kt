@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import chata.can.chata_ai.extension.margin
 import chata.can.chata_ai.extension.marginAll
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -19,7 +18,6 @@ class TestActivity: AppCompatActivity()
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-//		setContentView(R.layout.test_activity)
 		//region FlexboxLayout
 		val root = FlexboxLayout(this).apply {
 			layoutParams = ViewGroup.LayoutParams(-1, -2)
