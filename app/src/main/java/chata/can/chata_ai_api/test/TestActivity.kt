@@ -18,18 +18,20 @@ class TestActivity: AppCompatActivity()
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		//region FlexboxLayout
-		val root = FlexboxLayout(this).apply {
-			layoutParams = ViewGroup.LayoutParams(-1, -2)
-			flexWrap = FlexWrap.WRAP
-			(0..6).forEach {
-				iterator ->
-				val view = newTextView(this@TestActivity, iterator)
-				addView(view)
-			}
-		}
-		//endregion
-		setContentView(root)
+		setContentView(R.layout.test_activity)
+
+//		//region FlexboxLayout
+//		val root = FlexboxLayout(this).apply {
+//			layoutParams = ViewGroup.LayoutParams(-1, -2)
+//			flexWrap = FlexWrap.WRAP
+//			(0..6).forEach {
+//				iterator ->
+//				val view = newTextView(this@TestActivity, iterator)
+//				addView(view)
+//			}
+//		}
+//		//endregion
+//		setContentView(root)
 	}
 
 	private fun newTextView(context: Context, iterator: Int) = TextView(context).apply {

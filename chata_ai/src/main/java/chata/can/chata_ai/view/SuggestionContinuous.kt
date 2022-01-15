@@ -8,22 +8,20 @@ import android.widget.RelativeLayout
 import android.widget.Spinner
 import android.widget.TextView
 import chata.can.chata_ai.R
-import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
-import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.flexbox.JustifyContent
 
-class SuggestionContinuous: RelativeLayout// FlexboxLayout
+class SuggestionContinuous: RelativeLayout
 {
 	private var flexboxLayout: FlexboxLayout = FlexboxLayout(context).apply {
 		setBackgroundColor(Color.MAGENTA)
-		layoutParams = LayoutParams(-1, dpToPx(40f))
+		layoutParams = LayoutParams(-1, -2)
 
 		flexWrap = FlexWrap.WRAP
 		justifyContent = JustifyContent.CENTER
@@ -64,7 +62,7 @@ class SuggestionContinuous: RelativeLayout// FlexboxLayout
 	}
 
 	private fun getItem(context: Context, suggestion: Suggestion) = TextView(context).apply {
-		layoutParams = LayoutParams(-2, -2)
+		layoutParams = FlexboxLayout.LayoutParams(-2, -2)
 		setTextColor(context.getParsedColor(R.color.blue_chata_circle))
 		paddingAll(12f, 6f, 12f, 6f)
 		textDisplayed += suggestion.text

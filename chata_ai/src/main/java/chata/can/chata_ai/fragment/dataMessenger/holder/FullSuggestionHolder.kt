@@ -16,6 +16,7 @@ import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.SuggestionContinuous
+import com.google.android.flexbox.FlexboxLayout
 
 class FullSuggestionHolder(
 	itemView: View,
@@ -28,8 +29,9 @@ class FullSuggestionHolder(
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
+	private val fbSuggestion = itemView.findViewById<FlexboxLayout>(R.id.fbSuggestion)
 
-	private val suggestionContinuous = itemView.findViewById<SuggestionContinuous>(R.id.suggestionContinuous)
+	private var textDisplayed = ""
 
 	override fun onPaint()
 	{
@@ -78,12 +80,27 @@ class FullSuggestionHolder(
 						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
 					}
-
 //					stvContent.setText(simpleQuery.aSuggestion)
-					suggestionContinuous.setText(simpleQuery.aSuggestion)
+					//region add options
+					simpleQuery.aSuggestion.forEach { suggestion ->
+						val tv = TextView(context).apply {
+							paddingAll(12f, 6f, 12f, 6f)
+							textDisplayed += suggestion.text
+							text = suggestion.text
+							val pData = suggestion.aSuggestion?.let {
+								context.getParsedColor(R.color.blue_chata_circle)
+							} ?: run {
+								ThemeColor.currentColor.pDrawerTextColorPrimary
+							}
+							setTextColor(pData)
+							background = null
+						}
+						fbSuggestion.addView(tv)
+					}
+					//endregion
 
 					rlRunQuery.setOnClickListener {
-						val query = suggestionContinuous.text// stvContent.text
+						val query = textDisplayed//stvContent.text
 //						val canonical = stvContent.canonical
 //						val valueLabel = stvContent.valueLabel
 //						if (query.isNotEmpty())
