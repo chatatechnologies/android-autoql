@@ -3,6 +3,7 @@ package chata.can.chata_ai.fragment.dataMessenger.holder
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.*
@@ -15,7 +16,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.view.SuggestionContinuous
+import chata.can.chata_ai.view.textViewSpinner.TermAdapter
 import com.google.android.flexbox.FlexboxLayout
 
 class FullSuggestionHolder(
@@ -29,8 +30,11 @@ class FullSuggestionHolder(
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
-	private val fbSuggestion = itemView.findViewById<FlexboxLayout>(R.id.fbSuggestion)
 
+	private val fbSuggestion = itemView.findViewById<FlexboxLayout>(R.id.fbSuggestion)
+	private val spSuggestion = itemView.findViewById<Spinner>(R.id.spSuggestion)
+
+	private var lastData = ArrayList<Pair<String, String>>()
 	private var textDisplayed = ""
 
 	override fun onPaint()
@@ -62,7 +66,9 @@ class FullSuggestionHolder(
 		val animation = AnimationUtils.loadAnimation(llContent.context, R.anim.scale)
 		llContent.startAnimation(animation)
 
-//		stvContent.setWindowManager()
+		llContent.resources?.displayMetrics?.let {
+			spSuggestion.dropDownWidth = it.widthPixels
+		}
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
@@ -88,12 +94,29 @@ class FullSuggestionHolder(
 							textDisplayed += suggestion.text
 							text = suggestion.text
 							val pData = suggestion.aSuggestion?.let {
-								context.getParsedColor(R.color.blue_chata_circle)
+								setOnClickListener {
+									suggestion.aSuggestion?.let { aData ->
+										if (lastData != aData) {
+											lastData = aData
+											val aText = aData.map { it.first }
+											spSuggestion.adapter = TermAdapter(context, aText)
+										}
+										spSuggestion.performClick()
+									}
+								}
+								Pair(
+									context.getParsedColor(R.color.blue_chata_circle),
+									ThemeColor.currentColor.run {
+										DrawableBuilder.setGradientDrawable(
+											pDrawerBackgroundColor, 18f, 3, pDrawerBorderColor
+										)
+									}
+								)
 							} ?: run {
-								ThemeColor.currentColor.pDrawerTextColorPrimary
+								Pair(ThemeColor.currentColor.pDrawerTextColorPrimary, null)
 							}
-							setTextColor(pData)
-							background = null
+							setTextColor(pData.first)
+							background = pData.second
 						}
 						fbSuggestion.addView(tv)
 					}
