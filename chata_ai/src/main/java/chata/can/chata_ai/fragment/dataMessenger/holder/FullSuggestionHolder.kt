@@ -95,6 +95,27 @@ class FullSuggestionHolder(
 						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
 					}
+					if (simpleQuery.aSuggestion.isNotEmpty()) {
+						val aSuggestion = simpleQuery.aSuggestion
+						for (index in 0 until aSuggestion.size) {
+							val suggestion = aSuggestion[index]
+
+							if (suggestion.aSuggestion != null) {
+								suggestion.aSuggestion?.get(0)?.let {
+									val textTmp = it.first
+									val iStart = textTmp.indexOf("(") + 1
+									val iEnd = textTmp.lastIndexOf(")")
+									valueLabel = textTmp.substring(iStart, iEnd)
+									canonical = valueLabel
+									itemText = suggestion.text
+
+									start = suggestion.start
+									end = start + itemText.length
+								}
+								break
+							}
+						}
+					}
 					setText(context, simpleQuery.aSuggestion)
 
 					rlRunQuery.setOnClickListener {
@@ -141,15 +162,6 @@ class FullSuggestionHolder(
 				text = suggestion.text
 
 				val pData = suggestion.aSuggestion?.let {
-//					val textTmp = it[0].first
-//					val iStart = textTmp.indexOf("(") + 1
-//					val iEnd = textTmp.lastIndexOf(")")
-//					valueLabel = textTmp.substring(iStart, iEnd)
-//					canonical = it[0].second
-//					itemText = suggestion.text
-//					start = suggestion.start
-//					end = suggestion.end + 1
-
 					setOnClickListener {
 						getSpinnerOption(context, suggestion)
 					}
@@ -204,6 +216,8 @@ class FullSuggestionHolder(
 										valueLabel = pair.second
 										canonical = valueLabel
 										itemText = aItems[0]
+										start = suggestion.start
+										end = start + itemText.length
 									}
 
 									if (beforeSection != currentSection) {
@@ -226,7 +240,6 @@ class FullSuggestionHolder(
 						}
 					}
 				}
-
 			}
 			spSuggestion.performClick()
 		}
