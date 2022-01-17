@@ -1,5 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
+import android.content.Context
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -17,6 +18,7 @@ import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter
+import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
 import com.google.android.flexbox.FlexboxLayout
 
 class FullSuggestionHolder(
@@ -34,8 +36,11 @@ class FullSuggestionHolder(
 	private val fbSuggestion = itemView.findViewById<FlexboxLayout>(R.id.fbSuggestion)
 	private val spSuggestion = itemView.findViewById<Spinner>(R.id.spSuggestion)
 
+	private var aData = ArrayList<Suggestion>()
 	private var lastData = ArrayList<Pair<String, String>>()
 	private var textDisplayed = ""
+	private var valueLabel = ""
+	private var canonical = ""
 
 	override fun onPaint()
 	{
@@ -86,50 +91,14 @@ class FullSuggestionHolder(
 						val message = resources.getString(R.string.msg_full_suggestion)
 						tvContent.text = message
 					}
-//					stvContent.setText(simpleQuery.aSuggestion)
-					//region add options
-					simpleQuery.aSuggestion.forEach { suggestion ->
-						val tv = TextView(context).apply {
-							paddingAll(12f, 6f, 12f, 6f)
-							textDisplayed += suggestion.text
-							text = suggestion.text
-							val pData = suggestion.aSuggestion?.let {
-								setOnClickListener {
-									suggestion.aSuggestion?.let { aData ->
-										if (lastData != aData) {
-											lastData = aData
-											val aText = aData.map { it.first }
-											spSuggestion.adapter = TermAdapter(context, aText)
-										}
-										spSuggestion.performClick()
-									}
-								}
-								Pair(
-									context.getParsedColor(R.color.blue_chata_circle),
-									ThemeColor.currentColor.run {
-										DrawableBuilder.setGradientDrawable(
-											pDrawerBackgroundColor, 18f, 3, pDrawerBorderColor
-										)
-									}
-								)
-							} ?: run {
-								Pair(ThemeColor.currentColor.pDrawerTextColorPrimary, null)
-							}
-							setTextColor(pData.first)
-							background = pData.second
-						}
-						fbSuggestion.addView(tv)
-					}
-					//endregion
+					setText(context, simpleQuery.aSuggestion)
 
 					rlRunQuery.setOnClickListener {
-						val query = textDisplayed//stvContent.text
-//						val canonical = stvContent.canonical
-//						val valueLabel = stvContent.valueLabel
-//						if (query.isNotEmpty())
-//						{
-//							view.runTyping(query, canonical, valueLabel)
-//						}
+						val query = textDisplayed
+						if (query.isNotEmpty())
+						{
+							view.runTyping(query, canonical, valueLabel)
+						}
 					}
 				}
 			}
@@ -149,6 +118,105 @@ class FullSuggestionHolder(
 				}
 				else -> {}
 			}
+		}
+	}
+
+	private fun setText(context: Context, aSuggestion: ArrayList<Suggestion> ?= null) {
+		//region add options
+		aSuggestion?.let {
+			aData = aSuggestion
+		}
+
+		aData.forEach { suggestion ->
+			val tv = TextView(context).apply {
+				paddingAll(12f, 6f, 12f, 6f)
+				textDisplayed += suggestion.text
+				text = suggestion.text
+
+				val pData = suggestion.aSuggestion?.let {
+					val textTmp = it[0].first
+					val iStart = textTmp.indexOf("(") + 1
+					val iEnd = textTmp.lastIndexOf(")")
+					valueLabel = textTmp.substring(iStart, iEnd)
+					canonical = it[0].second
+
+					setOnClickListener {
+						getSpinnerOption(context, suggestion)
+					}
+					Pair(
+						context.getParsedColor(R.color.blue_chata_circle),
+						ThemeColor.currentColor.run {
+							DrawableBuilder.setGradientDrawable(
+								pDrawerBackgroundColor, 18f, 3, pDrawerBorderColor
+							)
+						}
+					)
+				} ?: run {
+					Pair(ThemeColor.currentColor.pDrawerTextColorPrimary, null)
+				}
+
+				setTextColor(pData.first)
+				background = pData.second
+			}
+			fbSuggestion.addView(tv)
+		}
+		//endregion
+	}
+
+	private fun getSpinnerOption(context: Context, suggestion: Suggestion) {
+		suggestion.aSuggestion?.let { aData ->
+			if (lastData != aData) {
+				lastData = aData
+				val aText = aData.map { it.first }
+				spSuggestion.adapter = TermAdapter(context, aText)
+				spSuggestion.setOnItemSelected { parent, _, position, _ ->
+					if (suggestion.position != position) {
+						//region for remove view on parent
+						if (position == aData.size - 1) {
+							this@FullSuggestionHolder.aData.run {
+								remove(suggestion)
+								setText(context)
+							}
+						}
+						//endregion
+						else {
+							parent?.getItemAtPosition(position)?.let { item ->
+								if (item is String) {
+									val aItems = item.split(" (")
+									val currentText = textDisplayed
+									val currentSection = aItems[0]
+									val newStart = suggestion.start
+									val newEnd = suggestion.end
+									val beforeSection = currentText.substring(newStart, newEnd)
+
+									lastData[position].let { pair ->
+										valueLabel = aItems[1].replace(")", "")
+										canonical = pair.second
+									}
+
+									if (beforeSection != currentSection) {
+										val newText = currentText.replace(beforeSection, currentSection)
+										suggestion.text = currentSection
+										suggestion.position = position
+										//region updateIndex(newText)
+										for (iSuggestion in this@FullSuggestionHolder.aData)
+										{
+											iSuggestion.run {
+												start = newText.indexOf(text)
+												end = start + text.length
+											}
+										}
+										//endregion
+										setText(context)
+									}
+								}
+							}
+						}
+					}
+				}
+
+			}
+			spSuggestion.performClick()
 		}
 	}
 }
