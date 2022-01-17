@@ -70,6 +70,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private var statusLogin = false
 	private var canonical = ""
 	private var valueLabel = ""
+	private var itemText = ""
 	private var start = 0
 	private var end = 0
 
@@ -100,6 +101,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 //			val queryDemo = "all invoices"
 //			val queryDemo = "Total revenue by month in 2019"
 			val queryDemo = "query estimates by year"
+//			val queryDemo = "Total revenue this year"
 			etQuery.setText(queryDemo)
 		}
 
@@ -222,12 +224,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 				val mUserSelection = hashMapOf<String, Any>(
 					"end" to end,
 					"start" to start,
-					"value" to query,
+					"value" to itemText,
 					"value_label" to valueLabel,
 					"canonical" to canonical)
 				val mInfoHolder = hashMapOf<String, Any>("user_selection" to mUserSelection)
 				canonical = ""
 				valueLabel = ""
+				itemText = ""
 				start = 0
 				end = 0
 				presenter.getQuery(query, mInfoHolder, "data_messenger.validation")
@@ -385,6 +388,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		requestSuggestion.let {
 			canonical = it.canonical
 			valueLabel = it.valueLabel
+			itemText = it.itemText
 			start = it.start
 			end = it.end
 			runTyping(it.query)

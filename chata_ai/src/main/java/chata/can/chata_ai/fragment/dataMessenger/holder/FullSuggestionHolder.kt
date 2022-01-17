@@ -42,6 +42,7 @@ class FullSuggestionHolder(
 	private var textDisplayed = ""
 	private var valueLabel = ""
 	private var canonical = ""
+	private var itemText = ""
 	private var start = 0
 	private var end = 0
 
@@ -100,7 +101,7 @@ class FullSuggestionHolder(
 						val query = textDisplayed
 						if (query.isNotEmpty())
 						{
-							val requestSuggestion = RequestSuggestion(query, canonical, valueLabel, start, end)
+							val requestSuggestion = RequestSuggestion(query, itemText, canonical, valueLabel, start, end)
 							view.runTyping(requestSuggestion)
 						}
 					}
@@ -134,7 +135,7 @@ class FullSuggestionHolder(
 		aData.forEach { suggestion ->
 			val tv = TextView(context).apply {
 				paddingAll(12f, 6f, 12f, 6f)
-				textDisplayed += suggestion.text
+				textDisplayed += suggestion.text + " "
 				text = suggestion.text
 
 				val pData = suggestion.aSuggestion?.let {
@@ -143,6 +144,8 @@ class FullSuggestionHolder(
 					val iEnd = textTmp.lastIndexOf(")")
 					valueLabel = textTmp.substring(iStart, iEnd)
 					canonical = it[0].second
+					itemText = suggestion.text
+
 					start = suggestion.start
 					end = suggestion.end + 1
 
@@ -166,6 +169,7 @@ class FullSuggestionHolder(
 			}
 			fbSuggestion.addView(tv)
 		}
+		textDisplayed = textDisplayed.removeSuffix(" ")
 		//endregion
 	}
 
@@ -198,6 +202,7 @@ class FullSuggestionHolder(
 									lastData[position].let { pair ->
 										valueLabel = aItems[1].replace(")", "")
 										canonical = pair.second
+										itemText = suggestion.text
 									}
 
 									if (beforeSection != currentSection) {
