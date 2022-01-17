@@ -1,4 +1,4 @@
-package chata.can.chata_ai.view.textViewSpinner.model
+package chata.can.chata_ai.view.textViewSpinner
 
 import android.content.Context
 import android.graphics.Color
@@ -11,8 +11,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
 import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.view.textViewSpinner.ClickableSpan
-import chata.can.chata_ai.view.textViewSpinner.TermAdapter
+import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
 
 class SpinnerTextView: RelativeLayout
 {

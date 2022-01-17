@@ -132,6 +132,8 @@ class FullSuggestionHolder(
 			aData = aSuggestion
 		}
 
+		textDisplayed = ""
+		fbSuggestion.removeAllViews()
 		aData.forEach { suggestion ->
 			val tv = TextView(context).apply {
 				paddingAll(12f, 6f, 12f, 6f)
@@ -139,15 +141,14 @@ class FullSuggestionHolder(
 				text = suggestion.text
 
 				val pData = suggestion.aSuggestion?.let {
-					val textTmp = it[0].first
-					val iStart = textTmp.indexOf("(") + 1
-					val iEnd = textTmp.lastIndexOf(")")
-					valueLabel = textTmp.substring(iStart, iEnd)
-					canonical = it[0].second
-					itemText = suggestion.text
-
-					start = suggestion.start
-					end = suggestion.end + 1
+//					val textTmp = it[0].first
+//					val iStart = textTmp.indexOf("(") + 1
+//					val iEnd = textTmp.lastIndexOf(")")
+//					valueLabel = textTmp.substring(iStart, iEnd)
+//					canonical = it[0].second
+//					itemText = suggestion.text
+//					start = suggestion.start
+//					end = suggestion.end + 1
 
 					setOnClickListener {
 						getSpinnerOption(context, suggestion)
@@ -200,9 +201,9 @@ class FullSuggestionHolder(
 									val beforeSection = currentText.substring(newStart, newEnd)
 
 									lastData[position].let { pair ->
-										valueLabel = aItems[1].replace(")", "")
-										canonical = pair.second
-										itemText = suggestion.text
+										valueLabel = pair.second
+										canonical = valueLabel
+										itemText = aItems[0]
 									}
 
 									if (beforeSection != currentSection) {

@@ -48,6 +48,7 @@
 				android:paddingTop="8dp">
 
 				<Spinner
+					android:visibility="invisible"
 					android:id="@+id/spSuggestion"
 					android:layout_height="wrap_content"
 					android:layout_width="match_parent"/>
