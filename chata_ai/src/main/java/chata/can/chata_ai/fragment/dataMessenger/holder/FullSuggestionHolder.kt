@@ -16,6 +16,7 @@ import chata.can.chata_ai.pojo.chat.FullSuggestionQuery
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.fragment.dataMessenger.adapter.ChatAdapterContract
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.suggestion.RequestSuggestion
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.textViewSpinner.TermAdapter
 import chata.can.chata_ai.view.textViewSpinner.model.Suggestion
@@ -41,6 +42,8 @@ class FullSuggestionHolder(
 	private var textDisplayed = ""
 	private var valueLabel = ""
 	private var canonical = ""
+	private var start = 0
+	private var end = 0
 
 	override fun onPaint()
 	{
@@ -97,7 +100,8 @@ class FullSuggestionHolder(
 						val query = textDisplayed
 						if (query.isNotEmpty())
 						{
-							view.runTyping(query, canonical, valueLabel)
+							val requestSuggestion = RequestSuggestion(query, canonical, valueLabel, start, end)
+							view.runTyping(requestSuggestion)
 						}
 					}
 				}
@@ -139,6 +143,8 @@ class FullSuggestionHolder(
 					val iEnd = textTmp.lastIndexOf(")")
 					valueLabel = textTmp.substring(iStart, iEnd)
 					canonical = it[0].second
+					start = suggestion.start
+					end = suggestion.end + 1
 
 					setOnClickListener {
 						getSpinnerOption(context, suggestion)

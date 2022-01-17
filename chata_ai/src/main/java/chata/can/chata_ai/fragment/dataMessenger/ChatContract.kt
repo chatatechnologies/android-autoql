@@ -2,6 +2,7 @@ package chata.can.chata_ai.fragment.dataMessenger
 
 import android.graphics.drawable.GradientDrawable
 import chata.can.chata_ai.pojo.chat.SimpleQuery
+import chata.can.chata_ai.pojo.suggestion.RequestSuggestion
 
 interface ChatContract
 {
@@ -19,7 +20,7 @@ interface ChatContract
 		fun addNewChat(typeView: Int, queryBase: SimpleQuery)
 		fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>)
 		fun runTyping(text: String)
-		fun runTyping(text: String, canonical: String, valueLabel: String)
+		fun runTyping(requestSuggestion: RequestSuggestion)
 		fun isLoading(isVisible: Boolean)
 		fun showAlert(message: String, intRes: Int)
 		fun scrollToPosition()

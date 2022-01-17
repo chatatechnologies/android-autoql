@@ -32,6 +32,7 @@ import chata.can.chata_ai.pojo.chat.ChatData
 import chata.can.chata_ai.pojo.chat.SimpleQuery
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.suggestion.RequestSuggestion
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.typing.TypingAutoComplete
@@ -69,6 +70,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private var statusLogin = false
 	private var canonical = ""
 	private var valueLabel = ""
+	private var start = 0
+	private var end = 0
 
 	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View
 	{
@@ -216,17 +219,17 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 			if (canonical != "" && valueLabel != "")
 			{
-				val tmpCanonical = canonical
-				val tmpValueLabel = valueLabel
+				val mUserSelection = hashMapOf<String, Any>(
+					"end" to end,
+					"start" to start,
+					"value" to query,
+					"value_label" to valueLabel,
+					"canonical" to canonical)
+				val mInfoHolder = hashMapOf<String, Any>("user_selection" to mUserSelection)
 				canonical = ""
 				valueLabel = ""
-				val mUserSelection = hashMapOf<String, Any>(
-					"end" to 8,
-					"start" to 0,
-					"value" to query,
-					"value_label" to tmpValueLabel,
-					"canonical" to tmpCanonical)
-				val mInfoHolder = hashMapOf<String, Any>("user_selection" to mUserSelection)
+				start = 0
+				end = 0
 				presenter.getQuery(query, mInfoHolder, "data_messenger.validation")
 			}
 			else
@@ -377,11 +380,15 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		etQuery.animateText(text)
 	}
 
-	override fun runTyping(text: String, canonical: String, valueLabel: String)
+	override fun runTyping(requestSuggestion: RequestSuggestion)
 	{
-		this.canonical = canonical
-		this.valueLabel = valueLabel
-		runTyping(text)
+		requestSuggestion.let {
+			canonical = it.canonical
+			valueLabel = it.valueLabel
+			start = it.start
+			end = it.end
+			runTyping(it.query)
+		}
 	}
 
 	override fun setData(pDrawable: Pair<GradientDrawable, GradientDrawable>) {}
