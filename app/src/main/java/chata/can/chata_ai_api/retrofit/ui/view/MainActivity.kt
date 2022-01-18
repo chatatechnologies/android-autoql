@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.databinding.ActivityMainBinding
 import chata.can.chata_ai_api.retrofit.ui.viewModel.QuoteViewModel
 
@@ -14,7 +13,6 @@ class MainActivity: AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
 //	buildFeatures is necessary for ActivityMainBinding with value viewBinding = true
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
