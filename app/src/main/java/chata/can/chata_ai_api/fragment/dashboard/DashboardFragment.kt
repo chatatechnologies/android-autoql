@@ -1,10 +1,12 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,14 +45,6 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 		return binding.root
 	}
 
-//	private lateinit var svParent: View
-//	private lateinit var llOption: View
-//	private lateinit var swLoad: SwitchCompat
-//	private lateinit var btnExecute: TextView
-//	private lateinit var btnDashboard: TextView
-//	private lateinit var spDashboard: Spinner
-//	private lateinit var rvDashboard: RecyclerView
-//	private lateinit var tvEmptyDashboard: TextView
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
 	private val mModel = BaseModelList<Dashboard>()
@@ -97,17 +91,15 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 				}
 			}
 		}
-
 	}
 
 	private fun initListener()
 	{
-		val here = this
 		binding.run {
-			btnExecute.setOnClickListener(here)
-			btnDashboard.setOnClickListener(here)
+			btnExecute.setOnClickListener(this@DashboardFragment)
+			btnDashboard.setOnClickListener(this@DashboardFragment)
 			swLoad.setOnCheckedChangeListener {
-					_, isChecked ->
+				_, isChecked ->
 				isAutomatic = isChecked
 				if (isAutomatic)
 				{
@@ -132,7 +124,9 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 		{
 			getDashboardQueries()
 		}
-		//TODO hideKeyboard()
+		//hide keyboard
+		(requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+			?.hideSoftInputFromWindow(view?.windowToken, 0)
 	}
 
 	override fun onPause()

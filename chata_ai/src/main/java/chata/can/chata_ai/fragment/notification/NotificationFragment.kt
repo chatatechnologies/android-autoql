@@ -2,7 +2,6 @@ package chata.can.chata_ai.fragment.notification
 
 import android.os.Handler
 import android.os.Looper
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

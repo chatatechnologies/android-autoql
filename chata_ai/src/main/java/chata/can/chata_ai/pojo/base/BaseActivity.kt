@@ -1,21 +1,20 @@
 package chata.can.chata_ai.pojo.base
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity(private val intRes: Int): AppCompatActivity()
+abstract class BaseActivity: AppCompatActivity()
 {
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		adjustFontScale(resources.configuration)
-		setContentView(intRes)
-		onCreateView()
+		adjustFontScale()
+		onCreatedView()
 	}
 
-	private fun adjustFontScale(configuration: Configuration)
+	private fun adjustFontScale()
 	{
+		val configuration = resources.configuration
 		if (configuration.fontScale > 1.3f)
 		{
 			configuration.fontScale = 1.3f
@@ -30,5 +29,5 @@ abstract class BaseActivity(private val intRes: Int): AppCompatActivity()
 		}
 	}
 
-	abstract fun onCreateView()
+	abstract fun onCreatedView()
 }

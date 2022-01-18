@@ -6,15 +6,14 @@ import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setOnTabSelectedListener
 import chata.can.chata_ai.pojo.ScreenData
+import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.dm.AutoQL
@@ -22,7 +21,7 @@ import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.databinding.PagerActivityBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class PagerActivity: AppCompatActivity()
+class PagerActivity: BaseActivity()
 {
 	private lateinit var adapter: SlidePagerAdapter
 	private lateinit var floatingView: AutoQL
@@ -32,10 +31,8 @@ class PagerActivity: AppCompatActivity()
 
 	private lateinit var binding: PagerActivityBinding
 
-	override fun onCreate(savedInstanceState: Bundle?)
-	{
+	override fun onCreatedView() {
 		ThemeColor.parseColor(this)
-		super.onCreate(savedInstanceState)
 
 		binding = PagerActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
