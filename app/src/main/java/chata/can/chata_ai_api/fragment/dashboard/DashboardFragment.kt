@@ -1,12 +1,13 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
 import android.graphics.Color
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setOnItemSelected
 import chata.can.chata_ai.model.BaseModelList
@@ -18,26 +19,38 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.putArgs
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.databinding.FragmentDashboardBinding
 import chata.can.chata_ai_api.fragment.dashboard.adapter.DashboardSpinnerAdapter
 import chata.can.chata_ai_api.fragment.dashboard.adapter.GridAdapter
 
-class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
+class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 {
 	companion object {
 		const val nameFragment = "Dashboard"
 		fun newInstance() = DashboardFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_slide_page)
+			putInt("LAYOUT", R.layout.fragment_dashboard)
 		}
 	}
 
-	private lateinit var svParent: View
-	private lateinit var llOption: View
-	private lateinit var swLoad: SwitchCompat
-	private lateinit var btnExecute: TextView
-	private lateinit var btnDashboard: TextView
-	private lateinit var spDashboard: Spinner
-	private lateinit var rvDashboard: RecyclerView
-	private lateinit var tvEmptyDashboard: TextView
+	private lateinit var binding: FragmentDashboardBinding
+
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View {
+		binding = FragmentDashboardBinding.inflate(inflater, container, false)
+		return binding.root
+	}
+
+//	private lateinit var svParent: View
+//	private lateinit var llOption: View
+//	private lateinit var swLoad: SwitchCompat
+//	private lateinit var btnExecute: TextView
+//	private lateinit var btnDashboard: TextView
+//	private lateinit var spDashboard: Spinner
+//	private lateinit var rvDashboard: RecyclerView
+//	private lateinit var tvEmptyDashboard: TextView
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
 	private val mModel = BaseModelList<Dashboard>()
@@ -45,18 +58,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	private var isAutomatic = false
 	private var isLoaded = false
 
-	override fun initViews(view: View)
-	{
-		view.run {
-			svParent = findViewById(R.id.svParent)
-			llOption = findViewById(R.id.llOption)
-			swLoad = findViewById(R.id.swLoad)
-			btnExecute = findViewById(R.id.btnExecute)
-			btnDashboard = findViewById(R.id.btnDashboard)
-			spDashboard = findViewById(R.id.spDashboard)
-			rvDashboard = findViewById(R.id.rvDashboard)
-			tvEmptyDashboard = findViewById(R.id.tvEmptyDashboard)
-		}
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		setResources()
 
 		SinglentonDrawer.aThemeMethods[nameFragment] = {
@@ -66,38 +68,51 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 				gridAdapter.notifyItemRangeChanged(0, mModel.countData())
 			}
 		}
+
+		setColors()
+		initListener()
 	}
 
-	override fun setColors()
+	/**
+	 * set color to view
+	 * here is used runN@ for reference run object
+	 */
+	private fun setColors()
 	{
-		ThemeColor.currentColor.run {
-			activity?.let {
-				svParent.setBackgroundColor(pDrawerColorSecondary)
-				val backgroundColor = it.getParsedColor(R.color.white)
-				val border = it.getParsedColor(R.color.border_widget_dashboard)
-				rvDashboard.setBackgroundColor(pDrawerColorSecondary)
-				btnExecute.background = DrawableBuilder.setGradientDrawable(
-					backgroundColor,18f, 3, border)
-				btnDashboard.background = DrawableBuilder.setGradientDrawable(
-					backgroundColor,18f, 3, border)
-				spDashboard.setPopupBackgroundDrawable(
-					DrawableBuilder.setGradientDrawable(
-						backgroundColor,18f, 3, border))
-				tvEmptyDashboard.setTextColor(pDrawerTextColorPrimary)
+		binding.run run1@ {
+			ThemeColor.currentColor.run run2@ {
+				activity?.run run3@ {
+					svParent.setBackgroundColor(pDrawerColorSecondary)
+					val backgroundColor = getParsedColor(R.color.white)
+					val border = getParsedColor(R.color.border_widget_dashboard)
+					rvDashboard.setBackgroundColor(pDrawerColorSecondary)
+					btnExecute.background = DrawableBuilder.setGradientDrawable(
+						backgroundColor,18f, 3, border)
+					btnDashboard.background = DrawableBuilder.setGradientDrawable(
+						backgroundColor,18f, 3, border)
+					spDashboard.setPopupBackgroundDrawable(
+						DrawableBuilder.setGradientDrawable(
+							backgroundColor,18f, 3, border))
+					tvEmptyDashboard.setTextColor(pDrawerTextColorPrimary)
+				}
 			}
 		}
+
 	}
 
-	override fun initListener()
+	private fun initListener()
 	{
-		btnExecute.setOnClickListener(this)
-		btnDashboard.setOnClickListener(this)
-		swLoad.setOnCheckedChangeListener {
-			_, isChecked ->
-			isAutomatic = isChecked
-			if (isAutomatic)
-			{
-				getDashboardQueries()
+		val here = this
+		binding.run {
+			btnExecute.setOnClickListener(here)
+			btnDashboard.setOnClickListener(here)
+			swLoad.setOnCheckedChangeListener {
+					_, isChecked ->
+				isAutomatic = isChecked
+				if (isAutomatic)
+				{
+					getDashboardQueries()
+				}
 			}
 		}
 	}
@@ -105,7 +120,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 	override fun onResume()
 	{
 		super.onResume()
-		llOption.setBackgroundColor(Color.parseColor(SinglentonDashboard.dashboardColor))
+		binding.llOption.setBackgroundColor(Color.parseColor(SinglentonDashboard.dashboardColor))
 		if (SinglentonDashboard.isEmpty())
 		{
 			isQueryClean = true
@@ -117,7 +132,7 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		{
 			getDashboardQueries()
 		}
-		hideKeyboard()
+		//TODO hideKeyboard()
 	}
 
 	override fun onPause()
@@ -133,76 +148,80 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 
 	override fun onClick(view: View?)
 	{
-		view?.let {
-			when(it.id)
-			{
-				R.id.btnExecute ->
+		binding.run {
+			view?.let {
+				when(it.id)
 				{
-					val unExecute = getString(R.string.un_execute_dashboard)
-					btnExecute.text = if (btnExecute.text.toString() == unExecute)
+					R.id.btnExecute ->
 					{
-						presenter.getDashboardQueries(false)
-						getString(R.string.execute_dashboard)
+						val unExecute = getString(R.string.un_execute_dashboard)
+						btnExecute.text = if (btnExecute.text.toString() == unExecute)
+						{
+							presenter.getDashboardQueries(false)
+							getString(R.string.execute_dashboard)
+						}
+						else
+						{
+							getDashboardQueries()
+							unExecute
+						}
 					}
-					else
+					R.id.btnDashboard ->
 					{
-						getDashboardQueries()
-						unExecute
+						spDashboard.performClick()
 					}
+					else -> {}
 				}
-				R.id.btnDashboard ->
-				{
-					spDashboard.performClick()
-				}
-				else -> {}
 			}
 		}
 	}
 
 	override fun setDashboards()
 	{
-		activity?.let {
-			isLoaded = true
-			rvDashboard.visibility = View.VISIBLE
-			mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
-			gridAdapter = GridAdapter(mModel, presenter)
-			rvDashboard.layoutManager = LinearLayoutManager(it)
-			rvDashboard.adapter = gridAdapter
-			rvDashboard.itemAnimator = null
+		binding.run {
+			activity?.run {
+				isLoaded = true
+				rvDashboard.visibility = View.VISIBLE
+				mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
+				gridAdapter = GridAdapter(mModel, presenter)
+				rvDashboard.layoutManager = LinearLayoutManager(this)
+				rvDashboard.adapter = gridAdapter
+				rvDashboard.itemAnimator = null
 
-			val aData = SinglentonDashboard.getDashboardNames()
+				val aData = SinglentonDashboard.getDashboardNames()
 
-			val adapter = DashboardSpinnerAdapter(it, aData)
-			spDashboard.adapter = adapter
+				val adapter = DashboardSpinnerAdapter(this, aData)
+				spDashboard.adapter = adapter
 
-			btnDashboard.text = aData.firstOrNull() ?: ""
+				btnDashboard.text = aData.firstOrNull() ?: ""
 
-			configDashboard()
+				configDashboard()
 
-			spDashboard.setSelection(0, false)
-			spDashboard.setOnItemSelected { parent, _, position, _ ->
-				adapter.positionSelect = position
-				parent?.getItemAtPosition(position)?.let { content ->
-					if (content is String)
-					{
-						btnExecute.text = getString(R.string.execute_dashboard)
-						btnDashboard.text = content
-						SinglentonDashboard.clearDashboard()
-						SinglentonDashboard.setDashboardIndex(position)
+				spDashboard.setSelection(0, false)
+				spDashboard.setOnItemSelected { parent, _, position, _ ->
+					adapter.positionSelect = position
+					parent?.getItemAtPosition(position)?.let { content ->
+						if (content is String)
+						{
+							btnExecute.text = getString(R.string.execute_dashboard)
+							btnDashboard.text = content
+							SinglentonDashboard.clearDashboard()
+							SinglentonDashboard.setDashboardIndex(position)
 
-						val model = SinglentonDashboard.getCurrentDashboard()
-						mModel.clear()
-						mModel.addAll(model.getData())
-						gridAdapter.notifyItemRangeChanged(0, mModel.countData())
+							val model = SinglentonDashboard.getCurrentDashboard()
+							mModel.clear()
+							mModel.addAll(model.getData())
+							gridAdapter.notifyItemRangeChanged(0, mModel.countData())
 
-						configDashboard()
+							configDashboard()
+						}
 					}
 				}
-			}
 
-			spDashboard.dropDownVerticalOffset = btnDashboard.height
-			spDashboard.dropDownWidth = btnDashboard.width
+				spDashboard.dropDownVerticalOffset = btnDashboard.height
+				spDashboard.dropDownWidth = btnDashboard.width
 //			hideDialog()
+			}
 		}
 	}
 
@@ -227,27 +246,22 @@ class DashboardFragment: BaseFragment(), View.OnClickListener, DashboardContract
 		{
 			presenter.getDashboards()
 		}
-//		else
-//		{
-//			if (isAutomatic)
-//			{
-//				presenter.resetDashboards(!isAutomatic)
-//			}
-//		}
 	}
 
 	private fun configDashboard()
 	{
-		if (mModel.countData() == 0)
-		{
-			tvEmptyDashboard.setText(R.string.empty_dashboard)
-			tvEmptyDashboard.visibility = View.VISIBLE
-			rvDashboard.visibility = View.GONE
-		}
-		else
-		{
-			tvEmptyDashboard.visibility = View.GONE
-			rvDashboard.visibility = View.VISIBLE
+		binding.run {
+			if (mModel.countData() == 0)
+			{
+				tvEmptyDashboard.setText(R.string.empty_dashboard)
+				tvEmptyDashboard.visibility = View.VISIBLE
+				rvDashboard.visibility = View.GONE
+			}
+			else
+			{
+				tvEmptyDashboard.visibility = View.GONE
+				rvDashboard.visibility = View.VISIBLE
+			}
 		}
 	}
 

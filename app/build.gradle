@@ -57,7 +57,7 @@ dependencies {
     // LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     // Fragment
-    //implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
     // Activity
     implementation 'androidx.activity:activity-ktx:1.4.0'
     // Retrofit
