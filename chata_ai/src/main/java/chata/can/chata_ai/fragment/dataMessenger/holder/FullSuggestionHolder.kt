@@ -29,7 +29,6 @@ class FullSuggestionHolder(
 ): BaseHolder(itemView)
 {
 	private val llContent = itemView.findViewById<View>(R.id.llContent)
-//	private val stvContent = itemView.findViewById<SpinnerTextView>(R.id.stvContent)
 	private val rlRunQuery = itemView.findViewById<View>(R.id.rlRunQuery)
 	private val tvRunQuery = itemView.findViewById<TextView>(R.id.tvRunQuery)
 	private val ivRunQuery = itemView.findViewById<ImageView>(R.id.ivRunQuery)
