@@ -7,21 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
+import chata.can.chata_ai.fragment.notification.NotificationContract
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.retrofit.data.model.NotificationModel
+import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
-class NotificationFragment: Fragment() {
+class NotificationFragment: Fragment(), NotificationContract {
 	companion object {
 		const val nameFragment = "Notifications"
 	}
 
 	private lateinit var binding: FragmentNotificationBinding
-	private lateinit var adapter: NotificationAdapter
+	private val notificationViewModel: NotificationViewModel by viewModels()
+	private lateinit var notificationAdapter: NotificationAdapter
+	private val model = BaseModelList<NotificationModel>()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -33,6 +39,8 @@ class NotificationFragment: Fragment() {
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		initObserve()
+		initList()
 		binding.run {
 			if (AutoQLData.wasLoginIn) {
 				btnTry.visibility = View.GONE
@@ -49,16 +57,42 @@ class NotificationFragment: Fragment() {
 				}
 			}
 			ThemeColor.aColorMethods[nameFragment] = {
-				//setColors()
+				setColors()
 			}
 		}
 	}
 
-	private fun initList(model: BaseModelList<Notification>) {
+	override fun onDestroy() {
+		super.onDestroy()
+		ThemeColor.aColorMethods.remove(nameFragment)
+	}
+
+	override fun showItem(position: Int) {
+
+	}
+
+	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>) {
+
+	}
+
+	private fun initObserve() {
+		notificationViewModel.run {
+			onCreate()
+			notificationList.observe(this@NotificationFragment) { listNotification ->
+				listNotification.forEach { model.add(it) }
+				//show or hide list
+			}
+		}
+	}
+
+	private fun initList() {
 		binding.run {
 			rvNotification.run {
-				layoutManager = LinearLayoutManager(requireActivity())
+				notificationAdapter = NotificationAdapter(model, this@NotificationFragment) {
 
+				}
+				layoutManager = LinearLayoutManager(requireActivity())
+				adapter = notificationAdapter
 				itemAnimator = null
 			}
 		}

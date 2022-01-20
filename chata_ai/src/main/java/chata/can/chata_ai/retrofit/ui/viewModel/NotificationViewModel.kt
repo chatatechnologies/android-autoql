@@ -8,13 +8,14 @@ import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
-	val notificationModel = MutableLiveData<NotificationModel>()
+	val notificationList = MutableLiveData<List<NotificationModel>>()
 
 	var getNotificationUseCase = GetNotificationUseCase()
 
 	fun onCreate() {
 		viewModelScope.launch {
 			val result = getNotificationUseCase()
+			notificationList.postValue(result)
 		}
 	}
 }
