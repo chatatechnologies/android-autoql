@@ -288,6 +288,7 @@ object DataMessengerRow
 					//region interpreted as content
 					addView(TextView(context).apply {
 						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+						marginAll(8f)
 						paddingAll(8f, 0f, 8f, 8f)
 						textSize(12f)
 						id = R.id.tvInterpreter

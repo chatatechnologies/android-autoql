@@ -97,8 +97,10 @@ class WebViewHolder(
 			rotateCharts()
 		}
 
-		rlLoad?.run {
-			setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+		ThemeColor.currentColor.run {
+			tvInterpreter?.background = DrawableBuilder.setGradientDrawable(
+				pDrawerColorSecondary, 30f)
+			rlLoad?.setBackgroundColor(pDrawerBackgroundColor)
 		}
 
 		rlCharts?.backgroundGrayWhite()

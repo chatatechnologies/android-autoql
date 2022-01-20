@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.notification.adapter
 
 import android.graphics.Color
-import android.util.TypedValue
 import android.view.View
 import android.webkit.WebView
 import android.widget.TextView
@@ -47,7 +46,7 @@ class NotificationHolder(
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
-			if (notification is NotificationModel)
+			if (notification is Notification)
 			{
 				setBottomVisibility(notification)
 				ivTop?.setOnClickListener {
@@ -134,7 +133,7 @@ class NotificationHolder(
 			iView.context.dpToPx(4f), rlParent.measuredHeight)
 	}
 
-	private fun setBottomVisibility(notification: NotificationModel)
+	private fun setBottomVisibility(notification: Notification)
 	{
 		rlBottom.visibility = if (notification.isVisible) View.VISIBLE else View.GONE
 	}

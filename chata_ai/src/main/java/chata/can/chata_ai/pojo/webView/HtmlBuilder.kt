@@ -57,6 +57,7 @@ object HtmlBuilder
 		{
 			SupportCase.CASE_1 ->
 			{
+				val case1D3 = DataCase1.getSource(queryBase, dataD3)
 				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 1)
 				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
 
