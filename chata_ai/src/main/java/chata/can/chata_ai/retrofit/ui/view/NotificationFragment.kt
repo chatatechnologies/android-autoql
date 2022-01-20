@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
+import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.fragment.notification.NotificationContract
 import chata.can.chata_ai.fragment.notification.adapter.NotificationAdapter
 import chata.can.chata_ai.fragment.notification.model.Notification
@@ -28,6 +31,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 	private val notificationViewModel: NotificationViewModel by viewModels()
 	private lateinit var notificationAdapter: NotificationAdapter
 	private val model = BaseModelList<NotificationModel>()
+	private var backTotalItems = 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -39,6 +43,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		setColors()
 		initObserve()
 		initList()
 		binding.run {
@@ -58,6 +63,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 			}
 			ThemeColor.aColorMethods[nameFragment] = {
 				setColors()
+				notifyList()
 			}
 		}
 	}
@@ -68,7 +74,9 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	override fun showItem(position: Int) {
-
+		Handler(Looper.getMainLooper()).postDelayed({
+			binding.rvNotification.smoothScrollToPosition(position)
+		}, 200)
 	}
 
 	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>) {
@@ -80,8 +88,9 @@ class NotificationFragment: Fragment(), NotificationContract {
 			onCreate()
 			notificationList.observe(this@NotificationFragment) { listNotification ->
 				listNotification.forEach { model.add(it) }
-				//show or hide list
+				if (listNotification.isNotEmpty()) showList() else showMessage()
 			}
+			totalItems.observe(this@NotificationFragment) { backTotalItems = it }
 		}
 	}
 
@@ -89,7 +98,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 		binding.run {
 			rvNotification.run {
 				notificationAdapter = NotificationAdapter(model, this@NotificationFragment) {
-
+					//TODO REFRESH ITEM ON BOTTOM
 				}
 				layoutManager = LinearLayoutManager(requireActivity())
 				adapter = notificationAdapter
@@ -109,9 +118,25 @@ class NotificationFragment: Fragment(), NotificationContract {
 		}
 	}
 
-	private fun showAtItem(position: Int) {
-		Handler(Looper.getMainLooper()).postDelayed({
-			binding.rvNotification.smoothScrollToPosition(position)
-		}, 200)
+	private fun showMessage() {
+		binding.run {
+			llParent.paddingAll(top = 80f)
+			iv1.visibility = View.VISIBLE
+			tvMsg1.visibility = View.VISIBLE
+			tvLoading.textSize(18f)
+			tvLoading.text = getString(R.string.empty_notification)
+		}
+	}
+
+	private fun showList() {
+		binding.run {
+			rvNotification.visibility = View.VISIBLE
+			tvLoading.visibility = View.GONE
+			notifyList()
+		}
+	}
+
+	private fun notifyList() {
+		notificationAdapter.notifyItemRangeChanged(0, model.countData())
 	}
 }

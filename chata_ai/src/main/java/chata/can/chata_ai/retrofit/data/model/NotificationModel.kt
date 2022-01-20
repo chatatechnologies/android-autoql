@@ -3,7 +3,7 @@ package chata.can.chata_ai.retrofit.data.model
 import com.google.gson.annotations.SerializedName
 
 data class NotificationModel (
-	@SerializedName("createdAt")
+	@SerializedName("created_at")
 	val createdAt: Int,
 	@SerializedName("id")
 	val id: String,
@@ -11,7 +11,7 @@ data class NotificationModel (
 	val message: String,
 	@SerializedName("title")
 	val title: String,
-	@SerializedName("query")
+	@SerializedName("data_return_query")
 	val query: String,
 	@SerializedName("state")
 	val state: String

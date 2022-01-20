@@ -9,13 +9,15 @@ import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
 	val notificationList = MutableLiveData<List<NotificationModel>>()
+	val totalItems = MutableLiveData<Int>()
 
 	var getNotificationUseCase = GetNotificationUseCase()
 
 	fun onCreate() {
 		viewModelScope.launch {
 			val result = getNotificationUseCase()
-			notificationList.postValue(result)
+			notificationList.postValue(result.items)
+			totalItems.postValue(result.pagination.totalItems)
 		}
 	}
 }

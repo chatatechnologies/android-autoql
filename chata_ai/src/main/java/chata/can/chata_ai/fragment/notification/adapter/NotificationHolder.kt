@@ -15,6 +15,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.data.model.NotificationModel
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,7 +47,7 @@ class NotificationHolder(
 	override fun onBind(item: Any?, listener: OnItemClickListener?)
 	{
 		item?.let { notification ->
-			if (notification is Notification)
+			if (notification is NotificationModel)
 			{
 				setBottomVisibility(notification)
 				ivTop?.setOnClickListener {
@@ -133,7 +134,7 @@ class NotificationHolder(
 			iView.context.dpToPx(4f), rlParent.measuredHeight)
 	}
 
-	private fun setBottomVisibility(notification: Notification)
+	private fun setBottomVisibility(notification: NotificationModel)
 	{
 		rlBottom.visibility = if (notification.isVisible) View.VISIBLE else View.GONE
 	}
