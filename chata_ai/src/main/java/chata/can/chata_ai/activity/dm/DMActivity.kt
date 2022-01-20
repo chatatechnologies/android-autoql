@@ -19,7 +19,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
-import chata.can.chata_ai.fragment.notification.NotificationFragment
+//import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -27,6 +27,7 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
+import chata.can.chata_ai.retrofit.ui.view.NotificationFragment
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import chata.can.request_native.StatusResponse

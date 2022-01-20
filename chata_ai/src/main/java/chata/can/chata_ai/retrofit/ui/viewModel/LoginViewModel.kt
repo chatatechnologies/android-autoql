@@ -1,4 +1,4 @@
-package chata.can.chata_ai.retrofit.ui
+package chata.can.chata_ai.retrofit.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

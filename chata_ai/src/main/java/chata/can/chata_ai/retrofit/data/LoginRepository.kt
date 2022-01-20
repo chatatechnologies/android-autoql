@@ -6,7 +6,6 @@ class LoginRepository {
 	private val api = LoginService()
 
 	suspend fun postLogin(username: String, password: String): String {
-		val response = api.setLogin(username, password)
-		return response
+		return api.setLogin(username, password)
 	}
 }

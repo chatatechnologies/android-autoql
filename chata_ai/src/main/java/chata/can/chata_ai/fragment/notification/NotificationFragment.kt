@@ -89,6 +89,7 @@ class NotificationFragment: BaseFragment(), NotificationContract
 			btnTry = view.findViewById(R.id.btnTry)
 			tvMsg1 = view.findViewById(R.id.tvMsg1)
 			rvNotification = view.findViewById(R.id.rvNotification)
+
 			presenter = NotificationPresenter(this)
 			adapter = NotificationAdapter(model, this) {
 				if (countPages < totalPages)

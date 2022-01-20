@@ -32,7 +32,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	companion object {
 		const val nameFragment = "Data Messenger"
 		fun newInstance() = MainFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_main)
+			putInt("LAYOUT", R.layout.fragment_notification)
 		}
 	}
 
@@ -109,7 +109,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	{
 		super.onRenderViews(view)
 		if (BuildConfig.DEBUG)
-//		if (false)
 		{
 			val projectId = "spira-demo3"
 //			val projectId = "accounting-demo"
@@ -143,8 +142,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-//			servicePresenter.createAuthenticate()
-//			showDialog()
+			servicePresenter.createAuthenticate()
+			showDialog()
 		}
 		else
 		{
