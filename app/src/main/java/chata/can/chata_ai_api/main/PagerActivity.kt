@@ -9,6 +9,7 @@ import android.os.Build
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setOnTabSelectedListener
@@ -16,6 +17,7 @@ import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.request.RequestBuilder
+import chata.can.chata_ai.retrofit.ui.LoginViewModel
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.databinding.PagerActivityBinding
@@ -30,6 +32,8 @@ class PagerActivity: BaseActivity()
 		Triple(R.drawable.ic_tab_dashboard, "Dashboard", R.color.black))
 
 	private lateinit var binding: PagerActivityBinding
+
+	private val loginViewModel: LoginViewModel by viewModels()
 
 	override fun onCreatedView() {
 		ThemeColor.parseColor(this)
@@ -97,6 +101,12 @@ class PagerActivity: BaseActivity()
 				}
 			)
 		}
+
+		loginViewModel.onCreate()
+
+		loginViewModel.loginModel.observe(this, { loginModel ->
+			loginModel.toString()
+		})
 	}
 
 	override fun onBackPressed()

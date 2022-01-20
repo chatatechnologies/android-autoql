@@ -1,10 +1,12 @@
 package chata.can.chata_ai.retrofit.data.network
 
-import chata.can.chata_ai.retrofit.data.model.LoginModel
+import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface LoginApiClient {
-	@POST("/login")
-	suspend fun postLogin(): Response<LoginModel>
+	@POST("login")
+	suspend fun postLogin(
+		@Body params: RequestBody
+	): Response<String>
 }

@@ -619,7 +619,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private val aPermission = arrayOf(Manifest.permission.RECORD_AUDIO)
 	private val permissionRequiredLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
 		permissions ->
-		val grated = permissions.entries.all { it.value == true }
+		val grated = permissions.entries.all { it.value }
 		if (grated) println("Permission grated")
 	}
 
