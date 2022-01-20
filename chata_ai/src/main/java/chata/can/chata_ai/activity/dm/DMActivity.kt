@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import chata.can.chata_ai.R
@@ -19,7 +20,6 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
-//import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -28,6 +28,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.request.Poll
 import chata.can.chata_ai.retrofit.ui.view.NotificationFragment
+import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import chata.can.request_native.StatusResponse
@@ -73,6 +74,8 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 			}
 		}
 	}
+
+	private val notificationViewModel: NotificationViewModel by viewModels()
 
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
@@ -120,6 +123,8 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 		}
 		if (PollService.unacknowledged != 0)
 			showNotification(PollService.unacknowledged)
+
+		notificationViewModel.onCreate()
 	}
 
 	override fun onResume()

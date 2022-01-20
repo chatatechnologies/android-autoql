@@ -32,7 +32,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	companion object {
 		const val nameFragment = "Data Messenger"
 		fun newInstance() = MainFragment().putArgs {
-			putInt("LAYOUT", R.layout.fragment_notification)
+			putInt("LAYOUT", R.layout.fragment_main)
 		}
 	}
 
