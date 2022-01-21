@@ -169,7 +169,7 @@ object HtmlBuilder
 			}
 			else ->
 			{
-				queryBase.supportCase.toString()
+				return DataCaseNone.getSource(queryBase, dataD3)
 			}
 		}
 		if (queryBase.aRows.size == 1)
