@@ -14,7 +14,7 @@ object HtmlBuilder
 {
 	private val aCount = arrayListOf(TypeDataQuery.QUANTITY, TypeDataQuery.DOLLAR_AMT/*, TypeDataQuery.DATE, TypeDataQuery.DATE_STRING*/)
 	/*search countable type one by one*/
-	private fun hasCountableIndex(queryBase: QueryBase): Int
+	fun hasCountableIndex(queryBase: QueryBase): Int
 	{
 		for (type in aCount)
 		{
@@ -73,18 +73,7 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_3 ->
 			{
-				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
-				if (aGroupable.isNotEmpty())
-				{
-					val pos = if (aGroupable.size == 2) 0 else 1// 1 else 0
-					posColumnX = aGroupable[pos]
-				}
-				val tmp = hasCountableIndex(queryBase)
-				if (tmp != -1) posColumnY = tmp
-				queryBase.addIndices(posColumnX, posColumnY)
-				isTriConfig = true
-				dataD3.isBi = false
-				queryBase.configActions = 5
+				return DataCase3.getSource(queryBase, dataD3)
 			}
 			SupportCase.CASE_5 ->
 			{
