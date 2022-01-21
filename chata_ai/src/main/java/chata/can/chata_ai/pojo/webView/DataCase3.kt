@@ -76,15 +76,6 @@ object DataCase3 {
 			)
 		).toString()
 
-		dataD3.drillTableY = if (aColumn.size > posColumnY) {
-			Categories.buildCategoryByPosition(
-				Category(
-					aRows, aColumn[posColumnY], posColumnY, true,
-					hasQuotes = true, allowRepeat = isTriConfig, aIndicesIgnore = aIndicesIgnore
-				)
-			).toString()
-		} else arrayListOf<String>().toString()
-
 		if (dataD3.aCategoryX == "[]")
 		{
 			dataD3.aCategoryX = Categories.makeCategories(aCatX, !isTriConfig)

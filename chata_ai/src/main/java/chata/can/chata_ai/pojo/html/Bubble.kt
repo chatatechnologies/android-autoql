@@ -39,7 +39,6 @@ object Bubble
   svg.append('g')
     .selectAll('dot')
     .data(data)
-    // .data(data1)
     .enter()
     .append('circle')
     .attr('id', function(item, i){ return `${'$'}{item.name}_${'$'}{item.group}`;})

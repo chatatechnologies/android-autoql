@@ -54,7 +54,7 @@ object MultiBar
   const xSubgroup = d3.scaleBand()
     .domain(subgroups)
     .range([x.bandwidth(), 0])
-    .padding([0.05]);//TODO CHANGE
+    .padding([0.05]);
 
     // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
