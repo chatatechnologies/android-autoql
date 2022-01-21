@@ -4,7 +4,9 @@ class DataD3
 {
 	var type = "table"
 	var table = ""
+	var rowsTable = 0
 	var pivot = ""
+	var rowsPivot = 0
 
 	var indexData = -1
 	var data = "[]"

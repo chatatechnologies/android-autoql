@@ -100,6 +100,7 @@ class WebViewHolder(
 		ThemeColor.currentColor.run {
 			tvInterpreter?.background = DrawableBuilder.setGradientDrawable(
 				pDrawerColorSecondary, 30f)
+			tvInterpreter?.paddingAll(8f, 4f, 8f, 4f)
 			rlLoad?.setBackgroundColor(pDrawerBackgroundColor)
 		}
 

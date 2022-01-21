@@ -107,6 +107,7 @@ object DataCase1 {
 					{
 						dataD3.pivot = first
 						queryBase.configActions = 1
+						dataD3.rowsPivot = second
 					}
 				}
 			}

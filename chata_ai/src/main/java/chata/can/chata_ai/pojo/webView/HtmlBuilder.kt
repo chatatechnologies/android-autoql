@@ -27,7 +27,7 @@ object HtmlBuilder
 		return -1
 	}
 
-	fun build(queryBase: QueryBase): Pair<DataForWebView, DataD3>
+	fun build(queryBase: QueryBase): DataD3
 	{
 		val dataForWebView = DataForWebView()
 		val dataD3 = DataD3()
@@ -41,6 +41,7 @@ object HtmlBuilder
 		dataForWebView.table = pData.first
 		dataD3.table = pData.first
 		dataForWebView.rowsTable = pData.second
+		dataD3.rowsTable = pData.second
 
 		var posColumnX = 0
 		var posColumnY = 1
@@ -57,18 +58,7 @@ object HtmlBuilder
 		{
 			SupportCase.CASE_1 ->
 			{
-				val case1D3 = DataCase1.getSource(queryBase, dataD3)
-				val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 1)
-				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-
-				posColumnX = aGroupable[0]
-				posColumnY = aNumber[0]
-				queryBase.addIndices(posColumnX, posColumnY)
-//				val hasDecimals = SearchColumn.hasDecimals(aRows, posColumnY)
-//				if (hasDecimals)
-//					queryBase.configActions = 0
-//				else
-				queryBase.configActions = 4
+				return DataCase1.getSource(queryBase, dataD3)
 			}
 			SupportCase.CASE_2 ->
 			{
@@ -376,6 +366,7 @@ object HtmlBuilder
 							dataForWebView.datePivot = tPivot.first
 							dataD3.pivot = tPivot.first
 							dataForWebView.rowsPivot = tPivot.second
+							dataD3.rowsPivot = tPivot.second
 							tPivot.run {
 								if (third.isNotEmpty())
 								{
@@ -405,6 +396,7 @@ object HtmlBuilder
 							dataForWebView.datePivot = pPivot.first
 							dataD3.pivot = pPivot.first
 							dataForWebView.rowsPivot = pPivot.second
+							dataD3.rowsPivot = pPivot.second
 						}
 					}
 					else
@@ -412,6 +404,7 @@ object HtmlBuilder
 						dataForWebView.datePivot = DatePivot.buildTri(aRows, aColumn)
 						dataD3.pivot = dataForWebView.datePivot
 						dataForWebView.rowsPivot = 180
+						dataD3.rowsPivot = 180
 					}
 				}
 
@@ -635,6 +628,7 @@ object HtmlBuilder
 							dataForWebView.datePivot = first
 							dataD3.pivot = first
 							dataForWebView.rowsPivot = second
+							dataD3.rowsPivot = second
 							queryBase.configActions = 1
 						}
 					}
@@ -654,6 +648,6 @@ object HtmlBuilder
 			}
 		}
 
-		return Pair(dataForWebView, dataD3)
+		return dataD3
 	}
 }
