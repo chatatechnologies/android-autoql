@@ -210,21 +210,17 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 				supportCase = rulesHTML.getSupportCharts()
 
 				val dataD3 = HtmlBuilder.build(this)
-//				val dataForWebView = pData.first
-//				val dataD3 = pData.second
 				if (configActions == 0)
 				{
 					displayType = "data"
 				}
 				if (displayType != "data")
 				{
-//					dataForWebView.type = displayType
 					dataD3.type = displayType
 				}
 				if (reloadTable)
 				{
 					reloadTable = false
-//					dataForWebView.updateTable = true
 					dataD3.updateTable = true
 				}
 
@@ -238,8 +234,6 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 							{
 								toString()
 							}
-//							dataForWebView.xAxis = aColumn.getOrNull(
-//								aIndex[0])?.displayName ?: ""
 							dataD3.xAxis = aColumn.getOrNull(
 								aIndex[0])?.displayName ?: ""
 
@@ -272,21 +266,16 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 						{
 							if (aIndex.isNotEmpty())
 							{
-//								dataForWebView.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
 								dataD3.xAxis = aColumn.getOrNull(aIndex[0])?.displayName ?: ""
-//								dataForWebView.yAxis = aColumn.getOrNull(aIndex[1])?.displayName ?: ""
 								dataD3.yAxis = "Amount"
 							}
 						}
 					}
 				}
 
-//				dataForWebView.isColumn = if (configActions == 0) false else isGroupable
 				dataD3.isColumn = if (configActions == 0) false else isGroupable
-//				dataForWebView.isDashboard = isDashboard
 				dataD3.isDashboard = isDashboard
 
-//				contentHTML = DashboardMaker.getHTML(dataForWebView)
 				contentHTML = D3OnHtml.getHtmlTest(dataD3)
 				rowsTable = dataD3.rowsTable
 				rowsPivot = dataD3.rowsPivot

@@ -21,7 +21,7 @@ class DataD3
 	var catHeatX = "[]"
 	var catHeatY = "[]"
 
-	var drillX = ""
+	var drillX = "[]"
 	var drillList = "[]"
 
 	var drillTableY = "[]"
