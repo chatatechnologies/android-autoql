@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barchart demo</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<style>
+  body {
+    background-color: gray;
+  }
+</style>
+<body>
+  <svg></svg>
+  <script>
+    var data = [
+      {name: 'date1', value: 100},
+      {name: 'date2', value: -100},
+      {name: 'date3', value: -150},
+      {name: 'date4', value: 55},
+      {name: 'date5', value: 150},
+      {name: 'date6', value: 120},
+      {name: 'date7', value: 450},
+      {name: 'date8', value: 980},
+      {name: 'date9', value: 1200},
+    ]
+
+var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labels
+var rightMargin = 10; // Space to the right of last bar
+var margin = {left: leftMargin, right: rightMargin, top: 10, bottom: 10};
+var barWidth = 90;  // Width of the bars
+var chartHeight = 450;  // Height of chart, from x-axis (ie. y=0)
+var chartWidth = margin.left + data.length * barWidth + margin.right;
+
+/* This scale produces negative output for negatve input */
+var yScale = d3.scaleLinear()
+  .domain([0, d3.max(data, function (d) {return d.value } )])
+  .range([0, chartHeight]);
+
+/*
+ * We need a different scale for drawing the y-axis. It needs
+ * a reversed range, and a larger domain to accomodate negaive values.
+ */
+var yAxisScale = d3.scaleLinear()
+  .domain(
+    [
+      d3.min(data, function (d) { return d.value; }),
+      d3.max(data, function (d) { return d.value; })
+    ]
+  )
+  .range(
+    [
+      chartHeight - yScale(d3.min(data, function (d) {return d.value; } )),
+      0
+    ]
+  );
+
+var svg = d3.select('svg');
+svg
+    .attr('height', chartHeight + 100)
+    .attr('width', chartWidth)
+    .style('border', '1px solid');
+
+svg
+  .selectAll("rect")
+  .data(data)
+  .enter()
+  .append("rect")
+    .attr("x", function(d, i) { return margin.left + i * barWidth; })
+    .attr("width", barWidth)
+    .attr("y", function(d, i) { return chartHeight - Math.max(0, yScale(d.value)); })
+    .attr("height", function(d) { return Math.abs(yScale(d.value)) - 0; })//absolute value for column
+    .style("fill", "blue")
+.style("stroke", "black")
+.style("stroke-width", "1px")
+.style("opacity", function(d, i) { return 1; });
+
+var yAxis = d3.axisLeft(yAxisScale);
+
+svg.append('g')
+  .attr('transform', function(d) {
+    return 'translate(' + margin.left + ', 10)';
+  })
+  .call(yAxis);
+  </script>
+</body>
+</html>
