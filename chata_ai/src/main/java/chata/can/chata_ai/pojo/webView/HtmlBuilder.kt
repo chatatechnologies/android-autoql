@@ -45,10 +45,10 @@ object HtmlBuilder
 
 		var posColumnX = 0
 		var posColumnY = 1
-		var aDataX = ArrayList<Int>()
-		var aDataY = ArrayList<Int>()
+		var aDataX = arrayListOf<Int>()
+		var aDataY = arrayListOf<Int>()
 		var aSecondary = ArrayList<Int>()
-		var isTriConfig = false
+		val isTriConfig = false
 		//region define data with support Case
 		/**
 		 * configAllow in false is bi dimensional
@@ -272,21 +272,19 @@ object HtmlBuilder
 				dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
 				dataD3.aCategoryX = dataForWebView.catX
 			}
+			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
+
 			if (isTriConfig)
 			{
 				queryBase.aCategoryX = buildCategoryByPosition(
 					Category(aRows, aColumn[posColumnX], posColumnX, true,
 						hasQuotes = false, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore))
-			}
-			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
 
-			if (isTriConfig)
-			{
 				for (cat in queryBase.aCategoryX)
 				{
 					queryBase.aCategory.add(FilterColumn(cat, true))
 				}
-				//region cat for D3 on tridimensionals
+				//region cat for D3 on tri dimensions
 				dataD3.catHeatX = dataForWebView.catY
 				dataD3.catHeatY = dataForWebView.catX
 
