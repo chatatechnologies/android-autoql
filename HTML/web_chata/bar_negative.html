@@ -38,12 +38,15 @@ var chartWidth = margin.left + data.length * barWidth + margin.right;
 var yScale = d3.scaleLinear()
   .domain([
       0,
-      d3.max(data, function (d) {return d.value } )
+      d3.max(data, function (d) { return d.value; })
     ])
   .range([
     0,
     chartHeight
   ]);
+
+  var minValue = yScale(d3.min(data, function (d) {return d.value; }) )
+  console.log(minValue)
 
 /*
  * We need a different scale for drawing the y-axis. It needs
@@ -58,14 +61,14 @@ var yAxisScale = d3.scaleLinear()
   )
   .range(
     [
-      chartHeight - yScale(d3.min(data, function (d) {return d.value; } )),
+      chartHeight - yScale(d3.min(data, function (d) {return d.value; }) ),
       0
     ]
   );
 
 var svg = d3.select('svg');
 svg
-    .attr('height', chartHeight + 100)
+    .attr('height', chartHeight + margin.top + margin.bottom + Math.abs(minValue))
     .attr('width', chartWidth)
     .append('g')
     .attr('transform', function(d) {
@@ -84,9 +87,16 @@ svg
     .attr("x", function(d, i) { return margin.left + i * barWidth + 5; })
     .attr("width", barWidth - 2)
     //if Math.max is 0, the bar is negative orientation
-    .attr("y", function(d, i) { return margin.top + chartHeight - Math.max(0, yScale(d.value)); })
+    .attr("y", function(d, i) {
+      //console.log("Y Relative -> " + yScale(d.value) );
+      //console.log("Y Absoluto -> " + ( /*margin.top +*/ chartHeight - Math.max(0, yScale(d.value)) ) );
+      return margin.top + chartHeight - Math.max(0, yScale(d.value)); })
     //absolute value for column
-    .attr("height", function(d) { return Math.abs(yScale(d.value)) - 0; })
+    .attr("height", function(d) {
+      //console.log("height " + Math.abs(yScale(d.value)) );
+      return Math.abs(yScale(d.value));
+      //return 35.83;
+    })
     .style('fill', function(d) {
 			return scaleColorBi(d.value);
 		})
