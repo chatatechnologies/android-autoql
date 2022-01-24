@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -96,11 +95,6 @@ object DataCase2 {
 
 				MultiData.getMaxMin(dataD3, multiData)
 				MultiData.getMaxMin(dataD3, multiData2, true)
-//				val min = multiData.min
-//				val max = multiData.max
-				//region order data for data:
-				//dataForWebView.dataChartBi = MultiData.getDataChartBiMulti(aDataY, multiData.mDataOrder, dataForWebView.isReverseX)
-				//region data drillDown
 				val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
 				for (mChild in multiData.aGroupedData)
 				{
@@ -113,13 +107,7 @@ object DataCase2 {
 						}
 					}
 				}
-				//queryBase.mDrillDown = mDrillDown
-				queryBase.hasDrillDown = queryBase.mSourceDrill.isNotEmpty()// queryBase.mDrillDown != null
-				//endregion
-//				if (dataForWebView.isReverseX) multiData.aCategoriesX.reverse()
-//				dataForWebView.catX = multiData.aCategoriesX.map {
-//					"\"${it.formatWithColumn(aColumn[aDataX[0]])}\""
-//				}.toString()
+				queryBase.hasDrillDown = queryBase.mSourceDrill.isNotEmpty()
 
 				val aCatCommon = ArrayList<String>()
 				queryBase.aCommon.run {
@@ -133,55 +121,6 @@ object DataCase2 {
 					"\"$it\""
 				}
 			}
-
-			val aIndicesIgnore = Categories.indexCategoryEmpty(aRows, posColumnX)
-			val aCatX = Categories.buildCategoryByPosition(
-				Category(
-					aRows,
-					aColumn[posColumnX],
-					posColumnX,
-					isFormatted = true,
-					hasQuotes = true,
-					allowRepeat = true,
-					aIndicesIgnore = aIndicesIgnore
-				)
-			)
-			val aCatY = if (aColumn.size > posColumnY)
-			{
-				val columnY = aColumn[posColumnY]
-				Categories.buildCategoryByPosition(
-					Category(
-						aRows,
-						columnY,
-						posColumnY,
-						isFormatted = true,
-						hasQuotes = true,
-						allowRepeat = true,
-						aIndicesIgnore = aIndicesIgnore
-					)
-				)
-			}
-			else ArrayList()
-
-			//region build data for D3
-			val sb = StringBuilder()
-			val sbFormat = StringBuilder()
-			for (index in 0 until aCatX.count())
-			{
-				val name = aCatX[index]
-				val value = aCatY[index]
-				sb.append("{name: $name, value: $value},\n")
-
-				val column = aColumn[1]
-				val vFormat = value.formatWithColumn(column)
-				sbFormat.append("{name: $name")
-				if (vFormat != "0") sbFormat.append(", value: '$vFormat'")
-				sbFormat.append("},\n")
-			}
-			dataD3.data = "[${sb.removeSuffix(",\n")}]"
-			dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
-			//endregion
-
 		}
 		return dataD3
 	}
