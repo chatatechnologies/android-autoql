@@ -34,46 +34,26 @@ var barWidth = 90;  // Width of the bars
 var chartHeight = 450 - margin.top - margin.bottom;  // Height of chart, from x-axis (ie. y=0)
 var chartWidth = margin.left + data.length * barWidth + margin.right;
 
+var min = Math.min(...data.map(item => item.value) );
+var max = Math.max(...data.map(item => item.value) );
+
+var y0 = Math.max(Math.abs(min), Math.abs(max));
+
 /* This scale produces negative output for negatve input */
 var yScale = d3.scaleLinear()
-  .domain([
-      0,
-      d3.max(data, function (d) { return d.value; })
-    ])
-  .range([
-    0,
-    chartHeight
-  ]);
+  .domain([-y0, y0])
+  .range([chartHeight, 0]);
 
-  var minValue = yScale(d3.min(data, function (d) {return d.value; }) )
-  console.log(minValue)
-
-/*
- * We need a different scale for drawing the y-axis. It needs
- * a reversed range, and a larger domain to accomodate negaive values.
- */
-var yAxisScale = d3.scaleLinear()
-  .domain(
-    [
-      d3.min(data, function (d) { return d.value; }),
-      d3.max(data, function (d) { return d.value; })
-    ]
-  )
-  .range(
-    [
-      chartHeight - yScale(d3.min(data, function (d) {return d.value; }) ),
-      0
-    ]
-  );
+var minValue = yScale(d3.min(data, function (d) {return d.value; }) );
 
 var svg = d3.select('svg');
 svg
-    .attr('height', chartHeight + margin.top + margin.bottom + Math.abs(minValue))
-    .attr('width', chartWidth)
-    .append('g')
-    .attr('transform', function(d) {
-      return `translate(0, ${margin.top})`;
-    })
+  .attr('height', chartHeight + margin.top + margin.bottom)
+  .attr('width', chartWidth)
+  .append('g')
+  .attr('transform', function(d) {
+    return `translate(0, ${margin.top})`;
+  })
 svg.style('border', '1px solid');
 
 var colorBi = ['#26a7e9'];
@@ -88,14 +68,11 @@ svg
     .attr("width", barWidth - 2)
     //if Math.max is 0, the bar is negative orientation
     .attr("y", function(d, i) {
-      //console.log("Y Relative -> " + yScale(d.value) );
-      //console.log("Y Absoluto -> " + ( /*margin.top +*/ chartHeight - Math.max(0, yScale(d.value)) ) );
-      return margin.top + chartHeight - Math.max(0, yScale(d.value)); })
+      return margin.top + yScale( d.value);
+    })
     //absolute value for column
     .attr("height", function(d) {
-      //console.log("height " + Math.abs(yScale(d.value)) );
-      return Math.abs(yScale(d.value));
-      //return 35.83;
+      return Math.abs(yScale(d.value) - yScale(0));
     })
     .style('fill', function(d) {
 			return scaleColorBi(d.value);
@@ -104,7 +81,7 @@ svg
     .style("stroke-width", "0")
     .style("opacity", function(d, i) { return 1; });
 
-var yAxis = d3.axisLeft(yAxisScale);
+var yAxis = d3.axisLeft(yScale);
 
 svg.append('g')
   .attr('transform', function(d) {
