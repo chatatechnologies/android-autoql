@@ -9,7 +9,7 @@
 </head>
 <style>
   body {
-    background-color: gray;
+    background: #3b3f46 !important;
   }
 </style>
 <body>
@@ -17,8 +17,8 @@
   <script>
     var data = [
       {name: 'date1', value: 100},
-      {name: 'date2', value: -100},
-      {name: 'date3', value: -150},
+      {name: 'date2', value: -100},// {name: 'date2', value: -100},
+      {name: 'date3', value: -150},// {name: 'date3', value: -150},
       {name: 'date4', value: 55},
       {name: 'date5', value: 150},
       {name: 'date6', value: 120},
@@ -31,13 +31,19 @@ var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labe
 var rightMargin = 10; // Space to the right of last bar
 var margin = {left: leftMargin, right: rightMargin, top: 10, bottom: 10};
 var barWidth = 90;  // Width of the bars
-var chartHeight = 450;  // Height of chart, from x-axis (ie. y=0)
+var chartHeight = 450 - margin.top - margin.bottom;  // Height of chart, from x-axis (ie. y=0)
 var chartWidth = margin.left + data.length * barWidth + margin.right;
 
 /* This scale produces negative output for negatve input */
 var yScale = d3.scaleLinear()
-  .domain([0, d3.max(data, function (d) {return d.value } )])
-  .range([0, chartHeight]);
+  .domain([
+      0,
+      d3.max(data, function (d) {return d.value } )
+    ])
+  .range([
+    0,
+    chartHeight
+  ]);
 
 /*
  * We need a different scale for drawing the y-axis. It needs
@@ -61,27 +67,38 @@ var svg = d3.select('svg');
 svg
     .attr('height', chartHeight + 100)
     .attr('width', chartWidth)
-    .style('border', '1px solid');
+    .append('g')
+    .attr('transform', function(d) {
+      return `translate(0, ${margin.top})`;
+    })
+svg.style('border', '1px solid');
+
+var colorBi = ['#26a7e9'];
+var scaleColorBi = d3.scaleOrdinal().range(colorBi);
 
 svg
   .selectAll("rect")
   .data(data)
   .enter()
   .append("rect")
-    .attr("x", function(d, i) { return margin.left + i * barWidth; })
-    .attr("width", barWidth)
-    .attr("y", function(d, i) { return chartHeight - Math.max(0, yScale(d.value)); })
-    .attr("height", function(d) { return Math.abs(yScale(d.value)) - 0; })//absolute value for column
-    .style("fill", "blue")
-.style("stroke", "black")
-.style("stroke-width", "1px")
-.style("opacity", function(d, i) { return 1; });
+    .attr("x", function(d, i) { return margin.left + i * barWidth + 5; })
+    .attr("width", barWidth - 2)
+    //if Math.max is 0, the bar is negative orientation
+    .attr("y", function(d, i) { return margin.top + chartHeight - Math.max(0, yScale(d.value)); })
+    //absolute value for column
+    .attr("height", function(d) { return Math.abs(yScale(d.value)) - 0; })
+    .style('fill', function(d) {
+			return scaleColorBi(d.value);
+		})
+    .style("stroke", "white")
+    .style("stroke-width", "0")
+    .style("opacity", function(d, i) { return 1; });
 
 var yAxis = d3.axisLeft(yAxisScale);
 
 svg.append('g')
   .attr('transform', function(d) {
-    return 'translate(' + margin.left + ', 10)';
+    return `translate(${margin.left}, ${margin.top})`;
   })
   .call(yAxis);
   </script>
