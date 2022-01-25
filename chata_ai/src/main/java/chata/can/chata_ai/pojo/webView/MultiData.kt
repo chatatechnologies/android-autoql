@@ -10,6 +10,7 @@ object MultiData
 	fun getMultiData(aIndices: ArrayList<Int>, aColumn: ArrayList<ColumnQuery>,
 		aRows: ArrayList<ArrayList<String>>, indexX: Int): MultiDataModel
 	{
+		var hasNegative = false
 		val aCategoryMulti2 = ArrayList<String>()
 		val aCategoriesX = ArrayList<String>()
 		val aData = ArrayList< LinkedHashMap<String, Double>>()
@@ -51,7 +52,11 @@ object MultiData
 			if (tmpMin < min) min = tmpMin
 			for ((key, value) in mChild)
 			{
-				val sValue = value.toString()
+				if (!hasNegative) {
+					if (value < 0)
+						hasNegative = true
+				}
+				val sValue = "$value"
 				val tmpKey = if (key == "null") "Untitled Category" else key
 				mDataOrder[tmpKey]?.run {
 					this.add(sValue)
@@ -60,7 +65,7 @@ object MultiData
 				}
 			}
 		}
-		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max, aMax)
+		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max, aMax, hasNegative)
 	}
 
 	fun getTimesDataMulti(

@@ -27,6 +27,7 @@ object DataCase2 {
 				val mMaxData = LinkedHashMap<String, String>()
 				val mDrillData = LinkedHashMap<String, String>()
 				val aIndexCommon = queryBase.aCommon.map { it.first }
+				val mHasNegatives = LinkedHashMap<String, Boolean>()
 
 				queryBase.mSourceDrill.clear()
 				for (index in aIndexCommon)
@@ -43,6 +44,8 @@ object DataCase2 {
 
 					val index1 = "\'${index}_1\'"
 					val index2 = "\'${index}_2\'"
+					mHasNegatives[index1] = multiData.hasNegative
+					mHasNegatives[index2] = multiData2.hasNegative
 					//data
 					mAllData[index1] = data1
 					mAllData[index2] = data2
@@ -66,6 +69,12 @@ object DataCase2 {
 					//endregion
 				}
 				//build data string builder
+				StringBuilder("{").apply {
+					for ((key, value) in mHasNegatives) {
+						append("$key: $value,\n")
+					}
+					dataD3.hasNegative = "${removeSuffix(", ")} }"
+				}
 				StringBuilder("{").apply {
 					for ((key, value) in mAllData)
 						append("$key: $value,\n")

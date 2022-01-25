@@ -67,6 +67,7 @@ var axisMiddle = '${dataD3.middleAxis}';
 var nColumns = 0;
 
 //Main data
+var hasNegative = ${dataD3.hasNegative};
 var indexData = ${dataD3.indexData};
 var dataTmp = [];
 var data = ${dataD3.data};

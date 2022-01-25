@@ -18,6 +18,7 @@ class DataD3
 	var aMaxData = "[]"
 	var dataFormatted = "[]"
 
+	var hasNegative = "{}"
 	var catHeatX = "[]"
 	var catHeatY = "[]"
 

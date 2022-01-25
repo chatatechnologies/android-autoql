@@ -13,19 +13,18 @@
   }
 </style>
 <body>
-  <svg></svg>
   <script>
-    var data = [
-      {name: 'date1', value: 100},
-      {name: 'date2', value: -100},
-      {name: 'date3', value: -150},
-      {name: 'date4', value: 55},
-      {name: 'date5', value: 150},
-      {name: 'date6', value: 120},
-      {name: 'date7', value: 450},
-      {name: 'date8', value: 980},
-      {name: 'date9', value: 1200},
-    ]
+var data = [
+  {name: 'date1', value: 100},
+  {name: 'date2', value: -100},
+  {name: 'date3', value: -150},
+  {name: 'date4', value: 55},
+  {name: 'date5', value: 150},
+  {name: 'date6', value: 120},
+  {name: 'date7', value: 450},
+  {name: 'date8', value: 980},
+  {name: 'date9', value: 1200},
+]
 
 var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labels
 var rightMargin = 10; // Space to the right of last bar
@@ -49,15 +48,12 @@ var yScale = d3.scaleLinear()
   .domain([-y0, y0])
   .range([chartHeight, 0]);
 
-var minValue = yScale(d3.min(data, function (d) {return d.value; }) );
-
-var svg = d3.select('svg');
-svg
+var svg = d3.select('body').append('svg')
   .attr('height', chartHeight + margin.top + margin.bottom)
-  .attr('width', margin.left + chartWidth + margin.right)
+  .attr('width', chartWidth + margin.left + margin.right)
   .append('g')
   .attr('transform', function(d) {
-    return `translate(0, ${margin.top})`;
+    return `translate(${margin.left}, ${margin.top})`;
   })
 svg.style('border', '1px solid');
 
@@ -69,33 +65,33 @@ svg
   .data(data)
   .enter()
   .append("rect")
-    .attr("x", function(d, i) { return margin.left + xScale(d.name); })
+    .attr("x", function(d) { return xScale(d.name); })
     .attr("width", xScale.bandwidth())
     //if Math.max is 0, the bar is negative orientation
-    .attr("y", function(d, i) {
+    .attr('y', function(d) {
       var factor;
       if (yScale(d.value) > chartHeight / 2) {
         factor = chartHeight / 2;
       } else {
         factor = yScale( d.value)
       }
-      return margin.top + factor;
+      return factor;
     })
     //absolute value for column
-    .attr("height", function(d) {
+    .attr('height', function(d) {
       return Math.abs(yScale(d.value) - yScale(0));
     })
     .style('fill', function(d) {
 			return scaleColorBi(d.value);
 		})
-    .style("stroke", "white")
-    .style("stroke-width", "0");
+    .style('stroke', 'white')
+    .style('stroke-width', '0');
 
 var yAxis = d3.axisLeft(yScale);
 
 svg.append('g')
   .attr('transform', function(d) {
-    return `translate(${margin.left}, ${margin.top})`;
+    return `translate(0, 0)`;
   })
   .call(yAxis);
   </script>

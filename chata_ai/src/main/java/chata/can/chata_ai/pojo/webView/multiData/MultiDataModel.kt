@@ -8,7 +8,8 @@ data class MultiDataModel(
 	val aData: ArrayList< LinkedHashMap<String, Double>>,
 	val min: Int,
 	val max: Int,
-	val aMax: ArrayList<Int>
+	val aMax: ArrayList<Int>,
+	val hasNegative: Boolean
 )
 {
 	fun getCategoryMulti() = aCategoryMulti.joinToString(",", "[", "]") {
