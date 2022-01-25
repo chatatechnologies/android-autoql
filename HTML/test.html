@@ -1508,7 +1508,6 @@ function setMultiColumn() {
     var min = Math.max(...aMin);
 
     var y0 = Math.max(Math.abs(min), Math.abs(max));
-    console.log(y0);
 
     //#region DEFINE Axis Y
     const x = d3.scaleBand()
@@ -1542,13 +1541,166 @@ function setMultiColumn() {
         .call(g => g.select('.domain').remove())
     completeAxisMultiple(axis, 0, 0, 0);
     //#endregion
-return
-  } else {
-    
-  }
-  
 
-  
+    // Another scale for subgroup position?
+  const xSubgroup = d3.scaleBand()
+    .domain(subgroups)
+    .range([0, x.bandwidth()])
+    .padding([0.05]);
+
+  // color palette = one color per subgroup
+  const color = d3.scaleOrdinal()
+    .domain(subgroups)
+    .range(colorPie);
+
+  // Show the bars
+  svg.append('g')
+    .selectAll('g')
+    // Enter in data = loop group per group
+    .data(dataTmp)
+    .join('g')
+      .attr('transform', d => `translate(${x(d.name)}, 0)`)
+			.attr('id', function(_,i){ return 'item_' + i;})
+    .selectAll('rect')
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .join('rect')
+      .attr('x', d => xSubgroup(d.key))
+      .attr('y', function(d) {
+        var startY;
+        if (yScale(d.value) > height / 2) {
+          factor = height / 2;
+        } else {
+          factor = yScale( d.value)
+        }
+        return factor;
+      })
+      .attr('width', xSubgroup.bandwidth())
+      .attr('height', d => Math.abs( yScale(d.value) - yScale(0)) )
+      .attr('fill', d => color(d.key))
+      .on('click', function () {
+        var idParent = this.parentNode.id;
+        var aData = idParent.split('_');
+        if (aData.length > 0)
+        {
+          var index = aData[1];
+          var mValue = aDrillData[indexData][index];
+          var value = `${mValue}_${index}`;
+          drillDown(value);
+        }
+      });
+  } else {
+    // Add X axis
+    const x = d3.scaleBand()
+      .domain(groups)
+      .range([0, withReduce])
+      .padding([0.2]);
+    var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, 10, 10, -45);
+
+    // Add Y axis
+    const y = d3.scaleLinear()
+      .domain([0, getMaxValue()])
+      .range([ height, 0 ]);
+    axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+    axis = axis
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', withReduce))
+        .call(g => g.select('.domain').remove())
+      completeAxisMultiple(axis, 0, 0, 0);
+
+
+    // Another scale for subgroup position?
+    const xSubgroup = d3.scaleBand()
+      .domain(subgroups)
+      .range([0, x.bandwidth()])
+      .padding([0.05]);
+
+    // color palette = one color per subgroup
+    const color = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+
+    // Show the bars
+    svg.append('g')
+      .selectAll('g')
+      // Enter in data = loop group per group
+      .data(dataTmp)
+      .join('g')
+        .attr('transform', d => `translate(${x(d.name)}, 0)`)
+        .attr('id', function(_,i){ return 'item_' + i;})
+      .selectAll('rect')
+      .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+      .join('rect')
+        .attr('x', d => xSubgroup.bandwidth())
+        .attr('y', d => y(d.value))
+        .attr('width', xSubgroup.bandwidth())
+        .attr('height', function (d) {
+          var temp = height - y(d.value)
+          if (temp < 0) {
+            temp = 0
+          }
+          return temp;
+        })
+        .attr('fill', d => color(d.key))
+        .on('click', function () {
+          var idParent = this.parentNode.id;
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${mValue}_${index}`;
+            drillDown(value);
+          }
+        });
+        
+    //Add X axis label:
+    addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
+      modalCategories(TypeManage.PLAIN, this.id);
+    });
+
+    //Y axis label:
+    addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisY, getAxisY(), function () {
+      modalCategories(TypeManage.SELECTABLE, this.id);
+    });
+    
+    var factorBack = margin.top;
+    var aCategoryTmp = getMultiCategory();
+    if (aCategoryTmp.length - indexIgnore.length >= 3)
+    {
+      addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
+      for (var index = 0; index < aCategoryTmp.length; index++)
+      {
+        if (!indexIgnore.includes(index))
+        {
+          var item = aCategoryTmp[index];
+          addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+          function () {
+            return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+          },
+          function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          factorBack += 20;
+        }
+      }
+    }
+  }
 }
 
 function setMultiLine() {
