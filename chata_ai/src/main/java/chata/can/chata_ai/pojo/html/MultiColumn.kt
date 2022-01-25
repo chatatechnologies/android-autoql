@@ -5,6 +5,7 @@ object MultiColumn
 	fun getMultiColumn(): String
 	{
 		return """function setMultiColumn() {
+			console.log('On work');
 	margin.left = margin.left + 5;
   var svg = svgMulti().append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
@@ -70,7 +71,13 @@ object MultiColumn
       .attr('x', d => xSubgroup(d.key))
       .attr('y', d => y(d.value))
       .attr('width', xSubgroup.bandwidth())
-      .attr('height', d => height - y(d.value))
+      .attr('height', function (d) {
+        var temp = height - y(d.value)
+        if (temp < 0) {
+          temp = 0
+        }
+        return temp;
+      })
       .attr('fill', d => color(d.key))
       .on('click', function () {
         var idParent = this.parentNode.id;

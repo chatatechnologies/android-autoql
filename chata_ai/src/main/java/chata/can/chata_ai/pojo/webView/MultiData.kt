@@ -41,6 +41,7 @@ object MultiData
 		val mDataOrder = LinkedHashMap<String, ArrayList<String>>()
 		var max = 0
 		val aMax = ArrayList<Int>()
+		val aMin = ArrayList<Int>()
 		var min = 0
 		for (mChild in aData)
 		{
@@ -49,7 +50,9 @@ object MultiData
 			aMax.add(tmpMax)
 			if (tmpMax > max) max = tmpMax
 			val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+			aMin.add(tmpMin)
 			if (tmpMin < min) min = tmpMin
+
 			for ((key, value) in mChild)
 			{
 				if (!hasNegative) {
@@ -65,7 +68,17 @@ object MultiData
 				}
 			}
 		}
-		return MultiDataModel(aCategoryMulti2, aCategoriesX, mDataOrder, aGroupedData, aData, min, max, aMax, hasNegative)
+		return MultiDataModel(
+			aCategoryMulti2,
+			aCategoriesX,
+			mDataOrder,
+			aGroupedData,
+			aData,
+			min,
+			max,
+			aMax,
+			aMin,
+			hasNegative)
 	}
 
 	fun getTimesDataMulti(
@@ -107,12 +120,14 @@ object MultiData
 			dataD3.min2 = if (min < 0) min else 0
 			dataD3.max2 = max
 			dataD3.aMax2 = multiData.aMax
+			dataD3.aMin2 = multiData.aMin
 		}
 		else
 		{
 			dataD3.min = if (min < 0) min else 0
 			dataD3.max = max
 			dataD3.aMax = multiData.aMax
+			dataD3.aMin = multiData.aMin
 		}
 	}
 

@@ -37,10 +37,13 @@ class DataD3
 
 	var min = -1
 	var max = -1
-	var aMax = ArrayList<Int>()
 	var min2 = -1
 	var max2 = -1
+
+	var aMax = ArrayList<Int>()
 	var aMax2 = ArrayList<Int>()
+	var aMin = ArrayList<Int>()
+	var aMin2 = ArrayList<Int>()
 
 	var isBi = true
 	var isColumn = false

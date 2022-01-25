@@ -235,6 +235,14 @@ function getDataMulti()
 	else return [];
 }
 
+function getNegativeValue() {
+  if (Object.keys(hasNegative).length === 0) {
+    return false;
+  } else {
+    return hasNegative[`${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`];
+  }
+}
+
 function getStackedMax()
 {
   var sumTop = 0;

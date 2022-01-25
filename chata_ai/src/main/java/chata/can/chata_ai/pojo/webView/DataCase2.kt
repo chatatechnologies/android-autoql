@@ -71,7 +71,7 @@ object DataCase2 {
 				//build data string builder
 				StringBuilder("{").apply {
 					for ((key, value) in mHasNegatives) {
-						append("$key: $value,\n")
+						append("$key: $value,")
 					}
 					dataD3.hasNegative = "${removeSuffix(", ")} }"
 				}

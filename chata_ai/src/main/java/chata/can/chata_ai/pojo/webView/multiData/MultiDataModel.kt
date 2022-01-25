@@ -9,6 +9,7 @@ data class MultiDataModel(
 	val min: Int,
 	val max: Int,
 	val aMax: ArrayList<Int>,
+	val aMin: ArrayList<Int>,
 	val hasNegative: Boolean
 )
 {
