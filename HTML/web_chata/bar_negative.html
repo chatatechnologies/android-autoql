@@ -17,8 +17,8 @@
   <script>
     var data = [
       {name: 'date1', value: 100},
-      {name: 'date2', value: -100},// {name: 'date2', value: -100},
-      {name: 'date3', value: -150},// {name: 'date3', value: -150},
+      {name: 'date2', value: -100},
+      {name: 'date3', value: -150},
       {name: 'date4', value: 55},
       {name: 'date5', value: 150},
       {name: 'date6', value: 120},
@@ -31,13 +31,18 @@ var leftMargin = 50;  // Space to the left of first bar; accomodates y-axis labe
 var rightMargin = 10; // Space to the right of last bar
 var margin = {left: leftMargin, right: rightMargin, top: 10, bottom: 10};
 var barWidth = 90;  // Width of the bars
-var chartHeight = 450 - margin.top - margin.bottom;  // Height of chart, from x-axis (ie. y=0)
-var chartWidth = margin.left + data.length * barWidth + margin.right;
+var chartHeight = 470 - margin.top - margin.bottom;  // Height of chart, from x-axis (ie. y=0)
+var chartWidth = data.length * barWidth;
 
 var min = Math.min(...data.map(item => item.value) );
 var max = Math.max(...data.map(item => item.value) );
 
 var y0 = Math.max(Math.abs(min), Math.abs(max));
+
+var xScale = d3.scaleBand()
+  .range([0, chartWidth])
+  .domain(data.map(function(d) { return d.name; }))
+  .padding(0.05);
 
 /* This scale produces negative output for negatve input */
 var yScale = d3.scaleLinear()
@@ -49,7 +54,7 @@ var minValue = yScale(d3.min(data, function (d) {return d.value; }) );
 var svg = d3.select('svg');
 svg
   .attr('height', chartHeight + margin.top + margin.bottom)
-  .attr('width', chartWidth)
+  .attr('width', margin.left + chartWidth + margin.right)
   .append('g')
   .attr('transform', function(d) {
     return `translate(0, ${margin.top})`;
@@ -64,11 +69,17 @@ svg
   .data(data)
   .enter()
   .append("rect")
-    .attr("x", function(d, i) { return margin.left + i * barWidth + 5; })
-    .attr("width", barWidth - 2)
+    .attr("x", function(d, i) { return margin.left + xScale(d.name); })
+    .attr("width", xScale.bandwidth())
     //if Math.max is 0, the bar is negative orientation
     .attr("y", function(d, i) {
-      return margin.top + yScale( d.value);
+      var factor;
+      if (yScale(d.value) > chartHeight / 2) {
+        factor = chartHeight / 2;
+      } else {
+        factor = yScale( d.value)
+      }
+      return margin.top + factor;
     })
     //absolute value for column
     .attr("height", function(d) {
@@ -78,8 +89,7 @@ svg
 			return scaleColorBi(d.value);
 		})
     .style("stroke", "white")
-    .style("stroke-width", "0")
-    .style("opacity", function(d, i) { return 1; });
+    .style("stroke-width", "0");
 
 var yAxis = d3.axisLeft(yScale);
 
