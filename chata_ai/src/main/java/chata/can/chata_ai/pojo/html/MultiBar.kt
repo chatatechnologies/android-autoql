@@ -22,11 +22,6 @@ object MultiBar
 	var max = Math.max(...aMax);
 	var min = Math.min(...aMin);
 	
-	var yZero = d3.scaleLinear()
-		.domain([min, max])
-		.range([0, withReduce]);
-	var refererZero = yZero(0);
-	
 	var domain1, domain2;
   var isNegative = getNegativeValue();
   if (isNegative) {
@@ -55,6 +50,7 @@ object MultiBar
   const y = d3.scaleLinear()
     .domain([domain1, domain2])
     .range([0, withReduce]);
+	var refererZero = y(0);
 
   axis = axisMulti(svg, false, y, height, 0, formatAxis);
   axis = axis

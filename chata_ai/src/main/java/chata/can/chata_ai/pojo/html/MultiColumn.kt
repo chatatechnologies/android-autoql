@@ -17,15 +17,13 @@ object MultiColumn
   const groups = dataTmp.map(d => d.name);
 
   var max = Math.max(...aMax);
-  var min = Math.max(...aMin);
-
-  var y0 = Math.max(Math.abs(min), Math.abs(max));
+  var min = Math.min(...aMin);
 
   var domain1, domain2;
 	var isNegative = getNegativeValue();
   if (isNegative) {
-    domain1 = -y0;
-    domain2 = y0;
+    domain1 = min * 1.005;
+    domain2 = max * 1.005;
   } else {
     domain1 = 0;
     domain2 = getMaxValue();
@@ -49,9 +47,9 @@ object MultiColumn
   //#region DEFINE Axis Y
   /* This scale produces negative output for negatve input */
   var yScale = d3.scaleLinear()
-    //.domain([-y0, y0])
     .domain([domain1, domain2])
     .range([height, 0]);
+	var refererZero = yScale(0);
   
   axis = axisMulti(svg, true, yScale, 0, 0, formatAxis);
   axis = axis
@@ -89,9 +87,8 @@ object MultiColumn
     .join('rect')
       .attr('x', d => xSubgroup(d.key))
       .attr('y', function(d) {
-        var startY;
-        if (isNegative && yScale(d.value) > height / 2) {
-          factor = height / 2;
+        if (isNegative && yScale(d.value) > refererZero) {
+          factor = refererZero;
         } else {
           factor = yScale( d.value)
         }
