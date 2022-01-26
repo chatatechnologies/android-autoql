@@ -891,29 +891,29 @@ var aAllData = {'0_1': [{name: 'INV00000001_1', time_0: 5213.25, time_1: 248.25}
 {name: 'Texas_1', time_0: 0.0},
 {name: 'Oklahoma_1', time_0: 0.0}],
  };
-var aMaxData = {'0_1': [14806, 705],
+var aMaxData = {'0_1': [14807, 706],
 '0_2': [0],
-'1_1': [23868, 1136],
+'1_1': [23869, 1137],
 '1_2': [0],
-'2_1': [54141, 2578],
+'2_1': [54142, 2579],
 '2_2': [0],
-'3_1': [35598, 1695],
+'3_1': [35599, 1696],
 '3_2': [0],
-'5_1': [101433, 4725],
+'5_1': [101434, 4726],
 '5_2': [0],
-'6_1': [118847, 5554],
+'6_1': [118848, 5555],
 '6_2': [0],
-'7_1': [35598, 1695],
+'7_1': [35599, 1696],
 '7_2': [0],
-'9_1': [35598, 1695],
+'9_1': [35599, 1696],
 '9_2': [0],
-'11_1': [18885, 899],
+'11_1': [18886, 900],
 '11_2': [0],
-'12_1': [121794, 5694],
+'12_1': [121795, 5695],
 '12_2': [0],
-'13_1': [58700, 2795],
+'13_1': [58701, 2796],
 '13_2': [0],
-'14_1': [90970, 4331],
+'14_1': [90971, 4332],
 '14_2': [0],
  };
 var dataFormatted = [];
@@ -936,13 +936,13 @@ var aDrillData = {0: ['INV00000001','INV00000002','INV00000003','INV00000004','I
  };
 var limitName = 0;
 var isCurrency = true;
-var maxValue = 35598;
-var minValue = -11166;
+var maxValue = 35599;
+var minValue = -11167;
 var maxValue2 = 0;
 var minValue2 = 0;
-var aMax = [35598, 1695];
+var aMax = [35599, 1696];
 var aMax2 = [0];
-var aMin = [-11166, -531];
+var aMin = [-11167, -532];
 var aMin2 = [0];
 var aCategory = ['Invoice Amount','Tax'];
 var aCategory2 = ['Discount Percent'];
@@ -1367,7 +1367,6 @@ function setHeatMap() {
 }
 
 function setMultiBar() {
-  console.log('Working on')
 	margin.left = margin.left - 20;
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
@@ -1381,17 +1380,20 @@ function setMultiBar() {
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);
-
-  var max = Math.max(...aMax);
-  var min = Math.max(...aMin);
-
-  var y0 = Math.max(Math.abs(min), Math.abs(max));
-
-  var domain1, domain2;
+	
+	var max = Math.max(...aMax);
+	var min = Math.min(...aMin);
+	
+	var yZero = d3.scaleLinear()
+		.domain([min, max])
+		.range([0, withReduce]);
+	var refererZero = yZero(0);
+	
+	var domain1, domain2;
   var isNegative = getNegativeValue();
   if (isNegative) {
-    domain1 = -y0;
-    domain2 = y0;
+    domain1 = min;
+    domain2 = max;
   } else {
     domain1 = 0;
     domain2 = getMaxValue();
@@ -1432,7 +1434,7 @@ function setMultiBar() {
   const xSubgroup = d3.scaleBand()
     .domain(subgroups)
     .range([x.bandwidth(), 0])
-    .padding([0.1]);
+    .padding([0.05]);
 
     // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
@@ -1450,29 +1452,26 @@ function setMultiBar() {
     .selectAll('rect')
     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
     .join('rect')
-      //.attr('x', d => 0)
       .attr('x', function (d) {
         var withValue = y(d.value);
-        var middle = withReduce / 2;
-        if (middle < withValue) {
-          withValue = middle;
+        if (refererZero < withValue) {
+          withValue = refererZero;
         } else {
           withValue = y(d.value);
         }
         return withValue;
       })
       .attr('y', d => xSubgroup(d.key))
-      .attr('height', xSubgroup.bandwidth())
-      .attr('width', function (d) {
+			.attr('width', function (d) {
         var withValue = y(d.value);
-        var middle = withReduce / 2;
-        if (middle < withValue) {
-          withValue = withValue - middle;
+        if (refererZero < withValue) {
+          withValue = withValue - refererZero;
         } else {
-          withValue = middle - y(d.value);
+          withValue = refererZero - y(d.value);
         }
         return withValue;
       })
+      .attr('height', xSubgroup.bandwidth())
       .attr('fill', d => color(d.key))
       .on('click', function () {
         var idParent = this.parentNode.id

@@ -18,6 +18,24 @@ object MultiBar
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);
+	
+	var max = Math.max(...aMax);
+	var min = Math.min(...aMin);
+	
+	var yZero = d3.scaleLinear()
+		.domain([min, max])
+		.range([0, withReduce]);
+	var refererZero = yZero(0);
+	
+	var domain1, domain2;
+  var isNegative = getNegativeValue();
+  if (isNegative) {
+    domain1 = min;
+    domain2 = max;
+  } else {
+    domain1 = 0;
+    domain2 = getMaxValue();
+  }
 
   // Add X axis
   const x = d3.scaleBand()
@@ -35,7 +53,7 @@ object MultiBar
 
     // Add Y axis
   const y = d3.scaleLinear()
-    .domain([0, getMaxValue()])
+    .domain([domain1, domain2])
     .range([0, withReduce]);
 
   axis = axisMulti(svg, false, y, height, 0, formatAxis);
@@ -72,10 +90,26 @@ object MultiBar
     .selectAll('rect')
     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
     .join('rect')
-      .attr('x', d => 0)
+      .attr('x', function (d) {
+        var withValue = y(d.value);
+        if (refererZero < withValue) {
+          withValue = refererZero;
+        } else {
+          withValue = y(d.value);
+        }
+        return withValue;
+      })
       .attr('y', d => xSubgroup(d.key))
+			.attr('width', function (d) {
+        var withValue = y(d.value);
+        if (refererZero < withValue) {
+          withValue = withValue - refererZero;
+        } else {
+          withValue = refererZero - y(d.value);
+        }
+        return withValue;
+      })
       .attr('height', xSubgroup.bandwidth())
-      .attr('width', d => y(d.value))
       .attr('fill', d => color(d.key))
       .on('click', function () {
         var idParent = this.parentNode.id

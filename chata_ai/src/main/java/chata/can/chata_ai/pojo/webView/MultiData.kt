@@ -4,6 +4,8 @@ import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.pojo.webView.multiData.MultiDataModel
+import kotlin.math.ceil
+import kotlin.math.floor
 
 object MultiData
 {
@@ -45,11 +47,11 @@ object MultiData
 		var min = 0
 		for (mChild in aData)
 		{
-			val tmpMax = (mChild.maxByOrNull { it.value })?.value?.toInt() ?: 0
+			val tmpMax = ceil( (mChild.maxByOrNull { it.value })?.value ?: 0.0 ).toInt()
 			//set all max on array
 			aMax.add(tmpMax)
 			if (tmpMax > max) max = tmpMax
-			val tmpMin = (mChild.minByOrNull { it.value })?.value?.toInt() ?: 0
+			val tmpMin = floor( (mChild.minByOrNull { it.value })?.value ?: 0.0 ).toInt()
 			aMin.add(tmpMin)
 			if (tmpMin < min) min = tmpMin
 
