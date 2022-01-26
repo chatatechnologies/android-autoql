@@ -30,8 +30,8 @@ object MultiBar
 	var domain1, domain2;
   var isNegative = getNegativeValue();
   if (isNegative) {
-    domain1 = min;
-    domain2 = max;
+    domain1 = min * 1.005;
+    domain2 = max * 1.005;
   } else {
     domain1 = 0;
     domain2 = getMaxValue();
@@ -92,20 +92,26 @@ object MultiBar
     .join('rect')
       .attr('x', function (d) {
         var withValue = y(d.value);
-        if (refererZero < withValue) {
-          withValue = refererZero;
+        if (isNegative) {
+          if (refererZero < withValue) {
+            withValue = refererZero;
+          } else {
+            withValue = y(d.value);
+          }
         } else {
-          withValue = y(d.value);
+          withValue = 0;
         }
         return withValue;
       })
       .attr('y', d => xSubgroup(d.key))
 			.attr('width', function (d) {
         var withValue = y(d.value);
-        if (refererZero < withValue) {
-          withValue = withValue - refererZero;
-        } else {
-          withValue = refererZero - y(d.value);
+        if (isNegative) {
+          if (refererZero < withValue) {
+            withValue = withValue - refererZero;
+          } else {
+            withValue = refererZero - y(d.value);
+          }
         }
         return withValue;
       })
