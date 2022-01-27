@@ -109,7 +109,7 @@ for (const item in getDataOrMulti()) {
   if (limitName < value) {
     limitName = value;
     if (limitName > 10) {
-      limitName = 110;
+      limitName = -1;
       break;
     } else {
       limitName *= 10;
@@ -133,8 +133,8 @@ var typeChart = $typeChart;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
-var _bottom = (isHorizontal() ? _maxValue : limitName) + marginAxis;
-var _left = (isHorizontal() ? limitName : _maxValue) + marginAxis;
+var _bottom = (isHorizontal() ? _maxValue : getLimitName()) + marginAxis;
+var _left = (isHorizontal() ? getLimitName() : _maxValue) + marginAxis;
 //width dynamic, height dynamic
 var margin = {
   top: 20,

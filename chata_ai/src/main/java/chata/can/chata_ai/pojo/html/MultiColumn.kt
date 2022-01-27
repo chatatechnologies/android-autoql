@@ -5,9 +5,12 @@ object MultiColumn
 	fun getMultiColumn(): String
 	{
 		return """function setMultiColumn() {
-	margin.left = margin.left + 5;
-  var svg = svgMulti().append('g')
-    .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+	margin.left = margin.left + 15;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
+		.append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
 	var withReduce = width - 80;
   var keys1 = Object.keys(dataTmp[0]);
@@ -108,6 +111,16 @@ object MultiColumn
           drillDown(value);
         }
       });
+			
+	//Add X axis label:
+  addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.SELECTABLE, this.id);
+  });
+
+  //Y axis label:
+  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.PLAIN, this.id);
+  });
 }
 """
 	}

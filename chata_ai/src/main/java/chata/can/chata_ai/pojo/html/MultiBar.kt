@@ -44,7 +44,7 @@ object MultiBar
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-  completeAxisMultiple(axis, -10, -25, -45);
+  completeAxisMultiple(axis, -5, -3, 0);
 
     // Add Y axis
   const y = d3.scaleLinear()
@@ -62,7 +62,7 @@ object MultiBar
       .clone()
       .attr('stroke-opacity', 0.1)
       .attr('y2', -height))
-  completeAxisMultiple(axis, 10, 10, -45);
+    completeAxisMultiple(axis, 0, 0, -45);
 
   // Another scale for subgroup position?
   const xSubgroup = d3.scaleBand()
@@ -126,7 +126,7 @@ object MultiBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 5, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 8, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 

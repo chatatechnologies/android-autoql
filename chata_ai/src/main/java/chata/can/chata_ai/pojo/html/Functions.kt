@@ -40,9 +40,16 @@ function clearSvg() {
 	d3.select('svg').remove();
 }
 
+function getLimitName() {
+  if (limitName == -1) {
+    if (typeChart == TypeEnum.COLUMN) return 80;
+    else return 110;
+  } else return limitName;
+}
+
 function updateSize() {
-	var _bottom = (isHorizontal() ? _maxValue : limitName) + marginAxis;
-	var _left = (isHorizontal() ? limitName : _maxValue) + marginAxis;
+	var _bottom = (isHorizontal() ? _maxValue : getLimitName()) + marginAxis;
+	var _left = (isHorizontal() ? getLimitName() : _maxValue) + marginAxis;
 
 	margin.left = _left;
 	margin.bottom = _bottom;
@@ -66,16 +73,17 @@ function updateSize() {
         if (nColumns == 2) {
           height = (height1 * 2.5);
         } else {
-          height = height1;
+					//WAY FOR MULTIPLE NEGATIVE
+          height = (height1 * 5.0);
         }
         break;
       case TypeEnum.COLUMN:
+				height = height1 * 2;
         if (nColumns == 2) {
           width = (width1 * 2.5);
         } else {
-          width = width1;
+          width = (width1 * 5.0);
         }
-        height = height1;
         break;
       case TypeEnum.PIE:
       default:

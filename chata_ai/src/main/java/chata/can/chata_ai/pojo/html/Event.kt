@@ -22,7 +22,7 @@ ${'$'}('td').click(function() {
         if (column == 0) return;
         var secondCell = aCategoryX[column - 1];
         finalText = `${'$'}{secondCell}_${'$'}{finalText}`;
-        break;  
+        break;
       default:
         break;
     }
