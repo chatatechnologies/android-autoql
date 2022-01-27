@@ -8,7 +8,7 @@ object MultiLines
   margin.left = margin.left + 10;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom + 10)
+		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
@@ -57,7 +57,7 @@ object MultiLines
   .call(
     g => g.selectAll('.tick line')
     .attr('opacity', 0.2))
-  completeAxisMultiple(axis, 15, 10, -45);
+  completeAxisMultiple(axis, -10, 5, -45);
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -119,13 +119,13 @@ object MultiLines
 	    });
 		
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom - 25, '#808080', axisX, getAxisX(), function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+  addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisY, getAxisY(), function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 12, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.PLAIN, this.id);
   });
 	
   var factorBack = margin.top;

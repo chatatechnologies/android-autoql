@@ -42,8 +42,13 @@ function clearSvg() {
 
 function getLimitName() {
   if (limitName == -1) {
-    if (typeChart == TypeEnum.COLUMN) return 80;
-    else return 110;
+    switch (typeChart) {
+      case TypeEnum.COLUMN:
+      case TypeEnum.LINE:
+        return 80;
+      default:
+      return 110;
+    }
   } else return limitName;
 }
 
@@ -54,41 +59,39 @@ function updateSize() {
 	margin.left = _left;
 	margin.bottom = _bottom;
 
-  var height1 = ${'$'}(window).height() - margin.top - margin.bottom;
-  var width1 = getWidthMargin();
+  height = ${'$'}(window).height() - margin.top - margin.bottom;
+  width = getWidthMargin();
 
   if (typeChart === TypeEnum.LINE) {
     if (nColumns === 2) {
-      var width1 = getWidthMargin();
-      width = (width1 * 2.5);
-      height = height1;
+      width = width * 2.0;
+      height = height * 2.5;
     } else {
-      width = getWidthMargin();
-      height = height1;
+      width = width * 4.0;
+      height = height * 1.5;
     }
   } else {
     switch (typeChart) {
       case TypeEnum.BAR:
-        width = width1 * 2;
+        width = width * 2;
         if (nColumns == 2) {
-          height = (height1 * 2.5);
+          height = height * 2.5;
         } else {
-					//WAY FOR MULTIPLE NEGATIVE
-          height = (height1 * 5.0);
+          height = height * 5.0;
         }
         break;
       case TypeEnum.COLUMN:
-				height = height1 * 2;
+				height = height * 2;
         if (nColumns == 2) {
-          width = (width1 * 2.5);
+          width = width * 2.5;
         } else {
-          width = (width1 * 5.0);
+          width = width * 5.0;
         }
         break;
       case TypeEnum.PIE:
       default:
-        width = getWidthMargin();
-        height = height1;
+        //width = width;
+        //height = height1;
         break;
     }
   }
