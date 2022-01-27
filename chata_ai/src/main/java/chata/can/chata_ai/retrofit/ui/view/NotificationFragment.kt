@@ -86,11 +86,12 @@ class NotificationFragment: Fragment(), NotificationContract {
 	private fun initObserve() {
 		notificationViewModel.run {
 			onCreate()
-			notificationList.observe(this@NotificationFragment) { listNotification ->
+
+			notificationList.observe(viewLifecycleOwner) { listNotification ->
 				listNotification.forEach { model.add(it) }
 				if (listNotification.isNotEmpty()) showList() else showMessage()
 			}
-			totalItems.observe(this@NotificationFragment) { backTotalItems = it }
+			totalItems.observe(viewLifecycleOwner) { backTotalItems = it }
 		}
 	}
 

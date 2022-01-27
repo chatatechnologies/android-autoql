@@ -19,13 +19,13 @@ class MainActivity: AppCompatActivity() {
 
 		quoteViewModel.onCreate()
 
-		quoteViewModel.quoteModel.observe(this, /*Observer*/ { currentQuote ->
+		quoteViewModel.quoteModel.observe(this) /*Observer*/ { currentQuote ->
 			binding.tvQuote.text = currentQuote.quote
 			binding.tvAuthor.text = currentQuote.author
-		})
-		quoteViewModel.isLoading.observe(this, /*Observer*/ {
+		}
+		quoteViewModel.isLoading.observe(this) /*Observer*/ {
 			binding.progress.isVisible = it
-		})
+		}
 
 		binding.viewContainer.setOnClickListener {  }
 	}

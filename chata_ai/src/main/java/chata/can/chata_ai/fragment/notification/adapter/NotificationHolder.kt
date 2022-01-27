@@ -14,7 +14,6 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.data.model.NotificationModel
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import java.text.SimpleDateFormat
 import java.util.*

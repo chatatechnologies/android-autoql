@@ -2,7 +2,6 @@ package chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView

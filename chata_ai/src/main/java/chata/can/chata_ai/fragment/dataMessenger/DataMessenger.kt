@@ -3,7 +3,6 @@ package chata.can.chata_ai.fragment.dataMessenger
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
-import android.util.TypedValue
 import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView

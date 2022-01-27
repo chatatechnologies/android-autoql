@@ -236,9 +236,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 				{
 					SinglentonDrawer.mModel.run {
 						get(0)?.let {
-							val introMessageRes = if (introMessage.isNotEmpty())
-								introMessage
-							else getString(R.string.discover_today)
+							val introMessageRes = introMessage.ifEmpty { getString(R.string.discover_today) }
 							val introMessage = String.format(introMessageRes, customerName)
 							it.message = introMessage
 						}
@@ -440,8 +438,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 		val tmp = if (nameDMF == title)
 		{
 			val localTitle = AutoQLData.title
-			if (localTitle.isNotEmpty()) localTitle
-			else title
+			localTitle.ifEmpty { title }
 		}
 		else title
 

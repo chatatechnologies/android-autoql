@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder.dynamic
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout

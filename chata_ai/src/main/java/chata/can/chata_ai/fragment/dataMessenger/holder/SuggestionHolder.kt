@@ -1,7 +1,6 @@
 package chata.can.chata_ai.fragment.dataMessenger.holder
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils

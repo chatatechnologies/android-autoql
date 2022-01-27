@@ -9,7 +9,6 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai_api.R
 
 class ExecuteHolder(itemView: View): BaseHolder(itemView)

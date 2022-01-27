@@ -22,12 +22,7 @@ object TableHtmlBuilder
 			{
 				if (column.isVisible)
 				{
-					val cellHead = if (column.displayName.isNotEmpty())
-					{
-						column.displayName
-					}
-					else
-					{
+					val cellHead = column.displayName.ifEmpty {
 						column.name.toCapitalColumn()
 					}
 					headTable.append("<th>$cellHead</th>")

@@ -140,10 +140,7 @@ object RequestBuilder
 
 			override fun getBodyContentType(): String
 			{
-				return if (contentType.isEmpty())
-					super.getBodyContentType()
-				else
-					contentType
+				return contentType.ifEmpty { super.getBodyContentType() }
 			}
 
 			override fun getHeaders(): MutableMap<String, String>

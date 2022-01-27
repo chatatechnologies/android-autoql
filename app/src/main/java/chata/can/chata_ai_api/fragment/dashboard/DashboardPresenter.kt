@@ -240,7 +240,7 @@ class DashboardPresenter(
 										val secondDisplayType = optString("secondDisplayType", "")
 										val secondQuery = optString("secondQuery", "")
 										dashboard.secondDisplayType = secondDisplayType
-										dashboard.secondQuery = if (secondQuery.isEmpty()) query else secondQuery
+										dashboard.secondQuery = secondQuery.ifEmpty { query }
 									}
 									optJSONArray("queryValidationSelections")?.let {
 										it.optJSONObject(0)?.let { qvs ->
@@ -388,7 +388,7 @@ class DashboardPresenter(
 
 			if (wantSplitView && splitView)
 			{
-				val secondQuery = if (secondQuery.isEmpty()) query else secondQuery
+				val secondQuery = secondQuery.ifEmpty { query }
 				mInfoHolder["isSecondaryQuery"] = true
 				mInfoHolder["primaryQuery"] = query
 				mInfoHolder["query"] = secondQuery

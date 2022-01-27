@@ -136,10 +136,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			if (isReplace)
 			{
 				model[0]?.let {
-					val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
-						AutoQLData.introMessage
-					else
-						getString(R.string.discover_today)
+					val introMessageRes = AutoQLData.introMessage.ifEmpty { getString(R.string.discover_today) }
 
 					val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 					model[0] = ChatData(TypeChatView.LEFT_VIEW, introMessage)
@@ -257,10 +254,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		statusLogin = AutoQLData.wasLoginIn
 		model.clear()
 		val introMessageRes =
-			if (AutoQLData.introMessage.isNotEmpty())
-				AutoQLData.introMessage
-			else
-				getString(R.string.discover_today)
+			AutoQLData.introMessage.ifEmpty { getString(R.string.discover_today) }
 
 		val introMessage = String.format(introMessageRes, AutoQLData.customerName)
 		model.add(ChatData(TypeChatView.LEFT_VIEW, introMessage))
@@ -539,24 +533,16 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			}
 		}
 		val title = AutoQLData.title
-		dataMessengerTile = if (title.isNotEmpty())
-			title
-		else getString(R.string.data_messenger)
+		dataMessengerTile = title.ifEmpty { getString(R.string.data_messenger) }
 
-		etQuery.hint = if (AutoQLData.inputPlaceholder.isNotEmpty())
-			AutoQLData.inputPlaceholder
-		else
-			getString(R.string.type_queries_here)
+		etQuery.hint = AutoQLData.inputPlaceholder.ifEmpty { getString(R.string.type_queries_here) }
 	}
 
 	private fun initList()
 	{
 		activity?.let {
 			chatAdapter = ChatAdapter(model, this, it)
-			val introMessageRes = if (AutoQLData.introMessage.isNotEmpty())
-				AutoQLData.introMessage
-			else
-				getString(R.string.discover_today)
+			val introMessageRes = AutoQLData.introMessage.ifEmpty { getString(R.string.discover_today) }
 
 			statusLogin = AutoQLData.wasLoginIn
 

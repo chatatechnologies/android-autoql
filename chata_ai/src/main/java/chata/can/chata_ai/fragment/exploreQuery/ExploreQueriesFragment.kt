@@ -107,8 +107,7 @@ class ExploreQueriesFragment: BaseFragment(), ExploreQueriesContract, View.OnCli
 
 	override fun initViews(view: View)
 	{
-		with(view)
-		{
+		view.apply {
 			llParent = findViewById(R.id.llParent)
 			llQuery = findViewById(R.id.llQuery)
 			etQuery = findViewById(R.id.etQuery)

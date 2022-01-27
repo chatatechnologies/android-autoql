@@ -2,7 +2,6 @@ package chata.can.chata_ai.retrofit.data.network
 
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.core.RetrofitHelperDynamic
-import chata.can.chata_ai.retrofit.data.model.NotificationModel
 import chata.can.chata_ai.retrofit.data.model.NotificationResponseModel
 import chata.can.chata_ai.retrofit.data.model.emptyNotification
 import kotlinx.coroutines.Dispatchers

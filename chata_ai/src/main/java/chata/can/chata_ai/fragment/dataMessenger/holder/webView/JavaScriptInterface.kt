@@ -149,6 +149,6 @@ class JavaScriptInterface(
 		(context as? Activity)?.runOnUiThread {
 			chatView?.isLoading(true)
 		}
-		presenter.postDrillDown(if (content.isEmpty()) "null" else content)
+		presenter.postDrillDown(content.ifEmpty { "null" })
 	}
 }
