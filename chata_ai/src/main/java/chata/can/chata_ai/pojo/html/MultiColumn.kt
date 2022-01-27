@@ -114,12 +114,12 @@ object MultiColumn
 			
 	//Add X axis label:
   addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+    modalCategories(TypeManage.PLAIN, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, getAxisY(), function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+    modalCategories(TypeManage.SELECTABLE, this.id);
   });
 }
 """

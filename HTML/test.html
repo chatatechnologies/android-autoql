@@ -1646,12 +1646,12 @@ function setMultiColumn() {
 			
 	//Add X axis label:
   addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+    modalCategories(TypeManage.PLAIN, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, getAxisY(), function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+    modalCategories(TypeManage.SELECTABLE, this.id);
   });
 }
 
@@ -1771,12 +1771,12 @@ function setMultiLine() {
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', axisY, getAxisY(), function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+    modalCategories(TypeManage.PLAIN, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 12, '#808080', axisX, getAxisX(), function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+    modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	
   var factorBack = margin.top;
