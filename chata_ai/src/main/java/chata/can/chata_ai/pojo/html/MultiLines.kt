@@ -5,12 +5,29 @@ object MultiLines
 	fun getMultiLine(): String
 	{
 		return """function setMultiLine() {
-  var svg = svgMulti().append('g')
+  margin.left = margin.left + 10;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom + 10)
+		.append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
   var withReduce = width - 100;
 	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
+	
+	var domain1, domain2;
+	var isNegative = getNegativeValue();
+  if (isNegative) {
+    var max = Math.max(...aMax);
+    var min = Math.min(...aMin);
+
+    domain1 = min * 1.005;
+    domain2 = max * 1.005;
+  } else {
+    domain1 = 0;
+    domain2 = getMaxValue();
+  }
   
   // Reformat the data: we need an array of arrays of {x, y} tuples
   var dataReady = subgroups.map( function(grpName) { // .map allows to do something for each element of the list
@@ -44,7 +61,7 @@ object MultiLines
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, getMaxValue()])//maxValue is here
+    .domain([domain1, domain2])
     .range([height, 0]);
   var axis = axisMulti(svg, true, y, 0, 0, formatAxis);
 	axis = axis
@@ -107,7 +124,7 @@ object MultiLines
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	
