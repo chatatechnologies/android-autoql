@@ -77,7 +77,7 @@ function updateSize() {
         if (nColumns == 2) {
           height = height * 2.5;
         } else {
-          height = height * 5.0;
+          height = height * 2.0;
         }
         break;
       case TypeEnum.COLUMN:
@@ -85,7 +85,7 @@ function updateSize() {
         if (nColumns == 2) {
           width = width * 2.5;
         } else {
-          width = width * 5.0;
+          width = width * 2.0;
         }
         break;
       case TypeEnum.PIE:
