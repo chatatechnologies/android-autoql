@@ -12,7 +12,16 @@ object MultiLines
 		.append('g')
     .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-  var withReduce = width - 100;
+  var aCategoryTmp = getMultiCategory();
+  var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
+
+  var spaceCategory;
+  if (hasCategories) {
+    spaceCategory = 100;
+  } else {
+    spaceCategory = 0;
+  }
+  var withReduce = width - spaceCategory;
 	var keys1 = Object.keys(dataTmp[0]);
   const subgroups = keys1.slice(1);
 	
@@ -129,8 +138,7 @@ object MultiLines
   });
 	
   var factorBack = margin.top;
-	var aCategoryTmp = getMultiCategory();
-  if (aCategoryTmp.length - indexIgnore.length >= 3)
+	if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
     for (var index = 0; index < aCategoryTmp.length; index++)
