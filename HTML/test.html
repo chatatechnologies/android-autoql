@@ -148,6 +148,7 @@ function updateSize() {
   } else {
     switch (typeChart) {
       case TypeEnum.BAR:
+      case TypeEnum.STACKED_BAR:
         width = width * 2;
         if (nColumns == 2) {
           height = height * 2.5;
@@ -156,6 +157,7 @@ function updateSize() {
         }
         break;
       case TypeEnum.COLUMN:
+      case TypeEnum.STACKED_COLUMN:
 				height = height * 2;
         if (nColumns == 2) {
           width = width * 2.5;
@@ -533,7 +535,8 @@ var height = 0;
 var isAgain = false;
 
 function setStackedBar() {
-  margin.left = margin.left + 60;
+  margin.left = margin.left + 50;
+  margin.bottom = margin.bottom - 30;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
@@ -626,18 +629,18 @@ function setStackedBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom - 20, '#808080', axisMiddle, axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
   //Add Y axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.left, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom, '#808080', axisMiddle, axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
@@ -658,7 +661,7 @@ function setStackedBar() {
       adminStacked(id, subgroups);
     });
 
-    factorBack += 20;
+    factorBack += 15
   }
 }
 
@@ -756,7 +759,7 @@ function setStackedColumn() {
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 	
@@ -767,7 +770,7 @@ function setStackedColumn() {
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
@@ -1984,6 +1987,10 @@ function getMultiCategory()
 function indexCircle(index)
 {
   return index % colorPie.length;
+}
+
+function sizeByLetter(letters) {
+  return (letters * 6.7 + 20) / 2;
 }
 
 $('td').click(function() {

@@ -44,6 +44,7 @@ function getLimitName() {
   if (limitName == -1) {
     switch (typeChart) {
       case TypeEnum.COLUMN:
+			case TypeEnum.STACKED_COLUMN:
       case TypeEnum.LINE:
         return 80;
       default:
@@ -73,6 +74,7 @@ function updateSize() {
   } else {
     switch (typeChart) {
       case TypeEnum.BAR:
+			case TypeEnum.STACKED_BAR:
         width = width * 2;
         if (nColumns == 2) {
           height = height * 2.5;
@@ -81,6 +83,7 @@ function updateSize() {
         }
         break;
       case TypeEnum.COLUMN:
+			case TypeEnum.STACKED_COLUMN:
 				height = height * 2;
         if (nColumns == 2) {
           width = width * 2.5;

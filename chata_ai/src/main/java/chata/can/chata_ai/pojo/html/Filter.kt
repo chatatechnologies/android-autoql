@@ -306,6 +306,10 @@ function getMultiCategory()
 function indexCircle(index)
 {
   return index % colorPie.length;
+}
+
+function sizeByLetter(letters) {
+  return (letters * 6.7 + 20) / 2;
 }"""
 	}
 }

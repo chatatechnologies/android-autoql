@@ -98,7 +98,7 @@ object StackedColumn
     });
 		
 	//Add X axis label:
-  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 	
@@ -109,7 +109,7 @@ object StackedColumn
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
