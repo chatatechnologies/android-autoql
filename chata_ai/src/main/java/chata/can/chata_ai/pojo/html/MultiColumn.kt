@@ -6,6 +6,7 @@ object MultiColumn
 	{
 		return """function setMultiColumn() {
 	margin.left = margin.left + 15;
+	margin.bottom = margin.bottom - 20;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
@@ -28,14 +29,14 @@ object MultiColumn
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);
 
-  var max = getMaxValue();
-  var min = getMinValue();
-
   var domain1, domain2;
 	var isNegative = getNegativeValue();
   if (isNegative) {
-    domain1 = min * 1.005;
-    domain2 = max * 1.005;
+	  var max = getMaxValue();
+    var min = getMinValue();
+	
+    domain1 = min * 1.01;
+    domain2 = max * 1.01;
   } else {
     domain1 = 0;
     domain2 = getMaxValue();
@@ -53,7 +54,7 @@ object MultiColumn
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-    completeAxisMultiple(axis, 10, 10, -45);
+    completeAxisMultiple(axis, -5, 0, -45);
     //#endregion
   
   //#region DEFINE Axis Y

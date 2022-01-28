@@ -31,8 +31,8 @@ object MultiLines
     var max = getMaxValue();
     var min = getMinValue();
 
-    domain1 = min * 1.005;
-    domain2 = max * 1.005;
+    domain1 = min * 1.01;
+    domain2 = max * 1.01;
   } else {
     domain1 = 0;
     domain2 = getMaxValue();
