@@ -78,6 +78,7 @@ var aCategoryX = ${dataD3.aCategoryX};
 var data2 = ${dataD3.data2};
 var aAllData = ${dataD3.aAllData};
 var aMaxData = ${dataD3.aMaxData};
+var aMinData = ${dataD3.aMinData};
 var dataFormatted = ${dataD3.dataFormatted};
 var opacityMarked = [];
 var indexIgnore = [];

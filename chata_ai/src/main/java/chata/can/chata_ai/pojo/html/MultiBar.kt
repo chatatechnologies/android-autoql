@@ -19,8 +19,8 @@ object MultiBar
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);
 	
-	var max = Math.max(...aMax);
-	var min = Math.min(...aMin);
+	var max = getMaxValue();
+  var min = getMinValue();
 	
 	var domain1, domain2;
   var isNegative = getNegativeValue();

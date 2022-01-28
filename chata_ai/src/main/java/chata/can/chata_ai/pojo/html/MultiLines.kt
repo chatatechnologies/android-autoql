@@ -19,8 +19,8 @@ object MultiLines
 	var domain1, domain2;
 	var isNegative = getNegativeValue();
   if (isNegative) {
-    var max = Math.max(...aMax);
-    var min = Math.min(...aMin);
+    var max = getMaxValue();
+    var min = getMinValue();
 
     domain1 = min * 1.005;
     domain2 = max * 1.005;

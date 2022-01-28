@@ -25,6 +25,7 @@ object DataCase2 {
 				//region data currency group
 				val mAllData = LinkedHashMap<String, String>()
 				val mMaxData = LinkedHashMap<String, String>()
+				val mMinData = LinkedHashMap<String, String>()
 				val mDrillData = LinkedHashMap<String, String>()
 				val aIndexCommon = queryBase.aCommon.map { it.first }
 				val mHasNegatives = LinkedHashMap<String, Boolean>()
@@ -52,6 +53,9 @@ object DataCase2 {
 					//max
 					mMaxData[index1] = "${multiData.aMax}"
 					mMaxData[index2] = "${multiData2.aMax}"
+					//min
+					mMinData[index1] = "${multiData.aMin}"
+					mMinData[index2] = "${multiData2.aMin}"
 					//region build mDrillDown
 					val mDrillDown = LinkedHashMap<String, ArrayList< ArrayList< ArrayList<String>>>>()
 					for (mChild in multiData.aGroupedData)
@@ -85,6 +89,11 @@ object DataCase2 {
 					for ((key, value) in mMaxData)
 						append("$key: $value,\n")
 					dataD3.aMaxData = "${removeSuffix(", ")} }"
+				}
+				StringBuilder("{").apply {
+					for ((key, value) in mMinData)
+						append("$key: $value,\n")
+					dataD3.aMinData = "${removeSuffix(", ")} }"
 				}
 				StringBuilder("{").apply {
 					for ((key, value) in mDrillData)

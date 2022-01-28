@@ -178,17 +178,16 @@ function getMaxValue()
 {
 	if (aMaxData.length !== 0)
   {
-    var aTotalIndices = [];
+    var aTotalValues = [];
     var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
     var aTmp = aMaxData.length !== 0 ? aMaxData[key] : [];
-    var aTmp = aMaxData[key];
     for (index = 0; index < aTmp.length; index++)
     {
       if (indexIgnore.includes(index)) continue;
       var value = aTmp[index];
-      aTotalIndices.push(value);
+      aTotalValues.push(value);
     }
-    var maxMath = Math.max.apply(null, aTotalIndices);
+    var maxMath = Math.max.apply(null, aTotalValues);
     return maxMath !== 0 ? maxMath : 1;
   }
   else
@@ -217,7 +216,24 @@ function getMinDomain() {
 
 function getMinValue()
 {
-  return isCurrency ? minValue : minValue2;
+  if (aMinData.length !== 0)
+  {
+    var aTotalValues = [];
+    var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+    var aTmp = aMinData.length !== 0 ? aMinData[key] : [];
+    for (index = 0; index < aTmp.length; index++)
+    {
+      if (indexIgnore.includes(index)) continue;
+      var value = aTmp[index];
+      aTotalValues.push(value);
+    }
+    var minMath = Math.min.apply(null, aTotalValues);
+    return minMath !== 0 ? minMath : 1;
+  }
+  else
+  {
+    return isCurrency ? minValue : minValue2;
+  }
 }
 
 function getDataOrMulti()

@@ -16,6 +16,7 @@ class DataD3
 	var aCategoryX = "[]"
 	var aAllData = "[]"
 	var aMaxData = "[]"
+	var aMinData = "[]"
 	var dataFormatted = "[]"
 
 	var hasNegative = "{}"
