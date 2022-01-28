@@ -5,8 +5,12 @@ object StackedBar
 	fun getStackedBar(): String
 	{
 		return """function setStackedBar() {
-  var svg = svgMulti().append('g')
-		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
+  margin.left = margin.left + 60;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
+    .append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`)
 
 	var withReduce = width - 100;
 	//region rewrite
@@ -94,13 +98,13 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.top, height + margin.left, '#808080', '', axisMiddle + '▼', function () {
-    modalCategories(TypeManage.CATEGORIES);
-  });
-	
-	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.bottom - 20, '#808080', axisMiddle, axisMiddle + '▼', function () {
     modalCategories(TypeManage.DATA, this.id);
+  });
+
+  //Add Y axis label:
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + margin.left, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
+    modalCategories(TypeManage.CATEGORIES);
   });
 
   var withReduce = width - 100;
