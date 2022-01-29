@@ -2,6 +2,7 @@ package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatWithColumn
+import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -48,8 +49,14 @@ object TableHtmlBuilder
 					val column = aColumn[index]
 					val valueRow = if (column.isVisible)
 					{
-						if (cell.isNotEmpty() && cell != "null")
+						if (cell.isNotEmpty() && cell != "null") {
+							if (column.type.isNumber()) {
+								val aPartNumber = cell.split(".")
+								val number = aPartNumber[0].toInt()
+								"%,d".format(number)
+							} else
 							cell.formatWithColumn(column)
+						}
 						else ""
 					}
 					else

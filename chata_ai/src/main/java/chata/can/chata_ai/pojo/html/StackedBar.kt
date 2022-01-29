@@ -104,7 +104,7 @@ object StackedBar
   });
 
   //Add Y axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom, '#808080', axisMiddle, axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
