@@ -5,48 +5,53 @@ object Heatmap
 	fun getHeatmap(): String
 	{
 		return """function setHeatMap() {
-  var svg = svgMulti().append('g')
-		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
+  margin.left = margin.left + 50;
+  margin.bottom = margin.bottom + 5;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
+    .append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
   var x = d3.scaleBand()
-    .range([ 0, width ])
-    .domain(aCatHeatX)
-    .padding(0.01);
-  svg.append('g')
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(
-      d3.axisBottom(x)
-      .tickSize(0))
-    .call(g => g.select('.domain').remove())
-    .selectAll('text')
-    .attr('transform', 'translate(0, 10)')
-    .attr('fill', '#909090');
-
-  var y = d3.scaleBand()
-    .range([ height, 0 ])
+    .range([0, width])
     .domain(aCatHeatY)
     .padding(0.01);
-  svg.append("g")
-    .call(
-      d3.axisLeft(y)
-      .tickSize(0)
-      .tickFormat(x =>`${'$'}{getFirst10(x)}`))
-    //Remove line on domain for Y axis
+
+  var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+  axis = axis
+    //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
-    .selectAll('text')
-    .attr('fill', '#909090');
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, 0, -45);
+
+  var y = d3.scaleBand()
+    .range([height, 0])
+    .domain(aCatHeatX)
+    .padding(0.01);
+
+  var axis = axisMulti(svg, true, y, 0, 0, splitAxis);
+  axis = axis
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, 0, 0);
   
   var myColor = d3.scaleLinear()
     .range([backgroundColor, colorBi[0]])
     .domain([0, maxValue]);
   svg
     .selectAll()
-    .data(data, function(d) {return d.group+':'+d.name;})
+    .data(data, function(d) {return `${'$'}{d.name}:${'$'}{d.group}`; })
     .enter()
     .append('rect')
     .attr('id', function(item, i){ return `${'$'}{item.name}_${'$'}{item.group}`;})
-    .attr('x', function(d) { return x(d.group) })
-    .attr('y', function(d) { return y(d.name) })
+    .attr('x', function(d) { return x(d.name) })
+    .attr('y', function(d) { return y(d.group) })
     .attr('width', x.bandwidth() )
     .attr('height', y.bandwidth() )
     .style('fill', function(d) { return myColor(d.value)} )
@@ -55,11 +60,11 @@ object Heatmap
 			drillDown(idParent);
     });
 
-  //Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
-  
-  //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
+  //on left
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisY}`, null);
+
+  //on bottom
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisX, null);
 }
 """
 	}
