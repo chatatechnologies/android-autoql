@@ -5,8 +5,13 @@ object StackedColumn
 	fun getStackedColumn(): String
 	{
 		return """function setStackedColumn() {
-  var svg = svgMulti().append('g')
-		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
+  margin.left = margin.left + 15;
+  margin.bottom = margin.bottom + 10;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
+    .append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
   var withReduce = width - 100;
 	//region rewrite
@@ -28,42 +33,37 @@ object StackedColumn
       groups.push(vGroup);
     }
   });
+
   // Add X axis
   var x = d3.scaleBand()
     .domain(groups)
     .range([0, withReduce])
     .padding(0.2);
-  svg.append('g')
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(
-      d3.axisBottom(x)
-      .tickSize(7)
-      .tickSizeOuter(0)
-			.tickFormat(x =>`${'$'}{getFirst10(x)}`)
-    )
-    //set color for domain and ticks
-    .style("color", '#909090')
-    .selectAll('text')
-      .attr('transform', d => getCategoriesStack()[0].length > 10 ? `translate(0, 5)rotate(0)` : `translate(-35, 30)rotate(-45)`);
+
+  var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+  axis = axis
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, 0, -45);
 
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, getStackedMax()])
     .range([ height, 0 ]);
-  svg.append('g')
+
+  axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+  axis = axis
+    //region set lines by each value for y axis
     .call(
-      d3.axisLeft(y)
-      .tickSize(0))
-  //Remove line on domain for Y axis
-  .call(g => g.select('.domain').remove())
-  //region set lines by each value for y axis
-  .call(
-	    g => g.selectAll('.tick line')
-	    .clone()
-	    .attr('stroke-opacity', 0.1)
-	    .attr('x2', withReduce))
-  .selectAll('text')
-    .attr('fill', '#909090');
+      g => g.selectAll('.tick line')
+      .clone()
+      .attr('stroke-opacity', 0.1)
+      .attr('x2', withReduce))
+      .call(g => g.select('.domain').remove())
+  completeAxisMultiple(axis, 0, 0, 0);
 
   // color palette = one color per subgroup
   var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
@@ -96,20 +96,20 @@ object StackedColumn
       var subgroupValue = d.data[subgroupName];
       drillDown(subgroupName + '_' + idParent);
     });
-		
-	//Add X axis label:
-  addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.left + 20, '#808080', axisX, getAxisX(), function () {
-    modalCategories(TypeManage.DATA, this.id);
-  });
-	
-	//Y axis label:
-  addText(svg, 'end', 14, -90, margin.top - (height / 2), 0  -margin.bottom + 4, '#808080', '', `${'$'}{axisMiddle} ▼`, function () {
+
+  //on left
+  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisMiddle} ▼`, function () {
     modalCategories(TypeManage.CATEGORIES);
+  });
+
+  //on bottom
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, getAxisY(), function () {
+    modalCategories(TypeManage.DATA, this.id);
   });
 
   var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {

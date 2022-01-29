@@ -6,7 +6,6 @@ object StackedBar
 	{
 		return """function setStackedBar() {
   margin.left = margin.left + 50;
-  margin.left = margin.left + 60;
   margin.bottom = margin.bottom - 30;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
