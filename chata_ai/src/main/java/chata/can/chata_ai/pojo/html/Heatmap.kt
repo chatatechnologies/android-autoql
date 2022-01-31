@@ -12,10 +12,28 @@ object Heatmap
 		.attr('height', height + margin.top + margin.bottom)
     .append('g')
 		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+		
+	var _aCatHeatX = [];
+  var _aCatHeatY = [];
+  
+  var stackedData = getStackedData();
+  stackedData.map(function(item) {
+    var vGroup = item.name;
+    if (_aCatHeatX.indexOf(vGroup) === -1) {
+      _aCatHeatX.push(vGroup);
+    }
+
+    var innerKeys = Object.keys(item);
+    innerKeys.map(function(key) {
+      if (key != 'name' && _aCatHeatY.indexOf(key) === -1) {
+        _aCatHeatY.push(key);
+      }
+    });
+  });
 
   var x = d3.scaleBand()
     .range([0, width])
-    .domain(aCatHeatY)
+    .domain(_aCatHeatY)
     .padding(0.01);
 
   var axis = axisMulti(svg, false, x, height, 5, splitAxis);
@@ -29,7 +47,7 @@ object Heatmap
 
   var y = d3.scaleBand()
     .range([height, 0])
-    .domain(aCatHeatX)
+    .domain(_aCatHeatX)
     .padding(0.01);
 
   var axis = axisMulti(svg, true, y, 0, 0, splitAxis);
