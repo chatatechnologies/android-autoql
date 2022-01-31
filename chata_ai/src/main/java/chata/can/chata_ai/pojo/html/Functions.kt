@@ -91,6 +91,11 @@ function updateSize() {
           width = width * 2.0;
         }
         break;
+			case TypeEnum.BUBBLE:
+      case TypeEnum.HEATMAP:
+        width = width * 2;
+        height = height * 1.5;
+        break;
       case TypeEnum.PIE:
       default:
         //width = width;
@@ -236,13 +241,6 @@ function getAxisY() {
     extra = '▼';
   }
   return `${'$'}{axisY} ${'$'}{extra}`;
-}
-
-function svgMulti() {
-  var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.bottom + margin.right)
-		.attr('height', height + margin.top + margin.left + 30);
-  return svg;
 }
 
 function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, click) {

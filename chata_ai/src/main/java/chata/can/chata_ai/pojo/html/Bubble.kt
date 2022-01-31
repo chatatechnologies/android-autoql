@@ -5,8 +5,13 @@ object Bubble
 	fun getBubble(): String
 	{
 		return """function setBubble() {
-  var svg = svgMulti().append('g')
-		.attr('transform', `translate(${'$'}{margin.left + 60}, ${'$'}{margin.top})`);
+	margin.left = margin.left + 50;
+  margin.bottom = margin.bottom + 15;
+  var svg = d3.select('body').append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', height + margin.top + margin.bottom)
+    .append('g')
+		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 		
 	var _aCatHeatX = [];
   var _aCatHeatY = [];
@@ -30,28 +35,27 @@ object Bubble
   var x = d3.scaleBand()
     .domain(_aCatHeatX)
     .range([ 0, width ]);
-  svg.append('g')
-    .attr('transform', 'translate(0,' + height + ')')
-    .call(
-      d3.axisBottom(x)
-      .tickSize(0))
+  var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+  axis = axis
+    //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
-    .selectAll('text')
-    .attr('transform', 'translate(0, 10)')
-    .attr('fill', '#909090');
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, 0, -45);
   
   var y = d3.scaleBand()
     .range([ height, 0 ])
     .domain(_aCatHeatY)
-  svg.append("g")
-    .call(
-      d3.axisLeft(y)
-      .tickSize(0)
-      .tickFormat(x =>`${'$'}{getFirst10(x)}`))
-    //Remove line on domain for Y axis
+
+  var axis = axisMulti(svg, true, y, 0, 0, splitAxis);
+  axis = axis
+    //Remove line on domain for X axis
     .call(g => g.select('.domain').remove())
-    .selectAll('text')
-      .attr('fill', '#909090');
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, 0, 0);
 			
 	var bandX = x.bandwidth();
   var bandY = y.bandwidth();
@@ -75,11 +79,11 @@ object Bubble
       drillDown(idParent);
     });
 		
-	//Add X axis label:
-  addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.left, '#808080', '', axisY);
-	
-	//Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), 0  -margin.bottom + 25, '#808080', '', axisX);
+	//on left
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisY}`, null);
+
+  //on bottom
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisX, null);
 }
 """
 	}
