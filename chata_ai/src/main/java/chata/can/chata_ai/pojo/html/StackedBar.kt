@@ -98,12 +98,12 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, axisX, function () {
+  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
   //Add Y axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle, function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 

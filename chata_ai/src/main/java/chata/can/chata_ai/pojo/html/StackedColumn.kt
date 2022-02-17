@@ -97,17 +97,17 @@ object StackedColumn
     });
 
   //on left
-  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle, function () {
+  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, axisY, function () {
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
   var factorBack = margin.top;
-  addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(true), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
