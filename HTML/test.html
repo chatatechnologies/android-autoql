@@ -352,8 +352,16 @@ function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
 }
 
 function splitAxis(x) {
+  var allowNull = false;
+  switch (typeChart) {
+    case TypeEnum.STACKED_BAR:
+    case TypeEnum.STACKED_COLUMN:
+      allowNull = true;
+      break;
+  }
+
 	var category = x;
-  if (x === "null") {
+  if (allowNull && x === "null") {
     category = 'Untitled Category';
   }
   return `${getFirst10(category.split('_')[0])}`;
@@ -529,7 +537,7 @@ for (const item in getDataOrMulti()) {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.PIVOT;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
