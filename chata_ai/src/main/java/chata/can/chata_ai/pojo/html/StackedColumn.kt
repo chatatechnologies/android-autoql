@@ -13,7 +13,7 @@ object StackedColumn
     .append('g')
 		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-  var withReduce = width - 100;
+  var withReduce = width - 105;
 	//region rewrite
   var subgroups = [];
 	var stackedData = getStackedData();
@@ -106,21 +106,20 @@ object StackedColumn
     modalCategories(TypeManage.DATA, this.id);
   });
 
-  var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
     var item = getCategoriesStack()[index];
 
-    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
       var id = this.id;
       adminStacked(id, subgroups);
     });
 
-    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
+    addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
     function () {
       return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
     },

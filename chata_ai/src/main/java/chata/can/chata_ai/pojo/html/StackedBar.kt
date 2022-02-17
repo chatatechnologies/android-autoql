@@ -13,7 +13,7 @@ object StackedBar
     .append('g')
 		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`)
 
-	var withReduce = width - 100;
+	var withReduce = width - 105;
 	//region rewrite
   var subgroups = [];
 	var stackedData = getStackedData();
@@ -107,9 +107,8 @@ object StackedBar
     modalCategories(TypeManage.CATEGORIES);
   });
 
-  var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {

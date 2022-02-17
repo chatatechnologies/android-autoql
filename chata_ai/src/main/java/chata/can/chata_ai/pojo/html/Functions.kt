@@ -227,20 +227,30 @@ function updateSelected(index_value) {
   }
 }
 
+function axisEndPoints(axisSource) {
+  var axis = axisSource;
+  if (axis.length > 14) {
+    axis = axis.slice(0, -3) + '...'
+  }
+  return axis;
+}
+
 function getAxisX() {
+	var axis = axisEndPoints(axisX);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
   }
-  return `${'$'}{axisX} ${'$'}{extra}`;
+  return `${'$'}{axis} ${'$'}{extra}`;
 }
 
 function getAxisY() {
+	var axis = axisEndPoints(axisY);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
   }
-  return `${'$'}{axisY} ${'$'}{extra}`;
+  return `${'$'}{axis} ${'$'}{extra}`;
 }
 
 function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, click) {

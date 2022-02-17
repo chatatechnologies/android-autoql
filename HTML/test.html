@@ -301,20 +301,30 @@ function updateSelected(index_value) {
   }
 }
 
+function axisEndPoints(axisSource) {
+  var axis = axisSource;
+  if (axis.length > 14) {
+    axis = axis.slice(0, -3) + '...'
+  }
+  return axis;
+}
+
 function getAxisX() {
+  var axis = axisEndPoints(axisX);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
   }
-  return `${axisX} ${extra}`;
+  return `${axis} ${extra}`;
 }
 
 function getAxisY() {
+  var axis = axisEndPoints(axisY);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
   }
-  return `${axisY} ${extra}`;
+  return `${axis} ${extra}`;
 }
 
 function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, click) {
@@ -515,7 +525,7 @@ for (const item in getDataOrMulti()) {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_BAR;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -635,7 +645,6 @@ function setStackedBar() {
     modalCategories(TypeManage.CATEGORIES);
   });
 
-  var withReduce = width - 100;
   var factorBack = margin.top;
   addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
@@ -671,7 +680,7 @@ function setStackedColumn() {
     .append('g')
 		.attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  var withReduce = width - 100;
+  var withReduce = width - 105;
 	//region rewrite
   var subgroups = [];
 	var stackedData = getStackedData();
@@ -764,21 +773,20 @@ function setStackedColumn() {
     modalCategories(TypeManage.DATA, this.id);
   });
 
-  var withReduce = width - 100;
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 16, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
 		if (indexIgnore.includes(index)) continue;
     var item = getCategoriesStack()[index];
 
-    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+    addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${index}`, item, function () {
       var id = this.id;
       adminStacked(id, subgroups);
     });
 
-    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+    addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
     function () {
       return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
     },
