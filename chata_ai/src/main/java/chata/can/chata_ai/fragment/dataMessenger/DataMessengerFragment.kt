@@ -100,6 +100,7 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		{
 //			val queryDemo = "all invoices"
 			val queryDemo = "Max 1000 province by total utilization"
+//			val queryDemo = "Total revenue by customer for bill & sons and advantage oil per month"
 			etQuery.setText(queryDemo)
 		}
 

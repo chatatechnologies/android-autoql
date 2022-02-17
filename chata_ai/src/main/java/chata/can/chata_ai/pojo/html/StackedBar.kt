@@ -42,7 +42,7 @@ object StackedBar
     .call(d3.axisLeft(x)
       .tickSize(7)
       .tickSizeOuter(0)
-			.tickFormat(x =>`${'$'}{getFirst10(x)}`)
+			.tickFormat(splitAxis)
 		)
   //set color for domain and ticks
     .style("color", '#909090');

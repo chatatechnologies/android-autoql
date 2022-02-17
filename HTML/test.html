@@ -310,7 +310,7 @@ function axisEndPoints(axisSource) {
 }
 
 function getAxisX() {
-  var axis = axisEndPoints(axisX);
+	var axis = axisEndPoints(axisX);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
@@ -319,7 +319,7 @@ function getAxisX() {
 }
 
 function getAxisY() {
-  var axis = axisEndPoints(axisY);
+	var axis = axisEndPoints(axisY);
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
@@ -352,7 +352,11 @@ function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
 }
 
 function splitAxis(x) {
-  return `${getFirst10(x.split('_')[0])}`;
+	var category = x;
+  if (x === "null") {
+    category = 'Untitled Category';
+  }
+  return `${getFirst10(category.split('_')[0])}`;
 }
 
 function formatAxis(y) {
@@ -525,7 +529,7 @@ for (const item in getDataOrMulti()) {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.STACKED_BAR;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -551,7 +555,7 @@ function setStackedBar() {
     .append('g')
 		.attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-	var withReduce = width - 100;
+	var withReduce = width - 105;
 	//region rewrite
   var subgroups = [];
 	var stackedData = getStackedData();
@@ -580,7 +584,7 @@ function setStackedBar() {
     .call(d3.axisLeft(x)
       .tickSize(7)
       .tickSizeOuter(0)
-			.tickFormat(x =>`${getFirst10(x)}`)
+			.tickFormat(splitAxis)
 		)
   //set color for domain and ticks
     .style("color", '#909090');
@@ -646,7 +650,7 @@ function setStackedBar() {
   });
 
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
@@ -774,7 +778,7 @@ function setStackedColumn() {
   });
 
   var factorBack = margin.top;
-  addText(svg, 'start', 16, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   for (var index = 0; index < getCategoriesStack().length; index++) {
