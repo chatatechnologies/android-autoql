@@ -278,16 +278,8 @@ function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
 }
 
 function splitAxis(x) {
-	var allowNull = false;
-	switch (typeChart) {
-    case TypeEnum.STACKED_BAR:
-    case TypeEnum.STACKED_COLUMN:
-      allowNull = true;
-      break;
-  }
-	
 	var category = x;
-  if (allowNull && x === "null") {
+  if (x === "null") {
     category = 'Untitled Category';
   }
   return `${'$'}{getFirst10(category.split('_')[0])}`;
