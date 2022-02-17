@@ -59,13 +59,13 @@ object TableTriBuilder
 	): Triple<String, Int, ArrayList<Int>>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
+		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
 		val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
-		sbFoot.append(aCatX.joinTo(StringBuilder(""), separator = "") {
+		sbFoot.append(aCatY.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbFoot.append("</tr></tfoot>")
@@ -73,13 +73,13 @@ object TableTriBuilder
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
 
-		for ((indexY, categoryY) in aCatY.withIndex())
+		for ((indexY, categoryY) in aCatX.withIndex())
 		{
 			var onlyZero = true
 			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
-			for (indexX in aCatX.indices)
+			for (indexX in aCatY.indices)
 			{
-				var cell = mDataPivot["${indexX}_$indexY"] ?: ""
+				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
 				//region
 				if (cell != "0.0" && cell.isNotEmpty())
 					onlyZero = false
@@ -95,11 +95,11 @@ object TableTriBuilder
 			aRows.add("<tr>$sbRow</tr>")
 		}
 		//region reverse; check when is necessary
-		aRows.reverse()
+//		aRows.reverse()
 		val sbBody = StringBuilder("<tbody>")
 		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
-		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
+		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatX.size, aIndexZero)
 	}
 
 	class DataTableTri(

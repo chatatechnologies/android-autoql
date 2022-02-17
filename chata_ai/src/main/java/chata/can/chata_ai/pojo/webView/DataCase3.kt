@@ -138,7 +138,8 @@ object DataCase3 {
 						aString.isNotEmpty() -> aString
 						else -> aDate
 					}
-					val nameHeader = aColumn[tmpDate[0]].displayName
+//					val nameHeader = aColumn[tmpDate[0]].displayName
+					val nameHeader = aColumn[0].displayName
 
 					val tPivot = TableTriBuilder.buildDataPivot(
 						mDataPivot,
