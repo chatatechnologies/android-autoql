@@ -67,7 +67,6 @@ object StackedBar
       .attr('fill', '#909090');;
 
   // color palette = one color per subgroup
-  var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
     .domain(subgroups)
     .range(colorPie);
@@ -99,12 +98,12 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, axisX, function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
   //Add Y axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle, function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 

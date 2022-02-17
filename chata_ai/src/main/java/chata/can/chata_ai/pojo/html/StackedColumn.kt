@@ -66,7 +66,6 @@ object StackedColumn
   completeAxisMultiple(axis, 0, 0, 0);
 
   // color palette = one color per subgroup
-  var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   var color = d3.scaleOrdinal()
     .domain(subgroups)
     .range(colorPie);
@@ -98,12 +97,12 @@ object StackedColumn
     });
 
   //on left
-  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisMiddle} ▼`, function () {
+  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle, function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, axisY, function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
