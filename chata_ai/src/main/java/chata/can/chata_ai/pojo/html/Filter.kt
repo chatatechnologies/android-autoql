@@ -264,20 +264,17 @@ function getStackedMax()
   var sumTop = 0;
   var aStacked = getStackedData();
   var aCat = getCategoriesStack();
-  for (var index1 = 0; index1 < aStacked.length; index1++)
-  {
+
+  aStacked.forEach(iStacked => {
     var sum = 0;
-    const iStacked = aStacked[index1];
-    for (var index2 = 0; index2 < aCat.length; index2++)
-    {
-      const iCat = aCat[index2];
-      var toSum = iStacked[iCat];
+    aCat.forEach(cat => {
+      var toSum = iStacked[cat];
       if (toSum !== undefined) {
-        sum += iStacked[iCat];
+        sum += toSum;
       }
-    }
+    });
     if (sumTop < sum) sumTop = sum;
-  }
+  });
   return sumTop;
 }
 

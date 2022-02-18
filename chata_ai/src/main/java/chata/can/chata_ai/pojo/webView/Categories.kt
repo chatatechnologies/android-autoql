@@ -64,13 +64,13 @@ object Categories
 		val sb = StringBuilder("[")
 		for (category in aCat)
 		{
-			val tmpCat = when (category)
-			{
-				"\"null\"" -> if (isBi) "" else "\"Untiled Category\""
-				else -> category
-			}
-			if (tmpCat.isNotEmpty())
-				sb += "$tmpCat, "
+//			val tmpCat = when (category)
+//			{
+//				"\"null\"" -> if (isBi) "" else "\"Untitled Category\""
+//				else -> category
+//			}
+			if (category.isNotEmpty())
+				sb += "$category, "
 		}
 		return "${sb.removeSuffix(", ")}]"
 	}
