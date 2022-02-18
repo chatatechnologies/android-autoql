@@ -59,13 +59,13 @@ object TableTriBuilder
 	): Triple<String, Int, ArrayList<Int>>
 	{
 		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbHead.append("</tr></thead>")
 
 		val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
-		sbFoot.append(aCatY.joinTo(StringBuilder(""), separator = "") {
+		sbFoot.append(aCatX.joinTo(StringBuilder(""), separator = "") {
 			"<th>${it.replace("\"", "")}</th>"
 		})
 		sbFoot.append("</tr></tfoot>")
@@ -73,11 +73,11 @@ object TableTriBuilder
 		val aIndexZero = ArrayList<Int>()
 		val aRows = ArrayList<String>()
 
-		for ((indexY, categoryY) in aCatX.withIndex())
+		for ((indexY, categoryY) in aCatY.withIndex())
 		{
 			var onlyZero = true
 			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
-			for (indexX in aCatY.indices)
+			for (indexX in aCatX.indices)
 			{
 				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
 				//region
@@ -99,7 +99,7 @@ object TableTriBuilder
 		val sbBody = StringBuilder("<tbody>")
 		for (row in aRows) sbBody.append(row)
 		sbBody.append("</tbody>")
-		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatX.size, aIndexZero)
+		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
 	}
 
 	class DataTableTri(
