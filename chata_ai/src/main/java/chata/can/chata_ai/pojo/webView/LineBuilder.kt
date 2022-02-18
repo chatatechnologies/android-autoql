@@ -9,6 +9,7 @@ object LineBuilder
 		aCatX: List<String>,
 		aCatY: List<String>): Pair< Pair<*,*>, Pair<*,*> >
 	{
+		//region generate stacked 1
 		val aChartLine = ArrayList<String>()
 		var max = 0.0
 		for((indexY, category) in aCatY.withIndex())
@@ -28,6 +29,8 @@ object LineBuilder
 			val item = "$group ${aByGroup.joinToString(",", "", "")}"
 			aChartLine.add(item)
 		}
+		//endregion
+		//region generate stacked 2
 		val aChartLine1 = ArrayList<String>()
 		var max1 = 0.0
 		for ((indexX, category) in aCatX.withIndex())
@@ -37,7 +40,7 @@ object LineBuilder
 			val aByGroup = ArrayList<String>()
 			for ((indexY, categoryY) in aCatY.withIndex())
 			{
-				val value = aMapData["${indexX}_$indexY"]?.let {
+				val value = aMapData["${indexY}_$indexX"]?.let {
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
 				maxItem += value
@@ -47,21 +50,7 @@ object LineBuilder
 			val item = "$group ${aByGroup.joinToString(",", "", "")}"
 			aChartLine1.add(item)
 		}
-//		val aChartLine = ArrayList<String>()
-//		for((index1_, category) in aCatX.withIndex())
-//		{
-//			val aEachY = ArrayList<Double>()
-//			for (index2 in aCatY.indices)
-//			{
-//				aMapData["${index1_}_$index2"]?.let {
-//					it.toDoubleOrNull()?.let { num -> aEachY.add(num) }
-//				} ?: run { aEachY.add(0.0) }
-//			}
-//			val sData = aEachY.joinTo(StringBuilder("["), postfix = "]", separator = ",") {
-//				"$it".clearDecimals() }
-//			val item = "{\"data\":$sData,\"name\":$category}"
-//			aChartLine.add(item)
-//		}
+		//endregion
 		val stacked1 = aChartLine.joinToString(",\n", "[", "]") { "{$it}" }
 			.replace("\"", "")
 		val stacked2 = aChartLine1.joinToString(",\n", "[", "]") { "{$it}" }

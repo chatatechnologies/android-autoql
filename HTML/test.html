@@ -408,15 +408,12 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  if (aCommon.length == 2) {  
-    var index2;
-    if (indexCommon == 0) index2 = 1;
-    else index2 = 0;
-
-    var common = aCommon[indexCommon];
-    var common2 = aCommon[index2];
-    axisX = common;
-    axisY = common2;
+  if (nColumns == 3) {
+    isCurrency = !isCurrency;
+    var tmp = axisX;
+    axisX = axisY;
+    axisY = tmp;
+    isAgain = true;
   } else {
     var common = aCommon[indexCommon];
     axisX = common;
@@ -472,13 +469,13 @@ var aStacked = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0
 {name: 'Tonnes', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
 {name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
 {name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}];
-var aStacked2 = [{name: 'Alberta', 'Barrel': 3850,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'null', 'Barrel': 981.8,'Hours': 604.9,'Mile': 282,'M3': 282,'Day': 52,'Each': 34,'Month': 17,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'British Columbia', 'Barrel': 0,'Hours': 200,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'Wyoming', 'Barrel': 198,'Hours': 36,'Mile': 0,'M3': 0,'Day': 0,'Each': 5,'Month': 6.2,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'New Mexico', 'Barrel': 0,'Hours': 58,'Mile': 0,'M3': 0,'Day': 0,'Each': 8,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'Texas', 'Barrel': 8,'Hours': 26,'Mile': 17,'M3': 17,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
-{name: 'Saskatchewan', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+var aStacked2 = [{name: 'Alberta', 'Barrel': 3850,'Hours': 981.8,'Mile': 0,'M3': 198,'Day': 0,'Each': 8,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'null', 'Barrel': 0,'Hours': 604.9,'Mile': 200,'M3': 36,'Day': 58,'Each': 26,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'British Columbia', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Wyoming', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'New Mexico', 'Barrel': 0,'Hours': 52,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Texas', 'Barrel': 0,'Hours': 34,'Mile': 0,'M3': 5,'Day': 8,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Saskatchewan', 'Barrel': 0,'Hours': 17,'Mile': 0,'M3': 6.2,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
 {name: 'Oklahoma', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
 {name: 'Louisiana', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0}];
 var aStackedTmp = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
@@ -506,7 +503,7 @@ var limitName = 0;
 var isCurrency = true;
 var maxValue = 3850;
 var minValue = -1;
-var maxValue2 = 3850;
+var maxValue2 = 5037;
 var minValue2 = -1;
 var aMax = [];
 var aMax2 = [];

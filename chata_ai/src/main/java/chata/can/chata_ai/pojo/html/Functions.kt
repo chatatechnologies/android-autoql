@@ -334,15 +334,12 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  if (aCommon.length == 2) {  
-    var index2;
-    if (indexCommon == 0) index2 = 1;
-    else index2 = 0;
-
-    var common = aCommon[indexCommon];
-    var common2 = aCommon[index2];
-    axisX = common;
-    axisY = common2;
+  if (nColumns == 3) {
+    isCurrency = !isCurrency;
+    var tmp = axisX;
+    axisX = axisY;
+    axisY = tmp;
+    isAgain = true;
   } else {
     var common = aCommon[indexCommon];
     axisX = common;
