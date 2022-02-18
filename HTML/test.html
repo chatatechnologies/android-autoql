@@ -312,7 +312,7 @@ function axisEndPoints(axisSource) {
 function getAxisX(isMenu) {
 	var axis = axisX;
   if (isMenu !== undefined) {
-    axis = axisEndPoints(axisX);
+    axis = axisEndPoints(axis);
   }
   var extra = '';
   if (nColumns > 2) {
@@ -321,8 +321,11 @@ function getAxisX(isMenu) {
   return `${axis} ${extra}`;
 }
 
-function getAxisY() {
-	var axis = axisEndPoints(axisY);
+function getAxisY(isMenu) {
+	var axis = axisY;
+	if (isMenu !== undefined) {
+    axis = axisEndPoints(axis);
+  }
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
@@ -405,8 +408,19 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  var common = aCommon[indexCommon];
-  axisX = common;
+  if (aCommon.length == 2) {  
+    var index2;
+    if (indexCommon == 0) index2 = 1;
+    else index2 = 0;
+
+    var common = aCommon[indexCommon];
+    var common2 = aCommon[index2];
+    axisX = common;
+    axisY = common2;
+  } else {
+    var common = aCommon[indexCommon];
+    axisX = common;
+  }
   indexData = indexRoot;
   dataTmp = [];
   updateData(typeChart, true);
@@ -499,7 +513,7 @@ var aMin = [];
 var aMin2 = [];
 var aCategory = [];
 var aCategory2 = [];
-var aCommon = ["Province", "Unit Description"];
+var aCommon = ["Unit Description", "Province"];
 //endregion
 //axis X for heatmap
 var aCatHeatX = ["Alberta", "Untiled Category", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];

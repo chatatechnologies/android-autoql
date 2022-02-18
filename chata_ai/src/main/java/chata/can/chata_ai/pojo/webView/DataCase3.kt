@@ -22,7 +22,7 @@ object DataCase3 {
 		if (tmp != -1) posColumnY = tmp
 		queryBase.addIndices(posColumnX, posColumnY)
 		//fill aCommon
-		dataD3.catCommon = aGroupable.map { "\"${aColumn[it].displayName}\"" }.reversed().toString()
+		dataD3.catCommon = aGroupable.map { "\"${aColumn[it].displayName}\"" }.toString()
 		val isTriConfig = true
 		dataD3.isBi = false
 		queryBase.configActions = 5

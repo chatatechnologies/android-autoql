@@ -247,7 +247,7 @@ function getAxisX(isMenu) {
   return `${'$'}{axis} ${'$'}{extra}`;
 }
 
-function getAxisY() {
+function getAxisY(isMenu) {
 	var axis = axisY;
 	if (isMenu !== undefined) {
     axis = axisEndPoints(axis);
@@ -334,8 +334,19 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  var common = aCommon[indexCommon];
-  axisX = common;
+  if (aCommon.length == 2) {  
+    var index2;
+    if (indexCommon == 0) index2 = 1;
+    else index2 = 0;
+
+    var common = aCommon[indexCommon];
+    var common2 = aCommon[index2];
+    axisX = common;
+    axisY = common2;
+  } else {
+    var common = aCommon[indexCommon];
+    axisX = common;
+  }
   indexData = indexRoot;
   dataTmp = [];
   updateData(typeChart, true);
