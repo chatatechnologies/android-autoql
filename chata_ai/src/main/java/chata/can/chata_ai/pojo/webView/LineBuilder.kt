@@ -18,7 +18,7 @@ object LineBuilder
 			val aByGroup = ArrayList<String>()
 			for ((indexX, categoryX) in aCatX.withIndex())
 			{
-				val value = aMapData["${indexX}_$indexY"]?.let {
+				val value = aMapData["${indexY}_$indexX"]?.let {
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
 				maxItem += value
