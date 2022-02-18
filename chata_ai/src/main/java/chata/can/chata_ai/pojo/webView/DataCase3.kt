@@ -20,6 +20,8 @@ object DataCase3 {
 		}
 		val tmp = HtmlBuilder.hasCountableIndex(queryBase)
 		if (tmp != -1) posColumnY = tmp
+		//TODO remove after index
+		posColumnX = 1
 		queryBase.addIndices(posColumnX, posColumnY)
 		//fill aCommon
 		dataD3.catCommon = aGroupable.map { "\"${aColumn[it].displayName}\"" }.toString()
@@ -97,7 +99,7 @@ object DataCase3 {
 		val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
 		val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
-		val pCat = if (posColumnX == 1) Triple(aCatY, aCatX, true)
+		val pCat = if (posColumnX == 1) Triple(aCatX, aCatY, true)
 		else Triple(aCatX, aCatY, false)
 
 		val dataTableTri = TableTriBuilder.DataTableTri(aRows,
