@@ -238,7 +238,7 @@ function axisEndPoints(axisSource) {
 function getAxisX(isMenu) {
 	var axis = axisX;
   if (isMenu !== undefined) {
-    axis = axisEndPoints(axisX);
+    axis = axisEndPoints(axis);
   }
   var extra = '';
   if (nColumns > 2) {
@@ -248,7 +248,10 @@ function getAxisX(isMenu) {
 }
 
 function getAxisY() {
-	var axis = axisEndPoints(axisY);
+	var axis = axisY;
+	if (isMenu !== undefined) {
+    axis = axisEndPoints(axis);
+  }
   var extra = '';
   if (nColumns > 2) {
     extra = '▼';
