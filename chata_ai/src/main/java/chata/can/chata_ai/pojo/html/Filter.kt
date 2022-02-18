@@ -271,7 +271,10 @@ function getStackedMax()
     for (var index2 = 0; index2 < aCat.length; index2++)
     {
       const iCat = aCat[index2];
-      sum += iStacked[iCat];
+      var toSum = iStacked[iCat];
+      if (toSum !== undefined) {
+        sum += iStacked[iCat];
+      }
     }
     if (sumTop < sum) sumTop = sum;
   }
