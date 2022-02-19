@@ -346,11 +346,14 @@ object HtmlBuilder
 							val nameHeader = aColumn[tmpDate[0]].displayName
 
 							val tPivot = TableTriBuilder.buildDataPivot(
-								mDataPivot,
-								aColumn[aNumber.first()],
-								aCatX,//newListDescending(aCatX),
-								aCatY,
-								nameHeader)
+								TableTriBuilder.DataPivot(
+									mDataPivot,
+									aColumn[aNumber.first()],
+									aCatX,//newListDescending(aCatX),
+									aCatY,
+									nameHeader
+								)
+							)
 							dataForWebView.datePivot = tPivot.first
 							dataD3.pivot = tPivot.first
 							dataForWebView.rowsPivot = tPivot.second

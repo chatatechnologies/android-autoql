@@ -50,56 +50,65 @@ object TableTriBuilder
 		return Pair("<table id=\"idTableDataPivot\">$sbHead$sbBody</table>", aCatX.size)
 	}
 
-	fun buildDataPivot(
-		mDataPivot: LinkedHashMap<String, String>,
-		aColumn: ColumnQuery,
-		aCatX: List<String>,
-		aCatY: List<String>,
-		nameHeader: String
-	): Triple<String, Int, ArrayList<Int>>
-	{
-		val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
-		sbHead.append(aCatX.joinTo(StringBuilder(""), separator = "") {
-			"<th>${it.replace("\"", "")}</th>"
-		})
-		sbHead.append("</tr></thead>")
+	data class DataPivot(
+		val mDataPivot: LinkedHashMap<String, String>,
+		val aColumn: ColumnQuery,
+		val aCatX: List<String>,
+		val aCatY: List<String>,
+		val nameHeader: String,
+		val invested: Boolean = false
+	)
 
-		val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
-		sbFoot.append(aCatX.joinTo(StringBuilder(""), separator = "") {
-			"<th>${it.replace("\"", "")}</th>"
-		})
-		sbFoot.append("</tr></tfoot>")
+	fun buildDataPivot(dataPivot: DataPivot): Triple<String, Int, ArrayList<Int>> {
+		with(dataPivot) {
+			val innerCatX = if (invested) aCatY else aCatX
+			val innerCatY = if (invested) aCatX else aCatY
 
-		val aIndexZero = ArrayList<Int>()
-		val aRows = ArrayList<String>()
+			val sbHead = StringBuilder("<thead><tr><th>$nameHeader</th>")
+			sbHead.append(innerCatX.joinTo(StringBuilder(""), separator = "") {
+				"<th>${it.replace("\"", "")}</th>"
+			})
+			sbHead.append("</tr></thead>")
 
-		for ((indexY, categoryY) in aCatY.withIndex())
-		{
-			var onlyZero = true
-			val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
-			for (indexX in aCatX.indices)
+			val sbFoot = StringBuilder("<tfoot><tr><th>$nameHeader</th>")
+			sbFoot.append(innerCatX.joinTo(StringBuilder(""), separator = "") {
+				"<th>${it.replace("\"", "")}</th>"
+			})
+			sbFoot.append("</tr></tfoot>")
+
+			val aIndexZero = ArrayList<Int>()
+			val aRows = ArrayList<String>()
+
+			for ((indexY, categoryY) in innerCatY.withIndex())
 			{
-				var cell = mDataPivot["${indexY}_$indexX"] ?: ""
-				//region
-				if (cell != "0.0" && cell.isNotEmpty())
-					onlyZero = false
-				//endregion
-				if (cell.isNotEmpty())
-					cell = cell.clearDecimals()
-				cell = cell.formatWithColumn(aColumn)
-				if (cell == "0") cell = ""
-				sbRow.append("<td>$cell</td>")
+				var onlyZero = true
+				val sbRow = StringBuilder("<td>${categoryY.replace("\"", "")}</td>")
+				for (indexX in innerCatX.indices)
+				{
+					val innerIndex = if (invested) "${indexX}_$indexY" else "${indexY}_$indexX"
+					var cell = mDataPivot[innerIndex] ?: ""
+					//region
+					if (cell != "0.0" && cell.isNotEmpty())
+						onlyZero = false
+					//endregion
+					if (cell.isNotEmpty())
+						cell = cell.clearDecimals()
+					cell = cell.formatWithColumn(aColumn)
+					if (cell == "0") cell = ""
+					sbRow.append("<td>$cell</td>")
+				}
+				if (onlyZero)
+					aIndexZero.add(indexY)
+				aRows.add("<tr>$sbRow</tr>")
 			}
-			if (onlyZero)
-				aIndexZero.add(indexY)
-			aRows.add("<tr>$sbRow</tr>")
-		}
-		//region reverse; check when is necessary
+			//region reverse; check when is necessary
 //		aRows.reverse()
-		val sbBody = StringBuilder("<tbody>")
-		for (row in aRows) sbBody.append(row)
-		sbBody.append("</tbody>")
-		return Triple("<table id=\"idTableDataPivot\">$sbHead$sbFoot$sbBody</table>", aCatY.size, aIndexZero)
+			val sbBody = StringBuilder("<tbody>")
+			for (row in aRows) sbBody.append(row)
+			sbBody.append("</tbody>")
+			val idPivot = if (invested) "idTableDataPivot2" else "idTableDataPivot"
+			return Triple("<table id=\"$idPivot\">$sbHead$sbFoot$sbBody</table>", innerCatY.size, aIndexZero)
+		}
 	}
 
 	class DataTableTri(

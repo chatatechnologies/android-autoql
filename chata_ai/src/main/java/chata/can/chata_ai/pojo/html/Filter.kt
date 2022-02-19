@@ -137,6 +137,7 @@ function controlStacked(id, subgroups) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
+	var aStacked = getStackedData();
   for (var index1 = 0; index1 < aStacked.length; index1++) {
     var element = aStackedTmp[index1];
     var edit = aStacked[index1];

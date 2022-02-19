@@ -111,6 +111,7 @@ object D3OnHtml
 <body>
 ${dataD3.table}
 ${dataD3.pivot}
+${dataD3.pivot2}
 <script>
 ${getFunctions()}
 ${getVariables(dataD3, backgroundColor)}

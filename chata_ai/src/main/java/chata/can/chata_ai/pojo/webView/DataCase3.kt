@@ -15,13 +15,11 @@ object DataCase3 {
 		val aGroupable = SearchColumn.getGroupableIndices(queryBase.aColumn, 2)
 		if (aGroupable.isNotEmpty())
 		{
-			val pos = if (aGroupable.size == 2) 0 else 1
+			val pos = if (aGroupable.size == 2) 1 else 0
 			posColumnX = aGroupable[pos]
 		}
 		val tmp = HtmlBuilder.hasCountableIndex(queryBase)
 		if (tmp != -1) posColumnY = tmp
-		//TODO remove after index
-		posColumnX = 1
 		queryBase.addIndices(posColumnX, posColumnY)
 		//fill aCommon
 		dataD3.catCommon = aGroupable.map { "\"${aColumn[it].displayName}\"" }.toString()
@@ -145,13 +143,16 @@ object DataCase3 {
 //					val nameHeader = aColumn[tmpDate[0]].displayName
 					val nameHeader = aColumn[0].displayName
 
-					val tPivot = TableTriBuilder.buildDataPivot(
+					val dataPivot = TableTriBuilder.DataPivot(
 						mDataPivot,
 						aColumn[aNumber.first()],
-						aCatX,//newListDescending(aCatX),
+						aCatX,
 						aCatY,
 						nameHeader)
+					val tPivot = TableTriBuilder.buildDataPivot(dataPivot)
+					val tPivot2 = TableTriBuilder.buildDataPivot(dataPivot.copy(invested = true))
 					dataD3.pivot = tPivot.first
+					dataD3.pivot2 = tPivot2.first
 					dataD3.rowsPivot = tPivot.second
 					tPivot.run {
 						if (third.isNotEmpty())

@@ -150,15 +150,22 @@ function updateData(tmpChart, isReload) {
   //region choose table or chart
   switch (tmpChart) {
     case TypeEnum.TABLE:
+      ${'$'}("svg").hide(0);
+      ${'$'}("#idTableBasic").show(0);
+      ${'$'}("#idTableDataPivot").hide(0);
+      ${'$'}("#idTableDataPivot2").hide(0);
+      break;
     case TypeEnum.PIVOT:
       ${'$'}("svg").hide(0);
-      var aID = tmpChart == TypeEnum.TABLE ? ["idTableBasic", "idTableDataPivot"] : ["idTableDataPivot", "idTableBasic"];
-      ${'$'}(`#${'$'}{aID[0]}`).show(0);
-      ${'$'}(`#${'$'}{aID[1]}`).hide(0);
+      ${'$'}("#idTableBasic").hide(0);
+      var aID = isCurrency ? ["", "2"] : ["2", ""];
+      ${'$'}("#idTableDataPivot" + aID[0]).show(0);
+      ${'$'}("#idTableDataPivot" + aID[1]).hide(0);
       break;
     default:
       ${'$'}("#idTableBasic").hide(0);
       ${'$'}("#idTableDataPivot").hide(0);
+      ${'$'}("#idTableDataPivot2").hide(0);
       clearSvg();
       switch(typeChart) {
         case TypeEnum.COLUMN:
