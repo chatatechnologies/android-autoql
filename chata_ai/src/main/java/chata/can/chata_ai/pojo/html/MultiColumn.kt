@@ -136,11 +136,11 @@ object MultiColumn
   if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
-    for (var index = 0; index < aCategoryTmp.length; index++)
-    {
+
+    var index = 0;
+    aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))
       {
-        var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
           adminMulti(id, subgroups);
@@ -155,7 +155,8 @@ object MultiColumn
         });
         factorBack += 20;
       }
-    }
+      index++;
+    });
   }
 }
 """

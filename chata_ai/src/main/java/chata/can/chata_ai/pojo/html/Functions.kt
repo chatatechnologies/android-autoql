@@ -338,9 +338,19 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
   updateData(typeChart, true);
 }
 
+function fillCurrencyStackedData() {
+  var aStacked = getStackedData();
+  aStackedTmp = [];
+  aStacked.forEach( item => {
+    var copied = Object.assign({}, item);
+    aStackedTmp.push(copied)
+  });
+}
+
 function setIndexData(indexRoot, indexCommon) {
   if (nColumns == 3) {
     isCurrency = !isCurrency;
+		fillCurrencyStackedData();
     var tmp = axisX;
     axisX = axisY;
     axisY = tmp;

@@ -110,14 +110,14 @@ function callAdminStacked(aIndex, subgroups) {
   updateData(typeChart, true);
 }
 
-function adminStacked(id, subgroups) {
+function adminStacked(id) {
   var words = id.split('_');
-  controlStacked(words[1], subgroups);
+  controlStacked(words[1]);
   isAgain = true;
   updateData(typeChart, true);
 }
 
-function controlStacked(id, subgroups) {
+function controlStacked(id) {
   var index = parseInt(id);
   var exist = opacityMarked.includes(index);
   if (exist) {

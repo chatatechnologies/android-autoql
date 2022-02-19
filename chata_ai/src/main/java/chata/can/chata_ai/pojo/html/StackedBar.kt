@@ -116,7 +116,7 @@ object StackedBar
     if (!indexIgnore.includes(index)) {
       addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
 
       addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
@@ -125,7 +125,7 @@ object StackedBar
       },
       function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
       factorBack += 15;
     }

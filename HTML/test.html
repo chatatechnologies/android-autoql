@@ -413,9 +413,19 @@ function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
   updateData(typeChart, true);
 }
 
+function fillCurrencyStackedData() {
+  var aStacked = getStackedData();
+  aStackedTmp = [];
+  aStacked.forEach( item => {
+    var copied = Object.assign({}, item);
+    aStackedTmp.push(copied)
+  });
+}
+
 function setIndexData(indexRoot, indexCommon) {
   if (nColumns == 3) {
     isCurrency = !isCurrency;
+    fillCurrencyStackedData();
     var tmp = axisX;
     axisX = axisY;
     axisY = tmp;
@@ -484,6 +494,16 @@ var aStacked2 = [{name: 'Alberta', 'Barrel': 3850,'Hours': 981.8,'Mile': 0,'M3':
 {name: 'Saskatchewan', 'Barrel': 0,'Hours': 17,'Mile': 0,'M3': 6.2,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
 {name: 'Oklahoma', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
 {name: 'Louisiana', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0}];
+var aStackedTmp = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Hours', 'Alberta': 981.8,'null': 604.9,'British Columbia': 282,'Wyoming': 282,'New Mexico': 52,'Texas': 34,'Saskatchewan': 17,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Mile', 'Alberta': 0,'null': 200,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'M3', 'Alberta': 198,'null': 36,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 5,'Saskatchewan': 6.2,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Day', 'Alberta': 0,'null': 58,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 8,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Each', 'Alberta': 8,'null': 26,'British Columbia': 17,'Wyoming': 17,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Month', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Tonnes', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}];
 var aCategoryX = ["Alberta", "null", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];
 var data2 = [];
 var aAllData = [];
@@ -664,13 +684,12 @@ function setStackedBar() {
   addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-
   var index = 0;
   getCategoriesStack().forEach(item => {
     if (!indexIgnore.includes(index)) {
       addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
 
       addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -679,7 +698,7 @@ function setStackedBar() {
       },
       function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
       factorBack += 15;
     }
@@ -793,14 +812,13 @@ function setStackedColumn() {
   addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(true), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-
   var index = 0;
   getCategoriesStack().forEach(item => {
     if (!indexIgnore.includes(index)) {
       
       addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${index}`, item, function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
 
       addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
@@ -809,7 +827,7 @@ function setStackedColumn() {
       },
       function () {
         var id = this.id;
-        adminStacked(id, subgroups);
+        adminStacked(id);
       });
       factorBack += 20;
     }
@@ -1280,11 +1298,10 @@ function setMultiColumn() {
   if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
-    for (var index = 0; index < aCategoryTmp.length; index++)
-    {
+    var index = 0;
+    aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))
       {
-        var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
           adminMulti(id, subgroups);
@@ -1299,7 +1316,8 @@ function setMultiColumn() {
         });
         factorBack += 20;
       }
-    }
+      index++;
+    });
   }
 }
 
@@ -1863,14 +1881,14 @@ function callAdminStacked(aIndex, subgroups) {
   updateData(typeChart, true);
 }
 
-function adminStacked(id, subgroups) {
+function adminStacked(id) {
   var words = id.split('_');
-  controlStacked(words[1], subgroups);
+  controlStacked(words[1]);
   isAgain = true;
   updateData(typeChart, true);
 }
 
-function controlStacked(id, subgroups) {
+function controlStacked(id) {
   var index = parseInt(id);
   var exist = opacityMarked.includes(index);
   if (exist) {
