@@ -62,7 +62,7 @@ object MultiData
 						hasNegative = true
 				}
 				val sValue = "$value"
-				val tmpKey = if (key == "null") "Untitled Category\n" else key
+				val tmpKey = if (key == "null") "Untitled Category" else key
 				mDataOrder[tmpKey]?.run {
 					this.add(sValue)
 				} ?: run {

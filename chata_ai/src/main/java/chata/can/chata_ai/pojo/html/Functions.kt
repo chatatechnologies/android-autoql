@@ -98,8 +98,6 @@ function updateSize() {
         break;
       case TypeEnum.PIE:
       default:
-        //width = width;
-        //height = height1;
         break;
     }
   }

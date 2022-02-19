@@ -110,26 +110,27 @@ object StackedColumn
   addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(true), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < getCategoriesStack().length; index++) {
-		if (indexIgnore.includes(index)) continue;
-    var item = getCategoriesStack()[index];
+  var index = 0;
+  getCategoriesStack().forEach(item => {
+    if (!indexIgnore.includes(index)) {
+      
+      addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
 
-    addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
-
-    addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
-    function () {
-      return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
-    },
-    function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
-
-    factorBack += 20;
-  }
+      addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
+      function () {
+        return `opacity: ${'$'}{opacityMarked.includes(index) ? '0.5' : '1'}`;
+      },
+      function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
+      factorBack += 20;
+    }
+    index++;
+  });
 }
 """
 	}

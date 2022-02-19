@@ -119,12 +119,12 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //REGION get max value
-for (const item in getDataOrMulti()) {
-  var value = getDataOrMulti()[item].value;
+getDataOrMulti().forEach(item => {
+  var value = item.value;
   if (getMaxValue() < value) {
     maxValue = value;
   }
-}
+});
 //ENDREGION
 
 //The left margin makes the left border visible

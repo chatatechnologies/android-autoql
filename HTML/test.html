@@ -173,8 +173,6 @@ function updateSize() {
         break;
       case TypeEnum.PIE:
       default:
-        //width = width;
-        //height = height1;
         break;
     }
   }
@@ -532,17 +530,17 @@ for (const item in getDataOrMulti()) {
 //ENDREGION
 
 //REGION get max value
-for (const item in getDataOrMulti()) {
-  var value = getDataOrMulti()[item].value;
+getDataOrMulti().forEach(item => {
+  var value = item.value;
   if (getMaxValue() < value) {
     maxValue = value;
   }
-}
+});
 //ENDREGION
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.STACKED_BAR;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -666,26 +664,27 @@ function setStackedBar() {
   addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < getCategoriesStack().length; index++) {
-		if (indexIgnore.includes(index)) continue;
-    var item = getCategoriesStack()[index];
 
-    addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
+  var index = 0;
+  getCategoriesStack().forEach(item => {
+    if (!indexIgnore.includes(index)) {
+      addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
 
-    addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
-    function () {
-      return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
-    },
-    function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
-
-    factorBack += 15;
-  }
+      addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+      function () {
+        return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+      },
+      function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
+      factorBack += 15;
+    }
+    index++;
+  });
 }
 
 function setStackedColumn() {
@@ -794,26 +793,28 @@ function setStackedColumn() {
   addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(true), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-  for (var index = 0; index < getCategoriesStack().length; index++) {
-		if (indexIgnore.includes(index)) continue;
-    var item = getCategoriesStack()[index];
 
-    addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${index}`, item, function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
+  var index = 0;
+  getCategoriesStack().forEach(item => {
+    if (!indexIgnore.includes(index)) {
+      
+      addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${index}`, item, function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
 
-    addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
-    function () {
-      return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
-    },
-    function () {
-      var id = this.id;
-      adminStacked(id, subgroups);
-    });
-
-    factorBack += 20;
-  }
+      addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+      function () {
+        return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+      },
+      function () {
+        var id = this.id;
+        adminStacked(id, subgroups);
+      });
+      factorBack += 20;
+    }
+    index++;
+  });
 }
 
 function setBubble() {
@@ -1123,11 +1124,11 @@ function setMultiBar() {
   if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
-    for (var index = 0; index < aCategoryTmp.length; index++)
-    {
+
+    var index = 0;
+    aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))
       {
-        var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
           adminMulti(id, subgroups);
@@ -1142,7 +1143,8 @@ function setMultiBar() {
         });
         factorBack += 20;
       }
-    }
+      index++;
+    });
   }
 }
 
@@ -1438,11 +1440,10 @@ function setMultiLine() {
 	if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
-    for (var index = 0; index < aCategoryTmp.length; index++)
-    {
+    var index = 0;
+    aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))
       {
-        var item = aCategoryTmp[index];
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
           adminMulti(id, subgroups);
@@ -1457,7 +1458,8 @@ function setMultiLine() {
         });
         factorBack += 20;
       }
-    }
+      index++;
+    });
   }
 }
 
