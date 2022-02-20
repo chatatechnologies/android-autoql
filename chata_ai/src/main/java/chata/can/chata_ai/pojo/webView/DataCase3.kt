@@ -17,6 +17,7 @@ object DataCase3 {
 		{
 			val pos = if (aGroupable.size == 2) 1 else 0
 			posColumnX = aGroupable[pos]
+			queryBase.indexData = posColumnX
 		}
 		val tmp = HtmlBuilder.hasCountableIndex(queryBase)
 		if (tmp != -1) posColumnY = tmp
@@ -86,6 +87,9 @@ object DataCase3 {
 		for (cat in aCatX.map { it.replace("\"", "") })
 		{
 			queryBase.aCategory.add(FilterColumn(cat, true))
+		}
+		for (cat in aCatY.map { it.replace("\"", "") }) {
+			queryBase.aCategory2.add(FilterColumn(cat, true))
 		}
 		//region cat for D3 on tri dimensions
 		dataD3.catHeatX = Categories.makeCategories(aCatY, !isTriConfig)

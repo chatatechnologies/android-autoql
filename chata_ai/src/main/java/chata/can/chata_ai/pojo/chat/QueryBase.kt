@@ -109,6 +109,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 	var aCommon = ArrayList<Pair<Int, ColumnQuery>>()
 	var aCategoryX = ArrayList<String>()
 	var aCategory = ArrayList<FilterColumn>()
+	var aCategory2 = ArrayList<FilterColumn>()
 
 	private var view: HolderContract? = null
 	var viewPresenter: PresenterContract?= null

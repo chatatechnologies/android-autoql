@@ -1865,17 +1865,18 @@ function adminMulti(id, subgroups) {
   updateData(typeChart, true);
 }
 
-function callAdminStacked(aIndex, subgroups) {
+function callAdminStacked(aIndex) {
+  var category = getCategoriesStack();
 	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
       const element = aIndex[index];
-      controlStacked(element, subgroups);
+      controlStacked(element, category);
     }
   } else {
     for (let index1 = 0; index1 < opacityMarked.length; index1++) {
       const element = opacityMarked[index1];
-      controlStacked(element, subgroups);
+      controlStacked(element, category);
     }
   }
   isAgain = true;

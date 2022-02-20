@@ -105,7 +105,8 @@ class ManageDataDialog(
 					val title = content
 					//endregion
 					model.add(FilterColumn(title, isOnlyText = true))
-					for (cat in aCategory)
+					val currentCategory = if (indexData == 0) aCategory2 else aCategory
+					for (cat in currentCategory)
 					{
 						val fc = FilterColumn(cat.nameColumn,cat.isSelected)
 						model.add(fc)
@@ -251,7 +252,6 @@ class ManageDataDialog(
 	private fun setDataStacked()
 	{
 		val aIndex = ArrayList<Int>()
-		var sCat = ""
 		queryBase?.let { queryBase ->
 			for ((index, cat) in aCategory1.withIndex())
 			{
@@ -261,10 +261,9 @@ class ManageDataDialog(
 					aIndex.add(index)
 				}
 			}
-			sCat = aCategory1.joinToString(",", "[", "]"){ "\"${it.nameColumn}\"" }
 		}
 		Handler(Looper.getMainLooper()).postDelayed({
-			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex, $sCat);")
+			(webView as? WebView)?.loadUrl("javascript:callAdminStacked($aIndex);")
 		}, 100)
 		dialog.dismiss()
 	}
