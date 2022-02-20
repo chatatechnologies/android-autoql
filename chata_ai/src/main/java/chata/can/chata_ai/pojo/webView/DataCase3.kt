@@ -83,7 +83,7 @@ object DataCase3 {
 			dataD3.aCategoryX = Categories.makeCategories(aCatX, !isTriConfig)
 		}
 		//region isTriConfig
-		for (cat in queryBase.aCategoryX)
+		for (cat in aCatX.map { it.replace("\"", "") })
 		{
 			queryBase.aCategory.add(FilterColumn(cat, true))
 		}

@@ -102,7 +102,7 @@ class ManageDataDialog(
 				TypeColumnData.CATEGORIES ->
 				{
 					//region search title
-					val title = aColumn.getOrNull(0)?.displayName ?: ""
+					val title = content
 					//endregion
 					model.add(FilterColumn(title, isOnlyText = true))
 					for (cat in aCategory)

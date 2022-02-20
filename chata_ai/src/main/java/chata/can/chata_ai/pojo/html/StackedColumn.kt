@@ -98,7 +98,7 @@ object StackedColumn
 
   //on left
   addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle + '▼', function () {
-    modalCategories(TypeManage.CATEGORIES);
+    modalCategories(TypeManage.CATEGORIES, axisX);
   });
 
   //on bottom
