@@ -18,6 +18,7 @@ object DataCase3 {
 			val pos = if (aGroupable.size == 2) 1 else 0
 			posColumnX = aGroupable[pos]
 			queryBase.indexData = posColumnX
+			dataD3.indexData = posColumnX
 		}
 		val tmp = HtmlBuilder.hasCountableIndex(queryBase)
 		if (tmp != -1) posColumnY = tmp
@@ -241,11 +242,6 @@ object DataCase3 {
 		val aFirstKey = ArrayList<String>()
 		val aSecondKey = ArrayList<String>()
 		val mData = LinkedHashMap<String, Double>()
-
-		if (indexDate == -1 || indexDollar == -1)
-		{
-			println()
-		}
 
 		for (row in aRows)
 		{
