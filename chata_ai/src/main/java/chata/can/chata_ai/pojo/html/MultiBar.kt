@@ -12,7 +12,7 @@ object MultiBar
 		.append('g')
 		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 		
-  var aCategoryTmp = getMultiCategory();
+  var aCategoryTmp = nColumns == 3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
   
   var spaceCategory;
@@ -134,20 +134,24 @@ object MultiBar
         }
       });
 			
+	var xTitle = nColumns === 3 ? getAxisX() : getAxisY();
+  var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
+  var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
+			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 8, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 8, '#808080', axisY, xTitle, function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisX, yTitle, function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 	
   var factorBack = margin.top;
     if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', menuTitle);
 
     var index = 0;
     aCategoryTmp.forEach(item => {
@@ -155,7 +159,7 @@ object MultiBar
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          adminMulti(id, subgroups);
+          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -163,7 +167,7 @@ object MultiBar
         },
         function () {
           var id = this.id;
-          adminMulti(id, subgroups);
+          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         factorBack += 20;
       }

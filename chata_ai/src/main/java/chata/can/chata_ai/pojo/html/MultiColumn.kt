@@ -13,7 +13,7 @@ object MultiColumn
 		.append('g')
 		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
 
-	var aCategoryTmp = getMultiCategory();
+	var aCategoryTmp = nColumns == 3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
 
   var spaceCategory;
@@ -139,7 +139,7 @@ object MultiColumn
 	var factorBack = margin.top;
   if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', menuTitle);
 
     var index = 0;
     aCategoryTmp.forEach(item => {
@@ -147,7 +147,7 @@ object MultiColumn
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          adminMulti(id, subgroups);
+          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -155,7 +155,7 @@ object MultiColumn
         },
         function () {
           var id = this.id;
-          adminMulti(id, subgroups);
+          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         factorBack += 20;
       }
