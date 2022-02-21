@@ -62,10 +62,11 @@ object Bubble
 
   var minRadio = Math.min(bandX, bandY) / 2;
 
-  // Add dots
+  isCurrency = !isCurrency;
+	// Add dots
   svg.append('g')
     .selectAll('dot')
-    .data(data)
+    .data(getData())
     .enter()
     .append('circle')
     .attr('id', function(item, i){ return `${'$'}{item.name}_${'$'}{item.group}`;})
@@ -78,12 +79,13 @@ object Bubble
       var idParent = this.id;
       drillDown(idParent);
     });
+		isCurrency = !isCurrency;
 		
 	//on left
-  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisY}`, null);
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisX}`, null);
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisX, null);
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisY, null);
 }
 """
 	}

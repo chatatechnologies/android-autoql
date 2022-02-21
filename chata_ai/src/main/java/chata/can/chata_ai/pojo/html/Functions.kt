@@ -293,11 +293,7 @@ function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
 }
 
 function splitAxis(x) {
-	var category = x;
-  if (x === "null") {
-    category = 'Untitled Category';
-  }
-  return `${'$'}{getFirst10(category.split('_')[0])}`;
+  return `${'$'}{getFirst10(x.split('_')[0])}`;
 }
 
 function formatAxis(y) {
