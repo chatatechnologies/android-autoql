@@ -19,14 +19,14 @@ object Heatmap
   var stackedData = getStackedData();
   stackedData.map(function(item) {
     var vGroup = item.name;
-    if (_aCatHeatX.indexOf(vGroup) === -1) {
-      _aCatHeatX.push(vGroup);
+    if (_aCatHeatY.indexOf(vGroup) === -1) {
+      _aCatHeatY.push(vGroup);
     }
 
     var innerKeys = Object.keys(item);
     innerKeys.map(function(key) {
-      if (key != 'name' && _aCatHeatY.indexOf(key) === -1) {
-        _aCatHeatY.push(key);
+      if (key != 'name' && _aCatHeatX.indexOf(key) === -1) {
+        _aCatHeatX.push(key);
       }
     });
   });
@@ -79,10 +79,10 @@ object Heatmap
     });
 
   //on left
-  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisY}`, null);
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisX}`, null);
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisX, null);
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisY, null);
 }
 """
 	}

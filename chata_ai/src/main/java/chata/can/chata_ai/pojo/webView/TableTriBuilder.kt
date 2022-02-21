@@ -162,14 +162,16 @@ object TableTriBuilder
 	fun getData3Dimensions(
 		mData: LinkedHashMap<String, String>,
 		aCatX: ArrayList<String>,
-		aCatY: ArrayList<String>): String
+		aCatY: ArrayList<String>,
+		invested: Boolean = false): String
 	{
 		val aRow = ArrayList<String>()
 		for ((posX, valueX) in aCatX.withIndex())
 		{
 			for ((posY, valueY) in aCatY.withIndex())
 			{
-				val cell = mData["${posX}_$posY"] ?: run { "0.0" }
+				val position = if (invested) "${posY}_$posX" else "${posX}_$posY"
+				val cell = mData[position] ?: run { "0.0" }
 				val value = cell.toDoubleNotNull()
 				val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
 				aRow.add(sRow)

@@ -112,8 +112,8 @@ object DataCase3 {
 			pCat.third)
 
 		val pair = TableTriBuilder.generateDataTableTri(dataTableTri)
-		dataD3.data = TableTriBuilder.getData3Dimensions(pair.second, aCatX, aCatY)
-		dataD3.data2 = TableTriBuilder.getData3Dimensions(pair.second, aCatY, aCatX)
+		dataD3.data = TableTriBuilder.getData3Dimensions(pair.second, aCatY, aCatX)
+		dataD3.data2 = TableTriBuilder.getData3Dimensions(pair.second, aCatX, aCatY, true)
 		val aDataTable = pair.first
 		val aMapPure = pair.second
 
