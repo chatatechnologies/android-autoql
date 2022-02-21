@@ -244,7 +244,7 @@ function getData() {
 
 function getDataOrMulti()
 {
-	return data.length !== 0 ? data : getDataMulti();
+	return data.length !== 0 && nColumns !== 3 ? data : getDataMulti();
 }
 
 function getDataMulti()

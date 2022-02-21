@@ -211,6 +211,7 @@ object DataCase3 {
 		{
 			dataD3.max2 = pStacked2.second as? Int ?: 0
 		}
+		dataD3.aAllData = "{\n'1_1': ${dataD3.dataStacked},\n'2_2': ${dataD3.dataStacked2}}"
 
 		queryBase.isTri = true
 

@@ -480,8 +480,7 @@ var aStacked2 = [];
 var aStackedTmp = [];
 var aCategoryX = [];
 var data2 = [];
-var aAllData = {
-'0_1': [{name: 'Midland, TX_1', time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+var aAllData = {'0_1': [{name: 'Midland, TX_1', time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
 '0_2': [{name: 'Midland, TX_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
 '1_1': [{name: 'Canada_1', time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
 '1_2': [{name: 'Canada_1', time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
@@ -1444,8 +1443,6 @@ function setMultiColumn() {
 
   // List of groups = species here = value of the first column called group -> I show them on the X axis
   const groups = dataTmp.map(d => d.name);
-  console.log(groups);
-  console.log(dataTmp);
 
   var domain1, domain2;
 	var isNegative = getNegativeValue();
@@ -2272,7 +2269,7 @@ function getData() {
 
 function getDataOrMulti()
 {
-	return data.length !== 0 ? data : getDataMulti();
+	return data.length !== 0 && nColumns !== 3 ? data : getDataMulti();
 }
 
 function getDataMulti()

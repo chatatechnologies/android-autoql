@@ -122,13 +122,17 @@ object MultiColumn
         }
       });
 			
+	var xTitle = nColumns === 3 ? getAxisY() : getAxisX();
+  var yTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
+  var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
+			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, xTitle, function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, yTitle, function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	
