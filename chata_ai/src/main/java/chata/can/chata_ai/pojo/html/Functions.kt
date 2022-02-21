@@ -124,8 +124,12 @@ function updateData(tmpChart, isReload) {
 	var _isMultiple = isMultiple(tmpChart);
 	if (dataTmp.length && (isAgain || _isMultiple))
   {
-		if (_isMultiple)
+		if (_isMultiple) {
       typeChart = tmpChart;
+    }
+    if (nColumns === 3 && typeChart != tmpChart) {
+      typeChart = tmpChart;
+    }
     isAgain = false;
   }
   else

@@ -238,6 +238,10 @@ function getMinValue()
   }
 }
 
+function getData() {
+  return isCurrency ? data : data2;
+}
+
 function getDataOrMulti()
 {
 	return data.length !== 0 ? data : getDataMulti();

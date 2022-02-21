@@ -199,8 +199,12 @@ function updateData(tmpChart, isReload) {
 	var _isMultiple = isMultiple(tmpChart);
 	if (dataTmp.length && (isAgain || _isMultiple))
   {
-		if (_isMultiple)
+		if (_isMultiple) {
       typeChart = tmpChart;
+    }
+    if (nColumns === 3 && typeChart != tmpChart) {
+      typeChart = tmpChart;
+    }
     isAgain = false;
   }
   else
@@ -505,7 +509,7 @@ var aStackedTmp = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia'
 {name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
 {name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}];
 var aCategoryX = ["Alberta", "null", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];
-var data2 = [];
+var data2 = [{'name':'Barrel','group':'Alberta','value': 3850.0}, {'name':'Barrel','group':'null','value': 0.0}, {'name':'Barrel','group':'British Columbia','value': 0.0}, {'name':'Barrel','group':'Wyoming','value': 0.0}, {'name':'Barrel','group':'New Mexico','value': 0.0}, {'name':'Barrel','group':'Texas','value': 0.0}, {'name':'Barrel','group':'Saskatchewan','value': 0.0}, {'name':'Barrel','group':'Oklahoma','value': 0.0}, {'name':'Barrel','group':'Louisiana','value': 0.0}, {'name':'Hours','group':'Alberta','value': 981.75}, {'name':'Hours','group':'null','value': 604.85}, {'name':'Hours','group':'British Columbia','value': 282.0}, {'name':'Hours','group':'Wyoming','value': 282.0}, {'name':'Hours','group':'New Mexico','value': 52.0}, {'name':'Hours','group':'Texas','value': 34.0}, {'name':'Hours','group':'Saskatchewan','value': 17.0}, {'name':'Hours','group':'Oklahoma','value': 0.0}, {'name':'Hours','group':'Louisiana','value': 0.0}, {'name':'Mile','group':'Alberta','value': 0.0}, {'name':'Mile','group':'null','value': 200.0}, {'name':'Mile','group':'British Columbia','value': 0.0}, {'name':'Mile','group':'Wyoming','value': 0.0}, {'name':'Mile','group':'New Mexico','value': 0.0}, {'name':'Mile','group':'Texas','value': 0.0}, {'name':'Mile','group':'Saskatchewan','value': 0.0}, {'name':'Mile','group':'Oklahoma','value': 0.0}, {'name':'Mile','group':'Louisiana','value': 0.0}, {'name':'M3','group':'Alberta','value': 198.0}, {'name':'M3','group':'null','value': 36.0}, {'name':'M3','group':'British Columbia','value': 0.0}, {'name':'M3','group':'Wyoming','value': 0.0}, {'name':'M3','group':'New Mexico','value': 0.0}, {'name':'M3','group':'Texas','value': 5.0}, {'name':'M3','group':'Saskatchewan','value': 6.2}, {'name':'M3','group':'Oklahoma','value': 0.0}, {'name':'M3','group':'Louisiana','value': 0.0}, {'name':'Day','group':'Alberta','value': 0.0}, {'name':'Day','group':'null','value': 58.0}, {'name':'Day','group':'British Columbia','value': 0.0}, {'name':'Day','group':'Wyoming','value': 0.0}, {'name':'Day','group':'New Mexico','value': 0.0}, {'name':'Day','group':'Texas','value': 8.0}, {'name':'Day','group':'Saskatchewan','value': 0.0}, {'name':'Day','group':'Oklahoma','value': 0.0}, {'name':'Day','group':'Louisiana','value': 0.0}, {'name':'Each','group':'Alberta','value': 8.0}, {'name':'Each','group':'null','value': 26.0}, {'name':'Each','group':'British Columbia','value': 17.0}, {'name':'Each','group':'Wyoming','value': 17.0}, {'name':'Each','group':'New Mexico','value': 0.0}, {'name':'Each','group':'Texas','value': 0.0}, {'name':'Each','group':'Saskatchewan','value': 0.0}, {'name':'Each','group':'Oklahoma','value': 0.0}, {'name':'Each','group':'Louisiana','value': 0.0}, {'name':'Month','group':'Alberta','value': 0.0}, {'name':'Month','group':'null','value': 0.0}, {'name':'Month','group':'British Columbia','value': 0.0}, {'name':'Month','group':'Wyoming','value': 0.0}, {'name':'Month','group':'New Mexico','value': 0.0}, {'name':'Month','group':'Texas','value': 0.0}, {'name':'Month','group':'Saskatchewan','value': 0.0}, {'name':'Month','group':'Oklahoma','value': 0.0}, {'name':'Month','group':'Louisiana','value': 0.0}, {'name':'Tonnes','group':'Alberta','value': 0.0}, {'name':'Tonnes','group':'null','value': 0.0}, {'name':'Tonnes','group':'British Columbia','value': 0.0}, {'name':'Tonnes','group':'Wyoming','value': 0.0}, {'name':'Tonnes','group':'New Mexico','value': 0.0}, {'name':'Tonnes','group':'Texas','value': 0.0}, {'name':'Tonnes','group':'Saskatchewan','value': 0.0}, {'name':'Tonnes','group':'Oklahoma','value': 0.0}, {'name':'Tonnes','group':'Louisiana','value': 0.0}, {'name':'Per 24 Hrs','group':'Alberta','value': 0.0}, {'name':'Per 24 Hrs','group':'null','value': 0.0}, {'name':'Per 24 Hrs','group':'British Columbia','value': 0.0}, {'name':'Per 24 Hrs','group':'Wyoming','value': 0.0}, {'name':'Per 24 Hrs','group':'New Mexico','value': 0.0}, {'name':'Per 24 Hrs','group':'Texas','value': 0.0}, {'name':'Per 24 Hrs','group':'Saskatchewan','value': 0.0}, {'name':'Per 24 Hrs','group':'Oklahoma','value': 0.0}, {'name':'Per 24 Hrs','group':'Louisiana','value': 0.0}, {'name':'Square Foot','group':'Alberta','value': 0.0}, {'name':'Square Foot','group':'null','value': 0.0}, {'name':'Square Foot','group':'British Columbia','value': 0.0}, {'name':'Square Foot','group':'Wyoming','value': 0.0}, {'name':'Square Foot','group':'New Mexico','value': 0.0}, {'name':'Square Foot','group':'Texas','value': 0.0}, {'name':'Square Foot','group':'Saskatchewan','value': 0.0}, {'name':'Square Foot','group':'Oklahoma','value': 0.0}, {'name':'Square Foot','group':'Louisiana','value': 0.0}];
 var aAllData = [];
 var aMaxData = [];
 var aMinData = [];
@@ -977,7 +981,7 @@ function setHeatMap() {
     .domain([0, maxValue]);
   svg
     .selectAll()
-    .data(data, function(d) {return `${d.name}:${d.group}`; })
+    .data(getData(), function(d) {return `${d.name}:${d.group}`; })
     .enter()
     .append('rect')
     .attr('id', function(item, i){ return `${item.name}_${item.group}`;})
@@ -1866,7 +1870,7 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex) {
-  var category = getCategoriesStack();
+	var category = getCategoriesStack();
 	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
@@ -2008,6 +2012,10 @@ function getMinValue()
   {
     return isCurrency ? minValue : minValue2;
   }
+}
+
+function getData() {
+  return isCurrency ? data : data2;
 }
 
 function getDataOrMulti()

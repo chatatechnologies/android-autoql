@@ -64,7 +64,7 @@ object Heatmap
     .domain([0, maxValue]);
   svg
     .selectAll()
-    .data(data, function(d) {return `${'$'}{d.name}:${'$'}{d.group}`; })
+    .data(getData(), function(d) {return `${'$'}{d.name}:${'$'}{d.group}`; })
     .enter()
     .append('rect')
     .attr('id', function(item, i){ return `${'$'}{item.name}_${'$'}{item.group}`;})
