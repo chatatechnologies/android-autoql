@@ -275,6 +275,7 @@ object DataCase3 {
 			queryBase.configActions = 6
 		}
 
+		dataD3.nColumns = 3
 		return dataD3
 	}
 }

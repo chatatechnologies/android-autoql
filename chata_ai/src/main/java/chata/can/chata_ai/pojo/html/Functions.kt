@@ -119,7 +119,6 @@ function updateData(tmpChart, isReload) {
   //region set nColumns
 	var aTmpData = getDataOrMulti();
   var keys = Object.keys(aTmpData.length !== 0 ?  aTmpData[0] : {'':''});
-  nColumns = keys.length;
   //endregion
 	var _isMultiple = isMultiple(tmpChart);
 	if (dataTmp.length && (isAgain || _isMultiple))

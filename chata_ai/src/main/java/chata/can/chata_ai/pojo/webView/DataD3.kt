@@ -9,6 +9,8 @@ class DataD3
 	var pivot2 = ""
 	var rowsPivot = 0
 
+	var nColumns = 0
+
 	var indexData = -1
 	var data = "[]"
 	var data2 = "[]"

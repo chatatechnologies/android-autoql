@@ -134,7 +134,7 @@ object MultiBar
         }
       });
 			
-	var xTitle = nColumns === 3 ? getAxisX() : getAxisY();
+	var xTitle = nColumns === 3 ? axisMiddle : getAxisY();
   var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
   var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
 			

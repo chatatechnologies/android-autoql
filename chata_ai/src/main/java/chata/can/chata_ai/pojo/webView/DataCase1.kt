@@ -112,6 +112,8 @@ object DataCase1 {
 				}
 			}
 		}
+
+		dataD3.nColumns = 2
 		return dataD3
 	}
 }
