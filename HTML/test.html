@@ -1208,7 +1208,7 @@ function setMultiColumn() {
 
   var spaceCategory;
   if (hasCategories) {
-    spaceCategory = 80;
+    spaceCategory = 105;
   } else {
     spaceCategory = 0;
   }
@@ -1317,7 +1317,7 @@ function setMultiColumn() {
   var xTitleId = is3Columns ? axisY : getAxisX();
   var yTitle = is3Columns ? axisMiddle + '▼' : getAxisY();
   var yTitleId = is3Columns ? axisX : getAxisY();
-  var menuTitle = is3Columns ? getAxisX() : 'Category';
+  var menuTitle = is3Columns ? getAxisX(true) : 'Category';
   var menuTitleId = is3Columns ? axisX : 'Category';
 			
 	//Add X axis label:
@@ -1337,7 +1337,7 @@ function setMultiColumn() {
 	var factorBack = margin.top;
   if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 15, 0, '#808080', menuTitleId, menuTitle, function () {
       if (nColumns == 3) {
         modalCategories(TypeManage.DATA, this.id);
       }
@@ -1347,11 +1347,11 @@ function setMultiColumn() {
     aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))
       {
-        addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+        addText(svg, 'start', 12, 0, withReduce + margin.right, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
           nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
-        addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+        addCircle(svg, withReduce + margin.right - 10, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
         function () {
           return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
         },
