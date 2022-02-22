@@ -58,50 +58,6 @@ const data1 = [
   }
 ];
 
-const data = [
-  {
-    category: 2000,
-    alberta: 50,
-    null: 100,
-    British_Columbia: 300
-  },
-  {
-    category: 2001,
-    alberta: 150,
-    null: 20,
-    British_Columbia: 50
-  },
-  {
-    category: 2002,
-    alberta: 200,
-    null: 90,
-    British_Columbia: 100
-  },
-  {
-    category: 2003,
-    alberta: 130,
-    null: 90,
-    British_Columbia: 50
-  },
-  {
-    category: 2004,
-    alberta: 240,
-    null: 10,
-    British_Columbia: 80
-  },
-  {
-    category: 2005,
-    alberta: 380,
-    null: 100,
-    British_Columbia: 10
-  },
-  {
-    category: 2006,
-    alberta: 420,
-    null: 10,
-    British_Columbia: 200
-  }
-];
 const color = ["lightgreen", "cyan", "lightblue"];
 // Create SVG and padding for the chart
 const svg = d3
@@ -135,7 +91,6 @@ stackedValues.forEach((layer, index) => {
   });
   stackedData.push(currentStack);
 });
-
 
 // Create scales
 const yScale = d3
