@@ -123,24 +123,36 @@ object MultiColumn
         }
       });
 			
-	var xTitle = nColumns === 3 ? getAxisY() : getAxisX();
-  var yTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
-  var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
+	var is3Columns = nColumns === 3;
+  var xTitle = is3Columns ? getAxisY() : getAxisX();
+  var xTitleId = is3Columns ? axisY : getAxisX();
+  var yTitle = is3Columns ? axisMiddle + '▼' : getAxisY();
+  var yTitleId = is3Columns ? axisX : getAxisY();
+  var menuTitle = is3Columns ? getAxisX() : 'Category';
+  var menuTitleId = is3Columns ? axisX : 'Category';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + margin.bottom, '#808080', axisX, xTitle, function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+  addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + margin.bottom, '#808080', xTitleId, xTitle, function () {
+    var type;
+    if (nColumns === 3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    modalCategories(type, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', axisY, yTitle, function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', yTitleId, yTitle, function () {
+    var type;
+    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.PLAIN;
+    modalCategories(type, this.id);
   });
 	
 	var factorBack = margin.top;
   if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', menuTitle);
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+      if (nColumns == 3) {
+        modalCategories(TypeManage.DATA, this.id);
+      }
+    });
 
     var index = 0;
     aCategoryTmp.forEach(item => {
