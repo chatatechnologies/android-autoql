@@ -5,8 +5,9 @@ object MultiColumn
 	fun getMultiColumn(): String
 	{
 		return """function setMultiColumn() {
+	var factor = nColumns === 3 ? 10 : 0;
 	margin.left = margin.left + 15;
-	margin.bottom = margin.bottom - 20;
+	margin.bottom = margin.bottom + factor;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
@@ -54,7 +55,7 @@ object MultiColumn
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-    completeAxisMultiple(axis, -5, 0, -45);
+    completeAxisMultiple(axis, -5, 3, -45);
     //#endregion
   
   //#region DEFINE Axis Y
@@ -127,7 +128,7 @@ object MultiColumn
   var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, withReduce / 2, height + margin.bottom, '#808080', axisX, xTitle, function () {
+  addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + margin.bottom, '#808080', axisX, xTitle, function () {
     modalCategories(TypeManage.PLAIN, this.id);
   });
 

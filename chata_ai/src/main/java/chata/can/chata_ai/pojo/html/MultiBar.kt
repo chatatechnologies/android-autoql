@@ -5,7 +5,10 @@ object MultiBar
 	fun getMultiBar(): String
 	{
 		return """function setMultiBar() {
-	margin.left = margin.left - 20;
+	//nColumns = 3
+	margin.left = margin.left + 15;
+	//nColumns = 3
+	margin.bottom = margin.bottom + 10;
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom + 10)
@@ -53,7 +56,7 @@ object MultiBar
     //region set opacity for each tick item
     .call(g => g.selectAll('.tick line')
       .attr('opacity', 0.2))
-  completeAxisMultiple(axis, -5, -3, 0);
+  completeAxisMultiple(axis, -5, -10, -45);
 
     // Add Y axis
   const y = d3.scaleLinear()
@@ -134,12 +137,12 @@ object MultiBar
         }
       });
 			
-	var xTitle = nColumns === 3 ? axisMiddle : getAxisY();
+	var xTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
   var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
   var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2), height + margin.bottom + 8, '#808080', axisY, xTitle, function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', axisY, xTitle, function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 
