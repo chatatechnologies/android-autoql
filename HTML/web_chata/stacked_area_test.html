@@ -11,7 +11,53 @@
   <div id="chart"></div>
 
   <script>
+    var categories = ['Barrel', 'Hours', 'Mile', 'M3', 'Day', 'Each', 'Month'];
     // Fake data
+const data1 = [
+  {
+    category: 'Barrel',
+    alberta: 50,
+    null: 100,
+    British_Columbia: 300
+  },
+  {
+    category: 'Hours',
+    alberta: 150,
+    null: 20,
+    British_Columbia: 50
+  },
+  {
+    category: 'Mile',
+    alberta: 200,
+    null: 90,
+    British_Columbia: 100
+  },
+  {
+    category: 'M3',
+    alberta: 130,
+    null: 90,
+    British_Columbia: 50
+  },
+  {
+    category: 'Day',
+    alberta: 240,
+    null: 10,
+    British_Columbia: 80
+  },
+  {
+    category: 'Each',
+    alberta: 380,
+    null: 100,
+    British_Columbia: 10
+  },
+  {
+    category: 'Month',
+    alberta: 420,
+    null: 10,
+    British_Columbia: 200
+  }
+];
+
 const data = [
   {
     category: 2000,
@@ -90,21 +136,35 @@ stackedValues.forEach((layer, index) => {
   stackedData.push(currentStack);
 });
 
+
 // Create scales
 const yScale = d3
   .scaleLinear()
   .range([height, 0])
-  .domain([0, d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]);
+  .domain([
+    0,
+    d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])
+    ]);
 const xScale = d3
   .scaleLinear()
   .range([0, width])
+  //.domain(data.map(function(d) { return d.category; }))
   .domain(d3.extent(data, dataPoint => dataPoint.category));
-
+  
 const area = d3
   .area()
-  .x(dataPoint => xScale(dataPoint.category))
-  .y0(dataPoint => yScale(dataPoint.values[0]))
-  .y1(dataPoint => yScale(dataPoint.values[1]));
+  .x(dataPoint => {
+    //console.log(dataPoint.category);
+    xScale(dataPoint.category)
+  })
+  .y0(dataPoint => {
+    //console.log( yScale(dataPoint.values[0]) );
+    yScale(dataPoint.values[0])
+  })
+  .y1(dataPoint => {
+    //console.log( yScale(dataPoint.values[1]) );
+    yScale(dataPoint.values[1])
+  });
 
 const series = grp
   .selectAll(".series")
@@ -121,8 +181,12 @@ series
   .attr("stroke-linejoin", "round")
   .attr("stroke-linecap", "round")
   .attr("stroke-width", 0)
-  .attr("d", d => area(d));
+  .attr("d", d => {
 
+    return area(d)
+  });
+
+  /*
 // Add the X Axis
 chart
   .append("g")
@@ -135,6 +199,7 @@ chart
   .attr("transform", `translate(0, 0)`)
   .call(d3.axisLeft(yScale));
 
+  */
   </script>
 </body>
 </html>
