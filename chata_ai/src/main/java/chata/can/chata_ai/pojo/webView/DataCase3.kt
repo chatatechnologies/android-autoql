@@ -213,7 +213,9 @@ object DataCase3 {
 		}
 		dataD3.aAllData = "{\n'1_1': ${dataD3.dataStacked},\n'2_2': ${dataD3.dataStacked2}}"
 
-		StackedArea.getStackedArea(aMapPure, aCatX, aCatY)
+		val pStackedArea = StackedArea.getStackedArea(aMapPure, aCatX, aCatY)
+		dataD3.stackedArea = pStackedArea.first
+		dataD3.stackedArea2 = pStackedArea.second
 
 		queryBase.isTri = true
 

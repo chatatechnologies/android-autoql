@@ -9,51 +9,17 @@
 </head>
 <body>
   <script>
-    const data = [
-    {
-      category: 'Barrel',
-      alberta: 50,
-      null: 100,
-      British_Columbia: 300
-    },
-    {
-      category: 'Hours',
-      alberta: 150,
-      null: 20,
-      British_Columbia: 50
-    },
-    {
-      category: 'Mile',
-      alberta: 200,
-      null: 90,
-      British_Columbia: 100
-    },
-    {
-      category: 'M3',
-      alberta: 130,
-      null: 90,
-      British_Columbia: 50
-    },
-    {
-      category: 'Day',
-      alberta: 240,
-      null: 10,
-      British_Columbia: 80
-    },
-    {
-      category: 'Each',
-      alberta: 380,
-      null: 100,
-      British_Columbia: 10
-    },
-    {
-      category: 'Month',
-      alberta: 420,
-      null: 10,
-      British_Columbia: 200
-    }
-  ];
-  const color = ["lightgreen", "cyan", "lightblue"];
+    const data = [{category: 'Barrel', Alberta: 3850.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Hours', Alberta: 981.8, null: 604.9, British_Columbia: 282.0, Wyoming: 282.0, New_Mexico: 52.0, Texas: 34.0, Saskatchewan: 17.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Mile', Alberta: 0.0, null: 200.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'M3', Alberta: 198.0, null: 36.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 5.0, Saskatchewan: 6.2, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Day', Alberta: 0.0, null: 58.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 8.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Each', Alberta: 8.0, null: 26.0, British_Columbia: 17.0, Wyoming: 17.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Month', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Tonnes', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Per 24 Hrs', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Square Foot', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}];
+  const color = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
   // Create SVG and padding for the chart
   const svg = d3
     .select('body').append('svg')

@@ -1,32 +1,41 @@
 package chata.can.chata_ai.pojo.webView
 
-import chata.can.chata_ai.extension.clearDecimals
-
 object StackedArea {
 	fun getStackedArea(
 		mData: LinkedHashMap<String, String>,
 		aCatX: List<String>,
 		aCatY: List<String>
-	){
+	): Pair<String, String>
+	{
 		//region generate stacked 1
-		val aChartLine = ArrayList<String>()
-		for ((indexY, categoryY) in aCatY.withIndex()) {
+		val aChartLine = aCatY.mapIndexed { indexY, categoryY ->
 			val category = "category: '${categoryY.clearQuotes()}',"
 
-			val aByCategory = ArrayList<String>()
-			for ((indexX, categoryX) in aCatX.withIndex()) {
+			val aByCategory = aCatX.mapIndexed { indexX, categoryX ->
 				val value = mData["${indexY}_$indexX"]?.let {
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
-				aByCategory.add("${categoryX.categoryToProperty()}: ${"$value".clearDecimals()}")
+				"${categoryX.categoryToProperty()}: ${"$value"}"
 			}
-
-			val item = "$category ${aByCategory.joinToString(",", "", "")}"
-			aChartLine.add(item)
+			"$category ${aByCategory.joinToString(", ", "", "")}"
 		}
 		//endregion
-		val stacked1 = aChartLine.joinToString(", \n", "[", "]") { "{$it}" }
-		stacked1
+		//region generate stacked 2
+		val aChartLine2 = aCatX.mapIndexed { indexX, categoryX ->
+			val category = "category: '${categoryX.clearQuotes()}',"
+
+			val aByCategory = aCatY.mapIndexed { indexY, categoryY ->
+				val value = mData["${indexY}_$indexX"]?.let {
+					it.toDoubleOrNull() ?: run { 0.0 }
+				} ?: run { 0.0 }
+				"${categoryY.categoryToProperty()}: ${"$value"}"
+			}
+			"$category ${aByCategory.joinToString(", ", "", "")}"
+		}
+		//endregion
+		val data1 = aChartLine.joinToString(", \n", "[", "]") { "{$it}" }
+		val data2 = aChartLine2.joinToString(", \n", "[", "]") { "{$it}" }
+		return Pair(data1, data2)
 	}
 
 	private fun String.clearQuotes() = this.replace("\"", "")

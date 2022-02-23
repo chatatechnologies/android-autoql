@@ -22,6 +22,9 @@ class DataD3
 	var aMinData = "[]"
 	var dataFormatted = "[]"
 
+	var stackedArea = "[]"
+	var stackedArea2 = "[]"
+
 	var hasNegative = "{}"
 	var catHeatX = "[]"
 	var catHeatY = "[]"
