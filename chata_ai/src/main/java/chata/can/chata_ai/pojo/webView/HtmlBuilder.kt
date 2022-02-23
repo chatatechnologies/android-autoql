@@ -156,6 +156,7 @@ object HtmlBuilder
 
 				queryBase.addIndices(posColumnX, posColumnY)
 				queryBase.configActions = 4
+				dataD3.nColumns = 4
 			}
 			else ->
 			{

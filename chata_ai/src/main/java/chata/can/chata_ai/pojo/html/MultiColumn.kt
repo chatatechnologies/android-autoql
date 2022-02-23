@@ -125,7 +125,7 @@ object MultiColumn
 			
 	var is3Columns = nColumns === 3;
   var xTitle = is3Columns ? getAxisY() : getAxisX();
-  var xTitleId = is3Columns ? axisY : getAxisX();
+  var xTitleId = is3Columns ? axisY : axisX;
   var yTitle = is3Columns ? axisMiddle + '▼' : getAxisY();
   var yTitleId = is3Columns ? axisX : getAxisY();
   var menuTitle = is3Columns ? getAxisX(true) : 'Category';
@@ -141,7 +141,7 @@ object MultiColumn
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.PLAIN;
+    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
