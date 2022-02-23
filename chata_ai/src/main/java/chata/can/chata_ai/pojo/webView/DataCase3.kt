@@ -213,6 +213,8 @@ object DataCase3 {
 		}
 		dataD3.aAllData = "{\n'1_1': ${dataD3.dataStacked},\n'2_2': ${dataD3.dataStacked2}}"
 
+		StackedArea.getStackedArea(aMapPure, aCatX, aCatY)
+
 		queryBase.isTri = true
 
 		val isDate = aColumn[0].type == TypeDataQuery.STRING

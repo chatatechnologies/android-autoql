@@ -9,8 +9,7 @@
 </head>
 <body>
   <script>
-  // Fake data
-  const data = [
+    const data = [
     {
       category: 'Barrel',
       alberta: 50,
@@ -71,8 +70,19 @@
     .append('g')
     .attr('transform', `translate(-${margin.left - strokeWidth},-${margin.top})`);
 
+  var first = data[0];
+  var properties = [];
+  if (first !== undefined) {
+    var keys1 = Object.keys(first);
+    keys1.map(function(b1) {
+      if (b1 != 'category' && properties.indexOf(b1) === -1) {
+        properties.push(b1);
+      }
+    }); 
+  }
+
   // Create stack
-  const stack = d3.stack().keys(['alberta', 'null', 'British_Columbia']);
+  const stack = d3.stack().keys(properties);
   const stackedValues = stack(data);
   const stackedData = [];
   // Copy the stack offsets back into the data.
@@ -105,9 +115,7 @@
 
   const area = d3
     .area()
-    .x(dataPoint => {
-      return xScale(dataPoint.category)
-    })
+    .x(dataPoint => xScale(dataPoint.category))
     .y0(dataPoint => yScale(dataPoint.values[0]))
     .y1(dataPoint => yScale(dataPoint.values[1]));
 

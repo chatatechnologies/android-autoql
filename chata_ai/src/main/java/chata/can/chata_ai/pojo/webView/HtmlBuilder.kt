@@ -45,8 +45,8 @@ object HtmlBuilder
 
 		var posColumnX = 0
 		var posColumnY = 1
-		var aDataX = arrayListOf<Int>()
-		var aDataY = arrayListOf<Int>()
+		val aDataX: ArrayList<Int>
+		val aDataY: ArrayList<Int>
 		var aSecondary = ArrayList<Int>()
 		val isTriConfig = false
 		//region define data with support Case

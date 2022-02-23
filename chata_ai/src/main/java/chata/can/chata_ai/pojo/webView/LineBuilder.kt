@@ -15,7 +15,7 @@ object LineBuilder
 		for((indexY, category) in aCatY.withIndex())
 		{
 			var maxItem = 0.0
-			val group = "name: '$category',"
+			val group = "name: ${category.replace("", "_")},"
 			val aByGroup = ArrayList<String>()
 			for ((indexX, categoryX) in aCatX.withIndex())
 			{
