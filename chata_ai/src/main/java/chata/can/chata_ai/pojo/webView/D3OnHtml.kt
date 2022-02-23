@@ -13,6 +13,7 @@ import chata.can.chata_ai.pojo.html.Line.getLine
 import chata.can.chata_ai.pojo.html.MultiBar.getMultiBar
 import chata.can.chata_ai.pojo.html.MultiColumn.getMultiColumn
 import chata.can.chata_ai.pojo.html.MultiLines.getMultiLine
+import chata.can.chata_ai.pojo.html.StackedArea.getStackedArea
 import chata.can.chata_ai.pojo.html.StackedBar.getStackedBar
 import chata.can.chata_ai.pojo.html.StackedColumn.getStackedColumn
 import chata.can.chata_ai.pojo.html.Variable.getVariables
@@ -117,6 +118,7 @@ ${getFunctions()}
 ${getVariables(dataD3, backgroundColor)}
 ${getStackedBar()}
 ${getStackedColumn()}
+${getStackedArea()}
 ${getBubble()}
 ${getHeatmap()}
 ${getMultiBar()}

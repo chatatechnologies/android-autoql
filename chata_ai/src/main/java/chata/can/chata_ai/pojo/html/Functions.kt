@@ -205,6 +205,9 @@ function updateData(tmpChart, isReload) {
 				case TypeEnum.STACKED_COLUMN:
 					setStackedColumn();
 					break;
+				case TypeEnum.STACKED_AREA:
+          setStackedArea();
+          break;
       }
       break;
   }
