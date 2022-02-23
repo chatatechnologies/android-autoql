@@ -247,11 +247,10 @@ function getDataOrMulti()
 	return data.length !== 0 && nColumns !== 3 ? data : getDataMulti();
 }
 
-function getDataMulti()
-{
+function getDataMulti() {
 	if (aAllData.length !== 0)
 	{
-    var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+    var key = `${'$'}{isCurrency ? '1_1' : '2_2'}`; 
     return aAllData[key];
 	}
 	else return [];

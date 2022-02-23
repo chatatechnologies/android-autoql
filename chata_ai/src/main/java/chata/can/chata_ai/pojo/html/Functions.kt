@@ -361,7 +361,7 @@ function setIndexData(indexRoot, indexCommon) {
     var common = aCommon[indexCommon];
     axisX = common;
   }
-  indexData = indexRoot + 1;
+  indexData = indexRoot;
   dataTmp = [];
   updateData(typeChart, true);
 }"""

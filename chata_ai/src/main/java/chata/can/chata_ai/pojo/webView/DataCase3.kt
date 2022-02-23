@@ -23,8 +23,7 @@ object DataCase3 {
 		val tmp = HtmlBuilder.hasCountableIndex(queryBase)
 		if (tmp != -1) posColumnY = tmp
 		queryBase.addIndices(posColumnX, posColumnY)
-		//fill aCommon
-		dataD3.catCommon = aGroupable.map { "\"${aColumn[it].displayName}\"" }.toString()
+
 		val isTriConfig = true
 		dataD3.isBi = false
 		queryBase.configActions = 5
