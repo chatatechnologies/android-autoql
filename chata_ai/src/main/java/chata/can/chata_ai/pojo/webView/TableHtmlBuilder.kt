@@ -6,6 +6,7 @@ import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.query.SearchColumn
+import java.text.DecimalFormat
 
 object TableHtmlBuilder
 {
@@ -15,6 +16,7 @@ object TableHtmlBuilder
 		limitRow: Int,
 		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
+		val formatter = DecimalFormat("###,###,##0.00")
 		aColumn.find { it.isVisible }?.let {
 			//region create table head
 			val headTable = StringBuilder("<thead><tr>")
@@ -47,23 +49,19 @@ object TableHtmlBuilder
 				for ((index, cell) in aRow.withIndex())
 				{
 					val column = aColumn[index]
-					val valueRow = if (column.isVisible)
-					{
-						if (cell.isNotEmpty() && cell != "null") {
-							if (column.type.isNumber()) {
-								val aPartNumber = cell.split(".")
-								val number = aPartNumber[0].toInt()
-								"%,d".format(number)
-							} else
-							cell.formatWithColumn(column)
-						}
-						else ""
-					}
-					else
-						"_--_"
+					column.isVisible
 
-					if (valueRow != "_--_")
-						sRow.append("<td>$valueRow</td>")
+					val valueRow = if (cell.isNotEmpty() && cell != "null") {
+						if (column.type.isNumber()) {
+							val aPartNumber = cell.split(".")
+							"$" + formatter.format(aPartNumber[0].toDouble())
+						} else
+							cell.formatWithColumn(column)
+					}
+					else ""
+
+					val classHidden = if (!column.isVisible) " class=\"td-hidden\"" else ""
+					sRow.append("<td$classHidden>$valueRow</td>")
 				}
 				numRows++
 				aRowsTR.add("<tr>$sRow</tr>")
