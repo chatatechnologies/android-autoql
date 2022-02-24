@@ -337,13 +337,12 @@ class WebViewHolder(
 				}
 			}
 			tvInterpreter?.let {
-				it.visibility = if (simpleQuery.interpretation.isEmpty()) View.GONE
+				it.visibility = if (simpleQuery.isResultDrillDown || simpleQuery.interpretation.isEmpty()) View.GONE
 				else
 				{
 					Interpretation.setUnderLine("Interpreted as: ${simpleQuery.interpretation}", it)
 					View.VISIBLE
 				}
-
 			}
 		}
 	}

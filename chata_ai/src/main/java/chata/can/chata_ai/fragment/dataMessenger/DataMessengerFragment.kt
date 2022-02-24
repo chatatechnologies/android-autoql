@@ -98,10 +98,10 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-//			val queryDemo = "all invoices"
 //			val queryDemo = "Total revenue by month in 2019"
-			val queryDemo = "Max 1000 province by total utilization"
-//			val queryDemo = "Total revenue by customer for bill & sons and advantage oil per month"
+//			val queryDemo = "Max 1000 province by total utilization"
+
+			val queryDemo = "Total sales last month"
 			etQuery.setText(queryDemo)
 		}
 

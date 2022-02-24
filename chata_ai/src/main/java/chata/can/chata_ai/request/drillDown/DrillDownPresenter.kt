@@ -85,6 +85,7 @@ class DrillDownPresenter(
 		{
 			val queryBase = QueryBase(jsonObject)
 			queryBase.hasDrillDown = false
+			queryBase.isResultDrillDown = true
 			if (queryBase.displayType == "table")
 			{
 				queryBase.displayType = dataKey

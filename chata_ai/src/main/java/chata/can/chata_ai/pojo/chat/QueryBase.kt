@@ -21,6 +21,7 @@ import org.json.JSONObject
 data class QueryBase(val json: JSONObject): SimpleQuery(json)
 {
 	var hasDrillDown = true
+	var isResultDrillDown = false
 	var isDashboard = false
 	val referenceId = json.optString(referenceIdKey) ?: ""
 	private val joData = json.optJSONObject(dataKey)

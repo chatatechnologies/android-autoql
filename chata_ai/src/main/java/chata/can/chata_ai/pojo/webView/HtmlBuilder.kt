@@ -514,7 +514,7 @@ object HtmlBuilder
 						val data2 = "[${MultiData.getTimesDataMulti(multiData2.mDataOrder, aColumn[index])}]"
 
 						val drill = multiData.mDataOrder.keys.toList().joinToString(",", "[", "]") {
-							"\'$it\'"
+							"\"$it\""
 						}
 						mDrillData["$index"] = drill
 

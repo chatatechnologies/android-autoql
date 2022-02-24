@@ -108,7 +108,7 @@ object MultiData
 			{
 				sValues += ", time_$index: $value"
 			}
-			sbMultiSeries.append("{name: \'$parsedKey\'$sValues},\n")
+			sbMultiSeries.append("{name: \"$parsedKey\"$sValues},\n")
 		}
 		return "${sbMultiSeries.removeSuffix(",\n")}"
 	}
