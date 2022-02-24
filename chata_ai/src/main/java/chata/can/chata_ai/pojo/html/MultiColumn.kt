@@ -141,7 +141,7 @@ object MultiColumn
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (nColumns === 3 && typeChart !== TypeEnum.COLUMN) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
@@ -160,7 +160,7 @@ object MultiColumn
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          nColumns == 3 ? adminDataMulti(id, subgroups) : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 10, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -168,7 +168,7 @@ object MultiColumn
         },
         function () {
           var id = this.id;
-          nColumns == 3 ? adminDataMulti(id, subgroups) : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         factorBack += 20;
       }
