@@ -64,6 +64,38 @@ function showFilter() {
   ${'$'}('tfoot').css({'display': display});
 }
 
+function adminDataMulti(id, subgroups) {
+  //region show/ hide circle category
+  var words = id.split('_');
+  var index = parseInt(words[1]);
+  var subGroup = subgroups[index];
+  var exist = opacityMarked.includes(index);
+  if (exist) {
+    var tmp = -1;
+    for (let _index = 0; _index < opacityMarked.length; _index++) {
+      if (index == opacityMarked[_index])
+      {
+        tmp = _index;
+        break;
+      }
+    }
+    opacityMarked.splice(tmp, 1);
+  }
+  else opacityMarked.push(index);
+  //endregion
+  var aTmp = getDataMulti();
+	for (position in dataTmp) {
+    var element = aTmp[position];
+		var itEdit = dataTmp[position];
+  
+		itEdit[subGroup] = exist ? element[subGroup] : 0;
+  }  
+  //region refresh svg
+  isAgain = true;
+  updateData(typeChart, true);
+  //endregion
+}
+
 function adminMulti(id, subgroups) {
   var words = id.split('_');
   var index = parseInt(words[1]);
@@ -250,7 +282,12 @@ function getDataOrMulti()
 function getDataMulti() {
 	if (aAllData.length !== 0)
 	{
-    var key = `${'$'}{isCurrency ? '1_1' : '2_2'}`; 
+    var key;
+    if (nColumns === 3) {
+      var key = `${'$'}{isCurrency ? '1_1' : '2_2'}`;
+    } else {
+      var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
+    }
     return aAllData[key];
 	}
 	else return [];

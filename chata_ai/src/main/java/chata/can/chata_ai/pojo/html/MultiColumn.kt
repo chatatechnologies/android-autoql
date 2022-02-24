@@ -160,7 +160,7 @@ object MultiColumn
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          nColumns == 3 ? adminDataMulti(id, subgroups) : adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 10, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -168,7 +168,7 @@ object MultiColumn
         },
         function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          nColumns == 3 ? adminDataMulti(id, subgroups) : adminMulti(id, subgroups);
         });
         factorBack += 20;
       }
