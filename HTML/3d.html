@@ -600,7 +600,7 @@ getDataOrMulti().forEach(item => {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.BUBBLE;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -706,8 +706,8 @@ function setStackedBar() {
       .on('click', function(_, d) {
 				var idParent = this.id;
         var subgroupName = d3.select(this.parentNode).datum().key;
-        var subgroupValue = d.data[subgroupName];
-        drillDown(subgroupName + '_' + idParent);
+        var request = isCurrency ? `${idParent}_${subgroupName}` : `${subgroupName}_${idParent}`;
+        drillDown(request);
       });
 			
 	//Add X axis label:
@@ -834,8 +834,8 @@ function setStackedColumn() {
     .on('click', function(_, d) {
       var idParent = this.id;
       var subgroupName = d3.select(this.parentNode).datum().key;
-      var subgroupValue = d.data[subgroupName];
-      drillDown(subgroupName + '_' + idParent);
+      var request = isCurrency ? `${idParent}_${subgroupName}` : `${subgroupName}_${idParent}`;
+      drillDown(request);
     });
 
   //on left
@@ -1080,7 +1080,9 @@ function setBubble() {
     .style('opacity', '0.65')
     .on('click', function(_) {
       var idParent = this.id;
-      drillDown(idParent);
+      var categories = idParent.split('_');
+      var request = isCurrency ? `${categories[1]}_${categories[0]}` : `${categories[0]}_${categories[1]}`;
+      drillDown(request);
     });
 		isCurrency = !isCurrency;
 		
@@ -1161,8 +1163,10 @@ function setHeatMap() {
     .attr('height', y.bandwidth() )
     .style('fill', function(d) { return myColor(d.value)} )
     .on('click', function(d) {
-      var idParent = this.id;
-			drillDown(idParent);
+			var idParent = this.id;
+      var categories = idParent.split('_');
+      var request = isCurrency ? `${categories[0]}_${categories[1]}` : `${categories[1]}_${categories[0]}`;
+      drillDown(request);
     });
 
   //on left

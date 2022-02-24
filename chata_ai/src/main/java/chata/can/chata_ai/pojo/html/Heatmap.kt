@@ -74,8 +74,10 @@ object Heatmap
     .attr('height', y.bandwidth() )
     .style('fill', function(d) { return myColor(d.value)} )
     .on('click', function(d) {
-      var idParent = this.id;
-			drillDown(idParent);
+			var idParent = this.id;
+      var categories = idParent.split('_');
+      var request = isCurrency ? `${'$'}{categories[0]}_${'$'}{categories[1]}` : `${'$'}{categories[1]}_${'$'}{categories[0]}`;
+      drillDown(request);
     });
 
   //on left

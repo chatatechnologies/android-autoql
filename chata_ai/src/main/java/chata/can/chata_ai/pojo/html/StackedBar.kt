@@ -93,8 +93,8 @@ object StackedBar
       .on('click', function(_, d) {
 				var idParent = this.id;
         var subgroupName = d3.select(this.parentNode).datum().key;
-        var subgroupValue = d.data[subgroupName];
-        drillDown(subgroupName + '_' + idParent);
+        var request = isCurrency ? `${'$'}{idParent}_${'$'}{subgroupName}` : `${'$'}{subgroupName}_${'$'}{idParent}`;
+        drillDown(request);
       });
 			
 	//Add X axis label:

@@ -77,7 +77,9 @@ object Bubble
     .style('opacity', '0.65')
     .on('click', function(_) {
       var idParent = this.id;
-      drillDown(idParent);
+      var categories = idParent.split('_');
+      var request = isCurrency ? `${'$'}{categories[1]}_${'$'}{categories[0]}` : `${'$'}{categories[0]}_${'$'}{categories[1]}`;
+      drillDown(request);
     });
 		isCurrency = !isCurrency;
 		
