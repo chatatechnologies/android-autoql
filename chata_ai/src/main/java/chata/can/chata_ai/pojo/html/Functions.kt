@@ -88,7 +88,11 @@ function updateSize() {
         if (nColumns == 2) {
           width = width * 2.5;
         } else {
-          width = width * 2.0;
+          if (typeChart == TypeEnum.COLUMN) {
+            width = width * 10.0;
+          } else {
+            width = width * 2.0;
+          }
         }
         break;
 			case TypeEnum.BUBBLE:

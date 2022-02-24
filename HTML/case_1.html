@@ -27,9 +27,6 @@
     z-index: 10;
     padding: 10px 3px 5px 3px;
   }
-  .td-hidden {
-    display: none;
-  }
   table {
     font-size: 16px;
     display: table;
@@ -79,9 +76,9 @@
 </style>
 </head>
 <body>
-  <table id="idTableBasic"><thead><tr><th>Total Sale Amount</th></tr></thead><tfoot><tr><th>Total Sale Amount</th></tr></tfoot><tbody><tr><td class="td-hidden">BC Plumbing</td><td>$20,995.00</td></tr><tr><td class="td-hidden">Abercrombie International Group</td><td>$19,245.00</td></tr><tr><td class="td-hidden">Billy Bob's Plumbing</td><td>$18,900.00</td></tr><tr><td class="td-hidden">Clement's Cleaners</td><td>$18,675.00</td></tr><tr><td class="td-hidden">Cathy's Consulting Company</td><td>$17,870.00</td></tr></tbody></table>
-
-
+<table id="idTableBasic"><thead><tr><th>Unit Description</th><th>Province</th><th>Total Quantity (Cost)</th></tr></thead><tfoot><tr><th>Unit Description</th><th>Province</th><th>Total Quantity (Cost)</th></tr></tfoot><tbody><tr><td>Barrel</td><td>Alberta</td><td>$3,850.00</td></tr><tr><td>Hours</td><td>Alberta</td><td>$981.00</td></tr><tr><td>Hours</td><td></td><td>$604.00</td></tr><tr><td>Hours</td><td>British Columbia</td><td>$282.00</td></tr><tr><td>Hours</td><td>Wyoming</td><td>$282.00</td></tr><tr><td>Mile</td><td></td><td>$200.00</td></tr><tr><td>M3</td><td>Alberta</td><td>$198.00</td></tr><tr><td>Day</td><td></td><td>$58.00</td></tr><tr><td>Hours</td><td>New Mexico</td><td>$52.00</td></tr><tr><td>M3</td><td></td><td>$36.00</td></tr><tr><td>Hours</td><td>Texas</td><td>$34.00</td></tr><tr><td>Each</td><td></td><td>$26.00</td></tr><tr><td>Each</td><td>British Columbia</td><td>$17.00</td></tr><tr><td>Each</td><td>Wyoming</td><td>$17.00</td></tr><tr><td>Hours</td><td>Saskatchewan</td><td>$17.00</td></tr><tr><td>Each</td><td>Alberta</td><td>$8.00</td></tr><tr><td>Day</td><td>Texas</td><td>$8.00</td></tr><tr><td>M3</td><td>Saskatchewan</td><td>$6.00</td></tr><tr><td>M3</td><td>Texas</td><td>$5.00</td></tr><tr><td>Day</td><td>Wyoming</td><td>$0.00</td></tr><tr><td>Each</td><td>Texas</td><td>$0.00</td></tr><tr><td>Month</td><td>Wyoming</td><td>$0.00</td></tr><tr><td>Barrel</td><td>Texas</td><td>$0.00</td></tr><tr><td>Barrel</td><td></td><td>$0.00</td></tr><tr><td>Barrel</td><td>Oklahoma</td><td>$0.00</td></tr><tr><td>Hours</td><td>Oklahoma</td><td>$0.00</td></tr><tr><td>Barrel</td><td>Saskatchewan</td><td>$0.00</td></tr><tr><td>Tonnes</td><td></td><td>$0.00</td></tr><tr><td>Day</td><td>Alberta</td><td>$0.00</td></tr><tr><td>Mile</td><td>Alberta</td><td>$0.00</td></tr><tr><td>Per 24 Hrs</td><td>Alberta</td><td>$0.00</td></tr><tr><td>Square Foot</td><td>Alberta</td><td>$0.00</td></tr><tr><td>Tonnes</td><td>Alberta</td><td>$0.00</td></tr><tr><td>Day</td><td>British Columbia</td><td>$0.00</td></tr><tr><td>Month</td><td>British Columbia</td><td>$0.00</td></tr><tr><td>Barrel</td><td>Louisiana</td><td>$0.00</td></tr><tr><td>Each</td><td>Louisiana</td><td>$0.00</td></tr><tr><td>Hours</td><td>Louisiana</td><td>$0.00</td></tr></tbody></table>
+<table id="idTableDataPivot"><thead><tr><th>Unit Description</th><th>Alberta</th><th>null</th><th>British Columbia</th><th>Wyoming</th><th>New Mexico</th><th>Texas</th><th>Saskatchewan</th><th>Oklahoma</th><th>Louisiana</th></tr></thead><tfoot><tr><th>Unit Description</th><th>Alberta</th><th>null</th><th>British Columbia</th><th>Wyoming</th><th>New Mexico</th><th>Texas</th><th>Saskatchewan</th><th>Oklahoma</th><th>Louisiana</th></tr></tfoot><tbody><tr><td>Barrel</td><td>3850</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Hours</td><td>981.8</td><td>604.9</td><td>282</td><td>282</td><td>52</td><td>34</td><td>17</td><td></td><td></td></tr><tr><td>Mile</td><td></td><td>200</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>M3</td><td>198</td><td>36</td><td></td><td></td><td></td><td>5</td><td>6.2</td><td></td><td></td></tr><tr><td>Day</td><td></td><td>58</td><td></td><td></td><td></td><td>8</td><td></td><td></td><td></td></tr><tr><td>Each</td><td>8</td><td>26</td><td>17</td><td>17</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Month</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Tonnes</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Per 24 Hrs</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Square Foot</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+<table id="idTableDataPivot2"><thead><tr><th>Unit Description</th><th>Barrel</th><th>Hours</th><th>Mile</th><th>M3</th><th>Day</th><th>Each</th><th>Month</th><th>Tonnes</th><th>Per 24 Hrs</th><th>Square Foot</th></tr></thead><tfoot><tr><th>Unit Description</th><th>Barrel</th><th>Hours</th><th>Mile</th><th>M3</th><th>Day</th><th>Each</th><th>Month</th><th>Tonnes</th><th>Per 24 Hrs</th><th>Square Foot</th></tr></tfoot><tbody><tr><td>Alberta</td><td>3850</td><td>981.8</td><td></td><td>198</td><td></td><td>8</td><td></td><td></td><td></td><td></td></tr><tr><td>null</td><td></td><td>604.9</td><td>200</td><td>36</td><td>58</td><td>26</td><td></td><td></td><td></td><td></td></tr><tr><td>British Columbia</td><td></td><td>282</td><td></td><td></td><td></td><td>17</td><td></td><td></td><td></td><td></td></tr><tr><td>Wyoming</td><td></td><td>282</td><td></td><td></td><td></td><td>17</td><td></td><td></td><td></td><td></td></tr><tr><td>New Mexico</td><td></td><td>52</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Texas</td><td></td><td>34</td><td></td><td>5</td><td>8</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Saskatchewan</td><td></td><td>17</td><td></td><td>6.2</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Oklahoma</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Louisiana</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
 <script>
 function getFirst10(string) {
   var newString = '';
@@ -166,7 +163,11 @@ function updateSize() {
         if (nColumns == 2) {
           width = width * 2.5;
         } else {
-          width = width * 2.0;
+          if (typeChart == TypeEnum.COLUMN) {
+            width = width * 10.0;
+          } else {
+            width = width * 2.0;
+          }
         }
         break;
 			case TypeEnum.BUBBLE:
@@ -470,45 +471,99 @@ var backgroundColor = '#3b3f46';
 var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
 var colorBi = ['#26a7e9'];//Main color for bars
 
-var axisX = 'Customer Name';
-var axisY = 'Total Sale Amount';
-var axisMiddle = 'Total Sale Amount';
-var nColumns = 2;
+var axisX = 'Province';
+var axisY = 'Unit Description';
+var axisMiddle = 'Total Quantity (Cost)';
+var nColumns = 3;
 
 //Main data
 var hasNegative = {};
-var indexData = -1;
+var indexData = 1;
 var dataTmp = [];
-var data = [{name: "BC Plumbing", value: 20995.00},
-{name: "Abercrombie International Group", value: 19245.00},
-{name: "Billy Bob's Plumbing", value: 18900.00},
-{name: "Clement's Cleaners", value: 18675.00},
-{name: "Cathy's Consulting Company", value: 17870.00}];
-var aStacked = [];
-var aStacked2 = [];
-var aStackedTmp = [];
-var stackedArea = [];
-var stackedArea2 = [];
-var aCategoryX = ["BC Plumbing", "Abercrombie International Group", "Billy Bob's Plumbing", "Clement's Cleaners", "Cathy's Consulting Company"];
-var data2 = [];
-var aAllData = [];
+var data = [{'name':'Barrel','group':'Alberta','value': 3850.0}, {'name':'Barrel','group':'null','value': 0.0}, {'name':'Barrel','group':'British Columbia','value': 0.0}, {'name':'Barrel','group':'Wyoming','value': 0.0}, {'name':'Barrel','group':'New Mexico','value': 0.0}, {'name':'Barrel','group':'Texas','value': 0.0}, {'name':'Barrel','group':'Saskatchewan','value': 0.0}, {'name':'Barrel','group':'Oklahoma','value': 0.0}, {'name':'Barrel','group':'Louisiana','value': 0.0}, {'name':'Hours','group':'Alberta','value': 981.75}, {'name':'Hours','group':'null','value': 604.85}, {'name':'Hours','group':'British Columbia','value': 282.0}, {'name':'Hours','group':'Wyoming','value': 282.0}, {'name':'Hours','group':'New Mexico','value': 52.0}, {'name':'Hours','group':'Texas','value': 34.0}, {'name':'Hours','group':'Saskatchewan','value': 17.0}, {'name':'Hours','group':'Oklahoma','value': 0.0}, {'name':'Hours','group':'Louisiana','value': 0.0}, {'name':'Mile','group':'Alberta','value': 0.0}, {'name':'Mile','group':'null','value': 200.0}, {'name':'Mile','group':'British Columbia','value': 0.0}, {'name':'Mile','group':'Wyoming','value': 0.0}, {'name':'Mile','group':'New Mexico','value': 0.0}, {'name':'Mile','group':'Texas','value': 0.0}, {'name':'Mile','group':'Saskatchewan','value': 0.0}, {'name':'Mile','group':'Oklahoma','value': 0.0}, {'name':'Mile','group':'Louisiana','value': 0.0}, {'name':'M3','group':'Alberta','value': 198.0}, {'name':'M3','group':'null','value': 36.0}, {'name':'M3','group':'British Columbia','value': 0.0}, {'name':'M3','group':'Wyoming','value': 0.0}, {'name':'M3','group':'New Mexico','value': 0.0}, {'name':'M3','group':'Texas','value': 5.0}, {'name':'M3','group':'Saskatchewan','value': 6.2}, {'name':'M3','group':'Oklahoma','value': 0.0}, {'name':'M3','group':'Louisiana','value': 0.0}, {'name':'Day','group':'Alberta','value': 0.0}, {'name':'Day','group':'null','value': 58.0}, {'name':'Day','group':'British Columbia','value': 0.0}, {'name':'Day','group':'Wyoming','value': 0.0}, {'name':'Day','group':'New Mexico','value': 0.0}, {'name':'Day','group':'Texas','value': 8.0}, {'name':'Day','group':'Saskatchewan','value': 0.0}, {'name':'Day','group':'Oklahoma','value': 0.0}, {'name':'Day','group':'Louisiana','value': 0.0}, {'name':'Each','group':'Alberta','value': 8.0}, {'name':'Each','group':'null','value': 26.0}, {'name':'Each','group':'British Columbia','value': 17.0}, {'name':'Each','group':'Wyoming','value': 17.0}, {'name':'Each','group':'New Mexico','value': 0.0}, {'name':'Each','group':'Texas','value': 0.0}, {'name':'Each','group':'Saskatchewan','value': 0.0}, {'name':'Each','group':'Oklahoma','value': 0.0}, {'name':'Each','group':'Louisiana','value': 0.0}, {'name':'Month','group':'Alberta','value': 0.0}, {'name':'Month','group':'null','value': 0.0}, {'name':'Month','group':'British Columbia','value': 0.0}, {'name':'Month','group':'Wyoming','value': 0.0}, {'name':'Month','group':'New Mexico','value': 0.0}, {'name':'Month','group':'Texas','value': 0.0}, {'name':'Month','group':'Saskatchewan','value': 0.0}, {'name':'Month','group':'Oklahoma','value': 0.0}, {'name':'Month','group':'Louisiana','value': 0.0}, {'name':'Tonnes','group':'Alberta','value': 0.0}, {'name':'Tonnes','group':'null','value': 0.0}, {'name':'Tonnes','group':'British Columbia','value': 0.0}, {'name':'Tonnes','group':'Wyoming','value': 0.0}, {'name':'Tonnes','group':'New Mexico','value': 0.0}, {'name':'Tonnes','group':'Texas','value': 0.0}, {'name':'Tonnes','group':'Saskatchewan','value': 0.0}, {'name':'Tonnes','group':'Oklahoma','value': 0.0}, {'name':'Tonnes','group':'Louisiana','value': 0.0}, {'name':'Per 24 Hrs','group':'Alberta','value': 0.0}, {'name':'Per 24 Hrs','group':'null','value': 0.0}, {'name':'Per 24 Hrs','group':'British Columbia','value': 0.0}, {'name':'Per 24 Hrs','group':'Wyoming','value': 0.0}, {'name':'Per 24 Hrs','group':'New Mexico','value': 0.0}, {'name':'Per 24 Hrs','group':'Texas','value': 0.0}, {'name':'Per 24 Hrs','group':'Saskatchewan','value': 0.0}, {'name':'Per 24 Hrs','group':'Oklahoma','value': 0.0}, {'name':'Per 24 Hrs','group':'Louisiana','value': 0.0}, {'name':'Square Foot','group':'Alberta','value': 0.0}, {'name':'Square Foot','group':'null','value': 0.0}, {'name':'Square Foot','group':'British Columbia','value': 0.0}, {'name':'Square Foot','group':'Wyoming','value': 0.0}, {'name':'Square Foot','group':'New Mexico','value': 0.0}, {'name':'Square Foot','group':'Texas','value': 0.0}, {'name':'Square Foot','group':'Saskatchewan','value': 0.0}, {'name':'Square Foot','group':'Oklahoma','value': 0.0}, {'name':'Square Foot','group':'Louisiana','value': 0.0}];
+var aStacked = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Hours', 'Alberta': 981.8,'null': 604.9,'British Columbia': 282,'Wyoming': 282,'New Mexico': 52,'Texas': 34,'Saskatchewan': 17,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Mile', 'Alberta': 0,'null': 200,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'M3', 'Alberta': 198,'null': 36,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 5,'Saskatchewan': 6.2,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Day', 'Alberta': 0,'null': 58,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 8,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Each', 'Alberta': 8,'null': 26,'British Columbia': 17,'Wyoming': 17,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Month', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Tonnes', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}];
+var aStacked2 = [{name: 'Alberta', 'Barrel': 3850,'Hours': 981.8,'Mile': 0,'M3': 198,'Day': 0,'Each': 8,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'null', 'Barrel': 0,'Hours': 604.9,'Mile': 200,'M3': 36,'Day': 58,'Each': 26,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'British Columbia', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Wyoming', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'New Mexico', 'Barrel': 0,'Hours': 52,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Texas', 'Barrel': 0,'Hours': 34,'Mile': 0,'M3': 5,'Day': 8,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Saskatchewan', 'Barrel': 0,'Hours': 17,'Mile': 0,'M3': 6.2,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Oklahoma', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Louisiana', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0}];
+var aStackedTmp = [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Hours', 'Alberta': 981.8,'null': 604.9,'British Columbia': 282,'Wyoming': 282,'New Mexico': 52,'Texas': 34,'Saskatchewan': 17,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Mile', 'Alberta': 0,'null': 200,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'M3', 'Alberta': 198,'null': 36,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 5,'Saskatchewan': 6.2,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Day', 'Alberta': 0,'null': 58,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 8,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Each', 'Alberta': 8,'null': 26,'British Columbia': 17,'Wyoming': 17,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Month', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Tonnes', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}];
+var stackedArea = [{category: 'Barrel', Alberta: 3850.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Hours', Alberta: 981.75, null: 604.85, British_Columbia: 282.0, Wyoming: 282.0, New_Mexico: 52.0, Texas: 34.0, Saskatchewan: 17.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Mile', Alberta: 0.0, null: 200.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'M3', Alberta: 198.0, null: 36.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 5.0, Saskatchewan: 6.2, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Day', Alberta: 0.0, null: 58.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 8.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Each', Alberta: 8.0, null: 26.0, British_Columbia: 17.0, Wyoming: 17.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Month', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Tonnes', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Per 24 Hrs', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Square Foot', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}];
+var stackedArea2 = [{category: 'Alberta', Barrel: 3850.0, Hours: 981.75, Mile: 0.0, M3: 198.0, Day: 0.0, Each: 8.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'null', Barrel: 0.0, Hours: 604.85, Mile: 200.0, M3: 36.0, Day: 58.0, Each: 26.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'British Columbia', Barrel: 0.0, Hours: 282.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 17.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'Wyoming', Barrel: 0.0, Hours: 282.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 17.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'New Mexico', Barrel: 0.0, Hours: 52.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'Texas', Barrel: 0.0, Hours: 34.0, Mile: 0.0, M3: 5.0, Day: 8.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'Saskatchewan', Barrel: 0.0, Hours: 17.0, Mile: 0.0, M3: 6.2, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'Oklahoma', Barrel: 0.0, Hours: 0.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
+{category: 'Louisiana', Barrel: 0.0, Hours: 0.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}];
+var aCategoryX = ["Alberta", "null", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];
+var data2 = [{'name':'Alberta','group':'Barrel','value': 3850.0}, {'name':'Alberta','group':'Hours','value': 981.75}, {'name':'Alberta','group':'Mile','value': 0.0}, {'name':'Alberta','group':'M3','value': 198.0}, {'name':'Alberta','group':'Day','value': 0.0}, {'name':'Alberta','group':'Each','value': 8.0}, {'name':'Alberta','group':'Month','value': 0.0}, {'name':'Alberta','group':'Tonnes','value': 0.0}, {'name':'Alberta','group':'Per 24 Hrs','value': 0.0}, {'name':'Alberta','group':'Square Foot','value': 0.0}, {'name':'null','group':'Barrel','value': 0.0}, {'name':'null','group':'Hours','value': 604.85}, {'name':'null','group':'Mile','value': 200.0}, {'name':'null','group':'M3','value': 36.0}, {'name':'null','group':'Day','value': 58.0}, {'name':'null','group':'Each','value': 26.0}, {'name':'null','group':'Month','value': 0.0}, {'name':'null','group':'Tonnes','value': 0.0}, {'name':'null','group':'Per 24 Hrs','value': 0.0}, {'name':'null','group':'Square Foot','value': 0.0}, {'name':'British Columbia','group':'Barrel','value': 0.0}, {'name':'British Columbia','group':'Hours','value': 282.0}, {'name':'British Columbia','group':'Mile','value': 0.0}, {'name':'British Columbia','group':'M3','value': 0.0}, {'name':'British Columbia','group':'Day','value': 0.0}, {'name':'British Columbia','group':'Each','value': 17.0}, {'name':'British Columbia','group':'Month','value': 0.0}, {'name':'British Columbia','group':'Tonnes','value': 0.0}, {'name':'British Columbia','group':'Per 24 Hrs','value': 0.0}, {'name':'British Columbia','group':'Square Foot','value': 0.0}, {'name':'Wyoming','group':'Barrel','value': 0.0}, {'name':'Wyoming','group':'Hours','value': 282.0}, {'name':'Wyoming','group':'Mile','value': 0.0}, {'name':'Wyoming','group':'M3','value': 0.0}, {'name':'Wyoming','group':'Day','value': 0.0}, {'name':'Wyoming','group':'Each','value': 17.0}, {'name':'Wyoming','group':'Month','value': 0.0}, {'name':'Wyoming','group':'Tonnes','value': 0.0}, {'name':'Wyoming','group':'Per 24 Hrs','value': 0.0}, {'name':'Wyoming','group':'Square Foot','value': 0.0}, {'name':'New Mexico','group':'Barrel','value': 0.0}, {'name':'New Mexico','group':'Hours','value': 52.0}, {'name':'New Mexico','group':'Mile','value': 0.0}, {'name':'New Mexico','group':'M3','value': 0.0}, {'name':'New Mexico','group':'Day','value': 0.0}, {'name':'New Mexico','group':'Each','value': 0.0}, {'name':'New Mexico','group':'Month','value': 0.0}, {'name':'New Mexico','group':'Tonnes','value': 0.0}, {'name':'New Mexico','group':'Per 24 Hrs','value': 0.0}, {'name':'New Mexico','group':'Square Foot','value': 0.0}, {'name':'Texas','group':'Barrel','value': 0.0}, {'name':'Texas','group':'Hours','value': 34.0}, {'name':'Texas','group':'Mile','value': 0.0}, {'name':'Texas','group':'M3','value': 5.0}, {'name':'Texas','group':'Day','value': 8.0}, {'name':'Texas','group':'Each','value': 0.0}, {'name':'Texas','group':'Month','value': 0.0}, {'name':'Texas','group':'Tonnes','value': 0.0}, {'name':'Texas','group':'Per 24 Hrs','value': 0.0}, {'name':'Texas','group':'Square Foot','value': 0.0}, {'name':'Saskatchewan','group':'Barrel','value': 0.0}, {'name':'Saskatchewan','group':'Hours','value': 17.0}, {'name':'Saskatchewan','group':'Mile','value': 0.0}, {'name':'Saskatchewan','group':'M3','value': 6.2}, {'name':'Saskatchewan','group':'Day','value': 0.0}, {'name':'Saskatchewan','group':'Each','value': 0.0}, {'name':'Saskatchewan','group':'Month','value': 0.0}, {'name':'Saskatchewan','group':'Tonnes','value': 0.0}, {'name':'Saskatchewan','group':'Per 24 Hrs','value': 0.0}, {'name':'Saskatchewan','group':'Square Foot','value': 0.0}, {'name':'Oklahoma','group':'Barrel','value': 0.0}, {'name':'Oklahoma','group':'Hours','value': 0.0}, {'name':'Oklahoma','group':'Mile','value': 0.0}, {'name':'Oklahoma','group':'M3','value': 0.0}, {'name':'Oklahoma','group':'Day','value': 0.0}, {'name':'Oklahoma','group':'Each','value': 0.0}, {'name':'Oklahoma','group':'Month','value': 0.0}, {'name':'Oklahoma','group':'Tonnes','value': 0.0}, {'name':'Oklahoma','group':'Per 24 Hrs','value': 0.0}, {'name':'Oklahoma','group':'Square Foot','value': 0.0}, {'name':'Louisiana','group':'Barrel','value': 0.0}, {'name':'Louisiana','group':'Hours','value': 0.0}, {'name':'Louisiana','group':'Mile','value': 0.0}, {'name':'Louisiana','group':'M3','value': 0.0}, {'name':'Louisiana','group':'Day','value': 0.0}, {'name':'Louisiana','group':'Each','value': 0.0}, {'name':'Louisiana','group':'Month','value': 0.0}, {'name':'Louisiana','group':'Tonnes','value': 0.0}, {'name':'Louisiana','group':'Per 24 Hrs','value': 0.0}, {'name':'Louisiana','group':'Square Foot','value': 0.0}];
+var aAllData = {
+'1_1': [{name: 'Barrel', 'Alberta': 3850,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Hours', 'Alberta': 981.8,'null': 604.9,'British Columbia': 282,'Wyoming': 282,'New Mexico': 52,'Texas': 34,'Saskatchewan': 17,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Mile', 'Alberta': 0,'null': 200,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'M3', 'Alberta': 198,'null': 36,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 5,'Saskatchewan': 6.2,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Day', 'Alberta': 0,'null': 58,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 8,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Each', 'Alberta': 8,'null': 26,'British Columbia': 17,'Wyoming': 17,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Month', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Tonnes', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Per 24 Hrs', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0},
+{name: 'Square Foot', 'Alberta': 0,'null': 0,'British Columbia': 0,'Wyoming': 0,'New Mexico': 0,'Texas': 0,'Saskatchewan': 0,'Oklahoma': 0,'Louisiana': 0}],
+'2_2': [{name: 'Alberta', 'Barrel': 3850,'Hours': 981.8,'Mile': 0,'M3': 198,'Day': 0,'Each': 8,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'null', 'Barrel': 0,'Hours': 604.9,'Mile': 200,'M3': 36,'Day': 58,'Each': 26,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'British Columbia', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Wyoming', 'Barrel': 0,'Hours': 282,'Mile': 0,'M3': 0,'Day': 0,'Each': 17,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'New Mexico', 'Barrel': 0,'Hours': 52,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Texas', 'Barrel': 0,'Hours': 34,'Mile': 0,'M3': 5,'Day': 8,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Saskatchewan', 'Barrel': 0,'Hours': 17,'Mile': 0,'M3': 6.2,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Oklahoma', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0},
+{name: 'Louisiana', 'Barrel': 0,'Hours': 0,'Mile': 0,'M3': 0,'Day': 0,'Each': 0,'Month': 0,'Tonnes': 0,'Per 24 Hrs': 0,'Square Foot': 0}]};
 var aMaxData = [];
 var aMinData = [];
-var dataFormatted = [{name: "BC Plumbing", value: '$20,995.00'},
-{name: "Abercrombie International Group", value: '$19,245.00'},
-{name: "Billy Bob's Plumbing", value: '$18,900.00'},
-{name: "Clement's Cleaners", value: '$18,675.00'},
-{name: "Cathy's Consulting Company", value: '$17,870.00'}];
+var dataFormatted = [];
 var opacityMarked = [];
 var indexIgnore = [];
-var drillTableY = [20995.00, 19245.00, 18900.00, 18675.00, 17870.00];
-var drillX = ["BC Plumbing", "Abercrombie International Group", "Billy Bob's Plumbing", "Clement's Cleaners", "Cathy's Consulting Company"];
+var drillTableY = [];
+var drillX = ["Alberta", "Alberta", "null", "British Columbia", "Wyoming", "null", "Alberta", "null", "New Mexico", "null", "Texas", "null", "British Columbia", "Wyoming", "Saskatchewan", "Alberta", "Texas", "Saskatchewan", "Texas", "Wyoming", "Texas", "Wyoming", "Texas", "null", "Oklahoma", "Oklahoma", "Saskatchewan", "null", "Alberta", "Alberta", "Alberta", "Alberta", "Alberta", "British Columbia", "British Columbia", "Louisiana", "Louisiana", "Louisiana"];
 var aDrillData = [];
 var limitName = 0;
 var isCurrency = true;
-var maxValue = -1;
+var maxValue = 3850;
 var minValue = -1;
-var maxValue2 = -1;
+var maxValue2 = 5037;
 var minValue2 = -1;
 var aMax = [];
 var aMax2 = [];
@@ -519,9 +574,9 @@ var aCategory2 = [];
 var aCommon = [];
 //endregion
 //axis X for heatmap
-var aCatHeatX = [];
+var aCatHeatX = ["Barrel", "Hours", "Mile", "M3", "Day", "Each", "Month", "Tonnes", "Per 24 Hrs", "Square Foot"];
 //axis Y for heatmap
-var aCatHeatY = [];
+var aCatHeatY = ["Alberta", "null", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];
 
 //REGION max letters in name
 for (const item in getDataOrMulti()) {
@@ -549,7 +604,7 @@ getDataOrMulti().forEach(item => {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.TABLE;
+var typeChart = TypeEnum.COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -1407,15 +1462,32 @@ function setMultiColumn() {
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => Math.abs( yScale(d.value) - yScale(0)) )
       .attr('fill', d => color(d.key))
+      .attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        var aData = idParent.split('_');
-        if (aData.length > 0)
-        {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${mValue}_${index}`;
+        if (nColumns === 3) {
+          var idChild = this.id;
+
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = groups[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${prefix}_${suffix}`;
           drillDown(value);
+        } else {
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${mValue}_${index}`;
+            drillDown(value);
+          }
         }
       });
 			

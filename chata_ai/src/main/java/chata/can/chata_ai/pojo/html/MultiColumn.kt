@@ -111,15 +111,32 @@ object MultiColumn
       .attr('width', xSubgroup.bandwidth())
       .attr('height', d => Math.abs( yScale(d.value) - yScale(0)) )
       .attr('fill', d => color(d.key))
+			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        var aData = idParent.split('_');
-        if (aData.length > 0)
-        {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${'$'}{mValue}_${'$'}{index}`;
+        if (nColumns === 3) {
+          var idChild = this.id;
+
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = groups[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${'$'}{prefix}_${'$'}{suffix}`;
           drillDown(value);
+        } else {
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${'$'}{mValue}_${'$'}{index}`;
+            drillDown(value);
+          }
         }
       });
 			
