@@ -683,7 +683,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		animationAlert.setText(message)
 		animationAlert.setResource(intRes)
 		animationAlert.showAlert()
-
 		Looper.getMainLooper()?.let {
 			Handler(it).postDelayed({
 				animationAlert.hideAlert()

@@ -448,11 +448,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 
 	override fun showAlert(message: String, intRes: Int)
 	{
-		animationAlert.run {
-			setText(message)
-			setResource(intRes)
-			showAlert()
-			Handler(Looper.getMainLooper()).postDelayed({ hideAlert() }, 1500)
+		animationAlert.setText(message)
+		animationAlert.setResource(intRes)
+		animationAlert.showAlert()
+		Looper.getMainLooper()?.let {
+			Handler(it).postDelayed({
+				animationAlert.hideAlert()
+			},1500)
 		}
 	}
 

@@ -104,14 +104,14 @@ object DataMessenger
 				setBackgroundColor(Color.TRANSPARENT)
 				id = R.id.rlAlert
 				layoutParams = getRelativeLayoutParams(-1, dpToPx(60f)).apply {
-					addRule(RelativeLayout.CENTER_IN_PARENT)
+					addRule(RelativeLayout.CENTER_HORIZONTAL)
 				}
 				visibility = View.GONE
 				paddingAll(5f)
 				//region llAlert
 				addView(LinearLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(-2, -2).apply {
-						addRule(RelativeLayout.CENTER_IN_PARENT)
+						addRule(RelativeLayout.CENTER_HORIZONTAL)
 					}
 					setBackgroundColor(Color.WHITE)
 					id = R.id.llAlert
