@@ -98,7 +98,7 @@ object StackedBar
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -marginBottom - 45, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -marginBottom - 45, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
@@ -108,7 +108,7 @@ object StackedBar
   });
 
   var factorBack = margin.top;
-  addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
   var index = 0;
