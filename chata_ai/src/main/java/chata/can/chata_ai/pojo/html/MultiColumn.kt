@@ -6,7 +6,7 @@ object MultiColumn
 	{
 		return """function setMultiColumn() {
   var is3 = is3Columns();
-	var factor = is3Columns ? 10 : 0;
+	var factor = is3 ? 10 : 0;
 	var marginLeft = margin.left + 15;
 	var marginBottom = margin.bottom + factor;
   var svg = d3.select('body').append('svg')
@@ -115,7 +115,7 @@ object MultiColumn
 			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        if (is3Columns) {
+        if (is3) {
           var idChild = this.id;
 
           var aParent = idParent.split('_');
@@ -141,24 +141,24 @@ object MultiColumn
         }
       });
 
-  var xTitle = is3Columns ? getAxisY() : getAxisX();
-  var xTitleId = is3Columns ? axisY : axisX;
-  var yTitle = is3Columns ? axisMiddle + '▼' : getAxisY();
-  var yTitleId = is3Columns ? axisX : getAxisY();
-  var menuTitle = is3Columns ? getAxisX(true) : 'Category';
-  var menuTitleId = is3Columns ? axisX : 'Category';
+	var xTitle = is3 ? getAxisY() : getAxisX();
+  var xTitleId = is3 ? axisY : axisY;
+  var yTitle = is3 ? axisMiddle + '▼' : getAxisY();
+  var yTitleId = is3 ? axisX : axisX;
+  var menuTitle = is3 ? getAxisX(true) : 'Category';
+  var menuTitleId = is3 ? axisX : 'Category';
 			
 	//Add X axis label:
   addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + marginBottom, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (is3Columns) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    if (is3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (is3Columns) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (is3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
