@@ -473,9 +473,10 @@ class WebViewHolder(
 					}
 					R.id.ivStackedArea ->
 					{
-						val idHide = lastId
+//						val idHide = lastId
 						lastId = "#container"
-						Pair("'$idHide', '#container', 'stacked_area'", factorHeight)
+//						Pair("'$idHide', '#container', 'stacked_area'", factorHeight)
+						Pair("TypeEnum.STACKED_AREA", queryBase.rowsPivot)
 					}
 					else -> Pair("", factorHeight)
 				}

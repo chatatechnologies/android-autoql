@@ -608,7 +608,7 @@ getDataOrMulti().forEach(item => {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.STACKED_AREA;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -884,15 +884,17 @@ function setStackedColumn() {
 }
 
 function setStackedArea() {
+  var marginLeft = margin.left + 15;
+  var marginBottom = margin.bottom + 10;
   // Create SVG and padding for the chart
   const svg = d3
     .select('body').append('svg')
-    .attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
 
   const strokeWidth = 1.5;
   const svgBase = svg.append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    .attr('transform', `translate(${marginLeft}, ${margin.top})`);
 
   const grp = svgBase
     .append('g')
@@ -1013,6 +1015,16 @@ function setStackedArea() {
 	  .selectAll('text')
 		.attr('transform', 'translate(0,-5)')  
 	  .attr('fill', '#909090');
+
+    //on left
+  addText(svgBase, 'end', 16, /*angle*/-90, /*X*/ -height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle + '', function () {
+    
+  });
+
+  //on bottom
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom - 0, '#808080', '', getAxisY(), function () {
+    
+  });
 }
 
 function setBubble() {
@@ -2162,7 +2174,7 @@ function controlStacked(id) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
-  if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
+	if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
     var aTmp = getDataMulti();
     for (position in dataTmp) {
       var element = aTmp[position];

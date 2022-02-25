@@ -3,15 +3,17 @@ package chata.can.chata_ai.pojo.html
 object StackedArea {
 	fun getStackedArea(): String {
 		return """function setStackedArea() {
+	var marginLeft = margin.left + 15;
+  var marginBottom = margin.bottom + 10;
   // Create SVG and padding for the chart
   const svg = d3
     .select('body').append('svg')
-    .attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+    .attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
 
   const strokeWidth = 1.5;
   const svgBase = svg.append('g')
-    .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+    .attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 
   const grp = svgBase
     .append('g')
@@ -132,6 +134,15 @@ object StackedArea {
 	  .selectAll('text')
 		.attr('transform', 'translate(0,-5)')  
 	  .attr('fill', '#909090');
+		
+	//on left
+  addText(svgBase, 'end', 16, /*angle*/-90, /*X*/ -height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle + '', function () {
+    
+  });
+  //on bottom
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom - 0, '#808080', '', getAxisY(), function () {
+    
+  });
 }
 """
 	}
