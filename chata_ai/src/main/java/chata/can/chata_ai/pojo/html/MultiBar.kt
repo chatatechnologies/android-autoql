@@ -5,9 +5,7 @@ object MultiBar
 	fun getMultiBar(): String
 	{
 		return """function setMultiBar() {
-	//nColumns = 3
 	margin.left = margin.left + 15;
-	//nColumns = 3
 	margin.bottom = margin.bottom + 10;
 	var svg = d3.select('body').append('svg')
 		.attr('width', width + margin.left + margin.right)
@@ -138,23 +136,34 @@ object MultiBar
       });
 			
 	var xTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
+  var xTitleId = nColumns === 3 ? axisX : axisY;
   var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
+  var yTitleId = nColumns === 3 ? axisY : axisX;
   var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
+  var menuTitleId = nColumns === 3 ? axisX : '';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', axisY, xTitle, function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', xTitleId, xTitle, function () {
+    var type;
+    if (nColumns === 3 && typeChart !== TypeEnum.BAR) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    modalCategories(type, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', axisX, yTitle, function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', yTitleId, yTitle, function () {
+    var type;
+    if (nColumns === 3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    modalCategories(type, this.id);
   });
 	
   var factorBack = margin.top;
     if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', menuTitle);
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+      if (nColumns == 3) {
+        modalCategories(TypeManage.DATA, this.id);
+      }
+    });
 
     var index = 0;
     aCategoryTmp.forEach(item => {
