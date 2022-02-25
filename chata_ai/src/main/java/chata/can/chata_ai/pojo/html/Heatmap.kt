@@ -5,13 +5,13 @@ object Heatmap
 	fun getHeatmap(): String
 	{
 		return """function setHeatMap() {
-  margin.left = margin.left + 50;
-  margin.bottom = margin.bottom + 5;
+  var marginLeft = margin.left + 50;
+  var marginBottom = margin.bottom + 5;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+		.attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 		
 	var _aCatHeatX = [];
   var _aCatHeatY = [];
@@ -81,10 +81,10 @@ object Heatmap
     });
 
   //on left
-  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${'$'}{axisX}`, null);
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', `${'$'}{axisX}`, null);
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisY, null);
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + marginBottom - 0, '#808080', '', axisY, null);
 }
 """
 	}

@@ -64,7 +64,7 @@ function updateSize() {
   width = getWidthMargin();
 
   if (typeChart === TypeEnum.LINE) {
-    if (nColumns === 2) {
+    if (is2Columns()) {
       width = width * 2.0;
       height = height * 2.5;
     } else {
@@ -76,7 +76,7 @@ function updateSize() {
       case TypeEnum.BAR:
 			case TypeEnum.STACKED_BAR:
         width = width * 2;
-        if (nColumns == 2) {
+        if (is2Columns()) {
           height = height * 2.5;
         } else {
           if (typeChart == TypeEnum.BAR) {
@@ -89,7 +89,7 @@ function updateSize() {
       case TypeEnum.COLUMN:
 			case TypeEnum.STACKED_COLUMN:
 				height = height * 2;
-        if (nColumns == 2) {
+        if (is2Columns()) {
           width = width * 2.5;
         } else {
           if (typeChart == TypeEnum.COLUMN) {
@@ -134,7 +134,7 @@ function updateData(tmpChart, isReload) {
 		if (_isMultiple) {
       typeChart = tmpChart;
     }
-    if (nColumns === 3 && typeChart != tmpChart) {
+    if (is3Columns() && typeChart != tmpChart) {
       typeChart = tmpChart;
     }
     isAgain = false;
@@ -156,6 +156,7 @@ function updateData(tmpChart, isReload) {
   }
 
   updateSize();
+	var is2 = is2Columns();
   //region choose table or chart
   switch (tmpChart) {
     case TypeEnum.TABLE:
@@ -178,21 +179,21 @@ function updateData(tmpChart, isReload) {
       clearSvg();
       switch(typeChart) {
         case TypeEnum.COLUMN:
-          if (nColumns == 2) {
+          if (is2) {
             setColumn();
           } else {
             setMultiColumn();
           }
         break;
         case TypeEnum.BAR:
-          if (nColumns == 2) {
+          if (is2) {
               setBar();
             } else {
               setMultiBar();
             }
           break;
         case TypeEnum.LINE:
-          if (nColumns == 2) {
+          if (is2) {
             setLine();
           } else {
             setMultiLine();
@@ -226,7 +227,7 @@ function drillDown(content) {
 	try {
 		Android.drillDown(content);
 	} catch(err) {
-		console.log("Good content: " + content);
+		androidOutput("Good content: " + content);
 	};
 }
 
@@ -234,7 +235,7 @@ function modalCategories(type, content) {
   try {
 		Android.modalCategories(type, content);
 	} catch(err) {
-		console.log(`Good content: ${'$'}{content}; ${'$'}{type}`);
+		androidOutput(`Good content: ${'$'}{content}; ${'$'}{type}`);
 	};
 }
 
@@ -242,8 +243,12 @@ function updateSelected(index_value) {
   try {
     Android.updateSelected(index_value);
   } catch (err) {
-    console.log(`Good content: ${'$'}{index_value}`);
+    console.log("Good content: " + index_value);
   }
+}
+
+function androidOutput(output) {
+  console.log("Good content: " + output);
 }
 
 function axisEndPoints(axisSource) {
@@ -358,7 +363,7 @@ function fillCurrencyStackedData() {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  if (nColumns == 3) {
+  if (is3Columns()) {
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
     var tmp = axisX;

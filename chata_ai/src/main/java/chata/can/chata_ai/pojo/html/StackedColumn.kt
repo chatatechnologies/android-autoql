@@ -5,13 +5,13 @@ object StackedColumn
 	fun getStackedColumn(): String
 	{
 		return """function setStackedColumn() {
-  margin.left = margin.left + 15;
-  margin.bottom = margin.bottom + 10;
+  var marginLeft = margin.left + 15;
+  var marginBottom = margin.bottom + 10;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+		.attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 
   var withReduce = width - 105;
 	//region rewrite
@@ -97,12 +97,12 @@ object StackedColumn
     });
 
   //on left
-  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES, axisX);
   });
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom - 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 

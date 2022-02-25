@@ -252,14 +252,14 @@ function getData() {
 
 function getDataOrMulti()
 {
-	return data.length !== 0 && nColumns !== 3 ? data : getDataMulti();
+	return data.length !== 0 && !is3Columns() ? data : getDataMulti();
 }
 
 function getDataMulti() {
 	if (aAllData.length !== 0)
 	{
     var key;
-    if (nColumns === 3) {
+    if (is3Columns()) {
       var key = `${'$'}{isCurrency ? '1_1' : '2_2'}`;
     } else {
       var key = `${'$'}{indexData}_${'$'}{isCurrency ? 1 : 2}`;
@@ -328,6 +328,13 @@ function indexCircle(index)
 
 function sizeByLetter(letters) {
   return (letters * 6.7 + 20) / 2;
+}
+
+function is2Columns() {
+  return nColumns === 2;
+}
+function is3Columns() {
+  return nColumns === 3;
 }"""
 	}
 }

@@ -5,15 +5,16 @@ object MultiBar
 	fun getMultiBar(): String
 	{
 		return """function setMultiBar() {
-	margin.left = margin.left + 15;
-	margin.bottom = margin.bottom + 10;
+  var is3 = is3Columns();
+	var marginLeft = margin.left + 15;
+	var marginBottom = margin.bottom + 10;
 	var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom + 10)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom + 10)
 		.append('g')
-		.attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+		.attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 		
-  var aCategoryTmp = nColumns == 3 ? getCategoriesStack(): getMultiCategory();
+  var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
   
   var spaceCategory;
@@ -126,7 +127,7 @@ object MultiBar
 			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        if (nColumns === 3) {
+        if (is3) {
           var idChild = this.id;
 
           var aParent = idParent.split('_');
@@ -152,24 +153,24 @@ object MultiBar
         }
       });
 			
-	var xTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
-  var xTitleId = nColumns === 3 ? axisX : axisY;
-  var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
-  var yTitleId = nColumns === 3 ? axisY : axisX;
-  var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
-  var menuTitleId = nColumns === 3 ? axisX : '';
+	var xTitle = is3 ? axisMiddle + '▼' : getAxisY();
+  var xTitleId = is3 ? axisX : axisY;
+  var yTitle = is3 ? getAxisY() : getAxisX();
+  var yTitleId = is3 ? axisY : axisX;
+  var menuTitle = is3 ? getAxisX() : 'Category';
+  var menuTitleId = is3 ? axisX : '';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', xTitleId, xTitle, function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + marginBottom - 5, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (is3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', yTitleId, yTitle, function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    if (is3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 	
@@ -177,7 +178,7 @@ object MultiBar
     if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
-      if (nColumns == 3) {
+      if (is3) {
         modalCategories(TypeManage.DATA, this.id);
       }
     });
@@ -188,7 +189,7 @@ object MultiBar
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -196,7 +197,7 @@ object MultiBar
         },
         function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         factorBack += 20;
       }

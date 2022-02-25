@@ -5,12 +5,12 @@ object MultiLines
 	fun getMultiLine(): String
 	{
 		return """function setMultiLine() {
-  margin.left = margin.left + 10;
+  var marginLeft = margin.left + 10;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
+		.attr('width', width + marginLeft + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
-    .attr('transform', `translate(${'$'}{margin.left}, ${'$'}{margin.top})`);
+    .attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 
   var aCategoryTmp = getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
@@ -133,7 +133,7 @@ object MultiLines
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 12, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 12, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	

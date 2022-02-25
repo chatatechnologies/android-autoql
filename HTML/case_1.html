@@ -139,7 +139,7 @@ function updateSize() {
   width = getWidthMargin();
 
   if (typeChart === TypeEnum.LINE) {
-    if (nColumns === 2) {
+    if (is2Columns()) {
       width = width * 2.0;
       height = height * 2.5;
     } else {
@@ -151,7 +151,7 @@ function updateSize() {
       case TypeEnum.BAR:
 			case TypeEnum.STACKED_BAR:
         width = width * 2;
-        if (nColumns == 2) {
+        if (is2Columns()) {
           height = height * 2.5;
         } else {
           if (typeChart == TypeEnum.BAR) {
@@ -164,7 +164,7 @@ function updateSize() {
       case TypeEnum.COLUMN:
 			case TypeEnum.STACKED_COLUMN:
 				height = height * 2;
-        if (nColumns == 2) {
+        if (is2Columns()) {
           width = width * 2.5;
         } else {
           if (typeChart == TypeEnum.COLUMN) {
@@ -209,7 +209,7 @@ function updateData(tmpChart, isReload) {
 		if (_isMultiple) {
       typeChart = tmpChart;
     }
-    if (nColumns === 3 && typeChart != tmpChart) {
+    if (is3Columns() && typeChart != tmpChart) {
       typeChart = tmpChart;
     }
     isAgain = false;
@@ -231,6 +231,7 @@ function updateData(tmpChart, isReload) {
   }
 
   updateSize();
+  var is2 = is2Columns()
   //region choose table or chart
   switch (tmpChart) {
     case TypeEnum.TABLE:
@@ -253,21 +254,21 @@ function updateData(tmpChart, isReload) {
       clearSvg();
       switch(typeChart) {
         case TypeEnum.COLUMN:
-          if (nColumns == 2) {
+          if (is2) {
             setColumn();
           } else {
             setMultiColumn();
           }
         break;
         case TypeEnum.BAR:
-          if (nColumns == 2) {
+          if (is2) {
               setBar();
             } else {
               setMultiBar();
             }
           break;
         case TypeEnum.LINE:
-          if (nColumns == 2) {
+          if (is2) {
             setLine();
           } else {
             setMultiLine();
@@ -301,7 +302,7 @@ function drillDown(content) {
 	try {
 		Android.drillDown(content);
 	} catch(err) {
-		console.log("Good content: " + content);
+    androidOutput("Good content: " + content)
 	};
 }
 
@@ -309,7 +310,7 @@ function modalCategories(type, content) {
   try {
 		Android.modalCategories(type, content);
 	} catch(err) {
-		console.log(`Good content: ${content}; ${type}`);
+    androidOutput(`Good content: ${content}; ${type}`)
 	};
 }
 
@@ -317,8 +318,12 @@ function updateSelected(index_value) {
   try {
     Android.updateSelected(index_value);
   } catch (err) {
-    console.log(`Good content: ${index_value}`);
+    console.log("Good content: " + index_value);
   }
+}
+
+function androidOutput(output) {
+  console.log("Good content: " + output);
 }
 
 function axisEndPoints(axisSource) {
@@ -433,7 +438,7 @@ function fillCurrencyStackedData() {
 }
 
 function setIndexData(indexRoot, indexCommon) {
-  if (nColumns == 3) {
+  if (is3Columns()) {
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
     var tmp = axisX;
@@ -626,13 +631,13 @@ var height = 0;
 var isAgain = false;
 
 function setStackedBar() {
-  margin.left = margin.left + 50;
-  margin.bottom = margin.bottom - 30;
+  var marginLeft = margin.left + 50;
+  var marginBottom = margin.bottom - 30;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`)
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`)
 
 	var withReduce = width - 105;
 	//region rewrite
@@ -719,12 +724,12 @@ function setStackedBar() {
       });
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -margin.bottom - 45, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -marginBottom - 45, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
   //Add Y axis label:
-  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + margin.bottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + marginBottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES);
   });
 
@@ -755,13 +760,13 @@ function setStackedBar() {
 }
 
 function setStackedColumn() {
-  margin.left = margin.left + 15;
-  margin.bottom = margin.bottom + 10;
+  var marginLeft = margin.left + 15;
+  var marginBottom = margin.bottom + 10;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`);
 
   var withReduce = width - 105;
 	//region rewrite
@@ -847,12 +852,12 @@ function setStackedColumn() {
     });
 
   //on left
-  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', axisMiddle + '▼', function () {
+  addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle + '▼', function () {
     modalCategories(TypeManage.CATEGORIES, axisX);
   });
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + margin.bottom - 0, '#808080', axisY, getAxisY(), function () {
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom - 0, '#808080', axisY, getAxisY(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
 
@@ -898,7 +903,7 @@ function setStackedArea() {
 
   const grp = svgBase
     .append('g')
-    .attr('transform', `translate(-${margin.left}, 0)`);
+    .attr('transform', `translate(-${marginLeft}, 0)`);
 
   var first = stackedArea[0];
   var properties = [];
@@ -962,7 +967,7 @@ function setStackedArea() {
 
   series
     .append('path')
-    .attr('transform', `translate(${margin.left},0)`)
+    .attr('transform', `translate(${marginLeft},0)`)
     .style('fill', (d, i) => {
       return color(properties[i])
     })
@@ -1028,13 +1033,13 @@ function setStackedArea() {
 }
 
 function setBubble() {
-	margin.left = margin.left + 50;
-  margin.bottom = margin.bottom + 15;
+	var marginLeft = margin.left + 50;
+  var marginBottom = margin.bottom + 15;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`);
 		
 	var _aCatHeatX = [];
   var _aCatHeatY = [];
@@ -1107,20 +1112,20 @@ function setBubble() {
 		isCurrency = !isCurrency;
 		
 	//on left
-  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${axisX}`, null);
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', `${axisX}`, null);
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisY, null);
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + marginBottom - 0, '#808080', '', axisY, null);
 }
 
 function setHeatMap() {
-  margin.left = margin.left + 50;
-  margin.bottom = margin.bottom + 5;
+  var marginLeft = margin.left + 50;
+  var marginBottom = margin.bottom + 5;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
     .append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`);
 		
 	var _aCatHeatX = [];
   var _aCatHeatY = [];
@@ -1190,22 +1195,23 @@ function setHeatMap() {
     });
 
   //on left
-  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-margin.left + 15, '#808080', '', `${axisX}`, null);
+  addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', `${axisX}`, null);
 
   //on bottom
-  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + margin.bottom - 0, '#808080', '', axisY, null);
+  addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + marginBottom - 0, '#808080', '', axisY, null);
 }
 
 function setMultiBar() {
-	margin.left = margin.left + 15;
-	margin.bottom = margin.bottom + 10;
+  var is3 = is3Columns();
+	var marginLeft = margin.left + 15;
+	var marginBottom = margin.bottom + 10;
 	var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom + 10)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom + 10)
 		.append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`);
 		
-  var aCategoryTmp = nColumns == 3 ? getCategoriesStack(): getMultiCategory();
+  var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
   
   var spaceCategory;
@@ -1318,7 +1324,7 @@ function setMultiBar() {
 			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        if (nColumns === 3) {
+        if (is3) {
           var idChild = this.id;
 
           var aParent = idParent.split('_');
@@ -1344,24 +1350,24 @@ function setMultiBar() {
         }
       });
 			
-	var xTitle = nColumns === 3 ? axisMiddle + '▼' : getAxisY();
-  var xTitleId = nColumns === 3 ? axisX : axisY;
-  var yTitle = nColumns === 3 ? getAxisY() : getAxisX();
-  var yTitleId = nColumns === 3 ? axisY : axisX;
-  var menuTitle = nColumns === 3 ? getAxisX() : 'Category';
-  var menuTitleId = nColumns === 3 ? axisX : '';
+	var xTitle = is3 ? axisMiddle + '▼' : getAxisY();
+  var xTitleId = is3 ? axisX : axisY;
+  var yTitle = is3 ? getAxisY() : getAxisX();
+  var yTitleId = is3 ? axisY : axisX;
+  var menuTitle = is3 ? getAxisX() : 'Category';
+  var menuTitleId = is3 ? axisX : '';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', xTitleId, xTitle, function () {
+  addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + marginBottom - 5, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (is3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', yTitleId, yTitle, function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    if (is3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 	
@@ -1369,7 +1375,7 @@ function setMultiBar() {
     if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
-      if (nColumns == 3) {
+      if (is3) {
         modalCategories(TypeManage.DATA, this.id);
       }
     });
@@ -1380,7 +1386,7 @@ function setMultiBar() {
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
         function () {
@@ -1388,7 +1394,7 @@ function setMultiBar() {
         },
         function () {
           var id = this.id;
-          nColumns == 3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
         });
         factorBack += 20;
       }
@@ -1398,16 +1404,17 @@ function setMultiBar() {
 }
 
 function setMultiColumn() {
-	var factor = nColumns === 3 ? 10 : 0;
-	margin.left = margin.left + 15;
-	margin.bottom = margin.bottom + factor;
+  var is3 = is3Columns();
+	var factor = is3Columns ? 10 : 0;
+	var marginLeft = margin.left + 15;
+	var marginBottom = margin.bottom + factor;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
+		.attr('width', width + marginLeft + margin.right)
+		.attr('height', height + margin.top + marginBottom)
 		.append('g')
-		.attr('transform', `translate(${margin.left}, ${margin.top})`);
+		.attr('transform', `translate(${marginLeft}, ${margin.top})`);
 
-	var aCategoryTmp = nColumns == 3 ? getCategoriesStack(): getMultiCategory();
+	var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
 
   var spaceCategory;
@@ -1507,7 +1514,7 @@ function setMultiColumn() {
 			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
         var idParent = this.parentNode.id;
-        if (nColumns === 3) {
+        if (is3Columns) {
           var idChild = this.id;
 
           var aParent = idParent.split('_');
@@ -1532,8 +1539,7 @@ function setMultiColumn() {
           }
         }
       });
-			
-	var is3Columns = nColumns === 3;
+
   var xTitle = is3Columns ? getAxisY() : getAxisX();
   var xTitleId = is3Columns ? axisY : axisX;
   var yTitle = is3Columns ? axisMiddle + '▼' : getAxisY();
@@ -1542,16 +1548,16 @@ function setMultiColumn() {
   var menuTitleId = is3Columns ? axisX : 'Category';
 			
 	//Add X axis label:
-  addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + margin.bottom, '#808080', xTitleId, xTitle, function () {
+  addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + marginBottom, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    if (is3Columns) type = TypeManage.DATA; else type = TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', yTitleId, yTitle, function () {
+  addText(svg, 'end', 16, -90, -height / 2, -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (is3Columns) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
@@ -1559,7 +1565,7 @@ function setMultiColumn() {
   if (hasCategories)
   {
     addText(svg, 'start', 16, 0, withReduce + margin.right - 15, 0, '#808080', menuTitleId, menuTitle, function () {
-      if (nColumns == 3) {
+      if (is3) {
         modalCategories(TypeManage.DATA, this.id);
       }
     });
@@ -1588,12 +1594,12 @@ function setMultiColumn() {
 }
 
 function setMultiLine() {
-  margin.left = margin.left + 10;
+  var marginLeft = margin.left + 10;
   var svg = d3.select('body').append('svg')
-		.attr('width', width + margin.left + margin.right)
+		.attr('width', width + marginLeft + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
 		.append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    .attr('transform', `translate(${marginLeft}, ${margin.top})`);
 
   var aCategoryTmp = getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
@@ -1716,7 +1722,7 @@ function setMultiLine() {
   });
 
   //Y axis label:
-  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 12, '#808080', axisX, getAxisX(), function () {
+  addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 12, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.SELECTABLE, this.id);
   });
 	
@@ -2289,14 +2295,14 @@ function getData() {
 
 function getDataOrMulti()
 {
-	return data.length !== 0 && nColumns !== 3 ? data : getDataMulti();
+	return data.length !== 0 && !is3Columns() ? data : getDataMulti();
 }
 
 function getDataMulti() {
 	if (aAllData.length !== 0)
 	{
     var key;
-    if (nColumns === 3) {
+    if (is3Columns()) {
       var key = `${isCurrency ? '1_1' : '2_2'}`;
     } else {
       var key = `${indexData}_${isCurrency ? 1 : 2}`;
@@ -2367,6 +2373,14 @@ function sizeByLetter(letters) {
   return (letters * 6.7 + 20) / 2;
 }
 
+function is2Columns() {
+  return nColumns === 2;
+}
+
+function is3Columns() {
+  return nColumns === 3;
+}
+
 $('td').click(function() {
   var $this = $(this);
   var row = $this.closest('tr').index();
@@ -2375,7 +2389,7 @@ $('td').click(function() {
   var finalText = firstColumn[0].firstChild.innerText;
   var strDate = firstColumn[0].children[1].innerText;
   var index = aCategoryX.indexOf(finalText);
-	if (nColumns == 3) {
+	if (is3Columns()) {
     switch (typeChart) {
       case TypeEnum.TABLE:
         var secondCell = firstColumn[0].children[1].innerText;
