@@ -123,15 +123,32 @@ object MultiBar
       })
       .attr('height', xSubgroup.bandwidth())
       .attr('fill', d => color(d.key))
+			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
-        var idParent = this.parentNode.id
-        var aData = idParent.split('_')
-        if (aData.length > 0)
-        {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${'$'}{mValue}_${'$'}{index}`;
+        var idParent = this.parentNode.id;
+        if (nColumns === 3) {
+          var idChild = this.id;
+
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = groups[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${'$'}{prefix}_${'$'}{suffix}`;
           drillDown(value);
+        } else {
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${'$'}{mValue}_${'$'}{index}`;
+            drillDown(value);
+          }
         }
       });
 			
@@ -145,7 +162,7 @@ object MultiBar
 	//Add X axis label:
   addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (nColumns === 3 && typeChart !== TypeEnum.BAR) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 

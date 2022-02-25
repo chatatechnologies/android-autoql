@@ -154,7 +154,11 @@ function updateSize() {
         if (nColumns == 2) {
           height = height * 2.5;
         } else {
-          height = height * 2.0;
+          if (typeChart == TypeEnum.BAR) {
+            height = height * 10.0;
+          } else {
+            height = height * 2.0;
+          }
         }
         break;
       case TypeEnum.COLUMN:
@@ -604,7 +608,7 @@ getDataOrMulti().forEach(item => {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.COLUMN;
+var typeChart = TypeEnum.STACKED_COLUMN;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -1299,15 +1303,32 @@ function setMultiBar() {
       })
       .attr('height', xSubgroup.bandwidth())
       .attr('fill', d => color(d.key))
+			.attr('id', function (_,i) { return 'child_' + i; })
       .on('click', function () {
-        var idParent = this.parentNode.id
-        var aData = idParent.split('_')
-        if (aData.length > 0)
-        {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${mValue}_${index}`;
+        var idParent = this.parentNode.id;
+        if (nColumns === 3) {
+          var idChild = this.id;
+
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = groups[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${prefix}_${suffix}`;
           drillDown(value);
+        } else {
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${mValue}_${index}`;
+            drillDown(value);
+          }
         }
       });
 			
@@ -1321,7 +1342,7 @@ function setMultiBar() {
 	//Add X axis label:
   addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + margin.bottom - 5, '#808080', xTitleId, xTitle, function () {
     var type;
-    if (nColumns === 3 && typeChart !== TypeEnum.BAR) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 
@@ -1518,7 +1539,7 @@ function setMultiColumn() {
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -margin.left + 15, '#808080', yTitleId, yTitle, function () {
     var type;
-    if (nColumns === 3 && typeChart !== TypeEnum.COLUMN) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    if (nColumns === 3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
@@ -2098,17 +2119,16 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex) {
-	var category = getCategoriesStack();
 	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
       const element = aIndex[index];
-      controlStacked(element, category);
+      controlStacked(element);
     }
   } else {
     for (let index1 = 0; index1 < opacityMarked.length; index1++) {
       const element = opacityMarked[index1];
-      controlStacked(element, category);
+      controlStacked(element);
     }
   }
   isAgain = true;
@@ -2142,11 +2162,20 @@ function controlStacked(id) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
-	var aStacked = getStackedData();
-  for (var index1 = 0; index1 < aStacked.length; index1++) {
-    var element = aStackedTmp[index1];
-    var edit = aStacked[index1];
-    edit[sub] = exist ? element[sub] : 0;
+  if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
+    var aTmp = getDataMulti();
+    for (position in dataTmp) {
+      var element = aTmp[position];
+      var itEdit = dataTmp[position];
+      itEdit[sub] = exist ? element[sub] : 0;
+    }
+  } else {
+    var aStacked = getStackedData();
+    for (var index1 = 0; index1 < aStacked.length; index1++) {
+      var element = aStackedTmp[index1];
+      var edit = aStacked[index1];
+      edit[sub] = exist ? element[sub] : 0;
+    }
   }
   //#endregion
 	updateSelected(`${index}_${exist}`);

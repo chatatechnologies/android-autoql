@@ -79,7 +79,11 @@ function updateSize() {
         if (nColumns == 2) {
           height = height * 2.5;
         } else {
-          height = height * 2.0;
+          if (typeChart == TypeEnum.BAR) {
+            height = height * 10.0;
+          } else {
+            height = height * 2.0;
+          }
         }
         break;
       case TypeEnum.COLUMN:

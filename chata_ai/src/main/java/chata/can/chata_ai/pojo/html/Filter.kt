@@ -94,17 +94,16 @@ function adminMulti(id, subgroups) {
 }
 
 function callAdminStacked(aIndex) {
-	var category = getCategoriesStack();
 	indexIgnore = aIndex;
   if (aIndex.length > 0) {
     for (let index = 0; index < aIndex.length; index++) {
       const element = aIndex[index];
-      controlStacked(element, category);
+      controlStacked(element);
     }
   } else {
     for (let index1 = 0; index1 < opacityMarked.length; index1++) {
       const element = opacityMarked[index1];
-      controlStacked(element, category);
+      controlStacked(element);
     }
   }
   isAgain = true;
@@ -138,11 +137,20 @@ function controlStacked(id) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
-	var aStacked = getStackedData();
-  for (var index1 = 0; index1 < aStacked.length; index1++) {
-    var element = aStackedTmp[index1];
-    var edit = aStacked[index1];
-    edit[sub] = exist ? element[sub] : 0;
+	if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
+    var aTmp = getDataMulti();
+    for (position in dataTmp) {
+      var element = aTmp[position];
+      var itEdit = dataTmp[position];
+      itEdit[sub] = exist ? element[sub] : 0;
+    }
+  } else {
+    var aStacked = getStackedData();
+    for (var index1 = 0; index1 < aStacked.length; index1++) {
+      var element = aStackedTmp[index1];
+      var edit = aStacked[index1];
+      edit[sub] = exist ? element[sub] : 0;
+    }
   }
   //#endregion
 	updateSelected(`${'$'}{index}_${'$'}{exist}`);
