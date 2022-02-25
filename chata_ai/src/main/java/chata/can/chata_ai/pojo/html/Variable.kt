@@ -76,6 +76,7 @@ var aStacked2 = ${dataD3.dataStacked2};
 var aStackedTmp = ${dataD3.dataStacked};
 var stackedArea = ${dataD3.stackedArea};
 var stackedArea2 = ${dataD3.stackedArea2};
+var stackedAreaTmp = ${dataD3.stackedArea};
 var aCategoryX = ${dataD3.aCategoryX};
 var data2 = ${dataD3.data2};
 var aAllData = ${dataD3.aAllData};

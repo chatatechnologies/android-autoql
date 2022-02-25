@@ -137,24 +137,38 @@ function controlStacked(id) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
-	if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
-    var aTmp = getDataMulti();
-    for (position in dataTmp) {
-      var element = aTmp[position];
-      var itEdit = dataTmp[position];
-      itEdit[sub] = exist ? element[sub] : 0;
-    }
-  } else {
-    var aStacked = getStackedData();
-    for (var index1 = 0; index1 < aStacked.length; index1++) {
-      var element = aStackedTmp[index1];
-      var edit = aStacked[index1];
-      edit[sub] = exist ? element[sub] : 0;
-    }
+
+  switch (typeChart) {
+    case TypeEnum.BAR:
+    case TypeEnum.COLUMN:
+      var aTmp = getDataMulti();
+      for (position in dataTmp) {
+        var element = aTmp[position];
+        var itEdit = dataTmp[position];
+        itEdit[sub] = exist ? element[sub] : 0;
+      }
+      break;
+    case TypeEnum.STACKED_AREA:
+      var stackedArea = getAreaData();
+      for (position in stackedArea) {
+        var element = stackedArea[position];
+        var itEdit = stackedAreaTmp[position];
+        itEdit[sub] = exist ? element[sub.replace(' ', '_')] : 0;
+      }
+      break
+    default:
+      var aStacked = getStackedData();
+      for (var index1 = 0; index1 < aStacked.length; index1++) {
+        var element = aStackedTmp[index1];
+        var edit = aStacked[index1];
+        edit[sub] = exist ? element[sub] : 0;
+      }
+      break;
   }
   //#endregion
 	updateSelected(`${'$'}{index}_${'$'}{exist}`);
 }
+
 
 function adminOpacity(id) {
   var words = id.split('_');
@@ -314,6 +328,10 @@ function getCategoriesStack()
 function getStackedData()
 {
   return isCurrency ? aStacked : aStacked2;
+}
+
+function getAreaData() {
+  return isCurrency ? stackedArea : stackedArea2;
 }
 
 function getMultiCategory()

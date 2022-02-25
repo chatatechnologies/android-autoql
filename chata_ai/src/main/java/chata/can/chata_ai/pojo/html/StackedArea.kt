@@ -20,6 +20,7 @@ object StackedArea {
     .append('g')
     .attr('transform', `translate(-${'$'}{marginLeft}, 0)`);
 
+	var stackedArea = stackedAreaTmp;
   var first = stackedArea[0];
   var properties = [];
   if (first !== undefined) {
@@ -156,7 +157,7 @@ object StackedArea {
         
       addText(svgBase, 'start', 12, 0, widthReduce + margin.right - 2, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
         var id = this.id;
-        //adminStacked(id);
+        adminStacked(id);
       });
 
       addCircle(svgBase, widthReduce + margin.right - 12, factorBack - 4, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`, function () {
@@ -164,7 +165,7 @@ object StackedArea {
       },
       function () {
         var id = this.id;
-        //adminStacked(id);
+        adminStacked(id);
       });
       factorBack += 20;
     }

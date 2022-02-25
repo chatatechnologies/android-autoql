@@ -437,6 +437,15 @@ function fillCurrencyStackedData() {
   });
 }
 
+function fillStackedArea() {
+  var stackedArea = getAreaData();
+  stackedAreaTmp = [];
+  stackedArea.forEach(item => {
+    var copied = Object.assign({}, item);
+    stackedAreaTmp.push(copied);
+  });
+}
+
 function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
     isCurrency = !isCurrency;
@@ -538,6 +547,16 @@ var stackedArea2 = [{category: 'Alberta', Barrel: 3850.0, Hours: 981.75, Mile: 0
 {category: 'Saskatchewan', Barrel: 0.0, Hours: 17.0, Mile: 0.0, M3: 6.2, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
 {category: 'Oklahoma', Barrel: 0.0, Hours: 0.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}, 
 {category: 'Louisiana', Barrel: 0.0, Hours: 0.0, Mile: 0.0, M3: 0.0, Day: 0.0, Each: 0.0, Month: 0.0, Tonnes: 0.0, Per_24_Hrs: 0.0, Square_Foot: 0.0}];
+var stackedAreaTmp = [{category: 'Barrel', Alberta: 3850.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Hours', Alberta: 981.75, null: 604.85, British_Columbia: 282.0, Wyoming: 282.0, New_Mexico: 52.0, Texas: 34.0, Saskatchewan: 17.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Mile', Alberta: 0.0, null: 200.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'M3', Alberta: 198.0, null: 36.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 5.0, Saskatchewan: 6.2, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Day', Alberta: 0.0, null: 58.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 8.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Each', Alberta: 8.0, null: 26.0, British_Columbia: 17.0, Wyoming: 17.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Month', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Tonnes', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Per 24 Hrs', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}, 
+{category: 'Square Foot', Alberta: 0.0, null: 0.0, British_Columbia: 0.0, Wyoming: 0.0, New_Mexico: 0.0, Texas: 0.0, Saskatchewan: 0.0, Oklahoma: 0.0, Louisiana: 0.0}];
 var aCategoryX = ["Alberta", "null", "British Columbia", "Wyoming", "New Mexico", "Texas", "Saskatchewan", "Oklahoma", "Louisiana"];
 var data2 = [{'name':'Alberta','group':'Barrel','value': 3850.0}, {'name':'Alberta','group':'Hours','value': 981.75}, {'name':'Alberta','group':'Mile','value': 0.0}, {'name':'Alberta','group':'M3','value': 198.0}, {'name':'Alberta','group':'Day','value': 0.0}, {'name':'Alberta','group':'Each','value': 8.0}, {'name':'Alberta','group':'Month','value': 0.0}, {'name':'Alberta','group':'Tonnes','value': 0.0}, {'name':'Alberta','group':'Per 24 Hrs','value': 0.0}, {'name':'Alberta','group':'Square Foot','value': 0.0}, {'name':'null','group':'Barrel','value': 0.0}, {'name':'null','group':'Hours','value': 604.85}, {'name':'null','group':'Mile','value': 200.0}, {'name':'null','group':'M3','value': 36.0}, {'name':'null','group':'Day','value': 58.0}, {'name':'null','group':'Each','value': 26.0}, {'name':'null','group':'Month','value': 0.0}, {'name':'null','group':'Tonnes','value': 0.0}, {'name':'null','group':'Per 24 Hrs','value': 0.0}, {'name':'null','group':'Square Foot','value': 0.0}, {'name':'British Columbia','group':'Barrel','value': 0.0}, {'name':'British Columbia','group':'Hours','value': 282.0}, {'name':'British Columbia','group':'Mile','value': 0.0}, {'name':'British Columbia','group':'M3','value': 0.0}, {'name':'British Columbia','group':'Day','value': 0.0}, {'name':'British Columbia','group':'Each','value': 17.0}, {'name':'British Columbia','group':'Month','value': 0.0}, {'name':'British Columbia','group':'Tonnes','value': 0.0}, {'name':'British Columbia','group':'Per 24 Hrs','value': 0.0}, {'name':'British Columbia','group':'Square Foot','value': 0.0}, {'name':'Wyoming','group':'Barrel','value': 0.0}, {'name':'Wyoming','group':'Hours','value': 282.0}, {'name':'Wyoming','group':'Mile','value': 0.0}, {'name':'Wyoming','group':'M3','value': 0.0}, {'name':'Wyoming','group':'Day','value': 0.0}, {'name':'Wyoming','group':'Each','value': 17.0}, {'name':'Wyoming','group':'Month','value': 0.0}, {'name':'Wyoming','group':'Tonnes','value': 0.0}, {'name':'Wyoming','group':'Per 24 Hrs','value': 0.0}, {'name':'Wyoming','group':'Square Foot','value': 0.0}, {'name':'New Mexico','group':'Barrel','value': 0.0}, {'name':'New Mexico','group':'Hours','value': 52.0}, {'name':'New Mexico','group':'Mile','value': 0.0}, {'name':'New Mexico','group':'M3','value': 0.0}, {'name':'New Mexico','group':'Day','value': 0.0}, {'name':'New Mexico','group':'Each','value': 0.0}, {'name':'New Mexico','group':'Month','value': 0.0}, {'name':'New Mexico','group':'Tonnes','value': 0.0}, {'name':'New Mexico','group':'Per 24 Hrs','value': 0.0}, {'name':'New Mexico','group':'Square Foot','value': 0.0}, {'name':'Texas','group':'Barrel','value': 0.0}, {'name':'Texas','group':'Hours','value': 34.0}, {'name':'Texas','group':'Mile','value': 0.0}, {'name':'Texas','group':'M3','value': 5.0}, {'name':'Texas','group':'Day','value': 8.0}, {'name':'Texas','group':'Each','value': 0.0}, {'name':'Texas','group':'Month','value': 0.0}, {'name':'Texas','group':'Tonnes','value': 0.0}, {'name':'Texas','group':'Per 24 Hrs','value': 0.0}, {'name':'Texas','group':'Square Foot','value': 0.0}, {'name':'Saskatchewan','group':'Barrel','value': 0.0}, {'name':'Saskatchewan','group':'Hours','value': 17.0}, {'name':'Saskatchewan','group':'Mile','value': 0.0}, {'name':'Saskatchewan','group':'M3','value': 6.2}, {'name':'Saskatchewan','group':'Day','value': 0.0}, {'name':'Saskatchewan','group':'Each','value': 0.0}, {'name':'Saskatchewan','group':'Month','value': 0.0}, {'name':'Saskatchewan','group':'Tonnes','value': 0.0}, {'name':'Saskatchewan','group':'Per 24 Hrs','value': 0.0}, {'name':'Saskatchewan','group':'Square Foot','value': 0.0}, {'name':'Oklahoma','group':'Barrel','value': 0.0}, {'name':'Oklahoma','group':'Hours','value': 0.0}, {'name':'Oklahoma','group':'Mile','value': 0.0}, {'name':'Oklahoma','group':'M3','value': 0.0}, {'name':'Oklahoma','group':'Day','value': 0.0}, {'name':'Oklahoma','group':'Each','value': 0.0}, {'name':'Oklahoma','group':'Month','value': 0.0}, {'name':'Oklahoma','group':'Tonnes','value': 0.0}, {'name':'Oklahoma','group':'Per 24 Hrs','value': 0.0}, {'name':'Oklahoma','group':'Square Foot','value': 0.0}, {'name':'Louisiana','group':'Barrel','value': 0.0}, {'name':'Louisiana','group':'Hours','value': 0.0}, {'name':'Louisiana','group':'Mile','value': 0.0}, {'name':'Louisiana','group':'M3','value': 0.0}, {'name':'Louisiana','group':'Day','value': 0.0}, {'name':'Louisiana','group':'Each','value': 0.0}, {'name':'Louisiana','group':'Month','value': 0.0}, {'name':'Louisiana','group':'Tonnes','value': 0.0}, {'name':'Louisiana','group':'Per 24 Hrs','value': 0.0}, {'name':'Louisiana','group':'Square Foot','value': 0.0}];
 var aAllData = {
@@ -906,6 +925,7 @@ function setStackedArea() {
     .append('g')
     .attr('transform', `translate(-${marginLeft}, 0)`);
 
+  var stackedArea = stackedAreaTmp;
   var first = stackedArea[0];
   var properties = [];
   if (first !== undefined) {
@@ -1042,7 +1062,7 @@ function setStackedArea() {
         
       addText(svgBase, 'start', 12, 0, widthReduce + margin.right - 2, factorBack, '#808080', `id_${index}`, item, function () {
         var id = this.id;
-        //adminStacked(id);
+        adminStacked(id);
       });
 
       addCircle(svgBase, widthReduce + margin.right - 12, factorBack - 4, 5, colorPie[indexCircle(index)], `idcircle_${index}`, function () {
@@ -1050,7 +1070,7 @@ function setStackedArea() {
       },
       function () {
         var id = this.id;
-        //adminStacked(id);
+        adminStacked(id);
       });
       factorBack += 20;
     }
@@ -2212,20 +2232,33 @@ function controlStacked(id) {
   //#endregion
   //#region set value original or zero
   var sub = getCategoriesStack()[index];
-	if (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN) {
-    var aTmp = getDataMulti();
-    for (position in dataTmp) {
-      var element = aTmp[position];
-      var itEdit = dataTmp[position];
-      itEdit[sub] = exist ? element[sub] : 0;
-    }
-  } else {
-    var aStacked = getStackedData();
-    for (var index1 = 0; index1 < aStacked.length; index1++) {
-      var element = aStackedTmp[index1];
-      var edit = aStacked[index1];
-      edit[sub] = exist ? element[sub] : 0;
-    }
+
+  switch (typeChart) {
+    case TypeEnum.BAR:
+    case TypeEnum.COLUMN:
+      var aTmp = getDataMulti();
+      for (position in dataTmp) {
+        var element = aTmp[position];
+        var itEdit = dataTmp[position];
+        itEdit[sub] = exist ? element[sub] : 0;
+      }
+      break;
+    case TypeEnum.STACKED_AREA:
+      var stackedArea = getAreaData();
+      for (position in stackedArea) {
+        var element = stackedArea[position];
+        var itEdit = stackedAreaTmp[position];
+        itEdit[sub] = exist ? element[sub.replace(' ', '_')] : 0;
+      }
+      break
+    default:
+      var aStacked = getStackedData();
+      for (var index1 = 0; index1 < aStacked.length; index1++) {
+        var element = aStackedTmp[index1];
+        var edit = aStacked[index1];
+        edit[sub] = exist ? element[sub] : 0;
+      }
+      break;
   }
   //#endregion
 	updateSelected(`${index}_${exist}`);
@@ -2389,6 +2422,10 @@ function getCategoriesStack()
 function getStackedData()
 {
   return isCurrency ? aStacked : aStacked2;
+}
+
+function getAreaData() {
+  return isCurrency ? stackedArea : stackedArea2;
 }
 
 function getMultiCategory()

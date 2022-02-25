@@ -362,6 +362,15 @@ function fillCurrencyStackedData() {
   });
 }
 
+function fillStackedArea() {
+  var stackedArea = getAreaData();
+  stackedAreaTmp = [];
+  stackedArea.forEach(item => {
+    var copied = Object.assign({}, item);
+    stackedAreaTmp.push(copied);
+  });
+}
+
 function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
     isCurrency = !isCurrency;
