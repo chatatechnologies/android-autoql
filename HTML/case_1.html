@@ -135,8 +135,13 @@ function updateSize() {
 	margin.left = _left;
 	margin.bottom = _bottom;
 
-  height = $(window).height() - margin.top - margin.bottom;
-  width = getWidthMargin();
+  if (initialWidth == 0 && initialHeight == 0) {
+    initialHeight = height = $(window).height() - margin.top - margin.bottom;
+    initialWidth = width = getWidthMargin();
+  } else {
+    height = initialHeight;
+    width = initialWidth;
+  }
 
   if (typeChart === TypeEnum.LINE) {
     if (is2Columns()) {
@@ -179,7 +184,9 @@ function updateSize() {
         width = width * 2;
         height = height * 1.5;
         break;
-      case TypeEnum.PIE:
+      case TypeEnum.STACKED_AREA:
+        width = width * 2;
+        break;
       default:
         break;
     }
@@ -438,9 +445,8 @@ function fillCurrencyStackedData() {
 }
 
 function fillStackedArea() {
-  var stackedArea = getAreaData();
   stackedAreaTmp = [];
-  stackedArea.forEach(item => {
+  getAreaData().forEach(item => {
     var copied = Object.assign({}, item);
     stackedAreaTmp.push(copied);
   });
@@ -450,6 +456,7 @@ function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
+    fillStackedArea();
     var tmp = axisX;
     axisX = axisY;
     axisY = tmp;
@@ -645,6 +652,8 @@ var margin = {
   bottom: _bottom,
   left: _left
 };
+var initialWidth = 0;
+var initialHeight = 0;
 var width = 0;
 var height = 0;
 var isAgain = false;
@@ -917,7 +926,6 @@ function setStackedArea() {
 		.attr('height', height + margin.top + marginBottom);
 
   var widthReduce = width - 105;
-  const strokeWidth = 1.5;
   const svgBase = svg.append('g')
     .attr('transform', `translate(${marginLeft}, ${margin.top})`);
 
@@ -925,7 +933,7 @@ function setStackedArea() {
     .append('g')
     .attr('transform', `translate(-${marginLeft}, 0)`);
 
-  var stackedArea = stackedAreaTmp;
+  var stackedArea = getAreaData();
   var first = stackedArea[0];
   var properties = [];
   if (first !== undefined) {
@@ -2244,10 +2252,10 @@ function controlStacked(id) {
       }
       break;
     case TypeEnum.STACKED_AREA:
-      var stackedArea = getAreaData();
-      for (position in stackedArea) {
-        var element = stackedArea[position];
-        var itEdit = stackedAreaTmp[position];
+      var aStackedArea = getAreaData();
+      for (position in aStackedArea) {
+        var element = stackedAreaTmp[position];
+        var itEdit = aStackedArea[position];
         itEdit[sub] = exist ? element[sub.replace(' ', '_')] : 0;
       }
       break

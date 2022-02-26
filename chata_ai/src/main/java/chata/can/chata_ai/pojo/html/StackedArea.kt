@@ -12,7 +12,6 @@ object StackedArea {
 		.attr('height', height + margin.top + marginBottom);
 
   var widthReduce = width - 105;
-  const strokeWidth = 1.5;
   const svgBase = svg.append('g')
     .attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 
@@ -20,7 +19,7 @@ object StackedArea {
     .append('g')
     .attr('transform', `translate(-${'$'}{marginLeft}, 0)`);
 
-	var stackedArea = stackedAreaTmp;
+	var stackedArea = getAreaData();
   var first = stackedArea[0];
   var properties = [];
   if (first !== undefined) {

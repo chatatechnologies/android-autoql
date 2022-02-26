@@ -149,10 +149,10 @@ function controlStacked(id) {
       }
       break;
     case TypeEnum.STACKED_AREA:
-      var stackedArea = getAreaData();
-      for (position in stackedArea) {
-        var element = stackedArea[position];
-        var itEdit = stackedAreaTmp[position];
+      var aStackedArea = getAreaData();
+      for (position in aStackedArea) {
+        var element = stackedAreaTmp[position];
+        var itEdit = aStackedArea[position];
         itEdit[sub] = exist ? element[sub.replace(' ', '_')] : 0;
       }
       break
@@ -168,7 +168,6 @@ function controlStacked(id) {
   //#endregion
 	updateSelected(`${'$'}{index}_${'$'}{exist}`);
 }
-
 
 function adminOpacity(id) {
   var words = id.split('_');

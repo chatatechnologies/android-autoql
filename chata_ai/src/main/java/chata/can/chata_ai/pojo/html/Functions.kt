@@ -60,8 +60,13 @@ function updateSize() {
 	margin.left = _left;
 	margin.bottom = _bottom;
 
-  height = ${'$'}(window).height() - margin.top - margin.bottom;
-  width = getWidthMargin();
+  if (initialWidth == 0 && initialHeight == 0) {
+    initialHeight = height = ${'$'}(window).height() - margin.top - margin.bottom;
+    initialWidth = width = getWidthMargin();
+  } else {
+    height = initialHeight;
+    width = initialWidth;
+  }
 
   if (typeChart === TypeEnum.LINE) {
     if (is2Columns()) {
@@ -104,7 +109,9 @@ function updateSize() {
         width = width * 2;
         height = height * 1.5;
         break;
-      case TypeEnum.PIE:
+			case TypeEnum.STACKED_AREA:
+        width = width * 2;
+				break;
       default:
         break;
     }
@@ -363,9 +370,8 @@ function fillCurrencyStackedData() {
 }
 
 function fillStackedArea() {
-  var stackedArea = getAreaData();
   stackedAreaTmp = [];
-  stackedArea.forEach(item => {
+  getAreaData().forEach(item => {
     var copied = Object.assign({}, item);
     stackedAreaTmp.push(copied);
   });
@@ -375,6 +381,7 @@ function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
+		fillStackedArea();
     var tmp = axisX;
     axisX = axisY;
     axisY = tmp;
