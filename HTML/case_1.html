@@ -184,9 +184,9 @@ function updateSize() {
         width = width * 2;
         height = height * 1.5;
         break;
-      case TypeEnum.STACKED_AREA:
+			case TypeEnum.STACKED_AREA:
         width = width * 2;
-        break;
+				break;
       default:
         break;
     }
@@ -325,7 +325,7 @@ function updateSelected(index_value) {
   try {
     Android.updateSelected(index_value);
   } catch (err) {
-    console.log("Good content: " + index_value);
+    androidOutput(index_value);
   }
 }
 
@@ -456,7 +456,7 @@ function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
-    fillStackedArea();
+		fillStackedArea();
     var tmp = axisX;
     axisX = axisY;
     axisY = tmp;
@@ -933,7 +933,7 @@ function setStackedArea() {
     .append('g')
     .attr('transform', `translate(-${marginLeft}, 0)`);
 
-  var stackedArea = getAreaData();
+	var stackedArea = getAreaData();
   var first = stackedArea[0];
   var properties = [];
   if (first !== undefined) {
@@ -1062,8 +1062,8 @@ function setStackedArea() {
   addText(svgBase, 'start', 14, 0, widthReduce, 0, '#808080', axisX, getAxisX(), function () {
     modalCategories(TypeManage.DATA, this.id);
   });
-
-  var factorBack = margin.top;
+	
+	var factorBack = margin.top;
   var index = 0;
   getCategoriesStack().forEach(item => {
     if (!indexIgnore.includes(index)) {
@@ -1438,7 +1438,7 @@ function setMultiBar() {
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
           var id = this.id;
-          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
         function () {
@@ -1446,7 +1446,7 @@ function setMultiBar() {
         },
         function () {
           var id = this.id;
-          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         factorBack += 20;
       }
@@ -1644,7 +1644,7 @@ function setMultiColumn() {
 }
 
 function setMultiLine() {
-  var is3 = is3Columns();
+	var is3 = is3Columns();
   var marginLeft = margin.left + 10;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + marginLeft + margin.right)
@@ -1692,7 +1692,7 @@ function setMultiLine() {
     .domain(subgroups)
     .range(colorPie);
 
-  var categories = dataTmp.map(function(d) { return d.name; });
+	var categories = dataTmp.map(function(d) { return d.name; });
   // Add X axis --> it is a date format
   var x = d3.scaleBand()
     .domain(categories)
@@ -1746,6 +1746,7 @@ function setMultiLine() {
     .enter()
       .append('g')
       .style("fill", function(d){ return myColor(d.name) })
+      .attr('id', function(d, i){ return 'child_' + i;})
     // Second we need to enter in the 'values' part of this group
     .selectAll()
     .data(function(d){ return d.values })
@@ -1757,15 +1758,32 @@ function setMultiLine() {
       .attr("r", 5)
       .attr("stroke", "white")
 	    .on('click', function () {
-	      var idParent = this.id;
-	      var aData = idParent.split('_');
-	      if (aData.length > 0)
-	      {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${mValue}_${index}`;
+        if (is3) {
+          var idParent = this.id;
+          var idChild = this.parentNode.id;
+  
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = categories[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${prefix}_${suffix}`;
           drillDown(value);
-	      }
+        } else {
+          var idParent = this.id;
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${mValue}_${index}`;
+            drillDown(value);
+          }
+        }
 	    });
 			
 	var is2 = is2Columns();
@@ -1776,13 +1794,13 @@ function setMultiLine() {
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', titleXId, titleX, function () {
-    var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+		var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 12, '#808080', titleYId, titleY, function () {
-    var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
+		var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	

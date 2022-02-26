@@ -250,7 +250,7 @@ function updateSelected(index_value) {
   try {
     Android.updateSelected(index_value);
   } catch (err) {
-    console.log("Good content: " + index_value);
+    androidOutput(index_value);
   }
 }
 

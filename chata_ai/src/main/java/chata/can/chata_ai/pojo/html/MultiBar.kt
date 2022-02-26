@@ -187,7 +187,7 @@ object MultiBar
       {
         addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${'$'}{index}`, item, function () {
           var id = this.id;
-          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${'$'}{index}`,
         function () {
@@ -195,7 +195,7 @@ object MultiBar
         },
         function () {
           var id = this.id;
-          is3 ? console.log('data stacked') : adminMulti(id, subgroups);
+          adminMulti(id, subgroups);
         });
         factorBack += 20;
       }

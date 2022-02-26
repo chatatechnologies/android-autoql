@@ -107,6 +107,7 @@ object MultiLines
     .enter()
       .append('g')
       .style("fill", function(d){ return myColor(d.name) })
+      .attr('id', function(d, i){ return 'child_' + i;})
     // Second we need to enter in the 'values' part of this group
     .selectAll()
     .data(function(d){ return d.values })
@@ -118,15 +119,32 @@ object MultiLines
       .attr("r", 5)
       .attr("stroke", "white")
 	    .on('click', function () {
-	      var idParent = this.id;
-	      var aData = idParent.split('_');
-	      if (aData.length > 0)
-	      {
-          var index = aData[1];
-          var mValue = aDrillData[indexData][index];
-          var value = `${'$'}{mValue}_${'$'}{index}`;
+        if (is3) {
+          var idParent = this.id;
+          var idChild = this.parentNode.id;
+  
+          var aParent = idParent.split('_');
+          var aChild = idChild.split('_');
+
+          var indexParent = aParent[1];
+          var indexChild = aChild[1];
+
+          var prefix = categories[indexParent];
+          var suffix = subgroups[indexChild];
+
+          var value = `${'$'}{prefix}_${'$'}{suffix}`;
           drillDown(value);
-	      }
+        } else {
+          var idParent = this.id;
+          var aData = idParent.split('_');
+          if (aData.length > 0)
+          {
+            var index = aData[1];
+            var mValue = aDrillData[indexData][index];
+            var value = `${'$'}{mValue}_${'$'}{index}`;
+            drillDown(value);
+          }
+        }
 	    });
 			
 	var is2 = is2Columns();
