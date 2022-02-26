@@ -128,19 +128,22 @@ object MultiLines
 	    });
 			
 	var is2 = is2Columns();
-  var titleX = is2 ? getAxisY() : getAxisX();
-  var titleXId = is2 ? axisY : axisX;
-  var titleY = is2 ? getAxisX() : getAxisY();
-  var titleYId = is2 ? axisX : axisY;
+	var is3 = is3Columns();
+  var titleX = is2 ? getAxisY() : (is3 ? getAxisY() : getAxisX() );
+  var titleXId = is2 ? axisY : (is3 ? axisY : axisX);
+  var titleY = is2 ? getAxisX() : is3 ? axisMiddle + '▼' : getAxisY();
+  var titleYId = is2 ? axisX : (is3 ? axisX : axisY);
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', titleXId, titleX, function () {
-    modalCategories(TypeManage.PLAIN, this.id);
+		var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+    modalCategories(type, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 12, '#808080', titleYId, titleY, function () {
-    modalCategories(TypeManage.SELECTABLE, this.id);
+		var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
+    modalCategories(type, this.id);
   });
 	
   var factorBack = margin.top;

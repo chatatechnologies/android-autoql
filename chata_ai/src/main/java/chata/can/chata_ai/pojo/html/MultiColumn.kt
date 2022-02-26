@@ -150,15 +150,13 @@ object MultiColumn
 			
 	//Add X axis label:
   addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + marginBottom, '#808080', xTitleId, xTitle, function () {
-    var type;
-    if (is3) type = TypeManage.DATA; else type = TypeManage.PLAIN;
+    var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
     modalCategories(type, this.id);
   });
 
   //Y axis label:
   addText(svg, 'end', 16, -90, -height / 2, -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
-    var type;
-    if (is3) type = TypeManage.CATEGORIES; else type = TypeManage.SELECTABLE;
+    var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
     modalCategories(type, this.id);
   });
 	
