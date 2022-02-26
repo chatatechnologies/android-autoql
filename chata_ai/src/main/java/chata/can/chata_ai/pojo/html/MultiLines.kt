@@ -5,6 +5,7 @@ object MultiLines
 	fun getMultiLine(): String
 	{
 		return """function setMultiLine() {
+	var is3 = is3Columns();
   var marginLeft = margin.left + 10;
   var svg = d3.select('body').append('svg')
 		.attr('width', width + marginLeft + margin.right)
@@ -12,12 +13,12 @@ object MultiLines
 		.append('g')
     .attr('transform', `translate(${'$'}{marginLeft}, ${'$'}{margin.top})`);
 
-  var aCategoryTmp = getMultiCategory();
+  var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
   var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
 
   var spaceCategory;
   if (hasCategories) {
-    spaceCategory = 100;
+    spaceCategory = 105;
   } else {
     spaceCategory = 0;
   }
@@ -52,9 +53,10 @@ object MultiLines
     .domain(subgroups)
     .range(colorPie);
 
-    // Add X axis --> it is a date format
+	var categories = dataTmp.map(function(d) { return d.name; });
+  // Add X axis --> it is a date format
   var x = d3.scaleBand()
-    .domain(dataTmp.map(function(d) { return d.name; }))
+    .domain(categories)
     .range([0, withReduce])
     .padding(1);
 
@@ -128,7 +130,6 @@ object MultiLines
 	    });
 			
 	var is2 = is2Columns();
-	var is3 = is3Columns();
   var titleX = is2 ? getAxisY() : (is3 ? getAxisY() : getAxisX() );
   var titleXId = is2 ? axisY : (is3 ? axisY : axisX);
   var titleY = is2 ? getAxisX() : is3 ? axisMiddle + '▼' : getAxisY();
