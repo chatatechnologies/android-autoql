@@ -2,11 +2,9 @@ package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.pojo.chat.ColumnQuery
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.extension.toCapitalColumn
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.query.SearchColumn
-import java.text.DecimalFormat
 
 object TableHtmlBuilder
 {
@@ -16,7 +14,6 @@ object TableHtmlBuilder
 		limitRow: Int,
 		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
-		val formatter = DecimalFormat("###,###,##0.00")
 		aColumn.find { it.isVisible }?.let {
 			//region create table head
 			val headTable = StringBuilder("<thead><tr>")
@@ -51,13 +48,8 @@ object TableHtmlBuilder
 					val column = aColumn[index]
 					column.isVisible
 
-					val valueRow = if (cell.isNotEmpty() && cell != "null") {
-						if (column.type.isNumber()) {
-							val aPartNumber = cell.split(".")
-							"$" + formatter.format(aPartNumber[0].toDouble())
-						} else
-							cell.formatWithColumn(column)
-					}
+					val valueRow = if (cell.isNotEmpty() && cell != "null")
+						cell.formatWithColumn(column)
 					else ""
 
 					val classHidden = if (!column.isVisible) " class=\"td-hidden\"" else ""
