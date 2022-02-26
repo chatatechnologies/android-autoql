@@ -152,6 +152,8 @@ object MultiLines
   var titleXId = is2 ? axisY : (is3 ? axisY : axisX);
   var titleY = is2 ? getAxisX() : is3 ? axisMiddle + '▼' : getAxisY();
   var titleYId = is2 ? axisX : (is3 ? axisX : axisY);
+	var menuTitle = is2 ? '' : (is3 ? getAxisX() : 'Category');
+	var menuTitleId = is2 ? '' : (is3 ? axisX : '');
 		
 	//Add X axis label:
   addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', titleXId, titleX, function () {
@@ -168,7 +170,10 @@ object MultiLines
   var factorBack = margin.top;
 	if (hasCategories)
   {
-    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', '', 'Category');
+    addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+      var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+      modalCategories(type, this.id);
+    });
     var index = 0;
     aCategoryTmp.forEach(item => {
       if (!indexIgnore.includes(index))

@@ -20,8 +20,8 @@ ${'$'}('td').click(function() {
         break;
       case TypeEnum.PIVOT:
         if (column == 0) return;
-        var secondCell = aCategoryX[column - 1];
-        finalText = `${'$'}{secondCell}_${'$'}{finalText}`;
+        var secondCell = isCurrency ? aCatHeatY[column - 1] : aCatHeatX[column - 1];
+        finalText = isCurrency ? `${'$'}{finalText}_${'$'}{secondCell}` : `${'$'}{secondCell}_${'$'}{finalText}`;
         break;
       default:
         break;
