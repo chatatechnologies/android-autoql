@@ -15,7 +15,6 @@ import chata.can.chata_ai.extension.setOnTabSelectedListener
 import chata.can.chata_ai.pojo.ScreenData
 import chata.can.chata_ai.pojo.base.BaseActivity
 import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.databinding.PagerActivityBinding
@@ -87,8 +86,6 @@ class PagerActivity: BaseActivity()
 				//endregion
 			}
 		}
-
-		RequestBuilder.initVolleyRequest(this)
 
 		floatingView.setEventClick {
 			startActivity(

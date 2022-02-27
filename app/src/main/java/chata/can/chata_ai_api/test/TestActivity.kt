@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.databinding.TestActivityBinding
 
 class TestActivity: AppCompatActivity()
@@ -13,7 +14,7 @@ class TestActivity: AppCompatActivity()
 		binding = TestActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		binding.textView.text = "Hi!"
+		binding.textView.text = getString(R.string.app_name)
 
 	}
 }

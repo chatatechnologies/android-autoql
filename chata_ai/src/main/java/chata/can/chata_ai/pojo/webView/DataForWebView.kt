@@ -11,26 +11,17 @@ class DataForWebView(
 	var catYS = "[]"
 	var dataChartBiOnTri = "[]"
 	var dataChartBi = "[]"
-	var dataChartBiWithTri = "[]"
 	var drillX = "[]"
 	var drillY = "[]"
 	var drillTableY = "[]"
 	var isBi = true
 
 	var type = "table"
-	var xAxis = ""
-	var yAxis = ""
-	var isColumn = false
 	var min = -1
 	var max = -1
 
 	var stackedFrom = -1
 	var stackedTo = -1
 
-	var isDashboard = false
-
 	var isReverseX = false
-
-	var updateTable = false
-	var updatePivot = false
 }

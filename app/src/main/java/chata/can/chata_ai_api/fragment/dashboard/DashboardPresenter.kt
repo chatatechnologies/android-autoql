@@ -9,7 +9,6 @@ import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dataKey
-import chata.can.chata_ai.pojo.request.RequestBuilder
 import chata.can.chata_ai.pojo.urlStaging
 import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
@@ -369,7 +368,6 @@ class DashboardPresenter(
 								"$domainUrl/autoql/${api1}query?key=$apiKey"
 							}
 						queryReset = !toClearQuery
-						RequestBuilder.cancelRequestWithTag(url)
 					}
 				}
 			}

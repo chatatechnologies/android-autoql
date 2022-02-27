@@ -18,36 +18,6 @@ import chata.can.chata_ai.view.gif.KGifView
 
 object DataMessengerRow
 {
-	fun getRowText(context: Context): RelativeLayout
-	{
-		return RelativeLayout(context).apply {
-			layoutParams = getViewGroupLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-
-			//region middle container
-			addView(LinearLayout(context).apply {
-				layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-
-				orientation = LinearLayout.VERTICAL
-				id = R.id.llMainBase
-
-				//region content
-				addView(RelativeLayout(context).apply {
-					layoutParams = getLinearLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
-					paddingAll(left = 4f, right = 4f)
-					addView(TextView(context).apply {
-						layoutParams = getRelativeLayoutParams(LayoutParams.WRAP_CONTENT_ONLY)
-						margin(1f)
-						paddingAll(8f)
-						id = R.id.tvContent
-					})
-					id = R.id.rvContent
-				})
-				//endregion
-			})
-			//endregion
-		}
-	}
-
 	fun getRowQueryBuilder(context: Context): RelativeLayout
 	{
 		return RelativeLayout(context).apply {
