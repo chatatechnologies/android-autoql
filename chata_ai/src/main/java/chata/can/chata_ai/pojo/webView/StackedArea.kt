@@ -11,7 +11,7 @@ object StackedArea {
 	{
 		//region generate stacked 1
 		val aChartLine = aCatY.mapIndexed { indexY, categoryY ->
-			val category = "category: '${categoryY.clearQuotes()}',"
+			val category = "category: ${categoryY},"
 
 			val aByCategory = aCatX.mapIndexed { indexX, categoryX ->
 				val value = mData["${indexY}_$indexX"]?.let {
@@ -24,7 +24,7 @@ object StackedArea {
 		//endregion
 		//region generate stacked 2
 		val aChartLine2 = aCatX.mapIndexed { indexX, categoryX ->
-			val category = "category: '${categoryX.clearQuotes()}',"
+			val category = "category: ${categoryX},"
 
 			val aByCategory = aCatY.mapIndexed { indexY, categoryY ->
 				val value = mData["${indexY}_$indexX"]?.let {
@@ -40,11 +40,24 @@ object StackedArea {
 		return Pair(data1, data2)
 	}
 
-	private fun String.clearAmpersand() = this.replace("&", "AMP")
 	private fun String.categoryToProperty(): String {
-		return this
+		var prefix = ""
+		for (index in 0 until this.length) {
+			when {
+				this[index].isDigit() -> {
+					prefix = "_"
+					break
+				}
+				this[index].isLetter() -> {
+					prefix= ""
+					break
+				}
+			}
+		}
+		return "$prefix$this"
 			.clearQuotes()
-			.clearAmpersand()
+			.replace("\'", "QUOTE")
+			.replace("&", "AMP")
 			.replace(" ", "_")
 	}
 }
