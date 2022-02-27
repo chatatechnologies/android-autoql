@@ -35,6 +35,17 @@ object DataCase3 {
 				hasQuotes = true, allowRepeat = !isTriConfig, aIndicesIgnore = aIndicesIgnore
 			)
 		)
+		val aCatXCleared = Categories.buildCategoryByPosition(
+			Category(
+				aRows = aRows,
+				column = aColumn[posColumnX],
+				position = posColumnX,
+				isFormatted = false,
+				hasQuotes = true,
+				allowRepeat = !isTriConfig,
+				aIndicesIgnore = aIndicesIgnore
+			)
+		)
 		//region xAxis
 		val posTriConfig = if (isTriConfig) posColumnY else posColumnX
 		queryBase.aXAxis = Categories.buildCategoryByPosition(
@@ -101,10 +112,11 @@ object DataCase3 {
 		val aDate = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE), 1)
 		val aDateString = SearchColumn.getCountIndices(aColumn, arrayListOf(TypeDataQuery.DATE_STRING), 1)
 
-		val pCat = if (posColumnX == 1) Triple(aCatX, aCatY, true)
-		else Triple(aCatX, aCatY, false)
+		val pCat = if (posColumnX == 1) Triple(aCatXCleared, aCatY, true)
+		else Triple(aCatXCleared, aCatY, false)
 
-		val dataTableTri = TableTriBuilder.DataTableTri(aRows,
+		val dataTableTri = TableTriBuilder.DataTableTri(
+			aRows,
 			aColumn[posColumnY],
 			pCat.first,
 			pCat.second,

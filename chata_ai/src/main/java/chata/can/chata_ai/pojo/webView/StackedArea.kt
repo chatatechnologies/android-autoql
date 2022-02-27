@@ -38,8 +38,12 @@ object StackedArea {
 		return Pair(data1, data2)
 	}
 
+	private fun String.clearAmpersand() = this.replace("&", "AMP")
 	private fun String.clearQuotes() = this.replace("\"", "")
 	private fun String.categoryToProperty(): String {
-		return this.clearQuotes().replace(" ", "_")
+		return this
+			.clearQuotes()
+			.clearAmpersand()
+			.replace(" ", "_")
 	}
 }
