@@ -1,0 +1,2772 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <title></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      border: none;
+    }
+    body, table, th {
+      background: #3b3f46!important;
+      color: #ffffff!important;
+    }
+    table {
+      padding-top: 0px!important;
+    }
+    th {
+      position: sticky;
+      top: 0px;
+      z-index: 10;
+      padding: 10px 3px 5px 3px;
+    }
+    table {
+      font-size: 16px;
+      display: table;
+      min-width: 100%;
+      white-space: nowrap;
+      border-collapse: separate;
+      border-spacing: 0px!important;
+      border-color: grey;
+    }
+    tr td:first-child {
+      text-align: center;
+    }
+    td {
+      padding: 3px;
+      text-align: center!important;
+    }
+    td, th {
+      font-size: 16px;
+      max-width: 200px;
+      white-space: nowrap;
+      width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 0.5px solid #cccccc;
+    }
+    /*border for svg*/
+    svg {
+      border: none;
+    }
+    tfoot {
+      /*display: table-header-group;*/
+      display: none;
+    }
+    .empty-state {
+      text-align: center;
+      font-family: '-apple-system','HelveticaNeue';
+      color: #ffffff!important;
+    }
+    .button {
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+  </style>
+  </head>
+  <body>
+  <table id="idTableBasic"><thead><tr><th>Area</th><th>Country</th><th>Element</th><th>Available</th><th>Inactive</th><th>Item</th><th>Stock Number</th><th>Stocked</th><th>Item Type</th><th>Item Category (Code)</th><th>Item Category</th><th>Item Code (Desc)</th><th>Item Code</th><th>Primary Address</th><th>City</th><th>Description</th><th>Email</th><th>Phone 1</th><th>Phone 2</th><th>Zip Code</th><th>Actual End</th><th>Actual Start</th><th>Customer End Date</th><th>Customer Start Date</th><th>Description</th><th>Job</th><th>Scheduled End Date</th><th>Scheduled Start Date</th><th>Job Code</th><th>Job Type</th><th>Job Phase</th><th>Province Code</th><th>Province</th><th>Cost</th><th>Quantity (Cost)</th><th>Rate (Cost)</th><th>Ticket Division</th><th>Invoice</th><th>Line Number</th><th>Revenue</th><th>Quantity (Revenue)</th><th>Rate (Revenue)</th><th>(Ticket Detail) State</th><th>Ticket Type</th><th>Date Created</th><th>Date</th><th>Ticket Type ID</th><th>Ticket Total Amount</th><th>Ticket State</th><th>Ticket Number</th><th>Ticket Code</th><th>Ticket Type</th><th>Customer</th><th>Customer Number / Name</th><th>Resource</th><th>Resource Number / Name</th><th>Salesperson</th><th>Salesperson Number / Name</th></tr></thead><tfoot><tr><th>Area</th><th>Country</th><th>Element</th><th>Available</th><th>Inactive</th><th>Item</th><th>Stock Number</th><th>Stocked</th><th>Item Type</th><th>Item Category (Code)</th><th>Item Category</th><th>Item Code (Desc)</th><th>Item Code</th><th>Primary Address</th><th>City</th><th>Description</th><th>Email</th><th>Phone 1</th><th>Phone 2</th><th>Zip Code</th><th>Actual End</th><th>Actual Start</th><th>Customer End Date</th><th>Customer Start Date</th><th>Description</th><th>Job</th><th>Scheduled End Date</th><th>Scheduled Start Date</th><th>Job Code</th><th>Job Type</th><th>Job Phase</th><th>Province Code</th><th>Province</th><th>Cost</th><th>Quantity (Cost)</th><th>Rate (Cost)</th><th>Ticket Division</th><th>Invoice</th><th>Line Number</th><th>Revenue</th><th>Quantity (Revenue)</th><th>Rate (Revenue)</th><th>(Ticket Detail) State</th><th>Ticket Type</th><th>Date Created</th><th>Date</th><th>Ticket Type ID</th><th>Ticket Total Amount</th><th>Ticket State</th><th>Ticket Number</th><th>Ticket Code</th><th>Ticket Type</th><th>Customer</th><th>Customer Number / Name</th><th>Resource</th><th>Resource Number / Name</th><th>Salesperson</th><th>Salesperson Number / Name</th></tr></tfoot><tbody><tr><td>Midland, TX</td><td>Canada</td><td>1</td><td>0</td><td>0</td><td>Fire Fighter</td><td></td><td>0</td><td>2</td><td>3013</td><td>Fire Fighter</td><td>3000</td><td>Fire and Safety</td><td>Tippett, June 1213 HZ Unit</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>8</td><td>$50,000.00</td><td>5</td><td>$1,000.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr><tr><td>Midland, TX</td><td>Canada</td><td>1</td><td>0</td><td>0</td><td>Fire Fighter</td><td></td><td>0</td><td>2</td><td>3013</td><td>Fire Fighter</td><td>3000</td><td>Fire and Safety</td><td>111 Evansborough Crescent</td><td>Calgary</td><td></td><td></td><td></td><td></td><td>T3P 0M3</td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>8</td><td>$50,000.00</td><td>5</td><td>$1,000.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr><tr><td>Midland, TX</td><td>Canada</td><td>2</td><td>0</td><td>0</td><td>Fire Extinguisher</td><td></td><td>0</td><td>2</td><td>3006</td><td>Fire Extinguisher</td><td>3000</td><td>Fire and Safety</td><td>Tippett, June 1213 HZ Unit</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>3</td><td>$500.00</td><td>5</td><td>$100.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr><tr><td>Midland, TX</td><td>Canada</td><td>2</td><td>0</td><td>0</td><td>Fire Extinguisher</td><td></td><td>0</td><td>2</td><td>3006</td><td>Fire Extinguisher</td><td>3000</td><td>Fire and Safety</td><td>111 Evansborough Crescent</td><td>Calgary</td><td></td><td></td><td></td><td></td><td>T3P 0M3</td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>3</td><td>$500.00</td><td>5</td><td>$100.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr><tr><td>Midland, TX</td><td>Canada</td><td>4</td><td>0</td><td>0</td><td>De-Mobilization</td><td></td><td>0</td><td>2</td><td>3004</td><td>De-Mobilization</td><td>3000</td><td>Fire and Safety</td><td>Tippett, June 1213 HZ Unit</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>5</td><td>$50,000.00</td><td>5</td><td>$10,000.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr><tr><td>Midland, TX</td><td>Canada</td><td>4</td><td>0</td><td>0</td><td>De-Mobilization</td><td></td><td>0</td><td>2</td><td>3004</td><td>De-Mobilization</td><td>3000</td><td>Fire and Safety</td><td>111 Evansborough Crescent</td><td>Calgary</td><td></td><td></td><td></td><td></td><td>T3P 0M3</td><td></td><td></td><td></td><td></td><td>Tippett, June 1213 HZ Unit</td><td>J00006043</td><td>Aug 15, 2019</td><td>Aug 11, 2019</td><td>RM</td><td>Well Servicing</td><td>Intermediate</td><td>AB</td><td>Alberta</td><td>$0.00</td><td>0</td><td>$0.00</td><td>????????</td><td>2</td><td>5</td><td>$50,000.00</td><td>5</td><td>$10,000.00</td><td class="td-hidden"></td><td>1</td><td>1</td><td>May 7, 2019</td><td class="td-hidden"></td><td>May 7, 2019</td><td>1</td><td>$100,500.00</td><td>1</td><td>RMT00002587</td><td class="td-hidden"></td><td class="td-hidden"></td><td>RMT</td><td>Toursheet</td><td>Conoco Philips</td><td>COP001 Conoco Philips</td><td>C108 MAMMOTH </td><td>C108 C108 MAMMOTH </td><td></td><td></td></tr></tbody></table>
+
+
+  <script>
+  function getFirst10(string) {
+    var newString = '';
+    if (string.length < 11) {
+      newString = string;
+    } else {
+      newString = string.substring(0, 10) + '...';
+    }
+    return newString;
+  }
+
+  function digitsCount(n) {
+    var count = 0;
+    if ( n >= 1) ++count;
+
+    while (n/ 10 >= 1) {
+      n /= 10;
+      ++count;
+    }
+    return count;
+  }
+
+  function angle(d) {
+    var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+    return a > 90 ? a - 180 : a;
+  }
+
+  function isHorizontal() {
+    return typeChart == TypeEnum.BAR;
+  }
+
+  function clearSvg() {
+    //remove svg
+    d3.select('svg').remove();
+  }
+
+  function getLimitName() {
+    if (limitName == -1) {
+      switch (typeChart) {
+        case TypeEnum.COLUMN:
+        case TypeEnum.STACKED_COLUMN:
+        case TypeEnum.LINE:
+          return 80;
+        default:
+        return 110;
+      }
+    } else return limitName;
+  }
+
+  function updateSize() {
+    var _bottom = (isHorizontal() ? _maxValue : getLimitName()) + marginAxis;
+    var _left = (isHorizontal() ? getLimitName() : _maxValue) + marginAxis;
+
+    margin.left = _left;
+    margin.bottom = _bottom;
+
+    if (initialWidth == 0 && initialHeight == 0) {
+      initialHeight = height = $(window).height() - margin.top - margin.bottom;
+      initialWidth = width = getWidthMargin();
+    } else {
+      height = initialHeight;
+      width = initialWidth;
+    }
+
+    if (typeChart === TypeEnum.LINE) {
+      if (is2Columns()) {
+        width = width * 2.0;
+        height = height * 2.5;
+      } else {
+        width = width * 4.0;
+        height = height * 1.5;
+      }
+    } else {
+      switch (typeChart) {
+        case TypeEnum.BAR:
+        case TypeEnum.STACKED_BAR:
+          width = width * 2;
+          if (is2Columns()) {
+            height = height * 2.5;
+          } else {
+            if (typeChart == TypeEnum.BAR) {
+              height = height * 10.0;
+            } else {
+              height = height * 2.0;
+            }
+          }
+          break;
+        case TypeEnum.COLUMN:
+        case TypeEnum.STACKED_COLUMN:
+          height = height * 2;
+          if (is2Columns()) {
+            width = width * 2.5;
+          } else {
+            if (typeChart == TypeEnum.COLUMN) {
+              width = width * 10.0;
+            } else {
+              width = width * 2.0;
+            }
+          }
+          break;
+        case TypeEnum.BUBBLE:
+        case TypeEnum.HEATMAP:
+          width = width * 2;
+          height = height * 1.5;
+          break;
+        case TypeEnum.STACKED_AREA:
+          width = width * 2;
+          break;
+        default:
+          break;
+      }
+    }
+    radius = Math.min(width, height) / 2;
+  }
+
+  function getWidthMargin() {
+    return $(window).width() - margin.left - margin.right;
+  }
+
+  function isMultiple(typeChart) {
+    return nColumns > 3 && (typeChart == TypeEnum.BAR || typeChart == TypeEnum.COLUMN || typeChart == TypeEnum.LINE);
+  }
+
+  function updateData(tmpChart, isReload) {
+    //console.log("height " + $(window).height());
+    //console.log("width " + $(window).width());
+    
+    //region set nColumns
+    var aTmpData = getDataOrMulti();
+    var keys = Object.keys(aTmpData.length !== 0 ?  aTmpData[0] : {'':''});
+    //endregion
+    var _isMultiple = isMultiple(tmpChart);
+    if (dataTmp.length && (isAgain || _isMultiple))
+    {
+      if (_isMultiple) {
+        typeChart = tmpChart;
+      }
+      if (is3Columns() && typeChart != tmpChart) {
+        typeChart = tmpChart;
+      }
+      isAgain = false;
+    }
+    else
+    {
+      dataTmp = [];
+      var aTmp = getDataOrMulti();
+      aTmp.forEach(element => {
+        var copied = Object.assign({}, element);
+        indexIgnore.forEach(index => {
+          delete copied[`time_${index}`];
+        });
+        dataTmp.push(copied);
+      });
+      if (typeChart != tmpChart || isReload) {
+        typeChart = tmpChart;
+      }
+    }
+
+    updateSize();
+    var is2 = is2Columns();
+    //region choose table or chart
+    switch (tmpChart) {
+      case TypeEnum.TABLE:
+        $("svg").hide(0);
+        $("#idTableBasic").show(0);
+        $("#idTableDataPivot").hide(0);
+        $("#idTableDataPivot2").hide(0);
+        break;
+      case TypeEnum.PIVOT:
+        $("svg").hide(0);
+        $("#idTableBasic").hide(0);
+        var aID = isCurrency ? ["", "2"] : ["2", ""];
+        $("#idTableDataPivot" + aID[0]).show(0);
+        $("#idTableDataPivot" + aID[1]).hide(0);
+        break;
+      default:
+        $("#idTableBasic").hide(0);
+        $("#idTableDataPivot").hide(0);
+        $("#idTableDataPivot2").hide(0);
+        clearSvg();
+        switch(typeChart) {
+          case TypeEnum.COLUMN:
+            if (is2) {
+              setColumn();
+            } else {
+              setMultiColumn();
+            }
+          break;
+          case TypeEnum.BAR:
+            if (is2) {
+                setBar();
+              } else {
+                setMultiBar();
+              }
+            break;
+          case TypeEnum.LINE:
+            if (is2) {
+              setLine();
+            } else {
+              setMultiLine();
+            }
+            break;
+          case TypeEnum.PIE:
+            setDonut();
+            break;
+          case TypeEnum.HEATMAP:
+            setHeatMap();
+            break;
+          case TypeEnum.BUBBLE:
+            setBubble();
+            break;
+          case TypeEnum.STACKED_BAR:
+            setStackedBar();
+            break;
+          case TypeEnum.STACKED_COLUMN:
+            setStackedColumn();
+            break;
+          case TypeEnum.STACKED_AREA:
+            setStackedArea();
+            break;
+        }
+        break;
+    }
+    //endregion
+  }
+
+  function drillDown(content) {
+    try {
+      Android.drillDown(content);
+    } catch(err) {
+      androidOutput("Good content: " + content);
+    };
+  }
+
+  function modalCategories(type, content) {
+    try {
+      Android.modalCategories(type, content);
+    } catch(err) {
+      androidOutput(`Good content: ${content}; ${type}`);
+    };
+  }
+
+  function updateSelected(index_value) {
+    try {
+      Android.updateSelected(index_value);
+    } catch (err) {
+      androidOutput(index_value);
+    }
+  }
+
+  function androidOutput(output) {
+    console.log("Good content: " + output);
+  }
+
+  function axisEndPoints(axisSource) {
+    var axis = axisSource;
+    if (axis.length > 14) {
+      axis = axis.slice(0, -3) + '...'
+    }
+    return axis;
+  }
+
+  function getAxisX(isMenu) {
+    var axis = axisX;
+    if (isMenu !== undefined) {
+      axis = axisEndPoints(axis);
+    }
+    var extra = '';
+    if (nColumns > 2) {
+      extra = '▼';
+    }
+    return `${axis} ${extra}`;
+  }
+
+  function getAxisY(isMenu) {
+    var axis = axisY;
+    if (isMenu !== undefined) {
+      axis = axisEndPoints(axis);
+    }
+    var extra = '';
+    if (nColumns > 2) {
+      extra = '▼';
+    }
+    return `${axis} ${extra}`;
+  }
+
+  function addText(svg, textAnchor, fontSize, rotate, x, y, fillColor, id, text, click) {
+    svg.append('text')
+      .attr('text-anchor', textAnchor)
+      .style('font-size', fontSize)
+      .attr('transform', `rotate(${rotate})`)
+      .attr('x', x)//for center
+      .attr('y', y)//for set on bottom with -10
+      .attr('fill', fillColor)
+      .attr('id', id)
+      .text(text)
+      .on('click', click);
+  }
+
+  function addCircle(svg, cx, cy, r, fill, id, fStyle, fClick) {
+    svg.append('circle')
+      .attr('cx', cx)
+      .attr('cy', cy)
+      .attr('r', r)
+      .attr('fill', fill)
+      .attr('id', id)
+      .attr('style', fStyle)
+      .on('click', fClick);
+  }
+
+  function splitAxis(x) {
+    return `${getFirst10(x.split('_')[0])}`;
+  }
+
+  function formatAxis(y) {
+    return `${fformat(y)}`;
+  }
+
+  function axisMulti(svg, isLeft, xBand, height, _tickSize, formatAxis) {
+    var svg = svg.append("g");
+    if (height !== undefined)
+    {
+      svg = svg.attr('transform', `translate(0,${height})`)
+    }
+    var axis = isLeft ? d3.axisLeft(xBand) : d3.axisBottom(xBand);
+    axis = axis.tickSize(_tickSize).tickFormat(x => formatAxis(x));
+    svg.call(axis);
+    return svg;
+  }
+
+  function completeAxisMultiple(axis, pointX, pointY, rotate) {
+    axis
+      .selectAll('text')
+      //rotate text
+      .attr('transform', `translate(${pointX}, ${pointY})rotate(${rotate})`)
+      //Set color each item on X axis
+      .attr('fill', '#909090')
+      .style('text-anchor', 'end');
+  }
+
+  function setMultiCategory(aIndex, _IsCurrency, onlyIndex) {
+    if (onlyIndex !== undefined) {
+      var aTmp = _IsCurrency ? aCategory : aCategory2;
+      axisY = aTmp[onlyIndex];
+    } else {
+      axisY = _IsCurrency ? 'Amount' : 'Quantity';
+    }
+    indexIgnore = [];
+    aIndex.forEach(index => {
+      indexIgnore.push(index);
+    });
+    isCurrency = _IsCurrency;
+    dataTmp = [];
+    updateData(typeChart, true);
+  }
+
+  function fillCurrencyStackedData() {
+    var aStacked = getStackedData();
+    aStackedTmp = [];
+    aStacked.forEach( item => {
+      var copied = Object.assign({}, item);
+      aStackedTmp.push(copied)
+    });
+  }
+
+  function fillStackedArea() {
+    stackedAreaTmp = [];
+    getAreaData().forEach(item => {
+      var copied = Object.assign({}, item);
+      stackedAreaTmp.push(copied);
+    });
+  }
+
+  function setIndexData(indexRoot, indexCommon) {
+    if (is3Columns()) {
+      //region restore backup data for origin
+      var aStacked = getStackedData();
+      aStacked = [];
+      aStackedTmp.forEach(item => {
+        var copied = Object.assign({}, item);
+        aStacked.push(copied);
+      });
+
+      var areaData = getAreaData();
+      areaData = [];
+      stackedAreaTmp.forEach(item => {
+        var copied = Object.assign({}, item);
+        areaData.push(copied);
+      });
+      //endregion
+      isCurrency = !isCurrency;
+      fillCurrencyStackedData();
+      fillStackedArea();
+      var tmp = axisX;
+      axisX = axisY;
+      axisY = tmp;
+      isAgain = true;
+    } else {
+      var common = aCommon[indexCommon];
+      axisX = common;
+    }
+    indexData = indexRoot;
+    dataTmp = [];
+    updateData(typeChart, true);
+  }
+
+  //region not mutable
+  const TypeEnum = Object.freeze({
+    "TABLE": 1,
+    "PIVOT": 2,
+    "COLUMN": 3,
+    "BAR": 4,
+    "LINE": 5,
+    "PIE": 6,
+    "HEATMAP": 7,
+    "BUBBLE": 8,
+    "STACKED_BAR": 9,
+    "STACKED_COLUMN": 10,
+    "STACKED_AREA": 11,
+    "UNKNOWN": 0});
+    
+  const TypeManage = Object.freeze({
+    'CATEGORIES': 'CATEGORIES',
+    'DATA': 'DATA',
+    'SELECTABLE': 'SELECTABLE',
+    'PLAIN': 'PLAIN'
+  });
+
+  var backgroundColor = '#3b3f46';
+  var colorPie = ["#26a7e9", "#a5cd39", "#dd6a6a", "#ffa700", "#00c1b2"];
+  var colorBi = ['#26a7e9'];//Main color for bars
+
+  var axisX = 'Actual End';
+  var axisY = 'Amount';
+  var axisMiddle = '';
+  var nColumns = 4;
+
+  //Main data
+  var hasNegative = {};
+  var indexData = 20;
+  var dataTmp = [];
+  var data = [];
+  var aStacked = [];
+  var aStacked2 = [];
+  var aStackedTmp = [];
+  var stackedArea = [];
+  var stackedArea2 = [];
+  var stackedAreaTmp = [];
+  var aCategoryX = [];
+  var data2 = [];
+  var aAllData = {'0_1': [{name: "Midland, TX_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '0_2': [{name: "Midland, TX_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '1_1': [{name: "Canada_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '1_2': [{name: "Canada_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '2_1': [{name: "4_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 20000.0, time_4: 201000.0},
+  {name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 1000.0, time_3: 200.0, time_4: 201000.0},
+  {name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 2000.0, time_4: 201000.0}],
+  '2_2': [{name: "4_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 10.0},
+  {name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 10.0},
+  {name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 10.0}],
+  '5_1': [{name: "De-Mobilization_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 20000.0, time_4: 201000.0},
+  {name: "Fire Extinguisher_1", time_0: 0.0, time_1: 0.0, time_2: 1000.0, time_3: 200.0, time_4: 201000.0},
+  {name: "Fire Fighter_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 2000.0, time_4: 201000.0}],
+  '5_2': [{name: "De-Mobilization_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 10.0},
+  {name: "Fire Extinguisher_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 10.0},
+  {name: "Fire Fighter_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 10.0}],
+  '6_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '6_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '8_1': [{name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '8_2': [{name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '9_1': [{name: "3004_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 20000.0, time_4: 201000.0},
+  {name: "3006_1", time_0: 0.0, time_1: 0.0, time_2: 1000.0, time_3: 200.0, time_4: 201000.0},
+  {name: "3013_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 2000.0, time_4: 201000.0}],
+  '9_2': [{name: "3004_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 10.0},
+  {name: "3006_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 10.0},
+  {name: "3013_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 10.0}],
+  '10_1': [{name: "De-Mobilization_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 20000.0, time_4: 201000.0},
+  {name: "Fire Extinguisher_1", time_0: 0.0, time_1: 0.0, time_2: 1000.0, time_3: 200.0, time_4: 201000.0},
+  {name: "Fire Fighter_1", time_0: 0.0, time_1: 0.0, time_2: 100000.0, time_3: 2000.0, time_4: 201000.0}],
+  '10_2': [{name: "De-Mobilization_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 10.0, time_5: 10.0},
+  {name: "Fire Extinguisher_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 6.0, time_5: 10.0},
+  {name: "Fire Fighter_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 10.0}],
+  '11_1': [{name: "3000_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '11_2': [{name: "3000_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '12_1': [{name: "Fire and Safety_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '12_2': [{name: "Fire and Safety_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '13_1': [{name: "111 Evansborough Crescent_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0},
+  {name: "Tippett, June 1213 HZ Unit_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0}],
+  '13_2': [{name: "111 Evansborough Crescent_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0},
+  {name: "Tippett, June 1213 HZ Unit_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0}],
+  '14_1': [{name: "Calgary_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0},
+  {name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0}],
+  '14_2': [{name: "Calgary_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0},
+  {name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0}],
+  '15_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '15_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '16_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '16_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '17_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '17_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '18_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '18_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '19_1': [{name: "T3P 0M3_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0},
+  {name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 100500.0, time_3: 11100.0, time_4: 301500.0}],
+  '19_2': [{name: "T3P 0M3_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0},
+  {name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 16.0, time_5: 15.0}],
+  '20_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '20_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '21_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '21_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '22_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '22_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '23_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '23_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '24_1': [{name: "Tippett, June 1213 HZ Unit_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '24_2': [{name: "Tippett, June 1213 HZ Unit_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '25_1': [{name: "J00006043_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '25_2': [{name: "J00006043_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '26_1': [{name: "Aug 15, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '26_2': [{name: "Aug 15, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '27_1': [{name: "Aug 11, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '27_2': [{name: "Aug 11, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '28_1': [{name: "RM_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '28_2': [{name: "RM_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '29_1': [{name: "Well Servicing_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '29_2': [{name: "Well Servicing_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '30_1': [{name: "Intermediate_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '30_2': [{name: "Intermediate_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '31_1': [{name: "AB_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '31_2': [{name: "AB_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '32_1': [{name: "Alberta_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '32_2': [{name: "Alberta_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '36_1': [{name: "????????_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '36_2': [{name: "????????_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '37_1': [{name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '37_2': [{name: "2_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '42_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '42_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '43_1': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '43_2': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '44_1': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '44_2': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '45_1': [{name: "May 7, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '45_2': [{name: "May 7, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '46_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '46_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '47_1': [{name: "May 7, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '47_2': [{name: "May 7, 2019_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '48_1': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '48_2': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '50_1': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '50_2': [{name: "1_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '51_1': [{name: "RMT00002587_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '51_2': [{name: "RMT00002587_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '52_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '52_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '53_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '53_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '54_1': [{name: "RMT_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '54_2': [{name: "RMT_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '55_1': [{name: "Toursheet_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '55_2': [{name: "Toursheet_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '56_1': [{name: "Conoco Philips_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '56_2': [{name: "Conoco Philips_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '57_1': [{name: "COP001 Conoco Philips_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '57_2': [{name: "COP001 Conoco Philips_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '58_1': [{name: "C108 MAMMOTH _1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '58_2': [{name: "C108 MAMMOTH _1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '59_1': [{name: "C108 C108 MAMMOTH _1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '59_2': [{name: "C108 C108 MAMMOTH _1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '60_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '60_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  '61_1': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 201000.0, time_3: 22200.0, time_4: 603000.0}],
+  '61_2': [{name: "Untitled Category_1", time_0: 0.0, time_1: 0.0, time_2: 0.0, time_3: 0.0, time_4: 32.0, time_5: 30.0}],
+  };
+  var aMaxData = {'0_1': [0, 0, 201000, 22200, 603000],
+  '0_2': [0, 0, 0, 0, 32, 30],
+  '1_1': [0, 0, 201000, 22200, 603000],
+  '1_2': [0, 0, 0, 0, 32, 30],
+  '2_1': [0, 0, 100000, 20000, 201000],
+  '2_2': [0, 0, 0, 0, 16, 10],
+  '5_1': [0, 0, 100000, 20000, 201000],
+  '5_2': [0, 0, 0, 0, 16, 10],
+  '6_1': [0, 0, 201000, 22200, 603000],
+  '6_2': [0, 0, 0, 0, 32, 30],
+  '8_1': [0, 0, 201000, 22200, 603000],
+  '8_2': [0, 0, 0, 0, 32, 30],
+  '9_1': [0, 0, 100000, 20000, 201000],
+  '9_2': [0, 0, 0, 0, 16, 10],
+  '10_1': [0, 0, 100000, 20000, 201000],
+  '10_2': [0, 0, 0, 0, 16, 10],
+  '11_1': [0, 0, 201000, 22200, 603000],
+  '11_2': [0, 0, 0, 0, 32, 30],
+  '12_1': [0, 0, 201000, 22200, 603000],
+  '12_2': [0, 0, 0, 0, 32, 30],
+  '13_1': [0, 0, 100500, 11100, 301500],
+  '13_2': [0, 0, 0, 0, 16, 15],
+  '14_1': [0, 0, 100500, 11100, 301500],
+  '14_2': [0, 0, 0, 0, 16, 15],
+  '15_1': [0, 0, 201000, 22200, 603000],
+  '15_2': [0, 0, 0, 0, 32, 30],
+  '16_1': [0, 0, 201000, 22200, 603000],
+  '16_2': [0, 0, 0, 0, 32, 30],
+  '17_1': [0, 0, 201000, 22200, 603000],
+  '17_2': [0, 0, 0, 0, 32, 30],
+  '18_1': [0, 0, 201000, 22200, 603000],
+  '18_2': [0, 0, 0, 0, 32, 30],
+  '19_1': [0, 0, 100500, 11100, 301500],
+  '19_2': [0, 0, 0, 0, 16, 15],
+  '20_1': [0, 0, 201000, 22200, 603000],
+  '20_2': [0, 0, 0, 0, 32, 30],
+  '21_1': [0, 0, 201000, 22200, 603000],
+  '21_2': [0, 0, 0, 0, 32, 30],
+  '22_1': [0, 0, 201000, 22200, 603000],
+  '22_2': [0, 0, 0, 0, 32, 30],
+  '23_1': [0, 0, 201000, 22200, 603000],
+  '23_2': [0, 0, 0, 0, 32, 30],
+  '24_1': [0, 0, 201000, 22200, 603000],
+  '24_2': [0, 0, 0, 0, 32, 30],
+  '25_1': [0, 0, 201000, 22200, 603000],
+  '25_2': [0, 0, 0, 0, 32, 30],
+  '26_1': [0, 0, 201000, 22200, 603000],
+  '26_2': [0, 0, 0, 0, 32, 30],
+  '27_1': [0, 0, 201000, 22200, 603000],
+  '27_2': [0, 0, 0, 0, 32, 30],
+  '28_1': [0, 0, 201000, 22200, 603000],
+  '28_2': [0, 0, 0, 0, 32, 30],
+  '29_1': [0, 0, 201000, 22200, 603000],
+  '29_2': [0, 0, 0, 0, 32, 30],
+  '30_1': [0, 0, 201000, 22200, 603000],
+  '30_2': [0, 0, 0, 0, 32, 30],
+  '31_1': [0, 0, 201000, 22200, 603000],
+  '31_2': [0, 0, 0, 0, 32, 30],
+  '32_1': [0, 0, 201000, 22200, 603000],
+  '32_2': [0, 0, 0, 0, 32, 30],
+  '36_1': [0, 0, 201000, 22200, 603000],
+  '36_2': [0, 0, 0, 0, 32, 30],
+  '37_1': [0, 0, 201000, 22200, 603000],
+  '37_2': [0, 0, 0, 0, 32, 30],
+  '42_1': [0, 0, 201000, 22200, 603000],
+  '42_2': [0, 0, 0, 0, 32, 30],
+  '43_1': [0, 0, 201000, 22200, 603000],
+  '43_2': [0, 0, 0, 0, 32, 30],
+  '44_1': [0, 0, 201000, 22200, 603000],
+  '44_2': [0, 0, 0, 0, 32, 30],
+  '45_1': [0, 0, 201000, 22200, 603000],
+  '45_2': [0, 0, 0, 0, 32, 30],
+  '46_1': [0, 0, 201000, 22200, 603000],
+  '46_2': [0, 0, 0, 0, 32, 30],
+  '47_1': [0, 0, 201000, 22200, 603000],
+  '47_2': [0, 0, 0, 0, 32, 30],
+  '48_1': [0, 0, 201000, 22200, 603000],
+  '48_2': [0, 0, 0, 0, 32, 30],
+  '50_1': [0, 0, 201000, 22200, 603000],
+  '50_2': [0, 0, 0, 0, 32, 30],
+  '51_1': [0, 0, 201000, 22200, 603000],
+  '51_2': [0, 0, 0, 0, 32, 30],
+  '52_1': [0, 0, 201000, 22200, 603000],
+  '52_2': [0, 0, 0, 0, 32, 30],
+  '53_1': [0, 0, 201000, 22200, 603000],
+  '53_2': [0, 0, 0, 0, 32, 30],
+  '54_1': [0, 0, 201000, 22200, 603000],
+  '54_2': [0, 0, 0, 0, 32, 30],
+  '55_1': [0, 0, 201000, 22200, 603000],
+  '55_2': [0, 0, 0, 0, 32, 30],
+  '56_1': [0, 0, 201000, 22200, 603000],
+  '56_2': [0, 0, 0, 0, 32, 30],
+  '57_1': [0, 0, 201000, 22200, 603000],
+  '57_2': [0, 0, 0, 0, 32, 30],
+  '58_1': [0, 0, 201000, 22200, 603000],
+  '58_2': [0, 0, 0, 0, 32, 30],
+  '59_1': [0, 0, 201000, 22200, 603000],
+  '59_2': [0, 0, 0, 0, 32, 30],
+  '60_1': [0, 0, 201000, 22200, 603000],
+  '60_2': [0, 0, 0, 0, 32, 30],
+  '61_1': [0, 0, 201000, 22200, 603000],
+  '61_2': [0, 0, 0, 0, 32, 30],
+  };
+  var aMinData = [];
+  var dataFormatted = [];
+  var opacityMarked = [];
+  var indexIgnore = [];
+  var drillTableY = [];
+  var drillX = ['Untitled Category'];
+  var aDrillData = {0: ["Midland, TX"],
+  1: ["Canada"],
+  2: ["4","2","1"],
+  5: ["De-Mobilization","Fire Extinguisher","Fire Fighter"],
+  6: ["Untitled Category"],
+  8: ["2"],
+  9: ["3004","3006","3013"],
+  10: ["De-Mobilization","Fire Extinguisher","Fire Fighter"],
+  11: ["3000"],
+  12: ["Fire and Safety"],
+  13: ["111 Evansborough Crescent","Tippett, June 1213 HZ Unit"],
+  14: ["Calgary","Untitled Category"],
+  15: ["Untitled Category"],
+  16: ["Untitled Category"],
+  17: ["Untitled Category"],
+  18: ["Untitled Category"],
+  19: ["T3P 0M3","Untitled Category"],
+  20: ["Untitled Category"],
+  21: ["Untitled Category"],
+  22: ["Untitled Category"],
+  23: ["Untitled Category"],
+  24: ["Tippett, June 1213 HZ Unit"],
+  25: ["J00006043"],
+  26: ["1565910000"],
+  27: ["1565564400"],
+  28: ["RM"],
+  29: ["Well Servicing"],
+  30: ["Intermediate"],
+  31: ["AB"],
+  32: ["Alberta"],
+  36: ["????????"],
+  37: ["2"],
+  42: ["Untitled Category"],
+  43: ["1"],
+  44: ["1"],
+  45: ["1557228290"],
+  46: ["Untitled Category"],
+  47: ["1557228076"],
+  48: ["1"],
+  50: ["1"],
+  51: ["RMT00002587"],
+  52: ["Untitled Category"],
+  53: ["Untitled Category"],
+  54: ["RMT"],
+  55: ["Toursheet"],
+  56: ["Conoco Philips"],
+  57: ["COP001 Conoco Philips"],
+  58: ["C108 MAMMOTH "],
+  59: ["C108 C108 MAMMOTH "],
+  60: ["Untitled Category"],
+  61: ["Untitled Category"],
+  };
+  var limitName = 0;
+  var isCurrency = true;
+  var maxValue = 603000;
+  var minValue = 0;
+  var maxValue2 = 32;
+  var minValue2 = 0;
+  var aMax = [0, 0, 201000, 22200, 603000];
+  var aMax2 = [0, 0, 0, 0, 32, 30];
+  var aMin = [0, 0, 201000, 22200, 603000];
+  var aMin2 = [0, 0, 0, 0, 32, 30];
+  var aCategory = ['Cost','Rate (Cost)','Revenue','Rate (Revenue)','Ticket Total Amount'];
+  var aCategory2 = ['Available','Inactive','Stocked','Quantity (Cost)','Line Number','Quantity (Revenue)'];
+  var aCommon = ["Area", "Country", "Element", "Item", "Stock Number", "Item Type", "Item Category (Code)", "Item Category", "Item Code (Desc)", "Item Code", "Primary Address", "City", "Description", "Email", "Phone 1", "Phone 2", "Zip Code", "Actual End", "Actual Start", "Customer End Date", "Customer Start Date", "Description", "Job", "Scheduled End Date", "Scheduled Start Date", "Job Code", "Job Type", "Job Phase", "Province Code", "Province", "Ticket Division", "Invoice", "Ticket Account", "(Ticket Detail) State", "Ticket Type", "Date Created", "Ticket Description", "Date", "Ticket Type ID", "Ticket State", "Ticket Number", "Job End Time", "Job Start Time", "Ticket Code", "Ticket Type", "Customer", "Customer Number / Name", "Resource", "Resource Number / Name", "Salesperson", "Salesperson Number / Name"];
+  //endregion
+  //axis X for heatmap
+  var aCatHeatX = [];
+  //axis Y for heatmap
+  var aCatHeatY = [];
+
+  //REGION max letters in name
+  for (const item in getDataOrMulti()) {
+    var value = getDataOrMulti()[item].name.length;
+    if (limitName < value) {
+      limitName = value;
+      if (limitName > 10) {
+        limitName = -1;
+        break;
+      } else {
+        limitName *= 10;
+      }
+    }
+  }
+  //ENDREGION
+
+  //REGION get max value
+  getDataOrMulti().forEach(item => {
+    var value = item.value;
+    if (getMaxValue() < value) {
+      maxValue = value;
+    }
+  });
+  //ENDREGION
+
+  //The left margin makes the left border visible
+  const marginAxis = 0;
+  var typeChart = TypeEnum.COLUMN;
+  var digits = digitsCount(getMaxValue());
+  var _plusSingle = digits == 1 ? 10 : 0;
+  var _maxValue = (digits * 10) + _plusSingle;
+  var _bottom = (isHorizontal() ? _maxValue : getLimitName()) + marginAxis;
+  var _left = (isHorizontal() ? getLimitName() : _maxValue) + marginAxis;
+  //width dynamic, height dynamic
+  var margin = {
+    top: 20,
+    right: 20,
+    bottom: _bottom,
+    left: _left
+  };
+  var initialWidth = 0;
+  var initialHeight = 0;
+  var width = 0;
+  var height = 0;
+  var isAgain = false;
+
+  function setStackedBar() {
+    var marginLeft = margin.left + 50;
+    var marginBottom = margin.bottom - 30;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`)
+
+    var withReduce = width - 105;
+    //region rewrite
+    var subgroups = [];
+    var stackedData = getStackedData();
+    stackedData.map(function(a1) {
+      var keys1 = Object.keys(a1);
+      keys1.map(function(b1) {
+        if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
+          subgroups.push(b1);
+        }
+      });
+    });
+    //endregion
+    var groups = [];
+    stackedData.map(function(item) {
+      var vGroup = item.name;
+      if (groups.indexOf(vGroup) === -1) {
+        groups.push(vGroup);
+      }
+    });
+    // Add X axis
+    var x = d3.scaleBand()
+      .domain(groups)
+      .range([0, height])
+      .padding(0.2);
+    svg.append('g')
+      .call(d3.axisLeft(x)
+        .tickSize(7)
+        .tickSizeOuter(0)
+        .tickFormat(splitAxis)
+      )
+    //set color for domain and ticks
+      .style("color", '#909090');
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([0, getStackedMax()])
+      .range([0, withReduce]);
+    svg.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(
+        d3.axisBottom(y)
+        .tickSize(0))
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('y2', -height))
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+        .attr('fill', '#909090');;
+
+    // color palette = one color per subgroup
+    var color = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+      
+    var stackedData = d3.stack().keys(subgroups)(stackedData);
+
+    // Show the bars
+    svg.append('g')
+      .selectAll('g')
+      // Enter in the stack data = loop key per key = group per group
+      .data(stackedData)
+      .enter().append('g')
+      .attr('fill', function(d) { return color(d.key); })
+      .selectAll('rect')
+      // enter a second time = loop subgroup per subgroup to add all rectangles
+      .data(function(d) { return d; })
+      .enter()
+      .append('rect')
+        .attr('id', function(item, _) { return `${item.data.name}`;})
+        .attr('x', function(d) { return y(d[0]); })
+        .attr('height', x.bandwidth())
+        .attr('y', function(d) { return x(d.data.name); })
+        .attr('width', function(d) { return y(d[1]) - y(d[0]); })
+        .on('click', function(_, d) {
+          var idParent = this.id;
+          var subgroupName = d3.select(this.parentNode).datum().key;
+          var request = isCurrency ? `${idParent}_${subgroupName}` : `${subgroupName}_${idParent}`;
+          drillDown(request);
+        });
+        
+    //Add X axis label:
+    addText(svg, 'end', 16, -90, sizeByLetter(axisX.length) - height / 2, -marginBottom - 45, '#808080', axisY, getAxisY(), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+
+    //Add Y axis label:
+    addText(svg, 'end', 16, 0, (withReduce  / 2) + sizeByLetter(axisX.length), height + marginBottom - 5, '#808080', axisMiddle, axisMiddle + '▼', function () {
+      modalCategories(TypeManage.CATEGORIES);
+    });
+
+    var factorBack = margin.top;
+    addText(svg, 'start', 14, 0, withReduce + margin.right - 10, 0, '#808080', axisX, getAxisX(), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+    var index = 0;
+    getCategoriesStack().forEach(item => {
+      if (!indexIgnore.includes(index)) {
+        addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+
+        addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+        function () {
+          return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+        },
+        function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+        factorBack += 15;
+      }
+      index++;
+    });
+  }
+
+  function setStackedColumn() {
+    var marginLeft = margin.left + 15;
+    var marginBottom = margin.bottom + 10;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+
+    var withReduce = width - 105;
+    //region rewrite
+    var subgroups = [];
+    var stackedData = getStackedData();
+    stackedData.map(function(a1) {
+      var keys1 = Object.keys(a1);
+      keys1.map(function(b1) {
+        if (b1 != 'name' && subgroups.indexOf(b1) === -1) {
+          subgroups.push(b1);
+        }
+      });
+    });
+    //endregion
+    var groups = [];
+    stackedData.map(function(item) {
+      var vGroup = item.name;
+      if (groups.indexOf(vGroup) === -1) {
+        groups.push(vGroup);
+      }
+    });
+
+    // Add X axis
+    var x = d3.scaleBand()
+      .domain(groups)
+      .range([0, withReduce])
+      .padding(0.2);
+
+    var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 0, -45);
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([0, getStackedMax()])
+      .range([ height, 0 ]);
+
+    axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+    axis = axis
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', withReduce))
+        .call(g => g.select('.domain').remove())
+    completeAxisMultiple(axis, 0, 0, 0);
+
+    // color palette = one color per subgroup
+    var color = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+
+    var stackedData = d3.stack().keys(subgroups)(stackedData);
+
+    // Show the bars
+    svg.append('g')
+      .selectAll('g')
+      // Enter in the stack data = loop key per key = group per group
+      .data(stackedData)
+      .enter().append('g')
+      .attr('fill', function(d) { return color(d.key); })
+      .selectAll('rect')
+      // enter a second time = loop subgroup per subgroup to add all rectangles
+      .data(function(d) { return d; })
+      .enter()
+      .append('rect')
+      .attr('id', function(item, _) { return `${item.data.name}`;})
+      .attr('x', function(d) { return x(d.data.name); })
+      .attr('height', function(d) { return y(d[0]) - y(d[1]); })
+      .attr('y', function(d) { return y(d[1]); })
+      .attr('width', x.bandwidth())
+      .on('click', function(_, d) {
+        var idParent = this.id;
+        var subgroupName = d3.select(this.parentNode).datum().key;
+        var request = isCurrency ? `${idParent}_${subgroupName}` : `${subgroupName}_${idParent}`;
+        drillDown(request);
+      });
+
+    //on left
+    addText(svg, 'end', 16, /*angle*/-90, /*X*/-height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle + '▼', function () {
+      modalCategories(TypeManage.CATEGORIES, axisX);
+    });
+
+    //on bottom
+    addText(svg, 'end', 16, /*angle*/0, /*X*/(withReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom - 0, '#808080', axisY, getAxisY(), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+
+    var factorBack = margin.top;
+    addText(svg, 'start', 14, 0, withReduce + margin.right - 15, 0, '#808080', axisX, getAxisX(true), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+    var index = 0;
+    getCategoriesStack().forEach(item => {
+      if (!indexIgnore.includes(index)) {
+        
+        addText(svg, 'start', 12, 0, withReduce + margin.right + 5, factorBack, '#808080', `id_${index}`, item, function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+
+        addCircle(svg, withReduce + margin.right - 7, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+        function () {
+          return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+        },
+        function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+        factorBack += 20;
+      }
+      index++;
+    });
+  }
+
+  function setStackedArea() {
+    var marginLeft = margin.left + 15;
+    var marginBottom = margin.bottom + 10;
+    // Create SVG and padding for the chart
+    const svg = d3
+      .select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom);
+
+    var widthReduce = width - 105;
+    const svgBase = svg.append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+
+    const grp = svgBase
+      .append('g')
+      .attr('transform', `translate(-${marginLeft}, 0)`);
+
+    var stackedArea = getAreaData();
+    var first = stackedArea[0];
+    var properties = [];
+    if (first !== undefined) {
+      var keys1 = Object.keys(first);
+      keys1.map(function(b1) {
+        if (b1 != 'category' && properties.indexOf(b1) === -1) {
+          properties.push(b1);
+        }
+      }); 
+    }
+
+    // Create stack
+    const stack = d3.stack().keys(properties);
+    const stackedValues = stack(stackedArea);
+    const stackedData = [];
+    // Copy the stack offsets back into the data.
+    stackedValues.forEach((layer, index) => {
+      const currentStack = [];
+      layer.forEach((d, i) => {
+        currentStack.push({
+          values: d,
+          category: stackedArea[i].category
+        });
+      });
+      stackedData.push(currentStack);
+    });
+
+    // Create scales
+    const yScale = d3
+      .scaleLinear()
+      .range([height, 0])
+      .domain([
+        0,
+        d3.max(stackedValues[stackedValues.length - 1], dp => dp[1])]
+      );
+    const xScale = d3
+      //use for to scale from start to final
+      .scalePoint()
+      .range([0, widthReduce])
+      .domain(
+        stackedArea.map(function(d) { return d.category; })
+      )
+
+    const area = d3
+      .area()
+      .x(d => xScale(d.category))
+      .y0(d => yScale(d.values[0]))
+      .y1(d => yScale(d.values[1]));
+
+    const series = grp
+      .selectAll('.series')
+      .data(stackedData)
+      .enter()
+      .append('g')
+      .attr('class', 'series');
+
+    var color = d3.scaleOrdinal()
+      .domain(properties)
+      .range(colorPie);
+
+    series
+      .append('path')
+      .attr('transform', `translate(${marginLeft},0)`)
+      .style('fill', (d, i) => {
+        return color(properties[i])
+      })
+      .attr('d', d => area(d));
+
+    // Add the X Axis
+    svgBase
+      .append('g')
+      .attr('transform', `translate(0,${height})`)
+      .call(
+        d3
+        .axisBottom(xScale)
+        .tickFormat(x =>`${getFirst10(x)}`)
+      )
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //Remove line on domain for X axis
+      .call(
+        g => g.selectAll('.tick line')
+        .attr('opacity', 0.2)
+      )
+      .selectAll('text')
+      //rotate text
+      .attr('transform', 'translate(-8,3)rotate(-45)')
+      //Set color each item on X axis
+      .attr('fill', '#909090')
+      .style('text-anchor', 'end');
+
+    // Add the Y Axis
+    svgBase
+      .append('g')
+      .attr('transform', `translate(0, 0)`)
+      .call(
+        d3.axisLeft(yScale)
+        //remove short line for Y axis
+        .tickSize(0)
+        //format data for each number on Y axis
+        .tickFormat(x => `${fformat(x)}`)
+      )
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', widthReduce)
+      )
+      //endregion
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('transform', 'translate(0,-5)')  
+      .attr('fill', '#909090');
+
+    //on left
+    addText(svgBase, 'end', 16, /*angle*/-90, /*X*/ -height/2 + sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', axisMiddle);
+
+    //on bottom
+    addText(svgBase, 'end', 16, /*angle*/0, /*X*/(widthReduce / 2) + sizeByLetter(axisY.length), /*Y*/height + marginBottom, '#808080', axisY, getAxisY(), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+
+    //on menu
+    addText(svgBase, 'start', 14, 0, widthReduce, 0, '#808080', axisX, getAxisX(), function () {
+      modalCategories(TypeManage.DATA, this.id);
+    });
+    
+    var factorBack = margin.top;
+    var index = 0;
+    getCategoriesStack().forEach(item => {
+      if (!indexIgnore.includes(index)) {
+          
+        addText(svgBase, 'start', 12, 0, widthReduce + margin.right - 2, factorBack, '#808080', `id_${index}`, item, function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+
+        addCircle(svgBase, widthReduce + margin.right - 12, factorBack - 4, 5, colorPie[indexCircle(index)], `idcircle_${index}`, function () {
+          return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+        },
+        function () {
+          var id = this.id;
+          adminStacked(id);
+        });
+        factorBack += 20;
+      }
+      index++;
+    });
+  }
+
+  function setBubble() {
+    var marginLeft = margin.left + 50;
+    var marginBottom = margin.bottom + 15;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+      
+    var _aCatHeatX = [];
+    var _aCatHeatY = [];
+
+    var stackedData = getStackedData();
+    stackedData.map(function(item) {
+      var vGroup = item.name;
+      if (_aCatHeatX.indexOf(vGroup) === -1) {
+      _aCatHeatX.push(vGroup);
+      }
+
+      var innerKeys = Object.keys(item);
+      innerKeys.map(function(key) {
+        if (key != 'name' && _aCatHeatY.indexOf(key) === -1) {
+            _aCatHeatY.push(key);
+        }
+      });
+    });
+
+    // Add X axis
+    var x = d3.scaleBand()
+      .domain(_aCatHeatX)
+      .range([ 0, width ]);
+    var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 0, -45);
+    
+    var y = d3.scaleBand()
+      .range([ height, 0 ])
+      .domain(_aCatHeatY)
+
+    var axis = axisMulti(svg, true, y, 0, 0, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 0, 0);
+        
+    var bandX = x.bandwidth();
+    var bandY = y.bandwidth();
+
+    var minRadio = Math.min(bandX, bandY) / 2;
+
+    isCurrency = !isCurrency;
+    // Add dots
+    svg.append('g')
+      .selectAll('dot')
+      .data(getData())
+      .enter()
+      .append('circle')
+      .attr('id', function(item, i){ return `${item.name}_${item.group}`;})
+      .attr('cx', function (d) { return x(d.group) + (x.bandwidth() / 2); } )
+      .attr('cy', function (d) { return y(d.name) + (y.bandwidth() / 2); } )
+      .attr('r', function (d) { return d.value * minRadio / maxValue2; })
+      .style('fill', colorBi[0])
+      .style('opacity', '0.65')
+      .on('click', function(_) {
+        var idParent = this.id;
+        var categories = idParent.split('_');
+        var request = isCurrency ? `${categories[1]}_${categories[0]}` : `${categories[0]}_${categories[1]}`;
+        drillDown(request);
+      });
+      isCurrency = !isCurrency;
+      
+    //on left
+    addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', `${axisX}`, null);
+
+    //on bottom
+    addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + marginBottom - 0, '#808080', '', axisY, null);
+  }
+
+  function setHeatMap() {
+    var marginLeft = margin.left + 50;
+    var marginBottom = margin.bottom + 5;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+      
+    var _aCatHeatX = [];
+    var _aCatHeatY = [];
+    
+    var stackedData = getStackedData();
+    stackedData.map(function(item) {
+      var vGroup = item.name;
+      if (_aCatHeatY.indexOf(vGroup) === -1) {
+        _aCatHeatY.push(vGroup);
+      }
+
+      var innerKeys = Object.keys(item);
+      innerKeys.map(function(key) {
+        if (key != 'name' && _aCatHeatX.indexOf(key) === -1) {
+          _aCatHeatX.push(key);
+        }
+      });
+    });
+
+    var x = d3.scaleBand()
+      .range([0, width])
+      .domain(_aCatHeatY)
+      .padding(0.01);
+
+    var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 0, -45);
+
+    var y = d3.scaleBand()
+      .range([height, 0])
+      .domain(_aCatHeatX)
+      .padding(0.01);
+
+    var axis = axisMulti(svg, true, y, 0, 0, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 0, 0);
+    
+    var myColor = d3.scaleLinear()
+      .range([backgroundColor, colorBi[0]])
+      .domain([0, maxValue]);
+    svg
+      .selectAll()
+      .data(getData(), function(d) {return `${d.name}:${d.group}`; })
+      .enter()
+      .append('rect')
+      .attr('id', function(item, i){ return `${item.name}_${item.group}`;})
+      .attr('x', function(d) { return x(d.name) })
+      .attr('y', function(d) { return y(d.group) })
+      .attr('width', x.bandwidth() )
+      .attr('height', y.bandwidth() )
+      .style('fill', function(d) { return myColor(d.value)} )
+      .on('click', function(d) {
+        var idParent = this.id;
+        var categories = idParent.split('_');
+        var request = isCurrency ? `${categories[0]}_${categories[1]}` : `${categories[1]}_${categories[0]}`;
+        drillDown(request);
+      });
+
+    //on left
+    addText(svg, 'start', 16, /*angle*/-90, /*X*/-height / 2 - sizeByLetter(axisMiddle.length), /*Y*/-marginLeft + 15, '#808080', '', `${axisX}`, null);
+
+    //on bottom
+    addText(svg, 'end', 16, /*angle*/0, /*X*/(width / 2) + sizeByLetter(axisY.length) / 2, /*Y*/height + marginBottom - 0, '#808080', '', axisY, null);
+  }
+
+  function setMultiBar() {
+    var is3 = is3Columns();
+    var marginLeft = margin.left + 15;
+    var marginBottom = margin.bottom + 10;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom + 10)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+      
+    var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
+    var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
+    
+    var spaceCategory;
+    if (hasCategories) {
+      spaceCategory = 100;
+    } else {
+      spaceCategory = 0;
+    }
+    var withReduce = width - spaceCategory;
+    var keys1 = Object.keys(dataTmp[0]);
+    const subgroups = keys1.slice(1);
+
+    // List of groups = species here = value of the first column called group -> I show them on the X axis
+    const groups = dataTmp.map(d => d.name);
+    
+    var domain1, domain2;
+    var isNegative = getNegativeValue();
+    if (isNegative) {
+      var max = getMaxValue();
+      var min = getMinValue();
+    
+      domain1 = min * 1.01;
+      domain2 = max * 1.01;
+    } else {
+      domain1 = 0;
+      domain2 = getMaxValue();
+    }
+
+    // Add X axis
+    const x = d3.scaleBand()
+      .domain(groups)
+      .range([height, 0])
+      .padding([0.2]);
+    var axis = axisMulti(svg, true, x, 0, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -5, -10, -45);
+
+      // Add Y axis
+    const y = d3.scaleLinear()
+      .domain([domain1, domain2])
+      .range([0, withReduce]);
+    var refererZero = y(0);
+
+    axis = axisMulti(svg, false, y, height, 0, formatAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('y2', -height))
+      completeAxisMultiple(axis, 0, 0, -45);
+
+    // Another scale for subgroup position?
+    const xSubgroup = d3.scaleBand()
+      .domain(subgroups)
+      .range([x.bandwidth(), 0])
+      .padding([0.05]);
+
+      // color palette = one color per subgroup
+    const color = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+
+      // Show the bars
+    svg.append('g')
+      .selectAll('g')
+      // Enter in data = loop group per group
+      .data(dataTmp)
+      .join('g')
+        .attr('transform', d => `translate(0, ${x(d.name)})`)
+        .attr('id', function(_,i){ return 'item_' + i;})
+      .selectAll('rect')
+      .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+      .join('rect')
+        .attr('x', function (d) {
+          var withValue = y(d.value);
+          if (isNegative) {
+            if (refererZero < withValue) {
+              withValue = refererZero;
+            } else {
+              withValue = y(d.value);
+            }
+          } else {
+            withValue = 0;
+          }
+          return withValue;
+        })
+        .attr('y', d => xSubgroup(d.key))
+        .attr('width', function (d) {
+          var withValue = y(d.value);
+          if (isNegative) {
+            if (refererZero < withValue) {
+              withValue = withValue - refererZero;
+            } else {
+              withValue = refererZero - y(d.value);
+            }
+          }
+          return withValue;
+        })
+        .attr('height', xSubgroup.bandwidth())
+        .attr('fill', d => color(d.key))
+        .attr('id', function (_,i) { return 'child_' + i; })
+        .on('click', function () {
+          var idParent = this.parentNode.id;
+          if (is3) {
+            var idChild = this.id;
+
+            var aParent = idParent.split('_');
+            var aChild = idChild.split('_');
+
+            var indexParent = aParent[1];
+            var indexChild = aChild[1];
+
+            var prefix = groups[indexParent];
+            var suffix = subgroups[indexChild];
+
+            var value = `${prefix}_${suffix}`;
+            drillDown(value);
+          } else {
+            var aData = idParent.split('_');
+            if (aData.length > 0)
+            {
+              var index = aData[1];
+              var mValue = aDrillData[indexData][index];
+              var value = `${mValue}_${index}`;
+              drillDown(value);
+            }
+          }
+        });
+        
+    var xTitle = is3 ? axisMiddle + '▼' : getAxisY();
+    var xTitleId = is3 ? axisX : axisY;
+    var yTitle = is3 ? getAxisY() : getAxisX();
+    var yTitleId = is3 ? axisY : axisX;
+    var menuTitle = is3 ? getAxisX() : 'Category';
+    var menuTitleId = is3 ? axisX : '';
+        
+    //Add X axis label:
+    addText(svg, 'end', 16, 0, (withReduce / 2) + sizeByLetter(xTitle.length), height + marginBottom - 5, '#808080', xTitleId, xTitle, function () {
+      var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
+      modalCategories(type, this.id);
+    });
+
+    //Y axis label:
+    addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
+      var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+      modalCategories(type, this.id);
+    });
+    
+    var factorBack = margin.top;
+      if (hasCategories)
+    {
+      addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+        if (is3) {
+          modalCategories(TypeManage.DATA, this.id);
+        }
+      });
+
+      var index = 0;
+      aCategoryTmp.forEach(item => {
+        if (!indexIgnore.includes(index))
+        {
+          addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+          function () {
+            return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+          },
+          function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          factorBack += 20;
+        }
+        index++;
+      });
+    }
+  }
+
+  function setMultiColumn() {
+    var is3 = is3Columns();
+    var factor = is3 ? 10 : 0;
+    var marginLeft = margin.left + 15;
+    var marginBottom = margin.bottom + factor;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + marginBottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+
+    var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
+    var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
+
+    var spaceCategory;
+    if (hasCategories) {
+      spaceCategory = 105;
+    } else {
+      spaceCategory = 0;
+    }
+    var withReduce = width - spaceCategory;
+    var keys1 = Object.keys(dataTmp[0]);
+    const subgroups = keys1.slice(1);
+
+    // List of groups = species here = value of the first column called group -> I show them on the X axis
+    const groups = dataTmp.map(d => d.name);
+
+    var domain1, domain2;
+    var isNegative = getNegativeValue();
+    if (isNegative) {
+      var max = getMaxValue();
+      var min = getMinValue();
+    
+      domain1 = min * 1.01;
+      domain2 = max * 1.01;
+    } else {
+      domain1 = 0;
+      domain2 = getMaxValue();
+    }
+
+    //#region DEFINE Axis Y
+    const x = d3.scaleBand()
+      .domain(groups)
+      .range([0, withReduce])
+      .padding([0.2]);
+    var axis = axisMulti(svg, false, x, height, 5, splitAxis);
+    axis = axis
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+      completeAxisMultiple(axis, -5, 3, -45);
+      //#endregion
+    
+    //#region DEFINE Axis Y
+    /* This scale produces negative output for negatve input */
+    var yScale = d3.scaleLinear()
+      .domain([domain1, domain2])
+      .range([height, 0]);
+    var refererZero = yScale(0);
+    
+    axis = axisMulti(svg, true, yScale, 0, 0, formatAxis);
+    axis = axis
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', withReduce))
+        .call(g => g.select('.domain').remove())
+    completeAxisMultiple(axis, 0, 0, 0);
+    //#endregion
+
+    // Another scale for subgroup position?
+    const xSubgroup = d3.scaleBand()
+      .domain(subgroups)
+      .range([0, x.bandwidth()])
+      .padding([0.05]);
+
+    // color palette = one color per subgroup
+    const color = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+
+    // Show the bars
+    svg.append('g')
+      .selectAll('g')
+      // Enter in data = loop group per group
+      .data(dataTmp)
+      .join('g')
+        .attr('transform', d => `translate(${x(d.name)}, 0)`)
+        .attr('id', function(_,i){ return 'item_' + i;})
+      .selectAll('rect')
+      .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+      .join('rect')
+        .attr('x', d => xSubgroup(d.key))
+        .attr('y', function(d) {
+          if (isNegative && yScale(d.value) > refererZero) {
+            factor = refererZero;
+          } else {
+            factor = yScale( d.value)
+          }
+          return factor;
+        })
+        .attr('width', xSubgroup.bandwidth())
+        .attr('height', d => Math.abs( yScale(d.value) - yScale(0)) )
+        .attr('fill', d => color(d.key))
+        .attr('id', function (_,i) { return 'child_' + i; })
+        .on('click', function () {
+          var idParent = this.parentNode.id;
+          if (is3) {
+            var idChild = this.id;
+
+            var aParent = idParent.split('_');
+            var aChild = idChild.split('_');
+
+            var indexParent = aParent[1];
+            var indexChild = aChild[1];
+
+            var prefix = groups[indexParent];
+            var suffix = subgroups[indexChild];
+
+            var value = `${prefix}_${suffix}`;
+            drillDown(value);
+          } else {
+            var aData = idParent.split('_');
+            if (aData.length > 0)
+            {
+              var index = aData[1];
+              var mValue = aDrillData[indexData][index];
+              var value = `${mValue}_${index}`;
+              drillDown(value);
+            }
+          }
+        });
+
+    var xTitle = is3 ? getAxisY() : getAxisX();
+    var xTitleId = is3 ? axisY : axisY;
+    var yTitle = is3 ? axisMiddle + '▼' : getAxisY();
+    var yTitleId = is3 ? axisX : axisX;
+    var menuTitle = is3 ? getAxisX(true) : 'Category';
+    var menuTitleId = is3 ? axisX : 'Category';
+        
+    //Add X axis label:
+    addText(svg, 'end', 16, 0, withReduce / 2 + sizeByLetter(xTitle.length), height + marginBottom, '#808080', xTitleId, xTitle, function () {
+      var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+      modalCategories(type, this.id);
+    });
+
+    //Y axis label:
+    addText(svg, 'end', 16, -90, -height / 2, -marginLeft + 15, '#808080', yTitleId, yTitle, function () {
+      var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
+      modalCategories(type, this.id);
+    });
+    
+    var factorBack = margin.top;
+    if (hasCategories)
+    {
+      addText(svg, 'start', 16, 0, withReduce + margin.right - 15, 0, '#808080', menuTitleId, menuTitle, function () {
+        if (is3) {
+          modalCategories(TypeManage.DATA, this.id);
+        }
+      });
+
+      var index = 0;
+      aCategoryTmp.forEach(item => {
+        if (!indexIgnore.includes(index))
+        {
+          addText(svg, 'start', 12, 0, withReduce + margin.right, factorBack, '#808080', `id_${index}`, item, function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          addCircle(svg, withReduce + margin.right - 10, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+          function () {
+            return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+          },
+          function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          factorBack += 20;
+        }
+        index++;
+      });
+    }
+  }
+
+  function setMultiLine() {
+    var is3 = is3Columns();
+    var marginLeft = margin.left + 10;
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + marginLeft + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${marginLeft}, ${margin.top})`);
+
+    var aCategoryTmp = is3 ? getCategoriesStack(): getMultiCategory();
+    var hasCategories = (aCategoryTmp.length - indexIgnore.length >= 3);
+
+    var spaceCategory;
+    if (hasCategories) {
+      spaceCategory = 105;
+    } else {
+      spaceCategory = 0;
+    }
+    var withReduce = width - spaceCategory;
+    var keys1 = Object.keys(dataTmp[0]);
+    const subgroups = keys1.slice(1);
+    
+    var domain1, domain2;
+    var isNegative = getNegativeValue();
+    if (isNegative) {
+      var max = getMaxValue();
+      var min = getMinValue();
+
+      domain1 = min * 1.01;
+      domain2 = max * 1.01;
+    } else {
+      domain1 = 0;
+      domain2 = getMaxValue();
+    }
+    
+    // Reformat the data: we need an array of arrays of {x, y} tuples
+    var dataReady = subgroups.map( function(grpName) { // .map allows to do something for each element of the list
+      return {
+        name: grpName,
+        values: dataTmp.map(function(d) {
+          return {subname: d.name, value: +d[grpName]};
+        })
+      };
+    });
+
+    var myColor = d3.scaleOrdinal()
+      .domain(subgroups)
+      .range(colorPie);
+
+    var categories = dataTmp.map(function(d) { return d.name; });
+    // Add X axis --> it is a date format
+    var x = d3.scaleBand()
+      .domain(categories)
+      .range([0, withReduce])
+      .padding(1);
+
+    var axis = axisMulti(svg, false, x, height, 10, splitAxis);
+    axis = axis
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(
+      g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    completeAxisMultiple(axis, -10, 5, -45);
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+      .domain([domain1, domain2])
+      .range([height, 0]);
+    var axis = axisMulti(svg, true, y, 0, 0, formatAxis);
+    axis = axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', withReduce)
+      )
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+    completeAxisMultiple(axis, 0, 0, 0);
+
+      // Add the lines
+    var line = d3.line()
+      .x(function(d) { return x(d.subname) })
+      .y(function(d) { return y(d.value) });
+    svg.selectAll("myLines")
+      .data(dataReady)
+      .enter()
+      .append("path")
+        .attr("d", function(d){ return line(d.values) } )
+        .attr("stroke", function(d){ return myColor(d.name) })
+        .style("stroke-width", 1)
+        .style("fill", "none");
+        
+    // Add the points
+    svg
+      // First we need to enter in a group
+      .selectAll()
+      .data(dataReady)
+      .enter()
+        .append('g')
+        .style("fill", function(d){ return myColor(d.name) })
+        .attr('id', function(d, i){ return 'child_' + i;})
+      // Second we need to enter in the 'values' part of this group
+      .selectAll()
+      .data(function(d){ return d.values })
+      .enter()
+      .append("circle")
+        .attr('id', function(_, i){ return 'item_' + i;})
+        .attr("cx", function(d) { return x(d.subname) } )
+        .attr("cy", function(d) { return y(d.value) } )
+        .attr("r", 5)
+        .attr("stroke", "white")
+        .on('click', function () {
+          if (is3) {
+            var idParent = this.id;
+            var idChild = this.parentNode.id;
+    
+            var aParent = idParent.split('_');
+            var aChild = idChild.split('_');
+
+            var indexParent = aParent[1];
+            var indexChild = aChild[1];
+
+            var prefix = categories[indexParent];
+            var suffix = subgroups[indexChild];
+
+            var value = `${prefix}_${suffix}`;
+            drillDown(value);
+          } else {
+            var idParent = this.id;
+            var aData = idParent.split('_');
+            if (aData.length > 0)
+            {
+              var index = aData[1];
+              var mValue = aDrillData[indexData][index];
+              var value = `${mValue}_${index}`;
+              drillDown(value);
+            }
+          }
+        });
+        
+    var is2 = is2Columns();
+    var titleX = is2 ? getAxisY() : (is3 ? getAxisY() : getAxisX() );
+    var titleXId = is2 ? axisY : (is3 ? axisY : axisX);
+    var titleY = is2 ? getAxisX() : is3 ? axisMiddle + '▼' : getAxisY();
+    var titleYId = is2 ? axisX : (is3 ? axisX : axisY);
+    var menuTitle = is2 ? '' : (is3 ? getAxisX() : 'Category');
+    var menuTitleId = is2 ? '' : (is3 ? axisX : '');
+      
+    //Add X axis label:
+    addText(svg, 'end', 16, 0, ((withReduce + margin.right + 10) / 2) + margin.top, height + margin.bottom, '#808080', titleXId, titleX, function () {
+      var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+      modalCategories(type, this.id);
+    });
+
+    //Y axis label:
+    addText(svg, 'end', 16, -90, margin.top + (-height / 2), -marginLeft + 12, '#808080', titleYId, titleY, function () {
+      var type = is3 ? TypeManage.CATEGORIES : TypeManage.SELECTABLE;
+      modalCategories(type, this.id);
+    });
+    
+    var factorBack = margin.top;
+    if (hasCategories)
+    {
+      addText(svg, 'start', 16, 0, withReduce + margin.right - 10, 0, '#808080', menuTitleId, menuTitle, function () {
+        var type = is3 ? TypeManage.DATA : TypeManage.PLAIN;
+        modalCategories(type, this.id);
+      });
+      var index = 0;
+      aCategoryTmp.forEach(item => {
+        if (!indexIgnore.includes(index))
+        {
+          addText(svg, 'start', 12, 0, withReduce + margin.right + 10, factorBack, '#808080', `id_${index}`, item, function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          addCircle(svg, withReduce + margin.right - 5, factorBack - 5, 5, colorPie[indexCircle(index)], `idcircle_${index}`,
+          function () {
+            return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+          },
+          function () {
+            var id = this.id;
+            adminMulti(id, subgroups);
+          });
+          factorBack += 20;
+        }
+        index++;
+      });
+    }
+  }
+
+  function setBar() {
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    var x = d3.scaleBand()
+      .range([height, 0])
+      .padding(0.1);
+    var y = d3.scaleLinear()
+      .range([0, width]);
+
+    x.domain(data.map(function(d) { return d.name; }));
+    y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
+
+    svg.selectAll()
+      .data(data)
+      .enter().append('rect')
+      .style('fill', function(d) {
+        return scaleColorBi(d.value);
+      })
+      .attr('x', function(d) { return x(d.value); })
+      .attr('width', function(d) { return y(d.value); })
+      .attr('y', function(d) { return x(d.name); })
+      .attr('height', x.bandwidth())
+      .on('click', function(_, d) {
+        var index = data.indexOf(d);
+        var value = drillX[index];
+        drillDown(value);
+      });
+
+    svg.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(
+        d3.axisBottom(y)
+        .tickSize(0)
+        //format data for each number on Y axis
+        .tickFormat(x => `${fformat(x)}`))
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('y2', -height))
+      //Remove line on domain for X axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('transform', 'translate(10,10)rotate(-45)')
+      .attr('fill', '#909090');
+
+    svg.append('g')
+      .call(
+        d3.axisLeft(x)
+        .tickFormat(x =>`${getFirst10(x)}`))
+      //region set opacity for each tick item
+      .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+      //endregion
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('transform', 'translate(-10,-25)rotate(-45)')
+      .attr('fill', '#909090');
+    
+      //Add X axis label:
+      addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 20, '#808080', '', axisY);
+    
+      //Y axis label:
+      addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 15, '#808080', '', axisX);
+    }
+
+  function setColumn() {
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+    var x = d3.scaleBand()
+      .range([0, width])
+      .padding(0.1);
+    var y = d3.scaleLinear()
+      .range([height, 0]);
+
+    x.domain(data.map(function(d) { return d.name; }));
+    y.domain([getMinDomain(), d3.max(data, function(d) { return d.value; })]);
+
+    svg.selectAll()
+      .data(data)
+      .enter().append('rect')
+      .style('fill', function(d) {
+        return scaleColorBi(d.value);
+      })
+      .attr('x', function(d) { return x(d.name); })
+      .attr('width', x.bandwidth())
+      .attr('y', function(d) { return y(d.value); })
+      .attr('height', function(d) { return height - y(d.value); })
+      .on('click', function(_, d) {
+        var index = data.indexOf(d);
+        var value = drillX[index];
+        drillDown(value);
+      });
+
+  //the X DATA for axis bar
+  svg.append('g')
+    .attr('transform', `translate(0, ${height})`)
+    .call(
+      d3.axisBottom(x)
+      .tickFormat(x =>`${getFirst10(x)}`))
+    //Remove line on domain for X axis
+    .call(g => g.select('.domain').remove())
+    //region set opacity for each tick item
+    .call(g => g.selectAll('.tick line')
+      .attr('opacity', 0.2))
+    //endregion
+    .selectAll('text')
+    //rotate text
+    .attr('transform', 'translate(10,10)rotate(-45)')
+    //Set color each item on X axis
+    .attr('fill', '#909090')
+    .style('text-anchor', 'end');
+
+    //the Y DATA for axis bar
+    svg.append('g')
+      //Format numbers on axis
+      .call(
+        d3.axisLeft(y)
+        //remove short line for Y axis
+        .tickSize(0)
+        //format data for each number on Y axis
+        .tickFormat(x => `${fformat(x)}`))
+      //region set lines by each value for y axis
+      .call(
+        g => g.selectAll('.tick line')
+        .clone()
+        .attr('stroke-opacity', 0.1)
+        .attr('x2', width))
+      //endregion
+      //Remove line on domain for Y axis
+      .call(g => g.select('.domain').remove())
+      .selectAll('text')
+      .attr('transform', 'translate(0,-8)rotate(-45)')  
+      .attr('fill', '#909090');
+
+    //Add X axis label:
+    addText(svg, 'end', 14, 0, (width / 2) + margin.top, height + margin.top + margin.bottom - 25, '#808080', '', axisX);
+      
+    //Y axis label:
+    addText(svg, 'end', 14, -90, margin.top - (height / 2), -margin.left + 15, '#808080', '', axisY);
+  }
+
+  function setLine() {
+    var svg = d3.select('body').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+      // Initialise a X axis:
+      var xScaleBand = d3.scaleBand().range([0, width]).padding(1);
+
+      // Initialize an Y axis
+      var yScale = d3.scaleLinear().range([height, 0]);
+
+      // create the X axis
+      xScaleBand.domain(data.map(function(d) { return d.name; }));
+      // create the Y axis
+      yScale.domain([getMinDomain(), d3.max(data, function(d) { return d.value }) ]);
+
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(
+          d3.axisBottom(xScaleBand)
+          .tickFormat(x =>`${getFirst10(x)}`))
+        //Remove line on domain for X axis
+        .call(g => g.select('.domain').remove())
+        //region set opacity for each tick item
+        .call(g => g.selectAll('.tick line')
+        .attr('opacity', 0.2))
+        .selectAll('text')
+        //rotate text
+        .attr('transform', 'translate(10,10)rotate(-45)')
+        //Set color each item on X axis
+        .attr('fill', '#909090')
+        .style('text-anchor', 'end');
+
+      svg.append("g")
+        .call(
+          d3.axisLeft(yScale)
+          .tickSize(0)
+          .tickFormat(x => `${fformat(x)}`))
+        //region set lines by each value for y axis
+        .call(
+          g => g.selectAll('.tick line')
+          .clone()
+          .attr('stroke-opacity', 0.1)
+          .attr('x2', width)
+        )
+        //Remove line on domain for Y axis
+        .call(g => g.select('.domain').remove())
+        .selectAll('text')
+        .attr('transform', 'translate(10,10)rotate(-45)')
+        .attr('fill', '#909090');
+
+      // Updata the line
+      svg.selectAll()
+        .data([data], function(d){ return d.value })
+        .enter()
+        .append("path")
+        .attr("d", d3.line()
+          .x(function(d) { return xScaleBand(d.name); })
+          .y(function(d) { return yScale(d.value); })
+          //.curve(d3.curveMonotoneX)
+        )
+        .attr("stroke", colorBi)
+        .attr("stroke-width", 1.5)
+        .attr("fill", "none");
+
+      svg.selectAll()
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d) { return xScaleBand(d.name) })
+        .attr("cy", function(d) { return yScale(d.value) })
+        .attr("r", 5)
+        .attr("fill", colorBi)
+        .on('click', function(_, d) {
+          var index = data.indexOf(d);
+          var value = drillX[index];
+          drillDown(value);
+        });
+        
+      //Add X axis label:
+      addText(svg, 'end', 16, 0, (width / 2) + margin.top, height + margin.bottom - 5, '#808080', '', axisX);
+      //Y axis label:
+      addText(svg, 'end', 16, -90, margin.top + (-height / 2), -margin.left + 20, '#808080', '', axisY);
+    }
+    
+  function setDonut() {
+    var arc = d3.arc()
+      .outerRadius(radius)
+      .innerRadius(radius * 0.5);
+
+    var pie = d3.pie()
+      .sort(null)
+      .value(function(d) {
+        return d.value;
+      });
+      
+    var maxWidth = width + margin.left + margin.right;
+    var maxHeight = height + margin.top + margin.bottom;
+
+    var svg = d3.select('body').append('svg')
+      .attr('width', maxWidth)
+      .attr('height', maxHeight)
+      .append('g')
+      .attr('transform', 'translate(' + maxWidth * 0.65 + ',' + maxHeight * 0.65 + ')');
+
+    var g = svg.selectAll('.arc')
+      .data(pie(dataTmp))
+      .enter().append('g');
+
+    g.append('path')
+      .attr('d', arc)
+      .style('fill', function(_, i) {
+        return colorPie[i];
+      })
+      .on('click', function(_, i) {
+        var index = i.index;
+        var value = drillX[index];
+        drillDown(value);
+      });
+      
+    var factorBack = -(maxHeight / 2) - 30;
+      
+    for (const index in dataFormatted) {
+      var item = dataFormatted[index];
+      addText(svg, 'start', 12, 0, -(maxWidth / 2) - 20, factorBack, '#808080', `id_${index}`, item.name + ': ' + item.value, function () {
+        var id = this.id;
+        adminOpacity(id);
+      });
+      
+      addCircle(svg, -(maxWidth / 2) - 30, factorBack - 5, 5, colorPie[index], `idcircle_${index}`,
+        function () {
+          return `opacity: ${opacityMarked.includes(index) ? '0.5' : '1'}`;
+        },
+        function () {
+          var id = this.id;
+          adminOpacity(id);
+      });
+      factorBack += 20;
+    }
+  }
+
+
+  $('#idTableBasic tfoot th').each(function () {
+      var indexInput = $(this).index();
+      var title = $(this).text();
+      var idInput = title.replace(/\s/g, '_').replace('(', '_').replace(')', '_').replace('&', '_').replace('/', '_') + '_Basic';
+    $(this).html(
+          '<input id=' + idInput +
+          ' type="text" placeholder="filter column..."/>');
+
+      $("#" + idInput).on('input', function () {
+          var filter = $(this).val().toUpperCase();
+          var filterNoComma = filter.replace(',', '');
+          var table = document.getElementById("idTableBasic");
+          var tr = table.getElementsByTagName("tr");
+
+          for (index = 0; index < tr.length; index++) {
+              td = tr[index].getElementsByTagName("td")[indexInput];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueNoComma = txtValue.replace(',', '');
+
+                var txtValueUpper = txtValue.toUpperCase();
+                var txtValueNoCommaUpper = txtValueNoComma.toUpperCase();
+                var hasFilter1 = txtValueUpper.indexOf(filter) > -1;
+                var hasFilterNoComma1 = txtValueUpper.indexOf(filterNoComma) > -1;
+                var hasFilter2 = txtValueNoCommaUpper.indexOf(filter) > -1;
+                var hasFilterNoComma2 = txtValueNoCommaUpper.indexOf(filterNoComma) > -1;
+
+                if (hasFilter1 || hasFilterNoComma1 || hasFilter2 || hasFilterNoComma2) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+              }
+          }
+      });
+  });
+
+  $('#idTableDataPivot tfoot th').each(function () {
+      var indexInput = $(this).index();
+      var title = $(this).text();
+      var idInput = title.replace(/\s/g, '_').replace('(', '_').replace(')', '_').replace('&', '_').replace('/', '_') + '_DataPivot';
+    $(this).html(
+          '<input id=' + idInput +
+          ' type="text" placeholder="Search on ' + title + '"/>');
+
+      $("#" + idInput).on('input', function () {
+          var filter = $(this).val().toUpperCase();
+          var filterNoComma = filter.replace(',', '');
+          var table = document.getElementById("idTableDataPivot");
+          var tr = table.getElementsByTagName("tr");
+
+          for (index = 0; index < tr.length; index++) {
+              td = tr[index].getElementsByTagName("td")[indexInput];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValueNoComma = txtValue.replace(',', '');
+
+                var txtValueUpper = txtValue.toUpperCase();
+                var txtValueNoCommaUpper = txtValueNoComma.toUpperCase();
+                var hasFilter1 = txtValueUpper.indexOf(filter) > -1;
+                var hasFilterNoComma1 = txtValueUpper.indexOf(filterNoComma) > -1;
+                var hasFilter2 = txtValueNoCommaUpper.indexOf(filter) > -1;
+                var hasFilterNoComma2 = txtValueNoCommaUpper.indexOf(filterNoComma) > -1;
+
+                if (hasFilter1 || hasFilterNoComma1 || hasFilter2 || hasFilterNoComma2) {
+                    tr[index].style.display = "";
+                } else {
+                    tr[index].style.display = "none";
+                }
+              }
+          }
+      });
+  });
+
+  function showFilter() {
+    var display = $('tfoot').is(':visible') ? 'none' : 'table-header-group';
+    $('tfoot').css({'display': display});
+  }
+
+  function adminMulti(id, subgroups) {
+    var words = id.split('_');
+    var index = parseInt(words[1]);
+    var subGroup = subgroups[index];
+    var exist = opacityMarked.includes(index);
+    if (exist) {
+      var tmp = -1;
+      for (let _index = 0; _index < opacityMarked.length; _index++) {
+        if (index == opacityMarked[_index])
+        {
+          tmp = _index;
+          break;
+        }
+      }
+      opacityMarked.splice(tmp, 1);
+    }
+    else opacityMarked.push(index);
+
+    var aTmp = getDataMulti();
+    for (position in dataTmp) {
+      var element = aTmp[position];
+      var itEdit = dataTmp[position];
+    
+      itEdit[subGroup] = exist ? element[subGroup] : 0;
+    }
+    isAgain = true;
+    updateData(typeChart, true);
+  }
+
+  function callAdminStacked(aIndex) {
+    indexIgnore = aIndex;
+    if (aIndex.length > 0) {
+      for (let index = 0; index < aIndex.length; index++) {
+        const element = aIndex[index];
+        controlStacked(element);
+      }
+    } else {
+      for (let index1 = 0; index1 < opacityMarked.length; index1++) {
+        const element = opacityMarked[index1];
+        controlStacked(element);
+      }
+    }
+    isAgain = true;
+    updateData(typeChart, true);
+  }
+
+  function adminStacked(id) {
+    var words = id.split('_');
+    controlStacked(words[1]);
+    isAgain = true;
+    updateData(typeChart, true);
+  }
+
+  function controlStacked(id) {
+    var index = parseInt(id);
+    var exist = opacityMarked.includes(index);
+    if (exist) {
+      var tmp = -1;
+      for (let _index = 0; _index < opacityMarked.length; _index++) {
+        if (index == opacityMarked[_index])
+        {
+          tmp = _index;
+          break;
+        }
+      }
+      opacityMarked.splice(tmp, 1);
+    }
+    else {
+      opacityMarked.push(index);
+    }
+    //#endregion
+    //#region set value original or zero
+    var sub = getCategoriesStack()[index];
+
+    switch (typeChart) {
+      case TypeEnum.BAR:
+      case TypeEnum.COLUMN:
+        var aTmp = getDataMulti();
+        for (position in dataTmp) {
+          var element = aTmp[position];
+          var itEdit = dataTmp[position];
+          itEdit[sub] = exist ? element[sub] : 0;
+        }
+        break;
+      case TypeEnum.STACKED_AREA:
+        var aStackedArea = getAreaData();
+        for (position in aStackedArea) {
+          var element = stackedAreaTmp[position];
+          var itEdit = aStackedArea[position];
+          var subKey = sub.replace(/\s/g, '_').replace('&', 'AMP').replace("'", 'QUOTE');
+          if ( !isNaN( subKey.charAt(0) ) )
+            subKey = '_' + subKey;
+          itEdit[subKey] = exist ? element[subKey] : 0;
+        }
+        break
+      default:
+        var aStacked = getStackedData();
+        for (var index1 = 0; index1 < aStacked.length; index1++) {
+          var element = aStackedTmp[index1];
+          var edit = aStacked[index1];
+          edit[sub] = exist ? element[sub] : 0;
+        }
+        break;
+    }
+    //#endregion
+    updateSelected(`${index}_${exist}`);
+  }
+
+  function adminOpacity(id) {
+    var words = id.split('_');
+    var index = words[1];
+
+    var exist = opacityMarked.includes(index);
+    if (exist)
+    {
+      var tmp = -1;
+      for (let _index = 0; _index < opacityMarked.length; _index++) {
+        if (index == opacityMarked[_index])
+        {
+          tmp = _index;
+          break;
+        }
+      }
+      var item = getDataOrMulti()[index];
+      dataTmp[index].value = item.value;
+      opacityMarked.splice(tmp, 1);
+    }
+    else 
+    {
+      dataTmp[index].value = 0;
+      opacityMarked.push(index);
+    }
+    isAgain = true;
+    updateData(typeChart, true);
+  }
+
+  function getMaxValue()
+  {
+    if (aMaxData.length !== 0)
+    {
+      var aTotalValues = [];
+      var key = `${indexData}_${isCurrency ? 1 : 2}`;
+      var aTmp = aMaxData.length !== 0 ? aMaxData[key] : [];
+      for (index = 0; index < aTmp.length; index++)
+      {
+        if (indexIgnore.includes(index)) continue;
+        var value = aTmp[index];
+        aTotalValues.push(value);
+      }
+      var maxMath = Math.max.apply(null, aTotalValues);
+      return maxMath !== 0 ? maxMath : 1;
+    }
+    else
+    {
+      return maxValue;
+    }
+  }
+
+  function getMinDomain() {
+    var minDomain = 0;
+    if (minValue2 === -1) {
+      var values = [];
+      for (let index = 0; index < data.length; index++) {
+        const item = data[index];
+        values.push(item.value);
+      }
+      var minimum = Math.min.apply(Math, values);
+      var residue = minimum % 10000;
+      minimum =  minimum - residue;
+      if (minimum > 0) {
+        minDomain = minimum;
+      }
+    }
+    return minDomain;
+  }
+
+  function getMinValue()
+  {
+    if (aMinData.length !== 0)
+    {
+      var aTotalValues = [];
+      var key = `${indexData}_${isCurrency ? 1 : 2}`;
+      var aTmp = aMinData.length !== 0 ? aMinData[key] : [];
+      for (index = 0; index < aTmp.length; index++)
+      {
+        if (indexIgnore.includes(index)) continue;
+        var value = aTmp[index];
+        aTotalValues.push(value);
+      }
+      var minMath = Math.min.apply(null, aTotalValues);
+      return minMath !== 0 ? minMath : 1;
+    }
+    else
+    {
+      return isCurrency ? minValue : minValue2;
+    }
+  }
+
+  function getData() {
+    return isCurrency ? data : data2;
+  }
+
+  function getDataOrMulti()
+  {
+    return data.length !== 0 && !is3Columns() ? data : getDataMulti();
+  }
+
+  function getDataMulti() {
+    if (aAllData.length !== 0)
+    {
+      var key;
+      if (is3Columns()) {
+        var key = `${isCurrency ? '1_1' : '2_2'}`;
+      } else {
+        var key = `${indexData}_${isCurrency ? 1 : 2}`;
+      }
+      return aAllData[key];
+    }
+    else return [];
+  }
+
+  function getNegativeValue() {
+    if (Object.keys(hasNegative).length === 0) {
+      return false;
+    } else {
+      return hasNegative[`${indexData}_${isCurrency ? 1 : 2}`];
+    }
+  }
+
+  function getStackedMax()
+  {
+    var sumTop = 0;
+    var aStacked = getStackedData();
+    var aCat = getCategoriesStack();
+
+    aStacked.forEach(iStacked => {
+      var sum = 0;
+      aCat.forEach(cat => {
+        var toSum = iStacked[cat];
+        if (toSum !== undefined) {
+          sum += toSum;
+        }
+      });
+      if (sumTop < sum) sumTop = sum;
+    });
+    return sumTop;
+  }
+
+  function setOtherStacked()
+  {
+    isCurrency = !isCurrency;
+    var tmp = axisX;
+    axisX = axisY;
+    axisY = tmp;
+    isAgain = true;
+    updateData(typeChart, true);
+  }
+
+  function getCategoriesStack()
+  {
+    return isCurrency ? aCatHeatY : aCatHeatX;
+  }
+
+  function getStackedData()
+  {
+    return isCurrency ? aStacked : aStacked2;
+  }
+
+  function getAreaData() {
+    return isCurrency ? stackedArea : stackedArea2;
+  }
+
+  function getMultiCategory()
+  {
+    return isCurrency ? aCategory : aCategory2;
+  }
+
+  function indexCircle(index)
+  {
+    return index % colorPie.length;
+  }
+
+  function sizeByLetter(letters) {
+    return (letters * 6.7 + 20) / 2;
+  }
+
+  function is2Columns() {
+    return nColumns === 2;
+  }
+  function is3Columns() {
+    return nColumns === 3;
+  }
+
+  $('td').click(function() {
+    var $this = $(this);
+    var row = $this.closest('tr').index();
+    var column = $this.closest('td').index();
+    var firstColumn = $this.closest('tr');
+    var finalText = firstColumn[0].firstChild.innerText;
+    var strDate = firstColumn[0].children[1].innerText;
+    var index = aCategoryX.indexOf(finalText);
+    if (is3Columns()) {
+      switch (typeChart) {
+        case TypeEnum.TABLE:
+          var secondCell = firstColumn[0].children[1].innerText;
+          finalText += `_${secondCell}`;
+          break;
+        case TypeEnum.PIVOT:
+          if (column == 0) return;
+          var secondCell = isCurrency ? aCatHeatY[column - 1] : aCatHeatX[column - 1];
+          finalText = isCurrency ? `${finalText}_${secondCell}` : `${secondCell}_${finalText}`;
+          break;
+        default:
+          break;
+      }
+    }
+    else
+      finalText = drillX[index];
+    drillDown(finalText);
+  });
+  var scaleColorBi = d3.scaleOrdinal().range(colorBi);
+
+  //region locale settings
+  var locale = d3.formatLocale({
+    "decimal": ",",//","
+    "thousands": ",",//" ",
+    "grouping": [3],
+    "currency": ["$", ""]//["€", ""] first if prefix, second is suffix
+  });
+  var fformat = locale.format("$,");
+  //endregion
+
+  $(window).resize(function() {
+    updateData(typeChart, true);
+  });
+  updateData(typeChart);
+  </script>
+  </body>
+  </html>
