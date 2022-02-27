@@ -185,7 +185,7 @@ function updateSize() {
         height = height * 1.5;
         break;
 			case TypeEnum.STACKED_AREA:
-        width = width * 2;
+        //width = width * 2;
 				break;
       default:
         break;
@@ -822,7 +822,7 @@ getDataOrMulti().forEach(item => {
 
 //The left margin makes the left border visible
 const marginAxis = 0;
-var typeChart = TypeEnum.STACKED_COLUMN;
+var typeChart = TypeEnum.STACKED_AREA;
 var digits = digitsCount(getMaxValue());
 var _plusSingle = digits == 1 ? 10 : 0;
 var _maxValue = (digits * 10) + _plusSingle;
@@ -2462,7 +2462,9 @@ function controlStacked(id) {
       for (position in aStackedArea) {
         var element = stackedAreaTmp[position];
         var itEdit = aStackedArea[position];
-        var subKey = sub.replace(' ', '_').replace('&', 'AMP');
+        var subKey = sub.replace(/\s/g, '_').replace('&', 'AMP').replace("'", 'QUOTE');
+        if ( !isNaN( subKey.charAt(0) ) )
+          subKey = '_' + subKey;
         itEdit[subKey] = exist ? element[subKey] : 0;
       }
       break
