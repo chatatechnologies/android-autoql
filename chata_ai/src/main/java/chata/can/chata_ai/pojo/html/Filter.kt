@@ -153,7 +153,8 @@ function controlStacked(id) {
       for (position in aStackedArea) {
         var element = stackedAreaTmp[position];
         var itEdit = aStackedArea[position];
-        itEdit[sub] = exist ? element[sub.replace(' ', '_')] : 0;
+        var subKey = sub.replace(' ', '_').replace('&', 'AMP');
+        itEdit[subKey] = exist ? element[subKey] : 0;
       }
       break
     default:
