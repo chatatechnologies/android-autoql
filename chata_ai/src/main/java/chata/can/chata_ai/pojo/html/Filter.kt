@@ -15,18 +15,28 @@ ${'$'}('#idTableBasic tfoot th').each(function () {
 
     ${'$'}("#" + idInput).on('input', function () {
         var filter = ${'$'}(this).val().toUpperCase();
+        var filterNoComma = filter.replace(',', '');
         var table = document.getElementById("idTableBasic");
         var tr = table.getElementsByTagName("tr");
 
         for (index = 0; index < tr.length; index++) {
             td = tr[index].getElementsByTagName("td")[indexInput];
             if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[index].style.display = "";
-                } else {
-                    tr[index].style.display = "none";
-                }
+              txtValue = td.textContent || td.innerText;
+              txtValueNoComma = txtValue.replace(',', '');
+
+              var txtValueUpper = txtValue.toUpperCase();
+              var txtValueNoCommaUpper = txtValueNoComma.toUpperCase();
+              var hasFilter1 = txtValueUpper.indexOf(filter) > -1;
+              var hasFilterNoComma1 = txtValueUpper.indexOf(filterNoComma) > -1;
+              var hasFilter2 = txtValueNoCommaUpper.indexOf(filter) > -1;
+              var hasFilterNoComma2 = txtValueNoCommaUpper.indexOf(filterNoComma) > -1;
+
+              if (hasFilter1 || hasFilterNoComma1 || hasFilter2 || hasFilterNoComma2) {
+                  tr[index].style.display = "";
+              } else {
+                  tr[index].style.display = "none";
+              }
             }
         }
     });
@@ -42,18 +52,28 @@ ${'$'}('#idTableDataPivot tfoot th').each(function () {
 
     ${'$'}("#" + idInput).on('input', function () {
         var filter = ${'$'}(this).val().toUpperCase();
+        var filterNoComma = filter.replace(',', '');
         var table = document.getElementById("idTableDataPivot");
         var tr = table.getElementsByTagName("tr");
 
         for (index = 0; index < tr.length; index++) {
             td = tr[index].getElementsByTagName("td")[indexInput];
             if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[index].style.display = "";
-                } else {
-                    tr[index].style.display = "none";
-                }
+              txtValue = td.textContent || td.innerText;
+              txtValueNoComma = txtValue.replace(',', '');
+
+              var txtValueUpper = txtValue.toUpperCase();
+              var txtValueNoCommaUpper = txtValueNoComma.toUpperCase();
+              var hasFilter1 = txtValueUpper.indexOf(filter) > -1;
+              var hasFilterNoComma1 = txtValueUpper.indexOf(filterNoComma) > -1;
+              var hasFilter2 = txtValueNoCommaUpper.indexOf(filter) > -1;
+              var hasFilterNoComma2 = txtValueNoCommaUpper.indexOf(filterNoComma) > -1;
+
+              if (hasFilter1 || hasFilterNoComma1 || hasFilter2 || hasFilterNoComma2) {
+                  tr[index].style.display = "";
+              } else {
+                  tr[index].style.display = "none";
+              }
             }
         }
     });

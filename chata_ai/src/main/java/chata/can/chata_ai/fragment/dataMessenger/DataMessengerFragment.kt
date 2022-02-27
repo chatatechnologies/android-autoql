@@ -99,7 +99,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		if (BuildConfig.DEBUG)
 		{
 //			val queryDemo = "Max 1000 province by total utilization"
-			val queryDemo = "total sales per customer per month"
+			//accounting demo
+			val queryDemo = "Average sales per month last year"
 			etQuery.setText(queryDemo)
 		}
 
