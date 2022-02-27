@@ -1,5 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
+import chata.can.chata_ai.extension.clearQuotes
+
 object StackedArea {
 	fun getStackedArea(
 		mData: LinkedHashMap<String, String>,
@@ -39,7 +41,6 @@ object StackedArea {
 	}
 
 	private fun String.clearAmpersand() = this.replace("&", "AMP")
-	private fun String.clearQuotes() = this.replace("\"", "")
 	private fun String.categoryToProperty(): String {
 		return this
 			.clearQuotes()

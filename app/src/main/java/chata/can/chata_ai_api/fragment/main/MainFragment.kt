@@ -110,11 +110,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		super.onRenderViews(view)
 		if (BuildConfig.DEBUG)
 		{
-			val projectId = "spira-demo3"
+			val projectId = "accounting-demo"
 			etProjectId?.setText(projectId)
-			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
+			val apiKey = "AIzaSyCWcKQfsJo3Lk6t2VHflBEY6CF51kEPdx8"
 			etApiKey?.setText(apiKey)
-			val domainUrl = "https://spira-staging.chata.io"
+			val domainUrl = "https://chata-staging.chata.io"
 			etDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
 			etUserId?.setText(userId)

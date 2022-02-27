@@ -15,7 +15,7 @@ object LineBuilder
 		for((indexY, category) in aCatY.withIndex())
 		{
 			var maxItem = 0.0
-			val group = "name: ${category.replace("\"", "\'")},"
+			val group = "name: $category,"
 			val aByGroup = ArrayList<String>()
 			for ((indexX, categoryX) in aCatX.withIndex())
 			{
@@ -23,7 +23,7 @@ object LineBuilder
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
 				maxItem += value
-				aByGroup.add("\'$categoryX\': ${"$value".clearDecimals()}")
+				aByGroup.add("$categoryX: ${"$value".clearDecimals()}")
 			}
 			if (max < maxItem) max = maxItem
 			val item = "$group ${aByGroup.joinToString(",", "", "")}"
@@ -36,7 +36,7 @@ object LineBuilder
 		for ((indexX, category) in aCatX.withIndex())
 		{
 			var maxItem = 0.0
-			val group = "name: '$category',"
+			val group = "name: $category,"
 			val aByGroup = ArrayList<String>()
 			for ((indexY, categoryY) in aCatY.withIndex())
 			{
@@ -44,7 +44,7 @@ object LineBuilder
 					it.toDoubleOrNull() ?: run { 0.0 }
 				} ?: run { 0.0 }
 				maxItem += value
-				aByGroup.add("\'$categoryY\': ${"$value".clearDecimals()}")
+				aByGroup.add("$categoryY: ${"$value".clearDecimals()}")
 			}
 			if (max1 < maxItem) max1 = maxItem
 			val item = "$group ${aByGroup.joinToString(",", "", "")}"
@@ -52,9 +52,9 @@ object LineBuilder
 		}
 		//endregion
 		val stacked1 = aChartLine.joinToString(",\n", "[", "]") { "{$it}" }
-			.replace("\"", "")
+			//.replace("\"", "")
 		val stacked2 = aChartLine1.joinToString(",\n", "[", "]") { "{$it}" }
-			.replace("\"", "")
+			//.replace("\"", "")
 		val pStacked1 = Pair(stacked1, max.toInt())
 		val pStacked2 = Pair(stacked2, max1.toInt())
 		return Pair(pStacked1, pStacked2)

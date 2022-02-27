@@ -63,14 +63,6 @@ object HtmlBuilder
 			SupportCase.CASE_2 ->
 			{
 				return DataCase2.getSource(queryBase, dataD3)
-//				/*aDate*/
-//				val aDate = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE), 1)
-//				/*aDollar*/
-//				val aDollar = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT), 1)
-//				posColumnX = aDate[0]
-//				posColumnY = aDollar[0]
-//				queryBase.addIndices(posColumnX, posColumnY)
-//				queryBase.configActions = 2
 			}
 			SupportCase.CASE_3 ->
 			{

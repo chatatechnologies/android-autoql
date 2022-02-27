@@ -194,3 +194,5 @@ fun String.getContrast(): Pair<Int, Int>
 		(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
 	return Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
 }
+
+fun String.clearQuotes() = this.replace("\"", "")

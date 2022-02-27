@@ -1,6 +1,7 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.clearDecimals
+import chata.can.chata_ai.extension.clearQuotes
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.toDoubleNotNull
 import chata.can.chata_ai.pojo.chat.ColumnQuery
@@ -173,7 +174,7 @@ object TableTriBuilder
 				val position = if (invested) "${posY}_$posX" else "${posX}_$posY"
 				val cell = mData[position] ?: run { "0.0" }
 				val value = cell.toDoubleNotNull()
-				val sRow = "{\'name\':\'${valueX}\',\'group\':\'${valueY}\',\'value\': ${value}}".replace("\"", "")
+				val sRow = "{\'name\':\"${valueX.clearQuotes()}\",\'group\':\"${valueY.clearQuotes()}\",\'value\': ${value}}"
 				aRow.add(sRow)
 			}
 		}
