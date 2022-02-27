@@ -379,6 +379,21 @@ function fillStackedArea() {
 
 function setIndexData(indexRoot, indexCommon) {
   if (is3Columns()) {
+	  //region restore backup data for origin
+    var aStacked = getStackedData();
+    aStacked = [];
+    aStackedTmp.forEach(item => {
+      var copied = Object.assign({}, item);
+      aStacked.push(copied);
+    });
+
+    var areaData = getAreaData();
+    areaData = [];
+    stackedAreaTmp.forEach(item => {
+      var copied = Object.assign({}, item);
+      areaData.push(copied);
+    });
+    //endregion
     isCurrency = !isCurrency;
 		fillCurrencyStackedData();
 		fillStackedArea();
