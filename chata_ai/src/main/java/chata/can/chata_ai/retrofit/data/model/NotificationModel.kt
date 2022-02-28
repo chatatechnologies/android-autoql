@@ -35,6 +35,7 @@ data class NotificationModel (
 
 	fun getDrawableLeftView(): GradientDrawable {
 		val color = if (state == "DISMISSED") Color.RED else SinglentonDrawer.currentAccent
+
 		return DrawableBuilder.setGradientDrawable(
 			color,
 			aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f)

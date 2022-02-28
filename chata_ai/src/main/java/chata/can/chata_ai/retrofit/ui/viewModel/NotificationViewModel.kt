@@ -1,8 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
 import android.graphics.drawable.GradientDrawable
-import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -61,17 +59,4 @@ class NotificationViewModel: ViewModel() {
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
 	}
-
-	companion object {
-		@JvmStatic
-		@BindingAdapter("android:layout_height")
-		fun setLayoutWidth(view: View, height: Float) {
-			val layoutParams = view.layoutParams
-			layoutParams.height = height.toInt()
-			println("height:height -> $height")
-			view.layoutParams = layoutParams
-		}
-	}
-
-	var height = 100
 }

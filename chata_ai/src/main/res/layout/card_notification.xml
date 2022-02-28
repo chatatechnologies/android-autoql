@@ -28,11 +28,10 @@
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			tools:ignore="UselessParent">
-<!--			android:background="@{model.getDrawableLeftView(position)}"-->
-			<TextView
+			<View
 				android:background="@{model.getNotificationAt(position).getDrawableLeftView}"
 				android:id="@+id/iView"
-				android:layout_height="@{model.height, default=wrap_content}"
+				android:layout_height="wrap_content"
 				android:layout_width="4dp"/>
 
 			<LinearLayout
