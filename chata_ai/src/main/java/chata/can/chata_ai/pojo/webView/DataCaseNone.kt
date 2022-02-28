@@ -18,7 +18,7 @@ object DataCaseNone {
 			)
 			if (aCategoryX == "[]")
 			{
-				aCategoryX = Categories.makeCategories(aCatX, true)
+				aCategoryX = Categories.makeCategories(aCatX)
 			}
 			drillX = Categories.buildCategoryByPosition(
 				Category(

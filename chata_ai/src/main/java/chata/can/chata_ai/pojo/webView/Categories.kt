@@ -59,16 +59,11 @@ object Categories
 		return aStacked
 	}
 
-	fun makeCategories(aCat: ArrayList<String>, isBi: Boolean): String
+	fun makeCategories(aCat: ArrayList<String>): String
 	{
 		val sb = StringBuilder("[")
 		for (category in aCat)
 		{
-//			val tmpCat = when (category)
-//			{
-//				"\"null\"" -> if (isBi) "" else "\"Untitled Category\""
-//				else -> category
-//			}
 			if (category.isNotEmpty())
 				sb += "$category, "
 		}

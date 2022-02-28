@@ -1,7 +1,6 @@
 package chata.can.chata_ai.pojo.webView
 
 import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.extension.toListInt
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeDataQuery
 import chata.can.chata_ai.pojo.query.SearchColumn
@@ -118,31 +117,6 @@ object DataCase6 {
 		dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
 		//endregion
 
-		val aCatYS = if (aColumn.size > posColumnY)
-		{
-			//calculate max and min for bi dimensional
-			val tmp = Categories.buildCategoryByPosition(
-				Category(
-					aRows = aRows,
-					column = aColumn[posColumnY],
-					position = posColumnY,
-					isFormatted = true,
-					hasQuotes = true,
-					allowRepeat = !isTriConfig,
-					aIndicesIgnore = aIndicesIgnore
-				)
-			)
-			val aInt = tmp.toListInt()
-			if (dataD3.max == -1 && dataD3.min == -1)
-			{
-				val tmpMin = (aInt.minOrNull() ?: 0)
-				dataD3.min = if (tmpMin < 0) tmpMin else 0
-				dataD3.max = (aInt.maxOrNull() ?: 0)
-			}
-			tmp
-		}
-		else arrayListOf()
-
 		queryBase.aXDrillDown = Categories.buildCategoryByPosition(
 			Category(
 				aRows = aRows,
@@ -181,7 +155,7 @@ object DataCase6 {
 		} else "[]"
 
 		if (dataD3.aCategoryX == "[]") {
-			dataD3.aCategoryX = Categories.makeCategories(aCatX, !isTriConfig)
+			dataD3.aCategoryX = Categories.makeCategories(aCatX)
 		}
 
 		if (aDataX.isNotEmpty() || aDataY.isNotEmpty()) {

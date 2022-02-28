@@ -39,13 +39,14 @@ class NotificationFragment: Fragment(), NotificationContract {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		fragmentNotificationFragmentBinding = DataBindingUtil.setContentView(
-			requireActivity(),
-			R.layout.fragment_notification
+		fragmentNotificationFragmentBinding = DataBindingUtil.inflate(
+			inflater,
+			R.layout.fragment_notification,
+			container,
+			false
 		)
 		notificationViewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
 		fragmentNotificationFragmentBinding?.model = notificationViewModel
-
 		return fragmentNotificationFragmentBinding?.root
 	}
 

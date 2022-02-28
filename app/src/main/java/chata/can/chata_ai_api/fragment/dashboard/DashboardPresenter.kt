@@ -360,13 +360,13 @@ class DashboardPresenter(
 					}
 					else
 					{
-						val url = if (!AutoQLData.wasLoginIn)
-							"$urlStaging${api1}chata/query"
-						else
-							with(AutoQLData)
-							{
-								"$domainUrl/autoql/${api1}query?key=$apiKey"
-							}
+//						val url = if (!AutoQLData.wasLoginIn)
+//							"$urlStaging${api1}chata/query"
+//						else
+//							with(AutoQLData)
+//							{
+//								"$domainUrl/autoql/${api1}query?key=$apiKey"
+//							}
 						queryReset = !toClearQuery
 					}
 				}

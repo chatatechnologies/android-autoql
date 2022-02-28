@@ -92,7 +92,7 @@ object DataCase3 {
 
 		if (dataD3.aCategoryX == "[]")
 		{
-			dataD3.aCategoryX = Categories.makeCategories(aCatX, !isTriConfig)
+			dataD3.aCategoryX = Categories.makeCategories(aCatX)
 		}
 		//region isTriConfig
 		for (cat in aCatX.map { it.replace("\"", "") })
@@ -103,7 +103,7 @@ object DataCase3 {
 			queryBase.aCategory2.add(FilterColumn(cat, true))
 		}
 		//region cat for D3 on tri dimensions
-		dataD3.catHeatX = Categories.makeCategories(aCatY, !isTriConfig)
+		dataD3.catHeatX = Categories.makeCategories(aCatY)
 		dataD3.catHeatY = dataD3.aCategoryX
 		//endregion
 

@@ -96,7 +96,7 @@ object DataCase1 {
 
 			if (dataD3.aCategoryX == "[]")
 			{
-				dataD3.aCategoryX = Categories.makeCategories(aCatX, true)
+				dataD3.aCategoryX = Categories.makeCategories(aCatX)
 			}
 
 			val type = aColumn[0].type

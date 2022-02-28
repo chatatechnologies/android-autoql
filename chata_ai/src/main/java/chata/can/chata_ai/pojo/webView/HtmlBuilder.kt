@@ -228,10 +228,10 @@ object HtmlBuilder
 
 			if (dataForWebView.catX == "[]")
 			{
-				dataForWebView.catX = makeCategories(aCatX, !isTriConfig)
+				dataForWebView.catX = makeCategories(aCatX)
 				dataD3.aCategoryX = dataForWebView.catX
 			}
-			dataForWebView.catY = makeCategories(aCatY, !isTriConfig)
+			dataForWebView.catY = makeCategories(aCatY)
 
 			if (isTriConfig)
 			{
