@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<data>
+		<variable
+			name="position"
+			type="Integer" />
+
+		<variable
+			name="model"
+			type="chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel" />
+	</data>
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/tvTitle"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="@{model.getNotificationAt(position).title}"/>
+	</RelativeLayout>
+</layout>
