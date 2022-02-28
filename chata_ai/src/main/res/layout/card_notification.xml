@@ -22,11 +22,14 @@
 		android:paddingRight="10dp"
 		android:paddingBottom="5dp">
 		<RelativeLayout
+			android:background="@{model.drawableParent}"
 			android:id="@+id/rlParent"
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"
 			tools:ignore="UselessParent">
+<!--			android:background="@{model.getDrawableLeftView(position)}"-->
 			<View
+				android:background="@color/blue_chata_circle"
 				android:id="@+id/iView"
 				android:minHeight="0dp"
 				android:layout_height="wrap_content"
@@ -49,11 +52,14 @@
 					android:id="@+id/tvBody"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:textColor="@{model.textColorPrimary}"
 					android:textSize="16sp"/>
 				<TextView
 					android:id="@+id/tvDate"
 					android:layout_height="wrap_content"
 					android:layout_width="match_parent"
+					android:textColor="@{model.textColorPrimary}"
+					android:text="@{model.getNotificationAt(position).createdAtFormatted}"
 					android:textSize="14sp"/>
 
 			</LinearLayout>
@@ -64,10 +70,11 @@
 				android:layout_height="wrap_content"
 				android:layout_toEndOf="@id/iView"
 				android:layout_width="match_parent"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:visibility="@{model.getNotificationAt(position).bottomVisibility()}">
 
 				<View
-					android:background="@{model.getTextColorPrimary}"
+					android:background="@{model.textColorPrimary}"
 					android:layout_width="match_parent"
 					android:layout_height="0.2dp"
 					android:layout_marginBottom="8dp"
@@ -77,10 +84,11 @@
 					android:id="@+id/tvQuery"
 					android:layout_height="wrap_content"
 					android:layout_width="match_parent"
+					android:textColor="@{model.textColorPrimary}"
 					android:textSize="16sp"
 					android:textStyle="bold"/>
 				<View
-					android:background="@{model.getTextColorPrimary}"
+					android:background="@{model.textColorPrimary}"
 					android:layout_height="0.2dp"
 					android:layout_marginEnd="24dp"
 					android:layout_marginStart="24dp"
@@ -105,6 +113,7 @@
 					android:layout_marginStart="16dp"
 					android:layout_width="match_parent"
 					android:visibility="gone"
+					android:textColor="@{model.textColorPrimary}"
 					android:textSize="22sp"/>
 				<WebView
 					android:id="@+id/wbQuery"
