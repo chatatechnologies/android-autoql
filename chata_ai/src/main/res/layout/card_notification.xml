@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 		<variable
@@ -28,11 +29,10 @@
 			android:layout_width="match_parent"
 			tools:ignore="UselessParent">
 <!--			android:background="@{model.getDrawableLeftView(position)}"-->
-			<View
-				android:background="@color/blue_chata_circle"
+			<TextView
+				android:background="@{model.getNotificationAt(position).getDrawableLeftView}"
 				android:id="@+id/iView"
-				android:minHeight="0dp"
-				android:layout_height="wrap_content"
+				android:layout_height="@{model.height, default=wrap_content}"
 				android:layout_width="4dp"/>
 
 			<LinearLayout

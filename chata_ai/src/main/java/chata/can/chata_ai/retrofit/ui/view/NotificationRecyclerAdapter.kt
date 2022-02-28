@@ -3,8 +3,8 @@ package chata.can.chata_ai.retrofit.ui.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.databinding.CardNotificationBinding
 import chata.can.chata_ai.retrofit.data.model.NotificationModel
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
@@ -29,7 +29,7 @@ class NotificationRecyclerAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationHolder {
 		val layoutInflater = LayoutInflater.from(parent.context)
-		val binding: ViewDataBinding = DataBindingUtil.inflate(
+		val binding: CardNotificationBinding = DataBindingUtil.inflate(
 			layoutInflater, resource, parent, false
 		)
 		return NotificationHolder(binding)

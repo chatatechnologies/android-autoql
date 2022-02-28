@@ -1,6 +1,5 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.databinding.BindingAdapter
@@ -8,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.R
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.NotificationModel
@@ -24,13 +22,11 @@ class NotificationViewModel: ViewModel() {
 
 	private var white = 0
 	private var gray = 0
-	private var blue = 0
 
 	init {
 		ThemeColor.currentColor.run {
 			white = pDrawerBackgroundColor
 			gray = pDrawerTextColorPrimary
-			blue = SinglentonDrawer.currentAccent
 		}
 	}
 
@@ -61,27 +57,21 @@ class NotificationViewModel: ViewModel() {
 		return DrawableBuilder.setGradientDrawable(white, 18f,0, gray)
 	}
 
-	fun getDrawableLeftView(position: Int): GradientDrawable? {
-		val aNotifications = notificationList.value
-		return aNotifications?.get(position)?.let { notification ->
-			val color = if (notification.state == "DISMISSED") Color.TRANSPARENT else blue
-			DrawableBuilder.setGradientDrawable(
-				color,
-				aCornerRadius = floatArrayOf(15f, 15f, 0f, 0f, 0f, 0f, 15f, 15f)
-			)
-		}
-	}
-
-	fun getWidthLeft(): Int {
-		return 12
-	}
-
-	fun getHeightLeft(): Int {
-		return 20
-	}
-
 	fun getNotificationAt(position: Int): NotificationModel? {
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
 	}
+
+	companion object {
+		@JvmStatic
+		@BindingAdapter("android:layout_height")
+		fun setLayoutWidth(view: View, height: Float) {
+			val layoutParams = view.layoutParams
+			layoutParams.height = height.toInt()
+			println("height:height -> $height")
+			view.layoutParams = layoutParams
+		}
+	}
+
+	var height = 100
 }
