@@ -47,7 +47,7 @@ object HtmlBuilder
 		var posColumnY = 1
 		val aDataX: ArrayList<Int>
 		val aDataY: ArrayList<Int>
-		var aSecondary = ArrayList<Int>()
+		val aSecondary = ArrayList<Int>()
 		val isTriConfig = false
 		//region define data with support Case
 		/**
@@ -114,41 +114,7 @@ object HtmlBuilder
 			}
 			SupportCase.CASE_6 ->
 			{
-				val aString = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.STRING), 2)
-				val aNumber = SearchColumn.getNumberIndices(queryBase.aColumn, 1)
-				aSecondary = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.QUANTITY))
-				/*aDate*/
-				aDataX = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DATE))//Text
-				/*aDollar*/
-				aDataY = SearchColumn.getCountIndices(queryBase.aColumn, arrayListOf(TypeDataQuery.DOLLAR_AMT))//Numeric
-
-				when
-				{
-					aDataX.isNotEmpty() -> posColumnX = aDataX[0]
-					aString.isNotEmpty() ->
-					{
-						posColumnX = if (aString.size == 2)
-							aString[1]
-						else
-							aString[0]
-					}
-				}
-				when
-				{
-					aDataY.isNotEmpty() ->
-					{
-						val tmp = hasNotValueInColumn(aRows, aDataY, 0f)
-						posColumnY = if (tmp == -1) aDataY[0] else tmp
-					}
-					aNumber.isNotEmpty() ->
-					{
-						posColumnY = aDataY[0]
-					}
-				}
-
-				queryBase.addIndices(posColumnX, posColumnY)
-				queryBase.configActions = 4
-				dataD3.nColumns = 4
+				return DataCase6.getResource(queryBase, dataD3)
 			}
 			else ->
 			{

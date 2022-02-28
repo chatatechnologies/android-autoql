@@ -47,6 +47,10 @@ object DataCase6 {
 			}
 		}
 
+		queryBase.addIndices(posColumnX, posColumnY)
+		queryBase.configActions = 4
+		dataD3.nColumns = 4
+
 		val aIndicesIgnore = Categories.indexCategoryEmpty(aRows, posColumnX)
 		val aCatX = Categories.buildCategoryByPosition(
 			Category(

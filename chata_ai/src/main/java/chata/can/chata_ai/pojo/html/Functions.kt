@@ -60,13 +60,8 @@ function updateSize() {
 	margin.left = _left;
 	margin.bottom = _bottom;
 
-  if (initialWidth == 0 && initialHeight == 0) {
-    initialHeight = height = ${'$'}(window).height() - margin.top - margin.bottom;
-    initialWidth = width = getWidthMargin();
-  } else {
-    height = initialHeight;
-    width = initialWidth;
-  }
+  height = height = ${'$'}(window).height() - margin.top - margin.bottom;
+  width = width = getWidthMargin();
 
   if (typeChart === TypeEnum.LINE) {
     if (is2Columns()) {

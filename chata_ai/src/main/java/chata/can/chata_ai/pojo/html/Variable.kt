@@ -146,8 +146,6 @@ var margin = {
   bottom: _bottom,
   left: _left
 };
-var initialWidth = 0;
-var initialHeight = 0;
 var width = 0;
 var height = 0;
 var isAgain = false;
