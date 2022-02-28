@@ -6,8 +6,9 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
@@ -27,26 +28,32 @@ class NotificationFragment: Fragment(), NotificationContract {
 		const val nameFragment = "Notifications"
 	}
 
-	private lateinit var binding: FragmentNotificationBinding
-	private val notificationViewModel: NotificationViewModel by viewModels()
+	private var notificationViewModel: NotificationViewModel ?= null
+	private var fragmentNotificationFragmentBinding: FragmentNotificationBinding? = null
 	private lateinit var notificationAdapter: NotificationAdapter
-	private val model = BaseModelList<NotificationModel>()
+	private val baseModel = BaseModelList<NotificationModel>()
 	private var backTotalItems = 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
-	): View {
-		binding = FragmentNotificationBinding.inflate(inflater, container, false)
-		return binding.root
+	): View? {
+		fragmentNotificationFragmentBinding = DataBindingUtil.setContentView(
+			requireActivity(),
+			R.layout.fragment_notification
+		)
+		notificationViewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
+		fragmentNotificationFragmentBinding?.model = notificationViewModel
+
+		return fragmentNotificationFragmentBinding?.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		setColors()
 		initObserve()
 		initList()
-		binding.run {
+		fragmentNotificationFragmentBinding?.run {
 			if (AutoQLData.wasLoginIn) {
 				btnTry.visibility = View.GONE
 			} else {
@@ -75,7 +82,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	override fun showItem(position: Int) {
 		Handler(Looper.getMainLooper()).postDelayed({
-			binding.rvNotification.smoothScrollToPosition(position)
+			fragmentNotificationFragmentBinding?.rvNotification?.smoothScrollToPosition(position)
 		}, 200)
 	}
 
@@ -84,21 +91,23 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	private fun initObserve() {
-		notificationViewModel.run {
+		notificationViewModel?.run {
 			onCreate()
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
-				listNotification.forEach { model.add(it) }
+				listNotification.forEach { baseModel.add(it) }
 				if (listNotification.isNotEmpty()) showList() else showMessage()
 			}
-			totalItems.observe(viewLifecycleOwner) { backTotalItems = it }
+			totalItems.observe(viewLifecycleOwner) {
+				backTotalItems = it
+			}
 		}
 	}
 
 	private fun initList() {
-		binding.run {
+		fragmentNotificationFragmentBinding?.run {
 			rvNotification.run {
-				notificationAdapter = NotificationAdapter(model, this@NotificationFragment) {
+				notificationAdapter = NotificationAdapter(baseModel, this@NotificationFragment) {
 					//TODO REFRESH ITEM ON BOTTOM
 				}
 				layoutManager = LinearLayoutManager(requireActivity())
@@ -110,7 +119,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private fun setColors() {
 		ThemeColor.currentColor.run {
-			binding.run {
+			fragmentNotificationFragmentBinding?.run {
 				llParent.setBackgroundColor(pDrawerBackgroundColor)
 				rvNotification.setBackgroundColor(pDrawerColorSecondary)
 				tvLoading.setTextColor(pDrawerTextColorPrimary)
@@ -120,7 +129,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	private fun showMessage() {
-		binding.run {
+		fragmentNotificationFragmentBinding?.run {
 			llParent.paddingAll(top = 80f)
 			iv1.visibility = View.VISIBLE
 			tvMsg1.visibility = View.VISIBLE
@@ -130,7 +139,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	private fun showList() {
-		binding.run {
+		fragmentNotificationFragmentBinding?.run {
 			rvNotification.visibility = View.VISIBLE
 			tvLoading.visibility = View.GONE
 			notifyList()
@@ -138,6 +147,6 @@ class NotificationFragment: Fragment(), NotificationContract {
 	}
 
 	private fun notifyList() {
-		notificationAdapter.notifyItemRangeChanged(0, model.countData())
+		notificationAdapter.notifyItemRangeChanged(0, baseModel.countData())
 	}
 }

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 	compileSdk 31
@@ -30,8 +31,11 @@ android {
 	kotlinOptions {
 		jvmTarget = '1.8'
 	}
+	dataBinding {
+		enabled true
+	}
 	buildFeatures {
-		viewBinding = true
+		viewBinding true
 	}
 }
 
@@ -44,11 +48,11 @@ dependencies {
 	implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
 	// ViewModel
-	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+//	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 	// LiveData
-	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+//	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
 	// Fragment
-	implementation 'androidx.fragment:fragment-ktx:1.4.0'
+//	implementation 'androidx.fragment:fragment-ktx:1.4.0'
 	// Activity
 	implementation 'androidx.activity:activity-ktx:1.4.0'
 	// Retrofit
