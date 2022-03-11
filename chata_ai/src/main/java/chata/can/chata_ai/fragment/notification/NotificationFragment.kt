@@ -59,8 +59,8 @@ class NotificationFragment: BaseFragment(), NotificationContract
 			val msg = "No notification yet.\nStay tuned!"
 			tvLoading.text = msg
 			ThemeColor.currentColor.run {
-			btnTry.run {
-				context.run {
+				btnTry.run {
+					context.run {
 						background = DrawableBuilder.setGradientDrawable(
 							pDrawerBackgroundColor,
 							12f,

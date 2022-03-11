@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,12 +12,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
-import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.fragment.notification.NotificationContract
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationFragment: Fragment(), NotificationContract {
@@ -47,25 +47,6 @@ class NotificationFragment: Fragment(), NotificationContract {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		setColors()
 		initObserve()
-		fragmentNotificationFragmentBinding?.run {
-			if (AutoQLData.wasLoginIn) {
-				btnTry.visibility = View.GONE
-			} else {
-				val msg = "No notification yet.\nStay tuned!"
-				tvLoading.text = msg
-				ThemeColor.currentColor.run {
-					btnTry.run {
-						context.run {
-							setTextColor(pDrawerTextColorPrimary)
-							visibility = View.VISIBLE
-						}
-					}
-				}
-			}
-			ThemeColor.aColorMethods[nameFragment] = {
-				setColors()
-			}
-		}
 	}
 
 	override fun onDestroy() {
@@ -112,11 +93,39 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private fun showMessage() {
 		fragmentNotificationFragmentBinding?.run {
-			llParent.paddingAll(top = 80f)
-			iv1.visibility = View.VISIBLE
-			tvMsg1.visibility = View.VISIBLE
-			tvLoading.textSize(18f)
-			tvLoading.text = getString(R.string.empty_notification)
+//			llParent.paddingAll(top = 80f)
+//			iv1.visibility = View.VISIBLE
+//			tvMsg1.visibility = View.VISIBLE
+//			tvLoading.textSize(18f)
+//			tvLoading.text = getString(R.string.empty_notification)
+			if (AutoQLData.wasLoginIn) {
+				btnTry.visibility = View.GONE
+			} else {
+				iv1.visibility = View.GONE
+				tvMsg1.visibility = View.GONE
+
+				val msg = "Oh no! Something went wrong while accessing your notifications."
+				tvLoading.text = msg
+
+				btnTry.setBackgroundColor(Color.RED)
+				btnTry.background = DrawableBuilder.setGradientDrawable(
+					ThemeColor.currentColor.pDrawerBackgroundColor,
+					12f,
+					3,
+					ThemeColor.currentColor.pDrawerBorderColor)
+
+				ThemeColor.currentColor.run {
+					btnTry.run {
+//						background = DrawableBuilder.setGradientDrawable(
+//							pDrawerBackgroundColor,
+//							12f,
+//							3,
+//							pDrawerBorderColor)
+						setTextColor(pDrawerTextColorPrimary)
+						visibility = View.VISIBLE
+					}
+				}
+			}
 		}
 	}
 
