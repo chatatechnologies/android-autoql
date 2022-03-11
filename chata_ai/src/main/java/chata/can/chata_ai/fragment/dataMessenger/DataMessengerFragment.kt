@@ -34,6 +34,9 @@ import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.suggestion.RequestSuggestion
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.core.AlertCustomBuilder
+import chata.can.chata_ai.retrofit.core.ShowAlertDialogModel
+import chata.can.chata_ai.retrofit.core.showAlertDialog
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
@@ -181,24 +184,13 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			etQuery.threshold = 1
 			etQuery.setAdapter(adapterAutoComplete)
 			fragmentActivity.findViewById<ImageView>(R.id.ivClear)?.setOnClickListener {
-				val theme = if (SinglentonDrawer.themeColor == "dark")
-					R.style.AlertDialogCustom2
-				else R.style.AlertDialogCustom1
-				val wrapper = ContextThemeWrapper(fragmentActivity, theme)
-				val dialog = AlertDialog.Builder(wrapper)
-					.setMessage("Clear all queries & responses?")
-					.setPositiveButton("Clear") { _, _ ->
-						clearQueriesAndResponses()
-					}
-					.setNegativeButton("Cancel", null)
-					.show()
-					dialog.apply {
-						val color = context.getParsedColor(
-							if (SinglentonDrawer.themeColor == "dark") R.color.text_color_primary_2
-							else R.color.text_color_primary_1)
-						getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
-						getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
-					}
+				val model = ShowAlertDialogModel(
+					fragmentActivity,
+					"Clear all queries & responses?",
+					"Clear",
+					"Cancel"
+				) { clearQueriesAndResponses() }
+				showAlertDialog(model)
 			}
 		}
 		etQuery.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -621,6 +613,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 			{
 				if (!hasPermission(it, aPermission))
 				{
+					//AlertCustomBuilder(it)
+
 					AlertDialog.Builder(it)
 						.setMessage(R.string.msg_permission_record)
 						.setNeutralButton("Ok", null)
