@@ -3,79 +3,80 @@ package chata.can.chata_ai.retrofit.core
 import android.content.Context
 import android.view.ContextThemeWrapper
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AlertDialog.Builder as Builder
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.SinglentonDrawer
-
-class ShowAlertDialogModel(
-	val context: Context,
-	val message: String,
-	val positiveText: String,
-	val negativeText: String,
-	val positiveMethod: () -> Unit
-)
 
 class AlertCustomBuilder(context: Context) {
 	private val theme = if (SinglentonDrawer.themeColor == "dark")
 		R.style.AlertDialogCustom2
 	else R.style.AlertDialogCustom1
 	private val wrapper = ContextThemeWrapper(context, theme)
-	private val builder = AlertDialog.Builder(wrapper)
+	private val builder = Builder(wrapper)
 
-	fun setMessage(message: String) {
+	@Suppress("unused")
+	fun setMessage(message: String): AlertCustomBuilder {
 		builder.setMessage(message)
+		return this
 	}
 
-	fun setMessage(resMessage: Int) {
+	@Suppress("unused")
+	fun setMessage(resMessage: Int): AlertCustomBuilder {
 		builder.setMessage(resMessage)
+		return this
 	}
 
-	fun setPositiveText(positiveText: String) {
-		builder.setPositiveButton(positiveText, null)
+	@Suppress("unused")
+	fun setPositiveButton(
+		positiveText: String,
+		positiveMethod: () -> Unit = {}
+	): AlertCustomBuilder {
+		builder.setPositiveButton(positiveText) { _, _ ->
+			positiveMethod()
+		}
+		return this
 	}
 
-	fun setNeutralText(positiveText: String) {
-		builder.setNeutralButton(positiveText, null)
+	@Suppress("unused")
+	fun setNeutralButton(
+		positiveText: String,
+		neutralMethod: () -> Unit = {}
+	): AlertCustomBuilder {
+		builder.setNeutralButton(positiveText) { _,_ ->
+			neutralMethod()
+		}
+		return this
 	}
 
-	fun setNegativeText(negativeText: String) {
-		builder.setNegativeButton(negativeText, null)
+	@Suppress("unused")
+	fun setNegativeButton(
+		negativeText: String,
+		negativeMethod: () -> Unit = {}
+	): AlertCustomBuilder {
+		builder.setNegativeButton(negativeText) { _, _ ->
+			negativeMethod()
+		}
+		return this
 	}
 
-	fun show(): AlertDialog = builder.show()
-
-
-}
-
-fun updateAlertCustomBuilder(dialog: AlertDialog) {
-	dialog.apply {
-		val color = context.getParsedColor(
-			if (SinglentonDrawer.themeColor == "dark") R.color.text_color_primary_2
-			else R.color.text_color_primary_1)
-		getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
-		getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
+	fun setOnDismissListener(dismissMethod: () -> Unit = {}): AlertCustomBuilder {
+		builder.setOnDismissListener {
+			dismissMethod()
+		}
+		return this
 	}
-}
 
-fun showAlertDialog(model: ShowAlertDialogModel) {
-	model.run {
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.AlertDialogCustom2
-		else R.style.AlertDialogCustom1
-		val wrapper = ContextThemeWrapper(context, theme)
-		val dialog = AlertDialog.Builder(wrapper)
-			.setMessage(message)
-			.setPositiveButton(positiveText) { _, _ ->
-				positiveMethod()
-			}
-			.setNegativeButton(negativeText, null)
-			.show()
+	fun show(): AlertDialog {
+		val dialog = builder.show()
 		dialog.apply {
 			val color = context.getParsedColor(
 				if (SinglentonDrawer.themeColor == "dark") R.color.text_color_primary_2
 				else R.color.text_color_primary_1)
 			getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
 			getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
+			getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(color)
 		}
+		return dialog
 	}
 }
