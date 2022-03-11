@@ -2,8 +2,10 @@ package chata.can.chata_ai.retrofit.data.model
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.opengl.Visibility
 import android.view.View
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
@@ -32,6 +34,16 @@ data class NotificationModel (
 	fun bottomVisibility(): Int {
 		return if (isVisible) View.VISIBLE else View.GONE
 	}
+
+	fun isVisibleMessage() = if (message.isNotEmpty())
+		View.VISIBLE
+	else
+		View.GONE
+
+	fun getColorTitle() = if (state == "DISMISSED")
+		ThemeColor.currentColor.pDrawerTextColorPrimary
+	else
+		SinglentonDrawer.currentAccent
 
 	fun getDrawableLeftView(): GradientDrawable {
 		val color = if (state == "DISMISSED") Color.RED else SinglentonDrawer.currentAccent

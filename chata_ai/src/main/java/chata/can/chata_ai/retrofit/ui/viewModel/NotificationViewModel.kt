@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.R
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.NotificationModel
@@ -18,13 +19,15 @@ class NotificationViewModel: ViewModel() {
 
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
 
-	private var white = 0
+	private var blue = 0
 	private var gray = 0
+	private var white = 0
 
 	init {
 		ThemeColor.currentColor.run {
-			white = pDrawerBackgroundColor
+			blue = SinglentonDrawer.currentAccent
 			gray = pDrawerTextColorPrimary
+			white = pDrawerBackgroundColor
 		}
 	}
 

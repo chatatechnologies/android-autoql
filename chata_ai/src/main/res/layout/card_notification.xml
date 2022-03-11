@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<data>
 		<variable
@@ -46,13 +45,16 @@
 					android:id="@+id/tvTitle"
 					android:layout_height="wrap_content"
 					android:layout_width="match_parent"
+					android:text="@{model.getNotificationAt(position).title}"
+					android:textColor="@{model.getNotificationAt(position).getColorTitle}"
 					android:textSize="18sp"/>
 				<TextView
 					android:id="@+id/tvBody"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textColor="@{model.textColorPrimary}"
-					android:textSize="16sp"/>
+					android:textSize="16sp"
+					android:visibility="@{model.getNotificationAt(position).isVisibleMessage()}"/>
 				<TextView
 					android:id="@+id/tvDate"
 					android:layout_height="wrap_content"
