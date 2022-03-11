@@ -10,8 +10,6 @@ import androidx.core.graphics.ColorUtils
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.margin
-import chata.can.chata_ai.pojo.BubbleData.heightDefault
-import chata.can.chata_ai.pojo.BubbleData.marginLeftDefault
 import chata.can.chata_ai.pojo.ConstantDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -103,6 +101,8 @@ class AutoQL: FrameLayout
 			.start()
 	}
 
+	private val marginLeftDefault = 3f
+
 	private fun factorSizeMargin(factor: Int) = (factor - sizeChild - (dpToPx(marginLeftDefault) * 2)).toFloat()
 	private fun measuredHeightFixed() = factorSizeMargin(heightPixels)
 	private fun centerY() = measuredHeightFixed() / 2
@@ -117,7 +117,8 @@ class AutoQL: FrameLayout
 //		setBackgroundColor(R.color.red_notification)
 
 		viewChild = RelativeLayout(context).apply {
-			sizeChild = heightDefault
+			/*before heightDefault*/
+			sizeChild = dpToPx(64f)
 			layoutParams = LayoutParams(-2, -2)
 			val alphaColor = ColorUtils.setAlphaComponent(
 				ThemeColor.lightColor.pDrawerTextColorPrimary, (0.25f * 255).toInt())
