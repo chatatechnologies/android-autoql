@@ -6,6 +6,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.retrofit.core.getMenuStyle
 
 object PopupMenu
 {
@@ -14,9 +15,7 @@ object PopupMenu
 		aConfig: List<Int>,
 		sql: String = "")
 	{
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.popupMenuStyle2
-		else R.style.popupMenuStyle1
+		val theme = getMenuStyle()
 		val wrapper = ContextThemeWrapper(view.context, theme)
 
 		PopupMenu(wrapper, view).run {

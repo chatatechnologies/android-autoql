@@ -9,7 +9,7 @@ import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.SinglentonDrawer
 
 class AlertCustomBuilder(context: Context) {
-	private val theme = if (SinglentonDrawer.themeColor == "dark")
+	private val theme = if (SinglentonDrawer.isDarkTheme())
 		R.style.AlertDialogCustom2
 	else R.style.AlertDialogCustom1
 	private val wrapper = ContextThemeWrapper(context, theme)
@@ -71,7 +71,7 @@ class AlertCustomBuilder(context: Context) {
 		val dialog = builder.show()
 		dialog.apply {
 			val color = context.getParsedColor(
-				if (SinglentonDrawer.themeColor == "dark") R.color.text_color_primary_2
+				if (SinglentonDrawer.isDarkTheme()) R.color.text_color_primary_2
 				else R.color.text_color_primary_1)
 			getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
 			getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)

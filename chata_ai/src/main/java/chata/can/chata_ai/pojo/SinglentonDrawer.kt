@@ -65,6 +65,8 @@ object SinglentonDrawer
 			updateThemeColor()
 		}
 
+	fun isDarkTheme() = themeColor == "dark"
+
 	val aThemeMethods = LinkedHashMap<String, () -> Unit>()
 
 	var lightThemeColor = "#26A7DF"
@@ -82,7 +84,7 @@ object SinglentonDrawer
 	var pDarkThemeColor = Color.parseColor(darkThemeColor)
 
 	val currentAccent: Int
-		get() = if (themeColor == "dark") pDarkThemeColor
+		get() = if (isDarkTheme()) pDarkThemeColor
 			else pLightThemeColor
 	val aChartColors = ArrayList<String>()
 	//endregion

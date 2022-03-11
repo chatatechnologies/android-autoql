@@ -21,6 +21,7 @@ import chata.can.chata_ai.fragment.dataMessenger.holder.webView.WebViewPresenter
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
+import chata.can.chata_ai.retrofit.core.getMenuStyle
 
 object ListPopup
 {
@@ -30,9 +31,7 @@ object ListPopup
 		webViewView: WebViewContract ?= null
 	)
 	{
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.popupMenuStyle2
-		else R.style.popupMenuStyle1
+		val theme = getMenuStyle()
 		val wrapper = ContextThemeWrapper(view.context, theme)
 		PopupMenu(wrapper, view).run {
 			menu?.run {
@@ -67,9 +66,7 @@ object ListPopup
 		queryBase: QueryBase ?= null,
 		webViewView: WebViewContract ?= null)
 	{
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.popupMenuStyle2
-		else R.style.popupMenuStyle1
+		val theme = getMenuStyle()
 		val wrapper = ContextThemeWrapper(view.context, theme)
 
 		PopupMenu(wrapper, view).run {
@@ -135,9 +132,7 @@ object ListPopup
 	{
 		val presenter = WebViewPresenter(
 			chatView, view.context.getString(R.string.thank_you_feedback))
-		val theme = if (SinglentonDrawer.themeColor == "dark")
-			R.style.popupMenuStyle2
-		else R.style.popupMenuStyle1
+		val theme = getMenuStyle()
 		val wrapper = ContextThemeWrapper(view.context, theme)
 		PopupMenu(wrapper, view).run {
 			menu?.run {
