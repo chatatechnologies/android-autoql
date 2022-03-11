@@ -1,6 +1,5 @@
 package chata.can.chata_ai.retrofit.ui.view
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
+import chata.can.chata_ai.extension.paddingAll
+import chata.can.chata_ai.extension.textSize
 import chata.can.chata_ai.fragment.notification.NotificationContract
 import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -87,44 +88,31 @@ class NotificationFragment: Fragment(), NotificationContract {
 				rvNotification.setBackgroundColor(pDrawerColorSecondary)
 				tvLoading.setTextColor(pDrawerTextColorPrimary)
 				tvMsg1.setTextColor(pDrawerTextColorPrimary)
+				txtTry.setTextColor(pDrawerTextColorPrimary)
+				txtTry.background = DrawableBuilder.setGradientDrawable(
+					pDrawerBackgroundColor,
+					12f,
+					3,
+					pDrawerBorderColor)
 			}
 		}
 	}
 
 	private fun showMessage() {
 		fragmentNotificationFragmentBinding?.run {
-//			llParent.paddingAll(top = 80f)
-//			iv1.visibility = View.VISIBLE
-//			tvMsg1.visibility = View.VISIBLE
-//			tvLoading.textSize(18f)
-//			tvLoading.text = getString(R.string.empty_notification)
 			if (AutoQLData.wasLoginIn) {
-				btnTry.visibility = View.GONE
+				llParent.paddingAll(top = 80f)
+				iv1.visibility = View.VISIBLE
+				tvLoading.visibility = View.VISIBLE
+				tvMsg1.visibility = View.VISIBLE
+				tvLoading.textSize(18f)
+				tvLoading.setText(R.string.empty_notification)
 			} else {
 				iv1.visibility = View.GONE
 				tvMsg1.visibility = View.GONE
-
+				txtTry.visibility = View.VISIBLE
 				val msg = "Oh no! Something went wrong while accessing your notifications."
 				tvLoading.text = msg
-
-				btnTry.setBackgroundColor(Color.RED)
-				btnTry.background = DrawableBuilder.setGradientDrawable(
-					ThemeColor.currentColor.pDrawerBackgroundColor,
-					12f,
-					3,
-					ThemeColor.currentColor.pDrawerBorderColor)
-
-				ThemeColor.currentColor.run {
-					btnTry.run {
-//						background = DrawableBuilder.setGradientDrawable(
-//							pDrawerBackgroundColor,
-//							12f,
-//							3,
-//							pDrawerBorderColor)
-						setTextColor(pDrawerTextColorPrimary)
-						visibility = View.VISIBLE
-					}
-				}
 			}
 		}
 	}
@@ -132,7 +120,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 	private fun showRecyclerView() {
 		fragmentNotificationFragmentBinding?.run {
 			rvNotification.visibility = View.VISIBLE
-			tvLoading.visibility = View.GONE
+			llParent.visibility = View.GONE
 		}
 	}
 }
