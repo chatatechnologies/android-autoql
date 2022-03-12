@@ -8,3 +8,11 @@ data class NotificationResponseModel (
 	@SerializedName("message")
 	val message: String
 )
+
+fun emptyNotification() = NotificationResponseModel(
+	NotificationDataModel(
+		ArrayList(),
+		PaginationModel(0)
+	),
+	""
+)

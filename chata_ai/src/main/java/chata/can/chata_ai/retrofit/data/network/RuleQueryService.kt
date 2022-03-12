@@ -3,8 +3,8 @@ package chata.can.chata_ai.retrofit.data.network
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.core.RetrofitHelper
-import chata.can.chata_ai.retrofit.data.model.RuleQueryResponseModel
-import chata.can.chata_ai.retrofit.data.model.emptyRuleQuery
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponseModel
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.emptyRuleQuery
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
