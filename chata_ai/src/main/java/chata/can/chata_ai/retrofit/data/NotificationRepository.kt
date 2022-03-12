@@ -1,6 +1,6 @@
 package chata.can.chata_ai.retrofit.data
 
-import chata.can.chata_ai.retrofit.data.model.NotificationDataModel
+import chata.can.chata_ai.retrofit.data.model.notification.NotificationDataModel
 import chata.can.chata_ai.retrofit.data.network.NotificationService
 
 class NotificationRepository {

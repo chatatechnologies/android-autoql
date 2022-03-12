@@ -11,11 +11,12 @@ import kotlinx.coroutines.withContext
 class RuleQueryService {
 	private val retrofit = RetrofitHelper.getRetrofit()
 
-	suspend fun getRuleQuery(): RuleQueryResponseModel {
+	suspend fun getRuleQuery(idRule: String): RuleQueryResponseModel {
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(RuleQueryApiClient::class.java)
 					.getRuleQuery(
+						idRule = idRule,
 						beaverToken = "Bearer ${AutoQLData.JWT}",
 						acceptLanguage = SinglentonDrawer.languageCode,
 						integratorDomain = AutoQLData.domainUrl,

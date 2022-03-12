@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ColumnModel(
 	@SerializedName("display_name")
-	val display_name: String,
+	val displayName: String,
 	@SerializedName("groupable")
 	val groupable: Boolean,
 	@SerializedName("is_visible")

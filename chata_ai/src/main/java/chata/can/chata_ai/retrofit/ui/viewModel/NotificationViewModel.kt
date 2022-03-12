@@ -8,7 +8,8 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.data.model.NotificationModel
+import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
@@ -33,12 +34,10 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	var getNotificationUseCase = GetNotificationUseCase()
-	val getRuleQueryUseCase = GetRuleQueryUseCase()
+	private val ruleQueryUseCase = GetRuleQueryUseCase()
 
 	fun onCreate() {
 		viewModelScope.launch {
-			getRuleQueryUseCase()
-
 			val result = getNotificationUseCase()
 			notificationList.postValue(result.items)
 			totalItems.postValue(result.pagination.totalItems)
@@ -72,6 +71,10 @@ class NotificationViewModel: ViewModel() {
 	fun changeVisibility(position: Int) {
 		getNotificationAt(position)?.let {
 			it.isVisible = !it.isVisible
+			viewModelScope.launch {
+				val result = ruleQueryUseCase.getRuleQuery(it.id)
+				RuleQueryResponse(result.queryResult.data).getResponse()
+			}
 		}
 		notificationRecyclerAdapter?.notifyItemChanged(position)
 	}

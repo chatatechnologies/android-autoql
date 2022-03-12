@@ -6,9 +6,8 @@ import chata.can.chata_ai.retrofit.data.network.RuleQueryService
 class RuleQueryRepository {
 	private val api = RuleQueryService()
 
-	suspend fun getRuleQuery(): RuleQueryResponseModel/*RuleQueryResponseModel*/ {
-		val response = api.getRuleQuery()
-		response.toString()
+	suspend fun getRuleQuery(idRule: String): RuleQueryResponseModel {
+		val response = api.getRuleQuery(idRule)
 		return response
 	}
 }

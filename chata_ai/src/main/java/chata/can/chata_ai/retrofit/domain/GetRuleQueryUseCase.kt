@@ -6,5 +6,5 @@ import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponseModel
 class GetRuleQueryUseCase {
 	private val repository = RuleQueryRepository()
 
-	suspend operator fun invoke(): RuleQueryResponseModel = repository.getRuleQuery()
+	suspend fun getRuleQuery(id: String): RuleQueryResponseModel = repository.getRuleQuery(id)
 }

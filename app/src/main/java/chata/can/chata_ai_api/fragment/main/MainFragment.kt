@@ -89,7 +89,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swTabNotification: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
-	//import module https://developer.android.com/studio/projects/android-library
+	//NOTE: import module https://developer.android.com/studio/projects/android-library
 	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 

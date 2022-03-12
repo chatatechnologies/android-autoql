@@ -1,4 +1,4 @@
-package chata.can.chata_ai.retrofit.data.model
+package chata.can.chata_ai.retrofit.data.model.notification
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
