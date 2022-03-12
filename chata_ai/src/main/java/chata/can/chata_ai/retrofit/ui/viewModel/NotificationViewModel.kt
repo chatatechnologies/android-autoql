@@ -10,6 +10,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.NotificationModel
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
+import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
@@ -32,9 +33,12 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	var getNotificationUseCase = GetNotificationUseCase()
+	val getRuleQueryUseCase = GetRuleQueryUseCase()
 
 	fun onCreate() {
 		viewModelScope.launch {
+			getRuleQueryUseCase()
+
 			val result = getNotificationUseCase()
 			notificationList.postValue(result.items)
 			totalItems.postValue(result.pagination.totalItems)
