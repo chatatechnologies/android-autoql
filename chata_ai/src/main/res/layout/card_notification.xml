@@ -38,6 +38,7 @@
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				android:orientation="vertical"
+				android:onClick="@{() -> model.changeVisibility(position)}"
 				android:layout_toEndOf="@id/iView"
 				android:padding="10dp">
 
@@ -86,6 +87,7 @@
 					android:layout_height="wrap_content"
 					android:layout_width="match_parent"
 					android:textColor="@{model.textColorPrimary}"
+					android:text="@{model.getNotificationAt(position).query}"
 					android:textSize="16sp"
 					android:textStyle="bold"/>
 				<View

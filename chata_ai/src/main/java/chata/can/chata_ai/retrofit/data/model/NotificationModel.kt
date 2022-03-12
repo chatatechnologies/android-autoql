@@ -2,8 +2,8 @@ package chata.can.chata_ai.retrofit.data.model
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.opengl.Visibility
 import android.view.View
+import androidx.databinding.ObservableField
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -25,7 +25,7 @@ data class NotificationModel (
 	@SerializedName("state")
 	val state: String
 ) {
-	var isVisible = false
+	var isVisible = true
 
 	fun createdAtFormatted(): String {
 		return "\uD83D\uDCC5 ${toDate(createdAt)}"

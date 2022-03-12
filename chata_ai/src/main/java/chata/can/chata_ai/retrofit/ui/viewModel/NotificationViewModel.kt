@@ -48,8 +48,10 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun setNotificationsInRecyclerAdapter(aNotification: List<NotificationModel>) {
-		notificationRecyclerAdapter?.setNotifications(aNotification)
-		notificationRecyclerAdapter?.notifyItemRangeChanged(0, aNotification.size)
+		notificationRecyclerAdapter?.let {
+			it.setNotifications(aNotification)
+			it.notifyItemRangeChanged(0, aNotification.size)
+		}
 	}
 
 	fun getTextColorPrimary() = gray
@@ -61,5 +63,12 @@ class NotificationViewModel: ViewModel() {
 	fun getNotificationAt(position: Int): NotificationModel? {
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
+	}
+
+	fun changeVisibility(position: Int) {
+		getNotificationAt(position)?.let {
+			it.isVisible = !it.isVisible
+		}
+		notificationRecyclerAdapter?.notifyItemChanged(position)
 	}
 }
