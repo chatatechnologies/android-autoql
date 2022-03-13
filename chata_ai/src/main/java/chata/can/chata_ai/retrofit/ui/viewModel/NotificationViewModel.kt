@@ -1,6 +1,7 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
 import android.graphics.drawable.GradientDrawable
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,7 @@ import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NotificationViewModel: ViewModel() {
 	val notificationList = MutableLiveData<List<NotificationModel>>()
@@ -72,8 +74,10 @@ class NotificationViewModel: ViewModel() {
 		getNotificationAt(position)?.let {
 			it.isVisible = !it.isVisible
 			viewModelScope.launch {
+				val contentResponse = MutableLiveData<String>()
 				val result = ruleQueryUseCase.getRuleQuery(it.id)
-				RuleQueryResponse(result.queryResult.data).getResponse()
+				RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
+
 			}
 		}
 		notificationRecyclerAdapter?.notifyItemChanged(position)
