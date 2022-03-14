@@ -1,7 +1,8 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
 import android.graphics.drawable.GradientDrawable
-import androidx.databinding.ObservableField
+import android.webkit.WebView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,6 @@ import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
-import java.util.*
 
 class NotificationViewModel: ViewModel() {
 	val notificationList = MutableLiveData<List<NotificationModel>>()
@@ -76,10 +76,29 @@ class NotificationViewModel: ViewModel() {
 			viewModelScope.launch {
 				val contentResponse = MutableLiveData<String>()
 				val result = ruleQueryUseCase.getRuleQuery(it.id)
-				RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
+				result.toString()
+				//RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
 
 			}
 		}
 		notificationRecyclerAdapter?.notifyItemChanged(position)
+	}
+
+	fun getUrl(): String {
+		return "<p style=\"color: blueviolet;\">Text for webView</p>"
+	}
+
+	companion object {
+		@JvmStatic
+		@BindingAdapter("loadData")
+		fun setUrl(webView: WebView, webViewData: String) {
+			webView.loadDataWithBaseURL(
+				null,
+				webViewData,
+				"text/html",
+				"UTF-8",
+				null
+			)
+		}
 	}
 }

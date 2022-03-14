@@ -32,17 +32,17 @@ data class QueryResult(
 //region query result data
 data class QueryResultData(
 	@SerializedName("columns")
-	val columns: List<ColumnModel>,
+	val columns: List<ColumnModel> = listOf(),
 	@SerializedName("display_type")
-	val displayType: String,
+	val displayType: String = "",
 	@SerializedName("limit_row_num")
-	val limitRowNum: Int,
+	val limitRowNum: Int = 0,
 	@SerializedName("query_id")
-	val queryId: String,
+	val queryId: String = "",
 	@SerializedName("row_limit")
-	val rowLimit: Int,
+	val rowLimit: Int = 0,
 	@SerializedName("rows")
-	val rows: List< List<String> >
+	val rows: List< List<String> > = listOf()
 )
 
 fun emptyQueryResultData() = QueryResultData(
