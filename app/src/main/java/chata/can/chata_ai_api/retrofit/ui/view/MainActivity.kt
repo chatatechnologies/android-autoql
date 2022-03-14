@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.databinding.ObservableInt
 import chata.can.chata_ai_api.databinding.ActivityMainBinding
 import chata.can.chata_ai_api.retrofit.ui.viewModel.QuoteViewModel
 
@@ -17,16 +18,28 @@ class MainActivity: AppCompatActivity() {
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 
-		quoteViewModel.onCreate()
+		binding.model = quoteViewModel
 
-		quoteViewModel.quoteModel.observe(this) /*Observer*/ { currentQuote ->
-			binding.tvQuote.text = currentQuote.quote
-			binding.tvAuthor.text = currentQuote.author
-		}
-		quoteViewModel.isLoading.observe(this) /*Observer*/ {
-			binding.progress.isVisible = it
+		binding.run {
+			tvIncrement.setOnClickListener {
+				quoteViewModel.manageNum.increment()
+			}
+			tvDecrement.setOnClickListener {
+				quoteViewModel.manageNum.decrement()
+			}
 		}
 
-		binding.viewContainer.setOnClickListener {  }
+
+
+//		quoteViewModel.onCreate()
+//		quoteViewModel.quoteModel.observe(this) /*Observer*/ { currentQuote ->
+//			binding.tvQuote.text = currentQuote.quote
+//			binding.tvAuthor.text = currentQuote.author
+//		}
+//		quoteViewModel.isLoading.observe(this) /*Observer*/ {
+//			binding.progress.isVisible = it
+//		}
+//
+//		binding.viewContainer.setOnClickListener {  }
 	}
 }
