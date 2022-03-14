@@ -25,6 +25,8 @@ data class NotificationModel (
 	val state: String
 ) {
 	var isVisible = true
+	var notContent = true
+	var contentWebView = ""
 
 	fun createdAtFormatted(): String {
 		return "\uD83D\uDCC5 ${toDate(createdAt)}"
@@ -53,8 +55,7 @@ data class NotificationModel (
 		)
 	}
 
-	private fun toDate(iDate: Int): String
-	{
+	private fun toDate(iDate: Int): String {
 		return try {
 			val recordDate = Date(iDate * 1000L)
 			val currentDate = Date()
@@ -75,4 +76,6 @@ data class NotificationModel (
 		}
 		catch (ex: Exception) { "" }
 	}
+
+	fun isVisibleWebView(): Int = if(contentWebView.isNotEmpty()) View.VISIBLE else View.GONE
 }

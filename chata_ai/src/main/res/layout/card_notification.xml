@@ -6,6 +6,10 @@
 
 	<data>
 		<variable
+			name="view"
+			type="android.view.View"/>
+
+		<variable
 			name="position"
 			type="Integer" />
 
@@ -101,11 +105,10 @@
 					android:layout_width="match_parent"/>
 
 				<RelativeLayout
-					android:visibility="gone"
-
 					android:id="@+id/rlLoad"
 					android:layout_width="match_parent"
-					android:layout_height="200dp">
+					android:layout_height="200dp"
+					android:visibility="@{model.getNotificationAt(position).notContent ? view.VISIBLE : view.GONE}">
 					<chata.can.chata_ai.view.gif.KGifView
 						android:layout_centerInParent="true"
 						android:layout_height="80dp"
@@ -126,8 +129,8 @@
 					android:id="@+id/wbQuery"
 					android:layout_height="200dp"
 					android:layout_width="match_parent"
-					android:visibility="visible"
-					app:loadData="@{model.url}"
+					android:visibility="gone"
+					app:loadData="@{model.getUrl(position)}"
 					tools:ignore="WebViewLayout"/>
 
 			</LinearLayout>

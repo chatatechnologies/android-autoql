@@ -71,21 +71,26 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun changeVisibility(position: Int) {
-		getNotificationAt(position)?.let {
-			it.isVisible = !it.isVisible
+		getNotificationAt(position)?.let { notification ->
+			notification.isVisible = !notification.isVisible
 			viewModelScope.launch {
-				val contentResponse = MutableLiveData<String>()
-				val result = ruleQueryUseCase.getRuleQuery(it.id)
+				val result = ruleQueryUseCase.getRuleQuery(notification.id)
 				result.toString()
 				//RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
 
+				notificationRecyclerAdapter?.let {
+					notification.contentWebView = "<p style=\"color: blueviolet;\">Text for webView</p>"
+					it.notifyItemChanged(position)
+				}
 			}
 		}
 		notificationRecyclerAdapter?.notifyItemChanged(position)
 	}
 
-	fun getUrl(): String {
-		return "<p style=\"color: blueviolet;\">Text for webView</p>"
+	fun getUrl(position: Int): String {
+		return getNotificationAt(position)?.contentWebView ?: run {
+			"no load"
+		}
 	}
 
 	companion object {
