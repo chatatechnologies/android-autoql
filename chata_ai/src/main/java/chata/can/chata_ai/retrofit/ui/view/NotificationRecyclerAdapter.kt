@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.databinding.CardNotificationBinding
-import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
+import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationRecyclerAdapter(
@@ -13,9 +13,9 @@ class NotificationRecyclerAdapter(
 	private val resource: Int
 ): RecyclerView.Adapter<NotificationHolder>() {
 
-	private var aNotifications: List<NotificationModel>? = null
+	private var aNotifications: List<NotificationEntity>? = null
 
-	fun setNotifications(notifications: List<NotificationModel>) {
+	fun setNotifications(notifications: List<NotificationEntity>) {
 		this.aNotifications = notifications
 	}
 

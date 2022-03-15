@@ -72,8 +72,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
 				if (listNotification.isNotEmpty()) {
-					val newList = listNotification.map { it.notificationModelToEntity() }
-					notificationViewModel?.setNotificationsInRecyclerAdapter(newList)
+					notificationViewModel?.setNotificationsInRecyclerAdapter(listNotification)
 					showRecyclerView()
 				} else showMessage()
 			}

@@ -2,7 +2,6 @@ package chata.can.chata_ai.retrofit
 
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.view.View
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -10,8 +9,7 @@ import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun NotificationModel.notificationModelToEntity() {
-	NotificationEntity(
+fun NotificationModel.notificationModelToEntity() = NotificationEntity(
 		createdAt,
 		id,
 		message,
@@ -19,7 +17,6 @@ fun NotificationModel.notificationModelToEntity() {
 		query,
 		state
 	)
-}
 
 data class NotificationEntity (
 	val createdAt: Int,
@@ -29,22 +26,14 @@ data class NotificationEntity (
 	val query: String,
 	val state: String
 ) {
-	var isVisible = true
-	var notContent = true
+	var isBottomVisible = false
 	var contentWebView = ""
 
 	fun createdAtFormatted(): String {
 		return "\uD83D\uDCC5 ${toDate(createdAt)}"
 	}
 
-	fun bottomVisibility(): Int {
-		return if (isVisible) View.VISIBLE else View.GONE
-	}
-
-	fun isVisibleMessage() = if (message.isNotEmpty())
-		View.VISIBLE
-	else
-		View.GONE
+	fun isVisibleMessage() = message.isNotEmpty()
 
 	fun getColorTitle() = if (state == "DISMISSED")
 		ThemeColor.currentColor.pDrawerTextColorPrimary
@@ -82,13 +71,7 @@ data class NotificationEntity (
 		catch (ex: Exception) { "" }
 	}
 
-	fun isVisibleLoading(): Int {
-		println("VALUE FOR NOT CONTENT: $notContent")
-		return if (notContent)
-			View.VISIBLE
-		else
-			View.GONE
-	}
+	fun isVisibleLoading(): Boolean = contentWebView.isEmpty()
 
-	fun isVisibleWebView(): Int = if(contentWebView.isNotEmpty()) View.VISIBLE else View.GONE
+	fun isVisibleWebView() = contentWebView.isNotEmpty()
 }

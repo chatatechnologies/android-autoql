@@ -11,14 +11,15 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
+import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
+import chata.can.chata_ai.retrofit.notificationModelToEntity
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
-	val notificationList = MutableLiveData<List<NotificationModel>>()
+	val notificationList = MutableLiveData<List<NotificationEntity>>()
 	val totalItems = MutableLiveData<Int>()
 
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
@@ -41,7 +42,11 @@ class NotificationViewModel: ViewModel() {
 	fun onCreate() {
 		viewModelScope.launch {
 			val result = getNotificationUseCase()
-			notificationList.postValue(result.items)
+			val notificationsModel = result.items
+
+			val newList = notificationsModel.map { it.notificationModelToEntity() }
+
+			notificationList.postValue(newList)
 			totalItems.postValue(result.pagination.totalItems)
 		}
 	}
@@ -52,7 +57,7 @@ class NotificationViewModel: ViewModel() {
 		return notificationRecyclerAdapter
 	}
 
-	fun setNotificationsInRecyclerAdapter(aNotification: List<NotificationModel>) {
+	fun setNotificationsInRecyclerAdapter(aNotification: List<NotificationEntity>) {
 		notificationRecyclerAdapter?.let {
 			it.setNotifications(aNotification)
 			it.notifyItemRangeChanged(0, aNotification.size)
@@ -65,14 +70,14 @@ class NotificationViewModel: ViewModel() {
 		return DrawableBuilder.setGradientDrawable(white, 18f,0, gray)
 	}
 
-	fun getNotificationAt(position: Int): NotificationModel? {
+	fun getNotificationAt(position: Int): NotificationEntity? {
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
 	}
 
 	fun changeVisibility(position: Int) {
 		getNotificationAt(position)?.let { notification ->
-			notification.isVisible = !notification.isVisible
+			notification.isBottomVisible = !notification.isBottomVisible
 			viewModelScope.launch {
 //				val result = ruleQueryUseCase.getRuleQuery(notification.id)
 //				result.toString()

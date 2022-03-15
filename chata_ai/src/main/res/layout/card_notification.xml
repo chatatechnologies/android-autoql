@@ -5,8 +5,6 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<data>
-		<import type="android.view.View"/>
-
 		<variable
 			name="position"
 			type="Integer" />
@@ -59,7 +57,7 @@
 					android:layout_height="wrap_content"
 					android:textColor="@{model.textColorPrimary}"
 					android:textSize="16sp"
-					android:visibility="@{model.getNotificationAt(position).isVisibleMessage()}"/>
+					android:visibility="@{model.getNotificationAt(position).visibleMessage}"/>
 				<TextView
 					android:id="@+id/tvDate"
 					android:layout_height="wrap_content"
@@ -77,7 +75,7 @@
 				android:layout_toEndOf="@id/iView"
 				android:layout_width="match_parent"
 				android:orientation="vertical"
-				android:visibility="@{model.getNotificationAt(position).visible}">
+				android:visibility="@{model.getNotificationAt(position).bottomVisible}">
 
 				<View
 					android:background="@{model.textColorPrimary}"
@@ -106,7 +104,7 @@
 					android:id="@+id/rlLoad"
 					android:layout_width="match_parent"
 					android:layout_height="200dp"
-					android:visibility="visible">
+					android:visibility="@{model.getNotificationAt(position).visibleLoading}">
 					<chata.can.chata_ai.view.gif.KGifView
 						android:layout_centerInParent="true"
 						android:layout_height="80dp"
@@ -127,7 +125,7 @@
 					android:id="@+id/wbQuery"
 					android:layout_height="200dp"
 					android:layout_width="match_parent"
-					android:visibility="gone"
+					android:visibility="@{model.getNotificationAt(position).isVisibleWebView()}"
 					app:loadData="@{model.getUrl(position)}"
 					tools:ignore="WebViewLayout"/>
 
