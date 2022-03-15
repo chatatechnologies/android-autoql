@@ -1,6 +1,7 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
 import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.webkit.WebView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +12,6 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
-import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
@@ -74,8 +74,8 @@ class NotificationViewModel: ViewModel() {
 		getNotificationAt(position)?.let { notification ->
 			notification.isVisible = !notification.isVisible
 			viewModelScope.launch {
-				val result = ruleQueryUseCase.getRuleQuery(notification.id)
-				result.toString()
+//				val result = ruleQueryUseCase.getRuleQuery(notification.id)
+//				result.toString()
 				//RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
 
 				notificationRecyclerAdapter?.let {
@@ -104,6 +104,12 @@ class NotificationViewModel: ViewModel() {
 				"UTF-8",
 				null
 			)
+		}
+
+		@JvmStatic
+		@BindingAdapter("android:visibility")
+		fun setVisibility(view: View, isVisible: Boolean) {
+			view.visibility = if (isVisible) View.VISIBLE else View.GONE
 		}
 	}
 }
