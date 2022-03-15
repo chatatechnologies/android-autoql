@@ -47,6 +47,8 @@ data class NotificationEntity (
 
 	fun isVisibleMessage() = message.isNotEmpty()
 
+	fun hasData() = contentTextView.isNotEmpty() || contentWebView.isNotEmpty()
+
 	fun getColorTitle() = if (state == "DISMISSED")
 		ThemeColor.currentColor.pDrawerTextColorPrimary
 	else

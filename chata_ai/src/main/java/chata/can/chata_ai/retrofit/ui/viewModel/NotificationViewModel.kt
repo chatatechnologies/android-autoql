@@ -25,6 +25,7 @@ class NotificationViewModel: ViewModel() {
 
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
 
+	private var lastOpenRuleQuery = -1
 	private var blue = 0
 	private var gray = 0
 	private var white = 0
@@ -81,18 +82,33 @@ class NotificationViewModel: ViewModel() {
 			notification.isBottomVisible = !notification.isBottomVisible
 			if (notification.isBottomVisible) {
 
-			} else {
-
-			}
-			viewModelScope.launch {
-				val queryResultEntity = ruleQueryUseCase.getRuleQuery(notification.id)
-				val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
-
-				notificationRecyclerAdapter?.let {
-					notification.setData(resultRuleQuery)
-					notification.isVisibleLoading = false
-					it.notifyItemChanged(position)
+				if (lastOpenRuleQuery != position) {
+					//region last open rule Query is major that Zero
+					if (lastOpenRuleQuery >= 0) {
+						getNotificationAt(lastOpenRuleQuery)?.let {
+							it.isBottomVisible = false
+							notificationRecyclerAdapter?.notifyItemChanged(lastOpenRuleQuery)
+						}
+					}
+					//endregion
+					lastOpenRuleQuery = position
 				}
+
+				//region process data
+				if (!notification.hasData()) {
+					viewModelScope.launch {
+						val queryResultEntity = ruleQueryUseCase.getRuleQuery(notification.id)
+						val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
+
+						notificationRecyclerAdapter?.let {
+							notification.setData(resultRuleQuery)
+							notification.isVisibleLoading = false
+							//async refresh from process data
+							it.notifyItemChanged(position)
+						}
+					}
+				}
+				//endregion
 			}
 		}
 		notificationRecyclerAdapter?.notifyItemChanged(position)
