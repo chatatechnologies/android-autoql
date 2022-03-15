@@ -10,34 +10,16 @@ import chata.can.chata_ai.retrofit.data.model.column.TypeColumn
 import java.text.SimpleDateFormat
 import java.util.*
 
+fun String.isEmptyOrZero() = isEmpty() || this == "0"
+
 fun String.formatValue(
 	column: ColumnEntity,
 	currencySymbol: String = SinglentonDrawer.currencyCode,
-	separateComma: String = ""
+	separateComma: String = ","
 ): String {
 	return when(column.typeColumn) {
-		TypeColumn.DOLLAR_AMT -> {
-			return if (isEmpty() || this == "0") ""
-			else {
-				if (contains(ignoreCase = true, other = "w")) this
-				else {
-					val aData = split("-")
-					if (aData.size > 1) {
-						SinglentonDrawer.localLocale?.let { locale ->
-							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
-							try {
-								dateFormat.parse(this)?.let { date ->
-									ChataDateFormat.dateFormat(date)
-								}
-							} catch (ex: Exception) {""}
-						} ?: run { "" }
-					}
-					else ""
-				}
-			}
-		}
 		TypeColumn.DATE -> {
-			if (isEmpty() || this == "0") ""
+			if (isEmptyOrZero()) ""
 			else {
 				//TODO make unique for no repeat row by row
 				//region locale
@@ -72,6 +54,33 @@ fun String.formatValue(
 					if (index != -1) out.replace(SinglentonDrawer.aMonthsSp1[index], SinglentonDrawer.aMonthsSp[index]) else out
 				} ?: run { "" }
 			}
+		}
+		TypeColumn.DATE_STRING -> {
+			return if (isEmptyOrZero()) ""
+			else {
+				if (contains(ignoreCase = true, other = "w")) this
+				else {
+					val aData = split("-")
+					if (aData.size > 1) {
+						SinglentonDrawer.localLocale?.let { locale ->
+							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
+							try {
+								dateFormat.parse(this)?.let { date ->
+									ChataDateFormat.dateFormat(date)
+								}
+							} catch (ex: Exception) {""}
+						} ?: run { "" }
+					}
+					else ""
+				}
+			}
+		}
+		TypeColumn.DOLLAR_AMT -> {
+			toDoubleNotNull()
+				.formatSymbolDecimals(
+					prefix = currencySymbol,
+					commaCharacter = separateComma
+				)
 		}
 		TypeColumn.PERCENT -> {
 			val double = toDoubleNotNull() * 100

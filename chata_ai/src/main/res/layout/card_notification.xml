@@ -55,6 +55,7 @@
 					android:id="@+id/tvBody"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:text="@{model.getNotificationAt(position).message}"
 					android:textColor="@{model.textColorPrimary}"
 					android:textSize="16sp"
 					android:visibility="@{model.getNotificationAt(position).visibleMessage}"/>

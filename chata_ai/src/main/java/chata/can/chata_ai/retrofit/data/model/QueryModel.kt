@@ -28,7 +28,7 @@ class QueryModel(private val queryResultEntity: QueryResultEntity) {
 				rows.isEmpty() || isSimpleText() || displayType == keySuggestion -> {
 					queryResultEntity.columnsEntity.firstOrNull()?.let { column ->
 						val value = getSimpleText().formatValue(column)
-						textTypeRuleQuery(getSimpleText())
+						textTypeRuleQuery(value)
 //					webTypeRuleQuery("<p style=\"color: blueviolet;\">Text for webView</p>")
 					} ?: run { emptyTypeRuleQuery }
 				}
