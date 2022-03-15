@@ -80,8 +80,8 @@ class NotificationViewModel: ViewModel() {
 		getNotificationAt(position)?.let { notification ->
 			notification.isBottomVisible = !notification.isBottomVisible
 			viewModelScope.launch {
-				val result = ruleQueryUseCase.getRuleQuery(notification.id)
-				val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(result.queryResult.data)
+				val queryResultEntity = ruleQueryUseCase.getRuleQuery(notification.id)
+				val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
 
 				notificationRecyclerAdapter?.let {
 					notification.setData(resultRuleQuery)
