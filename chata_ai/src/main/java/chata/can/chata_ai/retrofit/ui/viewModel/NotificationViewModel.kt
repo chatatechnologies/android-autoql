@@ -79,6 +79,11 @@ class NotificationViewModel: ViewModel() {
 	fun changeVisibility(position: Int) {
 		getNotificationAt(position)?.let { notification ->
 			notification.isBottomVisible = !notification.isBottomVisible
+			if (notification.isBottomVisible) {
+
+			} else {
+
+			}
 			viewModelScope.launch {
 				val queryResultEntity = ruleQueryUseCase.getRuleQuery(notification.id)
 				val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
@@ -94,9 +99,7 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun getUrl(position: Int): String {
-		return getNotificationAt(position)?.contentWebView ?: run {
-			"no load"
-		}
+		return getNotificationAt(position)?.contentWebView?.contentResponse ?: "no load"
 	}
 
 	companion object {

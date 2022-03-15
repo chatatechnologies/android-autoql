@@ -5,9 +5,11 @@ enum class TypeEnum { TEXT, WEB }
 class TypeRuleQuery(
 	val typeEnum: TypeEnum,
 	val contentResponse: String
-)
+) {
+	fun isNotEmpty() = contentResponse.isNotEmpty()
+}
 
-val emptyTypeRuleQuery = TypeRuleQuery(TypeEnum.TEXT, "Content empty")
+val emptyTypeRuleQuery = TypeRuleQuery(TypeEnum.TEXT, "")
 
 fun textTypeRuleQuery(contentResponse: String) = TypeRuleQuery(TypeEnum.TEXT, contentResponse)
 

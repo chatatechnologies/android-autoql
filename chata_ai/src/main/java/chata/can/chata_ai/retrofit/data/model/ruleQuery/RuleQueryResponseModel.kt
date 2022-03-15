@@ -25,7 +25,7 @@ data class QueryResult(
 	@SerializedName("reference_id")
 	val referenceId: String,
 	@SerializedName("data")
-	val data: QueryResultData
+	val data: QueryResultData?
 )
 //endregion
 

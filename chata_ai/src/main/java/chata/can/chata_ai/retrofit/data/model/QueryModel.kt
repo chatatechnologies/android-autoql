@@ -2,6 +2,7 @@ package chata.can.chata_ai.retrofit.data.model
 
 import chata.can.chata_ai.retrofit.QueryResultEntity
 import chata.can.chata_ai.retrofit.core.formatValue
+import chata.can.chata_ai.retrofit.core.internalServiceError
 import chata.can.chata_ai.retrofit.core.keySuggestion
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.*
 
@@ -22,6 +23,8 @@ class QueryModel(private val queryResultEntity: QueryResultEntity) {
 		} ?: run { "" }
 	}
 
+	private fun errorTypeRuleQuery() = textTypeRuleQuery(internalServiceError)
+
 	fun defineContent(): TypeRuleQuery {
 		queryResultEntity.run {
 			val value = when {
@@ -30,9 +33,9 @@ class QueryModel(private val queryResultEntity: QueryResultEntity) {
 						val value = getSimpleText().formatValue(column)
 						textTypeRuleQuery(value)
 //					webTypeRuleQuery("<p style=\"color: blueviolet;\">Text for webView</p>")
-					} ?: run { emptyTypeRuleQuery }
+					} ?: run { errorTypeRuleQuery() }
 				}
-				else -> emptyTypeRuleQuery
+				else -> errorTypeRuleQuery()
 			}
 			return value
 		}

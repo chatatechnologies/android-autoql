@@ -8,6 +8,7 @@ import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.TypeEnum
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.TypeRuleQuery
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.emptyTypeRuleQuery
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,13 +31,13 @@ data class NotificationEntity (
 ) {
 	var isBottomVisible = false
 	var isVisibleLoading = true
-	var contentTextView = ""
-	var contentWebView = ""
+	var contentTextView: TypeRuleQuery = emptyTypeRuleQuery
+	var contentWebView: TypeRuleQuery = emptyTypeRuleQuery
 
 	fun setData(typeRuleQuery: TypeRuleQuery) {
 		when(typeRuleQuery.typeEnum) {
-			TypeEnum.TEXT -> contentTextView = typeRuleQuery.contentResponse
-			TypeEnum.WEB -> contentWebView = typeRuleQuery.contentResponse
+			TypeEnum.TEXT -> contentTextView = typeRuleQuery
+			TypeEnum.WEB -> contentWebView = typeRuleQuery
 		}
 	}
 

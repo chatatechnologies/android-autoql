@@ -120,7 +120,7 @@
 					android:layout_marginStart="16dp"
 					android:layout_width="match_parent"
 					android:visibility="@{model.getNotificationAt(position).visibleTextView}"
-					android:text="@{model.getNotificationAt(position).contentTextView}"
+					android:text="@{model.getNotificationAt(position).contentTextView.contentResponse}"
 					android:textColor="@{model.textColorPrimary}"
 					android:textSize="22sp"/>
 				<WebView
