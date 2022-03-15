@@ -118,14 +118,15 @@
 					android:layout_marginEnd="16dp"
 					android:layout_marginStart="16dp"
 					android:layout_width="match_parent"
-					android:visibility="gone"
+					android:visibility="@{model.getNotificationAt(position).visibleTextView}"
+					android:text="@{model.getNotificationAt(position).contentTextView}"
 					android:textColor="@{model.textColorPrimary}"
 					android:textSize="22sp"/>
 				<WebView
 					android:id="@+id/wbQuery"
 					android:layout_height="200dp"
 					android:layout_width="match_parent"
-					android:visibility="@{model.getNotificationAt(position).isVisibleWebView()}"
+					android:visibility="@{model.getNotificationAt(position).visibleWebView}"
 					app:loadData="@{model.getUrl(position)}"
 					tools:ignore="WebViewLayout"/>
 

@@ -1,18 +1,14 @@
 package chata.can.chata_ai.retrofit.data.model
 
-import androidx.lifecycle.MutableLiveData
 import chata.can.chata_ai.retrofit.core.keySuggestion
-import chata.can.chata_ai.retrofit.data.model.ruleQuery.QueryResultData
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.*
 
-class QueryModel(
-	queryResultData: QueryResultData,
-	private val contentResponse: MutableLiveData<String>
-	) {
-	val displayType = queryResultData.displayType
-	val limitRowNum = queryResultData.limitRowNum
-	val queryId = queryResultData.queryId
-	val columnsModel = ArrayList<ColumnModel>()
-	val rows = ArrayList< ArrayList<String> >()
+class QueryModel(queryResultData: QueryResultData) {
+	private val displayType = queryResultData.displayType
+	private val limitRowNum = queryResultData.limitRowNum
+	private val queryId = queryResultData.queryId
+	private val columnsModel = ArrayList<ColumnModel>()
+	private val rows = ArrayList< ArrayList<String> >()
 
 	init {
 		columnsModel.addAll(queryResultData.columns)
@@ -23,7 +19,7 @@ class QueryModel(
 		}
 	}
 
-	fun isSimpleText(): Boolean {
+	private fun isSimpleText(): Boolean {
 		val sizeLevel1 = rows.size
 		return rows.firstOrNull()?.let {
 			val sizeLevel2 = it.size
@@ -31,19 +27,22 @@ class QueryModel(
 		} ?: run { false }
 	}
 
-	fun getSimpleText(): String {
+	private fun getSimpleText(): String {
 		return rows.firstOrNull()?.let {
 			it.firstOrNull() ?: run { "" }
 		} ?: run { "" }
 	}
 
-	fun defineContent() {
-		when {
+	fun defineContent(): TypeRuleQuery {
+		val value = when {
 			rows.size == 0 || isSimpleText() || displayType == keySuggestion -> {
 				columnsModel.firstOrNull()?.let {
-					contentResponse.postValue( getSimpleText() )
-				}
+					textTypeRuleQuery(getSimpleText())
+//					webTypeRuleQuery("<p style=\"color: blueviolet;\">Text for webView</p>")
+				} ?: run { emptyTypeRuleQuery }
 			}
+			else -> emptyTypeRuleQuery
 		}
+		return value
 	}
 }

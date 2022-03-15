@@ -12,6 +12,7 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.NotificationEntity
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.notificationModelToEntity
@@ -79,12 +80,12 @@ class NotificationViewModel: ViewModel() {
 		getNotificationAt(position)?.let { notification ->
 			notification.isBottomVisible = !notification.isBottomVisible
 			viewModelScope.launch {
-//				val result = ruleQueryUseCase.getRuleQuery(notification.id)
-//				result.toString()
-				//RuleQueryResponse(result.queryResult.data).getResponse(contentResponse)
+				val result = ruleQueryUseCase.getRuleQuery(notification.id)
+				val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(result.queryResult.data)
 
 				notificationRecyclerAdapter?.let {
-					notification.contentWebView = "<p style=\"color: blueviolet;\">Text for webView</p>"
+					notification.setData(resultRuleQuery)
+					notification.isVisibleLoading = false
 					it.notifyItemChanged(position)
 				}
 			}

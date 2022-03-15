@@ -1,11 +1,14 @@
 package chata.can.chata_ai.retrofit.data.model.ruleQuery
 
-import androidx.lifecycle.MutableLiveData
 import chata.can.chata_ai.retrofit.data.model.QueryModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class RuleQueryResponse(private val queryResultData: QueryResultData) {
-	fun getResponse(contentResponse: MutableLiveData<String>) {
-		val queryModel = QueryModel(queryResultData, contentResponse)
-		queryModel.defineContent()
+object RuleQueryResponse {
+	suspend fun getRuleQueryResponse(queryResultData: QueryResultData): TypeRuleQuery {
+		return withContext(Dispatchers.IO) {
+			val queryModel = QueryModel(queryResultData)
+			queryModel.defineContent()
+		}
 	}
 }

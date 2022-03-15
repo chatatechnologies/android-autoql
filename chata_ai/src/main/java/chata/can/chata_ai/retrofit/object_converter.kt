@@ -6,6 +6,8 @@ import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.notification.NotificationModel
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.TypeEnum
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.TypeRuleQuery
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +29,16 @@ data class NotificationEntity (
 	val state: String
 ) {
 	var isBottomVisible = false
+	var isVisibleLoading = true
+	var contentTextView = ""
 	var contentWebView = ""
+
+	fun setData(typeRuleQuery: TypeRuleQuery) {
+		when(typeRuleQuery.typeEnum) {
+			TypeEnum.TEXT -> contentTextView = typeRuleQuery.contentResponse
+			TypeEnum.WEB -> contentWebView = typeRuleQuery.contentResponse
+		}
+	}
 
 	fun createdAtFormatted(): String {
 		return "\uD83D\uDCC5 ${toDate(createdAt)}"
@@ -71,7 +82,7 @@ data class NotificationEntity (
 		catch (ex: Exception) { "" }
 	}
 
-	fun isVisibleLoading(): Boolean = contentWebView.isEmpty()
+	fun isVisibleTextView() = contentTextView.isNotEmpty()
 
 	fun isVisibleWebView() = contentWebView.isNotEmpty()
 }
