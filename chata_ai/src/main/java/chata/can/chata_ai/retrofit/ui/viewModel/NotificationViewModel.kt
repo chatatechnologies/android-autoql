@@ -16,27 +16,16 @@ import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
-import chata.can.chata_ai.retrofit.model.NotificationObservable
 import chata.can.chata_ai.retrofit.notificationModelToEntity
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
-	//region notifications observable
-	private var notificationObservable: NotificationObservable = NotificationObservable()
-
-	fun callNotifications() {
-		notificationObservable.callNotifications()
-	}
-
-	fun getNotifications(): MutableLiveData<List<NotificationEntity>> {
-		return notificationObservable.getNotifications()
-	}
-	//endregion
-
-
 	val notificationList = MutableLiveData<List<NotificationEntity>>()
 	val totalItems = MutableLiveData<Int>()
+
+	private var totalPages = 0
+	private var countPages = 1
 
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
 
@@ -59,7 +48,7 @@ class NotificationViewModel: ViewModel() {
 	fun onCreate() {
 		viewModelScope.launch {
 			val newList = mutableListOf<NotificationEntity>()
-			val result = getNotificationUseCase()
+			val result = getNotificationUseCase.getNotifications()
 
 			Executor({
 				result.items.forEach { notificationModel ->
@@ -67,14 +56,21 @@ class NotificationViewModel: ViewModel() {
 				}
 			}, {
 				notificationList.postValue(newList)
-				totalItems.postValue(result.pagination.totalItems)
+				totalPages = result.pagination.totalItems
+				totalItems.postValue( totalPages )
 			}).execute()
 		}
 	}
 
 	fun getNotificationRecyclerAdapter(): NotificationRecyclerAdapter? {
 		notificationRecyclerAdapter = NotificationRecyclerAdapter(
-			this, R.layout.card_notification)
+			notificationViewModel = this,
+			resource = R.layout.card_notification
+		) {
+			if (countPages < totalPages) {
+				totalPages.toString()
+			}
+		}
 		return notificationRecyclerAdapter
 	}
 
@@ -92,7 +88,6 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun getNotificationAt(position: Int): NotificationEntity? {
-//		val aNotification = notificationObservable.getNotifications().value
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
 	}

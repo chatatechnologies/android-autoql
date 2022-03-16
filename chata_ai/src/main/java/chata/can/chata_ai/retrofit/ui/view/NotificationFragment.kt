@@ -18,7 +18,6 @@ import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationFragment: Fragment(), NotificationContract {
@@ -28,7 +27,8 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private var notificationViewModel: NotificationViewModel ?= null
 	private var fragmentNotificationFragmentBinding: FragmentNotificationBinding? = null
-	private var backTotalItems = 0
+	//totalItems
+	private var totalPages = 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -68,15 +68,6 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private fun initObserve() {
 		notificationViewModel?.run {
-//			callNotifications()
-//			//getNotifications
-//			getNotifications().observe(viewLifecycleOwner) { notifications: List<NotificationEntity> ->
-//				if (notifications.isNotEmpty()) {
-//					setNotificationsInRecyclerAdapter(notifications)
-//					showRecyclerView()
-//				} else showMessage()
-//			}
-
 			onCreate()
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
@@ -86,7 +77,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 				} else showMessage()
 			}
 			totalItems.observe(viewLifecycleOwner) {
-				backTotalItems = it
+				totalPages = it
 			}
 		}
 	}

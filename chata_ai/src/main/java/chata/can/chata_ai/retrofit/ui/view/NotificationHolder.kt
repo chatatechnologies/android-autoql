@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.BR
 import chata.can.chata_ai.databinding.CardNotificationBinding
@@ -12,11 +13,12 @@ class NotificationHolder(_binding: CardNotificationBinding): RecyclerView.ViewHo
 		binding.run {
 			setVariable(BR.model, notificationViewModel)
 			setVariable(BR.position, position)
-//			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
-//				val params = iView.layoutParams
-//				params.height = ivTop.measuredHeight + rlBottom.measuredHeight
-//				iView.layoutParams = params
-//			}
+			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
+				val params = iView.layoutParams
+				val bottomHeight = if (rlBottom.visibility == View.VISIBLE) rlBottom.measuredHeight else 0
+				params.height = ivTop.measuredHeight + bottomHeight
+				iView.layoutParams = params
+			}
 			executePendingBindings()
 		}
 	}

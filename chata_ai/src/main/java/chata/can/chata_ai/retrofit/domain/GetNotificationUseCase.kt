@@ -6,5 +6,8 @@ import chata.can.chata_ai.retrofit.data.model.notification.NotificationDataModel
 class GetNotificationUseCase {
 	private val repository = NotificationRepository()
 
-	suspend operator fun invoke(): NotificationDataModel = repository.getNotification()
+	suspend fun getNotifications(
+		offset: Int = 0,
+		limit: Int = 10
+	): NotificationDataModel = repository.getNotification()
 }

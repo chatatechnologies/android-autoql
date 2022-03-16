@@ -6,8 +6,8 @@ import chata.can.chata_ai.retrofit.data.network.NotificationService
 class NotificationRepository {
 	private val api = NotificationService()
 
-	suspend fun getNotification(): NotificationDataModel {
-		val response = api.getNotifications()
+	suspend fun getNotification(offset: Int = 0, limit: Int = 10): NotificationDataModel {
+		val response = api.getNotifications(offset, limit)
 		return response.data
 	}
 }
