@@ -1,8 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +11,12 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.extension.textSize
-import chata.can.chata_ai.fragment.notification.NotificationContract
-import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
-class NotificationFragment: Fragment(), NotificationContract {
+class NotificationFragment: Fragment() {
 	companion object {
 		const val nameFragment = "Notifications"
 	}
@@ -54,16 +50,6 @@ class NotificationFragment: Fragment(), NotificationContract {
 	override fun onDestroy() {
 		super.onDestroy()
 		ThemeColor.aColorMethods.remove(nameFragment)
-	}
-
-	override fun showItem(position: Int) {
-		Handler(Looper.getMainLooper()).postDelayed({
-			fragmentNotificationFragmentBinding?.rvNotification?.smoothScrollToPosition(position)
-		}, 200)
-	}
-
-	override fun showNotifications(totalPages: Int, aNotification: ArrayList<Notification>) {
-
 	}
 
 	private fun initObserve() {

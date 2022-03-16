@@ -40,7 +40,7 @@ object ExploreQueries
 				//region ivSearch
 				addView(ImageView(context).apply {
 					id = R.id.ivSearch
-					gravity = Gravity.CENTER
+					gravity = Gravity.CENTER//TODO check gravity for layout
 					layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f)).apply {
 						addRule(RelativeLayout.ALIGN_PARENT_END)
 					}
