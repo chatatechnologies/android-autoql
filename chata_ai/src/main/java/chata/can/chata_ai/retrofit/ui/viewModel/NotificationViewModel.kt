@@ -16,11 +16,20 @@ import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
+import chata.can.chata_ai.retrofit.model.NotificationObservable
 import chata.can.chata_ai.retrofit.notificationModelToEntity
 import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
+
+	private var notificationObservable: NotificationObservable = NotificationObservable()
+
+	fun callNotifications() {
+		notificationObservable.callNotifications()
+	}
+
+
 	val notificationList = MutableLiveData<List<NotificationEntity>>()
 	val totalItems = MutableLiveData<Int>()
 

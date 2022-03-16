@@ -18,7 +18,6 @@ import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.notificationModelToEntity
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationFragment: Fragment(), NotificationContract {
@@ -68,7 +67,9 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private fun initObserve() {
 		notificationViewModel?.run {
-			onCreate()
+			callNotifications()
+
+//			onCreate()
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
 				if (listNotification.isNotEmpty()) {
@@ -87,6 +88,7 @@ class NotificationFragment: Fragment(), NotificationContract {
 			fragmentNotificationFragmentBinding?.run {
 				llParent.setBackgroundColor(pDrawerBackgroundColor)
 				rvNotification.setBackgroundColor(pDrawerColorSecondary)
+				rvNotification.itemAnimator = null
 				tvLoading.setTextColor(pDrawerTextColorPrimary)
 				tvMsg1.setTextColor(pDrawerTextColorPrimary)
 				txtTry.setTextColor(pDrawerTextColorPrimary)
