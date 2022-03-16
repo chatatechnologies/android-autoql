@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import chata.can.chata_ai.Executor
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -43,13 +44,17 @@ class NotificationViewModel: ViewModel() {
 
 	fun onCreate() {
 		viewModelScope.launch {
+			val newList = mutableListOf<NotificationEntity>()
 			val result = getNotificationUseCase()
-			val notificationsModel = result.items
 
-			val newList = notificationsModel.map { it.notificationModelToEntity() }
-
-			notificationList.postValue(newList)
-			totalItems.postValue(result.pagination.totalItems)
+			Executor({
+				result.items.forEach { notificationModel ->
+					newList.add(notificationModel.notificationModelToEntity())
+				}
+			}, {
+				notificationList.postValue(newList)
+				totalItems.postValue(result.pagination.totalItems)
+			}).execute()
 		}
 	}
 

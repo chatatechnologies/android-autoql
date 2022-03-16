@@ -6,18 +6,15 @@ import chata.can.chata_ai.databinding.CardNotificationBinding
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationHolder(_binding: CardNotificationBinding): RecyclerView.ViewHolder(_binding.root) {
-	private var binding: CardNotificationBinding? = null
-	init {
-		binding = _binding
-	}
+	private var binding: CardNotificationBinding = _binding
 
 	fun setDataCard(notificationViewModel: NotificationViewModel, position: Int) {
-		binding?.run {
+		binding.run {
 			setVariable(BR.model, notificationViewModel)
 			setVariable(BR.position, position)
-			ivTop.viewTreeObserver.addOnGlobalLayoutListener {
+			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
 				val params = iView.layoutParams
-				params.height = ivTop.measuredHeight
+				params.height = ivTop.measuredHeight + rlBottom.measuredHeight
 				iView.layoutParams = params
 			}
 			executePendingBindings()
