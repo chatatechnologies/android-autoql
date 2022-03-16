@@ -18,8 +18,9 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
-import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
 
+//import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
+import chata.can.chata_ai.retrofit.ui.view.ExploreQueriesFragment
 //import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.retrofit.ui.view.NotificationFragment
 

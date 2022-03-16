@@ -4,7 +4,9 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
-
+		<variable
+			name="model"
+			type="chata.can.chata_ai.retrofit.ui.viewModel.ExploreQueriesViewModel"/>
 	</data>
 
 	<LinearLayout
@@ -33,8 +35,9 @@
 				android:scaleType="fitCenter"/>
 
 			<EditText
-				android:background="@android:color/transparent"
+				android:background="@{model.drawableQuery}"
 				android:hint="@string/explore_queries_hint"
+				android:textColorHint="@color/place_holder"
 				android:id="@+id/etQuery"
 				android:layout_width="match_parent"
 				android:layout_height="40dp"
@@ -108,6 +111,61 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
+				android:textSize="32sp"
+				android:textStyle="bold"/>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="0dp">
+				<TextView
+					android:gravity="center"
+					android:id="@+id/tvFirstPage"
+					android:layout_height="30dp"
+					android:layout_centerInParent="true"
+					android:layout_width="wrap_content"
+					android:textColor="@{model.textColorPrimary}"
+					android:textSize="20sp"
+					android:textStyle="bold"/>
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="0dp">
+				<TextView
+					android:gravity="center"
+					android:id="@+id/tvCenterPage"
+					android:layout_height="30dp"
+					android:layout_centerInParent="true"
+					android:layout_width="wrap_content"
+					android:textColor="@{model.textColorPrimary}"
+					android:textSize="20sp"
+					android:textStyle="bold"/>
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:layout_width="0dp">
+				<TextView
+					android:gravity="center"
+					android:id="@+id/tvLastPage"
+					android:layout_centerInParent="true"
+					android:layout_width="wrap_content"
+					android:layout_height="30sp"
+					android:textColor="@{model.textColorPrimary}"
+					android:textSize="20sp"
+					android:textStyle="bold"/>
+			</RelativeLayout>
+
+			<TextView
+				android:gravity="center"
+				android:id="@+id/tvNext"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_width="0dp"
+				android:text="@string/arrow_right"
 				android:textSize="32sp"
 				android:textStyle="bold"/>
 
