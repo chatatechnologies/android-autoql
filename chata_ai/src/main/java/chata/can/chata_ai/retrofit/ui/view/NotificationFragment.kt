@@ -18,6 +18,7 @@ import chata.can.chata_ai.fragment.notification.model.Notification
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationFragment: Fragment(), NotificationContract {
@@ -67,9 +68,16 @@ class NotificationFragment: Fragment(), NotificationContract {
 
 	private fun initObserve() {
 		notificationViewModel?.run {
-			callNotifications()
+//			callNotifications()
+//			//getNotifications
+//			getNotifications().observe(viewLifecycleOwner) { notifications: List<NotificationEntity> ->
+//				if (notifications.isNotEmpty()) {
+//					setNotificationsInRecyclerAdapter(notifications)
+//					showRecyclerView()
+//				} else showMessage()
+//			}
 
-//			onCreate()
+			onCreate()
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
 				if (listNotification.isNotEmpty()) {

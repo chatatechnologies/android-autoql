@@ -12,11 +12,11 @@ class NotificationHolder(_binding: CardNotificationBinding): RecyclerView.ViewHo
 		binding.run {
 			setVariable(BR.model, notificationViewModel)
 			setVariable(BR.position, position)
-			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
-				val params = iView.layoutParams
-				params.height = ivTop.measuredHeight + rlBottom.measuredHeight
-				iView.layoutParams = params
-			}
+//			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
+//				val params = iView.layoutParams
+//				params.height = ivTop.measuredHeight + rlBottom.measuredHeight
+//				iView.layoutParams = params
+//			}
 			executePendingBindings()
 		}
 	}

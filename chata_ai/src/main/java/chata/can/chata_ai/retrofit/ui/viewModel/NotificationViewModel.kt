@@ -22,12 +22,17 @@ import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
-
+	//region notifications observable
 	private var notificationObservable: NotificationObservable = NotificationObservable()
 
 	fun callNotifications() {
 		notificationObservable.callNotifications()
 	}
+
+	fun getNotifications(): MutableLiveData<List<NotificationEntity>> {
+		return notificationObservable.getNotifications()
+	}
+	//endregion
 
 
 	val notificationList = MutableLiveData<List<NotificationEntity>>()
@@ -87,6 +92,7 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun getNotificationAt(position: Int): NotificationEntity? {
+//		val aNotification = notificationObservable.getNotifications().value
 		val aNotification = notificationList.value
 		return aNotification?.get(position)
 	}
