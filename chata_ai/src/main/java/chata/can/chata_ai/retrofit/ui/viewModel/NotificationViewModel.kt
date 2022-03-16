@@ -24,6 +24,8 @@ class NotificationViewModel: ViewModel() {
 	val notificationList = MutableLiveData<List<NotificationEntity>>()
 	val totalItems = MutableLiveData<Int>()
 
+	var aNotifications = mutableListOf<NotificationEntity>()
+
 	private var totalPages = 0
 	private var countPages = 1
 
@@ -42,13 +44,13 @@ class NotificationViewModel: ViewModel() {
 		}
 	}
 
-	var getNotificationUseCase = GetNotificationUseCase()
+	private var getNotificationUseCase = GetNotificationUseCase()
 	private val ruleQueryUseCase = GetRuleQueryUseCase()
 
-	fun onCreate() {
+	fun onCreate(offset: Int = 0) {
 		viewModelScope.launch {
 			val newList = mutableListOf<NotificationEntity>()
-			val result = getNotificationUseCase.getNotifications()
+			val result = getNotificationUseCase.getNotifications(offset)
 
 			Executor({
 				result.items.forEach { notificationModel ->
@@ -68,7 +70,7 @@ class NotificationViewModel: ViewModel() {
 			resource = R.layout.card_notification
 		) {
 			if (countPages < totalPages) {
-				totalPages.toString()
+				onCreate(countPages++ * 10)
 			}
 		}
 		return notificationRecyclerAdapter
@@ -76,7 +78,8 @@ class NotificationViewModel: ViewModel() {
 
 	fun setNotificationsInRecyclerAdapter(aNotification: List<NotificationEntity>) {
 		notificationRecyclerAdapter?.let {
-			it.setNotifications(aNotification)
+			//it.setNotifications(aNotification)
+			aNotifications.addAll(aNotification)
 			it.notifyItemRangeChanged(0, aNotification.size)
 		}
 	}
@@ -87,20 +90,19 @@ class NotificationViewModel: ViewModel() {
 		return DrawableBuilder.setGradientDrawable(white, 18f,0, gray)
 	}
 
-	fun getNotificationAt(position: Int): NotificationEntity? {
-		val aNotification = notificationList.value
-		return aNotification?.get(position)
+	fun getNotificationAt(position: Int): NotificationEntity {
+		return aNotifications[position]
 	}
 
 	fun changeVisibility(position: Int) {
-		getNotificationAt(position)?.let { notification ->
+		getNotificationAt(position).let { notification ->
 			notification.isBottomVisible = !notification.isBottomVisible
 			if (notification.isBottomVisible) {
 
 				if (lastOpenRuleQuery != position) {
 					//region last open rule Query is major that Zero
 					if (lastOpenRuleQuery >= 0) {
-						getNotificationAt(lastOpenRuleQuery)?.let {
+						getNotificationAt(lastOpenRuleQuery).let {
 							it.isBottomVisible = false
 							notificationRecyclerAdapter?.notifyItemChanged(lastOpenRuleQuery)
 						}
@@ -130,7 +132,7 @@ class NotificationViewModel: ViewModel() {
 	}
 
 	fun getUrl(position: Int): String {
-		return getNotificationAt(position)?.contentWebView?.contentResponse ?: "no load"
+		return getNotificationAt(position).contentWebView.contentResponse
 	}
 
 	companion object {

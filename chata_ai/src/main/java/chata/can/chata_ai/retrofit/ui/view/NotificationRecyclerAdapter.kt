@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.databinding.CardNotificationBinding
-import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.core.OnBottomReachedListener
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
@@ -21,18 +20,14 @@ class NotificationRecyclerAdapter(
 		}
 	}
 
-	private var aNotifications = mutableListOf<NotificationEntity>()
-
-	fun setNotifications(notifications: List<NotificationEntity>) {
-		this.aNotifications.addAll(notifications)
-	}
+	private fun getNotifications() = this.notificationViewModel.aNotifications
 
 	override fun getItemCount(): Int {
-		return aNotifications.size
+		return getNotifications().size
 	}
 
 	override fun onBindViewHolder(holder: NotificationHolder, position: Int) {
-		if (position == aNotifications.size - 1) {
+		if (position == getNotifications().size - 1) {
 			onBottomReachedListener.onBottomReachedListener(position)
 		}
 		holder.setDataCard(notificationViewModel, position)

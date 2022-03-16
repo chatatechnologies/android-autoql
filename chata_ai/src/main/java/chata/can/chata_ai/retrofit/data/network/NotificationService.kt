@@ -10,14 +10,15 @@ import kotlinx.coroutines.withContext
 class NotificationService {
 	private val retrofit = RetrofitHelperDynamic.getRetrofit()
 
-	suspend fun getNotifications(offset: Int = 0, limit: Int = 10): NotificationResponseModel {
+	suspend fun getNotifications(offset: Int = 0): NotificationResponseModel {
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(NotificationApiClient::class.java)
 					.getNotifications(
 						"Bearer ${AutoQLData.JWT}",
 						AutoQLData.apiKey,
-						offset, limit)
+						offset,
+						limit = 10)
 				response.body() ?: emptyNotification()
 			} catch (ex: Exception) {
 				emptyNotification()

@@ -7,7 +7,6 @@ class GetNotificationUseCase {
 	private val repository = NotificationRepository()
 
 	suspend fun getNotifications(
-		offset: Int = 0,
-		limit: Int = 10
-	): NotificationDataModel = repository.getNotification()
+		offset: Int = 0
+	): NotificationDataModel = repository.getNotification(offset)
 }
