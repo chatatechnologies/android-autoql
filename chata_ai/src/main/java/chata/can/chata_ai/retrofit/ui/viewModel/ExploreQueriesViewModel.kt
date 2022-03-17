@@ -10,6 +10,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -45,12 +46,18 @@ class ExploreQueriesViewModel: ViewModel() {
 
 	fun getAccentColor() = SinglentonDrawer.currentAccent
 
-	private val useCase = GetValidateQueryUseCase()
+	private val getValidateQueryUseCase = GetValidateQueryUseCase()
+	private val getRelatedQueryUseCase = GetRelatedQueryUseCase()
 
 	fun validateQuery(query: String) {
 		viewModelScope.launch {
-			val result = useCase.validateQuery(query)
-			result.query
+			val result = getValidateQueryUseCase.validateQuery(query)
+			if (result.replacements.isEmpty()) {
+				// getRelatedQueries
+				val result1 = getRelatedQueryUseCase.getRelatedQuery(query)
+				result1.items
+				result1.pagination
+			}
 		}
 	}
 
