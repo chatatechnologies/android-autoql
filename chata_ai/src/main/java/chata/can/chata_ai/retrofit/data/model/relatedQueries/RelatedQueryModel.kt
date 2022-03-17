@@ -3,8 +3,8 @@ package chata.can.chata_ai.retrofit.data.model.relatedQueries
 import com.google.gson.annotations.SerializedName
 
 class RelatedQueryModel(
-	@SerializedName("data")
-	val data: RelatedQueryData?,
+//	@SerializedName("data")
+//	val data: RelatedQueryData?,
 	@SerializedName("message")
 	val message: String,
 	@SerializedName("reference_id")
@@ -12,12 +12,12 @@ class RelatedQueryModel(
 )
 
 fun emptyRelatedModel() = RelatedQueryModel(
-	data = emptyRelatedQueryData(),
+	//data = emptyRelatedQueryData(),
 	message = "",
 	referenceId = ""
 )
 
-class RelatedQueryData(
+data class RelatedQueryData(
 	@SerializedName("items")
 	val items: List<String>,
 	@SerializedName("pagination")
@@ -29,7 +29,7 @@ fun emptyRelatedQueryData() = RelatedQueryData(
 	pagination = emptyRelatedQueryPagination()
 )
 
-class RelatedQueryPagination(
+data class RelatedQueryPagination(
 	@SerializedName("total_items")
 	val totalItems: Int,
 	@SerializedName("next_url")

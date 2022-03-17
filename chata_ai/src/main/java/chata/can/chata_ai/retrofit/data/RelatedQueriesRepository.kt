@@ -7,8 +7,10 @@ import chata.can.chata_ai.retrofit.data.network.RelatedQueriesService
 class RelatedQueriesRepository {
 	private val api = RelatedQueriesService()
 
-	suspend fun getRelatedQuery(search: String): RelatedQueryData {
+	suspend fun getRelatedQuery(search: String)/*: RelatedQueryData*/ {
 		val response = api.getRelatedQuery(search)
-		return response.data ?: emptyRelatedQueryData()
+		response.toString()
+//		response.message
+//		return /*response.data ?:*/ emptyRelatedQueryData()
 	}
 }
