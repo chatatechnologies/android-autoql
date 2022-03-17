@@ -8,20 +8,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.api1
-import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
-import chata.can.chata_ai.retrofit.data.network.RelatedQueriesApiClient2
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
-import com.google.gson.JsonObject
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.abs
 import kotlin.math.log10
 
@@ -59,33 +50,49 @@ class ExploreQueriesViewModel: ViewModel() {
 	private val getRelatedQueryUseCase = GetRelatedQueryUseCase()
 
 	fun validateQuery(query: String) {
-		//viewModelScope.launch {
-//			getRelatedQueryUseCase.getRelatedQuery(query)
-
-		val retrofit = Retrofit.Builder()
-			.baseUrl("${AutoQLData.domainUrl}/autoql/$api1")
-			.addConverterFactory(GsonConverterFactory.create())
-			.build()
-
-		val apiService = retrofit.create(RelatedQueriesApiClient2::class.java)
-		val call = apiService.getRelatedQuery(
-			beaverToken = "Bearer ${AutoQLData.JWT}",
-			acceptLanguage = SinglentonDrawer.languageCode,
-			apiKey = AutoQLData.apiKey,
-			search = query,
-			pageSize = 7,
-			page = 1
-		)
-		call.enqueue(object: Callback<JsonObject> {
-			override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-				response
+		viewModelScope.launch {
+			val validateQueryData = getValidateQueryUseCase.validateQuery(query)
+			if (validateQueryData.replacements.isEmpty()) {
+				val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
+				relatedQueryData.pagination
 			}
 
-			override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-				t
-			}
+//		viewModelScope.launch {
+//			val retrofit = Retrofit.Builder()
+//				.baseUrl("${AutoQLData.domainUrl}/autoql/$api1")
+//				.addConverterFactory(GsonConverterFactory.create())
+//				.build()
+//
+//			withContext(Dispatchers.IO) {
+//				try {
+//					val apiService = retrofit.create(RelatedQueriesApiClient2::class.java)
+//					val call = apiService.getRelatedQuery(
+//						beaverToken = "Bearer ${AutoQLData.JWT}",
+//						acceptLanguage = SinglentonDrawer.languageCode,
+//						apiKey = AutoQLData.apiKey,
+//						search = query,
+//						pageSize = 7,
+//						page = 1
+//					)
+//					call.body()
+//
+//					toString()
+//				} catch (ex: Exception) {
+//					ex.printStackTrace()
+//					toString()
+//				}
+//			}
+//		}
 
-		})
+//		call.enqueue(object: Callback<GenericResponse> {
+//			override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
+//				response
+//			}
+//
+//			override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+//				t
+//			}
+//		})
 
 //			val result = getValidateQueryUseCase.validateQuery(query)
 //			if (result.replacements.isEmpty()) {
@@ -94,7 +101,7 @@ class ExploreQueriesViewModel: ViewModel() {
 //				result1.items
 //				result1.pagination
 //			}
-		//}
+		}
 	}
 
 	companion object {

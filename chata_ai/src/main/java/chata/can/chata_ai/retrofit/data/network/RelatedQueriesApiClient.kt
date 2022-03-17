@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface RelatedQueriesApiClient {
 	@GET("query/related-queries")
-	fun getRelatedQuery(
+	suspend fun getRelatedQuery(
 		@Header("Authorization") beaverToken: String,
 		@Header("accept-language") acceptLanguage: String,
 		@Query("key") apiKey: String,

@@ -15,7 +15,7 @@ class RelatedQueriesService {
 		search: String,
 		pageSize: Int = 12,
 		page: Int = 1
-	): String {
+	): RelatedQueryModel {
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(RelatedQueriesApiClient::class.java)
@@ -28,11 +28,8 @@ class RelatedQueriesService {
 						page = page
 					)
 				response.body() ?: emptyRelatedModel()
-				""
 			} catch (ex: Exception) {
-				ex.stackTraceToString()
 				emptyRelatedModel()
-				""
 			}
 		}
 	}
