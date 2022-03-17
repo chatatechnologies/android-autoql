@@ -1,19 +1,25 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.log10
 
 class ExploreQueriesViewModel: ViewModel() {
+
+	//region possible data on companion object
+
+	//endregion
 
 	var colorSecondary = 0
 	var backgroundColor = 0
@@ -38,6 +44,15 @@ class ExploreQueriesViewModel: ViewModel() {
 	}
 
 	fun getAccentColor() = SinglentonDrawer.currentAccent
+
+	private val useCase = GetValidateQueryUseCase()
+
+	fun validateQuery(query: String) {
+		viewModelScope.launch {
+			val result = useCase.validateQuery(query)
+			result.query
+		}
+	}
 
 	companion object {
 		fun Int.length() = when(this) {

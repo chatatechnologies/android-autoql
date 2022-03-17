@@ -8,13 +8,12 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RuleQueryApiClient {
-	//url should variable - idRule
 	@GET("rule-notifications/{id_rule}")
 	suspend fun getRuleQuery(
 		@Path(value = "id_rule") idRule: String,
 		@Header("Authorization") beaverToken: String,
 		@Header("accept-language") acceptLanguage: String,
-		@Header("acceptLanguage") integratorDomain: String,
+		@Header("integrator-domain") integratorDomain: String,
 		@Query("key") key: String
 	): Response<RuleQueryResponseModel>
 }

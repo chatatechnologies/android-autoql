@@ -39,7 +39,7 @@
 			<EditText
 				android:background="@{model.drawableQuery}"
 				android:hint="@string/explore_queries_hint"
-				android:textColorHint="@color/place_holder"
+				android:layout_toStartOf="@id/ivSearch"
 				android:id="@+id/etQuery"
 				android:layout_width="match_parent"
 				android:layout_height="40dp"
@@ -47,7 +47,8 @@
 				android:paddingTop="8dp"
 				android:paddingRight="16dp"
 				android:paddingBottom="8dp"
-				android:layout_toStartOf="@id/ivSearch"
+				android:textColor="@{model.textColorPrimary}"
+				android:textColorHint="@color/place_holder"
 				android:importantForAutofill="no"/>
 
 		</RelativeLayout>
@@ -85,7 +86,8 @@
 				android:layout_marginStart="8dp"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:text="@string/explore_queries_msg_1"/>
+				android:text="@string/explore_queries_msg_1"
+				android:textColor="@color/text_explore_queries"/>
 
 			<TextView
 				android:gravity="center"
@@ -95,7 +97,8 @@
 				android:layout_marginTop="8dp"
 				android:layout_marginStart="8dp"
 				android:layout_height="wrap_content"
-				android:text="@string/explore_queries_msg_2"/>
+				android:text="@string/explore_queries_msg_2"
+				android:textColor="@color/text_explore_queries"/>
 
 		</LinearLayout>
 		<!-- endregion -->

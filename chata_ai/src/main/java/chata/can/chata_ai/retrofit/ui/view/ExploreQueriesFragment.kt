@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.ui.viewModel.ExploreQueriesViewModel
 
 class ExploreQueriesFragment: Fragment() {
@@ -33,5 +35,22 @@ class ExploreQueriesFragment: Fragment() {
 		exploreQueriesViewModel = ViewModelProvider(this).get(ExploreQueriesViewModel::class.java)
 		fragmentExploreQueryBinding?.model = exploreQueriesViewModel
 		return fragmentExploreQueryBinding?.root
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		fragmentExploreQueryBinding?.run {
+			//region on click listener
+			ivSearch.setOnClickListener {
+				if (AutoQLData.wasLoginIn) {
+					val query = etQuery.text.toString()
+					exploreQueriesViewModel?.validateQuery(query)
+				}
+			}
+			//endregion
+
+			if (BuildConfig.DEBUG) {
+				etQuery.setText("revenue")
+			}
+		}
 	}
 }
