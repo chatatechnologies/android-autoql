@@ -1,6 +1,5 @@
-package chata.can.chata_ai.retrofit.ui.view
+package chata.can.chata_ai.retrofit.ui.view.exploreQuery
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 import chata.can.chata_ai.retrofit.ui.viewModel.ExploreQueriesViewModel
 
 class ExploreQueriesFragment: Fragment() {
@@ -19,6 +20,7 @@ class ExploreQueriesFragment: Fragment() {
 		const val nameFragment = "Explore Queries"
 	}
 
+	private lateinit var adapter: ExploreQueriesAdapter
 	private var exploreQueriesViewModel: ExploreQueriesViewModel ?= null
 	private var fragmentExploreQueryBinding: FragmentExploreQueriesBinding ?= null
 
@@ -47,6 +49,7 @@ class ExploreQueriesFragment: Fragment() {
 		}
 		initObserve()
 		initListener()
+		initRecycler()
 	}
 
 	private fun initObserve() {
@@ -54,7 +57,11 @@ class ExploreQueriesFragment: Fragment() {
 			itemList.observe(viewLifecycleOwner) { listItems ->
 				if (listItems.isNotEmpty()) {
 					//show list
-					initRecycler()
+					visibleRecycler()
+					val listProvider = ExploreQueriesProvider.itemList
+					listProvider.clear()
+					listProvider.addAll(listItems)
+					adapter.notifyItemRangeChanged(0, listProvider.size)
 				} else {
 					// show message
 					fragmentExploreQueryBinding?. run {
@@ -83,9 +90,24 @@ class ExploreQueriesFragment: Fragment() {
 		}
 	}
 
-	private fun initRecycler() {
+	private fun visibleRecycler() {
 		fragmentExploreQueryBinding?.run {
 			rvRelatedQueries.visibility = View.VISIBLE
+		}
+	}
+
+	private fun initRecycler() {
+		fragmentExploreQueryBinding?.run {
+			//rvRelatedQueries.visibility = View.VISIBLE
+			rvRelatedQueries.run {
+				val linearLayoutManager = LinearLayoutManager(requireActivity())
+				//TODO item decoration -> DIVIDER
+				layoutManager = linearLayoutManager
+				adapter = ExploreQueriesAdapter(ExploreQueriesProvider.itemList) { item ->
+					//call service
+					println("item to request $item")
+				}
+			}
 		}
 	}
 
@@ -99,4 +121,6 @@ class ExploreQueriesFragment: Fragment() {
 			}
 		}
 	}
+
+
 }

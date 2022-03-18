@@ -20,10 +20,10 @@ import chata.can.chata_ai.extension.paddingAll
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 
 //import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
-import chata.can.chata_ai.retrofit.ui.view.ExploreQueriesFragment
+import chata.can.chata_ai.retrofit.ui.view.exploreQuery.ExploreQueriesFragment
 
 //import chata.can.chata_ai.fragment.notification.NotificationFragment
-import chata.can.chata_ai.retrofit.ui.view.NotificationFragment
+import chata.can.chata_ai.retrofit.ui.view.notification.NotificationFragment
 
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.ConstantDrawer

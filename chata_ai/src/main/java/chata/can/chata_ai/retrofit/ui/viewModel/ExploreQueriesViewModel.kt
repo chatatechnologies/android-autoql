@@ -65,20 +65,24 @@ class ExploreQueriesViewModel: ViewModel() {
 
 				relatedQueryData.run {
 					itemList.postValue(items)
-					isVisibleGif.postValue(false)
+					gifGone()
 					isVisibleMsg1.postValue(false)
-					message2False()
+					message2Gone()
 				}
 			} else {
 				itemList.postValue(listOf())
 				isVisibleGif.postValue(false)
 				isVisibleMsg1.postValue(true)
-				message2False()
+				message2Gone()
 			}
 		}
 	}
 
-	private fun message2False() {
+	private fun gifGone() {
+		isVisibleGif.postValue(false)
+	}
+
+	private fun message2Gone() {
 		isVisibleMsg2.postValue(false)
 	}
 

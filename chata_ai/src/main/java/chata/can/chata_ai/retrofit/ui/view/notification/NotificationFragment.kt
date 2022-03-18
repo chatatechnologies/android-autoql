@@ -1,4 +1,4 @@
-package chata.can.chata_ai.retrofit.ui.view
+package chata.can.chata_ai.retrofit.ui.view.notification
 
 import android.os.Bundle
 import android.view.LayoutInflater

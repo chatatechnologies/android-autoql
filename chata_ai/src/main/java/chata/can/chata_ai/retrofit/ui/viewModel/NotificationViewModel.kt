@@ -17,7 +17,7 @@ import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
 import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.notificationModelToEntity
-import chata.can.chata_ai.retrofit.ui.view.NotificationRecyclerAdapter
+import chata.can.chata_ai.retrofit.ui.view.notification.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
 
 class NotificationViewModel: ViewModel() {
