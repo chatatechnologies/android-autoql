@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +41,8 @@ class ExploreQueriesFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		fragmentExploreQueryBinding?.run {
 			if (BuildConfig.DEBUG) {
-//				etQuery.setText("revenue")
-				etQuery.setText("hi")
+				etQuery.setText("revenue")
+//				etQuery.setText("hi")
 			}
 		}
 		initObserve()
@@ -53,9 +54,12 @@ class ExploreQueriesFragment: Fragment() {
 			itemList.observe(viewLifecycleOwner) { listItems ->
 				if (listItems.isNotEmpty()) {
 					//show list
-
+					initRecycler()
 				} else {
 					// show message
+					fragmentExploreQueryBinding?. run {
+						tvMsg1.setText(R.string.empty_data_explore_queries)
+					}
 				}
 			}
 
@@ -80,7 +84,9 @@ class ExploreQueriesFragment: Fragment() {
 	}
 
 	private fun initRecycler() {
-
+		fragmentExploreQueryBinding?.run {
+			rvRelatedQueries.visibility = View.VISIBLE
+		}
 	}
 
 	private fun initListener() {

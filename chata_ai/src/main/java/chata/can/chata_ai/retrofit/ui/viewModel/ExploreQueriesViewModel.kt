@@ -31,7 +31,6 @@ class ExploreQueriesViewModel: ViewModel() {
 	val isVisibleGif = MutableLiveData<Boolean>()
 	val isVisibleMsg1 = MutableLiveData<Boolean>()
 	val isVisibleMsg2 = MutableLiveData<Boolean>()
-//	val isVisibleList = MutableLiveData<Boolean>()
 	val itemList = MutableLiveData<List<String>>()
 
 	init {
@@ -58,25 +57,29 @@ class ExploreQueriesViewModel: ViewModel() {
 
 	fun validateQuery(query: String) {
 		viewModelScope.launch {
-
 			isVisibleGif.postValue(true)
 
 			val validateQueryData = getValidateQueryUseCase.validateQuery(query)
 			if (validateQueryData.replacements.isEmpty()) {
 				val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
-				relatedQueryData.pagination
 
 				relatedQueryData.run {
 					itemList.postValue(items)
-
 					isVisibleGif.postValue(false)
+					isVisibleMsg1.postValue(false)
+					message2False()
 				}
 			} else {
+				itemList.postValue(listOf())
 				isVisibleGif.postValue(false)
 				isVisibleMsg1.postValue(true)
-				isVisibleMsg2.postValue(false)
+				message2False()
 			}
 		}
+	}
+
+	private fun message2False() {
+		isVisibleMsg2.postValue(false)
 	}
 
 	companion object {
