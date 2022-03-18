@@ -39,17 +39,57 @@ class ExploreQueriesFragment: Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		fragmentExploreQueryBinding?.run {
-			//region on click listener
+			if (BuildConfig.DEBUG) {
+//				etQuery.setText("revenue")
+				etQuery.setText("hi")
+			}
+		}
+		initObserve()
+		initListener()
+	}
+
+	private fun initObserve() {
+		exploreQueriesViewModel?.run {
+			itemList.observe(viewLifecycleOwner) { listItems ->
+				if (listItems.isNotEmpty()) {
+					//show list
+
+				} else {
+					// show message
+				}
+			}
+
+			isVisibleGif.observe(viewLifecycleOwner) { isVisible ->
+				fragmentExploreQueryBinding?. run {
+					rlGif.visibility = if (isVisible) View.VISIBLE else View.GONE
+				}
+			}
+
+			isVisibleMsg1.observe(viewLifecycleOwner) { isVisible ->
+				fragmentExploreQueryBinding?. run {
+					tvMsg1.visibility = if (isVisible) View.VISIBLE else View.GONE
+				}
+			}
+
+			isVisibleMsg2.observe(viewLifecycleOwner) { isVisible ->
+				fragmentExploreQueryBinding?. run {
+					tvMsg2.visibility = if (isVisible) View.VISIBLE else View.GONE
+				}
+			}
+		}
+	}
+
+	private fun initRecycler() {
+
+	}
+
+	private fun initListener() {
+		fragmentExploreQueryBinding?.run {
 			ivSearch.setOnClickListener {
 				if (AutoQLData.wasLoginIn) {
 					val query = etQuery.text.toString()
 					exploreQueriesViewModel?.validateQuery(query)
 				}
-			}
-			//endregion
-
-			if (BuildConfig.DEBUG) {
-				etQuery.setText("revenue")
 			}
 		}
 	}

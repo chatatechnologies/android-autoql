@@ -57,7 +57,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:weightSum="1"
+			android:layout_weight="1"
 			android:orientation="vertical">
 
 			<androidx.recyclerview.widget.RecyclerView
@@ -73,18 +73,18 @@
 				android:layout_width="match_parent"
 				android:visibility="gone">
 				<chata.can.chata_ai.view.gif.KGifView
+					android:layout_centerInParent="true"
 					android:layout_height="wrap_content"
-					android:layout_width="wrap_content"
-					android:layout_centerInParent="true"/>
+					android:layout_width="wrap_content"/>
 			</RelativeLayout>
 
 			<TextView
 				android:gravity="center"
 				android:id="@+id/tvMsg1"
+				android:layout_height="wrap_content"
 				android:layout_marginEnd="8dp"
 				android:layout_marginTop="8dp"
 				android:layout_marginStart="8dp"
-				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
 				android:text="@string/explore_queries_msg_1"
 				android:textColor="@color/text_explore_queries"/>
@@ -92,11 +92,11 @@
 			<TextView
 				android:gravity="center"
 				android:id="@+id/tvMsg2"
-				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
 				android:layout_marginEnd="8dp"
 				android:layout_marginTop="8dp"
 				android:layout_marginStart="8dp"
-				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
 				android:text="@string/explore_queries_msg_2"
 				android:textColor="@color/text_explore_queries"/>
 
@@ -105,7 +105,7 @@
 
 		<LinearLayout
 			android:id="@+id/llPager"
-			android:layout_height="56dp"
+			android:layout_height="?attr/actionBarSize"
 			android:layout_width="match_parent"
 			android:orientation="horizontal"
 			android:visibility="gone">
@@ -116,6 +116,7 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
+				android:text="@string/arrow_left"
 				android:textColor="@{model.accentColor}"
 				android:textSize="32sp"
 				android:textStyle="bold"/>
@@ -128,8 +129,8 @@
 					android:background="@{model.accentColor}"
 					android:gravity="center"
 					android:id="@+id/tvFirstPage"
-					android:layout_height="30dp"
 					android:layout_centerInParent="true"
+					android:layout_height="30dp"
 					android:layout_width="wrap_content"
 					android:textColor="@{model.textColorPrimary}"
 					android:textSize="20sp"

@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.extension.dpToPx
@@ -26,6 +27,12 @@ class ExploreQueriesViewModel: ViewModel() {
 	var backgroundColor = 0
 	var borderColor = 0
 	var textColorPrimary = 0
+
+	val isVisibleGif = MutableLiveData<Boolean>()
+	val isVisibleMsg1 = MutableLiveData<Boolean>()
+	val isVisibleMsg2 = MutableLiveData<Boolean>()
+//	val isVisibleList = MutableLiveData<Boolean>()
+	val itemList = MutableLiveData<List<String>>()
 
 	init {
 		ThemeColor.currentColor.run {
@@ -51,56 +58,24 @@ class ExploreQueriesViewModel: ViewModel() {
 
 	fun validateQuery(query: String) {
 		viewModelScope.launch {
+
+			isVisibleGif.postValue(true)
+
 			val validateQueryData = getValidateQueryUseCase.validateQuery(query)
 			if (validateQueryData.replacements.isEmpty()) {
 				val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
 				relatedQueryData.pagination
+
+				relatedQueryData.run {
+					itemList.postValue(items)
+
+					isVisibleGif.postValue(false)
+				}
+			} else {
+				isVisibleGif.postValue(false)
+				isVisibleMsg1.postValue(true)
+				isVisibleMsg2.postValue(false)
 			}
-
-//		viewModelScope.launch {
-//			val retrofit = Retrofit.Builder()
-//				.baseUrl("${AutoQLData.domainUrl}/autoql/$api1")
-//				.addConverterFactory(GsonConverterFactory.create())
-//				.build()
-//
-//			withContext(Dispatchers.IO) {
-//				try {
-//					val apiService = retrofit.create(RelatedQueriesApiClient2::class.java)
-//					val call = apiService.getRelatedQuery(
-//						beaverToken = "Bearer ${AutoQLData.JWT}",
-//						acceptLanguage = SinglentonDrawer.languageCode,
-//						apiKey = AutoQLData.apiKey,
-//						search = query,
-//						pageSize = 7,
-//						page = 1
-//					)
-//					call.body()
-//
-//					toString()
-//				} catch (ex: Exception) {
-//					ex.printStackTrace()
-//					toString()
-//				}
-//			}
-//		}
-
-//		call.enqueue(object: Callback<GenericResponse> {
-//			override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-//				response
-//			}
-//
-//			override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-//				t
-//			}
-//		})
-
-//			val result = getValidateQueryUseCase.validateQuery(query)
-//			if (result.replacements.isEmpty()) {
-//				// getRelatedQueries
-//				val result1 = getRelatedQueryUseCase.getRelatedQuery(query)
-//				result1.items
-//				result1.pagination
-//			}
 		}
 	}
 
