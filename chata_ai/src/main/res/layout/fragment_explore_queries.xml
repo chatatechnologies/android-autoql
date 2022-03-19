@@ -129,6 +129,7 @@
 					android:layout_centerInParent="true"
 					android:layout_height="30dp"
 					android:layout_width="wrap_content"
+					android:textColor="@{model.textColorPrimary}"
 					android:textSize="20sp"
 					android:textStyle="bold"/>
 			</RelativeLayout>

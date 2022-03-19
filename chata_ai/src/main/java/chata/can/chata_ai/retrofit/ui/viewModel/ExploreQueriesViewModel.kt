@@ -9,6 +9,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryPagination
+import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedQueryPagination
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
 import kotlinx.coroutines.launch
@@ -94,6 +95,18 @@ class ExploreQueriesViewModel: ViewModel() {
 				message2Gone()
 				isVisibleList.postValue(true)
 			}
+		}
+	}
+
+	fun getItemsPersistent() {
+		val persistentList = ExploreQueriesProvider.itemList
+		if (persistentList.isNotEmpty()) {
+			itemList.postValue(persistentList)
+			isVisibleList.postValue(true)
+		}
+		val pagination = ExploreQueriesProvider.pagination
+		if (pagination != emptyRelatedQueryPagination()) {
+			relatedQueryPagination.postValue(pagination)
 		}
 	}
 

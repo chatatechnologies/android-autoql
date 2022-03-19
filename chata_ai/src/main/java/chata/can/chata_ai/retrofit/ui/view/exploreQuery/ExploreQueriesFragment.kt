@@ -17,6 +17,8 @@ import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccent
+import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentDisable
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
@@ -29,7 +31,7 @@ class ExploreQueriesFragment: Fragment() {
 		const val nameFragment = "Explore Queries"
 	}
 
-	private var numItems = 0
+	private var _numItems = 0
 	private var _currentPage = 0
 	private var _pageSize = 0
 
@@ -67,6 +69,8 @@ class ExploreQueriesFragment: Fragment() {
 		initListener()
 		initRecycler()
 		initObserve()
+
+		exploreQueriesViewModel?.getItemsPersistent()
 	}
 
 	private fun initObserve() {
@@ -98,7 +102,7 @@ class ExploreQueriesFragment: Fragment() {
 
 						_pageSize = pageSize
 						_currentPage = currentPage
-						numItems = totalPages
+						_numItems = totalPages
 
 						if (totalPages >= currentPage) {
 							tvLastPage.text = "$totalPages"
@@ -108,14 +112,21 @@ class ExploreQueriesFragment: Fragment() {
 							1, totalPages -> {
 								viewSelected?.setOvalBackground(false)
 								viewSelected = if (currentPage == 1) {
+									tvPrevious.setTextColor(currentAccentDisable())
+									tvNext.setTextColor(currentAccent)
 									tvFirstPage
 								} else {
+									tvPrevious.setTextColor(currentAccent)
+									tvNext.setTextColor(currentAccentDisable())
 									tvLastPage
 								}
 								viewSelected?.setOvalBackground(true, currentPage)
 								tvCenterPage.text = "..."
 							}
 							else -> {
+								tvPrevious.setTextColor(currentAccent)
+								tvNext.setTextColor(currentAccent)
+
 								viewSelected?.setOvalBackground(false)
 								viewSelected = tvCenterPage
 								tvCenterPage.setOvalBackground(true, currentPage)
@@ -194,17 +205,17 @@ class ExploreQueriesFragment: Fragment() {
 			}
 
 			tvLastPage.setOnClickListener {
-				if (_currentPage != numItems) {
+				if (_currentPage != _numItems) {
 					exploreQueriesViewModel?.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,
-						page = numItems
+						page = _numItems
 					)
 				}
 			}
 
 			tvNext.setOnClickListener {
-				if (_currentPage < numItems) {
+				if (_currentPage < _numItems) {
 					exploreQueriesViewModel?.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,

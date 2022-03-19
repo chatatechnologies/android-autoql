@@ -86,6 +86,15 @@ object SinglentonDrawer
 	val currentAccent: Int
 		get() = if (isDarkTheme()) pDarkThemeColor
 			else pLightThemeColor
+
+	fun currentAccentDisable(): Int {
+		val alpha = Color.alpha(currentAccent)
+		val red = Color.red(currentAccent)
+		val green = Color.green(currentAccent)
+		val blue = Color.blue(currentAccent)
+		return Color.argb((alpha * 0.5).toInt(), red, green, blue)
+	}
+
 	val aChartColors = ArrayList<String>()
 	//endregion
 
