@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view.exploreQuery
 
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
+import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 import chata.can.chata_ai.retrofit.ui.viewModel.ExploreQueriesViewModel
+import kotlin.math.abs
+import kotlin.math.log10
 
 class ExploreQueriesFragment: Fragment() {
 	companion object {
@@ -46,10 +52,12 @@ class ExploreQueriesFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		fragmentExploreQueryBinding?.run {
 			if (BuildConfig.DEBUG) {
-				etQuery.setText("revenue")
+				val queryTest = "revenue"
+				etQuery.setText(queryTest)
 //				etQuery.setText("hi")
 			}
 		}
+		initColors()
 		initListener()
 		initRecycler()
 		initObserve()
@@ -80,6 +88,11 @@ class ExploreQueriesFragment: Fragment() {
 					fragmentExploreQueryBinding?.run {
 						llPager.visibility = View.VISIBLE
 						tvFirstPage.text = "1"
+
+						this@ExploreQueriesFragment.pageSize = pageSize
+						this@ExploreQueriesFragment.currentPage = currentPage
+						numItems = totalPages
+
 						if (totalPages >= currentPage) {
 							tvLastPage.text = "$totalPages"
 						}
@@ -142,6 +155,10 @@ class ExploreQueriesFragment: Fragment() {
 		}
 	}
 
+	private var numItems = 0
+	private var currentPage = 0
+	private var pageSize = 0
+
 	private fun initListener() {
 		fragmentExploreQueryBinding?.run {
 			ivSearch.setOnClickListener {
@@ -150,8 +167,56 @@ class ExploreQueriesFragment: Fragment() {
 					exploreQueriesViewModel?.validateQuery(query)
 				}
 			}
+
+			tvPrevious.setOnClickListener {
+				if (currentPage > 1) {
+					//presenter.getRelatedQueries(pageSize, currentPage - 1)
+				}
+			}
+
+			tvFirstPage.setOnClickListener {
+				if (currentPage != 1) {
+//					presenter.getRelatedQueries(pageSize, 1)
+				}
+			}
+
+			tvLastPage.setOnClickListener {
+				if (currentPage != numItems) {
+//					presenter.getRelatedQueries(pageSize, numItems)
+				}
+			}
+
+			tvNext.setOnClickListener {
+				if (currentPage < numItems) {
+//					presenter.getRelatedQueries(pageSize, currentPage + 1)
+				}
+			}
 		}
 	}
 
+	private fun initColors() {
+		fragmentExploreQueryBinding?.run {
+			ivSearch.setOvalBackground(true)
+			tvFirstPage.setOvalBackground(true)
+		}
+	}
 
+	//region oval background
+	private fun Int.length() = when(this) {
+		0 -> 1
+		else -> log10(abs(toDouble())).toInt() + 1
+	}
+
+	private fun View.setOvalBackground(applyBackground: Boolean, count: Int = 1) {
+		if (applyBackground) {
+			val gradientDrawable = DrawableBuilder.setOvalDrawable(SinglentonDrawer.currentAccent)
+			val height = dpToPx(30f)
+			val width = dpToPx(25f + (count.length() * 5))
+			gradientDrawable.setSize(width, height)
+			background = gradientDrawable
+		} else {
+			setBackgroundColor(Color.TRANSPARENT)
+		}
+	}
+	//endregion
 }

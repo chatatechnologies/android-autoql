@@ -1,13 +1,9 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.view.View
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -15,8 +11,6 @@ import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryPaginat
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
 import kotlinx.coroutines.launch
-import kotlin.math.abs
-import kotlin.math.log10
 
 class ExploreQueriesViewModel: ViewModel() {
 
@@ -25,8 +19,8 @@ class ExploreQueriesViewModel: ViewModel() {
 	//endregion
 
 	var colorSecondary = 0
-	var backgroundColor = 0
-	var borderColor = 0
+	private var backgroundColor = 0
+	private var borderColor = 0
 	var textColorPrimary = 0
 
 	val isVisibleGif = MutableLiveData<Boolean>()
@@ -48,10 +42,6 @@ class ExploreQueriesViewModel: ViewModel() {
 		return DrawableBuilder.setGradientDrawable(backgroundColor, 64f, 1, borderColor)
 	}
 
-	fun getDrawableSearch(): GradientDrawable {
-		return DrawableBuilder.setOvalDrawable(getAccentColor())
-	}
-
 	fun getAccentColor() = SinglentonDrawer.currentAccent
 
 	private val getValidateQueryUseCase = GetValidateQueryUseCase()
@@ -63,19 +53,25 @@ class ExploreQueriesViewModel: ViewModel() {
 
 			val validateQueryData = getValidateQueryUseCase.validateQuery(query)
 			if (validateQueryData.replacements.isEmpty()) {
-				val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
-
-				relatedQueryData.run {
-					itemList.postValue(items)
-					relatedQueryPagination.postValue(pagination)
-					gifGone()
-					isVisibleMsg1.postValue(false)
-					message2Gone()
-				}
+				relatedQuery(query)
 			} else {
 				itemList.postValue(listOf())
 				isVisibleGif.postValue(false)
 				isVisibleMsg1.postValue(true)
+				message2Gone()
+			}
+		}
+	}
+
+	fun relatedQuery(query: String) {
+		viewModelScope.launch {
+			val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
+
+			relatedQueryData.run {
+				itemList.postValue(items)
+				relatedQueryPagination.postValue(pagination)
+				gifGone()
+				isVisibleMsg1.postValue(false)
 				message2Gone()
 			}
 		}
@@ -87,24 +83,5 @@ class ExploreQueriesViewModel: ViewModel() {
 
 	private fun message2Gone() {
 		isVisibleMsg2.postValue(false)
-	}
-
-	companion object {
-		fun Int.length() = when(this) {
-			0 -> 1
-			else -> log10(abs(toDouble())).toInt() + 1
-		}
-
-		@JvmStatic
-		@BindingAdapter("ovalBackground")
-		fun setOvalBackground(view: View, drawable: Drawable?) {
-			val count = 1
-
-			val gradientDrawable = DrawableBuilder.setOvalDrawable(SinglentonDrawer.currentAccent)
-			val height = view.dpToPx(30f)
-			val width = view.dpToPx(25f + (count.length() * 5))//count = 1
-			gradientDrawable.setSize(width, height)
-			view.background = gradientDrawable
-		}
 	}
 }

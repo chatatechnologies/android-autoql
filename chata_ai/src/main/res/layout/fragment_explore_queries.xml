@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<data>
 		<variable
@@ -33,8 +32,7 @@
 				android:layout_marginEnd="8dp"
 				android:layout_marginStart="8dp"
 				android:src="@drawable/ic_search"
-				android:scaleType="fitCenter"
-				app:ovalBackground="@{model.drawableSearch}"/>
+				android:scaleType="fitCenter"/>
 
 			<EditText
 				android:background="@{model.drawableQuery}"
@@ -126,13 +124,11 @@
 				android:layout_weight="1"
 				android:layout_width="0dp">
 				<TextView
-					android:background="@{model.accentColor}"
 					android:gravity="center"
 					android:id="@+id/tvFirstPage"
 					android:layout_centerInParent="true"
 					android:layout_height="30dp"
 					android:layout_width="wrap_content"
-					android:textColor="@{model.textColorPrimary}"
 					android:textSize="20sp"
 					android:textStyle="bold"/>
 			</RelativeLayout>
