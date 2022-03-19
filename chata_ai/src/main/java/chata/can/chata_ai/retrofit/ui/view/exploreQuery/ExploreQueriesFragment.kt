@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.ui.view.exploreQuery
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 import chata.can.chata_ai.retrofit.ui.viewModel.ExploreQueriesViewModel
@@ -47,9 +50,9 @@ class ExploreQueriesFragment: Fragment() {
 //				etQuery.setText("hi")
 			}
 		}
-		initObserve()
 		initListener()
 		initRecycler()
+		initObserve()
 	}
 
 	private fun initObserve() {
@@ -66,6 +69,30 @@ class ExploreQueriesFragment: Fragment() {
 					// show message
 					fragmentExploreQueryBinding?. run {
 						tvMsg1.setText(R.string.empty_data_explore_queries)
+					}
+				}
+			}
+
+			relatedQueryPagination.observe(viewLifecycleOwner) { relatedQueryPagination ->
+				ExploreQueriesProvider.pagination = relatedQueryPagination
+
+				relatedQueryPagination.run {
+					fragmentExploreQueryBinding?.run {
+						llPager.visibility = View.VISIBLE
+						tvFirstPage.text = "1"
+						if (totalPages >= currentPage) {
+							tvLastPage.text = "$totalPages"
+						}
+
+						when(currentPage) {
+							1, totalPages -> {
+
+								tvCenterPage.text = "..."
+							}
+							else -> {
+								tvCenterPage.text = "$currentPage"
+							}
+						}
 					}
 				}
 			}
@@ -97,17 +124,21 @@ class ExploreQueriesFragment: Fragment() {
 	}
 
 	private fun initRecycler() {
+		adapter = ExploreQueriesAdapter(ExploreQueriesProvider.itemList) { item ->
+			//call service
+			println("item to request $item")
+		}
 		fragmentExploreQueryBinding?.run {
 			//rvRelatedQueries.visibility = View.VISIBLE
-			rvRelatedQueries.run {
-				val linearLayoutManager = LinearLayoutManager(requireActivity())
-				//TODO item decoration -> DIVIDER
-				layoutManager = linearLayoutManager
-				adapter = ExploreQueriesAdapter(ExploreQueriesProvider.itemList) { item ->
-					//call service
-					println("item to request $item")
-				}
-			}
+			val linearLayoutManager = LinearLayoutManager(requireActivity())
+
+			rvRelatedQueries.layoutManager = linearLayoutManager
+			rvRelatedQueries.adapter = adapter
+
+			val decoration = DividerItemDecoration(requireContext(), linearLayoutManager.orientation)
+			decoration.setDrawable(ColorDrawable(requireActivity().getParsedColor(android.R.color.darker_gray)))
+			rvRelatedQueries.addItemDecoration(decoration)
+			rvRelatedQueries.itemAnimator = null
 		}
 	}
 

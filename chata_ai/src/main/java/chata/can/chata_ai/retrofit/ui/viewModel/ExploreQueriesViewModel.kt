@@ -11,6 +11,7 @@ import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryPagination
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class ExploreQueriesViewModel: ViewModel() {
 	val isVisibleMsg1 = MutableLiveData<Boolean>()
 	val isVisibleMsg2 = MutableLiveData<Boolean>()
 	val itemList = MutableLiveData<List<String>>()
+	val relatedQueryPagination = MutableLiveData<RelatedQueryPagination>()
 
 	init {
 		ThemeColor.currentColor.run {
@@ -65,6 +67,7 @@ class ExploreQueriesViewModel: ViewModel() {
 
 				relatedQueryData.run {
 					itemList.postValue(items)
+					relatedQueryPagination.postValue(pagination)
 					gifGone()
 					isVisibleMsg1.postValue(false)
 					message2Gone()

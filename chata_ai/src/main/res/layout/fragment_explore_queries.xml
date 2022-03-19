@@ -65,9 +65,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:scrollbars="vertical"
-				android:visibility="gone"
-
-				android:background="@color/red_notification"/>
+				android:visibility="gone"/>
 
 			<RelativeLayout
 				android:id="@+id/rlGif"
