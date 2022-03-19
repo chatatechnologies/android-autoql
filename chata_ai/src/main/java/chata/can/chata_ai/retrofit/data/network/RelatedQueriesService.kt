@@ -7,14 +7,15 @@ import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryModel
 import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 
 class RelatedQueriesService {
 	private val retrofit = RetrofitHelperDynamic.getRetrofit()
 
 	suspend fun getRelatedQuery(
 		search: String,
-		pageSize: Int = 12,
-		page: Int = 1
+		pageSize: Int,
+		page: Int
 	): RelatedQueryModel {
 		return withContext(Dispatchers.IO) {
 			try {

@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
+import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryPagination
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryUseCase
 import chata.can.chata_ai.retrofit.domain.GetValidateQueryUseCase
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
 
 class ExploreQueriesViewModel: ViewModel() {
 
@@ -26,6 +28,7 @@ class ExploreQueriesViewModel: ViewModel() {
 	val isVisibleGif = MutableLiveData<Boolean>()
 	val isVisibleMsg1 = MutableLiveData<Boolean>()
 	val isVisibleMsg2 = MutableLiveData<Boolean>()
+	val isVisibleList = MutableLiveData<Boolean>()
 	val itemList = MutableLiveData<List<String>>()
 	val relatedQueryPagination = MutableLiveData<RelatedQueryPagination>()
 
@@ -50,6 +53,7 @@ class ExploreQueriesViewModel: ViewModel() {
 	fun validateQuery(query: String) {
 		viewModelScope.launch {
 			isVisibleGif.postValue(true)
+			isVisibleList.postValue(false)
 
 			val validateQueryData = getValidateQueryUseCase.validateQuery(query)
 			if (validateQueryData.replacements.isEmpty()) {
@@ -63,16 +67,32 @@ class ExploreQueriesViewModel: ViewModel() {
 		}
 	}
 
-	fun relatedQuery(query: String) {
+	fun relatedQuery(
+		query: String,
+		pageSize: Int = 12,
+		page: Int = 1
+	) {
+		if (isVisibleList.value != false)
+			isVisibleList.postValue(false)
+		isVisibleGif.postValue(true)
+
+		val queryEncoded = URLEncoder.encode(query, "UTF-8").replace("+", " ")
 		viewModelScope.launch {
-			val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(query)
+			val relatedQueryData = getRelatedQueryUseCase.getRelatedQuery(queryEncoded, pageSize, page)
 
 			relatedQueryData.run {
+				ExploreQueriesProvider.lastQuery = query
+				ExploreQueriesProvider.itemList.run {
+					clear()
+					addAll(items)
+				}
+
 				itemList.postValue(items)
 				relatedQueryPagination.postValue(pagination)
 				gifGone()
 				isVisibleMsg1.postValue(false)
 				message2Gone()
+				isVisibleList.postValue(true)
 			}
 		}
 	}

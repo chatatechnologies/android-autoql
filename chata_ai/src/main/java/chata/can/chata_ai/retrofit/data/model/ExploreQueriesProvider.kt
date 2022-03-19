@@ -5,5 +5,6 @@ import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedQueryPa
 
 object ExploreQueriesProvider {
 	val itemList = mutableListOf<String>()
+	var lastQuery: String = ""
 	var pagination: RelatedQueryPagination = emptyRelatedQueryPagination()
 }

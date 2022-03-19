@@ -29,9 +29,15 @@ class ExploreQueriesFragment: Fragment() {
 		const val nameFragment = "Explore Queries"
 	}
 
+	private var numItems = 0
+	private var _currentPage = 0
+	private var _pageSize = 0
+
 	private lateinit var adapter: ExploreQueriesAdapter
 	private var exploreQueriesViewModel: ExploreQueriesViewModel ?= null
 	private var fragmentExploreQueryBinding: FragmentExploreQueriesBinding ?= null
+
+	private var viewSelected: View ?= null
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -67,17 +73,18 @@ class ExploreQueriesFragment: Fragment() {
 		exploreQueriesViewModel?.run {
 			itemList.observe(viewLifecycleOwner) { listItems ->
 				if (listItems.isNotEmpty()) {
-					//show list
-					visibleRecycler()
-					val listProvider = ExploreQueriesProvider.itemList
-					listProvider.clear()
-					listProvider.addAll(listItems)
-					adapter.notifyItemRangeChanged(0, listProvider.size)
+					adapter.notifyItemRangeChanged(0, listItems.size)
 				} else {
 					// show message
 					fragmentExploreQueryBinding?. run {
 						tvMsg1.setText(R.string.empty_data_explore_queries)
 					}
+				}
+			}
+
+			isVisibleList.observe(viewLifecycleOwner) { isVisible ->
+				fragmentExploreQueryBinding?.run {
+					rvRelatedQueries.visibility = if (isVisible) View.VISIBLE else View.GONE
 				}
 			}
 
@@ -89,8 +96,8 @@ class ExploreQueriesFragment: Fragment() {
 						llPager.visibility = View.VISIBLE
 						tvFirstPage.text = "1"
 
-						this@ExploreQueriesFragment.pageSize = pageSize
-						this@ExploreQueriesFragment.currentPage = currentPage
+						_pageSize = pageSize
+						_currentPage = currentPage
 						numItems = totalPages
 
 						if (totalPages >= currentPage) {
@@ -99,10 +106,19 @@ class ExploreQueriesFragment: Fragment() {
 
 						when(currentPage) {
 							1, totalPages -> {
-
+								viewSelected?.setOvalBackground(false)
+								viewSelected = if (currentPage == 1) {
+									tvFirstPage
+								} else {
+									tvLastPage
+								}
+								viewSelected?.setOvalBackground(true, currentPage)
 								tvCenterPage.text = "..."
 							}
 							else -> {
+								viewSelected?.setOvalBackground(false)
+								viewSelected = tvCenterPage
+								tvCenterPage.setOvalBackground(true, currentPage)
 								tvCenterPage.text = "$currentPage"
 							}
 						}
@@ -130,19 +146,12 @@ class ExploreQueriesFragment: Fragment() {
 		}
 	}
 
-	private fun visibleRecycler() {
-		fragmentExploreQueryBinding?.run {
-			rvRelatedQueries.visibility = View.VISIBLE
-		}
-	}
-
 	private fun initRecycler() {
 		adapter = ExploreQueriesAdapter(ExploreQueriesProvider.itemList) { item ->
 			//call service
 			println("item to request $item")
 		}
 		fragmentExploreQueryBinding?.run {
-			//rvRelatedQueries.visibility = View.VISIBLE
 			val linearLayoutManager = LinearLayoutManager(requireActivity())
 
 			rvRelatedQueries.layoutManager = linearLayoutManager
@@ -155,10 +164,6 @@ class ExploreQueriesFragment: Fragment() {
 		}
 	}
 
-	private var numItems = 0
-	private var currentPage = 0
-	private var pageSize = 0
-
 	private fun initListener() {
 		fragmentExploreQueryBinding?.run {
 			ivSearch.setOnClickListener {
@@ -169,26 +174,42 @@ class ExploreQueriesFragment: Fragment() {
 			}
 
 			tvPrevious.setOnClickListener {
-				if (currentPage > 1) {
-					//presenter.getRelatedQueries(pageSize, currentPage - 1)
+				if (_currentPage > 1) {
+					exploreQueriesViewModel?.relatedQuery(
+						query = ExploreQueriesProvider.lastQuery,
+						pageSize = _pageSize,
+						page = _currentPage - 1
+					)
 				}
 			}
 
 			tvFirstPage.setOnClickListener {
-				if (currentPage != 1) {
-//					presenter.getRelatedQueries(pageSize, 1)
+				if (_currentPage != 1) {
+					exploreQueriesViewModel?.relatedQuery(
+						query = ExploreQueriesProvider.lastQuery,
+						pageSize = _pageSize,
+						page = 1
+					)
 				}
 			}
 
 			tvLastPage.setOnClickListener {
-				if (currentPage != numItems) {
-//					presenter.getRelatedQueries(pageSize, numItems)
+				if (_currentPage != numItems) {
+					exploreQueriesViewModel?.relatedQuery(
+						query = ExploreQueriesProvider.lastQuery,
+						pageSize = _pageSize,
+						page = numItems
+					)
 				}
 			}
 
 			tvNext.setOnClickListener {
-				if (currentPage < numItems) {
-//					presenter.getRelatedQueries(pageSize, currentPage + 1)
+				if (_currentPage < numItems) {
+					exploreQueriesViewModel?.relatedQuery(
+						query = ExploreQueriesProvider.lastQuery,
+						pageSize = _pageSize,
+						page = _currentPage + 1
+					)
 				}
 			}
 		}
@@ -198,6 +219,7 @@ class ExploreQueriesFragment: Fragment() {
 		fragmentExploreQueryBinding?.run {
 			ivSearch.setOvalBackground(true)
 			tvFirstPage.setOvalBackground(true)
+			viewSelected = tvFirstPage
 		}
 	}
 
