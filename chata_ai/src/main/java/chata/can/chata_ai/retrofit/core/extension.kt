@@ -15,7 +15,9 @@ fun String.isEmptyOrZero() = isEmpty() || this == "0"
 fun String.formatValue(
 	column: ColumnEntity,
 	currencySymbol: String = SinglentonDrawer.currencyCode,
-	separateComma: String = ","
+	separateComma: String = ",",
+	dateFormatShortMonth: SimpleDateFormat ?= null,
+	dateFormat: SimpleDateFormat ?= null
 ): String {
 	return when(column.typeColumn) {
 		TypeColumn.DATE -> {
@@ -46,12 +48,17 @@ fun String.formatValue(
 				val aTmp = split(".")
 				aTmp.firstOrNull()?.toIntOrNull()?.let {
 					val date = Date(it * 1000L)
-					val sdfSp = SimpleDateFormat("MMM", locale)
-					val monthSp = sdfSp.format(date)
-					val index = SinglentonDrawer.aMonthsSp1.indexOf(monthSp)
-					val dateFormat = SimpleDateFormat(format, locale)
-					val out = dateFormat.format(date)
-					if (index != -1) out.replace(SinglentonDrawer.aMonthsSp1[index], SinglentonDrawer.aMonthsSp[index]) else out
+					dateFormatShortMonth?.let { dateFormatShortMonth ->
+						val monthSp = dateFormatShortMonth.format(date)
+						val index = SinglentonDrawer.aMonthsSp1.indexOf(monthSp)
+						dateFormat?.let { dateFormat ->
+							val out = dateFormat.format(date)
+
+							if (index != -1)
+								out.replace(SinglentonDrawer.aMonthsSp1[index], SinglentonDrawer.aMonthsSp[index])
+							else out
+						}
+					}
 				} ?: run { "" }
 			}
 		}

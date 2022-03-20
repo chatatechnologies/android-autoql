@@ -20,7 +20,6 @@ import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccent
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentDisable
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -283,7 +282,7 @@ class ExploreQueriesFragment: Fragment() {
 
 	private fun View.setOvalBackground(applyBackground: Boolean, count: Int = 1) {
 		if (applyBackground) {
-			val gradientDrawable = DrawableBuilder.setOvalDrawable(SinglentonDrawer.currentAccent)
+			val gradientDrawable = DrawableBuilder.setOvalDrawable(currentAccent)
 			val height = dpToPx(30f)
 			val width = dpToPx(25f + (count.length() * 5))
 			gradientDrawable.setSize(width, height)

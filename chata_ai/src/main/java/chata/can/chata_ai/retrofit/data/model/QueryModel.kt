@@ -1,6 +1,8 @@
 package chata.can.chata_ai.retrofit.data.model
 
 import chata.can.chata_ai.retrofit.QueryResultEntity
+import chata.can.chata_ai.retrofit.core.extension.getDateFormatShortMonth
+import chata.can.chata_ai.retrofit.core.extension.getFormatMonth
 import chata.can.chata_ai.retrofit.core.formatValue
 import chata.can.chata_ai.retrofit.core.internalServiceError
 import chata.can.chata_ai.retrofit.core.keySuggestion
@@ -30,7 +32,15 @@ class QueryModel(private val queryResultEntity: QueryResultEntity) {
 			val value = when {
 				rows.isEmpty() || isSimpleText() || displayType == keySuggestion -> {
 					queryResultEntity.columnsEntity.firstOrNull()?.let { column ->
-						val value = getSimpleText().formatValue(column)
+						//region constants for all columns
+						val dateFormatShortMonth = getDateFormatShortMonth()
+						val dateFormat = getFormatMonth(column)
+
+						val value = getSimpleText().formatValue(
+							column = column,
+							dateFormatShortMonth = dateFormatShortMonth,
+							dateFormat = dateFormat
+						)
 						textTypeRuleQuery(value)
 //					webTypeRuleQuery("<p style=\"color: blueviolet;\">Text for webView</p>")
 					} ?: run { errorTypeRuleQuery() }
