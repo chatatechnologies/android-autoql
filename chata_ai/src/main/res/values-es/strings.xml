@@ -52,4 +52,5 @@
 	<string name="not_recognized">Tipo de visualización no reconocido</string>
 	<string name="success">Éxito</string>
 	<string name="ok">Ok</string>
+	<string name="one">1</string>
 </resources>

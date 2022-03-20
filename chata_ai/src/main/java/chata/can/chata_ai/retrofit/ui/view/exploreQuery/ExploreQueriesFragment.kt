@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.activity.dm.DMActivity
 import chata.can.chata_ai.databinding.FragmentExploreQueriesBinding
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccent
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentDisable
@@ -84,9 +86,9 @@ class ExploreQueriesFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		fragmentExploreQueryBinding?.run {
 			if (BuildConfig.DEBUG) {
-//				val queryTest = "revenue"
+				val queryTest = "revenue"
 //				val queryTest = "hi"
-//				etQuery.setText(queryTest)
+				etQuery.setText(queryTest)
 			}
 		}
 		//region animated text
@@ -137,7 +139,6 @@ class ExploreQueriesFragment: Fragment() {
 				relatedQueryPagination.run {
 					fragmentExploreQueryBinding?.run {
 						llPager.visibility = View.VISIBLE
-						tvFirstPage.text = "1"
 
 						_pageSize = pageSize
 						_currentPage = currentPage
@@ -199,7 +200,8 @@ class ExploreQueriesFragment: Fragment() {
 	private fun initRecycler() {
 		adapter = ExploreQueriesAdapter(ExploreQueriesProvider.itemList) { item ->
 			//call service
-			println("item to request $item")
+			DataMessengerFragment.queryToTyping = item
+			(requireActivity() as? DMActivity)?.openChat()
 		}
 		fragmentExploreQueryBinding?.run {
 			val linearLayoutManager = LinearLayoutManager(requireActivity())
