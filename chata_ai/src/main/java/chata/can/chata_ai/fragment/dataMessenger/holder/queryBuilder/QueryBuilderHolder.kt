@@ -30,6 +30,7 @@ import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
 
 class QueryBuilderHolder(
 	view: View,
@@ -213,8 +214,10 @@ class QueryBuilderHolder(
 					{
 						if (any.text == "💡See more...")
 						{
-							ExploreQueriesData.lastWord = wordExplore
-							ExploreQueriesData.animated = true
+							ExploreQueriesProvider.lastQuery = wordExplore
+//							ExploreQueriesData.lastWord = wordExplore
+							ExploreQueriesProvider.textToSearchAnimated = true
+//							ExploreQueriesData.animated = true
 							(pagerActivity as? DMActivity)?.run {
 								this.openTips()
 							}

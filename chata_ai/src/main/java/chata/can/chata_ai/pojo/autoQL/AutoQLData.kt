@@ -4,6 +4,8 @@ import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
+import chata.can.chata_ai.retrofit.data.model.ExploreQueriesProvider
+import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedQueryPagination
 
 object AutoQLData
 {
@@ -35,8 +37,10 @@ object AutoQLData
 
 		SinglentonDrawer.mModel.clear()
 		SinglentonDashboard.releaseDashboard()
-		ExploreQueriesData.lastWord = ""
-		ExploreQueriesData.lastExploreQuery = null
+//		ExploreQueriesData.lastWord = ""
+		ExploreQueriesProvider.lastQuery = ""
+		ExploreQueriesProvider.pagination = emptyRelatedQueryPagination()
+//		ExploreQueriesData.lastExploreQuery = null
 	}
 
 	var wasLoginIn = false

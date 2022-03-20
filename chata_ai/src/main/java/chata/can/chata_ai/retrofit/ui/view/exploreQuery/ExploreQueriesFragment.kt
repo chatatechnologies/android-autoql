@@ -3,6 +3,8 @@ package chata.can.chata_ai.retrofit.ui.view.exploreQuery
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,28 @@ class ExploreQueriesFragment: Fragment() {
 	private var _currentPage = 0
 	private var _pageSize = 0
 
+	var mText: CharSequence = ""
+	val mDelay = 50L
+	var mIndex = 0
+	private val mHandler = Handler(Looper.getMainLooper())
+
+	private val characterAdder = object: Runnable {
+		override fun run()
+		{
+			fragmentExploreQueryBinding?.etQuery?.setText(mText.subSequence(0, mIndex++))
+			if (mIndex <= mText.length)
+			{
+				mHandler.postDelayed(this, mDelay)
+			}
+			else
+			{
+				mHandler.postDelayed({
+					fragmentExploreQueryBinding?.ivSearch?.performClick()
+				}, mDelay)
+			}
+		}
+	}
+
 	private lateinit var adapter: ExploreQueriesAdapter
 	private var exploreQueriesViewModel: ExploreQueriesViewModel ?= null
 	private var fragmentExploreQueryBinding: FragmentExploreQueriesBinding ?= null
@@ -60,11 +84,26 @@ class ExploreQueriesFragment: Fragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		fragmentExploreQueryBinding?.run {
 			if (BuildConfig.DEBUG) {
-				val queryTest = "revenue"
-				etQuery.setText(queryTest)
-//				etQuery.setText("hi")
+//				val queryTest = "revenue"
+//				val queryTest = "hi"
+//				etQuery.setText(queryTest)
 			}
 		}
+		//region animated text
+		val lastQuery = ExploreQueriesProvider.lastQuery
+		if (lastQuery.isNotEmpty()) {
+			if (ExploreQueriesProvider.textToSearchAnimated) {
+				ExploreQueriesProvider.textToSearchAnimated = false
+
+				mText = lastQuery
+				mIndex = 0
+				mHandler.removeCallbacks(characterAdder)
+				mHandler.postDelayed(characterAdder, mDelay)
+			} else {
+				fragmentExploreQueryBinding?.etQuery?.setText(lastQuery)
+			}
+		}
+		//endregion
 		initColors()
 		initListener()
 		initRecycler()
