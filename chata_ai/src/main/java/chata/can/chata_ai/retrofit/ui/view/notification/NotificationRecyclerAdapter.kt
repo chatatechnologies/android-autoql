@@ -2,15 +2,13 @@ package chata.can.chata_ai.retrofit.ui.view.notification
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import chata.can.chata_ai.databinding.CardNotificationBinding
 import chata.can.chata_ai.retrofit.core.OnBottomReachedListener
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationRecyclerAdapter(
 	private val notificationViewModel: NotificationViewModel,
-	private val resource: Int,
+	private val resource: Int,/*R.layout.card_notification*/
 	onBottomListener: () -> Unit
 ): RecyclerView.Adapter<NotificationHolder>() {
 
@@ -30,14 +28,20 @@ class NotificationRecyclerAdapter(
 		if (position == getNotifications().size - 1) {
 			onBottomReachedListener.onBottomReachedListener(position)
 		}
-		holder.setDataCard(notificationViewModel, position)
+		val notification = getNotifications()[position]
+		holder.render(notification)
+//		holder.setDataCard(notificationViewModel, position)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationHolder {
-		val layoutInflater = LayoutInflater.from(parent.context)
-		val binding: CardNotificationBinding = DataBindingUtil.inflate(
-			layoutInflater, resource, parent, false
+		val inflater = LayoutInflater.from(parent.context)
+		return NotificationHolder(
+			inflater.inflate(resource, parent, false)
 		)
-		return NotificationHolder(binding)
+//		val layoutInflater = LayoutInflater.from(parent.context)
+//		val binding: CardNotificationBinding = DataBindingUtil.inflate(
+//			layoutInflater, resource, parent, false
+//		)
+//		return NotificationHolder(binding)
 	}
 }

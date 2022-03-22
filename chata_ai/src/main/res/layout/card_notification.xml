@@ -1,138 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout
+<?xml version="1.0" encoding="utf-8"?><!--<layout-->
+<!--	>-->
+
+<!--	<data>-->
+<!--		<variable-->
+<!--			name="position"-->
+<!--			type="Integer" />-->
+
+<!--		<variable-->
+<!--			name="model"-->
+<!--			type="chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel" />-->
+<!--	</data>-->
+<!--</layout>-->
+
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:clipToPadding="false"
+	android:orientation="vertical"
+	android:paddingLeft="10dp"
+	android:paddingTop="5dp"
+	android:paddingRight="10dp"
+	android:paddingBottom="5dp">
 
-	<data>
-		<variable
-			name="position"
-			type="Integer" />
-
-		<variable
-			name="model"
-			type="chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel" />
-	</data>
-
-	<LinearLayout
-		android:clipToPadding="false"
-		android:layout_height="wrap_content"
+<!--TODO	android:background="@{model.drawableParent}"-->
+	<RelativeLayout
+		android:id="@+id/rlParent"
 		android:layout_width="match_parent"
-		android:orientation="vertical"
-		android:paddingLeft="10dp"
-		android:paddingTop="5dp"
-		android:paddingRight="10dp"
-		android:paddingBottom="5dp">
-		<RelativeLayout
-			android:background="@{model.drawableParent}"
-			android:id="@+id/rlParent"
-			android:layout_height="wrap_content"
+		android:layout_height="wrap_content"
+		tools:ignore="UselessParent">
+
+		<View
+			android:id="@+id/iView"
+			android:layout_width="4dp"
+			android:layout_height="wrap_content" />
+
+<!-- TODO		android:onClick="@{() -> model.changeVisibility(position)}"-->
+		<LinearLayout
+			android:id="@+id/ivTop"
 			android:layout_width="match_parent"
-			tools:ignore="UselessParent">
+			android:layout_height="wrap_content"
+			android:layout_toEndOf="@id/iView"
+			android:orientation="vertical"
+			android:padding="10dp">
+
+			<TextView
+				android:id="@+id/tvTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="18sp" />
+<!--TODO			android:textColor="@{model.textColorPrimary}"-->
+			<TextView
+				android:id="@+id/tvBody"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="16sp" />
+
+<!--TODO			android:textColor="@{model.textColorPrimary}"-->
+			<TextView
+				android:id="@+id/tvDate"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="14sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/rlBottom"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/ivTop"
+			android:layout_toEndOf="@id/iView"
+			android:orientation="vertical">
+
+<!--TODO			android:background="@{model.textColorPrimary}"-->
 			<View
-				android:background="@{model.getNotificationAt(position).getDrawableLeftView}"
-				android:id="@+id/iView"
-				android:layout_height="wrap_content"
-				android:layout_width="4dp"/>
-
-			<LinearLayout
-				android:id="@+id/ivTop"
-				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:orientation="vertical"
-				android:onClick="@{() -> model.changeVisibility(position)}"
-				android:layout_toEndOf="@id/iView"
-				android:padding="10dp">
-
-				<TextView
-					android:id="@+id/tvTitle"
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-					android:text="@{model.getNotificationAt(position).title}"
-					android:textColor="@{model.getNotificationAt(position).getColorTitle}"
-					android:textSize="18sp"/>
-				<TextView
-					android:id="@+id/tvBody"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:text="@{model.getNotificationAt(position).message}"
-					android:textColor="@{model.textColorPrimary}"
-					android:textSize="16sp"
-					android:visibility="@{model.getNotificationAt(position).visibleMessage}"/>
-				<TextView
-					android:id="@+id/tvDate"
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-					android:textColor="@{model.textColorPrimary}"
-					android:text="@{model.getNotificationAt(position).createdAtFormatted}"
-					android:textSize="14sp"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/rlBottom"
-				android:layout_below="@id/ivTop"
-				android:layout_height="wrap_content"
-				android:layout_toEndOf="@id/iView"
+				android:layout_height="0.2dp"
+				android:layout_marginTop="8dp"
+				android:layout_marginBottom="8dp"/>
+<!--TODO			android:textColor="@{model.textColorPrimary}"-->
+			<TextView
+				android:id="@+id/tvQuery"
 				android:layout_width="match_parent"
-				android:orientation="vertical"
-				android:visibility="@{model.getNotificationAt(position).bottomVisible}">
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:textSize="16sp"
+				android:textStyle="bold" />
 
-				<View
-					android:background="@{model.textColorPrimary}"
-					android:layout_width="match_parent"
-					android:layout_height="0.2dp"
-					android:layout_marginBottom="8dp"
-					android:layout_marginTop="8dp"/>
-				<TextView
-					android:gravity="center"
-					android:id="@+id/tvQuery"
-					android:layout_height="wrap_content"
-					android:layout_width="match_parent"
-					android:textColor="@{model.textColorPrimary}"
-					android:text="@{model.getNotificationAt(position).query}"
-					android:textSize="16sp"
-					android:textStyle="bold"/>
-				<View
-					android:background="@{model.textColorPrimary}"
-					android:layout_height="0.2dp"
-					android:layout_marginEnd="24dp"
-					android:layout_marginStart="24dp"
-					android:layout_marginTop="4dp"
-					android:layout_width="match_parent"/>
+<!--TODO			android:background="@{model.textColorPrimary}"-->
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="0.2dp"
+				android:layout_marginStart="24dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginEnd="24dp"/>
 
-				<RelativeLayout
-					android:id="@+id/rlLoad"
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:visibility="@{model.getNotificationAt(position).visibleLoading}">
-					<chata.can.chata_ai.view.gif.KGifView
-						android:layout_centerInParent="true"
-						android:layout_height="80dp"
-						android:layout_width="80dp"/>
-				</RelativeLayout>
+			<RelativeLayout
+				android:id="@+id/rlLoad"
+				android:layout_width="match_parent"
+				android:layout_height="200dp">
 
-				<TextView
-					android:gravity="center"
-					android:id="@+id/tvContent"
-					android:layout_height="200dp"
-					android:layout_marginEnd="16dp"
-					android:layout_marginStart="16dp"
-					android:layout_width="match_parent"
-					android:visibility="@{model.getNotificationAt(position).visibleTextView}"
-					android:text="@{model.getNotificationAt(position).contentTextView.contentResponse}"
-					android:textColor="@{model.textColorPrimary}"
-					android:textSize="22sp"/>
-				<WebView
-					android:id="@+id/wbQuery"
-					android:layout_height="200dp"
-					android:layout_width="match_parent"
-					android:visibility="@{model.getNotificationAt(position).visibleWebView}"
-					app:loadData="@{model.getUrl(position)}"
-					tools:ignore="WebViewLayout"/>
+				<chata.can.chata_ai.view.gif.KGifView
+					android:layout_width="80dp"
+					android:layout_height="80dp"
+					android:layout_centerInParent="true" />
+			</RelativeLayout>
+<!--TODO			android:textColor="@{model.textColorPrimary}"-->
+			<TextView
+				android:id="@+id/tvContent"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:gravity="center"
+				android:textSize="22sp" />
+<!--TODO			app:loadData="@{model.getUrl(position)}"-->
+			<WebView
+				android:id="@+id/wbQuery"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				tools:ignore="WebViewLayout" />
 
-			</LinearLayout>
+		</LinearLayout>
 
-		</RelativeLayout>
-	</LinearLayout>
-</layout>
+	</RelativeLayout>
+</LinearLayout>
