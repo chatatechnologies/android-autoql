@@ -1,6 +1,5 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.webkit.WebView
 import androidx.databinding.BindingAdapter
@@ -9,9 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.Executor
 import chata.can.chata_ai.R
-import chata.can.chata_ai.pojo.SinglentonDrawer
-import chata.can.chata_ai.pojo.color.ThemeColor
-import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
@@ -32,17 +28,6 @@ class NotificationViewModel: ViewModel() {
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
 
 	private var lastOpenRuleQuery = -1
-	private var blue = 0
-	private var gray = 0
-	private var white = 0
-
-	init {
-		ThemeColor.currentColor.run {
-			blue = SinglentonDrawer.currentAccent
-			gray = pDrawerTextColorPrimary
-			white = pDrawerBackgroundColor
-		}
-	}
 
 	private var getNotificationUseCase = GetNotificationUseCase()
 	private val ruleQueryUseCase = GetRuleQueryUseCase()
@@ -78,16 +63,9 @@ class NotificationViewModel: ViewModel() {
 
 	fun setNotificationsInRecyclerAdapter(aNotification: List<NotificationEntity>) {
 		notificationRecyclerAdapter?.let {
-			//it.setNotifications(aNotification)
 			aNotifications.addAll(aNotification)
 			it.notifyItemRangeChanged(0, aNotification.size)
 		}
-	}
-
-	fun getTextColorPrimary() = gray
-
-	fun getDrawableParent(): GradientDrawable {
-		return DrawableBuilder.setGradientDrawable(white, 18f,0, gray)
 	}
 
 	fun getNotificationAt(position: Int): NotificationEntity {

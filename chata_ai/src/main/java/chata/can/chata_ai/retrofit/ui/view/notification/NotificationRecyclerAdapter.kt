@@ -10,7 +10,9 @@ class NotificationRecyclerAdapter(
 	private val notificationViewModel: NotificationViewModel,
 	private val resource: Int,/*R.layout.card_notification*/
 	onBottomListener: () -> Unit
-): RecyclerView.Adapter<NotificationHolder>() {
+): RecyclerView.Adapter<NotificationHolder>(), NotificationAdapterContract {
+
+	private val notificationUi: NotificationUi = NotificationUi()
 
 	private var onBottomReachedListener = object: OnBottomReachedListener {
 		override fun onBottomReachedListener(position: Int) {
@@ -29,7 +31,7 @@ class NotificationRecyclerAdapter(
 			onBottomReachedListener.onBottomReachedListener(position)
 		}
 		val notification = getNotifications()[position]
-		holder.render(notification)
+		holder.render(notification, notificationUi, notificationAdapterContract = this)
 //		holder.setDataCard(notificationViewModel, position)
 	}
 
@@ -43,5 +45,9 @@ class NotificationRecyclerAdapter(
 //			layoutInflater, resource, parent, false
 //		)
 //		return NotificationHolder(binding)
+	}
+
+	override fun notifyItemChangedAdapter(position: Int) {
+		notifyItemChanged(position)
 	}
 }

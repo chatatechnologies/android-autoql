@@ -13,7 +13,11 @@ class NotificationHolder(
 
 	private val binding = CardNotificationBinding.bind(view)
 
-	fun render(notificationEntity: NotificationEntity) {
+	fun render(
+		notificationEntity: NotificationEntity,
+		notificationUi: NotificationUi,
+		notificationAdapterContract: NotificationAdapterContract
+	) {
 		binding.run {
 			//region Tree Observer
 			rlBottom.viewTreeObserver.addOnGlobalLayoutListener {
@@ -25,28 +29,43 @@ class NotificationHolder(
 				iView.layoutParams = params
 			}
 			//endregion
-			//region drawable & colors
+			//region drawable / colors / data
+			rlParent.background = notificationUi.getDrawableParent()
+
 			iView.background = notificationEntity.getDrawableLeftView()
+
+			iView2.setBackgroundColor(notificationUi.getTextColorPrimary())
+			iView3.setBackgroundColor(notificationUi.getTextColorPrimary())
 
 			tvTitle.text = notificationEntity.title
 			tvTitle.setTextColor(notificationEntity.getColorTitle())
 
 			tvBody.text = notificationEntity.message
 			tvBody.customVisibility(notificationEntity.isVisibleMessage())
+			tvBody.setTextColor(notificationUi.getTextColorPrimary())
 
 			tvDate.text = notificationEntity.createdAtFormatted()
+			tvDate.setTextColor(notificationUi.getTextColorPrimary())
 
 			rlBottom.customVisibility(notificationEntity.isBottomVisible)
 
 			tvQuery.text = notificationEntity.query
+			tvQuery.setTextColor(notificationUi.getTextColorPrimary())
 
 			rlLoad.customVisibility(notificationEntity.isVisibleLoading)
 
 			tvContent.text = notificationEntity.contentTextView.contentResponse
 			tvContent.customVisibility(notificationEntity.isVisibleTextView())
+			tvContent.setTextColor(notificationUi.getTextColorPrimary())
 
 			wbQuery.customVisibility(notificationEntity.isVisibleWebView())
+			//endregion
 
+			//region listener
+			ivTop.setOnClickListener {
+				notificationEntity.isBottomVisible = !notificationEntity.isBottomVisible
+				notificationAdapterContract.notifyItemChangedAdapter(adapterPosition)
+			}
 			//endregion
 		}
 	}
