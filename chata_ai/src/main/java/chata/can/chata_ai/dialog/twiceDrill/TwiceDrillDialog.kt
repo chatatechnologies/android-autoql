@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.view.isVisible
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.BaseDialog
 import chata.can.chata_ai.dialog.DrillDownContract
@@ -127,7 +128,7 @@ class TwiceDrillDialog(
 				R.id.ivCancel -> dismiss()
 				R.id.ivHide ->
 				{
-					val tIds = if (rlDrillDown1.visibility == View.VISIBLE)
+					val tIds = if (rlDrillDown1.isVisible)
 					{
 						updateView(rlDrillDown1, View.GONE)
 						val pCenter = Pair(ConstraintSet.PARENT_ID, guideHide.id)

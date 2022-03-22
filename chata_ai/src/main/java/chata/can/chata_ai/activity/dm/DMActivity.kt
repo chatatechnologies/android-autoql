@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import chata.can.chata_ai.R
 import chata.can.chata_ai.addFragment
@@ -296,7 +297,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun showNotification()
 	{
-		if (tvNotification.visibility == View.VISIBLE)
+		if (tvNotification.isVisible)
 			Poll.callShowNotification(object: StatusResponse {
 				override fun onFailureResponse(jsonObject: JSONObject) {
 					jsonObject.toString()

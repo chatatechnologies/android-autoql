@@ -37,7 +37,7 @@ class NotificationFragment: Fragment() {
 			container,
 			false
 		)
-		notificationViewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
+		notificationViewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
 		fragmentNotificationFragmentBinding?.model = notificationViewModel
 		return fragmentNotificationFragmentBinding?.root
 	}

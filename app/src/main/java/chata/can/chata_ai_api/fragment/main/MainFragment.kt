@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.lifecycle.ViewModelProvider
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
@@ -104,6 +105,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
 	private var isAuthenticate = false
+	private var mainViewModel: MainViewModel ? = null
 
 	override fun onRenderViews(view: View)
 	{
@@ -137,8 +139,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
-			showDialog()
+//			servicePresenter.createAuthenticate()
+//			showDialog()
 		}
 		else
 		{
@@ -154,6 +156,10 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etLanguageCode?.setText(languageCode)
 		}
 		//endregion
+
+		mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+		mainViewModel?.login()
+		showDialog()
 	}
 
 	override fun initViews(view: View)
@@ -626,24 +632,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				{
 					activity?.run {
 						SinglentonDrawer.mModel.clear()
-//						if (this is PagerActivity)
-//						{
-//							bubbleHandle?.let { bubbleHandle ->
-//								val bubbleData = BubbleData(
-//									bubbleHandle.userDisplayName,
-//									bubbleHandle.title,
-//									bubbleHandle.introMessage,
-//									bubbleHandle.inputPlaceholder,
-//									bubbleHandle.maxMessages,
-//									bubbleHandle.clearOnClose,
-//									bubbleHandle.isDarkenBackgroundBehind,
-//									bubbleHandle.visibleExploreQueries,
-//									bubbleHandle.visibleNotification,
-//									bubbleHandle.enableVoiceRecord,
-//									isDataMessenger)
-//								clearDataMessenger(bubbleData)
-//							}
-//						}
 					}
 				}
 				R.id.btnOpenDrawer ->
