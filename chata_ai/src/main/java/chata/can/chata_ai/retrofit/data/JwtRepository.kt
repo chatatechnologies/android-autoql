@@ -7,6 +7,9 @@ class JwtRepository {
 	private val api = JwtService()
 
 	suspend fun callJwt(): String {
-		return api.callJwt(displayName = AutoQLData.userID, projectID = AutoQLData.projectId)
+		return api.callJwt(
+			displayName = AutoQLData.userID,
+			projectID = AutoQLData.projectId
+		)
 	}
 }

@@ -5,11 +5,13 @@ import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.domain.GetJwtUseCase
 import chata.can.chata_ai.retrofit.domain.GetLoginUseCase
+import chata.can.chata_ai.retrofit.domain.GetRelatedQueryTestUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 	private val getLoginUseCase = GetLoginUseCase()
 	private val getJwtUseCase = GetJwtUseCase()
+	private val relatedQueryTestUseCase = GetRelatedQueryTestUseCase()
 
 	fun login() {
 		viewModelScope.launch {
@@ -18,7 +20,10 @@ class MainViewModel: ViewModel() {
 			AutoQLData.token = token
 			//call get jwt
 			AutoQLData.JWT = getJwtUseCase.callJwt()
-			""
+			//save preferences
+			relatedQueryTestUseCase.getRelatedQueryTest()?.let {
+				""
+			}
 		}
 	}
 }

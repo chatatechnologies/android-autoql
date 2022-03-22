@@ -12,12 +12,11 @@ class JwtService {
 		displayName: String,
 		projectID: String
 	): String {
-
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(JwtApiClient::class.java)
 					.getJWT(
-						beaverToken = "Bearer ${AutoQLData.JWT}",
+						beaverToken = "Bearer ${AutoQLData.token}",
 						displayName = displayName,
 						projectID = projectID
 					)
