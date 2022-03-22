@@ -6,6 +6,8 @@ import chata.can.chata_ai.databinding.CardNotificationBinding
 import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.core.extension.customVisibility
 import chata.can.chata_ai.retrofit.core.extension.isVisible
+import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
+import kotlinx.coroutines.runBlocking
 
 class NotificationHolder(
 	view: View
@@ -59,6 +61,13 @@ class NotificationHolder(
 			tvContent.setTextColor(notificationUi.getTextColorPrimary())
 
 			wbQuery.customVisibility(notificationEntity.isVisibleWebView())
+			wbQuery.loadDataWithBaseURL(
+				null,
+				notificationEntity.contentWebView.contentResponse,
+				"text/html",
+				"UTF-8",
+				null
+			)
 			//endregion
 
 			//region listener
@@ -73,6 +82,18 @@ class NotificationHolder(
 							notificationAdapterContract.notifyItemChangedAdapter(lastOpenRuleQuery)
 						}
 						notificationAdapterContract.setLastOpen(adapterPosition)
+					}
+					//endregion
+					//region process data
+					if (!notificationEntity.hasData()) {
+						runBlocking {
+							val queryResultEntity = notificationUi.ruleQueryUseCase.getRuleQuery(notificationEntity.id)
+							val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
+
+							notificationEntity.setData(resultRuleQuery)
+							notificationEntity.isVisibleLoading = false
+							notificationAdapterContract.notifyItemChangedAdapter(adapterPosition)
+						}
 					}
 					//endregion
 				}

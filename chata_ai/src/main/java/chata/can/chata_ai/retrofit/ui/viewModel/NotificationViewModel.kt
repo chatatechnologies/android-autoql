@@ -1,17 +1,12 @@
 package chata.can.chata_ai.retrofit.ui.viewModel
 
-import android.view.View
-import android.webkit.WebView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.Executor
 import chata.can.chata_ai.R
 import chata.can.chata_ai.retrofit.NotificationEntity
-import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponse
 import chata.can.chata_ai.retrofit.domain.GetNotificationUseCase
-import chata.can.chata_ai.retrofit.domain.GetRuleQueryUseCase
 import chata.can.chata_ai.retrofit.notificationModelToEntity
 import chata.can.chata_ai.retrofit.ui.view.notification.NotificationRecyclerAdapter
 import kotlinx.coroutines.launch
@@ -20,17 +15,14 @@ class NotificationViewModel: ViewModel() {
 	val notificationList = MutableLiveData<List<NotificationEntity>>()
 	val totalItems = MutableLiveData<Int>()
 
-	var aNotifications = mutableListOf<NotificationEntity>()
+	private var aNotifications = mutableListOf<NotificationEntity>()
 
 	private var totalPages = 0
 	private var countPages = 1
 
 	private var notificationRecyclerAdapter: NotificationRecyclerAdapter? = null
 
-	private var lastOpenRuleQuery = -1
-
 	private var getNotificationUseCase = GetNotificationUseCase()
-	private val ruleQueryUseCase = GetRuleQueryUseCase()
 
 	fun onCreate(offset: Int = 0) {
 		viewModelScope.launch {
@@ -51,8 +43,8 @@ class NotificationViewModel: ViewModel() {
 
 	fun getNotificationRecyclerAdapter(): NotificationRecyclerAdapter? {
 		notificationRecyclerAdapter = NotificationRecyclerAdapter(
-			notificationViewModel = this,
-			resource = R.layout.card_notification
+			aNotifications,
+			R.layout.card_notification
 		) {
 			if (countPages < totalPages) {
 				onCreate(countPages++ * 10)
@@ -65,71 +57,6 @@ class NotificationViewModel: ViewModel() {
 		notificationRecyclerAdapter?.let {
 			aNotifications.addAll(aNotification)
 			it.notifyItemRangeChanged(0, aNotification.size)
-		}
-	}
-
-	fun getNotificationAt(position: Int): NotificationEntity {
-		return aNotifications[position]
-	}
-
-	fun changeVisibility(position: Int) {
-		getNotificationAt(position).let { notification ->
-			notification.isBottomVisible = !notification.isBottomVisible
-			if (notification.isBottomVisible) {
-
-				if (lastOpenRuleQuery != position) {
-					//region last open rule Query is major that Zero
-					if (lastOpenRuleQuery >= 0) {
-						getNotificationAt(lastOpenRuleQuery).let {
-							it.isBottomVisible = false
-							notificationRecyclerAdapter?.notifyItemChanged(lastOpenRuleQuery)
-						}
-					}
-					//endregion
-					lastOpenRuleQuery = position
-				}
-
-				//region process data
-				if (!notification.hasData()) {
-					viewModelScope.launch {
-						val queryResultEntity = ruleQueryUseCase.getRuleQuery(notification.id)
-						val resultRuleQuery = RuleQueryResponse.getRuleQueryResponse(queryResultEntity)
-
-						notificationRecyclerAdapter?.let {
-							notification.setData(resultRuleQuery)
-							notification.isVisibleLoading = false
-							//async refresh from process data
-							it.notifyItemChanged(position)
-						}
-					}
-				}
-				//endregion
-			}
-		}
-		notificationRecyclerAdapter?.notifyItemChanged(position)
-	}
-
-	fun getUrl(position: Int): String {
-		return getNotificationAt(position).contentWebView.contentResponse
-	}
-
-	companion object {
-		@JvmStatic
-		@BindingAdapter("loadData")
-		fun setUrl(webView: WebView, webViewData: String) {
-			webView.loadDataWithBaseURL(
-				null,
-				webViewData,
-				"text/html",
-				"UTF-8",
-				null
-			)
-		}
-
-		@JvmStatic
-		@BindingAdapter("android:visibility")
-		fun setVisibility(view: View, isVisible: Boolean) {
-			view.visibility = if (isVisible) View.VISIBLE else View.GONE
 		}
 	}
 }

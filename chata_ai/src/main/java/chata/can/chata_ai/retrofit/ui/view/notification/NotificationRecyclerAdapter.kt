@@ -8,7 +8,7 @@ import chata.can.chata_ai.retrofit.core.OnBottomReachedListener
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationRecyclerAdapter(
-	private val notificationViewModel: NotificationViewModel,
+	private val aNotifications: MutableList<NotificationEntity>,
 	private val resource: Int,/*R.layout.card_notification*/
 	onBottomListener: () -> Unit
 ): RecyclerView.Adapter<NotificationHolder>(), NotificationAdapterContract {
@@ -22,17 +22,15 @@ class NotificationRecyclerAdapter(
 		}
 	}
 
-	private fun getNotifications() = this.notificationViewModel.aNotifications
-
 	override fun getItemCount(): Int {
-		return getNotifications().size
+		return aNotifications.size
 	}
 
 	override fun onBindViewHolder(holder: NotificationHolder, position: Int) {
-		if (position == getNotifications().size - 1) {
+		if (position == aNotifications.size - 1) {
 			onBottomReachedListener.onBottomReachedListener(position)
 		}
-		val notification = getNotifications()[position]
+		val notification = aNotifications[position]
 		holder.render(notification, notificationUi, notificationAdapterContract = this)
 	}
 
@@ -50,7 +48,7 @@ class NotificationRecyclerAdapter(
 	}
 
 	override fun getNotificationAt(position: Int): NotificationEntity {
-		return getNotifications()[position]
+		return aNotifications[position]
 	}
 
 	override fun notifyItemChangedAdapter(position: Int) {
