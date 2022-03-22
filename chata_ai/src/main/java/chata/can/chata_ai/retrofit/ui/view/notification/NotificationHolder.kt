@@ -64,6 +64,19 @@ class NotificationHolder(
 			//region listener
 			ivTop.setOnClickListener {
 				notificationEntity.isBottomVisible = !notificationEntity.isBottomVisible
+				if (notificationEntity.isBottomVisible) {
+					//region manage last query opened
+					val lastOpenRuleQuery = notificationAdapterContract.getLastOpen()
+					if (lastOpenRuleQuery != adapterPosition) {
+						if (lastOpenRuleQuery >= 0) {
+							notificationAdapterContract.getNotificationAt(lastOpenRuleQuery).isBottomVisible = false
+							notificationAdapterContract.notifyItemChangedAdapter(lastOpenRuleQuery)
+						}
+						notificationAdapterContract.setLastOpen(adapterPosition)
+					}
+					//endregion
+				}
+
 				notificationAdapterContract.notifyItemChangedAdapter(adapterPosition)
 			}
 			//endregion

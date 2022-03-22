@@ -3,6 +3,7 @@ package chata.can.chata_ai.retrofit.ui.view.notification
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.core.OnBottomReachedListener
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
@@ -12,6 +13,7 @@ class NotificationRecyclerAdapter(
 	onBottomListener: () -> Unit
 ): RecyclerView.Adapter<NotificationHolder>(), NotificationAdapterContract {
 
+	private var lastOpenRuleQuery = -1
 	private val notificationUi: NotificationUi = NotificationUi()
 
 	private var onBottomReachedListener = object: OnBottomReachedListener {
@@ -32,7 +34,6 @@ class NotificationRecyclerAdapter(
 		}
 		val notification = getNotifications()[position]
 		holder.render(notification, notificationUi, notificationAdapterContract = this)
-//		holder.setDataCard(notificationViewModel, position)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationHolder {
@@ -40,11 +41,16 @@ class NotificationRecyclerAdapter(
 		return NotificationHolder(
 			inflater.inflate(resource, parent, false)
 		)
-//		val layoutInflater = LayoutInflater.from(parent.context)
-//		val binding: CardNotificationBinding = DataBindingUtil.inflate(
-//			layoutInflater, resource, parent, false
-//		)
-//		return NotificationHolder(binding)
+	}
+
+	override fun getLastOpen(): Int = lastOpenRuleQuery
+
+	override fun setLastOpen(position: Int) {
+		lastOpenRuleQuery = position
+	}
+
+	override fun getNotificationAt(position: Int): NotificationEntity {
+		return getNotifications()[position]
 	}
 
 	override fun notifyItemChangedAdapter(position: Int) {
