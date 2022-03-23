@@ -123,7 +123,7 @@ class PagerActivity: BaseActivity()
 			adapter.numPages = 1
 			View.GONE
 		}
-		adapter.notifyItemRangeChanged(0, adapter.numPages)
+		adapter.notifyItemRangeChanged(0, adapter.numPages - 1)
 		binding.tabLayout.visibility = visible
 		field = value
 	}

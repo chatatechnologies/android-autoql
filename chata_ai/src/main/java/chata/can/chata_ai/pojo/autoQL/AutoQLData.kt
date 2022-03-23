@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo.autoQL
 
-import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.dataFormatting.DataFormatting
