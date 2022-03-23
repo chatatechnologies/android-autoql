@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.main
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.SpannableString
@@ -18,18 +17,13 @@ import chata.can.chata_ai_api.CustomViews
 import chata.can.chata_ai_api.model.SectionData
 import chata.can.chata_ai_api.model.TypeParameter
 
-class MainRenderPresenter(
-	private val context: Context,
-	private val onClickListener: View.OnClickListener
-	)
-{
+class MainRenderPresenter(private val onClickListener: View.OnClickListener) {
 	fun initViews(llContainer: LinearLayout)
 	{
-		for ((header, demoParams) in SectionData.mData)
-		{
+		val context = llContainer.context
+		for ((header, demoParams) in SectionData.mData) {
 			//region header
-			with(TextView(context))
-			{
+			with(TextView(context)) {
 				layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 				gravity = Gravity.CENTER_HORIZONTAL
 				textSize(16f)
@@ -50,8 +44,7 @@ class MainRenderPresenter(
 						gravity = Gravity.CENTER_HORIZONTAL
 //						text = demoParam.label
 						//region check * character
-						if (demoParam.label.contains("*"))
-						{
+						if (demoParam.label.contains("*")) {
 							SpannableStringBuilder().run {
 								val spannable = SpannableString(demoParam.label)
 								spannable.setSpan(ForegroundColorSpan(Color.RED), 0, 1, 0)
@@ -59,14 +52,12 @@ class MainRenderPresenter(
 								setText(this, TextView.BufferType.SPANNABLE)
 							}
 						}
-						else
-						{
+						else {
 							text = demoParam.label
 						}
 						//endregion
 
-						if (demoParam.labelId != 0)
-						{
+						if (demoParam.labelId != 0) {
 							id = demoParam.labelId
 						}
 						textSize(18f)
@@ -76,38 +67,29 @@ class MainRenderPresenter(
 					//endregion
 				}
 
-				val viewChild = when(demoParam.type)
-				{
-					TypeParameter.INPUT_MATERIAL ->
-					{
+				val viewChild = when(demoParam.type) {
+					TypeParameter.INPUT_MATERIAL -> {
 						CustomViews.getTextInput(context, demoParam)
 					}
-					TypeParameter.TOGGLE ->
-					{
+					TypeParameter.TOGGLE -> {
 						CustomViews.getSwitch(context, demoParam.value, demoParam.idView)
 					}
-					TypeParameter.TOGGLE_QA ->
-					{
+					TypeParameter.TOGGLE_QA -> {
 						CustomViews.getSwitchQA(context)
 					}
-					TypeParameter.INPUT ->
-					{
+					TypeParameter.INPUT -> {
 						CustomViews.getEditText(context, demoParam)
 					}
-					TypeParameter.BUTTON ->
-					{
+					TypeParameter.BUTTON -> {
 						CustomViews.getButton(context, demoParam, onClickListener)
 					}
-					TypeParameter.SEGMENT ->
-					{
+					TypeParameter.SEGMENT -> {
 						CustomViews.getSegment(context, demoParam, onClickListener)
 					}
-					TypeParameter.SEGMENT_MATERIAL ->
-					{
+					TypeParameter.SEGMENT_MATERIAL -> {
 						CustomViews.getSegmentToggle(context, demoParam, onClickListener)
 					}
-					TypeParameter.COLOR ->
-					{
+					TypeParameter.COLOR -> {
 						if (demoParam.colors.isEmpty())
 						{
 							CustomViews.getColor(context, demoParam) {}

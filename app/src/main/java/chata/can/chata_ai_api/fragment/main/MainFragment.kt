@@ -96,7 +96,6 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 	private var swTabNotification: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
-	//NOTE: import module https://developer.android.com/studio/projects/android-library
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
@@ -139,9 +138,9 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		initViews(view)
-		setColors()
-		initListener()
-		initObserve()
+//		setColors()
+//		initListener()
+//		initObserve()
 	}
 
 	private fun initObserve() {
@@ -215,7 +214,8 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
+			MainRenderPresenter(this@MainFragment).initViews(llContainer)
+			return
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			swQA = findViewById(R.id.swQA)
