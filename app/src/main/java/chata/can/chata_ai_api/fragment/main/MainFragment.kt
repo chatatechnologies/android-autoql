@@ -91,7 +91,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
 	//NOTE: import module https://developer.android.com/studio/projects/android-library
-	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
@@ -104,7 +103,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvLeft to ConstantDrawer.LEFT_PLACEMENT,
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
+	//TODO fix hidden top bar pages
 	private var isAuthenticate = false
+	set(value) {
+		activity?.run {
+			if (this is PagerActivity) {
+				this.isVisibleTabLayout = value
+				AutoQLData.isRelease = true
+			}
+		}
+		field = value
+	}
+
 	private val mainViewModel: MainViewModel by viewModels()
 
 	override fun onRenderViews(view: View)
@@ -139,8 +149,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-//			servicePresenter.createAuthenticate()
-//			showDialog()
 			mainViewModel.login()
 			showDialog()
 		}
@@ -167,7 +175,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			savePersistentData()
 		}
 		mainViewModel.isEnableLogin.observe(this) { isEnableLogin ->
-			btnAuthenticate?.isEnabled = isEnableLogin
+			isEnableLogin(isEnableLogin)
 		}
 		mainViewModel.updateShowAlert.observe(this) { dataAlert ->
 			showAlert(dataAlert.first, dataAlert.second)
@@ -186,9 +194,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let {
-				servicePresenter = MainServicePresenter(this@MainFragment)
-			}
 			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
@@ -576,9 +581,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					{
 						AutoQLData.clearData()
 						isAuthenticate = false
-						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
-
 						for(child in aClearFocus)
 							child.setText("")
 					}
@@ -592,8 +595,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 						AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-//						servicePresenter.createAuthenticate()
-//						showDialog()
+						mainViewModel.login()
+						showDialog()
 					}
 				}
 				R.id.btnReloadDrawer ->
@@ -628,7 +631,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun showAlert(message: String, intRes: Int)
+	private fun showAlert(message: String, intRes: Int)
 	{
 		hideDialog()
 		animationAlert.setText(message)
@@ -639,21 +642,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				animationAlert.hideAlert()
 			}, 1500)
 		}
-	}
-
-	override fun callJWt()
-	{
-		servicePresenter.createJWT()
-	}
-
-	override fun callRelated()
-	{
-		servicePresenter.callRelated()
-	}
-
-	override fun callTopics()
-	{
-		servicePresenter.callTopics()
 	}
 
 	private val mHandler = Handler(Looper.getMainLooper())
@@ -673,40 +661,12 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		mHandler.postDelayed(runnable, 10000)
 	}
 
-	override fun changeAuthenticate(isAuthenticate: Boolean)
-	{
-		this.isAuthenticate = isAuthenticate
-	}
-
-	override fun isEnableLogin(isEnable: Boolean)
+	private fun isEnableLogin(isEnable: Boolean)
 	{
 		btnAuthenticate?.isEnabled = isEnable
 	}
 
-	override fun changeStateAuthenticate()
-	{
-		val text = if (isAuthenticate)
-		{
-			"Log Out"
-		}
-		else
-		{
-			isEnableLogin(true)
-			"Authenticate"
-		}
-
-		activity?.run {
-			if (this is PagerActivity)
-			{
-				this.isVisibleTabLayout = isAuthenticate
-				AutoQLData.isRelease = true
-			}
-		}
-
-		btnAuthenticate?.text = text
-	}
-
-	override fun savePersistentData()
+	private fun savePersistentData()
 	{
 		//region save preferences
 		activity?.let {

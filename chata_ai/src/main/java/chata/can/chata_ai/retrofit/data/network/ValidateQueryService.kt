@@ -1,6 +1,7 @@
 package chata.can.chata_ai.retrofit.data.network
 
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.request.authentication.Authentication.bearerToken
 import chata.can.chata_ai.retrofit.core.RetrofitHelperDynamic
 import chata.can.chata_ai.retrofit.data.model.exploreQueries.ValidateQueryModel
 import chata.can.chata_ai.retrofit.data.model.exploreQueries.emptyValidateQueryModel
@@ -15,7 +16,7 @@ class ValidateQueryService {
 			try {
 				val response = retrofit.create(ValidateQueryApiClient::class.java)
 					.validateQuery(
-						beaverToken = "Bearer ${AutoQLData.JWT}",
+						beaverToken = bearerToken(),
 						query = query,
 						apiKey = AutoQLData.apiKey
 					)

@@ -2,6 +2,7 @@ package chata.can.chata_ai.retrofit.data.network
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.request.authentication.Authentication.bearerToken
 import chata.can.chata_ai.retrofit.core.RetrofitHelperDynamic
 import chata.can.chata_ai.retrofit.data.model.relatedQueries.RelatedQueryModel
 import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedModel
@@ -16,7 +17,7 @@ class RelatedQueriesTestService {
 			try {
 				val response = retrofit.create(RelatedQueriesTestApiClient::class.java)
 					.getRelatedQuery(
-						beaverToken = "Bearer ${AutoQLData.JWT}",
+						beaverToken = bearerToken(),
 						acceptLanguage = SinglentonDrawer.languageCode,
 						apiKey = AutoQLData.apiKey,
 						search = search

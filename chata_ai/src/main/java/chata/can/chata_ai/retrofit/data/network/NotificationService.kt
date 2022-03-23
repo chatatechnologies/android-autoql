@@ -1,6 +1,7 @@
 package chata.can.chata_ai.retrofit.data.network
 
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.request.authentication.Authentication.bearerToken
 import chata.can.chata_ai.retrofit.core.RetrofitHelperDynamic
 import chata.can.chata_ai.retrofit.data.model.notification.NotificationResponseModel
 import chata.can.chata_ai.retrofit.data.model.notification.emptyNotification
@@ -15,7 +16,7 @@ class NotificationService {
 			try {
 				val response = retrofit.create(NotificationApiClient::class.java)
 					.getNotifications(
-						"Bearer ${AutoQLData.JWT}",
+						bearerToken(),
 						AutoQLData.apiKey,
 						offset,
 						limit = 10)

@@ -2,6 +2,7 @@ package chata.can.chata_ai.retrofit.data.network
 
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.request.authentication.Authentication.bearerToken
 import chata.can.chata_ai.retrofit.core.RetrofitHelper
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.RuleQueryResponseModel
 import chata.can.chata_ai.retrofit.data.model.ruleQuery.emptyRuleQuery
@@ -17,7 +18,7 @@ class RuleQueryService {
 				val response = retrofit.create(RuleQueryApiClient::class.java)
 					.getRuleQuery(
 						idRule = idRule,
-						beaverToken = "Bearer ${AutoQLData.JWT}",
+						beaverToken = bearerToken(),
 						acceptLanguage = SinglentonDrawer.languageCode,
 						integratorDomain = AutoQLData.domainUrl,
 						key = AutoQLData.apiKey
