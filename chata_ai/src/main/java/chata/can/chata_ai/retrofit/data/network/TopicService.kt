@@ -3,15 +3,15 @@ package chata.can.chata_ai.retrofit.data.network
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.core.RetrofitHelper
-import chata.can.chata_ai.retrofit.data.model.TopicModel
-import chata.can.chata_ai.retrofit.data.model.emptyTopicModel
+import chata.can.chata_ai.retrofit.data.model.TopicResponse
+import chata.can.chata_ai.retrofit.data.model.emptyTopicResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TopicService {
 	private val retrofit = RetrofitHelper.getRetrofit()
 
-	suspend fun getTopics(key: String, projectId: String): TopicModel {
+	suspend fun getTopics(key: String, projectId: String): TopicResponse {
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(TopicApiClient::class.java)
@@ -22,9 +22,9 @@ class TopicService {
 						key = key,
 						projectId = projectId
 					)
-				response.body() ?: emptyTopicModel()
+				response.body() ?: emptyTopicResponse()
 			} catch (ex: Exception) {
-				emptyTopicModel()
+				emptyTopicResponse()
 			}
 		}
 	}

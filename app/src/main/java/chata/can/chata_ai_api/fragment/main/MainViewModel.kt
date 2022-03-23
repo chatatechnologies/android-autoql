@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.retrofit.domain.GetJwtUseCase
 import chata.can.chata_ai.retrofit.domain.GetLoginUseCase
@@ -24,8 +25,23 @@ class MainViewModel: ViewModel() {
 			AutoQLData.JWT = getJwtUseCase.callJwt()
 			//save preferences
 			relatedQueryTestUseCase.getRelatedQueryTest()?.let {
-				topicUseCase.getTopics(AutoQLData.apiKey, AutoQLData.projectId)
-				""
+				val items = topicUseCase.getTopics(AutoQLData.apiKey, AutoQLData.projectId)
+
+				//region fill data Query Builder
+				val aMainData = QueryBuilderData.aMainData
+				aMainData.clear()
+				val mMainQuery = QueryBuilderData.mMainQuery
+				mMainQuery.clear()
+
+				for (item in items) {
+					val topic = item.topic
+					aMainData.add(topic)
+					val listQueries = arrayListOf("💡See more...")
+					listQueries.addAll(item.queries)
+					mMainQuery[topic] = listQueries
+				}
+				//endregion
+				AutoQLData.wasLoginIn = true
 			}
 		}
 	}
