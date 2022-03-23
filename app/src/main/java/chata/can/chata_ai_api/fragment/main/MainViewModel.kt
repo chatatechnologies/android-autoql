@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.fragment.main
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
@@ -8,9 +9,14 @@ import chata.can.chata_ai.retrofit.domain.GetJwtUseCase
 import chata.can.chata_ai.retrofit.domain.GetLoginUseCase
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryTestUseCase
 import chata.can.chata_ai.retrofit.domain.GetTopicUseCase
+import chata.can.chata_ai_api.R
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
+	val isAuthenticate = MutableLiveData<Boolean>()
+	val isEnableLogin = MutableLiveData<Boolean>()
+	val updateShowAlert = MutableLiveData< Pair<String, Int> >()
+
 	private val getLoginUseCase = GetLoginUseCase()
 	private val getJwtUseCase = GetJwtUseCase()
 	private val relatedQueryTestUseCase = GetRelatedQueryTestUseCase()
@@ -42,6 +48,11 @@ class MainViewModel: ViewModel() {
 				}
 				//endregion
 				AutoQLData.wasLoginIn = true
+				//region live data control
+				isAuthenticate.postValue(true)
+				isEnableLogin.postValue(true)
+				updateShowAlert.postValue(Pair("Login Successful", R.drawable.ic_done))
+				//endregion
 			}
 		}
 	}

@@ -9,7 +9,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
@@ -105,7 +105,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
 	private var isAuthenticate = false
-	private var mainViewModel: MainViewModel ? = null
+	private val mainViewModel: MainViewModel by viewModels()
 
 	override fun onRenderViews(view: View)
 	{
@@ -141,6 +141,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 //			servicePresenter.createAuthenticate()
 //			showDialog()
+			mainViewModel.login()
+			showDialog()
 		}
 		else
 		{
@@ -157,9 +159,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		//endregion
 
-		mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-		mainViewModel?.login()
-		showDialog()
+		mainViewModel.isAuthenticate.observe(this) { isAuthenticate ->
+			btnAuthenticate?.text = if (isAuthenticate) "Log Out" else "Authenticate"
+		}
+		mainViewModel.isEnableLogin.observe(this) { isEnableLogin ->
+			btnAuthenticate?.isEnabled = isEnableLogin
+		}
+		mainViewModel.updateShowAlert.observe(this) { dataAlert ->
+			showAlert(dataAlert.first, dataAlert.second)
+		}
 	}
 
 	override fun initViews(view: View)
@@ -175,50 +183,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 			llContainer = findViewById(R.id.llContainer)
 			parentActivity?.let {
-//				if (bubbleHandle == null)
-//				{
-//					val dataMessenger = DataMessenger("#data-messenger",
-//						authentication = Authentication(
-//							token,
-//							apiKey,
-//							domainUrl
-//						),
-//						ConstantDrawer.RIGHT_PLACEMENT
-//					)
-//					bubbleHandle = BubbleHandle(context, dataMessenger) {
-//						//region catch data
-//						FirebaseCrashlytics.getInstance().run {
-//							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
-//							setCustomKey("domain_ulr", domainUrl)
-//							setCustomKey("api_key", apiKey)
-//							setCustomKey("project_id", projectId)
-//							setCustomKey("user_id", userID)
-//						}
-//						//endregion
-//						hideKeyboard()
-//						bubbleHandle?.let { bubbleHandle ->
-//							val bubbleData = BubbleData(
-//								bubbleHandle.userDisplayName,
-//								bubbleHandle.title,
-//								bubbleHandle.introMessage,
-//								bubbleHandle.inputPlaceholder,
-//								bubbleHandle.maxMessages,
-//								bubbleHandle.clearOnClose,
-//								bubbleHandle.isDarkenBackgroundBehind,
-//								bubbleHandle.visibleExploreQueries,
-//								bubbleHandle.visibleNotification,
-//								bubbleHandle.enableVoiceRecord,
-//								isDataMessenger)
-//							(parentActivity as? PagerActivity)?.let {
-//								for (clearView in aClearFocus)
-//								{
-//									clearView.clearFocus()
-//								}
-//								it.setStatusGUI(true, bubbleData)
-//							}
-//						}
-//					}
-//				}
 				servicePresenter = MainServicePresenter(this@MainFragment)
 			}
 			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
