@@ -1,58 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_height="wrap_content"
-	android:layout_width="match_parent">
-	<ScrollView
-		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:orientation="vertical">
-		<LinearLayout
-			android:background="@color/white"
-			android:descendantFocusability="beforeDescendants"
-			android:focusableInTouchMode="true"
-			android:gravity="center_horizontal"
-			android:id="@+id/llContainer"
-			android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+	</data>
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<ScrollView
+			android:layout_height="match_parent"
 			android:layout_width="match_parent"
 			android:orientation="vertical">
 
+			<LinearLayout
+				android:background="@color/white"
+				android:descendantFocusability="beforeDescendants"
+				android:focusableInTouchMode="true"
+				android:gravity="center_horizontal"
+				android:id="@+id/llContainer"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="vertical"/>
+		</ScrollView>
 
+		<RelativeLayout
+			android:id="@+id/rlAlert"
+			android:layout_centerHorizontal="true"
+			android:layout_height="60dp"
+			android:layout_width="match_parent"
+			android:visibility="gone"
+			android:padding="5dp">
 
-		</LinearLayout>
-	</ScrollView>
-
-	<RelativeLayout
-		android:id="@+id/rlAlert"
-		android:layout_centerHorizontal="true"
-		android:layout_height="60dp"
-		android:layout_width="match_parent"
-		android:visibility="gone"
-		android:padding="5dp">
-		<LinearLayout
-			android:background="@color/white"
-			android:id="@+id/llAlert"
-			android:layout_centerInParent="true"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:padding="5dp"
-			tools:ignore="UselessParent">
-			<ImageView
-				android:contentDescription="@null"
-				android:id="@+id/ivAlert"
-				android:layout_height="48dp"
-				android:layout_width="48dp"
-				android:scaleType="centerInside"
-				android:src="@drawable/ic_done"/>
-			<Button
-				android:background="@android:color/transparent"
-				android:id="@+id/tvAlert"
-				android:layout_height="match_parent"
+			<LinearLayout
+				android:background="@color/white"
+				android:id="@+id/llAlert"
+				android:layout_centerInParent="true"
+				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
-				android:textAllCaps="false"
-				android:textColor="@android:color/black"/>
-		</LinearLayout>
+				android:padding="5dp"
+				tools:ignore="UselessParent">
 
+				<ImageView
+					android:contentDescription="@null"
+					android:id="@+id/ivAlert"
+					android:layout_height="48dp"
+					android:layout_width="48dp"
+					android:scaleType="centerInside"
+					android:src="@drawable/ic_done"/>
+
+				<Button
+					android:background="@android:color/transparent"
+					android:id="@+id/tvAlert"
+					android:layout_height="match_parent"
+					android:layout_width="wrap_content"
+					android:textAllCaps="false"
+					android:textColor="@android:color/black"/>
+			</LinearLayout>
+
+		</RelativeLayout>
 	</RelativeLayout>
-</RelativeLayout>
+</layout>

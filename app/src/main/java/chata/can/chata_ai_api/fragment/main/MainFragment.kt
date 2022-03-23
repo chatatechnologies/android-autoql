@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
 import chata.can.chata_ai.model.DataMessengerAdmin
@@ -24,12 +28,12 @@ import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
+import chata.can.chata_ai_api.databinding.FragmentMainBinding
 import chata.can.chata_ai_api.main.PagerActivity
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainFragment: BaseFragment(), View.OnClickListener, MainContract
-{
+class MainFragment: Fragment(), View.OnClickListener, MainContract {
 	companion object {
 		const val nameFragment = "Data Messenger"
 		fun newInstance() = MainFragment().putArgs {
@@ -37,6 +41,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	private val visible = View.VISIBLE
+	val gone = View.GONE
 	private lateinit var floatingView: AutoQL
 	private lateinit var llContainer: LinearLayout
 	private lateinit var swQA: SwitchDM
@@ -103,7 +109,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		R.id.tvLeft to ConstantDrawer.LEFT_PLACEMENT,
 		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
 
-	//TODO fix hidden top bar pages
 	private var isAuthenticate = false
 	set(value) {
 		activity?.run {
@@ -116,12 +121,31 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	}
 
 	private val mainViewModel: MainViewModel by viewModels()
+	private var fragmentMainBinding: FragmentMainBinding ?= null
 
-	override fun onRenderViews(view: View)
-	{
-		super.onRenderViews(view)
-		if (BuildConfig.DEBUG)
-		{
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		fragmentMainBinding = DataBindingUtil.inflate(
+			inflater,
+			R.layout.fragment_main,
+			container,
+			false
+		)
+		return fragmentMainBinding?.root
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		initViews(view)
+		setColors()
+		initListener()
+		initObserve()
+	}
+
+	private fun initObserve() {
+		if (BuildConfig.DEBUG) {
 			val projectId = "spira-demo3"
 			etProjectId?.setText(projectId)
 			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
@@ -152,8 +176,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			mainViewModel.login()
 			showDialog()
 		}
-		else
-		{
+		else {
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
@@ -167,28 +190,26 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 		//endregion
 
-		mainViewModel.isAuthenticate.observe(this) { isAuthenticate ->
+		mainViewModel.isAuthenticate.observe(viewLifecycleOwner) { isAuthenticate ->
 			this.isAuthenticate = isAuthenticate
 			btnAuthenticate?.text = if (isAuthenticate) "Log Out" else "Authenticate"
 		}
-		mainViewModel.isSavingPersistence.observe(this) {
+		mainViewModel.isSavingPersistence.observe(viewLifecycleOwner) {
 			savePersistentData()
 		}
-		mainViewModel.isEnableLogin.observe(this) { isEnableLogin ->
+		mainViewModel.isEnableLogin.observe(viewLifecycleOwner) { isEnableLogin ->
 			isEnableLogin(isEnableLogin)
 		}
-		mainViewModel.updateShowAlert.observe(this) { dataAlert ->
+		mainViewModel.updateShowAlert.observe(viewLifecycleOwner) { dataAlert ->
 			showAlert(dataAlert.first, dataAlert.second)
 		}
 	}
 
-	override fun initViews(view: View)
-	{
+	private fun initViews(view: View) {
 		with(view)
 		{
 			activity?.run {
-				if (this is PagerActivity)
-				{
+				if (this is PagerActivity) {
 					floatingView = findViewById(R.id.floatingView)
 				}
 			}
@@ -232,23 +253,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				for (index in 0 until this.childCount)
 				{
 					val child = this.getChildAt(index)
-					if (child is EditText)
-					{
+					if (child is EditText) {
 						child.setOnTextChanged {
 							subColor ->
-							try
-							{
+							try {
 								val pData = subColor.isColor()
-								if (pData.second)
-								{
+								if (pData.second) {
 									pData.first.getContrast().run {
 										child.setBackgroundColor(first)
 										child.setTextColor(second)
 									}
 									DataMessengerAdmin.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
-							}
-							catch (ex: Exception) {}
+							} catch (ex: Exception) {}
 						}
 					}
 				}
@@ -276,14 +293,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun setColors()
-	{
+	private fun setColors() {
 		activity?.let {
 			activity ->
-			for ((_, value) in mViews)
-			{
-				for (index in 0 until value.size())
-				{
+			for ((_, value) in mViews) {
+				for (index in 0 until value.size()) {
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
 					llContainer.findViewById<TextView>(key)?.let { tv ->
@@ -291,23 +305,20 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						//region set background for view parent
 						tv.parent?.let {
 							(it as? LinearLayout)?.let { tmpParent ->
-								if (tmpParent.tag == "child")
-								{
+								if (tmpParent.tag == "child") {
 									parent = tmpParent
 								}
 							}
 						}
 						//endregion
-						val background = if (isEnabled)
-						{
+						val background = if (isEnabled) {
 							tv.setTextColor(Color.WHITE)
 							GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
 								setColor(activity.getParsedColor(R.color.colorButton))
 							}
 						}
-						else
-						{
+						else {
 							tv.setTextColor(Color.BLACK)
 							GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
@@ -332,10 +343,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	private val visible = View.VISIBLE
-	val gone = View.GONE
-	override fun initListener()
-	{
+	private fun initListener() {
 		swQA.setCallbackEventChanged({
 			hThemeColor?.visibility = gone
 			etThemeColor?.visibility = gone
@@ -373,8 +381,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etCurrencyCode?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				try
 				{
 					AutoQLData.dataFormatting.currencyCode = it
@@ -384,29 +391,25 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etFormatMonthYear?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.languageCode = it
 			}
 		}
 
 		etDecimalsCurrency?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				it.toIntOrNull()?.let { integer ->
 					AutoQLData.dataFormatting.currencyDecimals = integer
 				}
@@ -414,8 +417,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etDecimalsQuantity?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				it.toIntOrNull()?.let { integer ->
 					AutoQLData.dataFormatting.quantityDecimals = integer
 				}
@@ -448,8 +450,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			val text = (textView.text ?: "").toString()
 
 			val pData = text.isColor()
-			if (pData.second)
-			{
+			if (pData.second) {
 				val newColor = pData.first
 				llColors?.let { llColors ->
 					val newView = CustomViews.setNewColor(textView.context, newColor, llColors.childCount)
@@ -466,8 +467,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etDashboardColor?.setOnTextChanged {
 			try {
 				val pData = it.isColor()
-				if (pData.second)
-				{
+				if (pData.second) {
 					pData.first.getContrast().run {
 						etDashboardColor?.setBackgroundColor(first)
 						etDashboardColor?.setTextColor(second)
@@ -479,8 +479,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etLightThemeColor?.setOnTextChanged {
-			try
-			{
+			try {
 				val pData = it.isColor()
 				if (pData.second)
 				{
@@ -490,24 +489,20 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 					}
 					DataMessengerAdmin.setLightThemeColor(it)
 				}
-			}
-			catch (ex: Exception) {}
+			} catch (ex: Exception) {}
 		}
 
 		etDarkThemeColor?.setOnTextChanged {
-			try
-			{
+			try {
 				val pData = it.isColor()
-				if (pData.second)
-				{
+				if (pData.second) {
 					pData.first.getContrast().run {
 						etDarkThemeColor?.setBackgroundColor(first)
 						etDarkThemeColor?.setTextColor(second)
 					}
 					DataMessengerAdmin.setDarkThemeColor(it)
 				}
-			}
-			catch (ex: Exception) {}
+			} catch (ex: Exception) {}
 		}
 
 		etMaxNumberMessage?.setOnTextChanged {
@@ -569,24 +564,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun onClick(view: View?)
-	{
+	override fun onClick(view: View?) {
 		view?.let {
-			when(it.id)
-			{
-				R.id.btnAuthenticate ->
-				{
+			when(it.id) {
+				R.id.btnAuthenticate -> {
 					isEnableLogin(false)
-					if (isAuthenticate)
-					{
+					if (isAuthenticate) {
 						AutoQLData.clearData()
 						isAuthenticate = false
 						showAlert("Successfully logged out", R.drawable.ic_done)
 						for(child in aClearFocus)
 							child.setText("")
 					}
-					else
-					{
+					else {
 						AutoQLData.clearData()
 						AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
 						AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
@@ -599,31 +589,26 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						showDialog()
 					}
 				}
-				R.id.btnReloadDrawer ->
-				{
+				R.id.btnReloadDrawer -> {
 					activity?.run {
 						SinglentonDrawer.mModel.clear()
 					}
 				}
-				R.id.btnOpenDrawer ->
-				{
+				R.id.btnOpenDrawer -> {
 					floatingView.runEvent()
 				}
-				R.id.tvLight, R.id.tvDark ->
-				{
+				R.id.tvLight, R.id.tvDark -> {
 					mTheme[it.id]?.let { config ->
 						val theme = if (config) "light" else "dark"
 						floatingView.theme = theme
 					}
 				}
-				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
-				{
+				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight -> {
 					mPlacement[it.id]?.let { placement ->
 						floatingView.placement = placement
 					}
 				}
-				R.id.tvDataMessenger, R.id.tvExploreQueries ->
-				{
+				R.id.tvDataMessenger, R.id.tvExploreQueries -> {
 					AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
 				}
 				else -> {}
@@ -631,8 +616,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	private fun showAlert(message: String, intRes: Int)
-	{
+	private fun showAlert(message: String, intRes: Int) {
 		hideDialog()
 		animationAlert.setText(message)
 		animationAlert.setResource(intRes)
@@ -646,8 +630,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private val mHandler = Handler(Looper.getMainLooper())
 	private val runnable = object: Runnable {
-		override fun run()
-		{
+		override fun run() {
 			activity?.let {
 				val intent = Intent(it, PollService::class.java)
 				PollService.enqueueWork(it, intent)
@@ -656,23 +639,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun initPollService()
-	{
+	override fun initPollService() {
 		mHandler.postDelayed(runnable, 10000)
 	}
 
-	private fun isEnableLogin(isEnable: Boolean)
-	{
+	private fun isEnableLogin(isEnable: Boolean) {
 		btnAuthenticate?.isEnabled = isEnable
 	}
 
-	private fun savePersistentData()
-	{
+	private fun savePersistentData() {
 		//region save preferences
 		activity?.let {
 			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
-			with(sharePreferences.edit())
-			{
+			with(sharePreferences.edit()) {
 				putString("PROJECT_ID", AutoQLData.projectId)
 				putString("API_KEY", AutoQLData.apiKey)
 				putString("DOMAIN_URL", AutoQLData.domainUrl)
@@ -682,22 +661,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		//endregion
 	}
 
-	private fun showDialog()
-	{
+	private fun showDialog() {
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
 	}
 
-	private fun hideDialog()
-	{
+	private fun hideDialog() {
 		ProgressWait.hideProgressDialog()
 	}
 
-	private fun String.prepareDomain(): String
-	{
+	private fun String.prepareDomain(): String {
 		var tmp = this.trim()
 		tmp.lastOrNull()?.let {
-			if (it == '/')
-			{
+			if (it == '/') {
 				tmp = tmp.removeSuffix("/")
 			}
 		}
