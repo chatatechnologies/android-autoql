@@ -214,7 +214,7 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			MainRenderPresenter(this@MainFragment).initViews(llContainer)
+			MainRenderPresenter(this@MainFragment)//.initViews(llContainer)
 			return
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 

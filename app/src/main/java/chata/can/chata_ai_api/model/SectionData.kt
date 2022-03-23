@@ -62,47 +62,47 @@ object SectionData
 			arrayListOf(
 				DemoParameter("", TypeParameter.SEGMENT_MATERIAL, options = aCustom),
 			),
-//		"AutoQl Api Configuration Options" to
-//			arrayListOf(
-//				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
-//				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
-//				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
-//				DemoParameter("Enable Drilldowns", TypeParameter.TOGGLE, "true", idView = R.id.swEnableDrillDown),
-//				DemoParameter("Enable Column Visibility Editor", TypeParameter.TOGGLE, "true", idView = R.id.swEnableColumn),
-//				DemoParameter("Enable Notifications", TypeParameter.TOGGLE, "true", idView = R.id.swEnableNotification)
-//			),
-//		"UI Configuration Options" to
-//			arrayListOf(
-//				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
-//
-//				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "false", idView = R.id.swBackgroundBehind),
-//				DemoParameter("Theme", TypeParameter.SEGMENT_MATERIAL, options = aTheme),
-//				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT_MATERIAL, options = aPlacement),
-//				DemoParameter("Default Tab", TypeParameter.SEGMENT_MATERIAL, options = aTabs),
-//
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "USD", hint = "Currency code", idView = R.id.etCurrencyCode),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "en-US", hint = "Language code", idView = R.id.etLanguageCode),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "MMM YYYY", hint = "Format for Month, Year", idView = R.id.etFormatMonthYear),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "MMM DD, YYYY", hint = "Format for Day, Month, Year", idView = R.id.etFormatDayMonthYear),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "2", hint = "Number of Decimals for Currency Values", idView = R.id.etDecimalsCurrency, typeInput = TypeInput.INTEGER),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "1", hint = "Number of Decimals for Quantity Values", idView = R.id.etDecimalsQuantity, typeInput = TypeInput.INTEGER),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "User Display Name", idView = R.id.etCustomerMessage),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Intro Message ", idView = R.id.etIntroMessage),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Query Input PlaceHolder", idView = R.id.etQueryPlaceholder),
-//				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, hint = "", idView = R.id.swClearMessage),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "Data Messenger", hint = "Title", idView = R.id.etTitle),
-//
-//				DemoParameter("This is an array of colors used for the charts.", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, idView = R.id.etAddColor, hint = "New Color"),
-//				//DemoParameter("Dashboard Title Color", TypeParameter.INPUT, idView = 0, hint = "#48698E"),
-//				DemoParameter("Dashboard Background Color", TypeParameter.COLOR, "#FAFAFA", idView = R.id.etDashboardColor, typeInput = TypeInput.COLOR),
-//				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
-//				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
-//				DemoParameter("", TypeParameter.INPUT_MATERIAL, "10", hint = "Maximum Number of Messages", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
-//				DemoParameter("Enable Explore Queries Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabExploreQueries),
-//				DemoParameter("Enable Notifications Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabNotification),
-//				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
-//			)
+		"AutoQl Api Configuration Options" to
+			arrayListOf(
+				DemoParameter("Enable Autocomplete", TypeParameter.TOGGLE, "true", idView = R.id.swEnableAutocomplete),
+				DemoParameter("Enable Query Validation", TypeParameter.TOGGLE, "true", idView = R.id.swEnableQuery),
+				DemoParameter("Enable Query Suggestions", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSuggestion),
+				DemoParameter("Enable Drilldowns", TypeParameter.TOGGLE, "true", idView = R.id.swEnableDrillDown),
+				DemoParameter("Enable Column Visibility Editor", TypeParameter.TOGGLE, "true", idView = R.id.swEnableColumn),
+				DemoParameter("Enable Notifications", TypeParameter.TOGGLE, "true", idView = R.id.swEnableNotification)
+			),
+		"UI Configuration Options" to
+			arrayListOf(
+				DemoParameter("Show Data Messenger Button", TypeParameter.TOGGLE, value = "true", idView = R.id.swDrawerHandle),
+
+				DemoParameter("Darken Background Behind Data Messenger", TypeParameter.TOGGLE, "false", idView = R.id.swBackgroundBehind),
+				DemoParameter("Theme", TypeParameter.SEGMENT_MATERIAL, options = aTheme),
+				DemoParameter("Data Messenger Placement", TypeParameter.SEGMENT_MATERIAL, options = aPlacement),
+				DemoParameter("Default Tab", TypeParameter.SEGMENT_MATERIAL, options = aTabs),
+
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "USD", hint = "Currency code", idView = R.id.etCurrencyCode),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "en-US", hint = "Language code", idView = R.id.etLanguageCode),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "MMM YYYY", hint = "Format for Month, Year", idView = R.id.etFormatMonthYear),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "MMM DD, YYYY", hint = "Format for Day, Month, Year", idView = R.id.etFormatDayMonthYear),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "2", hint = "Number of Decimals for Currency Values", idView = R.id.etDecimalsCurrency, typeInput = TypeInput.INTEGER),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "1", hint = "Number of Decimals for Quantity Values", idView = R.id.etDecimalsQuantity, typeInput = TypeInput.INTEGER),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "User Display Name", idView = R.id.etCustomerMessage),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Intro Message ", idView = R.id.etIntroMessage),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, hint = "Query Input PlaceHolder", idView = R.id.etQueryPlaceholder),
+				DemoParameter("Clear All Messages on Close", TypeParameter.TOGGLE, hint = "", idView = R.id.swClearMessage),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "Data Messenger", hint = "Title", idView = R.id.etTitle),
+
+				DemoParameter("This is an array of colors used for the charts.", TypeParameter.COLOR, colors = aColors, idView = R.id.llColors),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, idView = R.id.etAddColor, hint = "New Color"),
+				//DemoParameter("Dashboard Title Color", TypeParameter.INPUT, idView = 0, hint = "#48698E"),
+				DemoParameter("Dashboard Background Color", TypeParameter.COLOR, "#FAFAFA", idView = R.id.etDashboardColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Light Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etLightThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("Dark Theme Accent Color", TypeParameter.COLOR, "#26A7DF", idView = R.id.etDarkThemeColor, typeInput = TypeInput.COLOR),
+				DemoParameter("", TypeParameter.INPUT_MATERIAL, "10", hint = "Maximum Number of Messages", idView = R.id.etMaxNumberMessage, typeInput = TypeInput.INTEGER),
+				DemoParameter("Enable Explore Queries Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabExploreQueries),
+				DemoParameter("Enable Notifications Tab", TypeParameter.TOGGLE, "true", idView = R.id.swTabNotification),
+				DemoParameter("Enable Speech to Text", TypeParameter.TOGGLE, "true", idView = R.id.swEnableSpeechText)
+			)
 		//"Chat Colors"
 	)
 }

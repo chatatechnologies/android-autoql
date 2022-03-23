@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools">
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<data>
 
@@ -23,7 +24,258 @@
 				android:id="@+id/llContainer"
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:orientation="vertical"/>
+				android:orientation="vertical">
+			<!--region dynamics views-->
+				<!--region Authentication-->
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					android:text="Authentication"/>
+
+				<chata.can.chata_ai.view.SwitchDM
+					android:id="@+id/swQA"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Project ID"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etProjectId"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="text|textNoSuggestions"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="User Email"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etUserId"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="textEmailAddress"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="API key"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etApiKey"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="textEmailAddress"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Domain URL"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etDomainUrl"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="textEmailAddress"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Username"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etUsername"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="textEmailAddress"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+<!--				app:boxStrokeColor=""-->
+<!--				app:boxBackgroundColor=""-->
+<!--				app:boxBackgroundMode=""-->
+<!--				app:hintTextColor=""-->
+<!--				app:helperTextTextColor=""-->
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Password"
+
+					android:layout_marginStart="4sp"
+					android:layout_marginTop="4sp"
+					android:layout_marginEnd="4sp"
+					android:layout_marginBottom="4dp"
+
+					app:boxCornerRadiusTopStart="2dp"
+					app:boxCornerRadiusTopEnd="2dp"
+					app:boxCornerRadiusBottomStart="2dp"
+					app:boxCornerRadiusBottomEnd="2dp"
+
+					app:helperText=" * required">
+					<com.google.android.material.textfield.TextInputEditText
+						android:id="@+id/etPassword"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:lines="1"
+						android:singleLine="true"
+						android:imeOptions="actionDone"
+						android:inputType="textPassword"
+						android:typeface="monospace"/>
+				</com.google.android.material.textfield.TextInputLayout>
+
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/btnAuthenticate"
+					android:layout_marginStart="4dp"
+					android:layout_marginTop="4dp"
+					android:layout_marginEnd="4dp"
+					android:layout_marginBottom="4dp"
+					android:layout_width="match_parent"
+					android:layout_height="45dp"
+					android:text="Authenticate"/>
+
+				<!--endregion-->
+
+				<!--region Customize Widgets-->
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					android:text="Customize Widgets"/>
+				<!--endregion-->
+
+				<!--region AutoQl Api Configuration Options-->
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					android:text="AutoQl Api Configuration Options"/>
+				<!--endregion-->
+
+				<!--region UI Configuration Options-->
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					android:text="UI Configuration Options"/>
+				<!--endregion-->
+
+			<!--endregion-->
+			</LinearLayout>
 		</ScrollView>
 
 		<RelativeLayout
