@@ -160,7 +160,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		//endregion
 
 		mainViewModel.isAuthenticate.observe(this) { isAuthenticate ->
+			this.isAuthenticate = isAuthenticate
 			btnAuthenticate?.text = if (isAuthenticate) "Log Out" else "Authenticate"
+		}
+		mainViewModel.isSavingPersistence.observe(this) {
+			savePersistentData()
 		}
 		mainViewModel.isEnableLogin.observe(this) { isEnableLogin ->
 			btnAuthenticate?.isEnabled = isEnableLogin
@@ -588,8 +592,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 						AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-						servicePresenter.createAuthenticate()
-						showDialog()
+//						servicePresenter.createAuthenticate()
+//						showDialog()
 					}
 				}
 				R.id.btnReloadDrawer ->

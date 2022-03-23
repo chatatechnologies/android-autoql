@@ -3,8 +3,8 @@ package chata.can.chata_ai_api.fragment.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.QueryBuilderData
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.retrofit.data.model.relatedQueries.emptyRelatedQueryData
 import chata.can.chata_ai.retrofit.domain.GetJwtUseCase
 import chata.can.chata_ai.retrofit.domain.GetLoginUseCase
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryTestUseCase
@@ -13,6 +13,7 @@ import chata.can.chata_ai_api.R
 import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
+	val isSavingPersistence = MutableLiveData<Boolean>()
 	val isAuthenticate = MutableLiveData<Boolean>()
 	val isEnableLogin = MutableLiveData<Boolean>()
 	val updateShowAlert = MutableLiveData< Pair<String, Int> >()
@@ -26,34 +27,49 @@ class MainViewModel: ViewModel() {
 		viewModelScope.launch {
 			//cal post login
 			val token = getLoginUseCase.postLogin(AutoQLData.username, AutoQLData.password)
-			AutoQLData.token = token
-			//call get jwt
-			AutoQLData.JWT = getJwtUseCase.callJwt()
-			//save preferences
-			relatedQueryTestUseCase.getRelatedQueryTest()?.let {
-				val items = topicUseCase.getTopics(AutoQLData.apiKey, AutoQLData.projectId)
+			if (token.isEmpty()) {
+				notSession()
+			} else {
+				AutoQLData.token = token
+				callJwt()
+			}
+		}
+	}
 
-				//region fill data Query Builder
-				val aMainData = QueryBuilderData.aMainData
-				aMainData.clear()
-				val mMainQuery = QueryBuilderData.mMainQuery
-				mMainQuery.clear()
+	private fun callJwt() {
+		viewModelScope.launch {
+			val jwt = getJwtUseCase.callJwt()
+			if (jwt.isEmpty()) {
+				notSession()
+			} else {
+				AutoQLData.JWT = jwt
+				callRelatedQueries()
+			}
+		}
+	}
 
-				for (item in items) {
-					val topic = item.topic
-					aMainData.add(topic)
-					val listQueries = arrayListOf("💡See more...")
-					listQueries.addAll(item.queries)
-					mMainQuery[topic] = listQueries
-				}
-				//endregion
+	private fun callRelatedQueries() {
+		viewModelScope.launch {
+			val relatedQueryTest = relatedQueryTestUseCase.getRelatedQueryTest()
+			if (relatedQueryTest != emptyRelatedQueryData()) {
+				isSavingPersistence.postValue(true)
+				topicUseCase.getTopics(AutoQLData.apiKey, AutoQLData.projectId)
 				AutoQLData.wasLoginIn = true
 				//region live data control
 				isAuthenticate.postValue(true)
 				isEnableLogin.postValue(true)
 				updateShowAlert.postValue(Pair("Login Successful", R.drawable.ic_done))
 				//endregion
+			} else {
+				notSession()
 			}
 		}
+	}
+
+	private fun notSession() {
+		//When data is wrong
+		isAuthenticate.postValue(false)
+		isEnableLogin.postValue(true)
+		updateShowAlert.postValue(Pair("Invalid Credentials", R.drawable.ic_error))
 	}
 }
