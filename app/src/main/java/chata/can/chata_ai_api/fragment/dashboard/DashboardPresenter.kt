@@ -3,13 +3,10 @@ package chata.can.chata_ai_api.fragment.dashboard
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
-import chata.can.chata_ai.pojo.api1
-import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dataKey
-import chata.can.chata_ai.pojo.urlStaging
 import chata.can.chata_ai.request.query.QueryRequest
 import org.json.JSONArray
 import chata.can.chata_ai.request.dashboard.Dashboard as RequestDashboard

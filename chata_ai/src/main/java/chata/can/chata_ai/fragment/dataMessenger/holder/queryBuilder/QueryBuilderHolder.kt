@@ -23,7 +23,6 @@ import chata.can.chata_ai.extension.backgroundGrayWhite
 import chata.can.chata_ai.extension.setAnimator
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionAdapter
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.QueryAdapter
-import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesData
 import chata.can.chata_ai.fragment.dataMessenger.holder.queryBuilder.adapter.OptionData
 import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.listener.OnItemClickListener

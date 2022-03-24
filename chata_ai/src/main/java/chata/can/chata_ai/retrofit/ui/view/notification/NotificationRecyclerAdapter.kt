@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.retrofit.NotificationEntity
 import chata.can.chata_ai.retrofit.core.OnBottomReachedListener
-import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
 
 class NotificationRecyclerAdapter(
 	private val aNotifications: MutableList<NotificationEntity>,

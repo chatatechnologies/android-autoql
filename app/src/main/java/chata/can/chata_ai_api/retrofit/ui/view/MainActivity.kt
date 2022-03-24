@@ -3,8 +3,6 @@ package chata.can.chata_ai_api.retrofit.ui.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.databinding.ObservableInt
 import chata.can.chata_ai_api.databinding.ActivityMainBinding
 import chata.can.chata_ai_api.retrofit.ui.viewModel.QuoteViewModel
 

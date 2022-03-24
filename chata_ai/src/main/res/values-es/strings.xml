@@ -31,7 +31,6 @@
 	<string name="stay_tuned">¡Manténganse al tanto!</string>
 	<string name="generated_sql">SQL generado</string>
 
-	<string name="internal_service_error">Error del servicio interno: nuestro sistema está experimentando un error inesperado. Somos conscientes de este problema y estamos trabajando para solucionarlo lo antes posible.</string>
 	<string name="it_looks_like">Uh oh … Parece que no tienes acceso a este recurso. Verifique que todos los campos de autenticación requeridos sean correctos.</string>
 
 	<string name="limit_row_num">Se alcanzó el límite de visualización de 500 filas. Intente consultar un rango de tiempo más pequeño para asegurarse de que se muestren todos sus datos.</string>

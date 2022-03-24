@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment: Fragment()
 {
-	var parentActivity: Activity?= null
+	private var parentActivity: Activity?= null
 
 	override fun onCreateView(
 		inflater: LayoutInflater,

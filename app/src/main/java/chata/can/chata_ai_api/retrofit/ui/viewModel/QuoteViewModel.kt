@@ -1,11 +1,8 @@
 package chata.can.chata_ai_api.retrofit.ui.viewModel
 
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import chata.can.chata_ai_api.retrofit.data.model.QuoteModel
-import chata.can.chata_ai_api.retrofit.domain.GetQuotesUseCase
 import kotlinx.coroutines.launch
 
 class QuoteViewModel: ViewModel() {

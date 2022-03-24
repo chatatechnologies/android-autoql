@@ -5,7 +5,6 @@ import android.widget.PopupMenu
 import androidx.appcompat.view.ContextThemeWrapper
 import chata.can.chata_ai.R
 import chata.can.chata_ai.dialog.ListPopup
-import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.retrofit.core.getMenuStyle
 
 object PopupMenu
