@@ -176,7 +176,7 @@ object CustomViews
 			val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 
 			MaterialButton(context).apply {
-				layoutParams = getLinearLayoutParams(-1, 120)
+				layoutParams = getLinearLayoutParams(-1, dpToPx(48f))
 				margin(12f, 10.5f, 12f, 10.5f)
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 				{
@@ -464,7 +464,7 @@ object CustomViews
 				}
 				finally
 				{
-					layoutParams = getLinearLayoutParams(-1, -2)
+					layoutParams = getLinearLayoutParams(-1, dpToPx(48f))
 					margin(12f, 10.5f, 12f, 10.5f)
 					gravity = Gravity.CENTER
 					id = demoParam.idView

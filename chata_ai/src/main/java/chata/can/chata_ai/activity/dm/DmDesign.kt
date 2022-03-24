@@ -101,7 +101,7 @@ object DmDesign
 					id = R.id.toolbar
 					//region ivClose
 					addView(ImageView(context).apply {
-						layoutParams = getRelativeLayoutParams(dpToPx(36f), dpToPx(36f)).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(48f), dpToPx(48f)).apply {
 							addRule(RelativeLayout.CENTER_VERTICAL)
 						}
 						margin(6f)
@@ -125,7 +125,7 @@ object DmDesign
 					//endregion
 					//region ivClear
 					addView(ImageView(context).apply {
-						layoutParams = getRelativeLayoutParams(dpToPx(36f), dpToPx(36f)).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(48f), dpToPx(48f)).apply {
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 							addRule(RelativeLayout.CENTER_VERTICAL)
 						}

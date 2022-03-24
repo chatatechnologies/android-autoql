@@ -70,7 +70,7 @@ object DataMessenger
 				//endregion
 				//region bottom relative
 				addView(RelativeLayout(context).apply {
-					layoutParams = getLinearLayoutParams(-1, dpToPx(40f))
+					layoutParams = getLinearLayoutParams(-1, dpToPx(48f))
 					margin(5f, 7f, 5f)
 					//region etQuery
 					addView(TypingAutoComplete(context).apply {
@@ -86,7 +86,7 @@ object DataMessenger
 					//region ImageView
 					addView(ImageView(context).apply {
 						id = R.id.ivMicrophone
-						layoutParams = getRelativeLayoutParams(dpToPx(40f), dpToPx(40f)).apply {
+						layoutParams = getRelativeLayoutParams(dpToPx(48f), dpToPx(48f)).apply {
 							addRule(RelativeLayout.ALIGN_PARENT_END)
 						}
 						margin(10f)
