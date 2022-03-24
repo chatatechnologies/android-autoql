@@ -232,6 +232,8 @@
 						android:typeface="monospace"/>
 				</com.google.android.material.textfield.TextInputLayout>
 
+<!--				app:strokeColor=""-->
+<!--				app:strokeWidth=""-->
 				<com.google.android.material.button.MaterialButton
 					android:id="@+id/btnAuthenticate"
 					android:layout_marginStart="4dp"
@@ -240,6 +242,7 @@
 					android:layout_marginBottom="4dp"
 					android:layout_width="match_parent"
 					android:layout_height="45dp"
+					android:textAllCaps="false"
 					android:text="Authenticate"/>
 
 				<!--endregion-->
@@ -252,6 +255,47 @@
 					android:textSize="16sp"
 					android:textStyle="bold"
 					android:text="Customize Widgets"/>
+
+				<chata.can.chata_ai_api.ButtonToggleGroup
+					app:singleSelection="true"
+					app:selectionRequired="true"
+					app:checkedButton="@id/btnOpenDrawer"
+
+					android:id="@+id/btgCustom"
+					android:layout_marginEnd="4dp"
+					android:layout_marginStart="4dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<com.google.android.material.button.MaterialButton
+						android:ellipsize="end"
+						android:id="@+id/btnReloadDrawer"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:layout_width="wrap_content"
+						android:maxLines="2"
+						android:textAllCaps="false"
+						android:text="Reload Data Messenger"
+						app:icon="@drawable/ic_reload"
+						app:iconGravity="textStart"
+						app:iconPadding="8dp"
+						app:iconSize="16dp"/>
+
+					<com.google.android.material.button.MaterialButton
+						android:ellipsize="end"
+						android:id="@+id/btnOpenDrawer"
+						android:layout_height="wrap_content"
+						android:layout_weight="1"
+						android:layout_width="wrap_content"
+						android:maxLines="2"
+						android:textAllCaps="false"
+						android:text="Open Data Messenger"
+						app:icon="@drawable/ic_menu_fold"
+						app:iconGravity="textStart"
+						app:iconPadding="8dp"
+						app:iconSize="16dp"/>
+
+				</chata.can.chata_ai_api.ButtonToggleGroup>
 				<!--endregion-->
 
 				<!--region AutoQl Api Configuration Options-->

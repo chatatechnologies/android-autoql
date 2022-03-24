@@ -2,6 +2,7 @@ package chata.can.chata_ai_api.fragment.main
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.graphics.ColorUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -137,7 +139,33 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		initViews(view)
+		fragmentMainBinding?.run {
+			val context = view.context
+			val blue = context.getParsedColor(R.color.blue_chata_circle)
+			val white = context.getParsedColor(R.color.white)
+
+			val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
+			val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
+			val aColors = intArrayOf(alphaColor, white)
+
+			btnReloadDrawer.run {
+				backgroundTintList = ColorStateList(aStates, aColors)
+				setTextColor(blue)
+				strokeColor = ColorStateList.valueOf(blue)
+				strokeWidth = 3
+
+				iconTint = ColorStateList.valueOf(blue)
+			}
+			btnOpenDrawer.run {
+				backgroundTintList = ColorStateList(aStates, aColors)
+				setTextColor(blue)
+				strokeColor = ColorStateList.valueOf(blue)
+				strokeWidth = 3
+
+				iconTint = ColorStateList.valueOf(blue)
+			}
+		}
+//		initViews(view)
 //		setColors()
 //		initListener()
 //		initObserve()
