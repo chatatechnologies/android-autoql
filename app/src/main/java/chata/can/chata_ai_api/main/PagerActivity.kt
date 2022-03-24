@@ -40,11 +40,14 @@ class PagerActivity: BaseActivity()
 			id = R.id.floatingView
 			layoutParams = FrameLayout.LayoutParams(-1, -1)
 		}
-		floatingView.setDataMessenger(
-			"API_KEY",
-			"DOMAIN_URL",
-			"TOKEN",
-			"PROJECT_ID")
+		/***
+		 * Initial data for FloatingView
+		 */
+//		floatingView.setDataMessenger(
+//			"API_KEY",
+//			"DOMAIN_URL",
+//			"TOKEN",
+//			"PROJECT_ID")
 		binding.run {
 			llParent.addView(floatingView)
 
