@@ -306,6 +306,84 @@
 					android:textSize="16sp"
 					android:textStyle="bold"
 					android:text="AutoQl Api Configuration Options"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Autocomplete"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableAutocomplete"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Query Validation"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableQuery"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Query Suggestions"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableSuggestion"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Drilldowns"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableDrillDown"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Column Visibility Editor"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableColumn"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Notifications"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableNotification"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
 				<!--endregion-->
 
 				<!--region UI Configuration Options-->
@@ -316,6 +394,85 @@
 					android:textSize="16sp"
 					android:textStyle="bold"
 					android:text="UI Configuration Options"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Show Data Messenger Button"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swDrawerHandle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Darken Background Behind Data Messenger"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="false"
+					android:id="@+id/swBackgroundBehind"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Clear All Messages on Close"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="false"
+					android:id="@+id/swClearMessage"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Explore Queries Tab"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swTabExploreQueries"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Notifications Tab"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swTabNotification"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+				<TextView
+					android:gravity="center_horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Enable Speech to Text"
+					android:textSize="18sp"/>
+
+				<androidx.appcompat.widget.SwitchCompat
+					android:checked="true"
+					android:id="@+id/swEnableSpeechText"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
 				<!--endregion-->
 
 			<!--endregion-->
