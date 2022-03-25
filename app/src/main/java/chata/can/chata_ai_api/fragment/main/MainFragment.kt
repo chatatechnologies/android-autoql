@@ -170,7 +170,7 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 	}
 
 	private fun initObserve() {
-		if (!BuildConfig.DEBUG) {
+		if (BuildConfig.DEBUG) {
 			val projectId = "spira-demo3"
 			etProjectId?.setText(projectId)
 			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"

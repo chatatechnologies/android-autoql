@@ -34,6 +34,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.suggestion.RequestSuggestion
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
 import chata.can.chata_ai.retrofit.core.AlertCustomBuilder
+import chata.can.chata_ai.retrofit.ui.view.DataMessengerViewModel
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.typing.TypingAutoComplete
 import org.json.JSONObject
@@ -74,9 +75,12 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 	private var start = 0
 	private var end = 0
 
+	private var dataMessengerViewModel: DataMessengerViewModel ?= null
+
 	override fun setView(inflater: LayoutInflater, container: ViewGroup?): View
 	{
 		val view = DataMessenger.getDesign(requireActivity())
+		dataMessengerViewModel = DataMessengerViewModel()
 		onRenderViews(view)
 		return view
 	}
@@ -98,7 +102,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 		}
 		if (BuildConfig.DEBUG)
 		{
-			val queryDemo = "Total revenue this year"
+//			val queryDemo = "Total revenue this year"
+			val queryDemo = ""
 			etQuery.setText(queryDemo)
 		}
 
@@ -157,7 +162,8 @@ class DataMessengerFragment: BaseFragment(), ChatContract.View
 					adapterAutoComplete.notifyDataSetChanged()
 					if (SinglentonDrawer.mIsEnableAutocomplete && isReleaseAutocomplete)
 					{
-						presenter.getAutocomplete(string)
+						dataMessengerViewModel?.getAutocomplete(string)
+//						presenter.getAutocomplete(string)
 					}
 				}
 				with(ivMicrophone)
