@@ -7,11 +7,21 @@ class AutocompleteResponse(
 	val referenceId: String,
 	@SerializedName("message")
 	val message: String,
-//	@SerializedName("data")
-//	val data: Any
+	@SerializedName("data")
+	val data: AutocompleteData
 )
 
 fun emptyAutocompleteResponse() = AutocompleteResponse(
 	referenceId = "",
-	message = ""
+	message = "",
+	data = emptyAutocompleteData()
+)
+
+class AutocompleteData(
+	@SerializedName("matches")
+	val matches: List<String>
+)
+
+fun emptyAutocompleteData() = AutocompleteData(
+	matches = listOf()
 )
