@@ -8,8 +8,9 @@ import retrofit2.http.Query
 
 interface DashboardApiClient {
 	@GET("dashboards")
-	fun getDashboards(
+	suspend fun getDashboards(
 		@Header("Authorization") beaverToken: String,
+		@Header("integrator-domain") integratorDomain: String,
 		@Query("key") key: String,
 		@Query("project_id") projectId: String
 	): Response<DashboardResponse>
