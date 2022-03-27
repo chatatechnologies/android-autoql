@@ -3,6 +3,7 @@ package chata.can.chata_ai.pojo
 import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.model.dashboard.DashboardSingle
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai_api.data.model.DashboardSingleEntity
 
 object SinglentonDashboard
 {
@@ -10,18 +11,22 @@ object SinglentonDashboard
 	private var dashboardSelect = 0
 
 	private val aDashboardModel = ArrayList<DashboardSingle>()
+	private val aDashboardModelEntity = ArrayList<DashboardSingleEntity>()
 
 	fun add(idDashboard: Int, nameDashboard: String, mModel: BaseModelList<Dashboard>)
 	{
-		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
+//		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
+		aDashboardModelEntity.add(DashboardSingleEntity(idDashboard, nameDashboard, mModel))
 	}
 
 	fun releaseDashboard()
 	{
+//		aDashboardModel.clear()
 		aDashboardModel.clear()
 	}
 
-	fun isEmpty() = aDashboardModel.isEmpty()
+//	fun isEmpty() = aDashboardModel.isEmpty()
+	fun isEmpty() = aDashboardModelEntity.isEmpty()
 
 	fun clearDashboard()
 	{
@@ -42,15 +47,18 @@ object SinglentonDashboard
 
 	fun sortData()
 	{
-		aDashboardModel.sortBy { it.idDashboard }
+//		aDashboardModel.sortBy { it.idDashboard }
+		aDashboardModelEntity.sortBy { it.idDashboard }
 	}
 
 	fun getCurrentDashboard(): BaseModelList<Dashboard>
 	{
-		return aDashboardModel[dashboardSelect].mModel
+//		return aDashboardModel[dashboardSelect].mModel
+		return aDashboardModelEntity[dashboardSelect].mModel
 	}
 
-	fun getDashboardNames() = aDashboardModel.map { it.name }
+//	fun getDashboardNames() = aDashboardModel.map { it.name }
+	fun getDashboardNames() = aDashboardModelEntity.map { it.name }
 
 	fun indexDashboard(dashboard: Dashboard) = getCurrentDashboard().indexOfFirst { it == dashboard }
 }

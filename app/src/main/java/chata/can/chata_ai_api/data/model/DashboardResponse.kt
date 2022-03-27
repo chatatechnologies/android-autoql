@@ -1,5 +1,7 @@
 package chata.can.chata_ai_api.data.model
 
+import chata.can.chata_ai.model.BaseModelList
+import chata.can.chata_ai.pojo.dashboard.Dashboard
 import com.google.gson.annotations.SerializedName
 
 class DashboardResponse(
@@ -78,4 +80,10 @@ fun emptyDashboardItemDataResponse() = DashboardItemDataResponse(
 	w = 0,
 	x = 0,
 	y = 0
+)
+
+class DashboardSingleEntity(
+	val idDashboard: Int,
+	val name: String,
+	val mModel: BaseModelList<Dashboard>
 )
