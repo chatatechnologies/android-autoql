@@ -1,6 +1,6 @@
 package chata.can.chata_ai_api.data.network
 
-import chata.can.chata_ai_api.data.model.DashboardResponse
+import chata.can.chata_ai.pojo.dashboard.DashboardResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header

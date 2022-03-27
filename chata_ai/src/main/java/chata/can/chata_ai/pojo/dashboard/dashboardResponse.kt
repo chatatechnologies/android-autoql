@@ -1,7 +1,6 @@
-package chata.can.chata_ai_api.data.model
+package chata.can.chata_ai.pojo.dashboard
 
 import chata.can.chata_ai.model.BaseModelList
-import chata.can.chata_ai.pojo.dashboard.Dashboard
 import com.google.gson.annotations.SerializedName
 
 class DashboardResponse(
@@ -41,6 +40,8 @@ class DashboardItemDataResponse(
 	val h: Int = 0,
 	@SerializedName("i")
 	val i: String = "",
+	@SerializedName("isNewTile")
+	val isNewTile: Boolean = false,
 	@SerializedName("key")
 	val key: String = "",
 	@SerializedName("maxH")
@@ -53,6 +54,12 @@ class DashboardItemDataResponse(
 	val moved: Boolean = false,
 	@SerializedName("query")
 	val query: String = "",
+	@SerializedName("secondDisplayType")
+	val secondDisplayType: String = "",
+	@SerializedName("secondQuery")
+	val secondQuery: String = "",
+	@SerializedName("splitView")
+	val splitView: Boolean = false,
 	@SerializedName("static")
 	val static: Boolean = false,
 	@SerializedName("title")
@@ -69,12 +76,16 @@ fun emptyDashboardItemDataResponse() = DashboardItemDataResponse(
 	displayType = "",
 	h = 0,
 	i = "",
+	isNewTile = false,
 	key = "",
 	maxH = 0,
 	minH = 0,
 	minW = 0,
 	moved = false,
 	query = "",
+	secondDisplayType = "",
+	secondQuery = "",
+	splitView = false,
 	static = false,
 	title = "",
 	w = 0,

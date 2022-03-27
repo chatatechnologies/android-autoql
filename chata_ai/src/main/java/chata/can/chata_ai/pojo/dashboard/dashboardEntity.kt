@@ -1,22 +1,23 @@
-package chata.can.chata_ai_api.data.model
-
-import chata.can.chata_ai.pojo.dashboard.Dashboard
+package chata.can.chata_ai.pojo.dashboard
 
 fun DashboardItemDataResponse.dashboardItemDataToEntity() = Dashboard(
 	this.displayType,
 	this.h,
 	this.i,
-	false,
+	this.isNewTile,
 	this.key,
 	this.maxH,
 	this.minH,
 	this.minW,
 	this.moved,
 	this.query,
-	false,
+	this.splitView,
 	this.static,
 	this.title,
 	this.w,
 	this.x,
 	this.y
-)
+).apply {
+	secondDisplayType = this@dashboardItemDataToEntity.secondDisplayType
+	secondQuery = this@dashboardItemDataToEntity.secondQuery
+}
