@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:id="@+id/ll1"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="8dp">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tvTitle"
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:textSize="18sp"
+				android:textStyle="bold"/>
+
+			<View
+				android:background="@color/short_line_dashboard"
+				android:layout_height="1dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+				android:layout_width="100dp"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvContent"
+			android:layout_height="wrap_content"
+			android:minHeight="80dp"
+			android:layout_width="match_parent"
+			android:textSize="16sp"/>
+
+	</LinearLayout>
+
+	<ImageView
+		android:id="@+id/ivOption"
+		android:layout_alignBottom="@id/ll1"
+		android:layout_alignParentEnd="true"
+		android:layout_height="42dp"
+		android:layout_width="42dp"
+		android:layout_marginBottom="4dp"
+		android:layout_marginEnd="12dp"
+		android:padding="8dp"
+		android:src="@drawable/ic_points"/>
+
+</RelativeLayout>

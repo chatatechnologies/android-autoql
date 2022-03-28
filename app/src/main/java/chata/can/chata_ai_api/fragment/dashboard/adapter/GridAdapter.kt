@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
-import chata.can.chata_ai_api.DashboardView.getRowContent
 import chata.can.chata_ai_api.DashboardView.getRowExecute
-import chata.can.chata_ai_api.DashboardView.getRowLoading
 import chata.can.chata_ai_api.DashboardView.getRowSuggestion
 import chata.can.chata_ai_api.DashboardView.getRowTwin
 import chata.can.chata_ai_api.DashboardView.getRowWebView
@@ -99,8 +97,16 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_support)
 				SupportHolder(view)
 			}//dynamic
-			3 -> ContentHolder(getRowContent(context, true))//dynamic; show option
-			4 -> WebViewHolder(getRowWebView(context))//; show option
+			3 -> {
+//				ContentHolder(getRowContent(context, true))
+				val view = parent.inflateView(R.layout.card_content)
+				ContentHolder(view)
+			}//dynamic; show option
+			4 -> {
+//				WebViewHolder(getRowWebView(context))
+				val view = parent.inflateView(R.layout.card_web_view)
+				WebViewHolder(view)
+			}//; show option
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> {
 				NoQueryHolder(getRowExecute(context))

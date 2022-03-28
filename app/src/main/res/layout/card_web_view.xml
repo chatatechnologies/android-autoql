@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:id="@+id/ll1"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="8dp">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tvTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:textSize="18sp"/>
+
+			<View
+				android:background="@color/short_line_dashboard"
+				android:layout_height="1dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+				android:layout_width="100dp"/>
+
+		</LinearLayout>
+
+		<RelativeLayout
+			android:id="@+id/rlWebView"
+			android:layout_height="240dp"
+			android:layout_width="match_parent">
+
+			<WebView
+				android:id="@+id/webView"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"/>
+
+			<RelativeLayout
+				android:id="@+id/rlLoad"
+				android:layout_height="match_parent"
+				android:layout_width="match_parent">
+				<chata.can.chata_ai.view.gif.KGifView
+					android:layout_centerInParent="true"
+					android:layout_width="80dp"
+					android:layout_height="80dp"/>
+			</RelativeLayout>
+
+			<ImageView
+				android:id="@+id/ivAlert"
+				android:layout_alignParentEnd="true"
+				android:layout_alignBottom="@id/webView"
+				android:layout_height="42dp"
+				android:layout_width="42dp"
+				android:padding="8dp"
+				android:src="@drawable/ic_alert"
+				android:visibility="gone"/>
+
+			<ImageView
+				android:id="@+id/ivOption"
+				android:layout_alignBottom="@id/webView"
+				android:layout_height="42dp"
+				android:layout_width="42dp"
+				android:padding="8dp"
+				android:src="@drawable/ic_points"
+				android:visibility="gone"/>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+</RelativeLayout>
