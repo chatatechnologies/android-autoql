@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.dashboard
 
-import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDashboard.getCurrentDashboard
 import chata.can.chata_ai.pojo.chat.QueryBase
@@ -16,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap
 class DashboardPresenter(
 	private val view: DashboardContract): chata.can.request_native.StatusResponse
 {
-	private var mModel: BaseModelList<Dashboard> ?= null
+	private var mModel = mutableListOf<Dashboard>()
 	private var queryReset = false
 
 	override fun onFailureResponse(jsonObject: JSONObject)
@@ -43,11 +42,11 @@ class DashboardPresenter(
 					{
 						//region skipQuery
 						var displayType = ""
-						mModel?.run {
+						mModel.run {
 							val index = indexOfFirst { it.key == key }
 							if (index != -1)
 							{
-								this[index]?.let { dashboard ->
+								this[index].let { dashboard ->
 									displayType = dashboard.displayType
 								}
 							}
@@ -65,11 +64,11 @@ class DashboardPresenter(
 					//endregion
 					else
 					{
-						mModel?.run {
+						mModel.run {
 							val index = this.indexOfFirst { it.key == key }
 							if (index != -1)
 							{
-								this[index]?.let { dashboard ->
+								this[index].let { dashboard ->
 									val queryBase = QueryBase(jsonObject).apply {
 										isDashboard = true
 										typeView = TypeChatView.SUPPORT
@@ -109,11 +108,11 @@ class DashboardPresenter(
 				{
 					val key = jsonObject.optString("key") ?: ""
 					val isSecondaryQuery = jsonObject.optBoolean("isSecondaryQuery", false)
-					mModel?.run {
+					mModel.run {
 						val index = indexOfFirst { it.key == key }
 						if (index != -1)
 						{
-							this[index]?.let { dashboard ->
+							this[index].let { dashboard ->
 								val queryBase = QueryBase(jsonObject).apply {
 									isDashboard = true
 									configQueryBase(dashboard, this, isSecondaryQuery)
@@ -164,7 +163,7 @@ class DashboardPresenter(
 
 							if (index != -1)
 							{
-								model[index]?.let { dashboard ->
+								model[index].let { dashboard ->
 									if (isSecondaryQuery)
 										dashboard.queryBase2 = queryBase
 									else
@@ -199,7 +198,7 @@ class DashboardPresenter(
 				val idDashboard = joDashboard.optInt("id", 0)
 				val nameDashboard = joDashboard.optString("name", "")
 
-				val mModel = BaseModelList<Dashboard>()
+				val mModel = mutableListOf<Dashboard>()
 
 				if (idDashboard != 0 && joDashboard.length() > 0)
 				{
@@ -323,10 +322,10 @@ class DashboardPresenter(
 
 	fun resetDashboards(isWaiting: Boolean)
 	{
-		mModel?.run {
-			for (index in 0 until this.countData())
+		mModel.run {
+			for (index in 0 until this.size)
 			{
-				this[index]?.let {
+				this[index].let {
 					it.isWaitingData = isWaiting
 					it.queryBase = null
 				}
@@ -341,10 +340,10 @@ class DashboardPresenter(
 
 	fun getDashboardQueries(toClearQuery: Boolean = true)
 	{
-		mModel?.run {
-			for (index in /*3 until 4)*/0 until this.countData())
+		mModel.run {
+			for (index in /*3 until 4)*/0 until this.size)
 			{
-				this[index]?.let { dashboard ->
+				this[index].let { dashboard ->
 					dashboard.isWaitingData = toClearQuery
 					dashboard.isWaitingData2 = toClearQuery
 					dashboard.queryBase = null

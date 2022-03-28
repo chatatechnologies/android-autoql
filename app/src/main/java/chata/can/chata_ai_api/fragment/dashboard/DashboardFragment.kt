@@ -48,7 +48,7 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 
 	private lateinit var gridAdapter: GridAdapter
 	private var presenter = DashboardPresenter(this)
-	private val mModel = BaseModelList<Dashboard>()
+	private val mModel = mutableListOf<Dashboard>()
 	private var isQueryClean = true
 	private var isAutomatic = false
 	private var isLoaded = false
@@ -60,12 +60,16 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 			setColors()
 			if (::gridAdapter.isInitialized)
 			{
-				gridAdapter.notifyItemRangeChanged(0, mModel.countData())
+				gridAdapter.notifyItemRangeChanged(0, mModel.size)
 			}
 		}
 
 		setColors()
 		initListener()
+
+		dashboardViewModel.hasQueries.observe(viewLifecycleOwner) {
+			setDashboards()
+		}
 	}
 
 	/**
@@ -137,7 +141,7 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 		{
 			isQueryClean = true
 			presenter.resetDashboards(false)
-			gridAdapter.notifyItemRangeChanged(0, mModel.countData())
+			gridAdapter.notifyItemRangeChanged(0, mModel.size)
 		}
 	}
 
@@ -177,7 +181,7 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 			activity?.run {
 				isLoaded = true
 				rvDashboard.visibility = View.VISIBLE
-				mModel.addAll(SinglentonDashboard.getCurrentDashboard().getData())
+				mModel.addAll(SinglentonDashboard.getCurrentDashboard())
 				gridAdapter = GridAdapter(mModel, presenter)
 				rvDashboard.layoutManager = LinearLayoutManager(this)
 				rvDashboard.adapter = gridAdapter
@@ -205,8 +209,8 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 
 							val model = SinglentonDashboard.getCurrentDashboard()
 							mModel.clear()
-							mModel.addAll(model.getData())
-							gridAdapter.notifyItemRangeChanged(0, mModel.countData())
+							mModel.addAll(model)
+							gridAdapter.notifyItemRangeChanged(0, mModel.size)
 
 							configDashboard()
 						}
@@ -215,7 +219,6 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 
 				spDashboard.dropDownVerticalOffset = btnDashboard.height
 				spDashboard.dropDownWidth = btnDashboard.width
-//			hideDialog()
 			}
 		}
 	}
@@ -247,7 +250,7 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 	private fun configDashboard()
 	{
 		binding.run {
-			if (mModel.countData() == 0)
+			if (mModel.size == 0)
 			{
 				tvEmptyDashboard.setText(R.string.empty_dashboard)
 				tvEmptyDashboard.visibility = View.VISIBLE

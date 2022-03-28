@@ -1,9 +1,9 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.adapter.BaseAdapter
 import chata.can.chata_ai.holder.Holder
-import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getRowContent
@@ -18,9 +18,9 @@ import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
 import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
-	private val model: BaseModelList<*>,
+	private val model: List<*>,
 	private val presenter: DashboardPresenter
-): BaseAdapter(model)
+): RecyclerView.Adapter
 {
 	override fun getItemViewType(position: Int): Int
 	{

@@ -1,6 +1,5 @@
 package chata.can.chata_ai.pojo
 
-import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.model.dashboard.DashboardSingle
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 
@@ -12,7 +11,7 @@ object SinglentonDashboard
 	private val aDashboardModel = ArrayList<DashboardSingle>()
 //	private val aDashboardModelEntity = ArrayList<DashboardSingleEntity>()
 
-	fun add(idDashboard: Int, nameDashboard: String, mModel: BaseModelList<Dashboard>)
+	fun add(idDashboard: Int, nameDashboard: String, mModel: MutableList<Dashboard>)
 	{
 		aDashboardModel.add(DashboardSingle(idDashboard, nameDashboard, mModel))
 //		aDashboardModelEntity.add(DashboardSingleEntity(idDashboard, nameDashboard, mModel))
@@ -30,11 +29,12 @@ object SinglentonDashboard
 	fun clearDashboard()
 	{
 		val model = getCurrentDashboard()
-		for (index in 0 until model.countData())
+
+		for (index in 0 until model.size)
 		{
-			model[index]?.let {
-				it.isWaitingData = false
-				it.queryBase = null
+			model[index].run {
+				isWaitingData = false
+				queryBase = null
 			}
 		}
 	}
@@ -50,7 +50,7 @@ object SinglentonDashboard
 //		aDashboardModelEntity.sortBy { it.idDashboard }
 	}
 
-	fun getCurrentDashboard(): BaseModelList<Dashboard>
+	fun getCurrentDashboard(): MutableList<Dashboard>
 	{
 		return aDashboardModel[dashboardSelect].mModel
 //		return aDashboardModelEntity[dashboardSelect].mModel
