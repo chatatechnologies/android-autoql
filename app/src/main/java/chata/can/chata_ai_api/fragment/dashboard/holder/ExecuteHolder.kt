@@ -1,11 +1,13 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
+import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
@@ -16,8 +18,10 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 	private val ll1 = itemView.findViewById<View>(R.id.ll1)
 
 	private val iView = itemView.findViewById<View>(R.id.iView) ?: null
-	private val tvExecute: TextView = itemView.findViewById(R.id.tvExecute)
-	private val tvExecute2: TextView = itemView.findViewById(R.id.tvExecute2)
+	private val tvExecute = itemView.findViewById<TextView>(R.id.tvExecute)
+	private val tvExecute2 = itemView.findViewById<TextView>(R.id.tvExecute2)
+
+	val viewHeader = itemView.findViewById<View>(R.id.viewHeader)
 
 	override fun onPaint()
 	{
@@ -35,6 +39,8 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 		}
 
 		tvExecute.setTypeface(tvExecute.typeface, Typeface.ITALIC)
+
+		viewHeader.setBackgroundColor(viewHeader.context.getParsedColor(R.color.short_line_dashboard))
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

@@ -1,9 +1,9 @@
 package chata.can.chata_ai_api.fragment.dashboard.adapter
 
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import chata.can.chata_ai.adapter.BaseAdapter
-import chata.can.chata_ai.holder.Holder
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.DashboardView.getRowContent
@@ -12,6 +12,7 @@ import chata.can.chata_ai_api.DashboardView.getRowLoading
 import chata.can.chata_ai_api.DashboardView.getRowSuggestion
 import chata.can.chata_ai_api.DashboardView.getRowTwin
 import chata.can.chata_ai_api.DashboardView.getRowWebView
+import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
 import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
@@ -20,8 +21,10 @@ import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHol
 class GridAdapter(
 	private val model: List<*>,
 	private val presenter: DashboardPresenter
-): RecyclerView.Adapter
+): RecyclerView.Adapter<BaseHolder>()
 {
+	override fun getItemCount(): Int = model.size
+
 	override fun getItemViewType(position: Int): Int
 	{
 		/**
@@ -66,28 +69,24 @@ class GridAdapter(
 		return viewType
 	}
 
-	override fun onBindViewHolder(holder: Holder, position: Int)
-	{
-		super.onBindViewHolder(holder, position)
-		model[position]?.let {
-			if (it is Dashboard)
-			{
-				it.queryBase?.run {
-					checkData(holder)
-				}
-				it.queryBase2?.run {
-					checkData(holder)
-				}
-			}
+	override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+		val item = model[position]
+		if (item is Dashboard) {
+			item.queryBase?.checkData(holder)
+			item.queryBase2?.checkData(holder)
 		}
 	}
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder
 	{
 		val context = parent.context
 		return when(viewType)
 		{
-			0 -> ExecuteHolder(getRowExecute(context))
+			0 -> {
+//				ExecuteHolder(getRowExecute(context))
+				val view = parent.inflateView(R.layout.card_execute)
+				ExecuteHolder(view)
+			}
 			1 -> LoadingHolder(getRowLoading(context))
 			2 -> SupportHolder(getRowContent(context))//dynamic
 			3 -> ContentHolder(getRowContent(context, true))//dynamic; show option
@@ -95,7 +94,15 @@ class GridAdapter(
 			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
 			8 -> NoQueryHolder(getRowExecute(context))//dynamic
 			10 -> DynamicHolder(getRowTwin(context), presenter)
-			else -> ExecuteHolder(getRowExecute(context))
+			else -> {
+				val view = parent.inflateView(R.layout.card_execute)
+				ExecuteHolder(view)
+			}
 		}
+	}
+
+	private fun ViewGroup.inflateView(resource: Int): View {
+		val inflater = LayoutInflater.from(context)
+		return inflater.inflate(resource, this, false)
 	}
 }
