@@ -17,7 +17,7 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 {
 	private val ll1 = itemView.findViewById<View>(R.id.ll1)
 
-	private val iView = itemView.findViewById<View>(R.id.iView) ?: null
+	private val iView = itemView.findViewById<View>(R.id.iView)
 	private val tvExecute = itemView.findViewById<TextView>(R.id.tvExecute)
 	private val tvExecute2 = itemView.findViewById<TextView>(R.id.tvExecute2)
 
@@ -36,11 +36,13 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 		{
 			ll1?.backgroundWhiteGray()
 			tvExecute.setTextColor(pDrawerTextColorPrimary)
+			tvExecute2.setTextColor(pDrawerTextColorPrimary)
 		}
 
 		tvExecute.setTypeface(tvExecute.typeface, Typeface.ITALIC)
 
 		viewHeader.setBackgroundColor(viewHeader.context.getParsedColor(R.color.short_line_dashboard))
+		iView.setBackgroundColor(iView.context.getParsedColor(R.color.selected_gray))
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

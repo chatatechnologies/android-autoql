@@ -70,6 +70,8 @@ class GridAdapter(
 	}
 
 	override fun onBindViewHolder(holder: BaseHolder, position: Int) {
+		holder.onPaint()
+
 		val item = model[position]
 		if (item is Dashboard) {
 			item.queryBase?.checkData(holder)
@@ -83,7 +85,7 @@ class GridAdapter(
 		return when(viewType)
 		{
 			0 -> {
-//				ExecuteHolder(getRowExecute(context))
+				ExecuteHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
 			}
