@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<LinearLayout
+		android:id="@+id/ll1"
+		android:layout_height="wrap_content"
+		android:layout_margin="8dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:padding="8dp">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tvTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textStyle="bold"
+				android:textSize="18sp"/>
+
+			<View
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+				android:background="@color/short_line_dashboard"
+				android:layout_width="100dp"
+				android:layout_height="1dp"/>
+
+
+		</LinearLayout>
+
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvExecute"
+			android:layout_width="match_parent"
+			android:layout_height="180dp"
+			android:text="@string/execute_run_dashboard"/>
+
+		<View
+			android:id="@+id/iView"
+			android:background="@color/selected_gray"
+			android:layout_marginStart="4dp"
+			android:layout_marginEnd="4dp"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"/>
+
+		<TextView
+			android:gravity="center"
+			android:id="@+id/tvExecute2"
+			android:layout_width="match_parent"
+			android:layout_height="180dp"
+			android:text="@string/execute_run_dashboard"/>
+
+	</LinearLayout>
+
+</RelativeLayout>
