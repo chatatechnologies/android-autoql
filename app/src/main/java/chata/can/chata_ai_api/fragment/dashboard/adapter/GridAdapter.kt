@@ -85,11 +85,15 @@ class GridAdapter(
 		return when(viewType)
 		{
 			0 -> {
-				ExecuteHolder(getRowExecute(context))
+//				ExecuteHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
 			}
-			1 -> LoadingHolder(getRowLoading(context))
+			1 -> {
+//				LoadingHolder(getRowLoading(context))
+				val view = parent.inflateView(R.layout.card_loading)
+				LoadingHolder(view)
+			}
 			2 -> SupportHolder(getRowContent(context))//dynamic
 			3 -> ContentHolder(getRowContent(context, true))//dynamic; show option
 			4 -> WebViewHolder(getRowWebView(context))//; show option

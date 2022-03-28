@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.dashboard.holder
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.LinearLayout
@@ -21,7 +20,7 @@ class ExecuteHolder(itemView: View): BaseHolder(itemView)
 	private val tvExecute = itemView.findViewById<TextView>(R.id.tvExecute)
 	private val tvExecute2 = itemView.findViewById<TextView>(R.id.tvExecute2)
 
-	val viewHeader = itemView.findViewById<View>(R.id.viewHeader)
+	private val viewHeader = itemView.findViewById<View>(R.id.viewHeader)
 
 	override fun onPaint()
 	{
