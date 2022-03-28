@@ -8,9 +8,8 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.BuildConfig
@@ -46,7 +45,7 @@ class ExploreQueriesFragment: Fragment() {
 	private val characterAdder = object: Runnable {
 		override fun run()
 		{
-			fragmentExploreQueryBinding?.etQuery?.setText(mText.subSequence(0, mIndex++))
+			fragmentExploreQueryBinding.etQuery.setText(mText.subSequence(0, mIndex++))
 			if (mIndex <= mText.length)
 			{
 				mHandler.postDelayed(this, mDelay)
@@ -54,15 +53,15 @@ class ExploreQueriesFragment: Fragment() {
 			else
 			{
 				mHandler.postDelayed({
-					fragmentExploreQueryBinding?.ivSearch?.performClick()
+					fragmentExploreQueryBinding.ivSearch.performClick()
 				}, mDelay)
 			}
 		}
 	}
 
 	private lateinit var adapter: ExploreQueriesAdapter
-	private var exploreQueriesViewModel: ExploreQueriesViewModel ?= null
-	private var fragmentExploreQueryBinding: FragmentExploreQueriesBinding ?= null
+	private val exploreQueriesViewModel: ExploreQueriesViewModel by viewModels()
+	private lateinit var fragmentExploreQueryBinding: FragmentExploreQueriesBinding
 
 	private var viewSelected: View ?= null
 
@@ -70,20 +69,19 @@ class ExploreQueriesFragment: Fragment() {
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
-	): View? {
-		fragmentExploreQueryBinding = DataBindingUtil.inflate(
+	): View {
+
+		fragmentExploreQueryBinding = FragmentExploreQueriesBinding.inflate(
 			inflater,
-			R.layout.fragment_explore_queries,
 			container,
 			false
 		)
-		exploreQueriesViewModel = ViewModelProvider(this).get(ExploreQueriesViewModel::class.java)
-		fragmentExploreQueryBinding?.model = exploreQueriesViewModel
-		return fragmentExploreQueryBinding?.root
+		fragmentExploreQueryBinding.model = exploreQueriesViewModel
+		return fragmentExploreQueryBinding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		fragmentExploreQueryBinding?.run {
+		fragmentExploreQueryBinding.run {
 			if (BuildConfig.DEBUG) {
 				val queryTest = "revenue"
 //				val queryTest = "hi"
@@ -101,7 +99,7 @@ class ExploreQueriesFragment: Fragment() {
 				mHandler.removeCallbacks(characterAdder)
 				mHandler.postDelayed(characterAdder, mDelay)
 			} else {
-				fragmentExploreQueryBinding?.etQuery?.setText(lastQuery)
+				fragmentExploreQueryBinding.etQuery.setText(lastQuery)
 			}
 		}
 		//endregion
@@ -110,24 +108,24 @@ class ExploreQueriesFragment: Fragment() {
 		initRecycler()
 		initObserve()
 
-		exploreQueriesViewModel?.getItemsPersistent()
+		exploreQueriesViewModel.getItemsPersistent()
 	}
 
 	private fun initObserve() {
-		exploreQueriesViewModel?.run {
+		exploreQueriesViewModel.run {
 			itemList.observe(viewLifecycleOwner) { listItems ->
 				if (listItems.isNotEmpty()) {
 					adapter.notifyItemRangeChanged(0, listItems.size)
 				} else {
 					// show message
-					fragmentExploreQueryBinding?. run {
+					fragmentExploreQueryBinding. run {
 						tvMsg1.setText(R.string.empty_data_explore_queries)
 					}
 				}
 			}
 
 			isVisibleList.observe(viewLifecycleOwner) { isVisible ->
-				fragmentExploreQueryBinding?.run {
+				fragmentExploreQueryBinding.run {
 					rvRelatedQueries.visibility = if (isVisible) View.VISIBLE else View.GONE
 				}
 			}
@@ -136,7 +134,7 @@ class ExploreQueriesFragment: Fragment() {
 				ExploreQueriesProvider.pagination = relatedQueryPagination
 
 				relatedQueryPagination.run {
-					fragmentExploreQueryBinding?.run {
+					fragmentExploreQueryBinding.run {
 						llPager.visibility = View.VISIBLE
 
 						_pageSize = pageSize
@@ -177,19 +175,19 @@ class ExploreQueriesFragment: Fragment() {
 			}
 
 			isVisibleGif.observe(viewLifecycleOwner) { isVisible ->
-				fragmentExploreQueryBinding?. run {
+				fragmentExploreQueryBinding. run {
 					rlGif.visibility = if (isVisible) View.VISIBLE else View.GONE
 				}
 			}
 
 			isVisibleMsg1.observe(viewLifecycleOwner) { isVisible ->
-				fragmentExploreQueryBinding?. run {
+				fragmentExploreQueryBinding. run {
 					tvMsg1.visibility = if (isVisible) View.VISIBLE else View.GONE
 				}
 			}
 
 			isVisibleMsg2.observe(viewLifecycleOwner) { isVisible ->
-				fragmentExploreQueryBinding?. run {
+				fragmentExploreQueryBinding. run {
 					tvMsg2.visibility = if (isVisible) View.VISIBLE else View.GONE
 				}
 			}
@@ -202,7 +200,7 @@ class ExploreQueriesFragment: Fragment() {
 			DataMessengerFragment.queryToTyping = item
 			(requireActivity() as? DMActivity)?.openChat()
 		}
-		fragmentExploreQueryBinding?.run {
+		fragmentExploreQueryBinding.run {
 			val linearLayoutManager = LinearLayoutManager(requireActivity())
 
 			rvRelatedQueries.layoutManager = linearLayoutManager
@@ -216,17 +214,17 @@ class ExploreQueriesFragment: Fragment() {
 	}
 
 	private fun initListener() {
-		fragmentExploreQueryBinding?.run {
+		fragmentExploreQueryBinding.run {
 			ivSearch.setOnClickListener {
 				if (AutoQLData.wasLoginIn) {
 					val query = etQuery.text.toString()
-					exploreQueriesViewModel?.validateQuery(query)
+					exploreQueriesViewModel.validateQuery(query)
 				}
 			}
 
 			tvPrevious.setOnClickListener {
 				if (_currentPage > 1) {
-					exploreQueriesViewModel?.relatedQuery(
+					exploreQueriesViewModel.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,
 						page = _currentPage - 1
@@ -236,7 +234,7 @@ class ExploreQueriesFragment: Fragment() {
 
 			tvFirstPage.setOnClickListener {
 				if (_currentPage != 1) {
-					exploreQueriesViewModel?.relatedQuery(
+					exploreQueriesViewModel.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,
 						page = 1
@@ -246,7 +244,7 @@ class ExploreQueriesFragment: Fragment() {
 
 			tvLastPage.setOnClickListener {
 				if (_currentPage != _numItems) {
-					exploreQueriesViewModel?.relatedQuery(
+					exploreQueriesViewModel.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,
 						page = _numItems
@@ -256,7 +254,7 @@ class ExploreQueriesFragment: Fragment() {
 
 			tvNext.setOnClickListener {
 				if (_currentPage < _numItems) {
-					exploreQueriesViewModel?.relatedQuery(
+					exploreQueriesViewModel.relatedQuery(
 						query = ExploreQueriesProvider.lastQuery,
 						pageSize = _pageSize,
 						page = _currentPage + 1
@@ -267,7 +265,7 @@ class ExploreQueriesFragment: Fragment() {
 	}
 
 	private fun initColors() {
-		fragmentExploreQueryBinding?.run {
+		fragmentExploreQueryBinding.run {
 			ivSearch.setOvalBackground(true)
 			tvFirstPage.setOvalBackground(true)
 			viewSelected = tvFirstPage

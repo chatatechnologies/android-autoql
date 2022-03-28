@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import chata.can.chata_ai.R
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
 import chata.can.chata_ai.extension.paddingAll
@@ -21,8 +20,8 @@ class NotificationFragment: Fragment() {
 		const val nameFragment = "Notifications"
 	}
 
-	private var notificationViewModel: NotificationViewModel ?= null
-	private var fragmentNotificationFragmentBinding: FragmentNotificationBinding? = null
+	private val notificationViewModel: NotificationViewModel by viewModels()
+	private lateinit var fragmentNotificationFragmentBinding: FragmentNotificationBinding
 	//totalItems
 	private var totalPages = 0
 
@@ -30,16 +29,14 @@ class NotificationFragment: Fragment() {
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
-	): View? {
-		fragmentNotificationFragmentBinding = DataBindingUtil.inflate(
+	): View {
+		fragmentNotificationFragmentBinding = FragmentNotificationBinding.inflate(
 			inflater,
-			R.layout.fragment_notification,
 			container,
 			false
 		)
-		notificationViewModel = ViewModelProvider(this)[NotificationViewModel::class.java]
-		fragmentNotificationFragmentBinding?.model = notificationViewModel
-		return fragmentNotificationFragmentBinding?.root
+		fragmentNotificationFragmentBinding.model = notificationViewModel
+		return fragmentNotificationFragmentBinding.root
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,12 +50,12 @@ class NotificationFragment: Fragment() {
 	}
 
 	private fun initObserve() {
-		notificationViewModel?.run {
+		notificationViewModel.run {
 			onCreate()
 
 			notificationList.observe(viewLifecycleOwner) { listNotification ->
 				if (listNotification.isNotEmpty()) {
-					notificationViewModel?.setNotificationsInRecyclerAdapter(listNotification)
+					notificationViewModel.setNotificationsInRecyclerAdapter(listNotification)
 					showRecyclerView()
 				} else showMessage()
 			}
@@ -70,7 +67,7 @@ class NotificationFragment: Fragment() {
 
 	private fun setColors() {
 		ThemeColor.currentColor.run {
-			fragmentNotificationFragmentBinding?.run {
+			fragmentNotificationFragmentBinding.run {
 				llParent.setBackgroundColor(pDrawerBackgroundColor)
 				rvNotification.setBackgroundColor(pDrawerColorSecondary)
 				rvNotification.itemAnimator = null
@@ -87,7 +84,7 @@ class NotificationFragment: Fragment() {
 	}
 
 	private fun showMessage() {
-		fragmentNotificationFragmentBinding?.run {
+		fragmentNotificationFragmentBinding.run {
 			if (AutoQLData.wasLoginIn) {
 				llParent.paddingAll(top = 80f)
 				iv1.visibility = View.VISIBLE
@@ -106,7 +103,7 @@ class NotificationFragment: Fragment() {
 	}
 
 	private fun showRecyclerView() {
-		fragmentNotificationFragmentBinding?.run {
+		fragmentNotificationFragmentBinding.run {
 			rvNotification.visibility = View.VISIBLE
 			llParent.visibility = View.GONE
 		}

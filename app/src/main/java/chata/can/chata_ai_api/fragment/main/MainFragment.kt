@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import chata.can.chata_ai.extension.*
@@ -127,12 +126,7 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		fragmentMainBinding = DataBindingUtil.inflate(
-			inflater,
-			R.layout.fragment_main,
-			container,
-			false
-		)
+		fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
 		return fragmentMainBinding?.root
 	}
 
