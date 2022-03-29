@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 class DashboardViewModel: ViewModel() {
 	val hasQueries = MutableLiveData<Boolean>()
+	val notifyIndexQuery = MutableLiveData<Int>()
 
 	private val dashboardUseCase = GetDashboardUseCase()
 
@@ -23,12 +24,14 @@ class DashboardViewModel: ViewModel() {
 			val dashboards = dashboardUseCase.getDashboards()
 
 			Executor({
-				val aKeys = ArrayList< Pair <Int, Int> >()
-				val mPartial = ConcurrentHashMap<String, Dashboard>()
-
 				dashboards.forEach { dashboardItem ->
+					val aKeys = ArrayList< Pair <Int, Int> >()
+					val mPartial = ConcurrentHashMap<String, Dashboard>()
+
 					val idDashboard = dashboardItem.id
 					val nameDashboard = dashboardItem.name
+					val mModel = mutableListOf<Dashboard>()
+
 					dashboardItem.data.forEach { dashboardItemDataResponse ->
 						val axisX = dashboardItemDataResponse.x
 						val axisY = dashboardItemDataResponse.y
@@ -42,7 +45,6 @@ class DashboardViewModel: ViewModel() {
 						mPartial["${axisY}_$axisX"] = dashboard
 					}
 
-					val mModel = mutableListOf<Dashboard>()
 					aKeys.sortedWith(compareBy({it.first}, {it.second})).let { list: List<Pair<Int, Int>> ->
 						list.forEach { pairKeys ->
 							val searchKey = "${pairKeys.first}_${pairKeys.second}"
@@ -63,12 +65,21 @@ class DashboardViewModel: ViewModel() {
 		}
 	}
 
-	fun getQueryDashboard() {
+	fun getQueryDashboard(toClearQuery: Boolean = true) {
 		//region presenter.updateModel()
 		mModel = SinglentonDashboard.getCurrentDashboard()
 
 		viewModelScope.launch {
+			for (index in 0 until mModel.size) {
+				mModel[index].let { dashboard: Dashboard ->
+					dashboard.isWaitingData = toClearQuery
+					dashboard.isWaitingData2 = toClearQuery
+					dashboard.queryBase = null
+					dashboard.queryBase2 = null
 
+					notifyIndexQuery.postValue(index)
+				}
+			}
 		}
 	}
 

@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.setOnItemSelected
-import chata.can.chata_ai.model.BaseModelList
 import chata.can.chata_ai.model.StringContainer
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
@@ -69,6 +68,9 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 
 		dashboardViewModel.hasQueries.observe(viewLifecycleOwner) {
 			setDashboards()
+		}
+		dashboardViewModel.notifyIndexQuery.observe(viewLifecycleOwner) { position ->
+			gridAdapter.notifyItemChanged(position)
 		}
 	}
 
@@ -161,7 +163,8 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 						}
 						else
 						{
-							getDashboardQueries()
+							dashboardViewModel.getQueryDashboard()
+//							getDashboardQueries()
 							unExecute
 						}
 					}
