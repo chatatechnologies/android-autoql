@@ -9,6 +9,7 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dashboard.dashboardItemDataToEntity
 import chata.can.chata_ai.retrofit.domain.GetQueryDashboardUseCase
 import chata.can.chata_ai_api.domain.GetDashboardUseCase
+import com.google.gson.JsonObject
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
 
@@ -78,9 +79,7 @@ class DashboardViewModel: ViewModel() {
 			dashboard.queryBase = null
 			dashboard.queryBase2 = null
 
-			viewModelScope.launch {
-				queryDashboardUseCase.getQueryDashboard()
-			}
+			getQuery(dashboard)
 		}
 		//notify loading on holders
 		hasChangesGridAdapter.postValue(true)
@@ -90,7 +89,10 @@ class DashboardViewModel: ViewModel() {
 		val query = dashboard.query
 		if (query.isNotEmpty()) {
 			val mInfoHolder = getDataQuery(dashboard,false)
-
+			val body = buildBodyQuery(query)
+			viewModelScope.launch {
+				queryDashboardUseCase.getQueryDashboard(body)
+			}
 		}
 		//TODO PENDING val secondQuery = dashboard.secondQuery
 	}
@@ -125,6 +127,15 @@ class DashboardViewModel: ViewModel() {
 				}
 			}
 			return mInfoHolder
+		}
+	}
+
+	private fun buildBodyQuery(query: String): JsonObject {
+		return JsonObject().apply {
+			addProperty("text", query)
+			addProperty("test", true)
+			addProperty("source", "dashboards.user")
+			addProperty("translation", "include")
 		}
 	}
 }
