@@ -6,10 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.pojo.chat.TypeChatView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
-import chata.can.chata_ai_api.DashboardView.getRowExecute
-import chata.can.chata_ai_api.DashboardView.getRowSuggestion
-import chata.can.chata_ai_api.DashboardView.getRowTwin
-import chata.can.chata_ai_api.DashboardView.getRowWebView
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
@@ -79,7 +75,6 @@ class GridAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder
 	{
-		val context = parent.context
 		return when(viewType)
 		{
 			0 -> {
@@ -107,13 +102,21 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_web_view)
 				WebViewHolder(view)
 			}//; show option
-			5 -> SuggestionHolder(getRowSuggestion(context), presenter)//dynamic
+			5 -> {
+//				SuggestionHolder(getRowSuggestion(context), presenter)
+				val view = parent.inflateView(R.layout.card_suggestion)
+				SuggestionHolder(view, presenter)
+			}//dynamic
 			8 -> {
-				NoQueryHolder(getRowExecute(context))
+//				NoQueryHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_no_query)
 				NoQueryHolder(view)
 			}//dynamic
-			10 -> DynamicHolder(getRowTwin(context), presenter)
+			10 -> {
+//				DynamicHolder(getRowTwin(context), presenter)
+				val view = parent.inflateView(R.layout.card_dynamic)
+				DynamicHolder(view, presenter)
+			}
 			else -> {
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)

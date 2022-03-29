@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<LinearLayout
+			android:id="@+id/ll1"
+			android:layout_height="wrap_content"
+			android:layout_margin="8dp"
+			android:layout_width="match_parent"
+			android:orientation="vertical"
+			android:padding="8dp">
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/tvTitle"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textStyle="bold"
+					android:textSize="18sp"/>
+
+				<View
+					android:background="@color/short_line_dashboard"
+					android:layout_height="1dp"
+					android:layout_width="100dp"
+					android:layout_marginBottom="5dp"
+					android:layout_marginTop="5dp"/>
+
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/llMainSuggestion"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="12dp"
+				android:layout_marginStart="12dp"
+				android:layout_width="match_parent"
+				android:orientation="vertical"
+				android:padding="8dp">
+
+				<TextView
+					android:id="@+id/tvContent"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:layout_width="wrap_content"
+					android:textSize="16sp"/>
+
+				<LinearLayout
+					android:id="@+id/llSuggestion"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:layout_width="match_parent"
+					android:orientation="vertical"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</RelativeLayout>
+
+</RelativeLayout>
