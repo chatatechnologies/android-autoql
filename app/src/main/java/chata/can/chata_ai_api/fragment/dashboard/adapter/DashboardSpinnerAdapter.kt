@@ -57,7 +57,7 @@ class DashboardSpinnerAdapter(
 		val tv = view.findViewById<TextView>(R.id.tvDashboard)
 
 		tv.text = getItem(position) ?: ""
-		val textColor = tv.context.getParsedColor(R.color.text_dashboard_spinner)
+		val textColor = tv.getParsedColor(R.color.text_dashboard_spinner)
 		tv.setTextColor(textColor)
 		tv.background = backgroundByPosition(position)
 		return view

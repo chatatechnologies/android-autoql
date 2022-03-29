@@ -21,7 +21,7 @@ class SupportHolder(itemView: View): BaseHolder(itemView)
 			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		}
 
-		viewHeader.setBackgroundColor(viewHeader.context.getParsedColor(R.color.short_line_dashboard))
+		viewHeader.setBackgroundColor(viewHeader.getParsedColor(R.color.short_line_dashboard))
 	}
 
 	override fun onBind(item: Any?, listener: OnItemClickListener?)

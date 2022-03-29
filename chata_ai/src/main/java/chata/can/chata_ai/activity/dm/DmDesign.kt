@@ -97,7 +97,7 @@ object DmDesign
 				//region toolbar
 				addView(RelativeLayout(context).apply {
 					layoutParams = getRelativeLayoutParams(-1, dpToPx(56f))
-					setBackgroundColor(context.getParsedColor(R.color.blue_chata_circle))
+					setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 					id = R.id.toolbar
 					//region ivClose
 					addView(ImageView(context).apply {

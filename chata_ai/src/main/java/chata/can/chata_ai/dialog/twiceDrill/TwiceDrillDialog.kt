@@ -166,7 +166,7 @@ class TwiceDrillDialog(
 
 		tvTitle.text = queryBase.query
 		ivCancel.setColorFilter(
-			context.getParsedColor(R.color.chata_drawer_background_color_dark))
+			ivCancel.getParsedColor(R.color.chata_drawer_background_color_dark))
 		loadWebView()
 		presenter.getQueryDrillDown(value1, value2)
 	}

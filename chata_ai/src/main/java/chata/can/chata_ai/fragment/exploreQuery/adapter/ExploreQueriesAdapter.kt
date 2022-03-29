@@ -43,7 +43,7 @@ class ExploreQueriesAdapter(model: BaseModelList<*>, listener: OnItemClickListen
 				layoutParams = getRelativeLayoutParams(-1, dpToPx(0.5f)).apply {
 					addRule(RelativeLayout.BELOW, R.id.tvQuery)
 				}
-				setBackgroundColor(context.getParsedColor(android.R.color.darker_gray))
+				setBackgroundColor(getParsedColor(android.R.color.darker_gray))
 			})
 		}
 	}

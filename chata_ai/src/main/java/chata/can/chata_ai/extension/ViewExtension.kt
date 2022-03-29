@@ -52,3 +52,5 @@ fun Context.dpToPx(dp: Float): Int
 	val scale = resources.displayMetrics.density
 	return (dp * scale + 0.6).toInt()
 }
+
+fun View.getParsedColor(intRes: Int) = context.getParsedColor(intRes)

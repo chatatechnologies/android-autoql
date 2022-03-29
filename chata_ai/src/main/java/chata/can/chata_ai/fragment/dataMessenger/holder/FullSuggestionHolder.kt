@@ -48,7 +48,7 @@ class FullSuggestionHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
-			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
+			val textColor = getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
 			val queryDrawable = DrawableBuilder.setGradientDrawable(SinglentonDrawer.currentAccent,18f)
@@ -165,7 +165,7 @@ class FullSuggestionHolder(
 						getSpinnerOption(context, suggestion)
 					}
 					Pair(
-						context.getParsedColor(R.color.blue_chata_circle),
+						getParsedColor(R.color.blue_chata_circle),
 						ThemeColor.currentColor.run {
 							DrawableBuilder.setGradientDrawable(
 								pDrawerBackgroundColor, 18f, 3, pDrawerBorderColor

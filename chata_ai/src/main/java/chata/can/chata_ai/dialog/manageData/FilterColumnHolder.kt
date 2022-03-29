@@ -75,7 +75,7 @@ class FilterColumnHolder(
 		(item as? FilterColumn)?.run {
 			ThemeColor.currentColor.run {
 				rlParent?.let { parent ->
-					val blue = parent.context.getParsedColor(R.color.blue_chata_circle)
+					val blue = parent.getParsedColor(R.color.blue_chata_circle)
 
 					if (isOnlyText && indexColumn != -1)
 						parent.setBackgroundColor(if (isSelected) {

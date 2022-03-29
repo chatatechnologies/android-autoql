@@ -45,7 +45,7 @@ open class BaseHolder(
 	override fun onPaint()
 	{
 		tvContentTop.run {
-			val textColor = context.getParsedColor(R.color.chata_drawer_hover_color)
+			val textColor = getParsedColor(R.color.chata_drawer_hover_color)
 			setTextColor(textColor)
 
 			val queryDrawable = DrawableBuilder.setGradientDrawable(

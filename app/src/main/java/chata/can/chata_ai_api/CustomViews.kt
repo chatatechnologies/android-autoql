@@ -55,9 +55,9 @@ object CustomViews
 	/** MATERIAL **/
 	fun getTextInput(context: Context, demoParam: DemoParameter): TextInputLayout {
 		return TextInputLayout(context).apply {
-			val whiteColor = context.getParsedColor(R.color.white)
-			val blueColor = context.getParsedColor(R.color.blue_chata_circle)
-			val redColor = context.getParsedColor(R.color.red_notification)
+			val whiteColor = getParsedColor(R.color.white)
+			val blueColor = getParsedColor(R.color.blue_chata_circle)
+			val redColor = getParsedColor(R.color.red_notification)
 
 			layoutParams = getLinearLayoutParams(-1, -2)
 			hint = demoParam.hint
@@ -277,8 +277,8 @@ object CustomViews
 		onClickListener: View.OnClickListener): MaterialButtonToggleGroup
 	{
 		return ButtonToggleGroup(context).apply {
-			val blue = context.getParsedColor(R.color.blue_chata_circle)
-			val white = context.getParsedColor(R.color.white)
+			val blue = getParsedColor(R.color.blue_chata_circle)
+			val white = getParsedColor(R.color.white)
 
 			layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
 			margin(12f, end = 12f)

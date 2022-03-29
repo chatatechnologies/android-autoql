@@ -15,6 +15,6 @@ class LoadingHolder(itemView: View): BaseHolder(itemView) {
 		super.onPaint()
 
 		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
-		viewHeader.setBackgroundColor(viewHeader.context.getParsedColor(R.color.short_line_dashboard))
+		viewHeader.setBackgroundColor(viewHeader.getParsedColor(R.color.short_line_dashboard))
 	}
 }

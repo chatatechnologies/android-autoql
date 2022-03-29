@@ -61,7 +61,7 @@ object DataMessenger
 							addRule(RelativeLayout.END_OF, R.id.ivRun)
 						}
 						id = R.id.tvMsg
-						setTextColor(context.getParsedColor(R.color.chata_drawer_hover_color_dark))
+						setTextColor(getParsedColor(R.color.chata_drawer_hover_color_dark))
 						textSize(12f)
 						text = context.getString(R.string.msg_run_autoql)
 					})

@@ -133,8 +133,8 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //		fragmentMainBinding?.run {
 //			val context = view.context
-//			val blue = context.getParsedColor(R.color.blue_chata_circle)
-//			val white = context.getParsedColor(R.color.white)
+//			val blue = getParsedColor(R.color.blue_chata_circle)
+//			val white = getParsedColor(R.color.white)
 //
 //			val alphaColor = ColorUtils.setAlphaComponent(blue, (0.3 * 255).toInt())
 //			val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())

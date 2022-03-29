@@ -36,7 +36,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 		_parent = RelativeLayout(context).apply {
 			layoutParams = LayoutParams(-2, -2)
 			background = DrawableBuilder.setGradientDrawable(
-				context.getParsedColor(R.color.chata_drawer_background_color_dark),
+				getParsedColor(R.color.chata_drawer_background_color_dark),
 				56f
 			)
 			//region view
@@ -46,7 +46,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 					addRule(CENTER_VERTICAL)
 				}
 				background = DrawableBuilder.setOvalDrawable(
-					context.getParsedColor(R.color.white)
+					getParsedColor(R.color.white)
 				)
 				margin(start = 8f, end = 8f)
 			}
@@ -60,7 +60,7 @@ class SwitchDM: RelativeLayout, View.OnClickListener
 				}
 				margin(4f)
 				paddingAll(left = 21f, right = 21f, top = 3f, bottom = 3f)
-				setTextColor(context.getParsedColor(R.color.white))
+				setTextColor(getParsedColor(R.color.white))
 				textSize(18f)
 				text = aText[1]
 			}

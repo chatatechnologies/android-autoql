@@ -24,7 +24,7 @@ class ClickableSpan(
 	override fun updateDrawState(textPaint: TextPaint)
 	{
 		textPaint.run {
-			color = tvSource.context.getParsedColor(R.color.blue_chata_circle)
+			color = tvSource.getParsedColor(R.color.blue_chata_circle)
 			isUnderlineText = true
 		}
 	}

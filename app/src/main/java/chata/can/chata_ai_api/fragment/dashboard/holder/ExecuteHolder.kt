@@ -39,8 +39,8 @@ class ExecuteHolder(itemView: View): DashboardHolder(itemView)
 
 		tvExecute.setTypeface(tvExecute.typeface, Typeface.ITALIC)
 
-		viewHeader.setBackgroundColor(viewHeader.context.getParsedColor(R.color.short_line_dashboard))
-		iView.setBackgroundColor(iView.context.getParsedColor(R.color.selected_gray))
+		viewHeader.setBackgroundColor(viewHeader.getParsedColor(R.color.short_line_dashboard))
+		iView.setBackgroundColor(iView.getParsedColor(R.color.selected_gray))
 	}
 
 	override fun onRender(dashboard: Dashboard) {

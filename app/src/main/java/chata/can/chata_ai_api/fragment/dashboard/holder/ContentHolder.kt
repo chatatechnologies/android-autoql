@@ -118,9 +118,7 @@ class ContentHolder(itemView: View): BaseHolder(itemView)
 				{
 					textPaint.run {
 						try {
-							tvContent.context?.let { context ->
-								color = context.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
-							}
+							color = tvContent.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
 						} finally {
 							tvContent.context?.let {
 								bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
