@@ -7,6 +7,7 @@ import chata.can.chata_ai.Executor
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dashboard.dashboardItemDataToEntity
+import chata.can.chata_ai.retrofit.domain.GetQueryDashboardUseCase
 import chata.can.chata_ai_api.domain.GetDashboardUseCase
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
@@ -16,6 +17,7 @@ class DashboardViewModel: ViewModel() {
 	val hasChangesGridAdapter = MutableLiveData<Boolean>()
 
 	private val dashboardUseCase = GetDashboardUseCase()
+	private val queryDashboardUseCase = GetQueryDashboardUseCase()
 
 	private var mModel = mutableListOf<Dashboard>()
 
@@ -69,17 +71,28 @@ class DashboardViewModel: ViewModel() {
 		//region presenter.updateModel()
 		mModel = SinglentonDashboard.getCurrentDashboard()
 
-		viewModelScope.launch {
-			for (index in 0 until mModel.size) {
-				mModel[index].let { dashboard: Dashboard ->
-					dashboard.isWaitingData = toClearQuery
-					dashboard.isWaitingData2 = toClearQuery
-					dashboard.queryBase = null
-					dashboard.queryBase2 = null
-				}
+		for (index in 0 until 1)//mModel.size) {
+		mModel[index].let { dashboard: Dashboard ->
+			dashboard.isWaitingData = toClearQuery
+			dashboard.isWaitingData2 = toClearQuery
+			dashboard.queryBase = null
+			dashboard.queryBase2 = null
+
+			viewModelScope.launch {
+				queryDashboardUseCase.getQueryDashboard()
 			}
-			hasChangesGridAdapter.postValue(true)
 		}
+		//notify loading on holders
+		hasChangesGridAdapter.postValue(true)
+	}
+
+	private fun getQuery(dashboard: Dashboard) {
+		val query = dashboard.query
+		if (query.isNotEmpty()) {
+			val mInfoHolder = getDataQuery(dashboard,false)
+
+		}
+		//TODO PENDING val secondQuery = dashboard.secondQuery
 	}
 
 	private fun getDataQuery(dashboard: Dashboard, wantSplitView: Boolean): HashMap<String, Any>
