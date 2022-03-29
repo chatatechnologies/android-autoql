@@ -9,13 +9,11 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
-import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
-import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
-	private val model: List<*>,
+	private val model: List<Dashboard>,
 	private val presenter: DashboardPresenter
-): RecyclerView.Adapter<BaseHolder>()
+): RecyclerView.Adapter<DashboardHolder>()
 {
 	override fun getItemCount(): Int = model.size
 
@@ -30,50 +28,48 @@ class GridAdapter(
 		 * 8 for no query data
 		 */
 		var viewType = 0
-		model[position]?.run {
-			if (this is Dashboard)
+		model[position].run {
+			if (splitView)
 			{
-				if (splitView)
-				{
-					viewType = 10
-				}
-				//region once QueryBase
-				else
-				{
-					queryBase?.run {
-						viewType = when(typeView)
-						{
-							TypeChatView.LEFT_VIEW -> 3
-							TypeChatView.WEB_VIEW -> 4
-							TypeChatView.SUGGESTION_VIEW -> 5
-							else -> 2
-						}
-					} ?: run {
-						if (isWaitingData)
-						{
-							viewType = if (query.isEmpty())
-								8
-							else 1
-						}
+				viewType = 10
+			}
+			//region once QueryBase
+			else
+			{
+				queryBase?.run {
+					viewType = when(typeView)
+					{
+						TypeChatView.LEFT_VIEW -> 3
+						TypeChatView.WEB_VIEW -> 4
+						TypeChatView.SUGGESTION_VIEW -> 5
+						else -> 2
+					}
+				} ?: run {
+					if (isWaitingData)
+					{
+						viewType = if (query.isEmpty())
+							8
+						else 1
 					}
 				}
-				//endregion
 			}
+			//endregion
 		}
 		return viewType
 	}
 
-	override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-		holder.onPaint()
-
-		val item = model[position]
-		if (item is Dashboard) {
-			item.queryBase?.checkData(holder)
-			item.queryBase2?.checkData(holder)
-		}
+	override fun onBindViewHolder(holder: DashboardHolder, position: Int) {
+		val dashboard = model[position]
+		holder.onRender(dashboard)
+//		holder.onPaint()
+//
+//		if (item is Dashboard) {
+//			item.queryBase?.checkData(holder)
+//			item.queryBase2?.checkData(holder)
+//		}
 	}
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardHolder
 	{
 		return when(viewType)
 		{
@@ -81,7 +77,7 @@ class GridAdapter(
 //				ExecuteHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
-			}
+			}/**
 			1 -> {
 //				LoadingHolder(getRowLoading(context))
 				val view = parent.inflateView(R.layout.card_loading)
@@ -116,7 +112,7 @@ class GridAdapter(
 //				DynamicHolder(getRowTwin(context), presenter)
 				val view = parent.inflateView(R.layout.card_dynamic)
 				DynamicHolder(view, presenter)
-			}
+			} **/
 			else -> {
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
