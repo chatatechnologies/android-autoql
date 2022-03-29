@@ -69,8 +69,8 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 		dashboardViewModel.hasQueries.observe(viewLifecycleOwner) {
 			setDashboards()
 		}
-		dashboardViewModel.notifyIndexQuery.observe(viewLifecycleOwner) { position ->
-			gridAdapter.notifyItemChanged(position)
+		dashboardViewModel.hasChangesGridAdapter.observe(viewLifecycleOwner) {
+			gridAdapter.notifyItemRangeChanged(0, mModel.size)
 		}
 	}
 

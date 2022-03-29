@@ -31,8 +31,7 @@ class GridAdapter(
 		 */
 		var viewType = 0
 		model[position].run {
-			if (splitView)
-			{
+			if (splitView) {
 				viewType = 10
 			}
 			//region once QueryBase
@@ -80,6 +79,7 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
 			}
+			/**
 			1 -> {
 //				LoadingHolder(getRowLoading(context))
 				val view = parent.inflateView(R.layout.card_loading)
@@ -112,6 +112,7 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_no_query)
 				NoQueryHolder(view)
 			}//dynamic
+			**/
 			10 -> {
 //				DynamicHolder(getRowTwin(context), presenter)
 				val view = parent.inflateView(R.layout.card_dynamic)

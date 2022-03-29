@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 class DashboardViewModel: ViewModel() {
 	val hasQueries = MutableLiveData<Boolean>()
-	val notifyIndexQuery = MutableLiveData<Int>()
+	val hasChangesGridAdapter = MutableLiveData<Boolean>()
 
 	private val dashboardUseCase = GetDashboardUseCase()
 
@@ -76,10 +76,9 @@ class DashboardViewModel: ViewModel() {
 					dashboard.isWaitingData2 = toClearQuery
 					dashboard.queryBase = null
 					dashboard.queryBase2 = null
-
-					notifyIndexQuery.postValue(index)
 				}
 			}
+			hasChangesGridAdapter.postValue(true)
 		}
 	}
 
