@@ -13,7 +13,6 @@ import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.formatWithColumn
 import chata.can.chata_ai.extension.getParsedColor
-import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -21,71 +20,72 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
 
-class ContentHolder(itemView: View): BaseHolder(itemView)
-{
+class ContentHolder(itemView: View): DashboardHolder(itemView) {
+
+	private val ll1 = itemView.findViewById<View>(R.id.ll1)
+	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+
 	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
 	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
 
-	override fun onPaint()
-	{
-		super.onPaint()
-		tvContent.context?.let {
-			tvContent.setTextColor(drawerColorPrimary)
-			ivOption?.backgroundWhiteGray()
-			ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
-		}
+	init {
+		ll1.backgroundWhiteGray()
+		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
+
+		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+		ivOption.backgroundWhiteGray()
+		ivOption.setColorFilter(SinglentonDrawer.currentAccent)
 	}
 
-	override fun onBind(item: Any?, listener: OnItemClickListener?)
-	{
-		super.onBind(item, listener)
-		if (item is Dashboard)
-		{
-			item.queryBase?.run {
-				tvContent?.let {
-					if (isLoadingHTML && contentHTML.isEmpty())
+	override fun onRender(dashboard: Dashboard) {
+		val titleToShow =
+			dashboard.title.ifEmpty {
+				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
+			}
+		tvTitle?.text = titleToShow
+
+		dashboard.queryBase?.run {
+			if (isLoadingHTML && contentHTML.isEmpty()) {
+				isLoadingHTML = false
+				val message = when
+				{
+					simpleText.isNotEmpty() ->
 					{
-						isLoadingHTML = false
-						val message = when
-						{
-							simpleText.isNotEmpty() ->
-							{
-								aColumn.firstOrNull()?.let { column ->
-									it.setOnClickListener { view ->
-										showDrillDown(view, this)
-									}
-									simpleText.formatWithColumn(column)
-								} ?: ""
+						aColumn.firstOrNull()?.let { column ->
+							tvContent.setOnClickListener { view ->
+								showDrillDown(view, this)
 							}
-							aRows.size == 0 ->
-							{
-								tvContent.setOnClickListener(null)
-								reportLink(message)
-							}
-							message.isNotEmpty() -> message
-							else -> message
-						}
-						tvContent.text = message
+							simpleText.formatWithColumn(column)
+						} ?: ""
 					}
-					else
-						if (contentHTML.isEmpty())
-						{
-							tvContent.setOnClickListener(null)
-							tvContent.text = reportLink(message)
-						}
-						else
-						{
-							aColumn.firstOrNull()?.let { _ ->
-								it.setOnClickListener { view ->
-									showDrillDown(view, this)
-								}
-							}
-							tvContent.text = contentHTML
-						}
+					aRows.size == 0 ->
+					{
+						tvContent.setOnClickListener(null)
+						reportLink(message)
+					}
+					message.isNotEmpty() -> message
+					else -> message
 				}
-				ivOption?.setOnClickListener { view ->
-					buildPopup(view, listOf(4), sql)
+				tvContent.text = message
+			} else {
+				if (contentHTML.isEmpty())
+				{
+					tvContent.setOnClickListener(null)
+					tvContent.text = reportLink(message)
 				}
+				else
+				{
+					aColumn.firstOrNull()?.let { _ ->
+						tvContent.setOnClickListener { view ->
+							showDrillDown(view, this)
+						}
+					}
+					tvContent.text = contentHTML
+				}
+			}
+
+			ivOption?.setOnClickListener { view ->
+				buildPopup(view, listOf(4), sql)
 			}
 		}
 	}
