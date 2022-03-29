@@ -5,9 +5,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import chata.can.chata_ai.extension.*
-import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.tool.DrawableBuilder
@@ -16,116 +16,120 @@ import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.container.LayoutParams.getRelativeLayoutParams
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
-import chata.can.chata_ai_api.fragment.dashboard.holder.BaseHolder
+import chata.can.chata_ai_api.fragment.dashboard.holder.DashboardHolder
 
 class SuggestionHolder(
 	itemView: View,
 	private val presenter: DashboardPresenter
-): BaseHolder(itemView)
-{
+	): DashboardHolder(itemView) {
+
+	private val ll1 = itemView.findViewById<View>(R.id.ll1)
+	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+
 	private val tvContent: TextView = itemView.findViewById(R.id.tvContent)
 	private val llSuggestion: LinearLayout = itemView.findViewById(R.id.llSuggestion)
 	private lateinit var tvSuggestion: TextView
 	private lateinit var spSuggestion: Spinner
 
-	override fun onPaint()
-	{
-		super.onPaint()
-		tvContent.setTextColor(drawerColorPrimary)
+	init {
+		ll1.backgroundWhiteGray()
+		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
+		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 	}
 
-	override fun onBind(item: Any?, listener: OnItemClickListener?)
-	{
-		super.onBind(item, listener)
-		if (item is Dashboard)
-		{
-			item.queryBase?.let { queryBase ->
-				tvContent.context?.let { context ->
-					val introMessageRes = context.getStringResources(R.string.msg_suggestion)
-					val message = String.format(introMessageRes, queryBase.message)
-					tvContent.text = message
-				}
+	override fun onRender(dashboard: Dashboard) {
+		val titleToShow =
+			dashboard.title.ifEmpty {
+				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
+			}
+		tvTitle?.text = titleToShow
 
-				val rows = queryBase.aRows
-				llSuggestion.removeAllViews()
-				if (queryBase.typeSuggestion != "table")
+		dashboard.queryBase?.let { queryBase: QueryBase ->
+			tvContent.context?.let { context ->
+				val introMessageRes = context.getStringResources(R.string.msg_suggestion)
+				val message = String.format(introMessageRes, queryBase.message)
+				tvContent.text = message
+			}
+
+			val rows = queryBase.aRows
+			llSuggestion.removeAllViews()
+			if (queryBase.typeSuggestion != "table")
+			{
+				for (index in 0 until rows.size)
 				{
-					for (index in 0 until rows.size)
-					{
-						val singleRow = rows[index]
-						singleRow.firstOrNull()?.let { suggestion ->
-							//add new view for suggestion
-							val tv = buildSuggestionView(llSuggestion.context, suggestion, item)
-							llSuggestion.addView(tv)
-						}
+					val singleRow = rows[index]
+					singleRow.firstOrNull()?.let { suggestion ->
+						//add new view for suggestion
+						val tv = buildSuggestionView(llSuggestion.context, suggestion, dashboard)
+						llSuggestion.addView(tv)
 					}
 				}
-				else
-				{
-					val context = llSuggestion.context
-					llSuggestion.addView(
-						RelativeLayout(context).apply {
-							layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-							background = DrawableBuilder.setGradientDrawable(
-								ThemeColor.currentColor.pDrawerBackgroundColor,
-								3f,
+			}
+			else
+			{
+				val context = llSuggestion.context
+				llSuggestion.addView(
+					RelativeLayout(context).apply {
+						layoutParams = getLinearLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+						background = DrawableBuilder.setGradientDrawable(
+							ThemeColor.currentColor.pDrawerBackgroundColor,
+							3f,
 							3,
-								SinglentonDrawer.currentAccent)
-							paddingAll(8f, 4f, 8f, 4f)
-							//region view hidden
-							spSuggestion = Spinner(context).apply {
-								layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
-								val aItem = rows.map { it[0] }
-								adapter = SuggestionAdapter(context, aItem)
-								setSelection(0, false)
-								setOnItemSelected { _, _, position, _ ->
-									val text = aItem[position]
-									(adapter as? SuggestionAdapter)?.updatePositionSelected(position)
-									tvSuggestion.text = text
-								}
+							SinglentonDrawer.currentAccent)
+						paddingAll(8f, 4f, 8f, 4f)
+						//region view hidden
+						spSuggestion = Spinner(context).apply {
+							layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT)
+							val aItem = rows.map { it[0] }
+							adapter = SuggestionAdapter(context, aItem)
+							setSelection(0, false)
+							setOnItemSelected { _, _, position, _ ->
+								val text = aItem[position]
+								(adapter as? SuggestionAdapter)?.updatePositionSelected(position)
+								tvSuggestion.text = text
 							}
-							addView(spSuggestion)
-							//endregion
-							//view on Right
-							addView(
-								ImageView(context).apply {
-									layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
-										addRule(RelativeLayout.CENTER_VERTICAL)
-										addRule(RelativeLayout.ALIGN_PARENT_END)
-									}
-									gravity = Gravity.CENTER
-									id = R.id.ivAction
-									setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
-									setImageResource(R.drawable.ic_down)
-									setColorFilter(SinglentonDrawer.currentAccent)
-									setOnClickListener { spSuggestion.performClick() }
-								}
-							)
-							//region front text
-							tvSuggestion = TextView(context).apply {
-								layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+						}
+						addView(spSuggestion)
+						//endregion
+						//view on Right
+						addView(
+							ImageView(context).apply {
+								layoutParams = getRelativeLayoutParams(dpToPx(24f), dpToPx(24f)).apply {
 									addRule(RelativeLayout.CENTER_VERTICAL)
-									addRule(RelativeLayout.START_OF, R.id.ivAction)
+									addRule(RelativeLayout.ALIGN_PARENT_END)
 								}
+								gravity = Gravity.CENTER
+								id = R.id.ivAction
 								setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
-								setTextColor(drawerColorPrimary)
-								paddingAll(4f)
-								if (rows.isNotEmpty())
-								{
-									val child = rows[0]
-									if (child.isNotEmpty())
-									{
-										val firstText = child[0]
-										text = firstText
-									}
-								}
+								setImageResource(R.drawable.ic_down)
+								setColorFilter(SinglentonDrawer.currentAccent)
 								setOnClickListener { spSuggestion.performClick() }
 							}
-							//endregion
-							addView(tvSuggestion)
+						)
+						//region front text
+						tvSuggestion = TextView(context).apply {
+							layoutParams = getRelativeLayoutParams(LayoutParams.MATCH_PARENT_WRAP_CONTENT).apply {
+								addRule(RelativeLayout.CENTER_VERTICAL)
+								addRule(RelativeLayout.START_OF, R.id.ivAction)
+							}
+							setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+							setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+							paddingAll(4f)
+							if (rows.isNotEmpty())
+							{
+								val child = rows[0]
+								if (child.isNotEmpty())
+								{
+									val firstText = child[0]
+									text = firstText
+								}
+							}
+							setOnClickListener { spSuggestion.performClick() }
 						}
-					)
-				}
+						//endregion
+						addView(tvSuggestion)
+					}
+				)
 			}
 		}
 	}
@@ -140,7 +144,7 @@ class SuggestionHolder(
 			textSize(16f)
 			setPadding(15,15,15,15)
 			text = content
-			setTextColor(drawerColorPrimary)
+			setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 			setOnClickListener {
 				val index = SinglentonDashboard.indexDashboard(dashboard)
 				if (index != -1)

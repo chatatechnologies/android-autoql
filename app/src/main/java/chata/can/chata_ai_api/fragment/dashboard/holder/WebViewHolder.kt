@@ -9,7 +9,6 @@ import android.webkit.WebViewClient
 import android.widget.*
 import chata.can.chata_ai.extension.backgroundWhiteGray
 import chata.can.chata_ai.extension.dpToPx
-import chata.can.chata_ai.listener.OnItemClickListener
 import chata.can.chata_ai.pojo.SinglentonDrawer
 import chata.can.chata_ai.pojo.chat.QueryBase
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -20,47 +19,46 @@ import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 /*For Dashboard*/
-class WebViewHolder(itemView: View): BaseHolder(itemView)
+class WebViewHolder(itemView: View): DashboardHolder(itemView)
 {
-	private val iView = itemView.findViewById<View>(R.id.iView) ?: null
+	private val ll1 = itemView.findViewById<View>(R.id.ll1)
+	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
+
 	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
 	private val webView = itemView.findViewById<WebView>(R.id.webView)
 	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
-	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption) ?: null
+	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
 	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
 
-	override fun onPaint()
-	{
-		super.onPaint()
-		iView?.let {
-			(it.layoutParams as? LinearLayout.LayoutParams)?.let { layout ->
-				layout.height = 1
-				iView.layoutParams = layout
-			}
-		}
+	init {
+		ll1.backgroundWhiteGray()
+		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
+
 		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
-		ivOption?.backgroundWhiteGray()
-		ivOption?.setColorFilter(SinglentonDrawer.currentAccent)
-		webView?.visibility = View.GONE
-		rlLoad?.visibility = View.VISIBLE
+		ivOption.backgroundWhiteGray()
+		ivOption.setColorFilter(SinglentonDrawer.currentAccent)
+		webView.visibility = View.GONE
+		rlLoad.visibility = View.VISIBLE
 	}
 
-	override fun onBind(item: Any?, listener: OnItemClickListener?)
-	{
-		super.onBind(item, listener)
-		if (item is Dashboard)
-		{
-			item.queryBase?.run {
-				if (!isLoadingHTML)
-				{
-					setDataWebView(this)
-				}
+	override fun onRender(dashboard: Dashboard) {
+		dashboard.queryBase?.run {
+			if (!isLoadingHTML) {
+				setDataWebView(this)
 			}
 		}
-		if (item is QueryBase)
-		{
-			setDataWebView(item)
-		}
+	}
+
+	fun onRender(queryBase: QueryBase) {
+		setDataWebView(queryBase)
+	}
+
+	fun updateTitle(dashboard: Dashboard) {
+		val titleToShow =
+			dashboard.title.ifEmpty {
+				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
+			}
+		tvTitle?.text = titleToShow
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")

@@ -9,6 +9,8 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
+import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
+import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
 	private val model: List<Dashboard>,
@@ -94,7 +96,6 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_content)
 				ContentHolder(view)
 			}//dynamic; show option
-			/**
 			4 -> {
 //				WebViewHolder(getRowWebView(context))
 				val view = parent.inflateView(R.layout.card_web_view)
@@ -105,6 +106,7 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_suggestion)
 				SuggestionHolder(view, presenter)
 			}//dynamic
+
 			8 -> {
 //				NoQueryHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_no_query)
@@ -114,7 +116,7 @@ class GridAdapter(
 //				DynamicHolder(getRowTwin(context), presenter)
 				val view = parent.inflateView(R.layout.card_dynamic)
 				DynamicHolder(view, presenter)
-			} **/
+			}
 			else -> {
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
