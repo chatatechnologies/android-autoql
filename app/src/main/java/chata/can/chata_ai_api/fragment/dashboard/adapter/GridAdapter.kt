@@ -10,7 +10,6 @@ import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
 import chata.can.chata_ai_api.fragment.dashboard.holder.dynamic.DynamicHolder
-import chata.can.chata_ai_api.fragment.dashboard.holder.suggestion.SuggestionHolder
 
 class GridAdapter(
 	private val model: List<Dashboard>,
@@ -62,8 +61,6 @@ class GridAdapter(
 	override fun onBindViewHolder(holder: DashboardHolder, position: Int) {
 		val dashboard = model[position]
 		holder.onRender(dashboard)
-//		holder.onPaint()
-//
 //		if (item is Dashboard) {
 //			item.queryBase?.checkData(holder)
 //			item.queryBase2?.checkData(holder)
@@ -79,12 +76,12 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_execute)
 				ExecuteHolder(view)
 			}
-			/**
 			1 -> {
 //				LoadingHolder(getRowLoading(context))
 				val view = parent.inflateView(R.layout.card_loading)
 				LoadingHolder(view)
 			}
+			/**
 			2 -> {
 //				SupportHolder(getRowContent(context))
 				val view = parent.inflateView(R.layout.card_support)
@@ -106,13 +103,12 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_suggestion)
 				SuggestionHolder(view, presenter)
 			}//dynamic
-
+			 **/
 			8 -> {
 //				NoQueryHolder(getRowExecute(context))
 				val view = parent.inflateView(R.layout.card_no_query)
 				NoQueryHolder(view)
 			}//dynamic
-			**/
 			10 -> {
 //				DynamicHolder(getRowTwin(context), presenter)
 				val view = parent.inflateView(R.layout.card_dynamic)

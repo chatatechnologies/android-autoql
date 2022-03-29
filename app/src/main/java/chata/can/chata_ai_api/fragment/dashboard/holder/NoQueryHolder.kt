@@ -32,6 +32,12 @@ class NoQueryHolder(itemView: View): DashboardHolder(itemView) {
 	}
 
 	override fun onRender(dashboard: Dashboard) {
+		val titleToShow =
+			dashboard.title.ifEmpty {
+				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
+			}
+		tvTitle.text = titleToShow
+
 		if (dashboard.splitView) {
 			iView.setBackgroundColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
 		} else {
