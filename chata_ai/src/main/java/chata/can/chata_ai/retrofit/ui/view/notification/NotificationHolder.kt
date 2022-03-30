@@ -35,39 +35,50 @@ class NotificationHolder(
 			rlParent.background = notificationUi.getDrawableParent()
 
 			iView.background = notificationEntity.getDrawableLeftView()
-
 			iView2.setBackgroundColor(notificationUi.getTextColorPrimary())
 			iView3.setBackgroundColor(notificationUi.getTextColorPrimary())
 
-			tvTitle.text = notificationEntity.title
-			tvTitle.setTextColor(notificationEntity.getColorTitle())
+			tvTitle.run {
+				text = notificationEntity.title
+				setTextColor(notificationEntity.getColorTitle())
+			}
 
-			tvBody.text = notificationEntity.message
-			tvBody.customVisibility(notificationEntity.isVisibleMessage())
-			tvBody.setTextColor(notificationUi.getTextColorPrimary())
+			tvBody.run {
+				text = notificationEntity.message
+				customVisibility(notificationEntity.isVisibleMessage())
+				setTextColor(notificationUi.getTextColorPrimary())
+			}
 
-			tvDate.text = notificationEntity.createdAtFormatted()
-			tvDate.setTextColor(notificationUi.getTextColorPrimary())
+			tvDate.run {
+				text = notificationEntity.createdAtFormatted()
+				setTextColor(notificationUi.getTextColorPrimary())
+			}
 
 			rlBottom.customVisibility(notificationEntity.isBottomVisible)
 
-			tvQuery.text = notificationEntity.query
-			tvQuery.setTextColor(notificationUi.getTextColorPrimary())
+			tvQuery.run {
+				text = notificationEntity.query
+				setTextColor(notificationUi.getTextColorPrimary())
+			}
 
 			rlLoad.customVisibility(notificationEntity.isVisibleLoading)
 
-			tvContent.text = notificationEntity.contentTextView.contentResponse
-			tvContent.customVisibility(notificationEntity.isVisibleTextView())
-			tvContent.setTextColor(notificationUi.getTextColorPrimary())
+			tvContent.run {
+				text = notificationEntity.contentTextView.contentResponse
+				customVisibility(notificationEntity.isVisibleTextView())
+				setTextColor(notificationUi.getTextColorPrimary())
+			}
 
-			wbQuery.customVisibility(notificationEntity.isVisibleWebView())
-			wbQuery.loadDataWithBaseURL(
-				null,
-				notificationEntity.contentWebView.contentResponse,
-				"text/html",
-				"UTF-8",
-				null
-			)
+			wbQuery.run {
+				customVisibility(notificationEntity.isVisibleWebView())
+				loadDataWithBaseURL(
+					null,
+					notificationEntity.contentWebView.contentResponse,
+					"text/html",
+					"UTF-8",
+					null
+				)
+			}
 			//endregion
 
 			//region listener

@@ -16,29 +16,24 @@ import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.view.container.LayoutParams.getLinearLayoutParams
 import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.databinding.CardWebViewBinding
 import chata.can.chata_ai_api.fragment.dashboard.drillDown.JavascriptInterface
 
 /*For Dashboard*/
-class WebViewHolder(itemView: View): DashboardHolder(itemView)
-{
-	private val ll1 = itemView.findViewById<View>(R.id.ll1)
-	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-
-	private val rlWebView = itemView.findViewById<RelativeLayout>(R.id.rlWebView)
-	private val webView = itemView.findViewById<WebView>(R.id.webView)
-	private val rlLoad = itemView.findViewById<View>(R.id.rlLoad)
-	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
-	private val ivAlert = itemView.findViewById<ImageView>(R.id.ivAlert) ?: null
+class WebViewHolder(itemView: View): DashboardHolder(itemView) {
+	private val binding = CardWebViewBinding.bind(itemView)
 
 	init {
-		ll1.backgroundWhiteGray()
-		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
+		binding.run {
+			ll1.backgroundWhiteGray()
+			tvTitle.setTextColor(SinglentonDrawer.currentAccent)
 
-		rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
-		ivOption.backgroundWhiteGray()
-		ivOption.setColorFilter(SinglentonDrawer.currentAccent)
-		webView.visibility = View.GONE
-		rlLoad.visibility = View.VISIBLE
+			rlLoad.setBackgroundColor(ThemeColor.currentColor.pDrawerBackgroundColor)
+			ivOption.backgroundWhiteGray()
+			ivOption.setColorFilter(SinglentonDrawer.currentAccent)
+			webView.visibility = View.GONE
+			rlLoad.visibility = View.VISIBLE
+		}
 	}
 
 	override fun onRender(dashboard: Dashboard) {
@@ -58,55 +53,57 @@ class WebViewHolder(itemView: View): DashboardHolder(itemView)
 			dashboard.title.ifEmpty {
 				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
 			}
-		tvTitle?.text = titleToShow
+		binding.tvTitle.text = titleToShow
 	}
 
 	@SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
 	private fun setDataWebView(queryBase: QueryBase)
 	{
-		ivOption?.setOnClickListener { view ->
-			buildPopup(view, listOf(4), queryBase.sql)
-		}
-		changeHeightParent(rlWebView, queryBase)
-		webView?.run {
-			clearCache(true)
-			clearHistory()
-			requestLayout()
-			settings.javaScriptEnabled = true
-			addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
-			loadDataWithBaseURL(
-				null,
-				queryBase.contentHTML,
-				"text/html",
-				"UTF-8",
-				null)
-			webViewClient = object: WebViewClient()
-			{
-				override fun onPageFinished(view: WebView?, url: String?)
-				{
-					webView.visibility = View.VISIBLE
-
-					ivAlert?.let {
-						it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
-						{
-							it.setOnClickListener { view ->
-								Toast.makeText(view.context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
-							}
-							View.VISIBLE
-						}
-						else View.GONE
-					}
-
-					ivOption?.visibility = View.VISIBLE
-
-					Handler(Looper.getMainLooper()).postDelayed({
-						rlLoad?.visibility = View.GONE
-					}, 200)
-				}
+		binding.run {
+			ivOption.setOnClickListener { view ->
+				buildPopup(view, listOf(4), queryBase.sql)
 			}
-			setOnTouchListener { view, _ ->
-				view.parent.requestDisallowInterceptTouchEvent(true)
-				false
+			changeHeightParent(rlWebView, queryBase)
+			webView.run {
+				clearCache(true)
+				clearHistory()
+				requestLayout()
+				settings.javaScriptEnabled = true
+				addJavascriptInterface(JavascriptInterface(context, queryBase), "Android")
+				loadDataWithBaseURL(
+					null,
+					queryBase.contentHTML,
+					"text/html",
+					"UTF-8",
+					null)
+				webViewClient = object: WebViewClient()
+				{
+					override fun onPageFinished(view: WebView?, url: String?)
+					{
+						webView.visibility = View.VISIBLE
+
+						ivAlert.let {
+							it.visibility = if (queryBase.limitRowNum <= queryBase.aRows.size)
+							{
+								it.setOnClickListener { view ->
+									Toast.makeText(view.context, R.string.limit_row_num, Toast.LENGTH_LONG).show()
+								}
+								View.VISIBLE
+							}
+							else View.GONE
+						}
+
+						ivOption.visibility = View.VISIBLE
+
+						Handler(Looper.getMainLooper()).postDelayed({
+							rlLoad.visibility = View.GONE
+						}, 200)
+					}
+				}
+				setOnTouchListener { view, _ ->
+					view.parent.requestDisallowInterceptTouchEvent(true)
+					false
+				}
 			}
 		}
 	}

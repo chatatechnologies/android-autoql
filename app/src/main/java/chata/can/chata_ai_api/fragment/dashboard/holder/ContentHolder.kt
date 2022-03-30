@@ -6,8 +6,6 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import chata.can.chata_ai.dialog.reportProblem.ReportProblemDialog
 import chata.can.chata_ai.dialog.drillDown.DrillDownDialog
 import chata.can.chata_ai.extension.backgroundWhiteGray
@@ -19,76 +17,76 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.view.popup.PopupMenu.buildPopup
 import chata.can.chata_ai_api.R
+import chata.can.chata_ai_api.databinding.CardContentBinding
 
 class ContentHolder(itemView: View): DashboardHolder(itemView) {
-
-	private val ll1 = itemView.findViewById<View>(R.id.ll1)
-	private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-
-	private val tvContent = itemView.findViewById<TextView>(R.id.tvContent)
-	private val ivOption = itemView.findViewById<ImageView>(R.id.ivOption)
+	private val binding = CardContentBinding.bind(itemView)
 
 	init {
-		ll1.backgroundWhiteGray()
-		tvTitle.setTextColor(SinglentonDrawer.currentAccent)
+		binding.run {
+			ll1.backgroundWhiteGray()
+			tvTitle.setTextColor(SinglentonDrawer.currentAccent)
 
-		tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
-		ivOption.backgroundWhiteGray()
-		ivOption.setColorFilter(SinglentonDrawer.currentAccent)
+			tvContent.setTextColor(ThemeColor.currentColor.pDrawerTextColorPrimary)
+			ivOption.backgroundWhiteGray()
+			ivOption.setColorFilter(SinglentonDrawer.currentAccent)
+		}
 	}
 
 	override fun onRender(dashboard: Dashboard) {
-		val titleToShow =
-			dashboard.title.ifEmpty {
-				dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
-			}
-		tvTitle?.text = titleToShow
-		//region for DashboardEntity
-		tvContent.text = dashboard.contentFromViewModel
-		//endregion
+		binding.run {
+			val titleToShow =
+				dashboard.title.ifEmpty {
+					dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
+				}
+			tvTitle.text = titleToShow
+			//region for DashboardEntity
+			tvContent.text = dashboard.contentFromViewModel
+			//endregion
 
-		dashboard.queryBase?.run {
-			if (isLoadingHTML && contentHTML.isEmpty()) {
-				isLoadingHTML = false
-				val message = when
-				{
-					simpleText.isNotEmpty() ->
+			dashboard.queryBase?.run {
+				if (isLoadingHTML && contentHTML.isEmpty()) {
+					isLoadingHTML = false
+					val message = when
 					{
-						aColumn.firstOrNull()?.let { column ->
+						simpleText.isNotEmpty() ->
+						{
+							aColumn.firstOrNull()?.let { column ->
+								tvContent.setOnClickListener { view ->
+									showDrillDown(view, this)
+								}
+								simpleText.formatWithColumn(column)
+							} ?: ""
+						}
+						aRows.size == 0 ->
+						{
+							tvContent.setOnClickListener(null)
+							reportLink(message)
+						}
+						message.isNotEmpty() -> message
+						else -> message
+					}
+					tvContent.text = message
+				} else {
+					if (contentHTML.isEmpty())
+					{
+						tvContent.setOnClickListener(null)
+						tvContent.text = reportLink(message)
+					}
+					else
+					{
+						aColumn.firstOrNull()?.let { _ ->
 							tvContent.setOnClickListener { view ->
 								showDrillDown(view, this)
 							}
-							simpleText.formatWithColumn(column)
-						} ?: ""
-					}
-					aRows.size == 0 ->
-					{
-						tvContent.setOnClickListener(null)
-						reportLink(message)
-					}
-					message.isNotEmpty() -> message
-					else -> message
-				}
-				tvContent.text = message
-			} else {
-				if (contentHTML.isEmpty())
-				{
-					tvContent.setOnClickListener(null)
-					tvContent.text = reportLink(message)
-				}
-				else
-				{
-					aColumn.firstOrNull()?.let { _ ->
-						tvContent.setOnClickListener { view ->
-							showDrillDown(view, this)
 						}
+						tvContent.text = contentHTML
 					}
-					tvContent.text = contentHTML
 				}
-			}
 
-			ivOption?.setOnClickListener { view ->
-				buildPopup(view, listOf(4), sql)
+				ivOption.setOnClickListener { view ->
+					buildPopup(view, listOf(4), sql)
+				}
 			}
 		}
 	}
@@ -114,16 +112,17 @@ class ContentHolder(itemView: View): DashboardHolder(itemView) {
 			{
 				override fun onClick(widget: View)
 				{
-					ReportProblemDialog(tvContent.context, "", null).show()
+
+					ReportProblemDialog(binding.tvContent.context, "", null).show()
 				}
 
 				override fun updateDrawState(textPaint: TextPaint)
 				{
 					textPaint.run {
 						try {
-							color = tvContent.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
+							color = binding.tvContent.getParsedColor(chata.can.chata_ai.R.color.chata_drawer_accent_color)
 						} finally {
-							tvContent.context?.let {
+							binding.tvContent.context?.let {
 								bgColor = ThemeColor.currentColor.pDrawerBackgroundColor
 							}
 						}
@@ -132,7 +131,7 @@ class ContentHolder(itemView: View): DashboardHolder(itemView) {
 				}
 			}
 			spannable.setSpan(clickable, index, index2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-			tvContent.movementMethod = LinkMovementMethod.getInstance()
+			binding.tvContent.movementMethod = LinkMovementMethod.getInstance()
 			spannable
 		}
 		else
