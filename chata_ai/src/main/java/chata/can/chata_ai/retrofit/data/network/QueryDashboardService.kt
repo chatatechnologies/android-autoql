@@ -14,12 +14,6 @@ class QueryDashboardService {
 	private val retrofit = RetrofitHelperDynamic.getRetrofit()
 
 	suspend fun getQuery(body: JsonObject): QueryDashboardResponse {
-//		val bodyTest = JsonObject()
-//		bodyTest.addProperty("text", "Total revenue this year")
-//		bodyTest.addProperty("test", true)
-//		bodyTest.addProperty("source", "data_messenger.user")
-//		bodyTest.addProperty("translation", "include")
-
 		return withContext(Dispatchers.IO) {
 			try {
 				val response = retrofit.create(QueryDashboardApiClient::class.java)

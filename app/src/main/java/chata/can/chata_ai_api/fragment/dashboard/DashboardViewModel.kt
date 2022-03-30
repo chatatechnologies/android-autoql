@@ -7,6 +7,8 @@ import chata.can.chata_ai.Executor
 import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dashboard.dashboardItemDataToEntity
+import chata.can.chata_ai.retrofit.data.model.query.QueryResponse
+import chata.can.chata_ai.retrofit.data.model.query.queryResponseDataToQueryEntity
 import chata.can.chata_ai.retrofit.domain.GetQueryDashboardUseCase
 import chata.can.chata_ai_api.domain.GetDashboardUseCase
 import com.google.gson.JsonObject
@@ -91,7 +93,10 @@ class DashboardViewModel: ViewModel() {
 			val mInfoHolder = getDataQuery(dashboard,false)
 			val body = buildBodyQuery(query)
 			viewModelScope.launch {
-				queryDashboardUseCase.getQueryDashboard(body)
+				val queryResponse = queryDashboardUseCase.getQueryDashboard(body)
+				val queryEntity = queryResponse.queryResponseDataToQueryEntity()
+				val fakeResponse = QueryResponse.getQueryResponse(queryEntity)
+				println("fakeResponse -> $fakeResponse")
 			}
 		}
 		//TODO PENDING val secondQuery = dashboard.secondQuery
