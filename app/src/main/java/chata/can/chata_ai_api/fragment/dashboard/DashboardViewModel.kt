@@ -75,20 +75,20 @@ class DashboardViewModel: ViewModel() {
 		//region presenter.updateModel()
 		mModel = SinglentonDashboard.getCurrentDashboard()
 
-		for (index in 0 until 1)//mModel.size) {
+		for (index in 0 until mModel.size)
 		mModel[index].let { dashboard: Dashboard ->
 			dashboard.isWaitingData = toClearQuery
 			dashboard.isWaitingData2 = toClearQuery
 			dashboard.queryBase = null
 			dashboard.queryBase2 = null
 
-			getQuery(dashboard)
+			getQuery(dashboard, index)
 		}
 		//notify loading on holders
 		hasChangesGridAdapter.postValue(true)
 	}
 
-	private fun getQuery(dashboard: Dashboard) {
+	private fun getQuery(dashboard: Dashboard, position: Int) {
 		val query = dashboard.query
 		if (query.isNotEmpty()) {
 			val mInfoHolder = getDataQuery(dashboard,false)
@@ -97,9 +97,9 @@ class DashboardViewModel: ViewModel() {
 				val queryEntity = queryDashboardUseCase.getQueryDashboard(body)
 				val resultQuery = QueryResponse.getQueryResponse(queryEntity)
 
-				mModel[0].contentFromViewModel = resultQuery
+				mModel[position].contentFromViewModel = resultQuery
 
-				positionNotify.postValue(0)
+				positionNotify.postValue(position)
 			}
 		}
 		//TODO PENDING val secondQuery = dashboard.secondQuery
