@@ -72,6 +72,9 @@ class DashboardFragment: Fragment(), View.OnClickListener, DashboardContract
 		dashboardViewModel.hasChangesGridAdapter.observe(viewLifecycleOwner) {
 			gridAdapter.notifyItemRangeChanged(0, mModel.size)
 		}
+		dashboardViewModel.positionNotify.observe(viewLifecycleOwner) {
+			gridAdapter.notifyItemChanged(it)
+		}
 	}
 
 	/**

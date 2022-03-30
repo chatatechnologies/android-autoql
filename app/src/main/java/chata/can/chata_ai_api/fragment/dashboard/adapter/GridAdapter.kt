@@ -36,22 +36,32 @@ class GridAdapter(
 			//region once QueryBase
 			else
 			{
-				queryBase?.run {
-					viewType = when(typeView)
-					{
-						TypeChatView.LEFT_VIEW -> 3
-						TypeChatView.WEB_VIEW -> 4
-						TypeChatView.SUGGESTION_VIEW -> 5
-						else -> 2
-					}
-				} ?: run {
+				if (contentFromViewModel.isNotEmpty()) {
+					viewType = 3
+				} else {
 					if (isWaitingData)
 					{
-						viewType = if (query.isEmpty())
-							8
+						viewType = if (query.isEmpty()) 8
 						else 1
 					}
 				}
+
+//				queryBase?.run {
+//					viewType = when(typeView)
+//					{
+//						TypeChatView.LEFT_VIEW -> 3
+//						TypeChatView.WEB_VIEW -> 4
+//						TypeChatView.SUGGESTION_VIEW -> 5
+//						else -> 2
+//					}
+//				} ?: run {
+//					if (isWaitingData)
+//					{
+//						viewType = if (query.isEmpty())
+//							8
+//						else 1
+//					}
+//				}
 			}
 			//endregion
 		}
@@ -87,12 +97,13 @@ class GridAdapter(
 				val view = parent.inflateView(R.layout.card_support)
 				SupportHolder(view)
 			}//dynamic
-
+			**/
 			3 -> {
 //				ContentHolder(getRowContent(context, true))
 				val view = parent.inflateView(R.layout.card_content)
 				ContentHolder(view)
 			}//dynamic; show option
+			/**
 			4 -> {
 //				WebViewHolder(getRowWebView(context))
 				val view = parent.inflateView(R.layout.card_web_view)

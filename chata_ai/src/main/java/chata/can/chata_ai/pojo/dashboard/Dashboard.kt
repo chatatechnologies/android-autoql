@@ -24,8 +24,10 @@ data class Dashboard(
 	var secondDisplayType = ""
 
 	var queryBase: QueryBase ?= null
+	var contentFromViewModel = ""
 
 	var queryBase2: QueryBase ?= null
+	var contentFromViewModel2 = ""
 
 	var isWaitingData = false
 	var isWaitingData2 = false

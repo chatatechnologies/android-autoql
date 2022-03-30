@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap
 class DashboardViewModel: ViewModel() {
 	val hasQueries = MutableLiveData<Boolean>()
 	val hasChangesGridAdapter = MutableLiveData<Boolean>()
+	val positionNotify = MutableLiveData<Int>()
 
 	private val dashboardUseCase = GetDashboardUseCase()
 	private val queryDashboardUseCase = GetQueryDashboardUseCase()
@@ -93,10 +94,12 @@ class DashboardViewModel: ViewModel() {
 			val mInfoHolder = getDataQuery(dashboard,false)
 			val body = buildBodyQuery(query)
 			viewModelScope.launch {
-				val queryResponse = queryDashboardUseCase.getQueryDashboard(body)
-				val queryEntity = queryResponse.queryResponseDataToQueryEntity()
-				val fakeResponse = QueryResponse.getQueryResponse(queryEntity)
-				println("fakeResponse -> $fakeResponse")
+				val queryEntity = queryDashboardUseCase.getQueryDashboard(body)
+				val resultQuery = QueryResponse.getQueryResponse(queryEntity)
+
+				mModel[0].contentFromViewModel = resultQuery
+
+				positionNotify.postValue(0)
 			}
 		}
 		//TODO PENDING val secondQuery = dashboard.secondQuery
