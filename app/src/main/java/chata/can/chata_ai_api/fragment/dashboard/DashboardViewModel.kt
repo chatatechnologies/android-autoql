@@ -8,7 +8,6 @@ import chata.can.chata_ai.pojo.SinglentonDashboard
 import chata.can.chata_ai.pojo.dashboard.Dashboard
 import chata.can.chata_ai.pojo.dashboard.dashboardItemDataToEntity
 import chata.can.chata_ai.retrofit.data.model.query.QueryResponse
-import chata.can.chata_ai.retrofit.data.model.query.queryResponseDataToQueryEntity
 import chata.can.chata_ai.retrofit.domain.GetQueryDashboardUseCase
 import chata.can.chata_ai_api.domain.GetDashboardUseCase
 import com.google.gson.JsonObject
@@ -75,7 +74,7 @@ class DashboardViewModel: ViewModel() {
 		//region presenter.updateModel()
 		mModel = SinglentonDashboard.getCurrentDashboard()
 
-		for (index in 0 until mModel.size)
+		for (index in 0 until 2)//mModel.size)
 		mModel[index].let { dashboard: Dashboard ->
 			dashboard.isWaitingData = toClearQuery
 			dashboard.isWaitingData2 = toClearQuery
