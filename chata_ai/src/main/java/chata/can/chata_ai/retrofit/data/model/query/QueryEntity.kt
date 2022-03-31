@@ -3,6 +3,7 @@ package chata.can.chata_ai.retrofit.data.model.query
 import chata.can.chata_ai.retrofit.core.formatValue
 import chata.can.chata_ai.retrofit.core.keySuggestion
 import chata.can.chata_ai.retrofit.data.model.ColumnModel
+import chata.can.chata_ai.retrofit.data.model.html.BodyBuilder
 import chata.can.chata_ai.retrofit.toColumnEntity
 
 fun QueryDashboardResponse.queryResponseDataToQueryEntity(): QueryEntity {
@@ -25,7 +26,7 @@ fun QueryDashboardResponse.queryResponseDataToQueryEntity(): QueryEntity {
 class QueryEntity(
 	val message: String,
 	val columns: List<ColumnModel>,
-	val rows: List< List<String> >,
+	val rows: MutableList< List<String> >,
 	val rowLimit: Int,
 	val limitRowNum: Int,
 	val displayType: String,
@@ -34,8 +35,8 @@ class QueryEntity(
 	val interpretation: String,
 	val sql: List<String>
 ) {
-	private val columnsEntity = columns.map { it.toColumnEntity() }
-	private lateinit var caseQueryEntity: CaseQueryEntity
+	val columnsEntity = columns.map { it.toColumnEntity() }
+	lateinit var caseQueryEntity: CaseQueryEntity
 
 	private fun isSimpleText(): Boolean {
 		val sizeLevel1 = rows.size
@@ -63,7 +64,7 @@ class QueryEntity(
 			}
 			else -> {
 				caseQueryEntity = RulesQueryEntity(columnsEntity, rows.size).getSupportChart()
-
+				BodyBuilder().getHtml(this)
 				""
 			}
 		}

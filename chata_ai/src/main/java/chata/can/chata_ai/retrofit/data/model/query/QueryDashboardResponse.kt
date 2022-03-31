@@ -22,7 +22,7 @@ class QueryDashboardDataResponse(
 	@SerializedName("columns")
 	val columns: List<ColumnModel> = listOf(),
 	@SerializedName("rows")
-	val rows: List< List<String> > = listOf(),
+	val rows: MutableList< List<String> > = mutableListOf(),
 	@SerializedName("row_limit")
 	val rowLimit: Int = 0,
 	@SerializedName("limit_row_num")
