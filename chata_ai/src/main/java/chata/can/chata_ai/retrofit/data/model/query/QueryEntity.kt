@@ -34,8 +34,8 @@ class QueryEntity(
 	val interpretation: String,
 	val sql: List<String>
 ) {
-	var contentDisplayQuery = ""
-	val columnsEntity = columns.map { it.toColumnEntity() }
+	private val columnsEntity = columns.map { it.toColumnEntity() }
+	private lateinit var caseQueryEntity: CaseQueryEntity
 
 	private fun isSimpleText(): Boolean {
 		val sizeLevel1 = rows.size
@@ -61,7 +61,11 @@ class QueryEntity(
 					getSimpleText().formatValue(column)
 				} ?: run { "" }
 			}
-			else -> ""
+			else -> {
+				caseQueryEntity = RulesQueryEntity(columnsEntity, rows.size).getSupportChart()
+
+				""
+			}
 		}
 	}
 

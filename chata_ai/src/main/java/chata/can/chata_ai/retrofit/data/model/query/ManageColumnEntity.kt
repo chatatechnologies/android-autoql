@@ -23,6 +23,13 @@ class ManageColumnEntity {
 
 	fun numberColumns() = countDollarAMT + countQuantity + countPercent + countNumber
 
+	fun isUseOnlyNumber(): Boolean {
+		val isDollar = countDollarAMT > 0 && countQuantity == 0 && countPercent == 0
+		val isQuantity = countDollarAMT == 0 && countQuantity > 0 && countPercent == 0
+		val isPercent = countDollarAMT == 0 && countQuantity == 0 && countPercent > 0
+		return isDollar || isQuantity || isPercent
+	}
+
 	fun repeat3Numbers(): Boolean {
 		return countDollarAMT > 2 || countQuantity > 2 || countPercent > 2
 	}

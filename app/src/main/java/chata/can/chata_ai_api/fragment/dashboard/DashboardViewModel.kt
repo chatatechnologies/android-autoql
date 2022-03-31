@@ -74,15 +74,15 @@ class DashboardViewModel: ViewModel() {
 		//region presenter.updateModel()
 		mModel = SinglentonDashboard.getCurrentDashboard()
 
-		for (index in 0 until 2)//mModel.size)
-		mModel[index].let { dashboard: Dashboard ->
-			dashboard.isWaitingData = toClearQuery
-			dashboard.isWaitingData2 = toClearQuery
-			dashboard.queryBase = null
-			dashboard.queryBase2 = null
+		for (index in 0 until 1)//mModel.size)
+			mModel[index].let { dashboard: Dashboard ->
+				dashboard.isWaitingData = toClearQuery
+				dashboard.isWaitingData2 = toClearQuery
+				dashboard.queryBase = null
+				dashboard.queryBase2 = null
 
-			getQuery(dashboard, index)
-		}
+				getQuery(dashboard, index)
+			}
 		//notify loading on holders
 		hasChangesGridAdapter.postValue(true)
 	}
