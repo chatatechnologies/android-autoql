@@ -101,20 +101,20 @@ class DynamicHolder(
 					else
 					{
 						addView(lls1, getChildLoading(lls1.context))
-						if (dashboard.contentFromViewModel.isNotEmpty()) {
-							dashboard.contentFromViewModel
-							//TODO text -> TypeChatView.LEFT_VIEW
-							if (dashboard.contentFromViewModel.isNotEmpty()) {
-								val view = lls1.searchView(R.id.tvContent)?: run {
-									val view = getChildContent(lls1.context)
-									addView(lls1, view)
-									view
-								}
-								setOption(lls1, R.id.ivOption, "queryBase.sql")
-								ChildContent.onBind(view, dashboard, true)
-							}
-							//endregion
-						}
+//						if (dashboard.contentFromViewModel.isNotEmpty()) {
+//							dashboard.contentFromViewModel
+//							//TODO text -> TypeChatView.LEFT_VIEW
+//							if (dashboard.contentFromViewModel.isNotEmpty()) {
+//								val view = lls1.searchView(R.id.tvContent)?: run {
+//									val view = getChildContent(lls1.context)
+//									addView(lls1, view)
+//									view
+//								}
+//								setOption(lls1, R.id.ivOption, "queryBase.sql")
+//								ChildContent.onBind(view, dashboard, true)
+//							}
+//							//endregion
+//						}
 					}
 				}
 				else

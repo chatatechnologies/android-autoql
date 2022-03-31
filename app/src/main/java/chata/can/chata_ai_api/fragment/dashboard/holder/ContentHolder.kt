@@ -40,8 +40,11 @@ class ContentHolder(itemView: View): DashboardHolder(itemView) {
 					dashboard.query.ifEmpty { itemView.context.getString(R.string.untitled) }
 				}
 			tvTitle.text = titleToShow
+
 			//region for DashboardEntity
-			tvContent.text = dashboard.contentFromViewModel
+			dashboard.queryEntity?.run {
+				tvContent.text = persistenceContentDisplay
+			}
 			//endregion
 
 			dashboard.queryBase?.run {

@@ -96,7 +96,7 @@ class DashboardViewModel: ViewModel() {
 				val queryEntity = queryDashboardUseCase.getQueryDashboard(body)
 				val resultQuery = QueryResponse.getQueryResponse(queryEntity)
 
-				mModel[position].contentFromViewModel = resultQuery
+				dashboard.queryEntity = resultQuery
 
 				positionNotify.postValue(position)
 			}

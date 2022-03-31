@@ -26,7 +26,6 @@ data class Dashboard(
 
 	var queryBase: QueryBase ?= null
 	var queryEntity: QueryEntity ?= null
-	var contentFromViewModel = ""
 
 	var queryBase2: QueryBase ?= null
 	var queryEntity2: QueryEntity ?= null

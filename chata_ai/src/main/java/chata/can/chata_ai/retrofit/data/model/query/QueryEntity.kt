@@ -38,6 +38,8 @@ class QueryEntity(
 ) {
 	val columnsEntity = columns.map { it.toColumnEntity() }
 	lateinit var caseQueryEntity: CaseQueryEntity
+	var typeQueryDashboard = TypeQueryDashboardHolder.EXECUTE_HOLDER
+	var persistenceContentDisplay = ""
 	var configActions = 0
 	val aIndex = ArrayList<Int>()
 	lateinit var aXAxis: ArrayList<String>
@@ -64,22 +66,26 @@ class QueryEntity(
 		}
 	}
 
-	fun getContentDisplay(): String {
-		return when {
+	fun getContentDisplay(): QueryEntity {
+		persistenceContentDisplay = when {
 			message == "No Data Found" -> {
+				typeQueryDashboard = TypeQueryDashboardHolder.CONTENT_HOLDER
 				message
 			}
 			rows.isEmpty() || isSimpleText() || displayType == keySuggestion -> {
 				columnsEntity.firstOrNull()?.let { column ->
+					typeQueryDashboard = TypeQueryDashboardHolder.CONTENT_HOLDER
 					getSimpleText().formatValue(column)
 				} ?: run { "" }
 			}
 			else -> {
+				typeQueryDashboard = TypeQueryDashboardHolder.WEB_HOLDER
 				caseQueryEntity = RulesQueryEntity(columnsEntity, rows.size).getSupportChart()
 				val dataD3 = BodyBuilder().getHtml(this)
 				D3OnHtml.getHtmlTest(dataD3)
 			}
 		}
+		return this
 	}
 
 

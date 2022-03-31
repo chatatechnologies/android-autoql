@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import chata.can.chata_ai.pojo.dashboard.Dashboard
+import chata.can.chata_ai.retrofit.data.model.query.TypeQueryDashboardHolder
 import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.fragment.dashboard.DashboardPresenter
 import chata.can.chata_ai_api.fragment.dashboard.holder.*
@@ -35,9 +36,14 @@ class GridAdapter(
 			//region once QueryBase
 			else
 			{
-				if (contentFromViewModel.isNotEmpty()) {
-					viewType = 3
-				} else {
+				queryEntity?.run {
+					when(typeQueryDashboard) {
+						TypeQueryDashboardHolder.CONTENT_HOLDER -> 3
+						TypeQueryDashboardHolder.WEB_HOLDER -> 4
+						TypeQueryDashboardHolder.SUGGESTION_HOLDER -> 5
+						else -> 2
+					}
+				} ?: run {
 					if (isWaitingData)
 					{
 						viewType = if (query.isEmpty()) 8
