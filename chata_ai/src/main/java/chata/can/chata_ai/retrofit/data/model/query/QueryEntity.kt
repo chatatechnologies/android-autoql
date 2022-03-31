@@ -1,5 +1,6 @@
 package chata.can.chata_ai.retrofit.data.model.query
 
+import chata.can.chata_ai.pojo.webView.D3OnHtml
 import chata.can.chata_ai.retrofit.core.formatValue
 import chata.can.chata_ai.retrofit.core.keySuggestion
 import chata.can.chata_ai.retrofit.data.model.ColumnModel
@@ -39,6 +40,8 @@ class QueryEntity(
 	lateinit var caseQueryEntity: CaseQueryEntity
 	var configActions = 0
 	val aIndex = ArrayList<Int>()
+	lateinit var aXAxis: ArrayList<String>
+	lateinit var aXDrillDown: ArrayList<String>
 
 	private fun isSimpleText(): Boolean {
 		val sizeLevel1 = rows.size
@@ -73,8 +76,8 @@ class QueryEntity(
 			}
 			else -> {
 				caseQueryEntity = RulesQueryEntity(columnsEntity, rows.size).getSupportChart()
-				BodyBuilder().getHtml(this)
-				""
+				val dataD3 = BodyBuilder().getHtml(this)
+				D3OnHtml.getHtmlTest(dataD3)
 			}
 		}
 	}

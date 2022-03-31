@@ -1,16 +1,16 @@
 package chata.can.chata_ai.retrofit.data.model.html
 
-import chata.can.chata_ai.extension.formatWithColumn
-import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import chata.can.chata_ai.pojo.webView.Categories
-import chata.can.chata_ai.pojo.webView.Category
 import chata.can.chata_ai.pojo.webView.DataD3
-import chata.can.chata_ai.pojo.webView.DatePivot
+import chata.can.chata_ai.retrofit.core.formatValue
+import chata.can.chata_ai.retrofit.data.model.column.TypeColumn
 import chata.can.chata_ai.retrofit.data.model.query.QueryEntity
 
 class DataCase1() {
 	fun getSource(queryEntity: QueryEntity, dataD3: DataD3): DataD3 {
 		val searchColumn = SearchColumn()
+		val categories = Categories()
+		val pivotBuilder = PivotBuilder()
+
 		queryEntity.run {
 			val aGroup = searchColumn.getGroupableIndices(columnsEntity, 1)
 			val aNumber = searchColumn.getNumberIndices(columnsEntity, 1)
@@ -20,40 +20,46 @@ class DataCase1() {
 			addIndices(posColumnX, posColumnY)
 			configActions = 4
 
-			val aIndicesIgnore = Categories.indexCategoryEmpty(rows, posColumnX)
-			val aCatX = Categories.buildCategoryByPosition(
+			val indicesIgnore = categories.indexCategoryEmpty(rows, posColumnX)
+			val aCatX = categories.buildCategoryByPosition(
 				Category(
-					rows, columnsEntity[posColumnX], posColumnX,
+					rows = rows,
+					column = columnsEntity[posColumnX],
+					position = posColumnX,
 					isFormatted = true,
 					hasQuotes = true,
 					allowRepeat = true,
-					aIndicesIgnore = aIndicesIgnore
+					indicesIgnore = indicesIgnore
 				)
 			)
-			queryBase.aXAxis = Categories.buildCategoryByPosition(
+			queryEntity.aXAxis = categories.buildCategoryByPosition(
 				Category(
-					aRows, aColumn[posColumnX], posColumnX, false,
-					hasQuotes = false, allowRepeat = true, aIndicesIgnore = aIndicesIgnore
+					rows = rows,
+					column = columnsEntity[posColumnX],
+					position = posColumnX,
+					isFormatted = false,
+					hasQuotes = false,
+					allowRepeat = true,
+					indicesIgnore = indicesIgnore
 				)
 			)
-			val aCatY = if (aColumn.size > posColumnY)
-			{
+			val aCatY = if (columnsEntity.size > posColumnY) {
 				val maxIndex = 1
 				val aBaseTri = (0 .. maxIndex).toMutableList()
 				aBaseTri.remove(posColumnX)
 				aBaseTri.remove(posColumnY)
 				val iForTri = if (aBaseTri.isEmpty()) posColumnY else aBaseTri[0]
 
-				val columnY = aColumn[iForTri]
-				Categories.buildCategoryByPosition(
+				val columnY = columnsEntity[iForTri]
+				categories.buildCategoryByPosition(
 					Category(
-						aRows, columnY, iForTri, true, hasQuotes = true,
-						allowRepeat = true, aIndicesIgnore = aIndicesIgnore
+						rows = rows,
+						column = columnY, position = iForTri, isFormatted = true, hasQuotes = true,
+						allowRepeat = true, indicesIgnore = indicesIgnore
 					)
 				)
 			}
-			else
-			{
+			else {
 				ArrayList()
 			}
 
@@ -66,8 +72,8 @@ class DataCase1() {
 				val value = aCatY[index]
 				sb.append("{name: $name, value: $value},\n")
 
-				val column = aColumn[1]
-				val vFormat = value.formatWithColumn(column)
+				val column = columnsEntity[1]
+				val vFormat = value.formatValue(column)
 				sbFormat.append("{name: $name")
 				if (vFormat != "0") sbFormat.append(", value: '$vFormat'")
 				sbFormat.append("},\n")
@@ -76,40 +82,53 @@ class DataCase1() {
 			dataD3.dataFormatted = "[${sbFormat.removeSuffix(",\n")}]"
 			//endregion
 
-			queryBase.aXDrillDown = Categories.buildCategoryByPosition(
+			queryEntity.aXDrillDown = categories.buildCategoryByPosition(
 				Category(
-					aRows, aColumn[posColumnX], posColumnX, false,
-					hasQuotes = false, allowRepeat = true, aIndicesIgnore = aIndicesIgnore
+					rows = rows,
+					column = columnsEntity[posColumnX],
+					position = posColumnX,
+					isFormatted = false,
+					hasQuotes = false,
+					allowRepeat = true,
+					indicesIgnore = indicesIgnore
 				)
 			)
-			dataD3.drillX = Categories.buildCategoryByPosition(
+			dataD3.drillX = categories.buildCategoryByPosition(
 				Category(
-					aRows, aColumn[posColumnX], posColumnX, false,
-					hasQuotes = true, allowRepeat = true, aIndicesIgnore = aIndicesIgnore
+					rows = rows,
+					column = columnsEntity[posColumnX],
+					position = posColumnX,
+					isFormatted = false,
+					hasQuotes = true,
+					allowRepeat = true,
+					indicesIgnore = indicesIgnore
 				)
 			).toString()
-			dataD3.drillTableY = if (aColumn.size > posColumnY) {
-				Categories.buildCategoryByPosition(
+			dataD3.drillTableY = if (columnsEntity.size > posColumnY) {
+				categories.buildCategoryByPosition(
 					Category(
-						aRows, aColumn[posColumnY], posColumnY, true,
-						hasQuotes = true, allowRepeat = false, aIndicesIgnore = aIndicesIgnore
+						rows = rows,
+						column = columnsEntity[posColumnY],
+						position = posColumnY,
+						isFormatted = true,
+						hasQuotes = true,
+						allowRepeat = false,
+						indicesIgnore = indicesIgnore
 					)
 				).toString()
 			} else arrayListOf<String>().toString()
 
-			if (dataD3.aCategoryX == "[]")
-			{
-				dataD3.aCategoryX = Categories.makeCategories(aCatX)
+			if (dataD3.aCategoryX == "[]") {
+				dataD3.aCategoryX = categories.makeCategories(aCatX)
 			}
 
-			val type = aColumn[0].type
-			if (type == TypeDataQuery.DATE_STRING/* && type1 != TypeDataQuery.DOLLAR_AMT*/)
+			val type = columnsEntity[0].typeColumn
+			if (type == TypeColumn.DATE_STRING)
 			{
-				DatePivot.buildDateString(aRows, aColumn).run {
-					if (first != "" && second != 0)
-					{
+				pivotBuilder.buildDateString(rows, columnsEntity).run {
+					if (first != "" && second != 0) {
 						dataD3.pivot = first
-						queryBase.configActions = 1
+						queryEntity.configActions = 1
 						dataD3.rowsPivot = second
 					}
 				}

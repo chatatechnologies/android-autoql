@@ -9,7 +9,8 @@ import chata.can.chata_ai.retrofit.data.model.query.QueryEntity
 class BodyBuilder {
 	private val aCount = arrayListOf(TypeColumn.DOLLAR_AMT, TypeDataQuery.QUANTITY)
 
-	fun getHtml(queryEntity: QueryEntity) {
+	fun getHtml(queryEntity: QueryEntity): DataD3 {
+		var codeSource = ""
 		val dataD3 = DataD3()
 		OrderRow(queryEntity).setOrderRowByDate()
 
@@ -29,11 +30,15 @@ class BodyBuilder {
 		val isTriConfig = false
 
 		when(queryEntity.caseQueryEntity) {
-			CaseQueryEntity.CASE_1 -> {}
+			CaseQueryEntity.CASE_1 -> {
+				DataCase1().getSource(queryEntity, dataD3)
+			}
 			CaseQueryEntity.CASE_2 -> {}
 			CaseQueryEntity.CASE_3 -> {}
 			CaseQueryEntity.CASE_5 -> {}
 			CaseQueryEntity.CASE_6 -> {}
 		}
+
+		return dataD3
 	}
 }
