@@ -1,8 +1,6 @@
 package chata.can.chata_ai.retrofit.data.model.html
 
-import chata.can.chata_ai.pojo.chat.ColumnQuery
-import chata.can.chata_ai.pojo.chat.TypeDataQuery
-import chata.can.chata_ai.pojo.query.SearchColumn
+import chata.can.chata_ai.extension.isNumber
 import chata.can.chata_ai.retrofit.ColumnEntity
 import chata.can.chata_ai.retrofit.data.model.column.TypeColumn
 
@@ -16,6 +14,28 @@ class SearchColumn {
 			}
 		}
 		return position
+	}
+
+	fun getGroupableIndices(columns: List<ColumnEntity>, count: Int): ArrayList<Int> {
+		val aIndices = ArrayList<Int>()
+		for (index in columns.indices) {
+			if (columns[index].groupable) {
+				aIndices.add(index)
+				if (count == aIndices.size) break
+			}
+		}
+		return aIndices
+	}
+
+	fun getNumberIndices(columns: List<ColumnEntity>, count: Int = 0): ArrayList<Int> {
+		val aIndices = ArrayList<Int>()
+		for (index in columns.indices) {
+			if (columns[index].typeColumn.isNumber()) {
+				aIndices.add(index)
+				if (count != 0 && count == aIndices.size) break
+			}
+		}
+		return aIndices
 	}
 
 	fun isDateColumn(columns: List<ColumnEntity>): Boolean {

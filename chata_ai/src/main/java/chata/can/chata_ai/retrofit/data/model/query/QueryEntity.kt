@@ -37,6 +37,8 @@ class QueryEntity(
 ) {
 	val columnsEntity = columns.map { it.toColumnEntity() }
 	lateinit var caseQueryEntity: CaseQueryEntity
+	var configActions = 0
+	val aIndex = ArrayList<Int>()
 
 	private fun isSimpleText(): Boolean {
 		val sizeLevel1 = rows.size
@@ -50,6 +52,13 @@ class QueryEntity(
 		return rows.firstOrNull()?.let {
 			it.firstOrNull() ?: run { "" }
 		} ?: run { "" }
+	}
+
+	fun addIndices(indexA: Int, indexB: Int) {
+		if (indexA != -1 && indexB != -1) {
+			aIndex.add(indexA)
+			aIndex.add(indexB)
+		}
 	}
 
 	fun getContentDisplay(): String {
