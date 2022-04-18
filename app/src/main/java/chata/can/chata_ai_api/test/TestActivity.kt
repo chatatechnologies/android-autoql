@@ -1,20 +1,23 @@
 package chata.can.chata_ai_api.test
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import chata.can.chata_ai_api.R
-import chata.can.chata_ai_api.databinding.TestActivityBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 
-class TestActivity: AppCompatActivity()
+class TestActivity: ComponentActivity()
 {
-	private lateinit var binding: TestActivityBinding
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		binding = TestActivityBinding.inflate(layoutInflater)
-		setContentView(binding.root)
-
-		binding.textView.text = getString(R.string.app_name)
-
+		setContent {
+			Surface(
+				modifier = Modifier.fillMaxSize()
+			) {
+				WelcomeText()
+			}
+		}
 	}
 }
