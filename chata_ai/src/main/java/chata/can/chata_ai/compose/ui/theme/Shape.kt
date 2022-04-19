@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.ui.theme
+package chata.can.chata_ai.compose.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp

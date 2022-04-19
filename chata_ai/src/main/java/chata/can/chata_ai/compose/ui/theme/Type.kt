@@ -1,4 +1,4 @@
-package chata.can.chata_ai_api.ui.theme
+package chata.can.chata_ai.compose.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

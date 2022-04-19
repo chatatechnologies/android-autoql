@@ -19,7 +19,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import chata.can.chata_ai_api.ui.theme.ApiChataTheme
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai_api.screens.InputConfigScreen
 
 class PagerComposableActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,12 +70,6 @@ fun TabApp() {
 				}
 			}
 		}
-		Box(
-			Modifier
-				.fillMaxSize()
-				.wrapContentSize(Alignment.Center)
-		) {
-			Text(text = titles[selectedIndex], style = TextStyle(fontSize = 30.sp))
-		}
+		InputConfigScreen()
 	}
 }
