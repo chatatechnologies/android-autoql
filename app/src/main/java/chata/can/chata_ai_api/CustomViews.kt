@@ -178,10 +178,7 @@ object CustomViews
 			MaterialButton(context).apply {
 				layoutParams = getLinearLayoutParams(-1, dpToPx(48f))
 				margin(12f, 10.5f, 12f, 10.5f)
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-				{
-					stateListAnimator = null
-				}
+				stateListAnimator = null
 				backgroundTintList = ColorStateList.valueOf(alphaColor)
 				setTextColor(blue)
 				strokeColor = ColorStateList.valueOf(blue)
@@ -299,10 +296,7 @@ object CustomViews
 						val aStates = arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf())
 						val aColors = intArrayOf(alphaColor, white)
 
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-						{
-							stateListAnimator = null
-						}
+						stateListAnimator = null
 						backgroundTintList = ColorStateList(aStates, aColors)
 						id = option.idView
 						isAllCaps = false

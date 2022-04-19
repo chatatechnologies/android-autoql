@@ -1,6 +1,7 @@
 package chata.can.chata_ai_api.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.component.CustomButton
 import chata.can.chata_ai.compose.component.CustomTextField
+import chata.can.chata_ai.compose.component.MultiToggleButton
 import chata.can.chata_ai.compose.component.RequiredField
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.component.TitleSection
@@ -153,6 +155,10 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			MultiToggleButton("One", listOf("One", "Two")) { value ->
+				Log.d("Toggle Button", "MultiToggleButtonPreview: $value")
+				value
+			}
 
 			Text(
 				text = "Data Messenger Placement",

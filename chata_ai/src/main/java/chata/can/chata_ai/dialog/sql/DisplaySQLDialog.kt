@@ -64,8 +64,7 @@ class DisplaySQLDialog(
 					1f,
 					1,
 					pDrawerBorderColor)
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-					btnOk.stateListAnimator = null
+				btnOk.stateListAnimator = null
 				btnOk.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				btnOk.backgroundTintList = ColorStateList.valueOf(getParsedColor(R.color.blue_chata_circle))
 				btnOk.setTextColor(pDrawerTextColorPrimary)

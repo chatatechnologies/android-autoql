@@ -7,12 +7,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewOutlineProvider
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
 import chata.can.chata_ai.R
 import chata.can.chata_ai.extension.getParsedColor
@@ -84,10 +82,7 @@ class CircleImageView: AppCompatImageView
 		super.setScaleType(scaleType)
 		mReady = true
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-		{
-			outlineProvider = OutlineProvider()
-		}
+		outlineProvider = OutlineProvider()
 
 		if (mSetupPending)
 		{
@@ -427,7 +422,6 @@ class CircleImageView: AppCompatImageView
 		return (x - mBorderRect.centerX().toDouble()).pow(2) + (y - mBorderRect.centerY().toDouble()).pow(2) <= mBorderRadius.toDouble().pow(2)
 	}
 
-	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	inner class OutlineProvider: ViewOutlineProvider()
 	{
 		override fun getOutline(view: View?, outline: Outline?)
