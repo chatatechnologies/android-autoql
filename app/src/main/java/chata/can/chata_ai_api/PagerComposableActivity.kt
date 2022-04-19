@@ -36,8 +36,15 @@ class PagerComposableActivity : ComponentActivity() {
 @Composable
 fun TabApp() {
 	val blueAccentColor = colorResource(id = R.color.colorButton)
+	val blackColor = Color.Black
 	var selectedIndex by remember { mutableStateOf(0) }
 	val titles = listOf("Data Messenger", "Dashboard")
+
+	val getColor: (Int) -> Color = remember(selectedIndex) {
+		{ index ->
+			if (selectedIndex == index) blueAccentColor else blackColor
+		}
+	}
 
 	Column(Modifier.fillMaxSize()) {
 		TabRow(
@@ -50,15 +57,14 @@ fun TabApp() {
 					Row(verticalAlignment = Alignment.CenterVertically) {
 						Image(
 							painter = painterResource(
-								id = if (index == 0)
-									R.drawable.ic_tab_dashboard
-								else
-									R.drawable.ic_tab_data
+								id = if (index == 0) R.drawable.ic_tab_dashboard else R.drawable.ic_tab_data
 							),
 							contentDescription = "Data Messenger Image",
-							colorFilter = ColorFilter.tint(color = blueAccentColor)
+							colorFilter = ColorFilter.tint(
+								color = getColor(index)
+							)
 						)
-						Text(text = title, Modifier.padding(12.dp))
+						Text(text = title, Modifier.padding(12.dp), style = TextStyle(color = getColor(index)))
 					}
 				}
 			}
