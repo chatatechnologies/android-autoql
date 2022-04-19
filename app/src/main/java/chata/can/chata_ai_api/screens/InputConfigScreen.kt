@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.screens
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.component.CustomTextField
+import chata.can.chata_ai.compose.component.RequiredField
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
 fun InputConfigScreen() {
@@ -36,27 +39,35 @@ fun InputConfigScreen() {
 			CustomTextField(placeholder = "Project ID", value = "") {
 
 			}
+			RequiredField()
 			CustomTextField(placeholder = "User Email") {
 
 			}
+			RequiredField()
 			CustomTextField(placeholder = "API key") {
 
 			}
+			RequiredField()
 			CustomTextField(placeholder = "Domain URL") {
 
 			}
+			RequiredField()
 			CustomTextField(placeholder = "Username") {
 
 			}
+			RequiredField()
 			CustomTextField(placeholder = "Password") {
 
 			}
+			RequiredField()
 		}
 	}
 }
 
-@Preview(showBackground = true, name = "InputExample")
+@Preview(showBackground = true, name = "InputExample", uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun InputConfigScreenPreview() {
-	InputConfigScreen()
+	ApiChataTheme {
+		InputConfigScreen()
+	}
 }

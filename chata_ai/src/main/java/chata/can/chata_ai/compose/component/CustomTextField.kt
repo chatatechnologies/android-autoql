@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +17,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
+/**
+	https://material.io/components/text-fields#specs
+**/
 @Composable
 fun CustomTextField(
 	placeholder: String,
@@ -48,6 +52,10 @@ fun CustomTextField(
 		keyboardOptions = KeyboardOptions.Default.copy(
 			imeAction = imeAction,
 			keyboardType = keyboardType
+		),
+		//TODO complete colors for input config screen
+		colors = TextFieldDefaults.outlinedTextFieldColors(
+			focusedBorderColor = Color.Yellow
 		)
 	)
 }
