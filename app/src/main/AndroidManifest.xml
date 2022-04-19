@@ -34,13 +34,23 @@
 <!--			</intent-filter>-->
 		</activity>
 
+		<!--Initial Activity Composable-->
 		<activity
-			android:name=".test.TestActivity"
+			android:name=".PagerComposableActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".test.TestActivity"
+			android:exported="true">
+<!--			<intent-filter>-->
+<!--				<action android:name="android.intent.action.MAIN" />-->
+<!--				<category android:name="android.intent.category.LAUNCHER" />-->
+<!--			</intent-filter>-->
 		</activity>
 
 		<activity
