@@ -8,8 +8,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
 fun IconToggleButton(
@@ -25,13 +23,5 @@ fun IconToggleButton(
 			if (checked) checkedColor else color
 		)
 		Icon(imageVector, contentDescription = contentDescription, tint = tint)
-	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun IconToggleButtonPreview() {
-	ApiChataTheme {
-		IconToggleButton()
 	}
 }

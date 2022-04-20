@@ -15,10 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import chata.can.chata_ai.compose.component.CustomButton
-import chata.can.chata_ai.compose.component.CustomTextField
-import chata.can.chata_ai.compose.component.MultiToggleButton
-import chata.can.chata_ai.compose.component.RequiredField
+import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.component.TitleSection
 
@@ -76,81 +73,36 @@ fun InputConfigScreen() {
 			}
 
 			TitleSection("AutoQL Api Configuration Options")
+			SwitchContent(text = "Enable Autocomplete") { isAutocomplete ->
 
-			Text(
-				text = "Enable Autocomplete",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Query Validation") { isQueryValidation ->
 
-			Text(
-				text = "Enable Query Validation",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Query Suggestion") { isQuerySuggestion ->
 
-			Text(
-				text = "Enable Query Suggestion",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Drilldowns") { isDrillDown ->
 
-			Text(
-				text = "Enable Drilldowns",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Column Visibility Editor") { isColumVisibility ->
 
-			Text(
-				text = "Enable Column Visibility Editor",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Notifications") { isNotification ->
 
-			Text(
-				text = "Enable Notifications",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
 			//endregion
 			//region UI Configuration Options
 			TitleSection("UI Configuration Options")
+			SwitchContent(text = "Show Data Messenger Button") { isShowData ->
 
-			Text(
-				text = "Show Data Messenger Button",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
-
-			Text(
+			}
+			SwitchContent(
 				text = "Darken Background Behind Data Messenger",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+				isChecked = false
+			) { isShowData ->
+
+			}
 
 			Text(
 				text = "Theme",
@@ -207,14 +159,9 @@ fun InputConfigScreen() {
 			CustomTextField(placeholder = "Intro Message", value = "") { }
 			CustomTextField(placeholder = "Query Input Placeholder", value = "") { }
 
-			Text(
-				text = "Clear All Message on Close",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			SwitchContent(text = "Clear All Message on Close", isChecked = false) { isClearAll ->
+
+			}
 
 			CustomTextField(placeholder = "Title", value = "") { }
 
@@ -247,32 +194,15 @@ fun InputConfigScreen() {
 
 			CustomTextField(placeholder = "Maximum Number of Message", value = "") { }
 
-			Text(
-				text = "Enable Explore Queries Tab",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			SwitchContent(text = "Enable Explore Queries Tab") { isExploreQueries ->
 
-			Text(
-				text = "Enable Notification Tab",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Notification Tab") { isNotification ->
 
-			Text(
-				text = "Enable Speech to Text",
-				style = TextStyle(
-					fontSize = 16.sp,
-					textAlign = TextAlign.Center
-				),
-				modifier = Modifier.fillMaxWidth()
-			)
+			}
+			SwitchContent(text = "Enable Speech to Text") { isSpeech ->
+
+			}
 			//endregion
 		}
 	}

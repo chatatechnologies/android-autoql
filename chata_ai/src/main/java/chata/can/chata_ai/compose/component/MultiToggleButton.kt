@@ -3,6 +3,7 @@ package chata.can.chata_ai.compose.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,10 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
-import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
 fun MultiToggleButton(
@@ -28,6 +27,7 @@ fun MultiToggleButton(
 	val selectedTint = colorResource(id = R.color.blue_chata_circle)
 	val unselectedTint = Color.White
 	var checked by remember { mutableStateOf(currentSelection) }
+	val interactionSource = remember { MutableInteractionSource() }
 
 	Row(
 		modifier = Modifier
@@ -63,7 +63,12 @@ fun MultiToggleButton(
 					.background(backgroundTint, shape)
 					.padding(vertical = 6.dp, horizontal = 8.dp)
 					.weight(1f)
-					.toggleable(value = isSelected, enabled = true) { selected ->
+					.toggleable(
+						value = isSelected,
+						enabled = true,
+						interactionSource = interactionSource,
+						indication = null
+					) { selected ->
 						if (selected) {
 							checked = toggleState
 							onToggleChange(toggleState)
@@ -79,16 +84,6 @@ fun MultiToggleButton(
 						.padding(4.dp)
 				)
 			}
-		}
-	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MultiToggleButtonPreview() {
-	ApiChataTheme {
-		MultiToggleButton("Dark", listOf("Light", "Dark")) { value ->
-			value
 		}
 	}
 }
