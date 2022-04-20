@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -12,14 +13,13 @@ import chata.can.chata_ai.compose.widget.CustomSwitch
 
 @Composable
 fun SwitchContent(text: String, isChecked: Boolean = true, onValueChanged: (Boolean) -> Unit) {
-	Column(modifier = Modifier.fillMaxWidth()) {
+	Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
 		Text(
 			text = text,
 			style = TextStyle(fontSize = 16.sp, textAlign = TextAlign.Center),
 			modifier = Modifier.fillMaxWidth()
 		)
 		CustomSwitch(
-			modifier = Modifier.fillMaxWidth(),
 			isChecked = isChecked,
 			onValueChanged = onValueChanged
 		)

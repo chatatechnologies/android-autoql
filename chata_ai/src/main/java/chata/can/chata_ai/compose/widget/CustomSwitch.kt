@@ -15,11 +15,15 @@ fun CustomSwitch(
 	checkedColor: Color = colorResource(id = R.color.blue_chata_circle),
 	onValueChanged: (Boolean) -> Unit
 ) {
+	val uncheckedColor = Color.LightGray
 	var checked by remember { mutableStateOf(isChecked) }
 
 	Switch(
 		checked = checked,
-		colors = SwitchDefaults.colors(checkedThumbColor = checkedColor),
+		colors = SwitchDefaults.colors(
+			checkedThumbColor = checkedColor,
+			uncheckedThumbColor = uncheckedColor
+		),
 		modifier = modifier,
 		onCheckedChange = {
 			onValueChanged(it)

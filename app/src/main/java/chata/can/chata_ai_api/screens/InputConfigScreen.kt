@@ -6,6 +6,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
 import chata.can.chata_ai_api.util.Constant
 
@@ -66,6 +69,9 @@ fun InputConfigScreen() {
 			Spacer(modifier = Modifier.height(4.dp))
 			CustomButton(authenticate)
 			//endregion
+
+			ColorText()
+
 			//region Customize Widgets
 			TitleSection("Customize Widgets")
 			MultiToggleButton(
