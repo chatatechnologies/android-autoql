@@ -1,6 +1,7 @@
 package chata.can.chata_ai.compose.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.R
 
@@ -34,6 +36,7 @@ fun CustomTextField(
 ) {
 	val blueColor = colorResource(id = R.color.blue_chata_circle)
 	val blackColor = Color.Black
+	val grayColor = Color.DarkGray
 	val focusManager = LocalFocusManager.current
 	OutlinedTextField(
 		value = value,
@@ -44,6 +47,7 @@ fun CustomTextField(
 		},
 		modifier = Modifier
 			.fillMaxWidth()
+			.padding(top = 8.dp)
 			.onGloballyPositioned { coordinates ->
 				onGloballyPositioned?.let {
 					it(coordinates)
@@ -63,11 +67,12 @@ fun CustomTextField(
 			VisualTransformation.None,
 		//TODO complete colors for input config screen
 		colors = TextFieldDefaults.outlinedTextFieldColors(
+			cursorColor = blueColor,
 			textColor = blackColor,
 			focusedBorderColor = blueColor,
 			focusedLabelColor = blueColor,
-			unfocusedBorderColor = blueColor,
-			unfocusedLabelColor = blueColor,
+			unfocusedBorderColor = grayColor,
+			unfocusedLabelColor = grayColor,
 			placeholderColor = blackColor
 		)
 	)
