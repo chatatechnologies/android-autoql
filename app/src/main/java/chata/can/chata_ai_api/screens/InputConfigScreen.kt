@@ -34,7 +34,7 @@ fun InputConfigScreen() {
 		var domainUrl by remember { mutableStateOf(Constant.domainUrl) }
 		var username by remember { mutableStateOf(Constant.username) }
 		var password by remember { mutableStateOf(Constant.password) }
-		var authenticate by remember { mutableStateOf("Authentication") }
+		var authenticate by remember { mutableStateOf("Authenticate") }
 		/*  */
 
 		Column(modifier = Modifier.verticalScroll(rememberScrollState())) {

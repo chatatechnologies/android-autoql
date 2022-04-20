@@ -24,8 +24,10 @@ fun MultiToggleButton(
 	toggleStates: List<String>,
 	onToggleChange: (String) -> String
 ) {
-	val selectedTint = colorResource(id = R.color.blue_chata_circle)
+	val accentColor = colorResource(id = R.color.blue_chata_circle)
+	val selectedTint = Color(accentColor.red, accentColor.green, accentColor.blue, 0.3f)
 	val unselectedTint = Color.White
+
 	var checked by remember { mutableStateOf(currentSelection) }
 	val interactionSource = remember { MutableInteractionSource() }
 
@@ -41,7 +43,7 @@ fun MultiToggleButton(
 		toggleStates.forEachIndexed { index, toggleState ->
 			val isSelected = checked.lowercase() == toggleState.lowercase()
 			val backgroundTint = if (isSelected) selectedTint else unselectedTint
-			val textColor = if (isSelected) Color.White else Color.Unspecified
+			val textColor = if (isSelected) accentColor else Color.Unspecified
 
 			if (index != 0) {
 				Divider(
