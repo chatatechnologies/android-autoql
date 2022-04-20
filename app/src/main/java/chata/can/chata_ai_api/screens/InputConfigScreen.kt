@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.component.TitleSection
+import chata.can.chata_ai_api.util.Constant
 
 @Composable
 fun InputConfigScreen() {
@@ -27,12 +28,14 @@ fun InputConfigScreen() {
 			.padding(horizontal = 12.dp, vertical = 4.dp),
 		color = Color.White
 	) {
-		var projectId by remember { mutableStateOf("") }
-		var userEmail by remember { mutableStateOf("") }
-		var apiKey by remember { mutableStateOf("") }
-		var domainUrl by remember { mutableStateOf("") }
-		var username by remember { mutableStateOf("") }
-		var password by remember { mutableStateOf("") }
+		var projectId by remember { mutableStateOf(Constant.projectID) }
+		var userEmail by remember { mutableStateOf(Constant.userEmail) }
+		var apiKey by remember { mutableStateOf(Constant.apiKey) }
+		var domainUrl by remember { mutableStateOf(Constant.domainUrl) }
+		var username by remember { mutableStateOf(Constant.username) }
+		var password by remember { mutableStateOf(Constant.password) }
+		var authenticate by remember { mutableStateOf("Authentication") }
+		/*  */
 
 		Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 			//region Authentication
@@ -61,7 +64,7 @@ fun InputConfigScreen() {
 			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomButton("Authenticate")
+			CustomButton(authenticate)
 			//endregion
 			//region Customize Widgets
 			TitleSection("Customize Widgets")
@@ -149,21 +152,33 @@ fun InputConfigScreen() {
 				value
 			}
 
-			CustomTextField(placeholder = "Currency Code", value = "") { }
-			CustomTextField(placeholder = "Language Code", value = "") { }
-			CustomTextField(placeholder = "Format for Day, Year", value = "") { }
-			CustomTextField(placeholder = "Format for Day, Month, Year", value = "") { }
-			CustomTextField(placeholder = "Number of Decimals for Currency Values", value = "") { }
-			CustomTextField(placeholder = "Number of Decimals for Quantity Values", value = "") { }
-			CustomTextField(placeholder = "User Display Name", value = "") { }
-			CustomTextField(placeholder = "Intro Message", value = "") { }
-			CustomTextField(placeholder = "Query Input Placeholder", value = "") { }
+			CustomTextField(placeholder = "Currency Code", value = Constant.currencyCode) { }
+			CustomTextField(placeholder = "Language Code", value = Constant.languageCode) { }
+			CustomTextField(placeholder = "Format for Day, Year", value = Constant.formatMonthYear) { }
+			CustomTextField(
+				placeholder = "Format for Day, Month, Year",
+				value = Constant.formatDayMonthYear
+			) { }
+			CustomTextField(
+				placeholder = "Number of Decimals for Currency Values",
+				value = "${Constant.numberDecimalCurrencyValues}"
+			) { }
+			CustomTextField(
+				placeholder = "Number of Decimals for Quantity Values",
+				value = "${Constant.numberDecimalQuantityValues}"
+			) { }
+			CustomTextField(placeholder = "User Display Name", value = Constant.userDisplay) { }
+			CustomTextField(placeholder = "Intro Message", value = Constant.introMessage) { }
+			CustomTextField(
+				placeholder = "Query Input Placeholder",
+				value = Constant.queryInputPlaceholder
+			) { }
 
 			SwitchContent(text = "Clear All Message on Close", isChecked = false) { isClearAll ->
 
 			}
 
-			CustomTextField(placeholder = "Title", value = "") { }
+			CustomTextField(placeholder = "Title", value = Constant.title) { }
 
 			Text(
 				text = "Dashboard Background Color",
@@ -192,7 +207,10 @@ fun InputConfigScreen() {
 				modifier = Modifier.fillMaxWidth()
 			)
 
-			CustomTextField(placeholder = "Maximum Number of Message", value = "") { }
+			CustomTextField(
+				placeholder = "Maximum Number of Message",
+				value = "${Constant.maximumNumberMessage}"
+			) { }
 
 			SwitchContent(text = "Enable Explore Queries Tab") { isExploreQueries ->
 

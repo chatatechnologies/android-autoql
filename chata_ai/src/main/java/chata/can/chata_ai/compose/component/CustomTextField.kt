@@ -38,7 +38,7 @@ fun CustomTextField(
 	OutlinedTextField(
 		value = value,
 		onValueChange = onValueChanged,
-		textStyle = TextStyle(color = Color.Black),
+		textStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
 		label = {
 			Text(text = placeholder, style = TextStyle(fontSize = 16.sp))
 		},

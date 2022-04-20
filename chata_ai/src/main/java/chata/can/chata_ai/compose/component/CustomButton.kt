@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.util.LambdaAction
 
@@ -20,16 +19,12 @@ fun CustomButton(text: String, action: LambdaAction = {}) {
 	Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
 		Button(
 			onClick = { action() },
-			shape = MaterialTheme.shapes.large,
+			shape = MaterialTheme.shapes.small,
 			colors = ButtonDefaults.buttonColors(
 				backgroundColor = colorResource(id = R.color.blue_chata_circle),
 				contentColor = Color.White
 			),
-			elevation = ButtonDefaults.elevation(
-				defaultElevation = 6.dp,
-				pressedElevation = 8.dp,
-				disabledElevation = 0.dp
-			)
+			modifier = Modifier.fillMaxWidth()
 		) {
 			Text(text = text)
 		}
