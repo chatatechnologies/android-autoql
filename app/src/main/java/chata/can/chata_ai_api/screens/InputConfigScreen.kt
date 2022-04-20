@@ -1,7 +1,6 @@
 package chata.can.chata_ai_api.screens
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -69,6 +68,12 @@ fun InputConfigScreen() {
 			//endregion
 			//region Customize Widgets
 			TitleSection("Customize Widgets")
+			MultiToggleButton(
+				currentSelection = "Open Data Messenger",
+				toggleStates = listOf("Reload Data Messenger", "Open Data Messenger")
+			) { value ->
+				value
+			}
 
 			TitleSection("AutoQL Api Configuration Options")
 
@@ -155,8 +160,10 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
-			MultiToggleButton("One", listOf("One", "Two")) { value ->
-				Log.d("Toggle Button", "MultiToggleButtonPreview: $value")
+			MultiToggleButton(
+				currentSelection = "Dark",
+				toggleStates = listOf("Light", "Dark")
+			) { value ->
 				value
 			}
 
@@ -168,6 +175,12 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			MultiToggleButton(
+				currentSelection = "Right",
+				toggleStates = listOf("Top", "Bottom", "Left", "Right")
+			) { value ->
+				value
+			}
 
 			Text(
 				text = "Default Tab",
@@ -177,16 +190,22 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			MultiToggleButton(
+				currentSelection = "data-messenger",
+				toggleStates = listOf("data-messenger", "explore-queries")
+			) { value ->
+				value
+			}
 
-			CustomTextField(placeholder = "Currency Code", value = "") {  }
-			CustomTextField(placeholder = "Language Code", value = "") {  }
-			CustomTextField(placeholder = "Format for Day, Year", value = "") {  }
-			CustomTextField(placeholder = "Format for Day, Month, Year", value = "") {  }
-			CustomTextField(placeholder = "Number of Decimals for Currency Values", value = "") {  }
-			CustomTextField(placeholder = "Number of Decimals for Quantity Values", value = "") {  }
-			CustomTextField(placeholder = "User Display Name", value = "") {  }
-			CustomTextField(placeholder = "Intro Message", value = "") {  }
-			CustomTextField(placeholder = "Query Input Placeholder", value = "") {  }
+			CustomTextField(placeholder = "Currency Code", value = "") { }
+			CustomTextField(placeholder = "Language Code", value = "") { }
+			CustomTextField(placeholder = "Format for Day, Year", value = "") { }
+			CustomTextField(placeholder = "Format for Day, Month, Year", value = "") { }
+			CustomTextField(placeholder = "Number of Decimals for Currency Values", value = "") { }
+			CustomTextField(placeholder = "Number of Decimals for Quantity Values", value = "") { }
+			CustomTextField(placeholder = "User Display Name", value = "") { }
+			CustomTextField(placeholder = "Intro Message", value = "") { }
+			CustomTextField(placeholder = "Query Input Placeholder", value = "") { }
 
 			Text(
 				text = "Clear All Message on Close",
@@ -197,7 +216,7 @@ fun InputConfigScreen() {
 				modifier = Modifier.fillMaxWidth()
 			)
 
-			CustomTextField(placeholder = "Title", value = "") {  }
+			CustomTextField(placeholder = "Title", value = "") { }
 
 			Text(
 				text = "Dashboard Background Color",
@@ -226,7 +245,7 @@ fun InputConfigScreen() {
 				modifier = Modifier.fillMaxWidth()
 			)
 
-			CustomTextField(placeholder = "Maximum Number of Message", value = "") {  }
+			CustomTextField(placeholder = "Maximum Number of Message", value = "") { }
 
 			Text(
 				text = "Enable Explore Queries Tab",

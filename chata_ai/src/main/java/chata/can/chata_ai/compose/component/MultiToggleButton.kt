@@ -5,14 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
@@ -21,14 +25,18 @@ fun MultiToggleButton(
 	toggleStates: List<String>,
 	onToggleChange: (String) -> String
 ) {
-	val selectedTint = MaterialTheme.colors.primary
-	val unselectedTint = Color.Unspecified
+	val selectedTint = colorResource(id = R.color.blue_chata_circle)
+	val unselectedTint = Color.White
 	var checked by remember { mutableStateOf(currentSelection) }
 
 	Row(
 		modifier = Modifier
+			.fillMaxWidth()
 			.height(IntrinsicSize.Min)
-			.border(BorderStroke(1.dp, Color.LightGray))
+			.border(
+				BorderStroke(1.dp, Color.LightGray),
+				RoundedCornerShape(6.dp)
+			)
 	) {
 		toggleStates.forEachIndexed { index, toggleState ->
 			val isSelected = checked.lowercase() == toggleState.lowercase()
@@ -44,10 +52,17 @@ fun MultiToggleButton(
 				)
 			}
 
+			val shape = when (index) {
+				0 -> RoundedCornerShape(bottomStart = 6.dp, topStart = 6.dp)
+				toggleStates.size - 1 -> RoundedCornerShape(bottomEnd = 6.dp, topEnd = 6.dp)
+				else -> RoundedCornerShape(0.dp)
+			}
+
 			Row(
 				modifier = Modifier
-					.background(backgroundTint)
+					.background(backgroundTint, shape)
 					.padding(vertical = 6.dp, horizontal = 8.dp)
+					.weight(1f)
 					.toggleable(value = isSelected, enabled = true) { selected ->
 						if (selected) {
 							checked = toggleState
@@ -55,7 +70,14 @@ fun MultiToggleButton(
 						}
 					}
 			) {
-				Text(text = toggleState, color = textColor, modifier = Modifier.padding(4.dp))
+				Text(
+					text = toggleState,
+					color = textColor,
+					style = TextStyle(textAlign = TextAlign.Center),
+					modifier = Modifier
+						.fillMaxWidth()
+						.padding(4.dp)
+				)
 			}
 		}
 	}
