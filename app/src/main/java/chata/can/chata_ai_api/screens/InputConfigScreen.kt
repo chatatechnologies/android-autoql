@@ -17,12 +17,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
 import chata.can.chata_ai_api.util.Constant
 
 @Composable
 fun InputConfigScreen() {
+	val viewModel: InputConfigViewModel = InputConfigViewModel()
+	val mToken = viewModel.mToken
+
 	Surface(
 		modifier = Modifier
 			.fillMaxSize()
@@ -35,25 +40,47 @@ fun InputConfigScreen() {
 		var domainUrl by remember { mutableStateOf(Constant.domainUrl) }
 		var username by remember { mutableStateOf(Constant.username) }
 		var password by remember { mutableStateOf(Constant.password) }
-		var authenticate by remember { mutableStateOf("Authenticate") }
-		/*  */
+
+		if (BuildConfig.DEBUG) {
+			AutoQLData.projectId = projectId
+			AutoQLData.userID = userEmail
+			AutoQLData.apiKey = apiKey
+			AutoQLData.domainUrl = domainUrl
+			AutoQLData.username = username
+			AutoQLData.password = password
+		}
 
 		Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 			//region Authentication
 			TitleSection("Authentication")
-			CustomTextField(placeholder = "Project ID", value = projectId) { projectId = it }
+			CustomTextField(placeholder = "Project ID", value = projectId) {
+				AutoQLData.projectId = it
+				projectId = it
+			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomTextField(placeholder = "User Email", value = userEmail) { userEmail = it }
+			CustomTextField(placeholder = "User Email", value = userEmail) {
+				AutoQLData.userID = it
+				userEmail = it
+			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomTextField(placeholder = "API key", value = apiKey) { apiKey = it }
+			CustomTextField(placeholder = "API key", value = apiKey) {
+				AutoQLData.apiKey = it
+				apiKey = it
+			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomTextField(placeholder = "Domain URL", value = domainUrl) { domainUrl = it }
+			CustomTextField(placeholder = "Domain URL", value = domainUrl) {
+				AutoQLData.domainUrl = it
+				domainUrl = it
+			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomTextField(placeholder = "Username", value = username) { username = it }
+			CustomTextField(placeholder = "Username", value = username) {
+				AutoQLData.username = it
+				username = it
+			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
 			CustomTextField(
@@ -61,11 +88,14 @@ fun InputConfigScreen() {
 				value = password,
 				keyboardType = KeyboardType.Password
 			) {
+				AutoQLData.password = it
 				password = it
 			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomButton(authenticate)
+			CustomButton(if (mToken.value.isEmpty()) "Authenticate" else "Log Out") {
+				viewModel.login()
+			}
 			//endregion
 			//region Customize Widgets
 			TitleSection("Customize Widgets")
