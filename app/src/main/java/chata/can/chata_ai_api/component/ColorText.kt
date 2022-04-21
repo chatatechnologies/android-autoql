@@ -1,23 +1,54 @@
 package chata.can.chata_ai_api.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.extension.getContrast
 
 @Composable
 fun ColorText() {
+	var text by remember { mutableStateOf("#008577") }
+	val contrastColor by remember(text) { mutableStateOf(text.getContrast()) }
+
 	TextField(
-		value = "#008577",
-		onValueChange = { },
 		colors = TextFieldDefaults.textFieldColors(
-			backgroundColor = Color.Red,
+			backgroundColor = Color(contrastColor.first),
 		),
-		textStyle = TextStyle(fontSize = 20.sp),
+		keyboardOptions = KeyboardOptions.Default.copy(
+			imeAction = ImeAction.Done,
+			keyboardType = KeyboardType.Number
+		),
 		modifier = Modifier.fillMaxWidth(),
+		onValueChange = {
+			text = it
+		},
+		shape = RoundedCornerShape(0.dp),
+		textStyle = TextStyle(
+			color = Color(contrastColor.second),
+			fontSize = 20.sp,
+			textAlign = TextAlign.Center
+		),
+		value = text
 	)
+}
+
+@Preview
+@Composable
+fun ColorTextPreview() {
+	ApiChataTheme {
+		ColorText()
+	}
 }

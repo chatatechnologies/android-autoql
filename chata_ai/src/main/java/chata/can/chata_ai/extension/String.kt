@@ -189,10 +189,15 @@ fun String.isColor(): Pair<String, Boolean>
 ***/
 fun String.getContrast(): Pair<Int, Int>
 {
-	val color = Color.parseColor(this)
-	val contrast =
-		(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
-	return Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
+	return try {
+		val color = Color.parseColor(this)
+		val contrast =
+			(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
+		Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
+	}
+	catch(ex: Exception) {
+		Pair(Color.BLACK, Color.WHITE)
+	}
 }
 
 fun String.clearQuotes() = this.replace("\"", "")
