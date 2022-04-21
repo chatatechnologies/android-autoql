@@ -15,8 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
 fun MultiToggleButton(
@@ -36,18 +38,17 @@ fun MultiToggleButton(
 			.fillMaxWidth()
 			.height(IntrinsicSize.Min)
 			.border(
-				BorderStroke(1.dp, Color.LightGray),
+				BorderStroke(1.dp, accentColor),
 				RoundedCornerShape(6.dp)
 			)
 	) {
 		toggleStates.forEachIndexed { index, toggleState ->
 			val isSelected = checked.lowercase() == toggleState.lowercase()
 			val backgroundTint = if (isSelected) selectedTint else unselectedTint
-			val textColor = if (isSelected) accentColor else Color.Unspecified
 
 			if (index != 0) {
 				Divider(
-					color = Color.LightGray,
+					color = accentColor,
 					modifier = Modifier
 						.fillMaxHeight()
 						.width(1.dp)
@@ -79,7 +80,7 @@ fun MultiToggleButton(
 			) {
 				Text(
 					text = toggleState,
-					color = textColor,
+					color = accentColor,
 					style = TextStyle(textAlign = TextAlign.Center),
 					modifier = Modifier
 						.fillMaxWidth()
@@ -87,5 +88,13 @@ fun MultiToggleButton(
 				)
 			}
 		}
+	}
+}
+
+@Preview
+@Composable
+fun MultiToggleButtonPreview() {
+	ApiChataTheme {
+		MultiToggleButton("A", listOf("A", "B")) { value -> value }
 	}
 }

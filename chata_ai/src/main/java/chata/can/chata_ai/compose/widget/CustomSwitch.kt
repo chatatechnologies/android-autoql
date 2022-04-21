@@ -22,7 +22,8 @@ fun CustomSwitch(
 		checked = checked,
 		colors = SwitchDefaults.colors(
 			checkedThumbColor = checkedColor,
-			uncheckedThumbColor = uncheckedColor
+			uncheckedThumbColor = uncheckedColor,
+			uncheckedTrackColor = uncheckedColor
 		),
 		modifier = modifier,
 		onCheckedChange = {

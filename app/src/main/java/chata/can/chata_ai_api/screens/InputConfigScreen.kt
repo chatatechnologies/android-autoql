@@ -6,8 +6,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -69,9 +67,6 @@ fun InputConfigScreen() {
 			Spacer(modifier = Modifier.height(4.dp))
 			CustomButton(authenticate)
 			//endregion
-
-			ColorText()
-
 			//region Customize Widgets
 			TitleSection("Customize Widgets")
 			MultiToggleButton(
@@ -186,6 +181,12 @@ fun InputConfigScreen() {
 
 			CustomTextField(placeholder = "Title", value = Constant.title) { }
 
+			ColorText("#26A7E9")
+			ColorText("#A5CD39")
+			ColorText("#DD6A6A")
+			ColorText("#FFA700")
+			ColorText("#00C1B2")
+
 			Text(
 				text = "Dashboard Background Color",
 				style = TextStyle(
@@ -194,6 +195,7 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			ColorText("#FAFAFA")
 
 			Text(
 				text = "Light Theme Accent Color",
@@ -203,6 +205,7 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			ColorText("#26A7DF")
 
 			Text(
 				text = "Dark Theme Accent Color",
@@ -212,6 +215,7 @@ fun InputConfigScreen() {
 				),
 				modifier = Modifier.fillMaxWidth()
 			)
+			ColorText("#26A7DF")
 
 			CustomTextField(
 				placeholder = "Maximum Number of Message",

@@ -17,18 +17,14 @@ fun String.toIntNotNull() = this.toIntOrNull() ?: 0
 
 fun String.toDoubleNotNull() = this.toDoubleOrNull() ?: 0.0
 
-fun String.toDateMonthYear(format: String): String
-{
+fun String.toDateMonthYear(format: String): String {
 	//"MMM yyyy"
 	val dateFormat = SimpleDateFormat(format, Locale.US)
-	return try
-	{
+	return try {
 		val value = this.toIntOrNull() ?: 0
 		val date = Date(value * 1000L)
 		dateFormat.format(date)
-	}
-	catch (e: Exception)
-	{
+	} catch (e: Exception) {
 		"No date"
 	}
 }
@@ -37,22 +33,16 @@ fun String.formatWithColumn(
 	columnQuery: ColumnQuery,
 	currencySymbol: String = SinglentonDrawer.currencyCode,
 	commaCharacter: String = ","
-): String
-{
-	return when(columnQuery.type)
-	{
-		TypeDataQuery.DATE_STRING ->
-		{
+): String {
+	return when (columnQuery.type) {
+		TypeDataQuery.DATE_STRING -> {
 			return if (isEmpty() || this == "0") ""
-			else
-			{
+			else {
 				if (this.contains("w", true))
 					this
-				else
-				{
+				else {
 					val aDataDate = this.split("-")
-					if (aDataDate.size > 1)
-					{
+					if (aDataDate.size > 1) {
 						SinglentonDrawer.localLocale?.let { locale ->
 							val dateFormat = SimpleDateFormat("yyyy-MM", locale)
 							try {
@@ -60,30 +50,26 @@ fun String.formatWithColumn(
 									ChataDateFormat.dateFormat(dDate)
 								}
 //								"${ValidateLocale.getMonth(aDataDate[1].toInt(), locale, "MMM")} $date"
+							} catch (ex: Exception) {
+								""
 							}
-							catch (ex: Exception) { "" }
 						} ?: run { "" }
-					}
-					else this
+					} else this
 				}
 			}
 		}
-		TypeDataQuery.DATE ->
-		{
+		TypeDataQuery.DATE -> {
 			//region for replace month in spanish
 			var locale = Locale.US
 			//endregion
 			var format =
-			if (columnQuery.name.contains("month"))
-				SinglentonDrawer.monthYearFormat.replace("Y", "y")
-			else
-				SinglentonDrawer.dayMonthYearFormat.
-				replace("Y", "y").
-				replace("DD", "d")
+				if (columnQuery.name.contains("month"))
+					SinglentonDrawer.monthYearFormat.replace("Y", "y")
+				else
+					SinglentonDrawer.dayMonthYearFormat.replace("Y", "y").replace("DD", "d")
 
 			SinglentonDrawer.localLocale?.let {
-				if (it.language == "es")
-				{
+				if (it.language == "es") {
 					locale = Locale("es", "MX")
 					format = "d 'de' MMM 'de' yyyy"
 				}
@@ -91,8 +77,7 @@ fun String.formatWithColumn(
 
 			if (isEmpty() || this == "0")
 				""
-			else
-			{
+			else {
 				val aTmp = split(".")
 				aTmp.firstOrNull()?.toIntOrNull()?.let {
 					val date = Date(it * 1000L)
@@ -105,23 +90,20 @@ fun String.formatWithColumn(
 				} ?: run { "" }
 			}
 		}
-		TypeDataQuery.DOLLAR_AMT ->
-		{
+		TypeDataQuery.DOLLAR_AMT -> {
 			val tmp = toDoubleNotNull()
 			tmp.formatSymbolDecimals(
 				currencySymbol,
-				commaCharacter = commaCharacter)
+				commaCharacter = commaCharacter
+			)
 		}
-		TypeDataQuery.QUANTITY ->
-		{
+		TypeDataQuery.QUANTITY -> {
 			clearDecimals()
 		}
-		TypeDataQuery.PERCENT ->
-		{
+		TypeDataQuery.PERCENT -> {
 			val double = toDoubleNotNull() * 100
 			//region check later
-			val classColor = when
-			{
+			val classColor = when {
 				double > 0 -> "green"
 				double < 0 -> "red"
 				else -> ""
@@ -135,49 +117,40 @@ fun String.formatWithColumn(
 	}
 }
 
-fun String.clearDecimals() : String
-{
+fun String.clearDecimals(): String {
 	val tmp = toDoubleNotNull()
-	return if ((tmp % 1.0) == 0.0)
-	{
+	return if ((tmp % 1.0) == 0.0) {
 		tmp.formatDecimals(0)
-	}
-	else
-	{
+	} else {
 		tmp.formatDecimals(SinglentonDrawer.quantityDecimals)
 	}
 }
 
-fun String.toCapitalColumn(): String
-{
+fun String.toCapitalColumn(): String {
 	var tmp = this
-	if (tmp.contains("___"))
-	{
+	if (tmp.contains("___")) {
 		tmp = tmp.replace("___", " (") + ")"
 	}
-	tmp = tmp.replace("_"," ")
+	tmp = tmp.replace("_", " ")
 
-	val aSequence = tmp.subSequence(0,1)
-	return if (aSequence.isNotEmpty())
-	{
+	val aSequence = tmp.subSequence(0, 1)
+	return if (aSequence.isNotEmpty()) {
 		val upperCase = aSequence[0].uppercase()
 		val sb = StringBuilder(upperCase)
 
-		for(index in 1 until tmp.length)
-		{
+		for (index in 1 until tmp.length) {
 			sb.append(
-				if(!tmp[index-1].isLetterOrDigit())
+				if (!tmp[index - 1].isLetterOrDigit())
 					tmp[index].uppercase()
 				else
-					tmp[index])
+					tmp[index]
+			)
 		}
 		return sb.toString()
-	}
-	else ""
+	} else ""
 }
 
-fun String.isColor(): Pair<String, Boolean>
-{
+fun String.isColor(): Pair<String, Boolean> {
 	val newColor = lowercase(Locale.US)
 	val colorPattern = Pattern.compile("#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})")
 
@@ -185,17 +158,15 @@ fun String.isColor(): Pair<String, Boolean>
 }
 
 /***
- background and textColor in pair
-***/
-fun String.getContrast(): Pair<Int, Int>
-{
-	return try {
+background and textColor in pair
+ ***/
+fun String.getContrast(): Pair<Int, Int> {
+	return if (this.count() == 7 && this.first() == '#') {
 		val color = Color.parseColor(this)
 		val contrast =
 			(299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000
 		Pair(color, if (contrast >= 128) Color.BLACK else Color.WHITE)
-	}
-	catch(ex: Exception) {
+	} else {
 		Pair(Color.BLACK, Color.WHITE)
 	}
 }
