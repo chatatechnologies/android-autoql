@@ -125,7 +125,7 @@ data class QueryBase(val json: JSONObject): SimpleQuery(json)
 			queryId = joData.optString("query_id") ?: ""
 			displayType = joData.optString("display_type") ?: ""
 			interpretation = joData.optString("interpretation") ?: ""
-			limitRowNum = joData.optInt("limit_row_num")
+			limitRowNum = joData.optInt("row_limit")//limit_row_num
 
 			//region rows
 			it.optJSONArray("rows")?.let {

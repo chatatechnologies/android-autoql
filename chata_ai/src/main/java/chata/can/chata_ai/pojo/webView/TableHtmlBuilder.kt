@@ -37,16 +37,13 @@ object TableHtmlBuilder
 			//region create body table with id idTableBasic
 			val bodyTable = StringBuilder("<tbody>")
 			val aRowsTR = ArrayList<String>()
-			for (aRow in aRows)
-			{
+			for (aRow in aRows) {
 				if (numRows >= limitRow)
 					break
 
 				val sRow = StringBuilder("")
-				for ((index, cell) in aRow.withIndex())
-				{
+				for ((index, cell) in aRow.withIndex()) {
 					val column = aColumn[index]
-					column.isVisible
 
 					val valueRow = if (cell.isNotEmpty() && cell != "null")
 						cell.formatWithColumn(column)
