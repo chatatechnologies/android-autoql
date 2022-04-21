@@ -29,8 +29,8 @@ android {
     productFlavors {
         chata {
             applicationId "autoql.chata.ai"
-            versionCode 90
-            versionName "1.2.6"
+            versionCode 91
+            versionName "1.2.7"
         }
     }
     compileOptions {
