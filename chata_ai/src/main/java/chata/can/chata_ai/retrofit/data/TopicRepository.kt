@@ -20,8 +20,10 @@ class TopicRepository {
 		for (item in items) {
 			val topic = item.topic
 			aMainData.add(topic)
-			val listQueries = arrayListOf(seeMore)
-			listQueries.addAll(item.queries)
+			val listQueries = arrayListOf<String>().apply {
+				addAll(item.queries).apply {  }
+				add(seeMore)
+			}
 			mMainQuery[topic] = listQueries
 		}
 		//endregion

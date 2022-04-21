@@ -4,13 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
 import chata.can.chata_ai.model.DataMessengerAdmin
@@ -24,12 +27,11 @@ import chata.can.chata_ai.view.SwitchDM
 import chata.can.chata_ai.view.animationAlert.AnimationAlert
 import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
+import chata.can.chata_ai_api.databinding.FragmentMainBinding
 import chata.can.chata_ai_api.main.PagerActivity
 import java.util.*
-import kotlin.collections.ArrayList
 
-class MainFragment: BaseFragment(), View.OnClickListener, MainContract
-{
+class MainFragment : Fragment(), View.OnClickListener, MainContract {
 	companion object {
 		const val nameFragment = "Data Messenger"
 		fun newInstance() = MainFragment().putArgs {
@@ -37,85 +39,113 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
+	private val visible = View.VISIBLE
+	val gone = View.GONE
 	private lateinit var floatingView: AutoQL
 	private lateinit var llContainer: LinearLayout
 	private lateinit var swQA: SwitchDM
+
 	//private var swDemoData: Switch ?= null
-	private var hProjectId: TextView ?= null
-	private var etProjectId: EditText?= null
-	private var hThemeColor: TextView?= null
-	private var etThemeColor: EditText?= null
-	private var hUserId: TextView ?= null
-	private var etUserId: EditText ?= null
-	private var hApiKey: TextView ?= null
-	private var etApiKey: EditText ?= null
-	private var hDomainUrl: TextView ?= null
-	private var etDomainUrl: EditText ?= null
-	private var hUsername: TextView ?= null
-	private var etUsername: EditText ?= null
-	private var hPassword: TextView ?= null
-	private var etPassword: EditText ?= null
-	private var btnAuthenticate: TextView ?= null
+	private var hProjectId: TextView? = null
+	private var etProjectId: EditText? = null
+	private var hThemeColor: TextView? = null
+	private var etThemeColor: EditText? = null
+	private var hUserId: TextView? = null
+	private var etUserId: EditText? = null
+	private var hApiKey: TextView? = null
+	private var etApiKey: EditText? = null
+	private var hDomainUrl: TextView? = null
+	private var etDomainUrl: EditText? = null
+	private var hUsername: TextView? = null
+	private var etUsername: EditText? = null
+	private var hPassword: TextView? = null
+	private var etPassword: EditText? = null
+	private var btnAuthenticate: TextView? = null
 
 	private var aClearFocus = ArrayList<EditText>()
 
-	private var btnReloadDrawer: TextView ?= null
-	private var btnOpenDrawer: TextView ?= null
-	private var swDrawerHandle: SwitchCompat ?= null
-	private var etCurrencyCode: EditText ?= null
-	private var etFormatMonthYear: EditText ?= null
-	private var etFormatDayMonthYear: EditText ?= null
-	private var etLanguageCode: EditText ?= null
-	private var etDecimalsCurrency: EditText ?= null
-	private var etDecimalsQuantity: EditText ?= null
-	private var etCustomerMessage: EditText ?= null
-	private var etIntroMessage: EditText ?= null
-	private var etQueryPlaceholder: EditText ?= null
-	private var swClearMessage: SwitchCompat ?= null
-	private var etTitle: EditText ?= null
-	private var llColors: LinearLayout ?= null
-	private var etAddColor: EditText ?= null
-	private var etDashboardColor: EditText ?= null
-	private var etLightThemeColor: EditText ?= null
-	private var etDarkThemeColor: EditText ?= null
-	private var etMaxNumberMessage: EditText ?= null
-	private var swEnableAutocomplete: SwitchCompat ?= null
-	private var swEnableQuery: SwitchCompat ?= null
-	private var swEnableSuggestion: SwitchCompat ?= null
-	private var swEnableDrillDown: SwitchCompat ?= null
-	private var swEnableColumn: SwitchCompat ?= null
-	private var swEnableNotification: SwitchCompat ?= null
-	private var swBackgroundBehind: SwitchCompat ?= null
-	private var swTabExploreQueries: SwitchCompat ?= null
-	private var swTabNotification: SwitchCompat ?= null
-	private var swEnableSpeechText: SwitchCompat ?= null
+	private var btnReloadDrawer: TextView? = null
+	private var btnOpenDrawer: TextView? = null
+	private var swDrawerHandle: SwitchCompat? = null
+	private var etCurrencyCode: EditText? = null
+	private var etFormatMonthYear: EditText? = null
+	private var etFormatDayMonthYear: EditText? = null
+	private var etLanguageCode: EditText? = null
+	private var etDecimalsCurrency: EditText? = null
+	private var etDecimalsQuantity: EditText? = null
+	private var etCustomerMessage: EditText? = null
+	private var etIntroMessage: EditText? = null
+	private var etQueryPlaceholder: EditText? = null
+	private var swClearMessage: SwitchCompat? = null
+	private var etTitle: EditText? = null
+	private var llColors: LinearLayout? = null
+	private var etAddColor: EditText? = null
+	private var etDashboardColor: EditText? = null
+	private var etLightThemeColor: EditText? = null
+	private var etDarkThemeColor: EditText? = null
+	private var etMaxNumberMessage: EditText? = null
+	private var swEnableAutocomplete: SwitchCompat? = null
+	private var swEnableQuery: SwitchCompat? = null
+	private var swEnableSuggestion: SwitchCompat? = null
+	private var swEnableDrillDown: SwitchCompat? = null
+	private var swEnableColumn: SwitchCompat? = null
+	private var swEnableNotification: SwitchCompat? = null
+	private var swBackgroundBehind: SwitchCompat? = null
+	private var swTabExploreQueries: SwitchCompat? = null
+	private var swTabNotification: SwitchCompat? = null
+	private var swEnableSpeechText: SwitchCompat? = null
 	private lateinit var animationAlert: AnimationAlert
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
 		R.id.tvLight to AutoQLData.THEME_LIGHT,
-		R.id.tvDark to AutoQLData.THEME_DARK)
+		R.id.tvDark to AutoQLData.THEME_DARK
+	)
 
 	private val mPlacement = hashMapOf(
 		R.id.tvTop to ConstantDrawer.TOP_PLACEMENT,
 		R.id.tvBottom to ConstantDrawer.BOTTOM_PLACEMENT,
 		R.id.tvLeft to ConstantDrawer.LEFT_PLACEMENT,
-		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT)
+		R.id.tvRight to ConstantDrawer.RIGHT_PLACEMENT
+	)
 
 	private var isAuthenticate = false
+	set(value) {
+		activity?.run {
+			if (this is PagerActivity) {
+				this.isVisibleTabLayout = value
+				AutoQLData.isRelease = true
+			}
+		}
+		field = value
+	}
 
 	private val mainViewModel: MainViewModel by viewModels()
+	private var fragmentMainBinding: FragmentMainBinding? = null
 
-	override fun onRenderViews(view: View)
-	{
-		super.onRenderViews(view)
-		if (BuildConfig.DEBUG)
-		{
-			val projectId = "accounting-demo"
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		fragmentMainBinding = FragmentMainBinding.inflate(inflater, container, false)
+		return fragmentMainBinding?.root
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		initViews(view)
+		setColors()
+		initListener()
+		initObserve()
+	}
+
+	private fun initObserve() {
+		if (BuildConfig.DEBUG) {
+			val projectId = "spira-demo3"
 			etProjectId?.setText(projectId)
-			val apiKey = "AIzaSyCWcKQfsJo3Lk6t2VHflBEY6CF51kEPdx8"
+			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
 			etApiKey?.setText(apiKey)
-			val domainUrl = "https://chata-staging.chata.io"
+			val domainUrl = "https://spira-staging.chata.io"
 			etDomainUrl?.setText(domainUrl)
 			val userId = "carlos@rinro.com.mx"
 			etUserId?.setText(userId)
@@ -141,8 +171,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			mainViewModel.login()
 			showDialog()
 		}
-		else
-		{
+		else {
 			etCustomerMessage?.setText((etCustomerMessage?.text ?: "").trim())
 			etTitle?.setText((etTitle?.text ?: "").trim())
 			etIntroMessage?.setText((etIntroMessage?.text ?: "").trim())
@@ -155,21 +184,33 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etLanguageCode?.setText(languageCode)
 		}
 		//endregion
+
+		mainViewModel.isAuthenticate.observe(viewLifecycleOwner) { isAuthenticate ->
+			this.isAuthenticate = isAuthenticate
+			btnAuthenticate?.text = if (isAuthenticate) "Log Out" else "Authenticate"
+		}
+		mainViewModel.isSavingPersistence.observe(viewLifecycleOwner) {
+			savePersistentData()
+		}
+		mainViewModel.isEnableLogin.observe(viewLifecycleOwner) { isEnableLogin ->
+			isEnableLogin(isEnableLogin)
+		}
+		mainViewModel.updateShowAlert.observe(viewLifecycleOwner) { dataAlert ->
+			showAlert(dataAlert.first, dataAlert.second)
+		}
 	}
 
-	override fun initViews(view: View)
-	{
+	private fun initViews(view: View) {
 		with(view)
 		{
 			activity?.run {
-				if (this is PagerActivity)
-				{
+				if (this is PagerActivity) {
 					floatingView = findViewById(R.id.floatingView)
 				}
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
+			MainRenderPresenter(this@MainFragment).initViews(llContainer)
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
 			swQA = findViewById(R.id.swQA)
@@ -207,23 +248,19 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 				for (index in 0 until this.childCount)
 				{
 					val child = this.getChildAt(index)
-					if (child is EditText)
-					{
+					if (child is EditText) {
 						child.setOnTextChanged {
-							subColor ->
-							try
-							{
+								subColor ->
+							try {
 								val pData = subColor.isColor()
-								if (pData.second)
-								{
+								if (pData.second) {
 									pData.first.getContrast().run {
 										child.setBackgroundColor(first)
 										child.setTextColor(second)
 									}
 									DataMessengerAdmin.changeColor(child.tag?.toString()?.toInt() ?: 0, pData.first)
 								}
-							}
-							catch (ex: Exception) {}
+							} catch (ex: Exception) {}
 						}
 					}
 				}
@@ -251,38 +288,30 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun setColors()
-	{
-		activity?.let {
-			activity ->
-			for ((_, value) in mViews)
-			{
-				for (index in 0 until value.size())
-				{
+	private fun setColors() {
+		activity?.let { activity ->
+			for ((_, value) in mViews) {
+				for (index in 0 until value.size()) {
 					val key = value.keyAt(index)
 					val isEnabled = value[key]
 					llContainer.findViewById<TextView>(key)?.let { tv ->
-						var parent: LinearLayout ?= null
+						var parent: LinearLayout? = null
 						//region set background for view parent
 						tv.parent?.let {
 							(it as? LinearLayout)?.let { tmpParent ->
-								if (tmpParent.tag == "child")
-								{
+								if (tmpParent.tag == "child") {
 									parent = tmpParent
 								}
 							}
 						}
 						//endregion
-						val background = if (isEnabled)
-						{
+						val background = if (isEnabled) {
 							tv.setTextColor(Color.WHITE)
 							GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
 								setColor(activity.getParsedColor(R.color.colorButton))
 							}
-						}
-						else
-						{
+						} else {
 							tv.setTextColor(Color.BLACK)
 							GradientDrawable().apply {
 								shape = GradientDrawable.RECTANGLE
@@ -307,10 +336,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	private val visible = View.VISIBLE
-	val gone = View.GONE
-	override fun initListener()
-	{
+	private fun initListener() {
 		swQA.setCallbackEventChanged({
 			hThemeColor?.visibility = gone
 			etThemeColor?.visibility = gone
@@ -320,7 +346,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			etUsername?.visibility = visible
 			hPassword?.visibility = visible
 			etPassword?.visibility = visible
-		},{
+		}, {
 			hThemeColor?.visibility = visible
 			etThemeColor?.visibility = visible
 			hUserId?.visibility = gone
@@ -339,8 +365,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		btnReloadDrawer?.setOnClickListener(this)
 		btnOpenDrawer?.setOnClickListener(this)
 
-		swDrawerHandle?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swDrawerHandle?.setOnCheckedChangeListener { _, isChecked ->
 			if (::floatingView.isInitialized) {
 				floatingView.visibility = if (isChecked) visible else gone
 				AutoQLData.isVisible = isChecked
@@ -348,40 +373,34 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etCurrencyCode?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
-				try
-				{
+			if (it.isNotEmpty()) {
+				try {
 					AutoQLData.dataFormatting.currencyCode = it
+				} catch (e: Exception) {
 				}
-				catch (e: Exception) {}
 			}
 		}
 
 		etFormatMonthYear?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.monthYearFormat = it
 			}
 		}
 
 		etFormatDayMonthYear?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.dayMonthYearFormat = it
 			}
 		}
 
 		etLanguageCode?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				AutoQLData.dataFormatting.languageCode = it
 			}
 		}
 
 		etDecimalsCurrency?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				it.toIntOrNull()?.let { integer ->
 					AutoQLData.dataFormatting.currencyDecimals = integer
 				}
@@ -389,8 +408,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 
 		etDecimalsQuantity?.setOnTextChanged {
-			if (it.isNotEmpty())
-			{
+			if (it.isNotEmpty()) {
 				it.toIntOrNull()?.let { integer ->
 					AutoQLData.dataFormatting.quantityDecimals = integer
 				}
@@ -409,8 +427,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.inputPlaceholder = it
 		}
 
-		swClearMessage?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swClearMessage?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.clearOnClose = isChecked
 		}
 
@@ -418,13 +435,11 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.title = it
 		}
 
-		etAddColor?.setOnEditorActionListener {
-			textView, _, _ ->
+		etAddColor?.setOnEditorActionListener { textView, _, _ ->
 			val text = (textView.text ?: "").toString()
 
 			val pData = text.isColor()
-			if (pData.second)
-			{
+			if (pData.second) {
 				val newColor = pData.first
 				llColors?.let { llColors ->
 					val newView = CustomViews.setNewColor(textView.context, newColor, llColors.childCount)
@@ -441,129 +456,105 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		etDashboardColor?.setOnTextChanged {
 			try {
 				val pData = it.isColor()
-				if (pData.second)
-				{
+				if (pData.second) {
 					pData.first.getContrast().run {
 						etDashboardColor?.setBackgroundColor(first)
 						etDashboardColor?.setTextColor(second)
 					}
 					DashboardAdmin.setDashboardColor(it)
 				}
+			} catch (ex: Exception) {
 			}
-			catch (ex: Exception) {}
 		}
 
 		etLightThemeColor?.setOnTextChanged {
-			try
-			{
+			try {
 				val pData = it.isColor()
-				if (pData.second)
-				{
+				if (pData.second) {
 					pData.first.getContrast().run {
 						etLightThemeColor?.setBackgroundColor(first)
 						etLightThemeColor?.setTextColor(second)
 					}
 					DataMessengerAdmin.setLightThemeColor(it)
 				}
+			} catch (ex: Exception) {
 			}
-			catch (ex: Exception) {}
 		}
 
 		etDarkThemeColor?.setOnTextChanged {
-			try
-			{
+			try {
 				val pData = it.isColor()
-				if (pData.second)
-				{
+				if (pData.second) {
 					pData.first.getContrast().run {
 						etDarkThemeColor?.setBackgroundColor(first)
 						etDarkThemeColor?.setTextColor(second)
 					}
 					DataMessengerAdmin.setDarkThemeColor(it)
 				}
+			} catch (ex: Exception) {
 			}
-			catch (ex: Exception) {}
 		}
 
 		etMaxNumberMessage?.setOnTextChanged {
-			it.toIntOrNull()?.let {
-				integer ->
+			it.toIntOrNull()?.let { integer ->
 				AutoQLData.maxMessages = integer
 			}
 		}
 
-		swEnableAutocomplete?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableAutocomplete?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.autoQLConfig.enableAutocomplete = isChecked
 		}
 
-		swEnableQuery?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableQuery?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.autoQLConfig.enableQueryValidation = isChecked
 		}
 
-		swEnableSuggestion?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableSuggestion?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.autoQLConfig.enableQuerySuggestions = isChecked
 		}
 
-		swEnableDrillDown?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableDrillDown?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.autoQLConfig.enableDrilldowns = isChecked
 		}
 
-		swEnableColumn?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableColumn?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.isColumnVisibility = isChecked
 		}
 
-		swEnableNotification?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableNotification?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.visibleNotification = isChecked
 			AutoQLData.activeNotifications = isChecked
 		}
 
-		swBackgroundBehind?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swBackgroundBehind?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.isDarkenBackgroundBehind = isChecked
 		}
 
-		swTabExploreQueries?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swTabExploreQueries?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.visibleExploreQueries = isChecked
 		}
 
-		swTabNotification?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swTabNotification?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.visibleNotification = isChecked
 		}
 
-		swEnableSpeechText?.setOnCheckedChangeListener {
-			_, isChecked ->
+		swEnableSpeechText?.setOnCheckedChangeListener { _, isChecked ->
 			AutoQLData.enableVoiceRecord = isChecked
 		}
 	}
 
-	override fun onClick(view: View?)
-	{
+	override fun onClick(view: View?) {
 		view?.let {
-			when(it.id)
-			{
-				R.id.btnAuthenticate ->
-				{
+			when (it.id) {
+				R.id.btnAuthenticate -> {
 					isEnableLogin(false)
-					if (isAuthenticate)
-					{
+					if (isAuthenticate) {
 						AutoQLData.clearData()
 						isAuthenticate = false
-						changeStateAuthenticate()
 						showAlert("Successfully logged out", R.drawable.ic_done)
-
-						for(child in aClearFocus)
+						for (child in aClearFocus)
 							child.setText("")
-					}
-					else
-					{
+					} else {
 						AutoQLData.clearData()
 						AutoQLData.projectId = (etProjectId?.text ?: "").toString().trim()
 						AutoQLData.userID = (etUserId?.text ?: "").toString().trim()
@@ -576,49 +567,26 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						showDialog()
 					}
 				}
-				R.id.btnReloadDrawer ->
-				{
+				R.id.btnReloadDrawer -> {
 					activity?.run {
 						SinglentonDrawer.mModel.clear()
-//						if (this is PagerActivity)
-//						{
-//							bubbleHandle?.let { bubbleHandle ->
-//								val bubbleData = BubbleData(
-//									bubbleHandle.userDisplayName,
-//									bubbleHandle.title,
-//									bubbleHandle.introMessage,
-//									bubbleHandle.inputPlaceholder,
-//									bubbleHandle.maxMessages,
-//									bubbleHandle.clearOnClose,
-//									bubbleHandle.isDarkenBackgroundBehind,
-//									bubbleHandle.visibleExploreQueries,
-//									bubbleHandle.visibleNotification,
-//									bubbleHandle.enableVoiceRecord,
-//									isDataMessenger)
-//								clearDataMessenger(bubbleData)
-//							}
-//						}
 					}
 				}
-				R.id.btnOpenDrawer ->
-				{
+				R.id.btnOpenDrawer -> {
 					floatingView.runEvent()
 				}
-				R.id.tvLight, R.id.tvDark ->
-				{
+				R.id.tvLight, R.id.tvDark -> {
 					mTheme[it.id]?.let { config ->
 						val theme = if (config) "light" else "dark"
 						floatingView.theme = theme
 					}
 				}
-				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight ->
-				{
+				R.id.tvTop, R.id.tvBottom, R.id.tvLeft, R.id.tvRight -> {
 					mPlacement[it.id]?.let { placement ->
 						floatingView.placement = placement
 					}
 				}
-				R.id.tvDataMessenger, R.id.tvExploreQueries ->
-				{
+				R.id.tvDataMessenger, R.id.tvExploreQueries -> {
 					AutoQLData.isDataMessenger = it.id == R.id.tvDataMessenger
 				}
 				else -> {}
@@ -626,8 +594,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun showAlert(message: String, intRes: Int)
-	{
+	private fun showAlert(message: String, intRes: Int) {
 		hideDialog()
 		animationAlert.setText(message)
 		animationAlert.setResource(intRes)
@@ -639,25 +606,9 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun callJWt()
-	{
-
-	}
-
-	override fun callRelated()
-	{
-
-	}
-
-	override fun callTopics()
-	{
-
-	}
-
 	private val mHandler = Handler(Looper.getMainLooper())
-	private val runnable = object: Runnable {
-		override fun run()
-		{
+	private val runnable = object : Runnable {
+		override fun run() {
 			activity?.let {
 				val intent = Intent(it, PollService::class.java)
 				PollService.enqueueWork(it, intent)
@@ -666,46 +617,15 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		}
 	}
 
-	override fun initPollService()
-	{
+	override fun initPollService() {
 		mHandler.postDelayed(runnable, 10000)
 	}
 
-	override fun changeAuthenticate(isAuthenticate: Boolean)
-	{
-		this.isAuthenticate = isAuthenticate
-	}
-
-	override fun isEnableLogin(isEnable: Boolean)
-	{
+	private fun isEnableLogin(isEnable: Boolean) {
 		btnAuthenticate?.isEnabled = isEnable
 	}
 
-	override fun changeStateAuthenticate()
-	{
-		val text = if (isAuthenticate)
-		{
-			"Log Out"
-		}
-		else
-		{
-			isEnableLogin(true)
-			"Authenticate"
-		}
-
-		activity?.run {
-			if (this is PagerActivity)
-			{
-				this.isVisibleTabLayout = isAuthenticate
-				AutoQLData.isRelease = true
-			}
-		}
-
-		btnAuthenticate?.text = text
-	}
-
-	override fun savePersistentData()
-	{
+	private fun savePersistentData() {
 		//region save preferences
 		activity?.let {
 			val sharePreferences = it.getPreferences(Context.MODE_PRIVATE) ?: return
@@ -720,22 +640,18 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 		//endregion
 	}
 
-	private fun showDialog()
-	{
+	private fun showDialog() {
 		activity?.let { ProgressWait.showProgressDialog(it, "") }
 	}
 
-	private fun hideDialog()
-	{
+	private fun hideDialog() {
 		ProgressWait.hideProgressDialog()
 	}
 
-	private fun String.prepareDomain(): String
-	{
+	private fun String.prepareDomain(): String {
 		var tmp = this.trim()
 		tmp.lastOrNull()?.let {
-			if (it == '/')
-			{
+			if (it == '/') {
 				tmp = tmp.removeSuffix("/")
 			}
 		}
