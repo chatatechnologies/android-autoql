@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.viewModels
 import chata.can.chata_ai.BaseFragment
 import chata.can.chata_ai.extension.*
 import chata.can.chata_ai.model.DashboardAdmin
@@ -105,6 +106,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	private var isAuthenticate = false
 
+	private val mainViewModel: MainViewModel by viewModels()
+
 	override fun onRenderViews(view: View)
 	{
 		super.onRenderViews(view)
@@ -137,7 +140,8 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-			servicePresenter.createAuthenticate()
+//			servicePresenter.createAuthenticate()
+			mainViewModel.login()
 			showDialog()
 		}
 		else
