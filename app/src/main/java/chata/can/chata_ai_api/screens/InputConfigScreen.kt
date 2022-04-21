@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.screens
 
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,12 +10,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -23,8 +26,17 @@ import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
 import chata.can.chata_ai_api.util.Constant
 
+
 @Composable
 fun InputConfigScreen() {
+	val context = LocalContext.current
+	val sharedPreferences =
+		context.applicationContext.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
+	sharedPreferences.edit {
+		putString("Key", "Value")
+	}
+
+
 	val viewModel: InputConfigViewModel = InputConfigViewModel()
 	val mToken = viewModel.mToken
 
