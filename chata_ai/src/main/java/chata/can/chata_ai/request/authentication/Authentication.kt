@@ -11,6 +11,7 @@ import chata.can.request_native.StatusResponse
 
 object Authentication
 {
+	fun bearerToken(): String = "Bearer ${AutoQLData.JWT}"
 	fun getAuthorizationJWT() = hashMapOf("Authorization" to "Bearer ${AutoQLData.JWT}")
 
 	/**

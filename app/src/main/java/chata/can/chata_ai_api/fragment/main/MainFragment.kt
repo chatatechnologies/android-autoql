@@ -90,8 +90,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 	private var swTabNotification: SwitchCompat ?= null
 	private var swEnableSpeechText: SwitchCompat ?= null
 	private lateinit var animationAlert: AnimationAlert
-	//import module https://developer.android.com/studio/projects/android-library
-	private lateinit var servicePresenter: MainServicePresenter
 	private val mViews = CustomViews.mViews
 
 	private val mTheme = hashMapOf(
@@ -140,7 +138,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 			AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-//			servicePresenter.createAuthenticate()
 			mainViewModel.login()
 			showDialog()
 		}
@@ -172,53 +169,6 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 			}
 
 			llContainer = findViewById(R.id.llContainer)
-			parentActivity?.let {
-//				if (bubbleHandle == null)
-//				{
-//					val dataMessenger = DataMessenger("#data-messenger",
-//						authentication = Authentication(
-//							token,
-//							apiKey,
-//							domainUrl
-//						),
-//						ConstantDrawer.RIGHT_PLACEMENT
-//					)
-//					bubbleHandle = BubbleHandle(context, dataMessenger) {
-//						//region catch data
-//						FirebaseCrashlytics.getInstance().run {
-//							setCustomKey("isOpenChat", BubbleHandle.isOpenChat)
-//							setCustomKey("domain_ulr", domainUrl)
-//							setCustomKey("api_key", apiKey)
-//							setCustomKey("project_id", projectId)
-//							setCustomKey("user_id", userID)
-//						}
-//						//endregion
-//						hideKeyboard()
-//						bubbleHandle?.let { bubbleHandle ->
-//							val bubbleData = BubbleData(
-//								bubbleHandle.userDisplayName,
-//								bubbleHandle.title,
-//								bubbleHandle.introMessage,
-//								bubbleHandle.inputPlaceholder,
-//								bubbleHandle.maxMessages,
-//								bubbleHandle.clearOnClose,
-//								bubbleHandle.isDarkenBackgroundBehind,
-//								bubbleHandle.visibleExploreQueries,
-//								bubbleHandle.visibleNotification,
-//								bubbleHandle.enableVoiceRecord,
-//								isDataMessenger)
-//							(parentActivity as? PagerActivity)?.let {
-//								for (clearView in aClearFocus)
-//								{
-//									clearView.clearFocus()
-//								}
-//								it.setStatusGUI(true, bubbleData)
-//							}
-//						}
-//					}
-//				}
-				servicePresenter = MainServicePresenter(this@MainFragment)
-			}
 			MainRenderPresenter(context, this@MainFragment).run { initViews(llContainer) }
 			animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 
@@ -622,7 +572,7 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 						AutoQLData.username = (etUsername?.text ?: "").toString().trim()
 						AutoQLData.password = (etPassword?.text ?: "").toString().trim()
 
-						servicePresenter.createAuthenticate()
+						mainViewModel.login()
 						showDialog()
 					}
 				}
@@ -691,17 +641,17 @@ class MainFragment: BaseFragment(), View.OnClickListener, MainContract
 
 	override fun callJWt()
 	{
-		servicePresenter.createJWT()
+
 	}
 
 	override fun callRelated()
 	{
-		servicePresenter.callRelated()
+
 	}
 
 	override fun callTopics()
 	{
-		servicePresenter.callTopics()
+
 	}
 
 	private val mHandler = Handler(Looper.getMainLooper())
