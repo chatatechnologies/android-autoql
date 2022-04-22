@@ -3,29 +3,27 @@ package chata.can.chata_ai_api.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.component.ColorText
+import chata.can.chata_ai_api.component.ProgressScreenComponent
 import chata.can.chata_ai_api.component.TitleSection
 import chata.can.chata_ai_api.util.Constant
 
 @Composable
 fun InputConfigScreen(viewModel: InputConfigViewModel) {
+//	val isShowState = remember { mutableStateOf(false) }
 	val isShowProgress = viewModel.isShowProgress
 	val mIsAuthenticate = viewModel.isAuthenticate
 	val mIsEnable = viewModel.isEnableLogin
@@ -37,8 +35,6 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 	var username by remember { mutableStateOf(Constant.username) }
 	var password by remember { mutableStateOf(Constant.password) }
 
-	val blueColor = colorResource(id = R.color.blue_chata_circle)
-
 	if (BuildConfig.DEBUG) {
 		AutoQLData.projectId = projectId
 		AutoQLData.userID = userEmail
@@ -48,10 +44,7 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 		AutoQLData.password = password
 	}
 
-	Box(
-		contentAlignment = Alignment.Center,
-		modifier = Modifier.fillMaxSize()
-	) {
+	ProgressScreenComponent(isShowProgress = isShowProgress.value) {
 		Surface(
 			modifier = Modifier
 				.fillMaxSize()
@@ -272,17 +265,23 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 				//endregion
 			}
 		}
-
-		if (isShowProgress.value) {
-			Surface(color = Color.White) {
-				CircularProgressIndicator(
-					color = blueColor,
-					modifier = Modifier
-						.size(70.dp)
-						.padding(12.dp),
-					strokeWidth = 4.dp
-				)
-			}
-		}
 	}
+//	Box(
+//		contentAlignment = Alignment.Center,
+//		modifier = Modifier.fillMaxSize()
+//	) {
+//
+//
+//		if (isShowProgress.value) {
+//			Surface(color = Color.White) {
+//				CircularProgressIndicator(
+//					color = blueColor,
+//					modifier = Modifier
+//						.size(70.dp)
+//						.padding(12.dp),
+//					strokeWidth = 4.dp
+//				)
+//			}
+//		}
+//	}
 }
