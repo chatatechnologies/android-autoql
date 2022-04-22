@@ -9,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -22,15 +21,10 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
-import chata.can.chata_ai_api.repository.PreferencesRepository
 import chata.can.chata_ai_api.util.Constant
 
 @Composable
-fun InputConfigScreen() {
-	var counter by remember { mutableStateOf(0) }
-	val context = LocalContext.current
-	val viewModel: InputConfigViewModel = InputConfigViewModel(context)
-
+fun InputConfigScreen(viewModel: InputConfigViewModel) {
 	val isAuthenticate = viewModel.isAuthenticate
 
 	if (viewModel.isSavingPersistence.value) {
@@ -279,6 +273,6 @@ fun InputConfigScreen() {
 @Composable
 fun InputConfigScreenPreview() {
 	ApiChataTheme {
-		InputConfigScreen()
+//		InputConfigScreen()
 	}
 }

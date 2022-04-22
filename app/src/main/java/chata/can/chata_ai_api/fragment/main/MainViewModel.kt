@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.fragment.main
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,6 @@ import chata.can.chata_ai.retrofit.domain.GetLoginUseCase
 import chata.can.chata_ai.retrofit.domain.GetRelatedQueryTestUseCase
 import chata.can.chata_ai.retrofit.domain.GetTopicUseCase
 import chata.can.chata_ai_api.R
-import chata.can.chata_ai_api.repository.PreferencesRepository
 import kotlinx.coroutines.launch
 
 class MainViewModel(): ViewModel() {

@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api
 
+import androidx.activity.viewModels
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,25 +20,27 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.screens.InputConfigScreen
+import chata.can.chata_ai_api.screens.InputConfigViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PagerComposableActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContent {
 			ApiChataTheme {
-				TabApp()
+				val viewModel: InputConfigViewModel by viewModels()
+				TabApp(viewModel = viewModel)
 			}
 		}
 	}
 }
 
-@Preview
 @Composable
-fun TabApp() {
+fun TabApp(viewModel: InputConfigViewModel) {
 	val blueAccentColor = colorResource(id = R.color.colorButton)
 	val blackColor = Color.Black
 	var selectedIndex by remember { mutableStateOf(0) }
@@ -72,6 +75,6 @@ fun TabApp() {
 				}
 			}
 		}
-		InputConfigScreen()
+		InputConfigScreen(viewModel = viewModel)
 	}
 }
