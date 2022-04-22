@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api.screens
 
+import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import chata.can.chata_ai.retrofit.domain.GetTopicUseCase
 import chata.can.chata_ai_api.R
 import kotlinx.coroutines.launch
 
-class InputConfigViewModel : ViewModel() {
+class InputConfigViewModel(context: Context) : ViewModel() {
 	val isSavingPersistence: MutableState<Boolean> = mutableStateOf(false)
 	val isAuthenticate: MutableState<Boolean> = mutableStateOf(false)
 	val isEnableLogin: MutableState<Boolean> = mutableStateOf(true)

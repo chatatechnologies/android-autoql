@@ -4,20 +4,20 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 
-object SharePreference {
-	private fun getSharePreferences(context: Context): SharedPreferences {
+class SharePreference(private val context: Context) {
+	private fun getSharePreferences(): SharedPreferences {
 		return context.applicationContext.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
 	}
 
-	fun saveValuePreferences(context: Context, key: String, value: String) {
-		val sharedPreferences = getSharePreferences(context)
+	suspend fun saveValuePreferences(key: String, value: String) {
+		val sharedPreferences = getSharePreferences()
 		sharedPreferences.edit {
 			putString(key, value)
 		}
 	}
 
-	fun saveListPreferences(context: Context, mData: LinkedHashMap<String, String>) {
-		val sharedPreferences = getSharePreferences(context)
+	suspend fun saveListPreferences(mData: LinkedHashMap<String, String>) {
+		val sharedPreferences = getSharePreferences()
 		for ((key, value) in mData) {
 			sharedPreferences.edit {
 				putString(key, value)
@@ -25,8 +25,8 @@ object SharePreference {
 		}
 	}
 
-	fun getValuePreferences(context: Context, key: String, defaultValue: String): String {
-		val sharedPreferences = getSharePreferences(context)
+	suspend fun getValuePreferences(key: String, defaultValue: String): String {
+		val sharedPreferences = getSharePreferences()
 		return sharedPreferences.getString(key, defaultValue) ?: ""
 	}
 }

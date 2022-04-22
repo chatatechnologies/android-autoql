@@ -4,6 +4,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -67,6 +68,10 @@ dependencies {
     implementation 'com.github.angads25:toggle:1.1.0'
     implementation project(':chata_ai')
     implementation project(':request_native')
+
+    //Hilt-Dagger
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'

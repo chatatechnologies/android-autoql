@@ -22,17 +22,20 @@ import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
-import chata.can.chata_ai_api.data.SharePreference
+import chata.can.chata_ai_api.repository.PreferencesRepository
 import chata.can.chata_ai_api.util.Constant
 
 @Composable
 fun InputConfigScreen() {
 	var counter by remember { mutableStateOf(0) }
 	val context = LocalContext.current
-	val viewModel: InputConfigViewModel = InputConfigViewModel()
+	val viewModel: InputConfigViewModel = InputConfigViewModel(context)
 
 	val isAuthenticate = viewModel.isAuthenticate
-	val isSavingPersistence = viewModel.isSavingPersistence
+
+	if (viewModel.isSavingPersistence.value) {
+//		PreferencesRepository(context).saveValues(linkedMapOf())
+	}
 
 	Surface(
 		modifier = Modifier
@@ -57,13 +60,6 @@ fun InputConfigScreen() {
 		}
 
 		Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-			if (isSavingPersistence.value) {
-				counter += 1
-				Text(text = "login finished $counter")
-			} else {
-				Text(text = "waiting login")
-			}
-
 			//region Authentication
 			TitleSection("Authentication")
 			CustomTextField(placeholder = "Project ID", value = projectId) {
