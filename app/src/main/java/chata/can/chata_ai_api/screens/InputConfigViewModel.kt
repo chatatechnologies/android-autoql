@@ -20,7 +20,7 @@ import javax.inject.Inject
 class InputConfigViewModel @Inject constructor(
 	private val preferenceRepository: PreferencesRepository
 ) : ViewModel() {
-//	val isSavingPersistence: MutableState<Boolean> = mutableStateOf(false)
+	val isShowProgress: MutableState<Boolean> = mutableStateOf(false)
 	val isAuthenticate: MutableState<Boolean> = mutableStateOf(false)
 	val isEnableLogin: MutableState<Boolean> = mutableStateOf(true)
 	val updateShowAlert: MutableState<Pair<String, Int>> = mutableStateOf(Pair("", 0))
@@ -32,6 +32,7 @@ class InputConfigViewModel @Inject constructor(
 
 	fun login() {
 		viewModelScope.launch {
+			isShowProgress.value = true
 			val token: String = getLoginUseCase.postLogin(AutoQLData.username, AutoQLData.password)
 			if (token.isEmpty()) {
 				notSession()
@@ -65,7 +66,7 @@ class InputConfigViewModel @Inject constructor(
 				isAuthenticate.value = true
 				isEnableLogin.value = true
 				updateShowAlert.value = Pair("Login Successful", R.drawable.ic_done)
-//				mToken.value = "_"
+				isShowProgress.value = false
 				//endregion
 			} else {
 				notSession()
@@ -74,6 +75,7 @@ class InputConfigViewModel @Inject constructor(
 	}
 
 	private fun notSession() {
+		isShowProgress.value = false
 		isAuthenticate.value = false
 		isEnableLogin.value = true
 		updateShowAlert.value = Pair("Invalid Credentials", R.drawable.ic_error)
