@@ -14,7 +14,6 @@ import chata.can.chata_ai_api.R
 import kotlinx.coroutines.launch
 
 class InputConfigViewModel : ViewModel() {
-	val mToken: MutableState<String> = mutableStateOf("")
 	val isSavingPersistence: MutableState<Boolean> = mutableStateOf(false)
 	val isAuthenticate: MutableState<Boolean> = mutableStateOf(false)
 	val isEnableLogin: MutableState<Boolean> = mutableStateOf(true)
@@ -60,6 +59,7 @@ class InputConfigViewModel : ViewModel() {
 				isAuthenticate.value = true
 				isEnableLogin.value = true
 				updateShowAlert.value = Pair("Login Successful", R.drawable.ic_done)
+//				mToken.value = "_"
 				//endregion
 			} else {
 				notSession()

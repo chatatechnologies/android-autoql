@@ -1,6 +1,5 @@
 package chata.can.chata_ai_api.screens
 
-import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -17,28 +16,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.edit
 import chata.can.chata_ai.compose.component.*
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai_api.BuildConfig
 import chata.can.chata_ai_api.component.ColorText
 import chata.can.chata_ai_api.component.TitleSection
+import chata.can.chata_ai_api.data.SharePreference
 import chata.can.chata_ai_api.util.Constant
-
 
 @Composable
 fun InputConfigScreen() {
+	var counter by remember { mutableStateOf(0) }
 	val context = LocalContext.current
-	val sharedPreferences =
-		context.applicationContext.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
-	sharedPreferences.edit {
-		putString("Key", "Value")
-	}
-
-
 	val viewModel: InputConfigViewModel = InputConfigViewModel()
-	val mToken = viewModel.mToken
+
+	val isAuthenticate = viewModel.isAuthenticate
+	val isSavingPersistence = viewModel.isSavingPersistence
 
 	Surface(
 		modifier = Modifier
@@ -63,6 +57,13 @@ fun InputConfigScreen() {
 		}
 
 		Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+			if (isSavingPersistence.value) {
+				counter += 1
+				Text(text = "login finished $counter")
+			} else {
+				Text(text = "waiting login")
+			}
+
 			//region Authentication
 			TitleSection("Authentication")
 			CustomTextField(placeholder = "Project ID", value = projectId) {
@@ -105,7 +106,7 @@ fun InputConfigScreen() {
 			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomButton(if (mToken.value.isEmpty()) "Authenticate" else "Log Out") {
+			CustomButton(if (isAuthenticate.value) "Log Out" else "Authenticate") {
 				viewModel.login()
 			}
 			//endregion
