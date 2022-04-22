@@ -7,6 +7,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\Carlos\\AndroidStudioProjects\\android-autoql\\apiKey.jks')
+            storePassword 'apichata123'
+            keyAlias 'apichata'
+            keyPassword 'apichata123'
+        }
+    }
     flavorDimensions "default"
     compileSdk 31
     defaultConfig {
@@ -17,6 +25,7 @@ android {
         versionCode 2
         versionName "0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {

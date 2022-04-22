@@ -9,9 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitHelperDynamic {
 	fun getRetrofit(): Retrofit {
 		val gson = GsonBuilder().setLenient().create()
+		val url = domainUrl.ifEmpty { "https://chata.ai/" }
 
 		return Retrofit.Builder()
-			.baseUrl("${domainUrl}/autoql/$api1")
+			.baseUrl("${url}/autoql/$api1")
 			.addConverterFactory(GsonConverterFactory.create(gson))
 			.build()
 	}
