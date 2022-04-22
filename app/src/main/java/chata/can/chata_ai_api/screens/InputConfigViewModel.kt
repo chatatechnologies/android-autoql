@@ -20,7 +20,7 @@ import javax.inject.Inject
 class InputConfigViewModel @Inject constructor(
 	private val preferenceRepository: PreferencesRepository
 ) : ViewModel() {
-	val isSavingPersistence: MutableState<Boolean> = mutableStateOf(false)
+//	val isSavingPersistence: MutableState<Boolean> = mutableStateOf(false)
 	val isAuthenticate: MutableState<Boolean> = mutableStateOf(false)
 	val isEnableLogin: MutableState<Boolean> = mutableStateOf(true)
 	val updateShowAlert: MutableState<Pair<String, Int>> = mutableStateOf(Pair("", 0))
@@ -58,7 +58,7 @@ class InputConfigViewModel @Inject constructor(
 		viewModelScope.launch {
 			val relatedQueryTest = relatedQueryTestUseCase.getRelatedQueryTest()
 			if (relatedQueryTest != emptyRelatedQueryData()) {
-				isSavingPersistence.value = true
+				saveValues()//  isSavingPersistence.value = true
 				topicUseCase.getTopics(AutoQLData.apiKey, AutoQLData.projectId)
 				AutoQLData.wasLoginIn = true
 				//region live data control
@@ -77,5 +77,16 @@ class InputConfigViewModel @Inject constructor(
 		isAuthenticate.value = false
 		isEnableLogin.value = true
 		updateShowAlert.value = Pair("Invalid Credentials", R.drawable.ic_error)
+	}
+
+	private fun saveValues() {
+		viewModelScope.launch {
+			val mMap = linkedMapOf(
+				"PROJECT_ID" to AutoQLData.projectId,
+				"API_KEY" to AutoQLData.apiKey,
+				"DOMAIN_URL" to AutoQLData.domainUrl
+			)
+			preferenceRepository.saveValues(mMap)
+		}
 	}
 }

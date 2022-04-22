@@ -17,13 +17,14 @@ import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.util.LambdaAction
 
 @Composable
-fun CustomButton(text: String, action: LambdaAction = {}) {
+fun CustomButton(text: String, isEnable: Boolean = true, action: LambdaAction = {}) {
 	val accentColor = colorResource(id = R.color.blue_chata_circle)
 	val alphaAccent = Color(accentColor.red, accentColor.green, accentColor.blue, 0.3f)
 	Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
 		Button(
 			border = BorderStroke(1.dp, accentColor),
 			elevation = null,
+			enabled = isEnable,
 			onClick = { action() },
 			shape = MaterialTheme.shapes.small,
 			colors = ButtonDefaults.buttonColors(

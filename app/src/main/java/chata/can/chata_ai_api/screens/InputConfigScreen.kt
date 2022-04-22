@@ -25,11 +25,8 @@ import chata.can.chata_ai_api.util.Constant
 
 @Composable
 fun InputConfigScreen(viewModel: InputConfigViewModel) {
-	val isAuthenticate = viewModel.isAuthenticate
-
-	if (viewModel.isSavingPersistence.value) {
-//		PreferencesRepository(context).saveValues(linkedMapOf())
-	}
+	val mIsAuthenticate = viewModel.isAuthenticate
+	val mIsEnable = viewModel.isEnableLogin
 
 	Surface(
 		modifier = Modifier
@@ -96,7 +93,7 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 			}
 			RequiredField()
 			Spacer(modifier = Modifier.height(4.dp))
-			CustomButton(if (isAuthenticate.value) "Log Out" else "Authenticate") {
+			CustomButton(if (mIsAuthenticate.value) "Log Out" else "Authenticate", mIsEnable.value) {
 				viewModel.login()
 			}
 			//endregion
