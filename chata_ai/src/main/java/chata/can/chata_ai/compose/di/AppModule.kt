@@ -4,6 +4,7 @@ import chata.can.chata_ai.compose.network.NotificationApi
 import chata.can.chata_ai.compose.repository.NotificationRepository
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
+import chata.can.chata_ai.pojo.urlBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +23,7 @@ object AppModule {
 	@Singleton
 	@Provides
 	fun provideNotificationApi(): NotificationApi {
-		val url = AutoQLData.domainUrl
+		val url = AutoQLData.domainUrl.ifEmpty { urlBase }
 		return Retrofit.Builder()
 			.baseUrl("${url}/autoql/$api1")
 			.addConverterFactory(GsonConverterFactory.create())
