@@ -38,9 +38,11 @@ import chata.can.chata_ai.service.PollService
 import chata.can.chata_ai.view.pagerOption.PagerOptionConst
 import chata.can.request_native.StatusResponse
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import org.json.JSONObject
 
+@AndroidEntryPoint
 class DMActivity: AppCompatActivity(), View.OnClickListener
 {
 	private lateinit var vBehind: View

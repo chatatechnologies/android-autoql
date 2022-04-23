@@ -22,7 +22,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
-import chata.can.chata_ai.screens.notification.ContentNotification
 import chata.can.chata_ai_api.screens.InputConfigScreen
 import chata.can.chata_ai_api.screens.InputConfigViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,8 +32,7 @@ class PagerComposableActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		setContent {
 			ApiChataTheme {
-//				TabApp()
-				ContentNotification()
+				TabApp()
 			}
 		}
 	}

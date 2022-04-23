@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import chata.can.chata_ai.compose.screens.NotificationViewModel
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
 import chata.can.chata_ai.screens.notification.ContentNotification
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotificationFragment: Fragment() {
 	companion object {
 		const val nameFragment = "Notifications"
@@ -34,6 +38,7 @@ class NotificationFragment: Fragment() {
 		fragmentNotificationFragmentBinding.composeView.apply {
 			setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 			setContent {
+//				val viewModel: NotificationViewModel by viewModels()
 				ContentNotification()
 			}
 		}
