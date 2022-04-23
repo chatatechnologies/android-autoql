@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Text
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import chata.can.chata_ai.R
@@ -36,6 +38,14 @@ class NotificationFragment: Fragment() {
 			false
 		)
 		fragmentNotificationFragmentBinding.model = notificationViewModel
+
+		fragmentNotificationFragmentBinding.composeView.apply {
+			setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+			setContent {
+				Text(text = "Content notification fragment")
+			}
+		}
+
 		return fragmentNotificationFragmentBinding.root
 	}
 
