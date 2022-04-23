@@ -15,17 +15,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.screens.NotificationViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
-fun ContentNotification(viewModel: NotificationViewModel) {
+fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
+	val notificationResponse = viewModel.data.value
+
 	Column(
 		Modifier.fillMaxSize(),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center
 	) {
+		if (notificationResponse.message.isNotEmpty()) {
+			Text(text = "Notification response success")
+		}
 		Image(
 			painter = painterResource(id = R.drawable.ic_notification),
 			contentDescription = "Waiting notification",
@@ -59,7 +65,7 @@ fun NotificationList() {
 	}
 }
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun ContentNotificationPreview() {
 	ApiChataTheme {
@@ -67,7 +73,7 @@ fun ContentNotificationPreview() {
 	}
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun NotificationListPreview() {
 	ApiChataTheme {

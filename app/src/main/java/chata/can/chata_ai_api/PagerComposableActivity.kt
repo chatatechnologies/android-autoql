@@ -1,8 +1,6 @@
 package chata.can.chata_ai_api
 
-import androidx.activity.viewModels
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -22,28 +20,28 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.screens.notification.ContentNotification
 import chata.can.chata_ai_api.screens.InputConfigScreen
 import chata.can.chata_ai_api.screens.InputConfigViewModel
-import chata.can.chata_ai_api.util.resizeWindow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PagerComposableActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-//		resizeWindow(window)
 		setContent {
 			ApiChataTheme {
-				val viewModel: InputConfigViewModel by viewModels()
-				TabApp(viewModel = viewModel)
+//				TabApp()
+				ContentNotification()
 			}
 		}
 	}
 }
 
 @Composable
-fun TabApp(viewModel: InputConfigViewModel) {
+fun TabApp(viewModel: InputConfigViewModel = hiltViewModel()) {
 	val blueAccentColor = colorResource(id = R.color.colorButton)
 	val blackColor = Color.Black
 	var selectedIndex by remember { mutableStateOf(0) }

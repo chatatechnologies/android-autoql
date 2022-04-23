@@ -9,7 +9,8 @@ class NotificationRepository @Inject constructor(private val api: NotificationAp
 	private var notificationResponse = emptyNotificationResponse()
 
 	suspend fun getAllNotification(offset: Int = 0): NotificationResponse {
-		notificationResponse = api.getNotifications(beaverToken = "", key = "", offset = 1, limit = 1)
+		notificationResponse =
+			api.getNotifications(beaverToken = "", key = "", offset = offset, limit = 1)
 		return notificationResponse
 	}
 }
