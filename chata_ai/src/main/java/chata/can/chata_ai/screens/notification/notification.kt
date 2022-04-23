@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,41 +20,48 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.screens.NotificationViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.compose.util.isTrue
 
 @Composable
 fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
-	val notificationResponse = viewModel.data.value
-	val items = notificationResponse.data.items
-	val isEmpty = items.isEmpty()
+	val valueViewModel = viewModel.data.value
+	val loading = valueViewModel.loading
+	val dataNotification = valueViewModel.data?.data
+	val items = dataNotification?.items
+	val isEmpty = items?.isEmpty()
 
 	Column(
 		Modifier.fillMaxSize(),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center
 	) {
-		Text(
-			text = stringResource(id = R.string.loading),
-			style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
-			modifier = Modifier.fillMaxWidth()
-		)
-
-		if (isEmpty) {
-			Image(
-				painter = painterResource(id = R.drawable.ic_notification),
-				contentDescription = "Waiting notification",
-				modifier = Modifier.size(180.dp)
-			)
+		if (loading.isTrue()) {
 			Text(
-				text = stringResource(id = R.string.stay_tuned),
+				text = stringResource(id = R.string.loading),
 				style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
-			modifier = Modifier
-				.padding(top = 4.dp)
-				.fillMaxWidth()
+				modifier = Modifier.fillMaxWidth()
 			)
 		} else {
-			NotificationList()
+			if (isEmpty == true) {
+				Image(
+					painter = painterResource(id = R.drawable.ic_notification),
+					contentDescription = "Waiting notification",
+					modifier = Modifier.size(180.dp)
+				)
+				Text(
+					text = stringResource(id = R.string.empty_notification),
+					style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold))
+				Text(
+					text = stringResource(id = R.string.stay_tuned),
+					style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
+					modifier = Modifier
+						.padding(top = 4.dp)
+						.fillMaxWidth()
+				)
+			} else {
+				NotificationList()
+			}
 		}
-//		Text(text = stringResource(id = R.string.try_again), modifier = Modifier.padding(12.dp))
 	}
 }
 
