@@ -108,35 +108,34 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 				}
 
 				TitleSection("AutoQL Api Configuration Options")
-				SwitchContent(text = "Enable Autocomplete") { isAutocomplete ->
-
+				SwitchContent(text = "Enable Autocomplete") { isChecked ->
+					AutoQLData.autoQLConfig.enableAutocomplete = isChecked
 				}
-				SwitchContent(text = "Enable Query Validation") { isQueryValidation ->
-
+				SwitchContent(text = "Enable Query Validation") { isChecked ->
+					AutoQLData.autoQLConfig.enableQueryValidation = isChecked
 				}
-				SwitchContent(text = "Enable Query Suggestion") { isQuerySuggestion ->
-
+				SwitchContent(text = "Enable Query Suggestion") { isChecked ->
+					AutoQLData.autoQLConfig.enableQuerySuggestions = isChecked
 				}
-				SwitchContent(text = "Enable Drilldowns") { isDrillDown ->
-
+				SwitchContent(text = "Enable Drilldowns") { isChecked ->
+					AutoQLData.autoQLConfig.enableDrilldowns = isChecked
 				}
-				SwitchContent(text = "Enable Column Visibility Editor") { isColumVisibility ->
-
+				SwitchContent(text = "Enable Column Visibility Editor") { isChecked ->
+					AutoQLData.isColumnVisibility = isChecked
 				}
-				SwitchContent(text = "Enable Notifications") { isNotification ->
-
+				SwitchContent(text = "Enable Notifications") { isChecked ->
+					AutoQLData.visibleNotification = isChecked
+					AutoQLData.activeNotifications = isChecked
 				}
 				//endregion
 				//region UI Configuration Options
 				TitleSection("UI Configuration Options")
-				SwitchContent(text = "Show Data Messenger Button") { isShowData ->
-
-				}
+				SwitchContent(text = "Show Data Messenger Button") {}
 				SwitchContent(
 					text = "Darken Background Behind Data Messenger",
 					isChecked = false
-				) { isShowData ->
-
+				) { isChecked ->
+					AutoQLData.isDarkenBackgroundBehind = isChecked
 				}
 
 				Text(
@@ -206,8 +205,8 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 					value = Constant.queryInputPlaceholder
 				) { }
 
-				SwitchContent(text = "Clear All Message on Close", isChecked = false) { isClearAll ->
-
+				SwitchContent(text = "Clear All Message on Close", isChecked = false) { isChecked ->
+					AutoQLData.clearOnClose = isChecked
 				}
 
 				CustomTextField(placeholder = "Title", value = Constant.title) { }
@@ -253,14 +252,14 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 					value = "${Constant.maximumNumberMessage}"
 				) { }
 
-				SwitchContent(text = "Enable Explore Queries Tab") { isExploreQueries ->
-
+				SwitchContent(text = "Enable Explore Queries Tab") { isChecked ->
+					AutoQLData.visibleExploreQueries = isChecked
 				}
-				SwitchContent(text = "Enable Notification Tab") { isNotification ->
-
+				SwitchContent(text = "Enable Notification Tab") { isChecked ->
+					AutoQLData.visibleNotification = isChecked
 				}
-				SwitchContent(text = "Enable Speech to Text") { isSpeech ->
-
+				SwitchContent(text = "Enable Speech to Text") { isChecked ->
+					AutoQLData.enableVoiceRecord = isChecked
 				}
 				//endregion
 			}
