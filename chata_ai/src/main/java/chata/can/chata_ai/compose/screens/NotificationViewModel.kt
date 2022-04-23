@@ -17,7 +17,7 @@ class NotificationViewModel @Inject constructor(private val repository: Notifica
 	var data: MutableState<NotificationResponse> = mutableStateOf(emptyNotificationResponse())
 
 	init {
-//		getAllNotifications()
+		getAllNotifications()
 	}
 
 	private fun getAllNotifications(offset: Int = 0) {

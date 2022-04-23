@@ -30,7 +30,7 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 		verticalArrangement = Arrangement.Center
 	) {
 		if (notificationResponse.message.isNotEmpty()) {
-			Text(text = "Notification response success")
+			Text(text = "Notification count => ${notificationResponse.data.items.size}")
 		}
 		Image(
 			painter = painterResource(id = R.drawable.ic_notification),
@@ -69,7 +69,7 @@ fun NotificationList() {
 @Composable
 fun ContentNotificationPreview() {
 	ApiChataTheme {
-//		ContentNotification()
+		ContentNotification()
 	}
 }
 

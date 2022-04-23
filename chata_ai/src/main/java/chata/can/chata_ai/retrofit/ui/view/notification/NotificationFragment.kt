@@ -38,7 +38,6 @@ class NotificationFragment: Fragment() {
 		fragmentNotificationFragmentBinding.composeView.apply {
 			setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 			setContent {
-//				val viewModel: NotificationViewModel by viewModels()
 				ContentNotification()
 			}
 		}
