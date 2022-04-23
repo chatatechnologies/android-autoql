@@ -2,24 +2,24 @@ package chata.can.chata_ai_api.util
 
 object Constant {
 	//region data for login
-	val projectID = "spira-demo3"
-	val userEmail = "carlos@rinro.com.mx"
-	val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-	val domainUrl = "https://spira-staging.chata.io"
-	val username = "admin"
-	val password = "admin123"
+	const val projectID = "accounting-demo"
+	const val userEmail = "carlos@rinro.com.mx"
+	const val apiKey = "AIzaSyCWcKQfsJo3Lk6t2VHflBEY6CF51kEPdx8"
+	const val domainUrl = "https://chata-staging.chata.io"
+	const val username = "admin"
+	const val password = "admin123"
 	//endregion
 	//region
-	val currencyCode = "USD"
-	val languageCode = "es-US"
-	val formatMonthYear = "MMM YYYY"
-	val formatDayMonthYear = "MMM DD, YYYY"
-	val numberDecimalCurrencyValues = 2
-	val numberDecimalQuantityValues= 1
-	val userDisplay = "Carlos"
-	val introMessage = ""
-	val queryInputPlaceholder = ""
-	val title = "Data Messenger"
-	val maximumNumberMessage = 10
+	const val currencyCode = "USD"
+	const val languageCode = "es-US"
+	const val formatMonthYear = "MMM YYYY"
+	const val formatDayMonthYear = "MMM DD, YYYY"
+	const val numberDecimalCurrencyValues = 2
+	const val numberDecimalQuantityValues= 1
+	const val userDisplay = "Carlos"
+	const val introMessage = ""
+	const val queryInputPlaceholder = ""
+	const val title = "Data Messenger"
+	const val maximumNumberMessage = 10
 	//endregion
 }

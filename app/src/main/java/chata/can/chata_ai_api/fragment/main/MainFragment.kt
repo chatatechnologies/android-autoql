@@ -29,6 +29,7 @@ import chata.can.chata_ai.view.dm.AutoQL
 import chata.can.chata_ai_api.*
 import chata.can.chata_ai_api.databinding.FragmentMainBinding
 import chata.can.chata_ai_api.main.PagerActivity
+import chata.can.chata_ai_api.util.Constant
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -165,17 +166,12 @@ class MainFragment: Fragment(), View.OnClickListener, MainContract {
 
 	private fun initObserve() {
 		if (BuildConfig.DEBUG) {
-			val projectId = "spira-demo3"
-			etProjectId?.setText(projectId)
-			val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-			etApiKey?.setText(apiKey)
-			val domainUrl = "https://spira-staging.chata.io"
-			etDomainUrl?.setText(domainUrl)
-			val userId = "carlos@rinro.com.mx"
-			etUserId?.setText(userId)
-			val username = "admin"
-			etUsername?.setText(username)
-			val password = "admin123"
+			etProjectId?.setText(Constant.projectID)
+			etApiKey?.setText(Constant.apiKey)
+			etDomainUrl?.setText(Constant.domainUrl)
+			etUserId?.setText(Constant.userEmail)
+			etUsername?.setText(Constant.username)
+			val password = Constant.password
 			etPassword?.setText(password)
 			etPassword?.setSelection(password.length)
 

@@ -23,42 +23,44 @@ import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 @Composable
 fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 	val notificationResponse = viewModel.data.value
+	val items = notificationResponse.data.items
+	val isEmpty = items.isEmpty()
 
 	Column(
 		Modifier.fillMaxSize(),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center
 	) {
-		if (notificationResponse.message.isNotEmpty()) {
-			Text(text = "Notification count => ${notificationResponse.data.items.size}")
-		}
-		Image(
-			painter = painterResource(id = R.drawable.ic_notification),
-			contentDescription = "Waiting notification",
-			modifier = Modifier.size(180.dp)
-		)
 		Text(
 			text = stringResource(id = R.string.loading),
 			style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(end = 16.dp, start = 16.dp)
+			modifier = Modifier.fillMaxWidth()
 		)
-		Text(text = stringResource(id = R.string.try_again), modifier = Modifier.padding(36.dp))
-		Text(
-			text = stringResource(id = R.string.stay_tuned),
-			style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
+
+		if (isEmpty) {
+			Image(
+				painter = painterResource(id = R.drawable.ic_notification),
+				contentDescription = "Waiting notification",
+				modifier = Modifier.size(180.dp)
+			)
+			Text(
+				text = stringResource(id = R.string.stay_tuned),
+				style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
 			modifier = Modifier
 				.padding(top = 4.dp)
 				.fillMaxWidth()
-		)
+			)
+		} else {
+			NotificationList()
+		}
+//		Text(text = stringResource(id = R.string.try_again), modifier = Modifier.padding(12.dp))
 	}
 }
 
 @Composable
 fun NotificationList() {
 	val notificationList = listOf(1, 2, 3, 4)
-	LazyColumn {
+	LazyColumn(modifier = Modifier.fillMaxSize()) {
 		items(notificationList) {
 			CardNotification()
 		}
@@ -68,14 +70,6 @@ fun NotificationList() {
 @Preview(showBackground = true)
 @Composable
 fun ContentNotificationPreview() {
-	ApiChataTheme {
-		ContentNotification()
-	}
-}
-
-//@Preview(showBackground = true)
-@Composable
-fun NotificationListPreview() {
 	ApiChataTheme {
 		NotificationList()
 	}
