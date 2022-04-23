@@ -37,6 +37,7 @@
 
 		<!--Initial Activity Composable-->
 		<activity
+			android:windowSoftInputMode="adjustResize"
 			android:configChanges="orientation|screenSize"
 			android:exported="true"
 			android:name=".PagerComposableActivity">

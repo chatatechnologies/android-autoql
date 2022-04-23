@@ -2,6 +2,7 @@ package chata.can.chata_ai_api
 
 import androidx.activity.viewModels
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -24,12 +25,14 @@ import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.screens.InputConfigScreen
 import chata.can.chata_ai_api.screens.InputConfigViewModel
+import chata.can.chata_ai_api.util.resizeWindow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PagerComposableActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+//		resizeWindow(window)
 		setContent {
 			ApiChataTheme {
 				val viewModel: InputConfigViewModel by viewModels()

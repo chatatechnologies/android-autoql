@@ -266,22 +266,4 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 			}
 		}
 	}
-//	Box(
-//		contentAlignment = Alignment.Center,
-//		modifier = Modifier.fillMaxSize()
-//	) {
-//
-//
-//		if (isShowProgress.value) {
-//			Surface(color = Color.White) {
-//				CircularProgressIndicator(
-//					color = blueColor,
-//					modifier = Modifier
-//						.size(70.dp)
-//						.padding(12.dp),
-//					strokeWidth = 4.dp
-//				)
-//			}
-//		}
-//	}
 }
