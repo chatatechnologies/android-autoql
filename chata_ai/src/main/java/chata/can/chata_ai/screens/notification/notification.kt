@@ -16,10 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.R
+import chata.can.chata_ai.compose.screens.NotificationViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
-fun ContentNotification() {
+fun ContentNotification(viewModel: NotificationViewModel) {
 	Column(
 		Modifier.fillMaxSize(),
 		horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,7 +51,7 @@ fun ContentNotification() {
 
 @Composable
 fun NotificationList() {
-	val notificationList = listOf<Int>(1, 2, 3, 4)
+	val notificationList = listOf(1, 2, 3, 4)
 	LazyColumn {
 		items(notificationList) {
 			CardNotification()
@@ -62,7 +63,7 @@ fun NotificationList() {
 @Composable
 fun ContentNotificationPreview() {
 	ApiChataTheme {
-		ContentNotification()
+//		ContentNotification()
 	}
 }
 

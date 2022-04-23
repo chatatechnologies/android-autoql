@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material.Text
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import chata.can.chata_ai.databinding.FragmentNotificationBinding
 import chata.can.chata_ai.retrofit.ui.viewModel.NotificationViewModel
+import chata.can.chata_ai.screens.notification.NotificationList
 
 class NotificationFragment: Fragment() {
 	companion object {
@@ -36,7 +36,7 @@ class NotificationFragment: Fragment() {
 		fragmentNotificationFragmentBinding.composeView.apply {
 			setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 			setContent {
-				Text(text = "Content notification fragment")
+				NotificationList()
 			}
 		}
 

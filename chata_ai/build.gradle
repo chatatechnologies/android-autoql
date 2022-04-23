@@ -2,6 +2,7 @@ plugins {
 	id 'com.android.library'
 	id 'kotlin-android'
 	id 'kotlin-kapt'
+	id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -61,10 +62,14 @@ dependencies {
 
 	implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
+	//Hilt-Dagger
+	implementation "com.google.dagger:hilt-android:$hilt_version"
+	kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
 	// ViewModel
-//	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
 	// LiveData
-//	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
 	// Fragment
 	implementation 'androidx.fragment:fragment-ktx:1.4.1'
 	// Activity
