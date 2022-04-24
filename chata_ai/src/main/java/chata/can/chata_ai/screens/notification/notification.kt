@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -16,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
+import chata.can.chata_ai.compose.component.ColumnCenterComponent
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.compose.util.isTrue
 
@@ -27,21 +27,17 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 	val itemNotifications = dataNotification?.items
 	val isEmpty = itemNotifications?.isEmpty()
 
-	Column(
-		Modifier
-			.fillMaxWidth()
-			.fillMaxHeight(),
-		horizontalAlignment = Alignment.CenterHorizontally,
-		verticalArrangement = Arrangement.Center
-	) {
-		if (loading.isTrue()) {
+	if (loading.isTrue()) {
+		ColumnCenterComponent {
 			Text(
 				text = stringResource(id = R.string.loading),
 				style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),
 				modifier = Modifier.fillMaxWidth()
 			)
-		} else {
-			if (isEmpty == true) {
+		}
+	} else {
+		if (isEmpty == true) {
+			ColumnCenterComponent {
 				Image(
 					painter = painterResource(id = R.drawable.ic_notification),
 					contentDescription = "Waiting notification",
@@ -58,9 +54,9 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 						.padding(top = 4.dp)
 						.fillMaxWidth()
 				)
-			} else {
-				NotificationList(itemNotifications ?: listOf())
 			}
+		} else {
+			NotificationList(itemNotifications ?: listOf())
 		}
 	}
 }

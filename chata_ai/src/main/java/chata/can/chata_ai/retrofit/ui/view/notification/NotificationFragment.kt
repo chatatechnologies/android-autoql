@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.screens.notification.ContentNotification
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +27,9 @@ class NotificationFragment: Fragment() {
 	): View {
 		return ComposeView(requireContext()).apply {
 			setContent {
-				ContentNotification()
+				ApiChataTheme {
+					ContentNotification()
+				}
 			}
 		}
 	}
