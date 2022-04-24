@@ -1,5 +1,8 @@
 package chata.can.chata_ai.compose.model
 
+import androidx.compose.ui.graphics.Color
+import chata.can.chata_ai.pojo.SinglentonDrawer
+import chata.can.chata_ai.pojo.color.ThemeColor
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,19 +41,27 @@ data class ItemNotification(
 			val formatHour = SimpleDateFormat("hh:mma", Locale.US)
 			val hour = formatHour.format(recordDate).lowercase(Locale.US)
 
-			when((currentDate.time - recordDate.time).toInt() / (1000 * 60 * 60 * 24))
-			{
+			when ((currentDate.time - recordDate.time).toInt() / (1000 * 60 * 60 * 24)) {
 				0 -> "Today $hour"
 				1 -> "Yesterday $hour"
-				else ->
-				{
+				else -> {
 					val format = SimpleDateFormat("MMMM d°, yyyy", Locale.US)
 					format.format(recordDate) + " at $hour"
 				}
 			}
+		} catch (ex: Exception) {
+			""
 		}
-		catch (ex: Exception) { "" }
 	}
+
+	fun getTextColorPrimary() = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
+
+	fun getColorTint() = Color(
+		if (state == "DISMISSED")
+			ThemeColor.currentColor.pDrawerTextColorPrimary
+		else
+			SinglentonDrawer.currentAccent
+	)
 
 	fun createdAtFormatted(): String {
 		return "\uD83D\uDCC5 ${toDate(created_at)}"
