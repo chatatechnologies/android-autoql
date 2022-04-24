@@ -8,26 +8,28 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.model.ItemNotification
 import chata.can.chata_ai.compose.model.emptyItemNotification
-import chata.can.chata_ai.dp
+import chata.can.chata_ai.extension.toDp
 
 @Composable
 fun CardNotification(
 	accentColor: Color = Color.Blue,
 	itemNotification: ItemNotification = emptyItemNotification()
 ) {
-	var height by remember { mutableStateOf(0.dp) }
+	var height by remember { mutableStateOf(0) }
+	val currentContext = LocalContext.current
+
 	Card(
 		modifier = Modifier
-			.padding(10.dp)
+			.padding(4.dp)
 			.fillMaxWidth(),
-		elevation = 10.dp,
+		elevation = 4.dp,
 		shape = MaterialTheme.shapes.medium
 	) {
 		Row {
@@ -41,8 +43,8 @@ fun CardNotification(
 				modifier = Modifier
 					.padding(8.dp)
 					.onGloballyPositioned { layoutCoordinates ->
-						height = layoutCoordinates.size.height.dp()
-						println("layoutCoordinates.size.height $height")
+						//16 is padding in column
+						height = layoutCoordinates.size.height.toDp(currentContext) + 16
 					}
 			) {
 				Text(
