@@ -1,16 +1,11 @@
 package chata.can.chata_ai.screens.notification
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -20,7 +15,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.compose.model.ItemNotification
@@ -29,6 +23,7 @@ import chata.can.chata_ai.extension.toDp
 
 @Composable
 fun CardNotification(
+	viewModel: CardNotificationViewModel,
 	accentColor: Color = Color.Blue,
 	itemNotification: ItemNotification = emptyItemNotification()
 ) {
@@ -86,11 +81,7 @@ fun CardNotification(
 					)
 				}
 				//endregion
-				AnimatedVisibility(
-					visible = bottomVisible,
-					enter = fadeIn(animationSpec = tween(1000)),
-					exit = fadeOut(animationSpec = tween(1000))
-				) {
+				if (bottomVisible) {
 					//region rlBottom
 					Column {
 						Spacer(
@@ -128,26 +119,5 @@ fun CardNotification(
 				}
 			}
 		}
-	}
-}
-
-@Preview
-@Composable
-fun CardNotificationPreview() {
-	Scaffold {
-		LazyColumn {
-			item {
-				CardNotification()
-			}
-		}
-	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SimpleCard() {
-	val paddingModifier = Modifier.padding(10.dp)
-	Card(elevation = 10.dp, modifier = paddingModifier.fillMaxWidth()) {
-		Text(text = "Simple Card with elevation", modifier = paddingModifier)
 	}
 }

@@ -10,13 +10,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.component.ColumnCenterComponent
-import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.compose.util.isTrue
 
 @Composable
@@ -58,13 +56,5 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 		} else {
 			NotificationList(itemNotifications ?: listOf())
 		}
-	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ContentNotificationPreview() {
-	ApiChataTheme {
-//		NotificationList()
 	}
 }
