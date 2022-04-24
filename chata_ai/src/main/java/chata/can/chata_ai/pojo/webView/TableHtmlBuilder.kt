@@ -20,14 +20,14 @@ object TableHtmlBuilder
 			val footTable = StringBuilder("<tfoot><tr>")
 			for (column in aColumn)
 			{
-				if (column.isVisible)
-				{
+//				if (column.isVisible)
+//				{
 					val cellHead = column.displayName.ifEmpty {
 						column.name.toCapitalColumn()
 					}
 					headTable.append("<th>$cellHead</th>")
 					footTable.append("<th>$cellHead</th>")
-				}
+//				}
 			}
 			footTable.append("</tr></tfoot>")
 			headTable.append("</tr></thead>")
@@ -49,8 +49,9 @@ object TableHtmlBuilder
 						cell.formatWithColumn(column)
 					else ""
 
-					val classHidden = if (!column.isVisible) " class=\"td-hidden\"" else ""
-					sRow.append("<td$classHidden>$valueRow</td>")
+//					val classHidden = if (!column.isVisible) " class=\"td-hidden\"" else ""
+//					sRow.append("<td$classHidden>$valueRow</td>")
+					sRow.append("<td>$valueRow</td>")
 				}
 				numRows++
 				aRowsTR.add("<tr>$sRow</tr>")
