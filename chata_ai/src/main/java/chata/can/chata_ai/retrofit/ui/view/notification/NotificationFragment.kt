@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import chata.can.chata_ai.databinding.FragmentNotificationBinding
 import chata.can.chata_ai.screens.notification.ContentNotification
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +16,6 @@ class NotificationFragment: Fragment() {
 	}
 
 //	private val notificationViewModel: NotificationViewModel by viewModels()
-	private lateinit var fragmentNotificationFragmentBinding: FragmentNotificationBinding
 	//totalItems
 	private var totalPages = 0
 
@@ -26,21 +24,11 @@ class NotificationFragment: Fragment() {
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
-		fragmentNotificationFragmentBinding = FragmentNotificationBinding.inflate(
-			inflater,
-			container,
-			false
-		)
-//		fragmentNotificationFragmentBinding.model = notificationViewModel
-
-		fragmentNotificationFragmentBinding.composeView.apply {
-			setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+		return ComposeView(requireContext()).apply {
 			setContent {
 				ContentNotification()
 			}
 		}
-
-		return fragmentNotificationFragmentBinding.root
 	}
 
 //	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

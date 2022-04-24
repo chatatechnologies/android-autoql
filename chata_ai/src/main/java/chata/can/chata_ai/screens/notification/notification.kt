@@ -28,7 +28,9 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 	val isEmpty = itemNotifications?.isEmpty()
 
 	Column(
-		Modifier.fillMaxSize(),
+		Modifier
+			.fillMaxWidth()
+			.fillMaxHeight(),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center
 	) {
@@ -47,7 +49,8 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 				)
 				Text(
 					text = stringResource(id = R.string.empty_notification),
-					style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold))
+					style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold)
+				)
 				Text(
 					text = stringResource(id = R.string.stay_tuned),
 					style = TextStyle(textAlign = TextAlign.Center, fontSize = 14.sp),

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,23 +19,26 @@ import chata.can.chata_ai.compose.model.emptyItemNotification
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
-fun CardNotification(itemNotification: ItemNotification = emptyItemNotification()) {
+fun CardNotification(
+	accentColor: Color,
+	itemNotification: ItemNotification = emptyItemNotification()
+) {
 	Surface(
 		modifier = Modifier
 			.padding(4.dp)
 			.clip(RoundedCornerShape(8.dp))
+			.fillMaxWidth(),
+		elevation = 4.dp
 	) {
 		Row {
 			Divider(
 				modifier = Modifier
-					.background(Color.Cyan)
+					.background(accentColor)
 					.height(80.dp)
 					.width(4.dp)
 			)
 			Column(
 				modifier = Modifier
-					.background(Color.White, shape = MaterialTheme.shapes.large)
-					.fillMaxWidth()
 					.padding(8.dp)
 			) {
 				Text(
@@ -44,11 +46,13 @@ fun CardNotification(itemNotification: ItemNotification = emptyItemNotification(
 					style = TextStyle(fontSize = 18.sp),
 					modifier = Modifier.fillMaxWidth()
 				)
-				Text(
-					text = itemNotification.message,
-					style = TextStyle(fontSize = 16.sp),
-					modifier = Modifier.fillMaxWidth()
-				)
+				if (itemNotification.message.isNotEmpty()) {
+					Text(
+						text = itemNotification.message,
+						style = TextStyle(fontSize = 16.sp),
+						modifier = Modifier.fillMaxWidth()
+					)
+				}
 				Text(
 					text = itemNotification.createdAtFormatted(),
 					style = TextStyle(fontSize = 14.sp),
@@ -63,6 +67,6 @@ fun CardNotification(itemNotification: ItemNotification = emptyItemNotification(
 @Composable
 fun CardNotificationPreview() {
 	ApiChataTheme {
-		CardNotification()
+//		CardNotification()
 	}
 }
