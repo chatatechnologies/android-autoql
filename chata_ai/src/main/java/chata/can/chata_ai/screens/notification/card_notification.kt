@@ -1,24 +1,68 @@
 package chata.can.chata_ai.screens.notification
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chata.can.chata_ai.compose.model.ItemNotification
+import chata.can.chata_ai.compose.model.emptyItemNotification
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 
 @Composable
-fun CardNotification() {
-	Column(
+fun CardNotification(itemNotification: ItemNotification = emptyItemNotification()) {
+	Surface(
 		modifier = Modifier
-			.padding(10.dp)
-			.fillMaxWidth()
+			.padding(4.dp)
+			.clip(RoundedCornerShape(8.dp))
 	) {
-		Text(text = "Title", style = TextStyle(fontSize = 18.sp), modifier = Modifier.fillMaxWidth())
-		Text(text = "Body", style = TextStyle(fontSize = 16.sp), modifier = Modifier.fillMaxWidth())
-		Text(text = "Date", style = TextStyle(fontSize = 14.sp), modifier = Modifier.fillMaxWidth())
+		Row {
+			Divider(
+				modifier = Modifier
+					.background(Color.Cyan)
+					.height(80.dp)
+					.width(4.dp)
+			)
+			Column(
+				modifier = Modifier
+					.background(Color.White, shape = MaterialTheme.shapes.large)
+					.fillMaxWidth()
+					.padding(8.dp)
+			) {
+				Text(
+					text = itemNotification.title,
+					style = TextStyle(fontSize = 18.sp),
+					modifier = Modifier.fillMaxWidth()
+				)
+				Text(
+					text = itemNotification.message,
+					style = TextStyle(fontSize = 16.sp),
+					modifier = Modifier.fillMaxWidth()
+				)
+				Text(
+					text = itemNotification.createdAtFormatted(),
+					style = TextStyle(fontSize = 14.sp),
+					modifier = Modifier.fillMaxWidth()
+				)
+			}
+		}
+	}
+}
+
+@Preview
+@Composable
+fun CardNotificationPreview() {
+	ApiChataTheme {
+		CardNotification()
 	}
 }

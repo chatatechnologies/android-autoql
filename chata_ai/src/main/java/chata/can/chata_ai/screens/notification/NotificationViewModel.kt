@@ -1,4 +1,4 @@
-package chata.can.chata_ai.compose.screens
+package chata.can.chata_ai.screens.notification
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

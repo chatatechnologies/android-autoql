@@ -2,8 +2,6 @@ package chata.can.chata_ai.screens.notification
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
-import chata.can.chata_ai.compose.screens.NotificationViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.compose.util.isTrue
 
@@ -27,8 +24,8 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 	val valueViewModel = viewModel.data.value
 	val loading = valueViewModel.loading
 	val dataNotification = valueViewModel.data?.data
-	val items = dataNotification?.items
-	val isEmpty = items?.isEmpty()
+	val itemNotifications = dataNotification?.items
+	val isEmpty = itemNotifications?.isEmpty()
 
 	Column(
 		Modifier.fillMaxSize(),
@@ -59,18 +56,8 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 						.fillMaxWidth()
 				)
 			} else {
-				NotificationList()
+				NotificationList(itemNotifications ?: listOf())
 			}
-		}
-	}
-}
-
-@Composable
-fun NotificationList() {
-	val notificationList = listOf(1, 2, 3, 4)
-	LazyColumn(modifier = Modifier.fillMaxSize()) {
-		items(notificationList) {
-			CardNotification()
 		}
 	}
 }
@@ -79,6 +66,6 @@ fun NotificationList() {
 @Composable
 fun ContentNotificationPreview() {
 	ApiChataTheme {
-		NotificationList()
+//		NotificationList()
 	}
 }
