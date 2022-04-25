@@ -54,37 +54,37 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 			Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 				//region Authentication
 				TitleSection("Authentication")
-				CustomTextField(placeholder = "Project ID", value = projectId) {
+				CustomOutlinedTextField(placeholder = "Project ID", value = projectId) {
 					AutoQLData.projectId = it
 					projectId = it
 				}
 				RequiredField()
 				Spacer(modifier = Modifier.height(4.dp))
-				CustomTextField(placeholder = "User Email", value = userEmail) {
+				CustomOutlinedTextField(placeholder = "User Email", value = userEmail) {
 					AutoQLData.userID = it
 					userEmail = it
 				}
 				RequiredField()
 				Spacer(modifier = Modifier.height(4.dp))
-				CustomTextField(placeholder = "API key", value = apiKey) {
+				CustomOutlinedTextField(placeholder = "API key", value = apiKey) {
 					AutoQLData.apiKey = it
 					apiKey = it
 				}
 				RequiredField()
 				Spacer(modifier = Modifier.height(4.dp))
-				CustomTextField(placeholder = "Domain URL", value = domainUrl) {
+				CustomOutlinedTextField(placeholder = "Domain URL", value = domainUrl) {
 					AutoQLData.domainUrl = it
 					domainUrl = it
 				}
 				RequiredField()
 				Spacer(modifier = Modifier.height(4.dp))
-				CustomTextField(placeholder = "Username", value = username) {
+				CustomOutlinedTextField(placeholder = "Username", value = username) {
 					AutoQLData.username = it
 					username = it
 				}
 				RequiredField()
 				Spacer(modifier = Modifier.height(4.dp))
-				CustomTextField(
+				CustomOutlinedTextField(
 					placeholder = "Password",
 					value = password,
 					keyboardType = KeyboardType.Password
@@ -183,24 +183,24 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 					value
 				}
 
-				CustomTextField(placeholder = "Currency Code", value = Constant.currencyCode) { }
-				CustomTextField(placeholder = "Language Code", value = Constant.languageCode) { }
-				CustomTextField(placeholder = "Format for Day, Year", value = Constant.formatMonthYear) { }
-				CustomTextField(
+				CustomOutlinedTextField(placeholder = "Currency Code", value = Constant.currencyCode) { }
+				CustomOutlinedTextField(placeholder = "Language Code", value = Constant.languageCode) { }
+				CustomOutlinedTextField(placeholder = "Format for Day, Year", value = Constant.formatMonthYear) { }
+				CustomOutlinedTextField(
 					placeholder = "Format for Day, Month, Year",
 					value = Constant.formatDayMonthYear
 				) { }
-				CustomTextField(
+				CustomOutlinedTextField(
 					placeholder = "Number of Decimals for Currency Values",
 					value = "${Constant.numberDecimalCurrencyValues}"
 				) { }
-				CustomTextField(
+				CustomOutlinedTextField(
 					placeholder = "Number of Decimals for Quantity Values",
 					value = "${Constant.numberDecimalQuantityValues}"
 				) { }
-				CustomTextField(placeholder = "User Display Name", value = Constant.userDisplay) { }
-				CustomTextField(placeholder = "Intro Message", value = Constant.introMessage) { }
-				CustomTextField(
+				CustomOutlinedTextField(placeholder = "User Display Name", value = Constant.userDisplay) { }
+				CustomOutlinedTextField(placeholder = "Intro Message", value = Constant.introMessage) { }
+				CustomOutlinedTextField(
 					placeholder = "Query Input Placeholder",
 					value = Constant.queryInputPlaceholder
 				) { }
@@ -209,7 +209,7 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 					AutoQLData.clearOnClose = isChecked
 				}
 
-				CustomTextField(placeholder = "Title", value = Constant.title) { }
+				CustomOutlinedTextField(placeholder = "Title", value = Constant.title) { }
 
 				ColorText("#26A7E9")
 				ColorText("#A5CD39")
@@ -247,7 +247,7 @@ fun InputConfigScreen(viewModel: InputConfigViewModel) {
 				)
 				ColorText("#26A7DF")
 
-				CustomTextField(
+				CustomOutlinedTextField(
 					placeholder = "Maximum Number of Message",
 					value = "${Constant.maximumNumberMessage}"
 				) { }

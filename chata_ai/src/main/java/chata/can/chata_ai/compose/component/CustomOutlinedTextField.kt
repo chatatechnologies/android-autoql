@@ -25,7 +25,7 @@ import chata.can.chata_ai.R
 
 /** https://material.io/components/text-fields#specs **/
 @Composable
-fun CustomTextField(
+fun CustomOutlinedTextField(
 	modifier: Modifier = Modifier,
 	placeholder: String = "",
 	enabled: Boolean = true,

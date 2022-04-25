@@ -26,7 +26,7 @@ fun ColorText(textColor: String = "#00857") {
 
 	TextField(
 		colors = TextFieldDefaults.textFieldColors(
-			backgroundColor = Color(contrastColor.first),
+			backgroundColor = Color(contrastColor.first)
 		),
 		keyboardOptions = KeyboardOptions.Default.copy(
 			imeAction = ImeAction.Done,
