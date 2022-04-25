@@ -1,7 +1,9 @@
 package chata.can.chata_ai.compose.di
 
 import chata.can.chata_ai.compose.network.NotificationApi
+import chata.can.chata_ai.compose.network.ValidateQueryApi
 import chata.can.chata_ai.compose.repository.NotificationRepository
+import chata.can.chata_ai.compose.repository.ValidateQueryRepository
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.getMainURL
@@ -41,5 +43,20 @@ object AppModule {
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(NotificationApi::class.java)
+	}
+
+	@Singleton
+	@Provides
+	fun provideValidateQueryRepository(api: ValidateQueryApi) = ValidateQueryRepository(api)
+
+	@Singleton
+	@Provides
+	fun provideValidateQueryApi(): ValidateQueryApi {
+		val url = AutoQLData.domainUrl.ifEmpty { urlBase }
+		return Retrofit.Builder()
+			.baseUrl("${url}/autoql/$api1")
+			.addConverterFactory(GsonConverterFactory.create())
+			.build()
+			.create(ValidateQueryApi::class.java)
 	}
 }
