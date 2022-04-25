@@ -2,6 +2,7 @@ package chata.can.chata_ai.screens.exploreQueries
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -17,16 +18,21 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.widget.CustomTextField
 
 @Composable
-fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
+fun ExploreQueriesSearch(modifier: Modifier = Modifier, viewModel: ExploreQueriesViewModel) {
 //	val colorTextField = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
 	val colorTextField = Color.Black
 //	val placeholderColor = colorResource(id = R.color.place_holder)
 	val placeholderColor = Color.Black
-	var search by remember { mutableStateOf("") }
+	var queryToSearch = ""
+	if (BuildConfig.DEBUG) {
+		queryToSearch = "revenue"
+	}
+	var search by remember { mutableStateOf(queryToSearch) }
 
 	Row(
 		modifier = modifier
@@ -35,7 +41,9 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Image(
-			modifier = Modifier.size(48.dp),
+			modifier = Modifier.size(48.dp).clickable {
+				viewModel.validateQuery(search)
+			},
 			painter = painterResource(id = R.drawable.ic_search),
 			contentDescription = "Image Search Query",
 			contentScale = ContentScale.Fit,
@@ -56,7 +64,7 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun SearchPreview() {
-	ExploreQueriesSearch()
+//	ExploreQueriesSearch()
 }
 
 @Composable

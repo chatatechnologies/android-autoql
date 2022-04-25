@@ -9,7 +9,7 @@ data class ValidateQueryResponse(
 data class ValidateQueryData(
 	val text: String = "",
 	val query: String = "",
-	val replacements: List<Any> = listOf()
+	val replacements: List<String> = listOf()
 )
 
 fun emptyValidateQueryData() = ValidateQueryData(

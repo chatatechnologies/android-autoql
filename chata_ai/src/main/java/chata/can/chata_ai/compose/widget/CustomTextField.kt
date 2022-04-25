@@ -15,6 +15,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomTextField(
@@ -44,7 +45,7 @@ fun CustomTextField(
 		),
 		onValueChange = onValueChanged,
 		shape = RoundedCornerShape(0.dp),
-		textStyle = TextStyle(color = textColor),
+		textStyle = TextStyle(color = textColor, fontSize = 16.sp),
 		value = text,
 		placeholder = { Text(text = placeholder, style = TextStyle(color = placeholderColor)) }
 	)

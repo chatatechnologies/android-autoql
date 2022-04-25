@@ -1,8 +1,10 @@
 package chata.can.chata_ai.compose.di
 
 import chata.can.chata_ai.compose.network.NotificationApi
+import chata.can.chata_ai.compose.network.RelatedQueriesApi
 import chata.can.chata_ai.compose.network.ValidateQueryApi
 import chata.can.chata_ai.compose.repository.NotificationRepository
+import chata.can.chata_ai.compose.repository.RelatedQueriesRepository
 import chata.can.chata_ai.compose.repository.ValidateQueryRepository
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
@@ -58,5 +60,20 @@ object AppModule {
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(ValidateQueryApi::class.java)
+	}
+
+	@Singleton
+	@Provides
+	fun provideRelatedQueriesRepository(api: RelatedQueriesApi) = RelatedQueriesRepository(api)
+
+	@Singleton
+	@Provides
+	fun provideRelatedQueries(): RelatedQueriesApi {
+		val url = AutoQLData.domainUrl.ifEmpty { urlBase }
+		return Retrofit.Builder()
+			.baseUrl("${url}/autoql/$api1")
+			.addConverterFactory(GsonConverterFactory.create())
+			.build()
+			.create(RelatedQueriesApi::class.java)
 	}
 }
