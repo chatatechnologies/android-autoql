@@ -18,7 +18,7 @@ class RelatedQueriesRepository @Inject constructor(private val api: RelatedQueri
 	): DataOrException<RelatedQueriesResponse, Boolean, Exception> {
 		try {
 			dataOrException.loading = true
-			api.getRelatedQuery(
+			dataOrException.data = api.getRelatedQuery(
 				beaverToken = Authentication.bearerToken(),
 				acceptLanguage = SinglentonDrawer.languageCode,
 				apiKey = AutoQLData.apiKey,
