@@ -1,9 +1,7 @@
 package chata.can.chata_ai.compose.di
 
 import chata.can.chata_ai.compose.network.NotificationApi
-import chata.can.chata_ai.compose.network.RuleQueryApi
 import chata.can.chata_ai.compose.repository.NotificationRepository
-import chata.can.chata_ai.compose.repository.RuleQueryRepository
 import chata.can.chata_ai.pojo.api1
 import chata.can.chata_ai.pojo.autoQL.AutoQLData
 import chata.can.chata_ai.pojo.getMainURL
@@ -43,13 +41,5 @@ object AppModule {
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(NotificationApi::class.java)
-	}
-
-	@Provides
-	fun provideRuleQuery(api: RuleQueryApi) = RuleQueryRepository(api)
-
-	@Provides
-	fun provideRuleQueryApi(retrofit: Retrofit): RuleQueryApi {
-		return retrofit.create(RuleQueryApi::class.java)
 	}
 }

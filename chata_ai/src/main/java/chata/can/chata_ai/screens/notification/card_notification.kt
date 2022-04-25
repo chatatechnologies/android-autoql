@@ -20,7 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.model.ItemNotification
 import chata.can.chata_ai.compose.model.emptyItemNotification
 import chata.can.chata_ai.extension.toDp
@@ -30,7 +29,11 @@ fun CardNotification(
 	accentColor: Color = Color.Blue,
 	itemNotification: ItemNotification = emptyItemNotification()
 ) {
-	val viewModel: CardNotificationViewModel = hiltViewModel()
+	val viewModel = CardNotificationViewModel()
+
+	val loaded by remember {
+		mutableStateOf(viewModel.loaded)
+	}
 
 	val ruleQueryData = viewModel.data.value.data
 	var height by remember { mutableStateOf(0) }
@@ -88,8 +91,10 @@ fun CardNotification(
 						style = TextStyle(fontSize = 14.sp, color = itemNotification.getTextColorPrimary()),
 						modifier = Modifier.fillMaxWidth()
 					)
-					if (ruleQueryData != null) {
+					if (loaded) {
 						Text(text = "Rule Query Data", style = TextStyle(color = Color.Red))
+					} else {
+						Text(text = "Rule Query Data", style = TextStyle(color = Color.Green))
 					}
 				}
 				//endregion
