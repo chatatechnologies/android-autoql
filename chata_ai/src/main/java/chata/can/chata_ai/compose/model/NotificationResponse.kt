@@ -54,7 +54,7 @@ data class ItemNotification(
 		}
 	}
 
-	fun getTextColorPrimary() = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
+	fun getTextColorPrimary() = ThemeColor.currentColor.drawerTextColorPrimary()
 
 	fun getColorTint() = Color(
 		if (state == "DISMISSED")

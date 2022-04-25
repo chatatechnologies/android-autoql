@@ -35,7 +35,7 @@ fun ExploreQueriesList(queries: List<String>) {
 
 @Composable
 fun CardExploreQueries(text: String) {
-	val textColor = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
+	val textColor = ThemeColor.currentColor.drawerTextColorPrimary()
 	Text(
 		text = text,
 		style = TextStyle(color = textColor, fontSize = 16.sp, textAlign = TextAlign.Center),

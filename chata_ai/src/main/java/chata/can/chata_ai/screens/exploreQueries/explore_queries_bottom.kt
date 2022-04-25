@@ -20,7 +20,7 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 @Composable
 fun ExploreQueriesBottom(modifier: Modifier = Modifier) {
 	val currentAccent = Color(SinglentonDrawer.currentAccent)
-	val textColorPrimary = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
+	val textColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
 
 	Row(
 		modifier = modifier
