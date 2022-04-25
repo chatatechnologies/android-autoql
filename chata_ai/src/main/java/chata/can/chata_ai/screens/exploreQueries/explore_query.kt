@@ -1,7 +1,9 @@
 package chata.can.chata_ai.screens.exploreQueries
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,12 +23,17 @@ import chata.can.chata_ai.compose.widget.CustomTextField
 @Composable
 fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 //	val colorTextField = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
-	val colorTextField = Color.Green
+	val colorTextField = Color.Black
 //	val placeholderColor = colorResource(id = R.color.place_holder)
-	val placeholderColor = Color.Red
+	val placeholderColor = Color.Black
 	var search by remember { mutableStateOf("") }
 
-	Row(modifier = modifier.padding(8.dp)) {
+	Row(
+		modifier = modifier
+			.padding(horizontal = 8.dp, vertical = 4.dp)
+			.background(Color.Gray, RoundedCornerShape(50)),
+		verticalAlignment = Alignment.CenterVertically
+	) {
 		Image(
 			modifier = Modifier.size(48.dp),
 			painter = painterResource(id = R.drawable.ic_search),
@@ -34,31 +41,15 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 			contentScale = ContentScale.Fit,
 			alignment = Alignment.Center
 		)
-//		CustomOutlinedTextField(placeholder = "placeholder", value = search1, textColor = Color.White) {
-//			search1 = it
-//		}
 		CustomTextField(
 			text = search,
-			textColor = Color.White,
-			placeholder = "",
-			placeholderColor = Color.Red,
-			backgroundColor = Color.DarkGray
+			textColor = colorTextField,
+			placeholder = stringResource(id = R.string.explore_queries_hint),
+			placeholderColor = placeholderColor,
+			backgroundColor = Color.Transparent
 		) {
 			search = it
 		}
-
-//		CustomTextField(
-//			modifier = Modifier
-//				.height(56.dp)
-//				.fillMaxWidth()
-//				.padding(vertical = 16.dp, horizontal = 8.dp),
-//			text = search,
-//			textColor = colorTextField,
-//			placeholder = stringResource(id = R.string.explore_queries_hint),
-//			placeholderColor = placeholderColor
-//		) {
-//			search = it
-//		}
 	}
 }
 
