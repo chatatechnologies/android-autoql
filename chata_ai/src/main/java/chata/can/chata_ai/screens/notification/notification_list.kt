@@ -9,15 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.model.ItemNotification
 
 @Composable
-fun NotificationList(
-	items: List<ItemNotification>,
-	viewModel: CardNotificationViewModel = hiltViewModel()
-) {
+fun NotificationList(items: List<ItemNotification>) {
 	val accentColor = colorResource(id = R.color.blue_chata_circle)
 	Scaffold { paddingValues ->
 		LazyColumn(
@@ -27,7 +23,7 @@ fun NotificationList(
 			contentPadding = paddingValues,
 		) {
 			items(items) { notification ->
-				CardNotification(viewModel, accentColor, itemNotification = notification)
+				CardNotification(accentColor = accentColor, itemNotification = notification)
 			}
 		}
 	}

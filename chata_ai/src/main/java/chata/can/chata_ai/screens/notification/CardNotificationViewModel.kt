@@ -18,7 +18,7 @@ class CardNotificationViewModel @Inject constructor(private val repository: Rule
 	val data: MutableState<DataOrException<RuleQueryResponse, Boolean, Exception>> =
 		mutableStateOf(DataOrException(null, true, Exception("")))
 
-	private fun getRuleQuery(idRule: String) {
+	fun getRuleQuery(idRule: String) {
 		viewModelScope.launch {
 			data.value.loading = true
 			data.value = repository.getRuleQuery(idRule = idRule)

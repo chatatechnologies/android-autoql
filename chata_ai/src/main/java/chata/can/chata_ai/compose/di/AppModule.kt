@@ -22,6 +22,16 @@ import javax.inject.Singleton
 object AppModule {
 	@Singleton
 	@Provides
+	fun provideRetrofit(): Retrofit {
+		val gson = GsonBuilder().setLenient().create()
+		return Retrofit.Builder()
+			.baseUrl("${getMainURL()}${api1}")
+			.addConverterFactory(GsonConverterFactory.create(gson))
+			.build()
+	}
+
+	@Singleton
+	@Provides
 	fun provideNotificationRepository(api: NotificationApi) = NotificationRepository(api)
 
 	@Singleton
@@ -35,18 +45,11 @@ object AppModule {
 			.create(NotificationApi::class.java)
 	}
 
-	@Singleton
 	@Provides
 	fun provideRuleQuery(api: RuleQueryApi) = RuleQueryRepository(api)
 
-	@Singleton
 	@Provides
-	fun provideRuleQueryApi(): RuleQueryApi {
-		val gson = GsonBuilder().setLenient().create()
-		return Retrofit.Builder()
-			.baseUrl("${getMainURL()}${api1}")
-			.addConverterFactory(GsonConverterFactory.create(gson))
-			.build()
-			.create(RuleQueryApi::class.java)
+	fun provideRuleQueryApi(retrofit: Retrofit): RuleQueryApi {
+		return retrofit.create(RuleQueryApi::class.java)
 	}
 }

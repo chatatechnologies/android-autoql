@@ -6,7 +6,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,16 +20,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.model.ItemNotification
 import chata.can.chata_ai.compose.model.emptyItemNotification
 import chata.can.chata_ai.extension.toDp
 
 @Composable
 fun CardNotification(
-	viewModel: CardNotificationViewModel,
 	accentColor: Color = Color.Blue,
 	itemNotification: ItemNotification = emptyItemNotification()
 ) {
+	val viewModel: CardNotificationViewModel = hiltViewModel()
+
+	val ruleQueryData = viewModel.data.value.data
 	var height by remember { mutableStateOf(0) }
 	var bottomVisible by remember { mutableStateOf(false) }
 	val currentContext = LocalContext.current
@@ -35,7 +41,10 @@ fun CardNotification(
 		modifier = Modifier
 			.padding(4.dp)
 			.fillMaxWidth()
-			.clickable { bottomVisible = !bottomVisible },
+			.clickable {
+				bottomVisible = !bottomVisible
+				viewModel.getRuleQuery(itemNotification.id)
+			},
 		elevation = 4.dp,
 		shape = MaterialTheme.shapes.medium
 	) {
@@ -79,6 +88,9 @@ fun CardNotification(
 						style = TextStyle(fontSize = 14.sp, color = itemNotification.getTextColorPrimary()),
 						modifier = Modifier.fillMaxWidth()
 					)
+					if (ruleQueryData != null) {
+						Text(text = "Rule Query Data", style = TextStyle(color = Color.Red))
+					}
 				}
 				//endregion
 				if (bottomVisible) {
