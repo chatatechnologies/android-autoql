@@ -17,7 +17,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.widget.CustomTextField
-import chata.can.chata_ai.pojo.color.ThemeColor
 
 @Composable
 fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
@@ -26,6 +25,7 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 //	val placeholderColor = colorResource(id = R.color.place_holder)
 	val placeholderColor = Color.Red
 	var search by remember { mutableStateOf("") }
+
 	Row(modifier = modifier.padding(8.dp)) {
 		Image(
 			modifier = Modifier.size(48.dp),
@@ -34,18 +34,31 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier) {
 			contentScale = ContentScale.Fit,
 			alignment = Alignment.Center
 		)
+//		CustomOutlinedTextField(placeholder = "placeholder", value = search1, textColor = Color.White) {
+//			search1 = it
+//		}
 		CustomTextField(
-			modifier = Modifier
-				.height(48.dp)
-				.fillMaxWidth()
-				.padding(vertical = 16.dp, horizontal = 8.dp),
 			text = search,
-			textColor = colorTextField,
-			placeholder = stringResource(id = R.string.explore_queries_hint),
-			placeholderColor = placeholderColor
+			textColor = Color.White,
+			placeholder = "",
+			placeholderColor = Color.Red,
+			backgroundColor = Color.DarkGray
 		) {
 			search = it
 		}
+
+//		CustomTextField(
+//			modifier = Modifier
+//				.height(56.dp)
+//				.fillMaxWidth()
+//				.padding(vertical = 16.dp, horizontal = 8.dp),
+//			text = search,
+//			textColor = colorTextField,
+//			placeholder = stringResource(id = R.string.explore_queries_hint),
+//			placeholderColor = placeholderColor
+//		) {
+//			search = it
+//		}
 	}
 }
 
