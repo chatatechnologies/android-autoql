@@ -54,7 +54,7 @@ fun ContentNotification(viewModel: NotificationViewModel = hiltViewModel()) {
 				)
 			}
 		} else {
-			NotificationList(itemNotifications ?: listOf())
+			NotificationList(itemNotifications ?: listOf(), viewModel)
 		}
 	}
 }
