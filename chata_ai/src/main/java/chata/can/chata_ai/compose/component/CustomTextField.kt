@@ -26,26 +26,28 @@ import chata.can.chata_ai.R
 /** https://material.io/components/text-fields#specs **/
 @Composable
 fun CustomTextField(
-	placeholder: String,
+	modifier: Modifier = Modifier,
+	placeholder: String = "",
 	enabled: Boolean = true,
 	value: String = "",
+	textColor: Color = Color.Black,
+	placeholderColor: Color = Color.Black,
 	onGloballyPositioned: ((LayoutCoordinates) -> Unit)? = null,
 	keyboardType: KeyboardType = KeyboardType.Text,
 	imeAction: ImeAction = ImeAction.Done,
 	onValueChanged: (String) -> Unit
 ) {
 	val blueColor = colorResource(id = R.color.blue_chata_circle)
-	val blackColor = Color.Black
 	val grayColor = Color.DarkGray
 	val focusManager = LocalFocusManager.current
 	OutlinedTextField(
 		value = value,
 		onValueChange = onValueChanged,
-		textStyle = TextStyle(color = Color.Black, fontSize = 16.sp),
+		textStyle = TextStyle(color = textColor, fontSize = 16.sp),
 		label = {
 			Text(text = placeholder, style = TextStyle(fontSize = 16.sp))
 		},
-		modifier = Modifier
+		modifier = modifier
 			.fillMaxWidth()
 			.padding(top = 8.dp)
 			.onGloballyPositioned { coordinates ->
@@ -68,12 +70,12 @@ fun CustomTextField(
 		//TODO complete colors for input config screen
 		colors = TextFieldDefaults.outlinedTextFieldColors(
 			cursorColor = blueColor,
-			textColor = blackColor,
+			textColor = textColor,
 			focusedBorderColor = blueColor,
 			focusedLabelColor = blueColor,
 			unfocusedBorderColor = grayColor,
 			unfocusedLabelColor = grayColor,
-			placeholderColor = blackColor
+			placeholderColor = placeholderColor
 		)
 	)
 }
