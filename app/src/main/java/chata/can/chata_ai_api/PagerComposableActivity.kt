@@ -1,5 +1,6 @@
 package chata.can.chata_ai_api
 
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -24,6 +26,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.screens.InputConfigScreen
 import chata.can.chata_ai_api.screens.InputConfigViewModel
+import coil.ImageLoader
+import coil.compose.rememberImagePainter
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
+import coil.size.OriginalSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,6 +59,27 @@ fun TabApp(viewModel: InputConfigViewModel = hiltViewModel()) {
 	}
 
 	Column(Modifier.fillMaxSize()) {
+
+		val context = LocalContext.current
+		val imageLoader = ImageLoader.Builder(context)
+			.componentRegistry {
+				if (SDK_INT >= 28) {
+					ImageDecoderDecoder(context)
+				} else {
+					add(GifDecoder())
+				}
+			}
+			.build()
+		Image(
+			painter = rememberImagePainter(
+				data = R.drawable.gif_balls,
+				imageLoader = imageLoader,
+				builder = {
+					size(OriginalSize)
+				}),
+			contentDescription = ""
+		)
+
 		TabRow(
 			selectedTabIndex = selectedIndex,
 			backgroundColor = Color.White,

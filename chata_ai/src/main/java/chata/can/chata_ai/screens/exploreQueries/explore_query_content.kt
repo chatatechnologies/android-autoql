@@ -5,9 +5,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.model.RelatedQueriesPagination
-import chata.can.chata_ai.compose.widget.GifImage
 
 @Composable
 fun ExploreQueryContent(viewModel: ExploreQueriesViewModel = hiltViewModel()) {
@@ -19,7 +17,6 @@ fun ExploreQueryContent(viewModel: ExploreQueriesViewModel = hiltViewModel()) {
 
 	Scaffold {
 		Column {
-			GifImage(imageID = R.drawable.gif_balls)
 
 			ExploreQueriesSearch(viewModel = viewModel)
 			if (items.isEmpty())
