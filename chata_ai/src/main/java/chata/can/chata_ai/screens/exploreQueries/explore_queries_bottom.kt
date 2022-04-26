@@ -31,7 +31,31 @@ fun ExploreQueriesBottom(
 
 	val currentPage = relatedQueriesPagination.current_page
 	val totalPages = relatedQueriesPagination.total_pages
-	val pageSize = relatedQueriesPagination.page_size
+//	val pageSize = relatedQueriesPagination.page_size
+
+	//region manage currentPage
+	val previousTextColor: Color
+	val nextTextColor: Color
+	val centerPageText: String
+
+	when(currentPage) {
+		1, totalPages -> {
+			if (currentPage == 1) {
+				previousTextColor = currentAccentDisableCompose()
+				nextTextColor = currentAccent
+			} else {
+				previousTextColor = currentAccent
+				nextTextColor = currentAccentDisableCompose()
+			}
+			centerPageText = "..."
+		}
+		else -> {
+			previousTextColor = currentAccent
+			nextTextColor = currentAccent
+			centerPageText = "$currentPage"
+		}
+	}
+	//endregion
 
 	Row(
 		modifier = modifier
@@ -46,7 +70,7 @@ fun ExploreQueriesBottom(
 			modifier = Modifier.weight(1f),
 			text = stringResource(id = R.string.arrow_left),
 			style = TextStyle(
-				color = currentAccentDisableCompose(),
+				color = previousTextColor,
 				fontSize = 32.sp,
 				fontWeight = FontWeight.Bold,
 				textAlign = TextAlign.Center
@@ -72,7 +96,7 @@ fun ExploreQueriesBottom(
 			modifier = Modifier
 				.weight(1f)
 				.height(30.dp),
-			text = "",
+			text = centerPageText,
 			style = TextStyle(
 				color = textColorPrimary,
 				fontSize = 20.sp,
@@ -100,7 +124,7 @@ fun ExploreQueriesBottom(
 			modifier = Modifier.weight(1f),
 			text = stringResource(id = R.string.arrow_right),
 			style = TextStyle(
-				color = currentAccent,
+				color = nextTextColor,
 				fontSize = 32.sp,
 				fontWeight = FontWeight.Bold,
 				textAlign = TextAlign.Center
