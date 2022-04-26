@@ -60,25 +60,7 @@ fun TabApp(viewModel: InputConfigViewModel = hiltViewModel()) {
 
 	Column(Modifier.fillMaxSize()) {
 
-		val context = LocalContext.current
-		val imageLoader = ImageLoader.Builder(context)
-			.componentRegistry {
-				if (SDK_INT >= 28) {
-					ImageDecoderDecoder(context)
-				} else {
-					add(GifDecoder())
-				}
-			}
-			.build()
-		Image(
-			painter = rememberImagePainter(
-				data = R.drawable.gif_balls,
-				imageLoader = imageLoader,
-				builder = {
-					size(OriginalSize)
-				}),
-			contentDescription = ""
-		)
+
 
 		TabRow(
 			selectedTabIndex = selectedIndex,
