@@ -39,11 +39,12 @@ class ExploreQueriesViewModel @Inject constructor(
 	fun relatedQuery(query: String, pageSize: Int = 12, page: Int = 1) {
 		val queryEncoded = URLEncoder.encode(query, "UTF-8").replace("+", " ")
 		viewModelScope.launch {
-			relatedQueryData.value = relatedQueriesRepository.getRelatedQueries(
+			val dataOrException = relatedQueriesRepository.getRelatedQueries(
 				search = queryEncoded,
 				pageSize = pageSize,
 				page = page
 			)
+			relatedQueryData.value = dataOrException
 			loading.value = false
 		}
 	}
