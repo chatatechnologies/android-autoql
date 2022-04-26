@@ -2,10 +2,10 @@ package chata.can.chata_ai_api.util
 
 object Constant {
 	//region data for login
-	const val projectID = "spira-demo3"
+	const val projectID = "accounting-demo"
 	const val userEmail = "carlos@rinro.com.mx"
-	const val apiKey = "AIzaSyBxmGxl9J9siXz--dS-oY3-5XRSFKt_eVo"
-	const val domainUrl = "https://spira-staging.chata.io"
+	const val apiKey = "AIzaSyCWcKQfsJo3Lk6t2VHflBEY6CF51kEPdx8"
+	const val domainUrl = "https://chata-staging.chata.io"
 	const val username = "admin"
 	const val password = "admin123"
 	//endregion
