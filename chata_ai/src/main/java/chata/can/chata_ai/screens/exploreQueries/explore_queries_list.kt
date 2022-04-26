@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.pojo.color.ThemeColor
 
 @Composable
-fun ExploreQueriesList(queries: List<String>) {
+fun ExploreQueriesList(modifier: Modifier = Modifier, queries: List<String>) {
 	val state: LazyListState = rememberLazyListState()
 	LazyColumn(
 		state = state,
-		modifier = Modifier
+		modifier = modifier
 			.background(Color.Black)
-			.fillMaxSize()
+			.fillMaxWidth()
 	) {
 		items(queries) { query ->
 			CardExploreQueries(text = query)

@@ -1,8 +1,10 @@
 package chata.can.chata_ai.pojo
 
 import android.graphics.Color
+import androidx.compose.runtime.Composable
 import chata.can.chata_ai.fragment.dataMessenger.DataMessengerModel
 import java.util.*
+import androidx.compose.ui.graphics.Color as ColorCompose
 
 /**
  * Class with data for config queries and Drawer
@@ -87,12 +89,22 @@ object SinglentonDrawer
 		get() = if (isDarkTheme()) pDarkThemeColor
 			else pLightThemeColor
 
+	fun currentAccentColor() = ColorCompose(currentAccent)
+
 	fun currentAccentDisable(): Int {
 		val alpha = Color.alpha(currentAccent)
 		val red = Color.red(currentAccent)
 		val green = Color.green(currentAccent)
 		val blue = Color.blue(currentAccent)
 		return Color.argb((alpha * 0.5).toInt(), red, green, blue)
+	}
+
+	fun currentAccentDisableCompose(): ColorCompose {
+		val alpha = Color.alpha(currentAccent)
+		val red = Color.red(currentAccent)
+		val green = Color.green(currentAccent)
+		val blue = Color.blue(currentAccent)
+		return ColorCompose(Color.argb((alpha * 0.5).toInt(), red, green, blue))
 	}
 
 	val aChartColors = ArrayList<String>()
