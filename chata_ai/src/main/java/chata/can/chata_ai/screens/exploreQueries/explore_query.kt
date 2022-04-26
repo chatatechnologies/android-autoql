@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
+import chata.can.chata_ai.compose.widget.CustomCircularProgress
 import chata.can.chata_ai.compose.widget.CustomTextField
 
 @Composable
@@ -41,9 +43,11 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier, viewModel: ExploreQuerie
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Image(
-			modifier = Modifier.size(48.dp).clickable {
-				viewModel.validateQuery(search)
-			},
+			modifier = Modifier
+				.size(48.dp)
+				.clickable {
+					viewModel.validateQuery(search)
+				},
 			painter = painterResource(id = R.drawable.ic_search),
 			contentDescription = "Image Search Query",
 			contentScale = ContentScale.Fit,
@@ -59,12 +63,6 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier, viewModel: ExploreQuerie
 			search = it
 		}
 	}
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SearchPreview() {
-//	ExploreQueriesSearch()
 }
 
 @Composable
@@ -89,4 +87,19 @@ fun ExploreQueriesMiddle(modifier: Modifier = Modifier) {
 	}
 }
 
-//ExploreQueriesList()
+@Composable
+fun ExploreQueriesLoading(modifier: Modifier = Modifier) {
+	Column(
+		modifier = modifier.fillMaxWidth(),
+		verticalArrangement = Arrangement.Center,
+		horizontalAlignment = Alignment.CenterHorizontally
+	) {
+		CustomCircularProgress()
+	}
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ExploreQueriesLoadingPreview() {
+	ExploreQueriesLoading()
+}
