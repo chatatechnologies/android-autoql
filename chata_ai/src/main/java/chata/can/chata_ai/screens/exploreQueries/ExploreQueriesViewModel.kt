@@ -24,6 +24,7 @@ class ExploreQueriesViewModel @Inject constructor(
 	val relatedQueryData: MutableState<DataOrException<RelatedQueriesResponse, Boolean, Exception>> =
 		mutableStateOf(DataOrException(null, null, Exception("")))
 	var loading: MutableState<Boolean> = mutableStateOf(false)
+	var queryRequested = ""
 
 	fun validateQuery(query: String) {
 		viewModelScope.launch {
@@ -37,7 +38,14 @@ class ExploreQueriesViewModel @Inject constructor(
 	}
 
 	fun relatedQuery(query: String, pageSize: Int = 12, page: Int = 1) {
-		val queryEncoded = URLEncoder.encode(query, "UTF-8").replace("+", " ")
+		if (queryRequested.isEmpty()) {
+			queryRequested = query
+		}
+		relatedQueryData.value.data = null
+		if (!loading.value) {
+			loading.value = true
+		}
+		val queryEncoded = URLEncoder.encode(queryRequested, "UTF-8").replace("+", " ")
 		viewModelScope.launch {
 			val dataOrException = relatedQueriesRepository.getRelatedQueries(
 				search = queryEncoded,
