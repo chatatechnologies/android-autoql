@@ -1,5 +1,6 @@
 package chata.can.chata_ai.screens.exploreQueries
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,9 +32,9 @@ fun ExploreQueriesBottom(
 	relatedQueriesPagination: RelatedQueriesPagination = RelatedQueriesPagination()
 ) {
 	//call set oval
-	val selectedFirstPage: Boolean
-	val selectedLastPage: Boolean
-	val selectedCenterPage: Boolean
+	var selectedFirstPage: Boolean
+	var selectedLastPage: Boolean
+	var selectedCenterPage: Boolean
 
 	val currentAccent = currentAccentColor()
 	val textColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
@@ -54,15 +55,15 @@ fun ExploreQueriesBottom(
 				nextTextColor = currentAccent
 
 				selectedFirstPage = true
-				selectedLastPage = false
 				selectedCenterPage = false
+				selectedLastPage = false
 			} else {
 				previousTextColor = currentAccent
 				nextTextColor = currentAccentDisableCompose()
 
 				selectedFirstPage = false
-				selectedLastPage = true
 				selectedCenterPage = false
+				selectedLastPage = true
 			}
 			centerPageText = "..."
 		}
@@ -72,11 +73,15 @@ fun ExploreQueriesBottom(
 			centerPageText = "$currentPage"
 
 			selectedFirstPage = false
-			selectedLastPage = false
 			selectedCenterPage = true
+			selectedLastPage = false
 		}
 	}
 	//endregion
+
+	selectedFirstPage = false
+	selectedCenterPage = false
+	selectedLastPage = true
 
 	Row(
 		modifier = modifier
@@ -119,53 +124,52 @@ fun ExploreQueriesBottom(
 				backgroundColor =
 				if (selectedFirstPage) currentAccentColor() else Color.Transparent,
 				textColor = textColorPrimary
-			)
+			) {
+				//					exploreQueriesViewModel.relatedQuery(
+//						query = ExploreQueriesProvider.lastQuery,
+//						pageSize = _pageSize,
+//						page = 1
+				Log.e("tvFirstPage", "tvFirstPage was clicked")
+			}
 		}
 		//endregion
 		//region tvCenterPage
-		Text(
-			modifier = Modifier
-				.weight(1f)
-				.height(30.dp)
-				.background(
-					if (selectedCenterPage) currentAccentColor() else Color.Transparent,
-					RoundedCornerShape(100)
-				),
-			text = centerPageText,
-			style = TextStyle(
-				color = textColorPrimary,
-				fontSize = 20.sp,
-				fontWeight = FontWeight.Bold,
-				textAlign = TextAlign.Center
-			)
-		)
+		Column(
+			modifier = Modifier.weight(1f),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			CircularText(
+				text = centerPageText,
+				textSize = 20,
+				backgroundColor =
+				if (selectedCenterPage) currentAccentColor() else Color.Transparent,
+				textColor = textColorPrimary
+			) {
+				Log.e("tvCenterPage", "tvCenterPage was clicked")
+			}
+		}
+		//endregion
 		//endregion
 		//region tvLastPage
-		Text(
-			modifier = Modifier
-				.weight(1f)
-				.height(30.dp)
-				.background(
-					if (selectedLastPage) currentAccentColor() else Color.Transparent,
-					RoundedCornerShape(100)
-				)
-				.clickable {
-					if (currentPage != totalPages) {
-//					exploreQueriesViewModel.relatedQuery(
+		Column(
+			modifier = Modifier.weight(1f),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			CircularText(
+				text = if (totalPages >= currentPage) "$totalPages" else "",
+				textSize = 20,
+				backgroundColor =
+				if (selectedLastPage) currentAccentColor() else Color.Transparent,
+				textColor = textColorPrimary
+			) {
+				//					exploreQueriesViewModel.relatedQuery(
 //						query = ExploreQueriesProvider.lastQuery,
 //						pageSize = _pageSize,
 //						page = _numItems
 //					)
-					}
-				},
-			text = if (totalPages >= currentPage) "$totalPages" else "",
-			style = TextStyle(
-				color = textColorPrimary,
-				fontSize = 20.sp,
-				fontWeight = FontWeight.Bold,
-				textAlign = TextAlign.Center
-			)
-		)
+				Log.e("tvLastPage", "tvLastPage was clicked")
+			}
+		}
 		//endregion
 		//region tvNext
 		Text(

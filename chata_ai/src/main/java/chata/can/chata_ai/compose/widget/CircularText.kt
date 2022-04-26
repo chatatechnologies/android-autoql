@@ -1,6 +1,7 @@
 package chata.can.chata_ai.compose.widget
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
@@ -23,7 +24,8 @@ fun CircularText(
 	text: String = "999",
 	textSize: Int = 20,
 	backgroundColor: Color = Color.Black,
-	textColor: Color = Color.White
+	textColor: Color = Color.White,
+	click: () -> Unit
 ) {
 	Box(contentAlignment = Alignment.Center,
 		modifier = Modifier
@@ -56,6 +58,9 @@ fun CircularText(
 			modifier = Modifier
 				.padding(4.dp)
 				.defaultMinSize(24.dp) //Use a min size for short text.
+				.clickable {
+					click()
+				}
 		)
 	}
 }
@@ -63,5 +68,7 @@ fun CircularText(
 @Preview
 @Composable
 fun CircularTextPreview() {
-	CircularText()
+	CircularText {
+
+	}
 }
