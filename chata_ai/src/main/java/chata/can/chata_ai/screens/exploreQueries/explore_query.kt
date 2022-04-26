@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,16 +24,20 @@ import chata.can.chata_ai.compose.widget.CustomCircularProgress
 import chata.can.chata_ai.compose.widget.CustomTextField
 
 @Composable
-fun ExploreQueriesSearch(modifier: Modifier = Modifier, viewModel: ExploreQueriesViewModel) {
+fun ExploreQueriesSearch(
+	modifier: Modifier = Modifier,
+	viewModel: ExploreQueriesViewModel,
+	getSearch: (String) -> Unit
+) {
 //	val colorTextField = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
 	val colorTextField = Color.Black
 //	val placeholderColor = colorResource(id = R.color.place_holder)
 	val placeholderColor = Color.Black
-	var queryToSearch = ""
+	var queryDemo = ""
 	if (BuildConfig.DEBUG) {
-		queryToSearch = "revenue"
+		queryDemo = "revenue"
 	}
-	var search by remember { mutableStateOf(queryToSearch) }
+	var search by remember { mutableStateOf(queryDemo) }
 
 	Row(
 		modifier = modifier
@@ -60,6 +63,7 @@ fun ExploreQueriesSearch(modifier: Modifier = Modifier, viewModel: ExploreQuerie
 			placeholderColor = placeholderColor,
 			backgroundColor = Color.Transparent
 		) {
+			getSearch(it)
 			search = it
 		}
 	}

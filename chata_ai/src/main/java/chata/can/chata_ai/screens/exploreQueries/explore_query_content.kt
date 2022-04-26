@@ -2,7 +2,7 @@ package chata.can.chata_ai.screens.exploreQueries
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.compose.model.RelatedQueriesPagination
@@ -16,9 +16,13 @@ fun ExploreQueryContent(viewModel: ExploreQueriesViewModel = hiltViewModel()) {
 	val items = relatedQueriesData?.items ?: listOf()
 	val pagination = relatedQueriesData?.pagination ?: RelatedQueriesPagination()
 
+	var querySearch by remember { mutableStateOf("") }
+
 	Scaffold {
 		Column {
-			ExploreQueriesSearch(viewModel = viewModel)
+			ExploreQueriesSearch(viewModel = viewModel) {
+				querySearch = it
+			}
 			if (loading) {
 				ExploreQueriesLoading(modifier = Modifier.weight(1f))
 			} else {
@@ -26,7 +30,11 @@ fun ExploreQueryContent(viewModel: ExploreQueriesViewModel = hiltViewModel()) {
 					ExploreQueriesMiddle(modifier = Modifier.weight(1f))
 				else {
 					ExploreQueriesList(modifier = Modifier.weight(1f), items)
-					ExploreQueriesBottom(relatedQueriesPagination = pagination)
+					ExploreQueriesBottom(
+						querySearch = querySearch,
+						relatedQueriesPagination = pagination,
+						viewModel = viewModel
+					)
 				}
 			}
 		}

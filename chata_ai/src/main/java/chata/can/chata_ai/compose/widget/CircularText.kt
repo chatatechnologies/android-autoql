@@ -21,11 +21,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CircularText(
-	text: String = "999",
+	text: String = "1",
 	textSize: Int = 20,
 	backgroundColor: Color = Color.Black,
 	textColor: Color = Color.White,
-	click: () -> Unit
+	click: () -> Unit = {}
 ) {
 	Box(contentAlignment = Alignment.Center,
 		modifier = Modifier

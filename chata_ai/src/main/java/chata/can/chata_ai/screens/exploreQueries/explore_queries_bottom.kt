@@ -1,11 +1,7 @@
 package chata.can.chata_ai.screens.exploreQueries
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,12 +11,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.model.RelatedQueriesPagination
-import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.compose.widget.CircularText
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentColor
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentDisableCompose
@@ -29,12 +23,14 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 @Composable
 fun ExploreQueriesBottom(
 	modifier: Modifier = Modifier,
-	relatedQueriesPagination: RelatedQueriesPagination = RelatedQueriesPagination()
+	querySearch: String,
+	relatedQueriesPagination: RelatedQueriesPagination = RelatedQueriesPagination(),
+	viewModel: ExploreQueriesViewModel
 ) {
 	//call set oval
-	var selectedFirstPage: Boolean
-	var selectedLastPage: Boolean
-	var selectedCenterPage: Boolean
+	val selectedFirstPage: Boolean
+	val selectedLastPage: Boolean
+	val selectedCenterPage: Boolean
 
 	val currentAccent = currentAccentColor()
 	val textColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
@@ -48,46 +44,36 @@ fun ExploreQueriesBottom(
 	val nextTextColor: Color
 	val centerPageText: String
 
-	when (currentPage) {
+	val selectViews = when (currentPage) {
 		1, totalPages -> {
+			centerPageText = "..."
 			if (currentPage == 1) {
 				previousTextColor = currentAccentDisableCompose()
 				nextTextColor = currentAccent
-
-				selectedFirstPage = true
-				selectedCenterPage = false
-				selectedLastPage = false
+				Triple(first = true, second = false, third = false)
 			} else {
 				previousTextColor = currentAccent
 				nextTextColor = currentAccentDisableCompose()
-
-				selectedFirstPage = false
-				selectedCenterPage = false
-				selectedLastPage = true
+				Triple(first = false, second = false, third = true)
 			}
-			centerPageText = "..."
 		}
 		else -> {
 			previousTextColor = currentAccent
 			nextTextColor = currentAccent
 			centerPageText = "$currentPage"
-
-			selectedFirstPage = false
-			selectedCenterPage = true
-			selectedLastPage = false
+			Triple(first = false, second = true, third = false)
 		}
 	}
-	//endregion
 
-	selectedFirstPage = false
-	selectedCenterPage = false
-	selectedLastPage = true
+	selectedFirstPage = selectViews.first
+	selectedCenterPage = selectViews.second
+	selectedLastPage = selectViews.third
+	//endregion
 
 	Row(
 		modifier = modifier
 			.height(56.dp)
-			.fillMaxWidth()
-			.background(Color.LightGray),
+			.fillMaxWidth(),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.Center
 	) {
@@ -97,11 +83,7 @@ fun ExploreQueriesBottom(
 				.weight(1f)
 				.clickable {
 					if (currentPage > 1) {
-//					exploreQueriesViewModel.relatedQuery(
-//						query = ExploreQueriesProvider.lastQuery,
-//						pageSize = _pageSize,
-//						page = _currentPage - 1
-//					)
+						viewModel.relatedQuery(query = querySearch, pageSize = pageSize, page = currentPage - 1)
 					}
 				},
 			text = stringResource(id = R.string.arrow_left),
@@ -125,11 +107,9 @@ fun ExploreQueriesBottom(
 				if (selectedFirstPage) currentAccentColor() else Color.Transparent,
 				textColor = textColorPrimary
 			) {
-				//					exploreQueriesViewModel.relatedQuery(
-//						query = ExploreQueriesProvider.lastQuery,
-//						pageSize = _pageSize,
-//						page = 1
-				Log.e("tvFirstPage", "tvFirstPage was clicked")
+				if (currentPage != 1) {
+					viewModel.relatedQuery(query = querySearch, pageSize = pageSize, page = 1)
+				}
 			}
 		}
 		//endregion
@@ -144,9 +124,7 @@ fun ExploreQueriesBottom(
 				backgroundColor =
 				if (selectedCenterPage) currentAccentColor() else Color.Transparent,
 				textColor = textColorPrimary
-			) {
-				Log.e("tvCenterPage", "tvCenterPage was clicked")
-			}
+			)
 		}
 		//endregion
 		//endregion
@@ -162,12 +140,9 @@ fun ExploreQueriesBottom(
 				if (selectedLastPage) currentAccentColor() else Color.Transparent,
 				textColor = textColorPrimary
 			) {
-				//					exploreQueriesViewModel.relatedQuery(
-//						query = ExploreQueriesProvider.lastQuery,
-//						pageSize = _pageSize,
-//						page = _numItems
-//					)
-				Log.e("tvLastPage", "tvLastPage was clicked")
+				if (currentPage != totalPages) {
+					viewModel.relatedQuery(query = querySearch, pageSize = pageSize, page = totalPages)
+				}
 			}
 		}
 		//endregion
@@ -177,11 +152,7 @@ fun ExploreQueriesBottom(
 				.weight(1f)
 				.clickable {
 					if (currentPage < totalPages) {
-//					exploreQueriesViewModel.relatedQuery(
-//						query = ExploreQueriesProvider.lastQuery,
-//						pageSize = _pageSize,
-//						page = _currentPage + 1
-//					)
+						viewModel.relatedQuery(query = querySearch, pageSize = pageSize, page = currentPage + 1)
 					}
 				},
 			text = stringResource(id = R.string.arrow_right),
@@ -193,15 +164,5 @@ fun ExploreQueriesBottom(
 			)
 		)
 		//endregion
-	}
-}
-
-@Preview
-@Composable
-fun ExploreQueriesBottomPreview() {
-	ApiChataTheme {
-		Scaffold {
-			ExploreQueriesBottom()
-		}
 	}
 }

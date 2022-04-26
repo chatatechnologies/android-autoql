@@ -211,8 +211,7 @@ class ExploreQueriesFragment: Fragment() {
 //					exploreQueriesViewModel.validateQuery(query)
 //				}
 //			}
-//
-//			tvPrevious.setOnClickListener {
+//.setOnClickListener {
 //				if (_currentPage > 1) {
 //					exploreQueriesViewModel.relatedQuery(
 //						query = ExploreQueriesProvider.lastQuery,
