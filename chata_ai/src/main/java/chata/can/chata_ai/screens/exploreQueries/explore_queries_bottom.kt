@@ -2,14 +2,11 @@ package chata.can.chata_ai.screens.exploreQueries
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.model.RelatedQueriesPagination
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.compose.widget.CircularText
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentColor
 import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentDisableCompose
 import chata.can.chata_ai.pojo.color.ThemeColor
@@ -33,9 +31,9 @@ fun ExploreQueriesBottom(
 	relatedQueriesPagination: RelatedQueriesPagination = RelatedQueriesPagination()
 ) {
 	//call set oval
-	var selectedFirstPage = true
-	var selectedLastPage = false
-	var selectedCenterPage = false
+	val selectedFirstPage: Boolean
+	val selectedLastPage: Boolean
+	val selectedCenterPage: Boolean
 
 	val currentAccent = currentAccentColor()
 	val textColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
@@ -111,37 +109,28 @@ fun ExploreQueriesBottom(
 		)
 		//endregion
 		//region tvFirstPage
-		Text(
-			modifier = Modifier
-				.weight(1f)
-				.fillMaxWidth(0.5f)
-				.height(30.dp)
-				.background(
-					if (selectedFirstPage) currentAccentColor() else Color.Transparent,
-					RoundedCornerShape(100)
-				)
-				.clickable {
-					if (currentPage != 1) {
-//					exploreQueriesViewModel.relatedQuery(
-//						query = ExploreQueriesProvider.lastQuery,
-//						pageSize = _pageSize,
-//						page = 1
-					}
-				},
-			text = stringResource(id = R.string.one),
-			style = TextStyle(
-				color = textColorPrimary,
-				fontSize = 20.sp,
-				fontWeight = FontWeight.Bold,
-				textAlign = TextAlign.Center
+		Column(
+			modifier = Modifier.weight(1f),
+			horizontalAlignment = Alignment.CenterHorizontally
+		) {
+			CircularText(
+				text = stringResource(id = R.string.one),
+				textSize = 20,
+				backgroundColor =
+				if (selectedFirstPage) currentAccentColor() else Color.Transparent,
+				textColor = textColorPrimary
 			)
-		)
+		}
 		//endregion
 		//region tvCenterPage
 		Text(
 			modifier = Modifier
 				.weight(1f)
-				.height(30.dp),
+				.height(30.dp)
+				.background(
+					if (selectedCenterPage) currentAccentColor() else Color.Transparent,
+					RoundedCornerShape(100)
+				),
 			text = centerPageText,
 			style = TextStyle(
 				color = textColorPrimary,
@@ -156,6 +145,10 @@ fun ExploreQueriesBottom(
 			modifier = Modifier
 				.weight(1f)
 				.height(30.dp)
+				.background(
+					if (selectedLastPage) currentAccentColor() else Color.Transparent,
+					RoundedCornerShape(100)
+				)
 				.clickable {
 					if (currentPage != totalPages) {
 //					exploreQueriesViewModel.relatedQuery(
