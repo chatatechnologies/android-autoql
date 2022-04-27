@@ -47,24 +47,6 @@
 <!--			</intent-filter>-->
 		</activity>
 
-		<activity
-			android:name=".test.TestActivity"
-			android:exported="true">
-<!--			<intent-filter>-->
-<!--				<action android:name="android.intent.action.MAIN" />-->
-<!--				<category android:name="android.intent.category.LAUNCHER" />-->
-<!--			</intent-filter>-->
-		</activity>
-
-		<activity
-			android:name=".retrofit.ui.view.MainActivity"
-			android:exported="true">
-<!--			<intent-filter>-->
-<!--				<action android:name="android.intent.action.MAIN" />-->
-<!--				<category android:name="android.intent.category.LAUNCHER" />-->
-<!--			</intent-filter>-->
-		</activity>
-
 		<service
 			android:name="chata.can.chata_ai.service.PollService"
 			android:permission="android.permission.BIND_JOB_SERVICE"

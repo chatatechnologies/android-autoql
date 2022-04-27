@@ -5,7 +5,7 @@ import chata.can.chata_ai.retrofit.core.formatValue
 import chata.can.chata_ai.retrofit.data.model.column.TypeColumn
 import chata.can.chata_ai.retrofit.data.model.query.QueryEntity
 
-class DataCase1() {
+class DataCase1 {
 	fun getSource(queryEntity: QueryEntity, dataD3: DataD3): DataD3 {
 		val searchColumn = SearchColumn()
 		val categories = Categories()

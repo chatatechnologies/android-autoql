@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,7 +41,8 @@ fun ExploreQueriesSearch(
 	var queryDemo = ""
 	if (BuildConfig.DEBUG) {
 //		queryDemo = "revenue"
-		queryDemo = "!"
+//		queryDemo = "!"
+		queryDemo = ""
 	}
 	var search by remember { mutableStateOf(queryDemo) }
 
@@ -50,10 +52,12 @@ fun ExploreQueriesSearch(
 			.background(drawerBackgroundColor, RoundedCornerShape(50)),
 		verticalAlignment = Alignment.CenterVertically
 	) {
+		val focusManager = LocalFocusManager.current
 		Image(
 			modifier = Modifier
 				.size(48.dp)
 				.clickable {
+					focusManager.clearFocus()
 					viewModel.validateQuery(search)
 				},
 			painter = painterResource(id = R.drawable.ic_search),
@@ -67,11 +71,16 @@ fun ExploreQueriesSearch(
 			textColor = drawerTextColorPrimary,
 			placeholder = stringResource(id = R.string.explore_queries_hint),
 			placeholderColor = placeholderColor,
-			backgroundColor = Color.Transparent
-		) {
-			getSearch(it)
-			search = it
-		}
+			backgroundColor = Color.Transparent,
+			onValueChanged = {
+				getSearch(it)
+				search = it
+			},
+			methodOnDone = {
+				focusManager.clearFocus()
+				viewModel.validateQuery(search)
+			}
+		)
 	}
 }
 

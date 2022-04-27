@@ -12,11 +12,11 @@ import chata.can.chata_ai.retrofit.domain.GetTopicUseCase
 import chata.can.chata_ai_api.R
 import kotlinx.coroutines.launch
 
-class MainViewModel(): ViewModel() {
+class MainViewModel : ViewModel() {
 	val isSavingPersistence = MutableLiveData<Boolean>()
 	val isAuthenticate = MutableLiveData<Boolean>()
 	val isEnableLogin = MutableLiveData<Boolean>()
-	val updateShowAlert = MutableLiveData< Pair<String, Int> >()
+	val updateShowAlert = MutableLiveData<Pair<String, Int>>()
 
 	private val getLoginUseCase = GetLoginUseCase()
 	private val getJwtUseCase = GetJwtUseCase()

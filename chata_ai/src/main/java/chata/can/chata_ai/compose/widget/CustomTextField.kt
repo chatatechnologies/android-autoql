@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -25,19 +24,23 @@ fun CustomTextField(
 	placeholder: String = "",
 	placeholderColor: Color = Color.White,
 	backgroundColor: Color = Color.White,
-	onValueChanged: (String) -> Unit
+	onValueChanged: (String) -> Unit,
+	methodOnDone: () -> Unit = {}
 ) {
 	val focusManager = LocalFocusManager.current
 	TextField(
 		modifier = modifier,
 		colors = TextFieldDefaults.textFieldColors(
 			backgroundColor = backgroundColor,
-			cursorColor = backgroundColor,
+			cursorColor = textColor,
 			unfocusedIndicatorColor = backgroundColor,
 			focusedIndicatorColor = backgroundColor
 		),
 		keyboardActions = KeyboardActions(
-			onDone = { focusManager.clearFocus() }
+			onDone = {
+				focusManager.clearFocus()
+				methodOnDone()
+			}
 		),
 		keyboardOptions = KeyboardOptions.Default.copy(
 			imeAction = ImeAction.Done,
@@ -49,17 +52,4 @@ fun CustomTextField(
 		value = text,
 		placeholder = { Text(text = placeholder, style = TextStyle(color = placeholderColor)) }
 	)
-}
-
-@Preview
-@Composable
-fun CustomTextFieldPreview() {
-	CustomTextField(
-		textColor = Color.White,
-		placeholder = "",
-		placeholderColor = Color.Red,
-		backgroundColor = Color.DarkGray
-	) {
-
-	}
 }

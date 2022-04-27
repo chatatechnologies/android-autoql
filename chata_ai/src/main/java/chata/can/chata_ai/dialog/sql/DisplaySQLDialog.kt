@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.text.method.ScrollingMovementMethod
@@ -22,11 +21,11 @@ import com.google.android.material.button.MaterialButton
 class DisplaySQLDialog(
 	context: Context,
 	private val query: String
-): BaseDialog(context,
+) : BaseDialog(
+	context,
 	rootView = DisplaySqlDesign.getDesign(context)
 	//R.layout.dialog_display_sql
-), View.OnClickListener
-{
+), View.OnClickListener {
 	private lateinit var rlParent: View
 	private lateinit var tvTitle: TextView
 	private lateinit var ivCancel: ImageView
@@ -36,16 +35,15 @@ class DisplaySQLDialog(
 	private lateinit var btnOk: MaterialButton
 	private lateinit var animationAlert: AnimationAlert
 
-	override fun onCreateView()
-	{
+	override fun onCreateView() {
 		super.onCreateView()
 		setData()
 	}
 
-	override fun setColors()
-	{
+	override fun setColors() {
 		ivCancel.setColorFilter(
-			context.getParsedColor(R.color.chata_drawer_background_color_dark))
+			context.getParsedColor(R.color.chata_drawer_background_color_dark)
+		)
 		ThemeColor.currentColor.run {
 			context.run {
 				ivCancel.setColorFilter(getParsedColor(R.color.chata_drawer_background_color_dark))
@@ -57,13 +55,15 @@ class DisplaySQLDialog(
 					pDrawerColorSecondary,
 					1f,
 					1,
-					pDrawerBorderColor)
+					pDrawerBorderColor
+				)
 				ivCopy.setColorFilter(pDrawerTextColorPrimary)
 				ivCopy.background = DrawableBuilder.setGradientDrawable(
 					pDrawerBackgroundColor,
 					1f,
 					1,
-					pDrawerBorderColor)
+					pDrawerBorderColor
+				)
 				btnOk.stateListAnimator = null
 				btnOk.setBackgroundColor(getParsedColor(R.color.blue_chata_circle))
 				btnOk.backgroundTintList = ColorStateList.valueOf(getParsedColor(R.color.blue_chata_circle))
@@ -72,8 +72,7 @@ class DisplaySQLDialog(
 		}
 	}
 
-	override fun setViews()
-	{
+	override fun setViews() {
 		rlParent = findViewById(R.id.rlParent)
 		tvTitle = findViewById(R.id.tvTitle)
 		ivCancel = findViewById(R.id.ivCancel)
@@ -84,14 +83,11 @@ class DisplaySQLDialog(
 		animationAlert = AnimationAlert(findViewById(R.id.rlAlert))
 	}
 
-	override fun onClick(view: View?)
-	{
+	override fun onClick(view: View?) {
 		view?.let {
-			when(it.id)
-			{
+			when (it.id) {
 				R.id.btnOk, R.id.ivCancel -> dismiss()
-				R.id.ivCopy ->
-				{
+				R.id.ivCopy -> {
 					val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
 					val clip = ClipData.newPlainText("", query)
 					clipboard.setPrimaryClip(clip)
@@ -102,8 +98,7 @@ class DisplaySQLDialog(
 		}
 	}
 
-	private fun setData()
-	{
+	private fun setData() {
 		tvTitle.setText(R.string.generated_sql)
 		etQuery.text = formatterSQL(query)
 		etQuery.movementMethod = ScrollingMovementMethod()
@@ -113,8 +108,7 @@ class DisplaySQLDialog(
 		btnOk.setOnClickListener(this)
 	}
 
-	private fun showAlert()
-	{
+	private fun showAlert() {
 		animationAlert.run {
 			setText(context.getString(R.string.copied_clipboard))
 			setResource(R.drawable.ic_done)
@@ -124,22 +118,17 @@ class DisplaySQLDialog(
 	}
 
 	private val aKeywords = arrayListOf("select", "from", "where", "group")
-	private fun formatterSQL(query: String): String
-	{
+	private fun formatterSQL(query: String): String {
 		var iHead = -1
 		val sb = StringBuilder("")
-		while (iHead < query.length)
-		{
+		while (iHead < query.length) {
 			//search white
 			var index = query.indexOf(" ", iHead + 1)
-			iHead = if (index != -1)
-			{
+			iHead = if (index != -1) {
 				var prefix = ""
 				val word = query.substring(iHead + 1, index)
-				val extra = if (word in aKeywords)
-				{
-					if (word == "group")
-					{
+				val extra = if (word in aKeywords) {
+					if (word == "group") {
 						prefix = " by"
 						index += 2
 					}
@@ -147,11 +136,10 @@ class DisplaySQLDialog(
 				} else ""
 				sb.append(
 					if (extra.isEmpty()) "\t\t$word"
-					else "$extra$word$prefix$extra")
+					else "$extra$word$prefix$extra"
+				)
 				index
-			}
-			else
-			{
+			} else {
 				sb.append(query.substring(iHead, query.length))
 				query.length
 			}
