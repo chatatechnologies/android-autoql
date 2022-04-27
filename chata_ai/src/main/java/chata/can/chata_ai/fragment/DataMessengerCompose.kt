@@ -13,9 +13,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
@@ -60,27 +62,27 @@ fun DataMessengerList(modifier: Modifier = Modifier) {
 @Composable
 fun DataMessengerBottom(modifier: Modifier = Modifier) {
 	var query by remember { mutableStateOf("") }
-	Box {
-		Text(text = "1")
-	}
-	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-		Image(
-			modifier = Modifier
-				.size(48.dp)
-				.padding(10.dp)
-				.clickable {
-					//
-				},
-			painter = painterResource(id = R.drawable.ic_microphone),
-			contentDescription = "Microphone for speaking"
-		)
-		CustomTextField(
-			modifier = Modifier.fillMaxWidth(),
-			text = query,
-			placeholder = stringResource(id = R.string.ask_me_anything),
-			onValueChanged = {
-				query = it
-			})
+
+	CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+		Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+			Image(
+				modifier = Modifier
+					.size(48.dp)
+					.padding(10.dp)
+					.clickable {
+						//
+					},
+				painter = painterResource(id = R.drawable.ic_microphone),
+				contentDescription = "Microphone for speaking"
+			)
+			CustomTextField(
+				modifier = Modifier.fillMaxWidth(),
+				text = query,
+				placeholder = stringResource(id = R.string.ask_me_anything),
+				onValueChanged = {
+					query = it
+				})
+		}
 	}
 }
 
@@ -89,5 +91,20 @@ fun DataMessengerBottom(modifier: Modifier = Modifier) {
 fun DataMessengerBottomPreview() {
 	ApiChataTheme {
 		DataMessengerContent()
+//		RtlView()
+	}
+}
+
+@Composable
+fun RtlView() {
+	CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+		Row {
+			Text("Foo", modifier = Modifier.padding(end = 8.dp))
+
+			Column {
+				Text("Title")
+				Text("Subtitle")
+			}
+		}
 	}
 }
