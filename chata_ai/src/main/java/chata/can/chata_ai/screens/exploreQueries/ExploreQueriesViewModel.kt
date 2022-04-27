@@ -11,7 +11,6 @@ import chata.can.chata_ai.compose.repository.RelatedQueriesRepository
 import chata.can.chata_ai.compose.repository.ValidateQueryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.net.URLEncoder
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +32,8 @@ class ExploreQueriesViewModel @Inject constructor(
 			val replacements = validateQueryData.value.data?.data?.replacements ?: listOf()
 			if (replacements.isEmpty()) {
 				relatedQuery(query = query)
+			} else {
+				loading.value = false
 			}
 		}
 	}
@@ -45,10 +46,9 @@ class ExploreQueriesViewModel @Inject constructor(
 		if (!loading.value) {
 			loading.value = true
 		}
-		val queryEncoded = URLEncoder.encode(queryRequested, "UTF-8").replace("+", " ")
 		viewModelScope.launch {
 			val dataOrException = relatedQueriesRepository.getRelatedQueries(
-				search = queryEncoded,
+				search = query,
 				pageSize = pageSize,
 				page = page
 			)

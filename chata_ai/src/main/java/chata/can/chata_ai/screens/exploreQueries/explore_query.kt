@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -33,17 +34,19 @@ fun ExploreQueriesSearch(
 ) {
 	val drawerBackgroundColor = ThemeColor.currentColor.drawerBackgroundColor()
 	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
+	ThemeColor.currentColor
 	val placeholderColor = colorResource(id = R.color.place_holder)
 
 	var queryDemo = ""
 	if (BuildConfig.DEBUG) {
-		queryDemo = "revenue"
+//		queryDemo = "revenue"
+		queryDemo = "!"
 	}
 	var search by remember { mutableStateOf(queryDemo) }
 
 	Row(
 		modifier = modifier
-			.padding(horizontal = 8.dp, vertical = 4.dp)
+			.padding(8.dp)
 			.background(drawerBackgroundColor, RoundedCornerShape(50)),
 		verticalAlignment = Alignment.CenterVertically
 	) {
@@ -54,6 +57,7 @@ fun ExploreQueriesSearch(
 					viewModel.validateQuery(search)
 				},
 			painter = painterResource(id = R.drawable.ic_search),
+			colorFilter = ColorFilter.tint(color = Color(0xFF999999)),
 			contentDescription = "Image Search Query",
 			contentScale = ContentScale.Fit,
 			alignment = Alignment.Center
