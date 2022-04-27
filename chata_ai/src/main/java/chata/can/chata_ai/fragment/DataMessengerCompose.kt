@@ -13,15 +13,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.compose.widget.CustomTextField
+import chata.can.chata_ai.compose.widget.ReverseDirection
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -63,7 +62,7 @@ fun DataMessengerList(modifier: Modifier = Modifier) {
 fun DataMessengerBottom(modifier: Modifier = Modifier) {
 	var query by remember { mutableStateOf("") }
 
-	CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+	ReverseDirection {
 		Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 			Image(
 				modifier = Modifier
@@ -91,20 +90,5 @@ fun DataMessengerBottom(modifier: Modifier = Modifier) {
 fun DataMessengerBottomPreview() {
 	ApiChataTheme {
 		DataMessengerContent()
-//		RtlView()
-	}
-}
-
-@Composable
-fun RtlView() {
-	CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-		Row {
-			Text("Foo", modifier = Modifier.padding(end = 8.dp))
-
-			Column {
-				Text("Title")
-				Text("Subtitle")
-			}
-		}
 	}
 }
