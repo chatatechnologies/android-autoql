@@ -24,7 +24,7 @@ class ExploreQueriesViewModel @Inject constructor(
 	val relatedQueryData: MutableState<DataOrException<RelatedQueriesResponse, Boolean, Exception>> =
 		mutableStateOf(DataOrException(null, null, Exception("")))
 	var loading: MutableState<Boolean> = mutableStateOf(false)
-	var queryRequested = ""
+	private var queryRequested = ""
 
 	fun validateQuery(query: String) {
 		viewModelScope.launch {

@@ -18,7 +18,7 @@ class NotificationFragment: Fragment() {
 
 //	private val notificationViewModel: NotificationViewModel by viewModels()
 	//totalItems
-	private var totalPages = 0
+//	private var totalPages = 0
 
 	override fun onCreateView(
 		inflater: LayoutInflater,

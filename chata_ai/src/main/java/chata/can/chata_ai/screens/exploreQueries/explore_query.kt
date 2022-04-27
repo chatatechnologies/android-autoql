@@ -22,6 +22,8 @@ import chata.can.chata_ai.BuildConfig
 import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.widget.CustomCircularProgress
 import chata.can.chata_ai.compose.widget.CustomTextField
+import chata.can.chata_ai.pojo.SinglentonDrawer.currentAccentColor
+import chata.can.chata_ai.pojo.color.ThemeColor
 
 @Composable
 fun ExploreQueriesSearch(
@@ -29,10 +31,10 @@ fun ExploreQueriesSearch(
 	viewModel: ExploreQueriesViewModel,
 	getSearch: (String) -> Unit
 ) {
-//	val colorTextField = Color(ThemeColor.currentColor.pDrawerTextColorPrimary)
-	val colorTextField = Color.Black
-//	val placeholderColor = colorResource(id = R.color.place_holder)
-	val placeholderColor = Color.Black
+	val drawerBackgroundColor = ThemeColor.currentColor.drawerBackgroundColor()
+	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
+	val placeholderColor = colorResource(id = R.color.place_holder)
+
 	var queryDemo = ""
 	if (BuildConfig.DEBUG) {
 		queryDemo = "revenue"
@@ -42,7 +44,7 @@ fun ExploreQueriesSearch(
 	Row(
 		modifier = modifier
 			.padding(horizontal = 8.dp, vertical = 4.dp)
-			.background(Color.Gray, RoundedCornerShape(50)),
+			.background(drawerBackgroundColor, RoundedCornerShape(50)),
 		verticalAlignment = Alignment.CenterVertically
 	) {
 		Image(
@@ -58,7 +60,7 @@ fun ExploreQueriesSearch(
 		)
 		CustomTextField(
 			text = search,
-			textColor = colorTextField,
+			textColor = drawerTextColorPrimary,
 			placeholder = stringResource(id = R.string.explore_queries_hint),
 			placeholderColor = placeholderColor,
 			backgroundColor = Color.Transparent
@@ -71,19 +73,19 @@ fun ExploreQueriesSearch(
 
 @Composable
 fun ExploreQueriesMiddle(modifier: Modifier = Modifier) {
-	val color = colorResource(id = R.color.text_explore_queries)
+	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
 	Column(modifier = modifier.fillMaxWidth()) {
 		//region put Gif
 		Text(
 			text = stringResource(id = R.string.explore_queries_msg_1),
-			style = TextStyle(color = color, textAlign = TextAlign.Center),
+			style = TextStyle(color = drawerTextColorPrimary, textAlign = TextAlign.Center),
 			modifier = Modifier
 				.padding(end = 8.dp, top = 8.dp, start = 8.dp)
 				.fillMaxWidth()
 		)
 		Text(
 			text = stringResource(id = R.string.explore_queries_msg_2),
-			style = TextStyle(color = color, textAlign = TextAlign.Center),
+			style = TextStyle(color = drawerTextColorPrimary, textAlign = TextAlign.Center),
 			modifier = Modifier
 				.padding(end = 8.dp, top = 8.dp, start = 8.dp)
 				.fillMaxWidth()
@@ -98,7 +100,7 @@ fun ExploreQueriesLoading(modifier: Modifier = Modifier) {
 		verticalArrangement = Arrangement.Center,
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
-		CustomCircularProgress()
+		CustomCircularProgress(color = currentAccentColor())
 	}
 }
 
