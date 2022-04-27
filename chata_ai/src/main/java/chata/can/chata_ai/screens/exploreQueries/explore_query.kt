@@ -108,6 +108,20 @@ fun ExploreQueriesLoading(modifier: Modifier = Modifier) {
 	}
 }
 
+@Composable
+fun EmptyDataExploreQueries(modifier: Modifier = Modifier) {
+	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
+	Column(modifier = modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+		Text(
+			text = stringResource(id = R.string.empty_data_explore_queries),
+			style = TextStyle(color = drawerTextColorPrimary, textAlign = TextAlign.Center),
+			modifier = Modifier
+				.padding(end = 8.dp, top = 8.dp, start = 8.dp)
+				.fillMaxWidth()
+		)
+	}
+}
+
 @Preview(showBackground = true)
 @Composable
 fun ExploreQueriesLoadingPreview() {
