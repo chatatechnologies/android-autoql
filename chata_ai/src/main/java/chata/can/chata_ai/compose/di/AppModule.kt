@@ -1,8 +1,10 @@
 package chata.can.chata_ai.compose.di
 
+import chata.can.chata_ai.compose.network.AutocompleteApi
 import chata.can.chata_ai.compose.network.NotificationApi
 import chata.can.chata_ai.compose.network.RelatedQueriesApi
 import chata.can.chata_ai.compose.network.ValidateQueryApi
+import chata.can.chata_ai.compose.repository.AutocompleteRepository
 import chata.can.chata_ai.compose.repository.NotificationRepository
 import chata.can.chata_ai.compose.repository.RelatedQueriesRepository
 import chata.can.chata_ai.compose.repository.ValidateQueryRepository
@@ -75,5 +77,20 @@ object AppModule {
 			.addConverterFactory(GsonConverterFactory.create())
 			.build()
 			.create(RelatedQueriesApi::class.java)
+	}
+
+	@Singleton
+	@Provides
+	fun provideAutocompleteRepository(api: AutocompleteApi) = AutocompleteRepository(api)
+
+	@Singleton
+	@Provides
+	fun provideAutocomplete(): AutocompleteApi {
+		val url = AutoQLData.domainUrl.ifEmpty { urlBase }
+		return Retrofit.Builder()
+			.baseUrl("${url}/autoql/$api1")
+			.addConverterFactory(GsonConverterFactory.create())
+			.build()
+			.create(AutocompleteApi::class.java)
 	}
 }

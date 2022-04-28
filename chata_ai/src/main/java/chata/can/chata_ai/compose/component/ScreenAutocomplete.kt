@@ -28,17 +28,26 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import chata.can.chata_ai.R
 import chata.can.chata_ai.pojo.color.ThemeColor
+import chata.can.chata_ai.screens.dataMessenger.AutocompleteViewModel
 import java.util.*
 
 @Composable
 fun ScreenAutocomplete(
 	placeholder: String = "Placeholder",
+	viewModel: AutocompleteViewModel = hiltViewModel(),
 	content: @Composable () -> Unit
 ) {
 	val backgroundColor = ThemeColor.currentColor.drawerColorSecondary()
 	val textFieldValue = remember { mutableStateOf(TextFieldValue("")) }
+
+	val autocompleteData = viewModel.autocompleteData.value
+	val loading = viewModel.loading.value
+
+	val autocompleteResponseData = autocompleteData.data?.data
+	val listMatches = autocompleteResponseData?.matches
 
 	Column(
 		modifier = Modifier
@@ -54,17 +63,19 @@ fun ScreenAutocomplete(
 			if (textFieldValue.value.text.isNotEmpty()) {
 				CountryList(
 					modifier = Modifier.align(Alignment.BottomCenter),
-					textValue = textFieldValue
+					textValue = textFieldValue,
+					list = listMatches ?: listOf()
 				)
 			}
 		}
-		SearchItemList(text = textFieldValue, placeholder = placeholder)
+		SearchItemList(text = textFieldValue, placeholder = placeholder, viewModel = viewModel)
 	}
 }
 
 @Composable
 fun SearchItemList(
 	text: MutableState<TextFieldValue>,
+	viewModel: AutocompleteViewModel,
 	textColor: Color = ThemeColor.currentColor.drawerTextColorPrimary(),
 	placeholder: String = "Search item",
 	placeholderColor: Color = colorResource(id = R.color.place_holder)
@@ -113,6 +124,9 @@ fun SearchItemList(
 			modifier = Modifier
 				.padding(4.dp)
 				.background(blueColor, CircleShape)
+				.clickable {
+					viewModel.autocomplete(text.value.text)
+				}
 		) {
 			Image(
 				contentDescription = "Microphone for speaking",
@@ -120,7 +134,7 @@ fun SearchItemList(
 				modifier = Modifier
 					.size(48.dp)
 					.padding(8.dp),
-				painter = painterResource(id = R.drawable.ic_microphone),
+				painter = painterResource(id = R.drawable.ic_send),
 			)
 		}
 	}
@@ -130,7 +144,7 @@ fun SearchItemList(
 fun CountryList(
 	modifier: Modifier = Modifier,
 	textValue: MutableState<TextFieldValue>,
-	list: ArrayList<String> = getListOfCountries()
+	list: List<String>// = getListOfCountries()
 ) {
 	val focusManager = LocalFocusManager.current
 	var filteredList: ArrayList<String>
