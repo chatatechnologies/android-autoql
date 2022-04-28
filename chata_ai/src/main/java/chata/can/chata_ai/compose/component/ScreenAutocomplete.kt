@@ -1,10 +1,12 @@
 package chata.can.chata_ai.compose.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -18,13 +20,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chata.can.chata_ai.R
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai.compose.widget.ReverseDirection
 import java.util.*
 
 @Composable
@@ -57,56 +64,76 @@ fun SearchItemList(
 	placeholderColor: Color = Color.Black
 ) {
 	val focusManager = LocalFocusManager.current
-	TextField(
-		value = text.value,
-		onValueChange = { text.value = it },
-		placeholder = { Text(text = placeholder) },
-		modifier = Modifier
-			.fillMaxWidth(),
-		textStyle = TextStyle(fontSize = 18.sp),
-		leadingIcon = {
-			Icon(
-				imageVector = Icons.Filled.Search,
-				contentDescription = "Search",
+	val blueColor = colorResource(id = R.color.blue_chata_circle)
+
+	ReverseDirection {
+		Row(verticalAlignment = Alignment.CenterVertically) {
+			Box(
 				modifier = Modifier
-					.padding(15.dp)
-					.size(24.dp)
-			)
-		},
-		trailingIcon = {
-			if (text.value != TextFieldValue("")) {
-				IconButton(
-					onClick = {
-						text.value = TextFieldValue("")
-					}
-				) {
+					.padding(8.dp)
+					.background(blueColor, CircleShape)
+			) {
+				Image(
+					contentDescription = "Microphone for speaking",
+					contentScale = ContentScale.Crop,
+					modifier = Modifier
+						.size(48.dp)
+						.padding(8.dp),
+					painter = painterResource(id = R.drawable.ic_microphone),
+				)
+			}
+
+			TextField(
+				value = text.value,
+				onValueChange = { text.value = it },
+				placeholder = { Text(text = placeholder) },
+				modifier = Modifier.fillMaxWidth(),
+				textStyle = TextStyle(fontSize = 18.sp),
+				leadingIcon = {
 					Icon(
-						imageVector = Icons.Filled.Close,
-						contentDescription = "Close",
+						imageVector = Icons.Filled.Search,
+						contentDescription = "Search",
 						modifier = Modifier
 							.padding(15.dp)
 							.size(24.dp)
 					)
-				}
-			}
-		},
-		singleLine = true,
-		shape = RectangleShape,
-		keyboardActions = KeyboardActions(
-			onDone = { focusManager.clearFocus() }
-		),
-		colors = TextFieldDefaults.textFieldColors(
-			textColor = textColor,
-			placeholderColor = placeholderColor,
-			cursorColor = Color.Black,
-			leadingIconColor = Color.Black,
-			trailingIconColor = Color.Black,
-			backgroundColor = Color.White,
-			focusedIndicatorColor = Color.Transparent,
-			unfocusedIndicatorColor = Color.Transparent,
-			disabledIndicatorColor = Color.Transparent
-		)
-	)
+				},
+				trailingIcon = {
+					if (text.value != TextFieldValue("")) {
+						IconButton(
+							onClick = {
+								text.value = TextFieldValue("")
+							}
+						) {
+							Icon(
+								imageVector = Icons.Filled.Close,
+								contentDescription = "Close",
+								modifier = Modifier
+									.padding(15.dp)
+									.size(24.dp)
+							)
+						}
+					}
+				},
+				singleLine = true,
+				shape = RectangleShape,
+				keyboardActions = KeyboardActions(
+					onDone = { focusManager.clearFocus() }
+				),
+				colors = TextFieldDefaults.textFieldColors(
+					textColor = textColor,
+					placeholderColor = placeholderColor,
+					cursorColor = Color.Black,
+					leadingIconColor = Color.Black,
+					trailingIconColor = Color.Black,
+					backgroundColor = Color.LightGray,
+					focusedIndicatorColor = Color.Transparent,
+					unfocusedIndicatorColor = Color.Transparent,
+					disabledIndicatorColor = Color.Transparent
+				)
+			)
+		}
+	}
 }
 
 @Composable

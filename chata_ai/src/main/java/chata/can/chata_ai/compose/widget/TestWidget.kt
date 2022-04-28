@@ -19,17 +19,15 @@ class MainActivity : ComponentActivity() {
 		setContent {
 			ApiChataTheme {
 				Scaffold {
-					Box {
-						ScreenAutocomplete { select ->
-							//region content for interaction with autocomplete
-							val list = (0..40).toList()
-							LazyColumn(modifier = Modifier.fillMaxWidth()) {
-								items(list) { num ->
-									Text(text = "$num, searched => $select")
-								}
+					ScreenAutocomplete { textReturned ->
+						//region content for interaction with autocomplete
+						val list = (0..40).toList()
+						LazyColumn(modifier = Modifier.fillMaxWidth()) {
+							items(list) { num ->
+								Text(text = "$num, searched => $textReturned")
 							}
-							//endregion
 						}
+						//endregion
 					}
 				}
 			}
