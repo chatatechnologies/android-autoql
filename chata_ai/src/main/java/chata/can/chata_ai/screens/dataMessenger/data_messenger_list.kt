@@ -12,10 +12,11 @@ import chata.can.chata_ai.pojo.color.ThemeColor
 
 @Composable
 fun DataMessengerList(modifier: Modifier = Modifier) {
-	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
+	val backgroundColor = ThemeColor.currentColor.drawerColorSecondary()
+
 	Column(
 		modifier = modifier
-			.background(drawerTextColorPrimary)
+			.background(backgroundColor)
 			.fillMaxSize(),
 		horizontalAlignment = Alignment.CenterHorizontally,
 		verticalArrangement = Arrangement.Center

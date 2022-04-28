@@ -11,7 +11,11 @@ import chata.can.chata_ai.screens.dataMessenger.DataMessengerContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DataMessengerCompose: Fragment() {
+class DataMessengerCompose : Fragment() {
+	companion object {
+		const val nameFragment = "Data Messenger"
+	}
+
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,

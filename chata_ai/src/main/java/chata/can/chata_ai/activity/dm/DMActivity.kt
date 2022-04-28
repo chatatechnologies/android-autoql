@@ -18,12 +18,8 @@ import chata.can.chata_ai.addFragment
 import chata.can.chata_ai.extension.dpToPx
 import chata.can.chata_ai.extension.getParsedColor
 import chata.can.chata_ai.extension.paddingAll
-import chata.can.chata_ai.fragment.dataMessenger.DataMessengerFragment
-
-//import chata.can.chata_ai.fragment.exploreQuery.ExploreQueriesFragment
+import chata.can.chata_ai.fragment.dataMessenger.DataMessengerCompose
 import chata.can.chata_ai.retrofit.ui.view.exploreQuery.ExploreQueriesFragment
-
-//import chata.can.chata_ai.fragment.notification.NotificationFragment
 import chata.can.chata_ai.retrofit.ui.view.notification.NotificationFragment
 
 import chata.can.chata_ai.model.StringContainer
@@ -237,7 +233,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 	fun openChat()
 	{
 		changeColor(rlChat, ivChat)
-		fragment = DataMessengerFragment()
+		fragment = DataMessengerCompose()//DataMessengerFragment()
 		visibleClear(true)
 		//region setDataToDataMessenger
 		fragment.arguments?.let {
@@ -263,7 +259,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 			}
 		}
 		//endregion
-		putFragment(DataMessengerFragment.nameFragment)
+		putFragment(DataMessengerCompose.nameFragment)
 	}
 
 	fun openTips()
@@ -434,7 +430,7 @@ class DMActivity: AppCompatActivity(), View.OnClickListener
 
 	private fun updateTitle()
 	{
-		val nameDMF = DataMessengerFragment.nameFragment
+		val nameDMF = DataMessengerCompose.nameFragment
 		val title = ivSelected?.let {
 			when(it.id)
 			{

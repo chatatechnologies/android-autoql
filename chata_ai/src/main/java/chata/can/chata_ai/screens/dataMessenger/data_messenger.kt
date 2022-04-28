@@ -9,6 +9,7 @@ import chata.can.chata_ai.compose.component.ScreenAutocomplete
 @Composable
 fun DataMessengerContent() {
 	val placeholder = stringResource(id = R.string.type_queries_here)
+
 	Scaffold {
 		ScreenAutocomplete(placeholder = placeholder) {//textReturned ->
 			DataMessengerList()

@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -26,11 +26,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chata.can.chata_ai.R
-import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai.pojo.color.ThemeColor
 import java.util.*
 
@@ -39,9 +37,16 @@ fun ScreenAutocomplete(
 	placeholder: String = "Placeholder",
 	content: @Composable (selected: String) -> Unit
 ) {
+	val backgroundColor = ThemeColor.currentColor.drawerColorSecondary()
 	val textFieldValue = remember { mutableStateOf(TextFieldValue("")) }
 	val textFieldSelected = remember { mutableStateOf(TextFieldValue("")) }
-	Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
+
+	Column(
+		modifier = Modifier
+			.fillMaxSize()
+			.background(backgroundColor),
+		verticalArrangement = Arrangement.Bottom
+	) {
 		Box(
 			contentAlignment = Alignment.BottomCenter,
 			modifier = Modifier.weight(1f)
@@ -68,40 +73,20 @@ fun SearchItemList(
 ) {
 	val focusManager = LocalFocusManager.current
 	val blueColor = colorResource(id = R.color.blue_chata_circle)
+	val background = ThemeColor.currentColor.drawerBackgroundColor()
 
-	Row(horizontalArrangement = Arrangement.End) {
+	Row(
+		modifier = Modifier
+			.padding(8.dp)
+			.background(background, RoundedCornerShape(50)),
+		horizontalArrangement = Arrangement.End
+	) {
 		TextField(
 			value = text.value,
 			onValueChange = { text.value = it },
 			placeholder = { Text(text = placeholder) },
 			modifier = Modifier.weight(1f),
 			textStyle = TextStyle(fontSize = 18.sp),
-//			leadingIcon = {
-//				Icon(
-//					imageVector = Icons.Filled.Search,
-//					contentDescription = "Search",
-//					modifier = Modifier
-//						.padding(15.dp)
-//						.size(24.dp)
-//				)
-//			},
-//			trailingIcon = {
-//				if (text.value != TextFieldValue("")) {
-//					IconButton(
-//						onClick = {
-//							text.value = TextFieldValue("")
-//						}
-//					) {
-//						Icon(
-//							imageVector = Icons.Filled.Close,
-//							contentDescription = "Close",
-//							modifier = Modifier
-//								.padding(15.dp)
-//								.size(24.dp)
-//						)
-//					}
-//				}
-//			},
 			singleLine = true,
 			shape = RectangleShape,
 			keyboardActions = KeyboardActions(
@@ -218,50 +203,3 @@ fun getListOfCountries(): ArrayList<String> {
 	}
 	return countryListWithEmojis
 }
-
-@Preview(showBackground = true)
-@Composable
-fun AutoCompleteTextViewPreview() {
-	ApiChataTheme {
-		Scaffold {
-			Box {
-				Column(modifier = Modifier.fillMaxSize()) {
-					LazyColumn(modifier = Modifier.fillMaxWidth()) {
-						items((0..20).toList()) { num ->
-							Text(text = "$num")
-						}
-					}
-				}
-				ScreenAutocomplete {
-
-				}
-			}
-		}
-	}
-}
-
-//@Preview(showBackground = true)
-//@Composable
-//fun Test() {
-//	Row(
-//		modifier = Modifier
-//			.padding(8.dp)
-//			.fillMaxWidth(),
-//		horizontalArrangement = Arrangement.End
-//	) {
-//		Text(
-//			text = "First",
-//			modifier = Modifier
-//				.padding(8.dp)
-//				.background(Color.Yellow)
-//				.weight(1f),
-//			style = TextStyle(textAlign = TextAlign.Center)
-//		)
-//		Text(
-//			text = "Second",
-//			modifier = Modifier
-//				.padding(8.dp)
-//				.background(Color.Yellow)
-//		)
-//	}
-//}
