@@ -35,11 +35,10 @@ import java.util.*
 @Composable
 fun ScreenAutocomplete(
 	placeholder: String = "Placeholder",
-	content: @Composable (selected: String) -> Unit
+	content: @Composable () -> Unit
 ) {
 	val backgroundColor = ThemeColor.currentColor.drawerColorSecondary()
 	val textFieldValue = remember { mutableStateOf(TextFieldValue("")) }
-	val textFieldSelected = remember { mutableStateOf(TextFieldValue("")) }
 
 	Column(
 		modifier = Modifier
@@ -51,12 +50,11 @@ fun ScreenAutocomplete(
 			contentAlignment = Alignment.BottomCenter,
 			modifier = Modifier.weight(1f)
 		) {
-			content(textFieldSelected.value.text)
+			content()
 			if (textFieldValue.value.text.isNotEmpty()) {
 				CountryList(
 					modifier = Modifier.align(Alignment.BottomCenter),
-					textValue = textFieldValue,
-					textValueSelected = textFieldSelected
+					textValue = textFieldValue
 				)
 			}
 		}
@@ -76,34 +74,40 @@ fun SearchItemList(
 	val background = ThemeColor.currentColor.drawerBackgroundColor()
 
 	Row(
-		modifier = Modifier
-			.padding(8.dp)
-			.background(background, RoundedCornerShape(50)),
-		horizontalArrangement = Arrangement.End
+		horizontalArrangement = Arrangement.End,
+		verticalAlignment = Alignment.CenterVertically
 	) {
-		TextField(
-			value = text.value,
-			onValueChange = { text.value = it },
-			placeholder = { Text(text = placeholder) },
-			modifier = Modifier.weight(1f),
-			textStyle = TextStyle(fontSize = 18.sp),
-			singleLine = true,
-			shape = RectangleShape,
-			keyboardActions = KeyboardActions(
-				onDone = { focusManager.clearFocus() }
-			),
-			colors = TextFieldDefaults.textFieldColors(
-				textColor = textColor,
-				placeholderColor = placeholderColor,
-				cursorColor = Color.Black,
-				leadingIconColor = Color.Black,
-				trailingIconColor = Color.Black,
-				backgroundColor = Color.Transparent,
-				focusedIndicatorColor = Color.Transparent,
-				unfocusedIndicatorColor = Color.Transparent,
-				disabledIndicatorColor = Color.Transparent
+		Row(
+			modifier = Modifier
+				.padding(8.dp)
+				.background(background, RoundedCornerShape(50))
+				.weight(1f)
+		) {
+			TextField(
+				value = text.value,
+				onValueChange = {
+					text.value = it
+				},
+				placeholder = { Text(text = placeholder) },
+				textStyle = TextStyle(fontSize = 18.sp),
+				singleLine = true,
+				shape = RectangleShape,
+				keyboardActions = KeyboardActions(
+					onDone = { focusManager.clearFocus() }
+				),
+				colors = TextFieldDefaults.textFieldColors(
+					textColor = textColor,
+					placeholderColor = placeholderColor,
+					cursorColor = Color.Black,
+					leadingIconColor = Color.Black,
+					trailingIconColor = Color.Black,
+					backgroundColor = Color.Transparent,
+					focusedIndicatorColor = Color.Transparent,
+					unfocusedIndicatorColor = Color.Transparent,
+					disabledIndicatorColor = Color.Transparent
+				)
 			)
-		)
+		}
 
 		Box(
 			modifier = Modifier
@@ -126,7 +130,6 @@ fun SearchItemList(
 fun CountryList(
 	modifier: Modifier = Modifier,
 	textValue: MutableState<TextFieldValue>,
-	textValueSelected: MutableState<TextFieldValue>,
 	list: ArrayList<String> = getListOfCountries()
 ) {
 	val focusManager = LocalFocusManager.current
@@ -147,6 +150,11 @@ fun CountryList(
 					resultList.add(country)
 				}
 			}
+			if (resultList.size == 1) {
+				if (resultList[0] == textValue.value.text) {
+					resultList.clear()
+				}
+			}
 			resultList
 		}
 		items(filteredList) { filteredCountries ->
@@ -154,8 +162,7 @@ fun CountryList(
 				countryText = filteredCountries,
 				onItemClick = { selectedCountry ->
 					focusManager.clearFocus()
-					textValue.value = TextFieldValue("")
-					textValueSelected.value = TextFieldValue(selectedCountry)
+					textValue.value = TextFieldValue(selectedCountry)
 				}
 			)
 		}

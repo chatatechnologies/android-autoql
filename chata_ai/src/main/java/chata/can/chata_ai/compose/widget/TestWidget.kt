@@ -3,7 +3,6 @@ package chata.can.chata_ai.compose.widget
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,12 +18,12 @@ class MainActivity : ComponentActivity() {
 		setContent {
 			ApiChataTheme {
 				Scaffold {
-					ScreenAutocomplete { textReturned ->
+					ScreenAutocomplete {
 						//region content for interaction with autocomplete
 						val list = (0..40).toList()
 						LazyColumn(modifier = Modifier.fillMaxWidth()) {
 							items(list) { num ->
-								Text(text = "$num, searched => $textReturned")
+								Text(text = "$num, searched =>")
 							}
 						}
 						//endregion

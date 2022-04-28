@@ -11,7 +11,7 @@ fun DataMessengerContent() {
 	val placeholder = stringResource(id = R.string.type_queries_here)
 
 	Scaffold {
-		ScreenAutocomplete(placeholder = placeholder) {//textReturned ->
+		ScreenAutocomplete(placeholder = placeholder) {
 			DataMessengerList()
 		}
 	}
