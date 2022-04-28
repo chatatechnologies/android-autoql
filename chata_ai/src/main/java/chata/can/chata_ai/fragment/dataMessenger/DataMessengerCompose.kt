@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
-import chata.can.chata_ai.fragment.DataMessengerContent
+import chata.can.chata_ai.screens.dataMessenger.DataMessengerContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

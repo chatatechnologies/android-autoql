@@ -35,7 +35,6 @@ fun ExploreQueriesSearch(
 ) {
 	val drawerBackgroundColor = ThemeColor.currentColor.drawerBackgroundColor()
 	val drawerTextColorPrimary = ThemeColor.currentColor.drawerTextColorPrimary()
-	ThemeColor.currentColor
 	val placeholderColor = colorResource(id = R.color.place_holder)
 
 	var queryDemo = ""
