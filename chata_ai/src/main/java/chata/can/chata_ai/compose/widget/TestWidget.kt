@@ -3,7 +3,12 @@ package chata.can.chata_ai.compose.widget
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,11 +24,16 @@ class MainActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 		setContent {
 			ApiChataTheme {
-				Surface(color = MaterialTheme.colors.background) {
-					Scaffold(
-						topBar = { TopBar() },
-						backgroundColor = Purple500
-					) {
+				Scaffold {
+					Box {
+						Column(modifier = Modifier.fillMaxSize()) {
+							val list = (0..40).toList()
+							LazyColumn(modifier = Modifier.fillMaxWidth()) {
+								items(list) { num ->
+									Text(text = "$num")
+								}
+							}
+						}
 						AutoCompleteTextView()
 					}
 				}

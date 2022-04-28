@@ -21,15 +21,19 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import java.util.*
 
 @Composable
 fun AutoCompleteTextView() {
 	val textVal = remember { mutableStateOf(TextFieldValue("")) }
-	Column {
-		CountryList(textVal, modifier = Modifier.weight(1f))
+	Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
+		if (textVal.value.text.isNotEmpty()) {
+			CountryList(textVal, modifier = Modifier.weight(1f))
+		}
 		SearchItemList(textVal)
 	}
 }
@@ -101,7 +105,8 @@ fun CountryList(textVal: MutableState<TextFieldValue>, modifier: Modifier = Modi
 	) {
 		val searchText = textVal.value.text
 		filteredCountries = if (searchText.isEmpty()) {
-			countries
+			arrayListOf()
+//			countries
 		} else {
 			val resultList = ArrayList<String>()
 			for (country in countries) {
@@ -164,4 +169,24 @@ fun getListOfCountries(): ArrayList<String> {
 		countryListWithEmojis.add("$countryName (${locale.country}) $flag")
 	}
 	return countryListWithEmojis
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AutoCompleteTextViewPreview() {
+	ApiChataTheme {
+		Scaffold {
+			Box {
+				Column(modifier = Modifier.fillMaxSize()) {
+					val list = (0..20).toList()
+					LazyColumn(modifier = Modifier.fillMaxWidth()) {
+						items(list) { num ->
+							Text(text = "$num")
+						}
+					}
+				}
+				AutoCompleteTextView()
+			}
+		}
+	}
 }
