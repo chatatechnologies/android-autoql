@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	package="chata.can.chata_ai_api">
 
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
 
 	<queries>
 		<intent>
@@ -14,9 +13,9 @@
 	</queries>
 
 	<application
+		android:name=".ApiChataApplication"
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
-		android:name=".ApiChataApplication"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
@@ -25,8 +24,30 @@
 		tools:targetApi="m">
 
 		<activity
-			android:hardwareAccelerated="false"
 			android:name=".main.PagerActivity"
+			android:configChanges="orientation|screenSize"
+			android:exported="true"
+			android:hardwareAccelerated="false">
+			<!--			<intent-filter>-->
+			<!--				<action android:name="android.intent.action.MAIN" />-->
+			<!--				<category android:name="android.intent.category.LAUNCHER" />-->
+			<!--			</intent-filter>-->
+		</activity>
+
+		<!--Initial Activity Composable-->
+		<activity
+			android:name=".PagerComposableActivity"
+			android:configChanges="orientation|screenSize"
+			android:exported="true"
+			android:windowSoftInputMode="adjustResize">
+			<!--			<intent-filter>-->
+			<!--				<action android:name="android.intent.action.MAIN" />-->
+			<!--				<category android:name="android.intent.category.LAUNCHER" />-->
+			<!--			</intent-filter>-->
+		</activity>
+
+		<activity
+			android:name="chata.can.chata_ai.fragment.EntryActivity"
 			android:configChanges="orientation|screenSize"
 			android:exported="true">
 <!--			<intent-filter>-->
@@ -35,20 +56,8 @@
 <!--			</intent-filter>-->
 		</activity>
 
-		<!--Initial Activity Composable-->
 		<activity
-			android:windowSoftInputMode="adjustResize"
-			android:configChanges="orientation|screenSize"
-			android:exported="true"
-			android:name=".PagerComposableActivity">
-<!--			<intent-filter>-->
-<!--				<action android:name="android.intent.action.MAIN" />-->
-<!--				<category android:name="android.intent.category.LAUNCHER" />-->
-<!--			</intent-filter>-->
-		</activity>
-
-		<activity
-			android:name="chata.can.chata_ai.fragment.EntryActivity"
+			android:name="chata.can.chata_ai.compose.widget.MainActivity"
 			android:configChanges="orientation|screenSize"
 			android:exported="true">
 			<intent-filter>
@@ -59,8 +68,8 @@
 
 		<service
 			android:name="chata.can.chata_ai.service.PollService"
-			android:permission="android.permission.BIND_JOB_SERVICE"
-			android:exported="false"/>
+			android:exported="false"
+			android:permission="android.permission.BIND_JOB_SERVICE" />
 
 	</application>
 </manifest>
