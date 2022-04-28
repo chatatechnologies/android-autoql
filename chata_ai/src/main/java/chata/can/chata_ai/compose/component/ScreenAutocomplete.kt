@@ -1,11 +1,11 @@
 package chata.can.chata_ai.compose.component
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,13 +28,24 @@ import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import java.util.*
 
 @Composable
-fun AutoCompleteTextView() {
-	val textVal = remember { mutableStateOf(TextFieldValue("")) }
+fun ScreenAutocomplete(content: @Composable (selected: String) -> Unit) {
+	val textFieldValue = remember { mutableStateOf(TextFieldValue("")) }
+	val textFieldSelected = remember { mutableStateOf(TextFieldValue("")) }
 	Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
-		if (textVal.value.text.isNotEmpty()) {
-			CountryList(textVal, modifier = Modifier.weight(1f))
+		Box(
+			contentAlignment = Alignment.BottomCenter,
+			modifier = Modifier.weight(1f)
+		) {
+			content(textFieldSelected.value.text)
+			if (textFieldValue.value.text.isNotEmpty()) {
+				CountryList(
+					modifier = Modifier.align(Alignment.BottomCenter),
+					textValue = textFieldValue,
+					textValueSelected = textFieldSelected
+				)
+			}
 		}
-		SearchItemList(textVal)
+		SearchItemList(textFieldValue)
 	}
 }
 
@@ -45,6 +56,7 @@ fun SearchItemList(
 	placeholder: String = "Search item",
 	placeholderColor: Color = Color.Black
 ) {
+	val focusManager = LocalFocusManager.current
 	TextField(
 		value = text.value,
 		onValueChange = { text.value = it },
@@ -80,6 +92,9 @@ fun SearchItemList(
 		},
 		singleLine = true,
 		shape = RectangleShape,
+		keyboardActions = KeyboardActions(
+			onDone = { focusManager.clearFocus() }
+		),
 		colors = TextFieldDefaults.textFieldColors(
 			textColor = textColor,
 			placeholderColor = placeholderColor,
@@ -95,21 +110,24 @@ fun SearchItemList(
 }
 
 @Composable
-fun CountryList(textVal: MutableState<TextFieldValue>, modifier: Modifier = Modifier) {
-	val context = LocalContext.current
-	val countries = getListOfCountries()
-	var filteredCountries: ArrayList<String>
+fun CountryList(
+	modifier: Modifier = Modifier,
+	textValue: MutableState<TextFieldValue>,
+	textValueSelected: MutableState<TextFieldValue>,
+	list: ArrayList<String> = getListOfCountries()
+) {
+	val focusManager = LocalFocusManager.current
+	var filteredList: ArrayList<String>
 	LazyColumn(
 		verticalArrangement = Arrangement.Bottom,
 		modifier = modifier.fillMaxWidth()
 	) {
-		val searchText = textVal.value.text
-		filteredCountries = if (searchText.isEmpty()) {
-			arrayListOf()
-//			countries
+		val searchText = textValue.value.text
+		filteredList = if (searchText.isEmpty()) {
+			arrayListOf() // before countries
 		} else {
 			val resultList = ArrayList<String>()
-			for (country in countries) {
+			for (country in list) {
 				if (country.lowercase(Locale.getDefault())
 						.contains(searchText.lowercase(Locale.getDefault()))
 				) {
@@ -118,11 +136,13 @@ fun CountryList(textVal: MutableState<TextFieldValue>, modifier: Modifier = Modi
 			}
 			resultList
 		}
-		items(filteredCountries) { filteredCountries ->
+		items(filteredList) { filteredCountries ->
 			CountryListItem(
 				countryText = filteredCountries,
 				onItemClick = { selectedCountry ->
-					Toast.makeText(context, selectedCountry, Toast.LENGTH_SHORT).show()
+					focusManager.clearFocus()
+					textValue.value = TextFieldValue("")
+					textValueSelected.value = TextFieldValue(selectedCountry)
 				}
 			)
 		}
@@ -185,7 +205,9 @@ fun AutoCompleteTextViewPreview() {
 						}
 					}
 				}
-				AutoCompleteTextView()
+				ScreenAutocomplete {
+
+				}
 			}
 		}
 	}
