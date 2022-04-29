@@ -120,15 +120,15 @@ fun TabLayoutDemo() {
 //						}
 //					})
 				//endregion
-//				IconWithTextTabLayout(
-//					tabs,
-//					selectedIndex = pagerState.currentPage,
-//					onPageSelected = { tabItem: TabItem ->
-//						coroutineScope.launch {
-//							pagerState.animateScrollToPage(tabItem.index)
-//						}
-//					}
-//				)
+				IconWithTextTabLayout(
+					tabs,
+					selectedIndex = pagerState.currentPage,
+					onPageSelected = { tabItem: TabItem ->
+						coroutineScope.launch {
+							pagerState.animateScrollToPage(tabItem.index)
+						}
+					}
+				)
 
 				//region scrollable tab
 //				ScrollableTabLayout(tab = tabs, selectedIndex = pagerState.currentPage, onPageSelected = { tabItem: TabItem ->
@@ -138,13 +138,13 @@ fun TabLayoutDemo() {
 //				})
 				//endregion
 				//region Only icons
-				IconTabLayout(
-					tab = tabs,
-					selectedIndex = pagerState.currentPage, onPageSelected = { tabItem: TabItem ->
-						coroutineScope.launch {
-							pagerState.animateScrollToPage(tabItem.index)
-						}
-					})
+//				IconTabLayout(
+//					tab = tabs,
+//					selectedIndex = pagerState.currentPage, onPageSelected = { tabItem: TabItem ->
+//						coroutineScope.launch {
+//							pagerState.animateScrollToPage(tabItem.index)
+//						}
+//					})
 				//endregion
 			}
 		)
