@@ -2,15 +2,21 @@
 
 package chata.can.chata_ai_api.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
-import chata.can.chata_ai_api.R
+import androidx.compose.ui.res.painterResource
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
+import chata.can.chata_ai_api.R
 import chata.can.chata_ai_api.component.tabs.TabItemSealed
 import chata.can.chata_ai_api.component.tabs.tabInitialList
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -70,7 +76,16 @@ fun IconWithTextManageTabLayout(
 			}, text = {
 				Text(text = tabItemSealed.title)
 			}, icon = {
-				Icon(tabItemSealed.icon, contentDescription = "")
+				Image(
+					painter = painterResource(id = tabItemSealed.imageResource),
+					contentDescription = "",
+					colorFilter = ColorFilter.tint(
+						colorResource(
+							id = tabItemSealed.colorImageResource
+						)
+					)
+				)
+//				Icon(tabItemSealed.icon, contentDescription = "")
 			})
 		}
 	}
