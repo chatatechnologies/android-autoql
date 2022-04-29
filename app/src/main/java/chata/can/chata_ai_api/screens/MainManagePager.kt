@@ -27,6 +27,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainManagerPager() {
@@ -47,6 +48,7 @@ fun MainManagerPager() {
 						if (selectedIndex == index) blueAccentColor else blackColor
 					}
 				}
+				val coroutineScope = rememberCoroutineScope()
 
 				TabRow(
 					selectedTabIndex = selectedIndex,
@@ -54,7 +56,12 @@ fun MainManagerPager() {
 					contentColor = blueAccentColor
 				) {
 					tabInitialList.forEachIndexed { index, tabItemSealed ->
-						Tab(selected = selectedIndex == index, onClick = { selectedIndex = index }) {
+						Tab(selected = selectedIndex == index, onClick = {
+							selectedIndex = index
+							coroutineScope.launch {
+								pagerState.animateScrollToPage(index)
+							}
+						}) {
 							Row(verticalAlignment = Alignment.CenterVertically) {
 								Image(
 									painter = painterResource(id = tabItemSealed.imageResource),
