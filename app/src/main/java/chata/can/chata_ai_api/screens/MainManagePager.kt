@@ -3,27 +3,43 @@
 package chata.can.chata_ai_api.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import chata.can.chata_ai_api.R
 import chata.can.chata_ai.compose.ui.theme.ApiChataTheme
 import chata.can.chata_ai_api.component.tabs.TabItemSealed
+import chata.can.chata_ai_api.component.tabs.tabInitialList
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainManagerPager() {
-	ApiChataTheme(darkTheme = true) {
+	ApiChataTheme {
 		val pagerState = rememberPagerState()
 		Scaffold(
 			modifier = Modifier.fillMaxSize(),
 			content = {
-
+				TabManagePage(tabItems = tabInitialList, pagerState = pagerState)
 			},
 			topBar = {
+				val coroutineScope = rememberCoroutineScope()
 
+				IconWithTextManageTabLayout(
+					tabInitialList,
+					selectedIndex = pagerState.currentPage,
+					onPageSelected = { tabItem: TabItemSealed ->
+						coroutineScope.launch {
+							pagerState.animateScrollToPage(tabItem.index)
+						}
+					}
+				)
 			}
 		)
 	}
@@ -33,5 +49,29 @@ fun MainManagerPager() {
 fun TabManagePage(tabItems: List<TabItemSealed>, pagerState: PagerState) {
 	HorizontalPager(count = tabItems.size, state = pagerState) { index ->
 		tabItems[index].screenShowForTab()
+	}
+}
+
+@Composable
+fun IconWithTextManageTabLayout(
+	tabs: List<TabItemSealed>,
+	selectedIndex: Int,
+	onPageSelected: ((tabItem: TabItemSealed) -> Unit)
+) {
+	val blueAccentColor = colorResource(id = R.color.colorButton)
+	TabRow(
+		selectedTabIndex = selectedIndex,
+		backgroundColor = Color.White,
+		contentColor = blueAccentColor
+	) {
+		tabs.forEachIndexed { index, tabItemSealed ->
+			Tab(selected = index == selectedIndex, onClick = {
+				onPageSelected(tabItemSealed)
+			}, text = {
+				Text(text = tabItemSealed.title)
+			}, icon = {
+				Icon(tabItemSealed.icon, contentDescription = "")
+			})
+		}
 	}
 }
