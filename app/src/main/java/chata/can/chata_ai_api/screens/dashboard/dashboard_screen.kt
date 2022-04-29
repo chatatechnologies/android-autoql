@@ -32,7 +32,7 @@ fun CurrentDashboard() {
 		style = TextStyle(textAlign = TextAlign.Center),
 		modifier = Modifier
 			.fillMaxWidth()
-			.padding(8.dp)
+			.padding(horizontal = 8.dp, vertical = 4.dp)
 			.border(width = 1.dp, Color.LightGray, shape = RoundedCornerShape(15))
 			.padding(8.dp)
 	)
@@ -45,7 +45,7 @@ fun ExecuteDashboard() {
 		style = TextStyle(textAlign = TextAlign.Center),
 		modifier = Modifier
 			.fillMaxWidth()
-			.padding(8.dp)
+			.padding(horizontal = 8.dp, vertical = 4.dp)
 			.border(width = 1.dp, Color.LightGray, shape = RoundedCornerShape(15))
 			.padding(8.dp)
 	)
