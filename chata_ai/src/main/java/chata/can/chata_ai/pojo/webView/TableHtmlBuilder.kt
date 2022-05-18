@@ -14,20 +14,20 @@ object TableHtmlBuilder
 		limitRow: Int,
 		idTable: String = "idTableBasic"): Pair<String, Int>
 	{
-		aColumn.find { it.isVisible }?.let {
+		aColumn.toString()
+		return if (aColumn.any { it.isVisible }) {
 			//region create table head
 			val headTable = StringBuilder("<thead><tr>")
 			val footTable = StringBuilder("<tfoot><tr>")
 			for (column in aColumn)
 			{
-//				if (column.isVisible)
-//				{
+				if (column.isVisible) {
 					val cellHead = column.displayName.ifEmpty {
 						column.name.toCapitalColumn()
 					}
 					headTable.append("<th>$cellHead</th>")
 					footTable.append("<th>$cellHead</th>")
-//				}
+				}
 			}
 			footTable.append("</tr></tfoot>")
 			headTable.append("</tr></thead>")
@@ -45,13 +45,15 @@ object TableHtmlBuilder
 				for ((index, cell) in aRow.withIndex()) {
 					val column = aColumn[index]
 
-					val valueRow = if (cell.isNotEmpty() && cell != "null")
-						cell.formatWithColumn(column)
-					else ""
+					if (column.isVisible) {
+						val valueRow = if (cell.isNotEmpty() && cell != "null")
+							cell.formatWithColumn(column)
+						else ""
 
 //					val classHidden = if (!column.isVisible) " class=\"td-hidden\"" else ""
 //					sRow.append("<td$classHidden>$valueRow</td>")
-					sRow.append("<td>$valueRow</td>")
+						sRow.append("<td>$valueRow</td>")
+					}
 				}
 				numRows++
 				aRowsTR.add("<tr>$sRow</tr>")
@@ -65,17 +67,15 @@ object TableHtmlBuilder
 
 			bodyTable.append("</tbody>")
 			//endregion
-			return Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
-		} ?: run {
-
-			return Pair(
+			Pair("<table id=\"$idTable\">$headTable$footTable$bodyTable</table>", numRows)
+		} else {
+			Pair(
 				"""<div id='idTableBasic' class="empty-state">
 	<span class="alert-icon">&#9888</span>
 	<p>
 		${StringContainer.columnHidden}
 	</p>
-</div>""",
-				5)
+</div>""", 5)
 		}
 	}
 }
